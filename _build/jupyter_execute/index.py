@@ -18,3 +18,5 @@ dt = datetime.datetime.today()
 
 
 近日公開予定
+
+[「Pythonで学ぶ入門計量経済学」はここをクリック](https://py4etrics.github.io)
