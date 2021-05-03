@@ -37,4 +37,5 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # :caption: １. Pythonの学習
 # 
 # 1_Python_Basics
+# 2_NumPy
 # ```
