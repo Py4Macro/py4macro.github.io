@@ -38,4 +38,7 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # 
 # 1_Python_Basics
 # 2_NumPy
+# 3_Matplotlib
+# 4_Pandas
+# 5_Pandas_plot
 # ```
