@@ -60,7 +60,7 @@ If you come here without expecting Japanese, please click [Google translated ver
 
 ## 本サイトで使うPythonとパッケージのバージョン
 ```{code-cell} python3
-import gapminder, linearmodels, lmdiag, matplotlib, numba, numpy, pandas, py4etrics, scipy, see, statsmodels, wooldridge
+import gapminder, matplotlib, numba, numpy, pandas, py4etrics, scipy, see, statsmodels, wooldridge
 from platform import python_version
 
 packages = ['Python','gapminder', 'matplotlib', 'numba', 'numpy','pandas', 'scipy','see', 'statsmodels', 'wooldridge']
