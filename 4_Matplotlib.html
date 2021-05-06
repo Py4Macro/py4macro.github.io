@@ -421,48 +421,48 @@
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>（「マットプロットリブ」と読む）はプロットのための代表的なパッケージであり、ここではその使い方を解説する。プロットには<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>のモジュールである<code class="docutils literal notranslate"><span class="pre">pyplot</span></code>を使うことになる。慣例では<code class="docutils literal notranslate"><span class="pre">plt</span></code>としてインポートする。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>（「マットプロットリブ」と読む）はプロットのための代表的なパッケージであり、ここではその使い方を解説する。プロットには<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>のモジュールである<code class="docutils literal notranslate"><span class="pre">pyplot</span></code>を使うことになる。慣例に沿って<code class="docutils literal notranslate"><span class="pre">plt</span></code>としてインポートする。</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyplot</span></code>モジュールを使ってプロットする場合、主に３つのコードの書き方がる。</p>
-<p>（書き方１） オブジェクト指向</p>
+<p><strong>書き方１</strong>： オブジェクト指向</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>(書き方２) オブジェクト指向</p>
+<p><strong>書き方２</strong>： オブジェクト指向</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>(書き方３) <code class="docutils literal notranslate"><span class="pre">Matlab</span></code>という有料ソフトのコードに沿った書き方</p>
+<p><strong>書き方３</strong>： <code class="docutils literal notranslate"><span class="pre">Matlab</span></code>という有料ソフトのコードに沿った書き方</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>以下では「（書き方２）オブジェクト指向」に沿って説明する。その為にまず、（書き方１）を使い<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>の描画の手順を説明する。特に、「キャンバス」と「軸」の違いを覚えて欲しい。</p>
+<p>以下では「書き方２：オブジェクト指向」に沿って説明する。その為にまず、書き方１を使い<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>の描画の手順を説明する。特に、「キャンバス」と「軸」の違いを覚えて欲しい。</p>
 <ol class="simple">
 <li><p>図を描くためのキャンバスを用意する。</p>
 <ul class="simple">
-<li><p>それを行なっているのが（書き方１）の１行目である。右辺の<code class="docutils literal notranslate"><span class="pre">plt.figure()</span></code>でキャンバスを作成し、それを変数<code class="docutils literal notranslate"><span class="pre">fig</span></code>に割り当てている。キャンバスは実際に表示されないので、「透明のキャンバス」と理解すれば良いだろう。</p></li>
+<li><p>それを行なっているのが書き方１の１行目である。右辺の<code class="docutils literal notranslate"><span class="pre">plt.figure()</span></code>でキャンバスを作成し、それを変数<code class="docutils literal notranslate"><span class="pre">fig</span></code>に割り当てている。キャンバスは実際に表示されないので、「透明のキャンバス」と理解すれば良いだろう。</p></li>
 </ul>
 </li>
 <li><p>キャンバス上に「軸」を描く。</p>
 <ul class="simple">
 <li><p>ここでの「軸」とは縦軸・横軸をイメージしても良いし，パイ・チャートであれば図の骨格と理解すれば良いだろう。</p></li>
-<li><p>「軸」を描いているのが（書き方１）の２行目である。右辺では、キャンバス<code class="docutils literal notranslate"><span class="pre">fig</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">add_subplot()</span></code>を使いキャンバスに軸を描き、それを左辺の変数<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。実際に、（書き方１）の２行のコードを実行すると透明のキャンバス上に軸が表示される。</p></li>
+<li><p>「軸」を描いているのが書き方１の２行目である。右辺では、キャンバス<code class="docutils literal notranslate"><span class="pre">fig</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">add_subplot()</span></code>を使いキャンバスに軸を描き、それを左辺の変数<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。実際に、書き方１の２行のコードを実行すると透明のキャンバス上に軸が表示される。</p></li>
 <li><p>作成された軸<code class="docutils literal notranslate"><span class="pre">ax</span></code>にメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>などを使い直線・曲線・点など付け加えたり、タイトルなどの「飾り付け」をおこない作図することになる。</p></li>
 <li><p>１つのキャンバスには複数の軸を描くことが可能である。</p></li>
 </ul>
 </li>
 </ol>
 <p>この説明でわかることは、<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>で表示される「図」とは透明のキャンバス上に描かれ装飾された「軸」ということである。以下の説明では、キャンバス上の「図」を「軸」（英語で “axis”）と呼ぶことにする。</p>
-<p>さて（書き方２）に話を戻すと、既に察している読者もいるかも知れないが、１行目は（書き方１）の最初の２行を１行に省略したものである。右辺の<code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>は透明のキャンバスと軸の２つをタプルとして返す。最初の要素が「キャンバス」でありそれを左辺の<code class="docutils literal notranslate"><span class="pre">fig</span></code>に、２つ目の要素が軸であり<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。実際、１行目だけを実行すると軸が表示される。後は（書き方１）同様、<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>などを使い軸を飾り付けして作図することになる。</p>
-<p>ちなみに、（書き方３）は（書き方２）の３行を１行に省略した形になっており、本来は<code class="docutils literal notranslate"><span class="pre">Matlab</span></code>ユーザーの<code class="docutils literal notranslate"><span class="pre">Python</span></code>への移行を促す為に用意された書き方である。</p>
+<p>さて書き方２に話を戻すと、既に察している読者もいるかも知れないが、１行目は書き方１の最初の２行を１行に省略したものである。右辺の<code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>は透明のキャンバスと軸の２つをタプルとして返す。最初の要素が「キャンバス」でありそれを左辺の<code class="docutils literal notranslate"><span class="pre">fig</span></code>に、２つ目の要素が軸であり<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。実際、１行目だけを実行すると軸が表示される。後は書き方１同様、<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>などを使い軸を飾り付けして作図することになる。</p>
+<p>ちなみに、書き方３は書き方２の３行を１行に省略した形になっており、本来は<code class="docutils literal notranslate"><span class="pre">Matlab</span></code>ユーザーの<code class="docutils literal notranslate"><span class="pre">Python</span></code>への移行を促す為に用意された書き方である。</p>
 <p>次に，<code class="docutils literal notranslate"><span class="pre">plot()</span></code>の引数について説明するが，主に２つの設定方法がある。</p>
-<p>（引数の書き方１）：</p>
+<p><strong>引数の書き方１</strong>：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plot(＜横軸のデータ＞, ＜縦軸のデータ＞)
 </pre></div>
 </div>
-<p>（引数の書き方２）：変数のラベル名が使える場合（<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>）</p>
+<p><strong>引数の書き方２</strong>：変数のラベル名が使える場合（<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>）</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plot(＜横軸の変数名＞, ＜縦軸の変数名＞, data=＜データ名＞)
 </pre></div>
 </div>
@@ -509,7 +509,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x11aea5970&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x115f89a90&gt;]
 </pre></div>
 </div>
 <img alt="_images/4_Matplotlib_13_1.png" src="_images/4_Matplotlib_13_1.png" />
@@ -534,7 +534,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x11b070df0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x116059850&gt;]
 </pre></div>
 </div>
 <img alt="_images/4_Matplotlib_17_1.png" src="_images/4_Matplotlib_17_1.png" />
@@ -1735,7 +1735,7 @@
 </div>
 <div class="section" id="pandasplot">
 <h2><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code><a class="headerlink" href="#pandasplot" title="Permalink to this headline">¶</a></h2>
-<p>この章で付け加えたいもう一つのプロット方法がある。それが<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>である。これを使うと簡単にプロットできる場合が多々ある。</p>
+<p>この章で付け加えたいもう一つのプロット方法がある。それが<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>である。これを使うと簡単にプロットできる場合が多々ある。詳細については<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html">参考サイト（英語）</a>を参照して欲しいが，裏で動いているのは<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>であり，より複雑な図を作成する場合は、やはり<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>のコードを直接書くことが必要になるだろう。ちなみに，<code class="docutils literal notranslate"><span class="pre">pyplot</span></code>をインポートしなくても<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">plot()</span></code>のみでプロットすることは可能である。</p>
 <div class="section" id="id14">
 <h3><code class="docutils literal notranslate"><span class="pre">plot()</span></code>の使い方<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">df2</span></code>を使ってプロットする方法を説明するが，方法は簡単で，メソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を使うと全ての列が同じ軸にプロットされる。</p>
@@ -1854,7 +1854,7 @@
 <img alt="_images/4_Matplotlib_145_0.png" src="_images/4_Matplotlib_145_0.png" />
 </div>
 </div>
-<p>ここで使った引数については??を参照してください。</p>
+<p>ここで使った引数については，３.参考にある<a class="reference internal" href="Pandas_plot.html#pandas-plot"><span class="std std-ref">Pandas:プロット</span></a>を参照してください。</p>
 </div>
 </div>
 </div>
