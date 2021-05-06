@@ -299,6 +299,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 1. 相対全要素生産性と相対生産要素の共分散散：$2\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)$
 
 # これを利用して
+# 
 # $$
 # \begin{align*}
 # \text{全要素生産性の寄与度}&=
@@ -319,6 +320,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # $$
 # 
 # を定義する。ここで $2\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)$ は等分されている。
+# 
 # 
 # （考え方）
 # 
