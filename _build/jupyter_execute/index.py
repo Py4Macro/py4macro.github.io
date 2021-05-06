@@ -57,7 +57,7 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # In[2]:
 
 
-import gapminder, linearmodels, lmdiag, matplotlib, numba, numpy, pandas, py4etrics, scipy, see, statsmodels, wooldridge
+import gapminder, matplotlib, numba, numpy, pandas, py4etrics, scipy, see, statsmodels, wooldridge
 from platform import python_version
 
 packages = ['Python','gapminder', 'matplotlib', 'numba', 'numpy','pandas', 'scipy','see', 'statsmodels', 'wooldridge']
