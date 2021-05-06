@@ -22,71 +22,72 @@ import pwtdata   # Penn World Table Dataset
 # pip install git+https://github.com/spring-haru/pwtdata.git
 # ```
 # ````
+# 
+# `pwtdata`のメソッド`load()`に引数`description=True`を指定すると，含まれている変数の定義を表示できる。
 
 # In[2]:
 
 
-df = pwtdata.load()
-# pwtdata.load(description=True)
+pwtdata.load(description=True)
 
+
+# 引数なしでメソッド`load()`を実行すればデータ自体を読み込むことになる。
 
 # In[3]:
+
+
+df = pwtdata.load()
+
+
+# `info()`を使って内容を確認してみよう。
+
+# In[4]:
 
 
 df.info()
 
 
-# `.head()`を使って最初の5行を表示する。
+# 次に`.head()`を使って最初の5行を表示してみる。
 
-# In[4]:
+# In[5]:
 
 
 df.head()
 
 
-# 全ての列名が表示できるように属性`.columns`を使ってみる
+# 属性`.columns`を使うと全ての列名を表示できる。
 
-# In[5]:
+# In[6]:
 
 
 df.columns
 
 
-# メソッド`.unique()`を使って含まれる国名を確認する。
+# メソッド`.unique()`を使って含まれる国名を確認してみよう。
 
-# In[6]:
+# In[7]:
 
 
 country_list = df.loc[:,'country'].unique()
 country_list
 
 
-# メソッド`.nunique()`を使って含まれる国数を確認する。
+# メソッド`.nunique()`を使うと国数を確認できる。
 
-# In[7]:
+# In[8]:
 
 
 df.loc[:,'country'].nunique()
 
 
-# 期間を確認する。
+# `unique()`でデータの年を確認することもできる。
 
-# In[8]:
+# In[9]:
 
 
 year_list = df.loc[:,'year'].unique()
 year_list
 
-
-# ここでは次の変数を使う。
-# * `cgdpo`：生産面から計算したGDP（current PPPs; in mil. 2011US\$）
-#     * 経済間では一定な価格を使い計算されているが、時系列的には「名目」
-#     * ある年に経済間の比較をするのに適している
-# * `emp`：雇用者数（in millions）
-# * `ck`：資本サービス水準（current PPPs (USA=1)）
-#     * 資本ストックを生産に使うことにより得るサービス
-# * `hc`：人的資本の指標
-#     * 教育年数と教育の収益から計算されている
 
 # ## 発展会計
 
@@ -133,10 +134,18 @@ year_list
 # * 資本の所得シャア：$\alpha=1/3$を仮定
 # * 蓄積生産要素の寄与：$k_i^{\alpha}h_i^{1-\alpha}$
 # * 全要素生産性：$A_i=\dfrac{y_i}{k_i^{\alpha}h_i^{1-\alpha}}$
-# 
-# 上で使ったデータを使い、それぞれの変数を計算してみる。
 
-# In[9]:
+# ここでは次の変数を使い，それぞれの変数を計算してみる。
+# * `cgdpo`：生産面から計算したGDP（current PPPs; in mil. 2011US\$）
+#     * 経済間では一定な価格を使い計算されているが、時系列的には「名目」
+#     * ある年に経済間の比較をするのに適している
+# * `emp`：雇用者数（in millions）
+# * `ck`：資本サービス水準（current PPPs (USA=1)）
+#     * 資本ストックを生産に使うことにより得るサービス
+# * `hc`：人的資本の指標
+#     * 教育年数と教育の収益から計算されている
+
+# In[10]:
 
 
 # 資本の所得シャア
@@ -159,7 +168,7 @@ df['tfp'] = df['gdp_pc'] / df['factors']
 
 # 2019年だけを抽出する。
 
-# In[10]:
+# In[11]:
 
 
 df2019 = df.query('year == 2019').copy()
@@ -169,7 +178,7 @@ df2019 = df.query('year == 2019').copy()
 
 # 全ての国の一人当たりGDPを米国の一人当たりGDPで割り、米国を１（基準）として議論を進める。
 
-# In[11]:
+# In[12]:
 
 
 df2019['gdp_pc_relative'] = df2019['gdp_pc'].to_numpy() /     df2019.query('country == "United States"')['gdp_pc'].to_numpy()
@@ -181,7 +190,7 @@ df2019['gdp_pc_relative'] = df2019['gdp_pc'].to_numpy() /     df2019.query('coun
 
 # 全ての国の`hc`を米国の`hc`で割り、基準化する。
 
-# In[12]:
+# In[13]:
 
 
 df2019['hc_relative'] = df2019['hc'].to_numpy() /     df2019.query('country == "United States"')['hc'].to_numpy()
@@ -189,7 +198,7 @@ df2019['hc_relative'] = df2019['hc'].to_numpy() /     df2019.query('country == "
 
 # 散布図
 
-# In[13]:
+# In[14]:
 
 
 df2019.plot(x='hc_relative', y='gdp_pc_relative', kind='scatter')
@@ -202,7 +211,7 @@ pass
 
 # 全ての国の`k_pc`を米国の`k_pc`で割り基準化する。
 
-# In[14]:
+# In[15]:
 
 
 df2019['k_pc_relative'] = df2019['k_pc'].to_numpy() /     df2019.query('country == "United States"')['k_pc'].to_numpy()
@@ -210,7 +219,7 @@ df2019['k_pc_relative'] = df2019['k_pc'].to_numpy() /     df2019.query('country 
 
 # 散布図
 
-# In[15]:
+# In[16]:
 
 
 df2019.plot(x='k_pc_relative', y='gdp_pc_relative', kind='scatter')
@@ -223,7 +232,7 @@ pass
 
 # 米国を`1`に基準化して一人当たりGDPと全要素生産性との関係を図示する。
 
-# In[16]:
+# In[17]:
 
 
 df2019['tfp_relative'] = df2019['tfp'].to_numpy() /     df2019.query('country == "United States"')['tfp'].to_numpy()
@@ -234,7 +243,7 @@ pass
 
 # この図から経済間の一人当たりGDP差は全要素生産性の差と非常に近いことがわかる。相関係数を計算してみる。
 
-# In[17]:
+# In[18]:
 
 
 df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
@@ -247,7 +256,7 @@ df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
 # 
 # 次に2019年のデータを使い、一人当たりGDPと生産要素の寄与との関係を図示する。
 
-# In[18]:
+# In[19]:
 
 
 df2019['factors_relative'] = df2019['factors'].to_numpy() /     df2019.query('country == "United States"')['factors'].to_numpy()
@@ -258,7 +267,7 @@ pass
 
 # 相関係数を計算しよう。
 
-# In[19]:
+# In[20]:
 
 
 df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
@@ -334,7 +343,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 
 # この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は`0`であり蓄積生産要素は`1`である。即ち、一人当たりGDP（対数）の分散に対して分散がより大きいほど説明力が高いといえる。
 
-# In[20]:
+# In[21]:
 
 
 # 欠損値であるNaNがある行を削除
@@ -354,7 +363,7 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 # **全要素生産性の寄与度**
 
-# In[21]:
+# In[22]:
 
 
 (tfp_var + tfp_factors_cov) / gdp_pc_var
@@ -364,7 +373,7 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 # **蓄積生産要素の寄与度**
 
-# In[22]:
+# In[23]:
 
 
 (factors_var + tfp_factors_cov) / gdp_pc_var
@@ -376,7 +385,7 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 # 最後に、主要な国のデータを表にまとめてみる。
 
-# In[23]:
+# In[24]:
 
 
 #（１）〜（４）については以下で説明する。
@@ -414,7 +423,7 @@ table2019
 #     
 # ＜コメント＞`print()`関数を使うとテキストとして表示される。
 
-# In[24]:
+# In[25]:
 
 
 print(f"日本の全要素生産性は米国の{table2019.loc['Japan','全要素生産性']*100}%であり，"
@@ -461,7 +470,7 @@ print(f"日本の全要素生産性は米国の{table2019.loc['Japan','全要素
 # \log(1+g_x)\approx g_x
 # $$
 
-# In[25]:
+# In[26]:
 
 
 np.log(1+0.02)
@@ -509,7 +518,7 @@ np.log(1+0.02)
 # 
 # それぞれの変数を計算しよう。
 
-# In[26]:
+# In[27]:
 
 
 # 資本の所得シャア
@@ -532,7 +541,7 @@ df['tfp'] = df['rgdp_pc'] / df['factors']
 
 # まず2009年から2019年の10年間の`rgdp_pc`、`k_pc`、`hc`の平均成長率を計算する。次のコードを使うが`for`ループが二重（入れ子）になっている。
 
-# In[27]:
+# In[28]:
 
 
 var_list = ['rgdp_pc','k_pc','hc']   # (1)
@@ -590,7 +599,7 @@ df_growth = pd.DataFrame({'country':country_list,               # (14)
 # * (15)〜(17)：それぞれの成長率を`DataFrame`の列に設定
 #     * `dic['キー']`で`dic`の`キー`にあるリストを抽出している。
 
-# In[28]:
+# In[29]:
 
 
 df_growth.head()
@@ -598,7 +607,7 @@ df_growth.head()
 
 # 欠損値が含まれているので、`NaN`がある行は全て削除する。
 
-# In[29]:
+# In[30]:
 
 
 df_growth = df_growth.dropna()
@@ -606,7 +615,7 @@ df_growth = df_growth.dropna()
 
 # 残った国数を確認する。
 
-# In[30]:
+# In[31]:
 
 
 len(df_growth)
@@ -614,7 +623,7 @@ len(df_growth)
 
 # `rgdp_pc`の成長率のヒストグラムを図示する。
 
-# In[31]:
+# In[32]:
 
 
 df_growth['rgdp_pc'].plot(kind='hist',bins=20)
@@ -623,7 +632,7 @@ pass
 
 # 多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も少なからず存在する。平均成長率がマイナスの国数を計算してみよう。
 
-# In[32]:
+# In[33]:
 
 
 len(df_growth.query('rgdp_pc < 0'))
@@ -631,7 +640,7 @@ len(df_growth.query('rgdp_pc < 0'))
 
 # 平均成長率が約-10%の経済があるが，国名を探してみよう。
 
-# In[33]:
+# In[34]:
 
 
 df_growth_sorted = df_growth.sort_values('rgdp_pc')
@@ -640,7 +649,7 @@ df_growth_sorted.head()
 
 # ここで使ったメソッド`sort_values()`は，引数の列を基準に昇順に並べ替える。
 
-# In[34]:
+# In[35]:
 
 
 print( '上のヒストグラムで`-10`付近に位置する国は'
@@ -657,7 +666,7 @@ print( '上のヒストグラムで`-10`付近に位置する国は'
 # 
 # 計算して`df_growth`に追加してみる。その際、$a=\dfrac{1}{3}$とする。
 
-# In[35]:
+# In[36]:
 
 
 df_growth['factors'] = (1/3)*df_growth['k_pc']+(1-1/3)*df_growth['hc']
@@ -665,7 +674,7 @@ df_growth['factors'] = (1/3)*df_growth['k_pc']+(1-1/3)*df_growth['hc']
 
 # `factors`の成長率のヒストグラムを図示する。
 
-# In[36]:
+# In[37]:
 
 
 df_growth['factors'].plot(kind='hist',bins=20)
@@ -682,7 +691,7 @@ pass
 # g_A=g_y-g_{\text{factors}}
 # $$
 
-# In[37]:
+# In[38]:
 
 
 df_growth['tfp'] = df_growth['rgdp_pc'] - df_growth['factors']
@@ -690,7 +699,7 @@ df_growth['tfp'] = df_growth['rgdp_pc'] - df_growth['factors']
 
 # `tfp`の成長率のヒストグラムを図示する。
 
-# In[38]:
+# In[39]:
 
 
 df_growth['tfp'].plot(kind='hist',bins=20)
@@ -711,7 +720,7 @@ pass
 # 100\times\frac{g_{A}}{g_y}
 # $$
 
-# In[39]:
+# In[40]:
 
 
 df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
@@ -719,13 +728,13 @@ df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
 
 # 全要素生産性の貢献度が`50`％以上の国は何％かを計算する。
 
-# In[40]:
+# In[41]:
 
 
 tfp_contribution_more_than_50 = 100 * len(df_growth.query('50<=tfp_contribution')) / len(df_growth)
 
 
-# In[41]:
+# In[42]:
 
 
 print(f'約{tfp_contribution_more_than_50:.1f}％の国で全要素生産性がより大きな貢献をしている。')
@@ -768,7 +777,7 @@ print(f'約{tfp_contribution_more_than_50:.1f}％の国で全要素生産性が�
 # 
 # 
 
-# In[42]:
+# In[43]:
 
 
 # それぞれの変数を設定
@@ -784,7 +793,7 @@ rgdp_pc_growth_var     = rgdp_pc_growth.var()
 
 # **全要素生産性の寄与度**
 
-# In[43]:
+# In[44]:
 
 
 tfp_growth_var / rgdp_pc_growth_var
@@ -792,7 +801,7 @@ tfp_growth_var / rgdp_pc_growth_var
 
 # **蓄積生産要素の寄与度**
 
-# In[44]:
+# In[45]:
 
 
 factors_growth_var / rgdp_pc_growth_var
@@ -802,7 +811,7 @@ factors_growth_var / rgdp_pc_growth_var
 
 # ### 表の作成
 
-# In[45]:
+# In[46]:
 
 
 country_table = ['Japan', 'United Kingdom','United States', 'Norway',
@@ -822,7 +831,7 @@ df_growth.loc[cond,col].set_index('country')          .sort_values('rgdp_pc', as
 
 # 関数を使って日本の成長パフォーマンスを考える。この関数は`start`から`end`までの期間の次の変数の平均成長率と全要素生産性の寄与度をリストとして返す。
 
-# In[46]:
+# In[47]:
 
 
 def jp_growth_decomposition(start, end):
@@ -862,7 +871,7 @@ def jp_growth_decomposition(start, end):
     return g_list
 
 
-# In[47]:
+# In[48]:
 
 
 # 10年ごとの平均成長率からなる辞書
@@ -884,7 +893,7 @@ df_jp
 
 # 列と行を入れ替える方が図示しやすいため、メソッド`.transpose()`を使う。
 
-# In[48]:
+# In[49]:
 
 
 df_jp = df_jp.transpose()
@@ -893,7 +902,7 @@ df_jp
 
 # `df_jp`を利用して棒グラフについて説明する。作成方法は図に使う変数を選択し`plot()`の引数`kind='bar'`を設定するだけである。
 
-# In[49]:
+# In[50]:
 
 
 df_jp['gdp_pc_growth'].plot(kind='bar')
@@ -904,7 +913,7 @@ pass
 # 
 # 次にヒストグラムに異なる変数を並べて表示してみよう。この場合は、表示したい変数を先に選日，`kind='bar'`を指定するだけである。
 
-# In[50]:
+# In[51]:
 
 
 df_jp.iloc[:,[0,3,4]].plot(kind='bar')
@@ -913,7 +922,7 @@ pass
 
 # `stacked=True`を設定すると棒グラフを積み重ねて表示することができる。
 
-# In[51]:
+# In[52]:
 
 
 df_jp.iloc[:,[3,4]].plot(kind='bar', stacked=True)
@@ -922,7 +931,7 @@ pass
 
 # 次のグラフでは線グラフと一緒に表示している。
 
-# In[52]:
+# In[53]:
 
 
 ax_ = df_jp.iloc[:,0].plot(marker='o',color='k',legend=True)
@@ -942,7 +951,7 @@ pass
 
 # 一人当たりGDPの変数を作成する。
 
-# In[53]:
+# In[54]:
 
 
 df['gdp_pc_log'] = np.log( df['rgdpe'] / df['pop'] )
@@ -950,7 +959,7 @@ df['gdp_pc_log'] = np.log( df['rgdpe'] / df['pop'] )
 
 # 日本の一人当たりGDP
 
-# In[54]:
+# In[55]:
 
 
 y_jp = df.query('country == "Japan" & year == 2017')['gdp_pc_log']
@@ -959,7 +968,7 @@ y_jp
 
 # このコードで返されるのは`Series`なので，`gdp_pc_log`の値自体を抽出するためには`.iloc[]`を使う。
 
-# In[55]:
+# In[56]:
 
 
 y_jp.iloc[0]
@@ -967,7 +976,7 @@ y_jp.iloc[0]
 
 # 次に2019年のヒストグラムを作成しよう。方法は簡単で，使用する列を選んでメソッド`plot()`の引数を`kind='hist'`とするだけである。
 
-# In[56]:
+# In[57]:
 
 
 df.query('year == 2019')['gdp_pc_log'].plot(kind='hist')
@@ -976,7 +985,7 @@ pass
 
 # カーネル密度推定とは，上のようなヒストグラムのデータに基づき面積が１になるように分布のスムーズな形を推計する手法である。下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。
 
-# In[57]:
+# In[58]:
 
 
 # ヒストグラム
@@ -999,7 +1008,7 @@ pass
 # 
 # ここで確かめたいのは，70年の間に上の所得分布のどのように変化してきたか，という問題である。この問いに答えるために，カーネル密度関数（`kind=density`）を使って1950年から10年毎の分布を表示する。
 
-# In[58]:
+# In[59]:
 
 
 yr_list = list(range(1960,2020,10))+[2019]                        # (1)
@@ -1030,7 +1039,7 @@ pass
 
 # 分布の偏り（もしくは頂点）が左から右に移っているように見える。一方，1960年の分布の最頻値（モード）は1950年のそれの左に位置している。これは，それぞれの年に`gdp_pc`が`NaN`ではない国数は変わっており，1950年と1960年のサンプルにある国数は大きく違うためである。それぞれの年の国数を調べるために，次のコードを実行してみよう。
 
-# In[59]:
+# In[60]:
 
 
 df.query('year == 2019')['gdp_pc_log'].notna().sum()
@@ -1042,7 +1051,7 @@ df.query('year == 2019')['gdp_pc_log'].notna().sum()
 
 # `for`ループを使って数えてみよう。
 
-# In[60]:
+# In[61]:
 
 
 print('gdp_pc_logに含まれる国数：\n----------------------')
@@ -1062,7 +1071,7 @@ for y in [1950]+yr_list:
 # 
 # 変動係数は，平均値１単位あたりの標準偏差を表しており，平均値を使って標準化することにより分布の幅の程度を比べることが可能となる。
 
-# In[61]:
+# In[62]:
 
 
 cv_list = []   # 空のリスト
@@ -1077,7 +1086,7 @@ for y in year_list:
 df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)
 
 
-# In[62]:
+# In[63]:
 
 
 df_cv.plot()

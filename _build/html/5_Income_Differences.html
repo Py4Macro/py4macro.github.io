@@ -378,14 +378,96 @@
 </pre></div>
 </div>
 </div>
-<div class="cell docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">pwtdata</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">load()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">description=True</span></code>を指定すると，含まれている変数の定義を表示できる。</p>
+<div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pwtdata</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-<span class="c1"># pwtdata.load(description=True)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwtdata</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable name:	Variable definition
+
+----- Identifier variables -----
+countrycode:	3-letter ISO country code
+country:	    Country name
+currency_unit:	Currency unit
+year:		    Year
+
+----- Real GDP, employment and population levels -----
+rgdpe:  Expenditure-side real GDP at chained PPPs (in mil. 2017US$),,,
+rgdpo:  Output-side real GDP at chained PPPs (in mil. 2017US$),,,
+pop:    Population (in millions),,,
+emp:    Number of persons engaged (in millions),,,
+avh:    Average annual hours worked by persons engaged,,,
+hc:     Human capital index, based on years of schooling and returns to education; see Human capital in PWT9.
+
+----- Current price GDP, capital and TFP -----
+ccon:   Real consumption of households and government, at current PPPs (in mil. 2017US$)
+cda:    Real domestic absorption, (real consumption plus investment), at current PPPs (in mil. 2017US$)
+cgdpe:  Expenditure-side real GDP at current PPPs (in mil. 2017US$)
+cgdpo:  Output-side real GDP at current PPPs (in mil. 2017US$)
+cn:     Capital stock at current PPPs (in mil. 2017US$)
+ck:     Capital services levels at current PPPs (USA=1)
+ctfp:   TFP level at current PPPs (USA=1)
+cwtfp:  Welfare-relevant TFP levels at current PPPs (USA=1)
+
+----- National accounts-based variables -----
+rgdpna: Real GDP at constant 2017 national prices (in mil. 2017US$)
+rconna: Real consumption at constant 2017 national prices (in mil. 2017US$)
+rdana:  Real domestic absorption at constant 2017 national prices (in mil. 2017US$)
+rnna:   Capital stock at constant 2017 national prices (in mil. 2017US$)
+rkna:   Capital services at constant 2017 national prices (2017=1)
+rtfpna: TFP at constant national prices (2017=1)
+rwtfpna:Welfare-relevant TFP at constant national prices (2017=1)
+labsh:  Share of labour compensation in GDP at current national prices
+irr:    Real internal rate of return
+delta:  Average depreciation rate of the capital stock
+
+----- Exchange rates and GDP price levels -----
+xr:     Exchange rate, national currency/USD (market+estimated)
+pl_con  Price level of CCON (PPP/XR), price level of USA GDPo in 2017=1
+pl_da   Price level of CDA (PPP/XR), price level of USA GDPo in 2017=1
+pl_gdpo Price level of CGDPo (PPP/XR), price level of USA GDPo in 2017=1
+
+----- Data information variables -----
+i_cig:      0/1/2/3/4: relative price data for consumption, investment and government is extrapolated (0), benchmark (1), interpolated (2), ICP PPP timeseries: benchmark or interpolated (3) or  ICP PPP timeseries: extrapolated (4)
+i_xm:       0/1/2: relative price data for exports and imports is extrapolated (0), benchmark (1) or interpolated (2)
+i_xr:       0/1: the exchange rate is market-based (0) or estimated (1)
+i_outlier:  0/1: the observation on pl_gdpe or pl_gdpo is not an outlier (0) or an outlier (1)
+i_irr:      0/1/2/3: the observation for irr is not an outlier (0), may be biased due to a low capital share (1), hit the lower bound of 1 percent (2), or is an outlier (3)
+cor_exp:    Correlation between expenditure shares of the country and the US (benchmark observations only)
+statcap:    Statistical capacity indicator (source: World Bank, developing countries only)
+
+----- Shares in CGDPo -----
+csh_c:  Share of household consumption at current PPPs
+csh_i:  Share of gross capital formation at current PPPs
+csh_g:  Share of government consumption at current PPPs
+csh_x:  Share of merchandise exports at current PPPs
+csh_m:  Share of merchandise imports at current PPPs
+csh_r:  Share of residual trade and GDP statistical discrepancy at current PPPs
+
+----- Price levels, expenditure categories and capital -----
+pl_c:   Price level of household consumption,  price level of USA GDPo in 2017=1
+pl_i:   Price level of capital formation,  price level of USA GDPo in 2017=1
+pl_g:   Price level of government consumption,  price level of USA GDPo in 2017=1
+pl_x:   Price level of exports, price level of USA GDPo in 2017=1
+pl_m:   Price level of imports, price level of USA GDPo in 2017=1
+pl_n:   Price level of the capital stock, price level of USA in 2017=1
+pl_k:   Price level of the capital services, price level of USA=1
 </pre></div>
 </div>
 </div>
 </div>
+<p>引数なしでメソッド<code class="docutils literal notranslate"><span class="pre">load()</span></code>を実行すればデータ自体を読み込むことになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pwtdata</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">info()</span></code>を使って内容を確認してみよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -456,7 +538,7 @@ memory usage: 5.1+ MB
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">.head()</span></code>を使って最初の5行を表示する。</p>
+<p>次に<code class="docutils literal notranslate"><span class="pre">.head()</span></code>を使って最初の5行を表示してみる。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -631,7 +713,7 @@ memory usage: 5.1+ MB
 <p>5 rows × 52 columns</p>
 </div></div></div>
 </div>
-<p>全ての列名が表示できるように属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使ってみる</p>
+<p>属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使うと全ての列名を表示できる。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
@@ -651,7 +733,7 @@ memory usage: 5.1+ MB
 </div>
 </div>
 </div>
-<p>メソッド<code class="docutils literal notranslate"><span class="pre">.unique()</span></code>を使って含まれる国名を確認する。</p>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.unique()</span></code>を使って含まれる国名を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">country_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -706,7 +788,7 @@ memory usage: 5.1+ MB
 </div>
 </div>
 </div>
-<p>メソッド<code class="docutils literal notranslate"><span class="pre">.nunique()</span></code>を使って含まれる国数を確認する。</p>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.nunique()</span></code>を使うと国数を確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
@@ -719,7 +801,7 @@ memory usage: 5.1+ MB
 </div>
 </div>
 </div>
-<p>期間を確認する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">unique()</span></code>でデータの年を確認することもできる。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -739,26 +821,6 @@ memory usage: 5.1+ MB
 </div>
 </div>
 </div>
-<p>ここでは次の変数を使う。</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：生産面から計算したGDP（current PPPs; in mil. 2011US$）</p>
-<ul>
-<li><p>経済間では一定な価格を使い計算されているが、時系列的には「名目」</p></li>
-<li><p>ある年に経済間の比較をするのに適している</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">emp</span></code>：雇用者数（in millions）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ck</span></code>：資本サービス水準（current PPPs (USA=1)）</p>
-<ul>
-<li><p>資本ストックを生産に使うことにより得るサービス</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hc</span></code>：人的資本の指標</p>
-<ul>
-<li><p>教育年数と教育の収益から計算されている</p></li>
-</ul>
-</li>
-</ul>
 </div>
 <div class="section" id="id3">
 <h2>発展会計<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
@@ -815,7 +877,26 @@ y_i=A_ik_i^{\alpha}h_i^{1-\alpha}
 <li><p>蓄積生産要素の寄与：<span class="math notranslate nohighlight">\(k_i^{\alpha}h_i^{1-\alpha}\)</span></p></li>
 <li><p>全要素生産性：<span class="math notranslate nohighlight">\(A_i=\dfrac{y_i}{k_i^{\alpha}h_i^{1-\alpha}}\)</span></p></li>
 </ul>
-<p>上で使ったデータを使い、それぞれの変数を計算してみる。</p>
+<p>ここでは次の変数を使い，それぞれの変数を計算してみる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：生産面から計算したGDP（current PPPs; in mil. 2011US$）</p>
+<ul>
+<li><p>経済間では一定な価格を使い計算されているが、時系列的には「名目」</p></li>
+<li><p>ある年に経済間の比較をするのに適している</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">emp</span></code>：雇用者数（in millions）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ck</span></code>：資本サービス水準（current PPPs (USA=1)）</p>
+<ul>
+<li><p>資本ストックを生産に使うことにより得るサービス</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hc</span></code>：人的資本の指標</p>
+<ul>
+<li><p>教育年数と教育の収益から計算されている</p></li>
+</ul>
+</li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 資本の所得シャア</span>
@@ -882,7 +963,7 @@ y_i=A_ik_i^{\alpha}h_i^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_33_0.png" src="_images/5_Income_Differences_33_0.png" />
+<img alt="_images/5_Income_Differences_36_0.png" src="_images/5_Income_Differences_36_0.png" />
 </div>
 </div>
 <p>正の関係があることがわかる。</p>
@@ -907,7 +988,7 @@ y_i=A_ik_i^{\alpha}h_i^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_39_0.png" src="_images/5_Income_Differences_39_0.png" />
+<img alt="_images/5_Income_Differences_42_0.png" src="_images/5_Income_Differences_42_0.png" />
 </div>
 </div>
 <p>正の関係があり、人的資本よりも相関関係は強いことがわかる。</p>
@@ -926,7 +1007,7 @@ y_i=A_ik_i^{\alpha}h_i^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_43_0.png" src="_images/5_Income_Differences_43_0.png" />
+<img alt="_images/5_Income_Differences_46_0.png" src="_images/5_Income_Differences_46_0.png" />
 </div>
 </div>
 <p>この図から経済間の一人当たりGDP差は全要素生産性の差と非常に近いことがわかる。相関係数を計算してみる。</p>
@@ -991,7 +1072,7 @@ y_i=A_ik_i^{\alpha}h_i^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_47_0.png" src="_images/5_Income_Differences_47_0.png" />
+<img alt="_images/5_Income_Differences_50_0.png" src="_images/5_Income_Differences_50_0.png" />
 </div>
 </div>
 <p>相関係数を計算しよう。</p>
@@ -1617,7 +1698,7 @@ g_x=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_84_0.png" src="_images/5_Income_Differences_84_0.png" />
+<img alt="_images/5_Income_Differences_87_0.png" src="_images/5_Income_Differences_87_0.png" />
 </div>
 </div>
 <p>多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も少なからず存在する。平均成長率がマイナスの国数を計算してみよう。</p>
@@ -1745,7 +1826,7 @@ g_{\text{factors}}=ag_k+(1-a)g_h
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_95_0.png" src="_images/5_Income_Differences_95_0.png" />
+<img alt="_images/5_Income_Differences_98_0.png" src="_images/5_Income_Differences_98_0.png" />
 </div>
 </div>
 <p>一人当たりGDPの成長率と比べると，マイナスの成長率の国は少ないことがわかる。</p>
@@ -1773,7 +1854,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_101_0.png" src="_images/5_Income_Differences_101_0.png" />
+<img alt="_images/5_Income_Differences_104_0.png" src="_images/5_Income_Differences_104_0.png" />
 </div>
 </div>
 <p>蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。</p>
@@ -2276,7 +2357,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_128_0.png" src="_images/5_Income_Differences_128_0.png" />
+<img alt="_images/5_Income_Differences_131_0.png" src="_images/5_Income_Differences_131_0.png" />
 </div>
 </div>
 <p>1960年代をピークに成長率は下降線をたどっている。</p>
@@ -2289,7 +2370,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_130_0.png" src="_images/5_Income_Differences_130_0.png" />
+<img alt="_images/5_Income_Differences_133_0.png" src="_images/5_Income_Differences_133_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">stacked=True</span></code>を設定すると棒グラフを積み重ねて表示することができる。</p>
@@ -2301,7 +2382,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_132_0.png" src="_images/5_Income_Differences_132_0.png" />
+<img alt="_images/5_Income_Differences_135_0.png" src="_images/5_Income_Differences_135_0.png" />
 </div>
 </div>
 <p>次のグラフでは線グラフと一緒に表示している。</p>
@@ -2314,7 +2395,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_134_0.png" src="_images/5_Income_Differences_134_0.png" />
+<img alt="_images/5_Income_Differences_137_0.png" src="_images/5_Income_Differences_137_0.png" />
 </div>
 </div>
 <p>1990年代に全要素生産性の成長の大きな下落によって、寄与度はマイナスに転じている。「失われた10年」の原因と主張する研究者もいる。</p>
@@ -2377,7 +2458,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_145_0.png" src="_images/5_Income_Differences_145_0.png" />
+<img alt="_images/5_Income_Differences_148_0.png" src="_images/5_Income_Differences_148_0.png" />
 </div>
 </div>
 <p>カーネル密度推定とは，上のようなヒストグラムのデータに基づき面積が１になるように分布のスムーズな形を推計する手法である。下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。</p>
@@ -2396,7 +2477,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_147_0.png" src="_images/5_Income_Differences_147_0.png" />
+<img alt="_images/5_Income_Differences_150_0.png" src="_images/5_Income_Differences_150_0.png" />
 </div>
 </div>
 <blockquote>
@@ -2429,7 +2510,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_150_0.png" src="_images/5_Income_Differences_150_0.png" />
+<img alt="_images/5_Income_Differences_153_0.png" src="_images/5_Income_Differences_153_0.png" />
 </div>
 </div>
 <blockquote>
@@ -2521,7 +2602,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_159_0.png" src="_images/5_Income_Differences_159_0.png" />
+<img alt="_images/5_Income_Differences_162_0.png" src="_images/5_Income_Differences_162_0.png" />
 </div>
 </div>
 <p>サンプルに含まれる国数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろには国数の増加は少なくり，それと同時に変動係数は減少し始めている。即ち，少なくとも1990年頃から経済間の所得格差は減少している。</p>
@@ -2543,16 +2624,16 @@ Name: gdp_pc_log, dtype: float64
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jb"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "jb",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jb'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
