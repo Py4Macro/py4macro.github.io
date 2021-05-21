@@ -95,6 +95,7 @@ for pack, ver in zip(packages, versions):
 # :caption: ２. マクロ経済学
 # 
 # 5_Income_Differences
+# 6_Regression
 # ```
 # 
 # 
