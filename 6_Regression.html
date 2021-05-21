@@ -1,0 +1,928 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>回帰分析 &#8212; Pythonで学ぶ中級マクロ経済学</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="canonical" href="https://py4macro.github.io/6_Regression.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pandas：プロット" href="Pandas_plot.html" />
+    <link rel="prev" title="発展会計と成長会計" href="5_Income_Differences.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Pythonで学ぶ中級マクロ経済学</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  １. Pythonの学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Python_Basics.html">
+   Pythonの基礎
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_NumPy.html">
+   NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Pandas.html">
+   Pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Matplotlib.html">
+   Matplotlib
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  ２. マクロ経済学
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Income_Differences.html">
+   発展会計と成長会計
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   回帰分析
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  ３. 参考
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Pandas_plot.html">
+   Pandas：プロット
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;<!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code --></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/6_Regression.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro//source?urlpath=tree/6_Regression.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro//blob/source/6_Regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   はじめに
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Python
+    </span>
+   </code>
+   を使った回帰分析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     データ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     回帰分析
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   回帰分析による発展会計
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     最小二乗法による計算
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>回帰分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="n">see</span>
+<span class="kn">import</span> <span class="nn">py4macro</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>この章の目的は２つある。第一に，<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使って回帰分析の方法を紹介する事である。読者には統計学や計量経済学を学び，実際にソフトを使い回帰分析をした経験を持つ人も多く含まれると思う。例えば，無料のRやGretl，そして有料ではあるがStataやEViewsあたりが人気ではないだろうか。<code class="docutils literal notranslate"><span class="pre">Python</span></code>でも回帰分析を簡単におこなうことが可能であり，有名な<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>と<code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>パッケージを使うと学部の授業で習うことは殆ど全て可能だろう。この章では基本的な回帰分析を考えるので<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>だけを取り上げ，その基本的なコードを紹介するが，より多くを知りたい場合は<a class="reference external" href="https://py4etrics.github.io">「Pythonで学ぶ入門計量経済学」</a>を参照して欲しい。</p>
+<p>この章の第二の目的は，<a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長会計</span></a>の章で考察した問題を再考することである。その章では，全要素生産性と蓄積生産要素の２つにフォーカスし，それぞれが一人当たりGDPの水準と成長率にどれだけ貢献しているかを考えた。その際，寄与度として分散と共分散を使い計算したが，回帰分析を使うと簡単に計算できる事を示す。更に，回帰分析を使い，所得が低い経済は所得が高い経済にキャッチアップしているかを検討する。</p>
+</div>
+<div class="section" id="python">
+<h2><code class="docutils literal notranslate"><span class="pre">Python</span></code>を使った回帰分析<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章で経済間の所得格差の要因を考え，<a class="reference internal" href="5_Income_Differences.html#sec-5-tfp"><span class="std std-ref">全要素生産性</span></a>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
+<div class="section" id="id3">
+<h3>データ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>まずデータを作成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span> \
+                 <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)</span> \
+                 <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">py4macro.data()</span></code>は<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返すため，そのメソッド<code class="docutils literal notranslate"><span class="pre">query()</span></code>を続けて使っている。また<code class="docutils literal notranslate"><span class="pre">query()</span></code>も<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返すため，そのメソッド<code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>を続けて使っている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\</span></code>を使うと改行が可能となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query('year</span> <span class="pre">==</span> <span class="pre">2019')</span></code>を使って2019年のデータだけを抽出したが，その際に行インデックスが飛び飛びになるので，それを<code class="docutils literal notranslate"><span class="pre">0</span></code>，<code class="docutils literal notranslate"><span class="pre">1</span></code>，<code class="docutils literal notranslate"><span class="pre">2</span></code>….と番号を振り直すために<code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>を使っている。引数<code class="docutils literal notranslate"><span class="pre">drop=True</span></code>がないと，元の飛び飛びの行インデックスが新たな列として残るため，それを残さないようにしている。</p></li>
+</ul>
+</div>
+<p>発展会計の分析で使った同じ変数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 資本の所得シャア</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.0</span>
+
+<span class="c1"># 労働者一人当たりGDP</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+
+<span class="c1"># 労働者一人当たり資本</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k_pc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;ck&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+
+<span class="c1"># 蓄積生産要素</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k_pc&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;hc&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># 全要素生産性</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span>
+
+<span class="c1"># 米国のデータ</span>
+<span class="n">us2019</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;United States&quot;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 労働者一人当たりGDPを標準化（USA=1）</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># 全要素生産性の標準化（USA=1）</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># 蓄積生産要素の標準化（USA=1）</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>全要素生産性と一人当たりGDPの散布図を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6_Regression_13_0.png" src="_images/6_Regression_13_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>回帰分析<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>上の散布図に直線のトレンドの描く場合，次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-regression">
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-regression" title="Permalink to this equation">¶</a></span>\[
+y_i = a+bA_i
+\]</div>
+<p>ここでの目的は，散布図のデータを使い定数項<code class="docutils literal notranslate"><span class="pre">a</span></code>とスロープ係数<code class="docutils literal notranslate"><span class="pre">b</span></code>を計算し直線トレンドを描く事である。</p>
+<p>式[](eq:regression）のパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推計するために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>パッケージを使うが，そのサブパッケージ<code class="docutils literal notranslate"><span class="pre">formula.api</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使うことにより、最小二乗法の多くの計算（例えば、検定値など）を自動で行うことが可能である。また推定式を文字列で書くことができるので直感的にコードを書くことが可能となる。より具体的な説明は<a class="reference external" href="https://py4etrics.github.io">このサイト</a>を参照してほしい。</p>
+<p>次のステップでコードを書く。</p>
+<ol class="simple">
+<li><p>文字列で推定式を書く。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ols</span></code>を使って推定の準備を行う。</p></li>
+<li><p>メソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使って自動計算を行う。</p></li>
+<li><p>結果の属性やメソッドを使い推定値を表示する。</p></li>
+</ol>
+<p><strong>ステップ１</strong>：推定式の設定</p>
+<p>回帰式は次のような形で文字列を使って指定する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;非説明変数 ~ 定数項以外の説明変数&#39;</span>
+</pre></div>
+</div>
+<p>定数項は自動的に挿入される。また定数項以外の説明変数が複数がる場合は、<code class="docutils literal notranslate"><span class="pre">+</span></code>でつなげるが，今回は単回帰分析となるので説明変数は１つとなる。また回帰式の中で使う変数名は，データが含まれる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の列ラベルを使う。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;gdp_pc_relative ~ tfp_relative&#39;</span>
+</pre></div>
+</div>
+<p>以下ではこの回帰式を変数<code class="docutils literal notranslate"><span class="pre">formula</span></code>に割り当てているが，変数は分かりやすいものであれば好きなものを使えば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_pc_relative ~ tfp_relative&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>ステップ２</strong>：自動計算の準備</p>
+<p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使って自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成する。次のコードでは変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ols()</span></code>の第１引数は上で定義した文字列の回帰式であり、第２引数<code class="docutils literal notranslate"><span class="pre">data</span></code>は使用するデータを指定する。</p>
+<p><strong>ステップ３</strong>：自動計算</p>
+<p><code class="docutils literal notranslate"><span class="pre">model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使って自動計算し，計算した結果を変数<code class="docutils literal notranslate"><span class="pre">result</span></code>に割り当てる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでステップ２と３を連続で次のように書いても構わない。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>ステップ４</strong>：結果の表示</p>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code>には様々な属性が用意されているが、メソッド<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>を使うと基本的な推定結果を表示することができる。（関数<code class="docutils literal notranslate"><span class="pre">print()</span></code>を使っているが使わなくても同じ情報が表示される。）</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
+Model:                            OLS   Adj. R-squared:                  0.846
+Method:                 Least Squares   F-statistic:                     330.2
+Date:                Fri, 21 May 2021   Prob (F-statistic):           7.55e-26
+Time:                        05:52:46   Log-Likelihood:                 49.266
+No. Observations:                  61   AIC:                            -94.53
+Df Residuals:                      59   BIC:                            -90.31
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+Intercept       -0.2825      0.049     -5.763      0.000      -0.381      -0.184
+tfp_relative     1.2226      0.067     18.172      0.000       1.088       1.357
+==============================================================================
+Omnibus:                       11.080   Durbin-Watson:                   1.957
+Prob(Omnibus):                  0.004   Jarque-Bera (JB):               15.053
+Skew:                           0.661   Prob(JB):                     0.000538
+Kurtosis:                       5.043   Cond. No.                         7.19
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>表は3つのセクションから構成されている。</p>
+<ul class="simple">
+<li><p>上段にはOLS推定の基本的な情報が表示されている。</p>
+<ul>
+<li><p>左側</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dep.</span> <span class="pre">Variable</span></code>：被説明変数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Model</span></code>：モデル</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Method</span></code>：手法</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Data</span></code>：日にち</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Time</span></code>：時間</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">No.</span> <span class="pre">Observation</span></code>：標本の大きさ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">Residuals</span></code>：残差の自由度</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">Model</span></code>：モデルの自由度（定数項以外の説明変数の数）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Covariance</span> <span class="pre">Type</span></code>：共分散のタイプ</p></li>
+</ul>
+</li>
+<li><p>右側</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">R-squared</span></code>：決定係数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adj.</span> <span class="pre">R-squared</span></code>：自由度調整済み決定係数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F-statistic</span></code>：<span class="math notranslate nohighlight">\(F\)</span>統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prob</span> <span class="pre">(F-statistic)</span></code>：<span class="math notranslate nohighlight">\(F\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Log-Likelihood</span></code>：対数尤度</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AIC</span></code>：赤池情報量規準</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BIC</span></code>：ベイズ情報量規準</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>中段には主な推定結果が表示される。</p>
+<ul>
+<li><p>列ラベル</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">coef</span></code>：係数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">err</span></code>：標準誤差</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code>：<span class="math notranslate nohighlight">\(t\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P&gt;|t|</span></code>：<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[0.025,0.975]</span></code>：信頼区間（5%)</p></li>
+</ul>
+</li>
+<li><p>行ラベル</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Intercept</span></code>：定数項</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>：説明変数（選択する変数によって変わる）</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>下段には様々な検定などに関する数値が並んでいる。</p>
+<ul>
+<li><p>左側</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Omnibus</span></code>：オムニバス検定等計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prob(Omnibus)</span></code>：オムニバス検定統計値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Skew</span></code>：歪度</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Kurtosis</span></code>：尖度</p></li>
+</ul>
+</li>
+<li><p>右側</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>：ダービン・ワトソン統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Jarque-Bera</span> <span class="pre">(JB)</span></code>：ジャーク・ベラ検定統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prob(JB)</span></code>：ジャーク・ベラ検定統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cond.</span> <span class="pre">No.</span></code>：条件数</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>必要な部分だけを表示する場合は，次のコードを使うと良いだろう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>係数の推定値に関する中段の表を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+Intercept       -0.2825      0.049     -5.763      0.000      -0.381      -0.184
+tfp_relative     1.2226      0.067     18.172      0.000       1.088       1.357
+================================================================================
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果の解釈を試みてみよう。</p>
+<ul class="simple">
+<li><p>定数項の推定値のp値は小さく、通常の有意水準では「定数項の値はゼロ」の帰無仮説を棄却できる。一方で，一人当たりGDPは正の値を取るが，定数項はマイナスの値となっている。ここでは非線形の関係が示唆されるので，練習問題で再考する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>のパラメータの推定値は正の値であり，統計的優位性も高い。推定値を解釈するために，相対的全要素生産性である<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>が0.01上昇したとしよう（例えば，0.5から0.51）。相対的一人当たりGDP<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>は平均で1.2225x0.01=0.012225増加する事になる。即ち，全要素生産性の１単位の上昇は一人当たりGDPの１単位以上の増加につながっている。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code>は推定結果に関する情報が詰まったオブジェクトである。何が備わっているか<code class="docutils literal notranslate"><span class="pre">see</span></code>関数を使って調べてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">see</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    &lt;                    &lt;=                   ==                   !=
+    &gt;                    &gt;=                   dir()                hash()
+    help()               repr()               str()                .HC0_se
+    .HC1_se              .HC2_se              .HC3_se              .aic
+    .bic                 .bse                 .centered_tss
+    .compare_f_test()    .compare_lm_test()
+    .compare_lr_test()                        .condition_number    .conf_int()
+    .conf_int_el()       .cov_HC0             .cov_HC1             .cov_HC2
+    .cov_HC3             .cov_kwds            .cov_params()        .cov_type
+    .df_model            .df_resid            .diagn               .eigenvals
+    .el_test()           .ess                 .f_pvalue            .f_test()
+    .fittedvalues        .fvalue              .get_influence()
+    .get_prediction()    .get_robustcov_results()
+    .initialize()        .k_constant          .llf                 .load()
+    .model               .mse_model           .mse_resid           .mse_total
+    .nobs                .normalized_cov_params
+    .outlier_test()      .params              .predict()           .pvalues
+    .remove_data()       .resid               .resid_pearson       .rsquared
+    .rsquared_adj        .save()              .scale               .ssr
+    .summary()           .summary2()          .t_test()
+    .t_test_pairwise()                        .tvalues
+    .uncentered_tss      .use_t               .wald_test()
+    .wald_test_terms()                        .wresid
+</pre></div>
+</div>
+</div>
+</div>
+<p>推定結果の表を表示するメソッド<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>が含まれていることが分かる。その他様々なものが含まれているが，詳細は<a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.html">このサイト</a>（英語）を参考にして欲しい。ここでは代表的なものだけを紹介する。</p>
+<p>まず係数の推定値は<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">params</span></code>でアクセスできる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept      -0.282516
+tfp_relative    1.222558
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">result.params</span></code>のタイプを調べてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.series.Series
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返されていることが分かる。従って，定数項は<code class="docutils literal notranslate"><span class="pre">result.params[0]</span></code>，スロープ係数は<code class="docutils literal notranslate"><span class="pre">result.params[1]</span></code>で抽出できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ahat</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">bhat</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ahat</span><span class="p">,</span> <span class="n">bhat</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.28251611786722897, 1.2225577849375555)
+</pre></div>
+</div>
+</div>
+</div>
+<p>このことを念頭に<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>が<code class="docutils literal notranslate"><span class="pre">x</span></code>の場合の<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>を計算する関数は作ってみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_gdp_pc_relative</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">gdp</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;相対全要素生産性が</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">の場合の相対的一人当たりGDPは約</span><span class="si">{</span><span class="n">gdp</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code>が<code class="docutils literal notranslate"><span class="pre">0.8</span></code>の場合を考えよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_gdp_pc_relative</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対全要素生産性が0.7の場合の相対的一人当たりGDPは約0.57です。
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fittedvalues</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>図を重ねて表示する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6_Regression_44_0.png" src="_images/6_Regression_44_0.png" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>係数の推定値は、<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">params</span></code>でアクセスできることを説明したが、この値を使い次のコードで<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>の予測値を計算することも可能である。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>回帰分析による発展会計<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>説明<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章では，米国の一人当たりGDPを基準として経済<span class="math notranslate nohighlight">\(i\)</span>の一人当たりGDPを次式で表した。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-riy">
+<span class="eqno">(14)<a class="headerlink" href="#equation-eq-6-riy" title="Permalink to this equation">¶</a></span>\[
+r_i^y =
+r_i^{\text{tfp}} +
+r_i^{\text{factors}}
+\]</div>
+<p>ここで，</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r_i^y\)</span>：一人当たりGDP（対数; 米国＝１）</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_i^{\text{tfp}}\)</span>：全要素生産性（対数; 米国＝１）</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_i^{\text{factors}}\)</span>：蓄積生産要素（対数; 米国＝１）</p></li>
+</ul>
+<p>また，それぞれの貢献度を次式で数量化した。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-tfp-contribution">
+<span class="eqno">(15)<a class="headerlink" href="#equation-eq-6-tfp-contribution" title="Permalink to this equation">¶</a></span>\[
+\text{全要素生産性の寄与度}
+\equiv\beta_{\text{tfp}}=
+\dfrac{
+    \text{Var}\left(r_i^{\text{tfp}}\right)
+    +\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
+    }{
+    \text{Var}(r_i^y)
+    }
+\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-6-factors-contribution">
+<span class="eqno">(16)<a class="headerlink" href="#equation-eq-6-factors-contribution" title="Permalink to this equation">¶</a></span>\[
+\text{蓄積生産要素の寄与度}
+\equiv
+\equiv\beta_{\text{factors}}=
+\dfrac{
+    \text{Var}\left(r_i^{\text{factors}}\right)
+    +\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
+    }{
+    \text{Var}(r_i^y)
+    }    
+\]</div>
+<p>この章では回帰分析を使って<span class="math notranslate nohighlight">\(\beta_{\text{tfp}}\)</span>と<span class="math notranslate nohighlight">\(\beta_{\text{factors}}\)</span>計算することができることを示す。そのために，まず次の関係が成立することを思い出そう。</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Cov}(x,x)=\text{Var}(x)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{Cov}(x,y\pm z)=\text{Cov}(x,y)\pm\text{Cov}(x,z)
+\]</div>
+<p>これらを使うと<a class="reference internal" href="#equation-eq-6-tfp-contribution">(15)</a>は次のように書き換えることができる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-tfp-contribution-2">
+<span class="eqno">(17)<a class="headerlink" href="#equation-eq-6-tfp-contribution-2" title="Permalink to this equation">¶</a></span>\[
+\beta_{\text{tfp}}
+=\dfrac{
+    \text{Var}\left(r_i^{\text{tfp}}\right)
+    +\text{Cov}\left(r_i^{\text{tfp}},r_i^y-r_i^{\text{tfp}}\right)
+    }{
+    \text{Var}(r_i^y)
+    }
+=\dfrac{
+    \text{Cov}\left(r_i^{\text{tfp}},r_i^{y}\right)
+    }{
+    \text{Var}(r_i^y)
+    } 
+\]</div>
+<p>蓄積生産要素の寄与度についても同様に次式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-factors-contribution-2">
+<span class="eqno">(18)<a class="headerlink" href="#equation-eq-6-factors-contribution-2" title="Permalink to this equation">¶</a></span>\[
+\beta_{\text{factors}}
+=\dfrac{
+    \text{Cov}\left(r_i^{\text{factors}},r_i^{y}\right)
+    }{
+    \text{Var}(r_i^y)
+    } 
+\]</div>
+<p>この結果が回帰分析とどのような関係にあるかを確認するために，次の単回帰式を考えよう。</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = a + bx_i+e_i
+\]</div>
+<p>最小二乗法を使い推定すると，スロープ係数の推定値は次式で与えられることになる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-bhat">
+<span class="eqno">(19)<a class="headerlink" href="#equation-eq-6-bhat" title="Permalink to this equation">¶</a></span>\[
+\hat{b}=\dfrac{
+            \text{Cov}\left(y,x\right)
+            }{
+            \text{Var}(x)
+            } 
+\]</div>
+<p>式<a class="reference internal" href="#equation-eq-6-bhat">(19)</a>と２つの式<a class="reference internal" href="#equation-eq-6-tfp-contribution-2">(17)</a>と<a class="reference internal" href="#equation-eq-6-factors-contribution-2">(18)</a>から，次の回帰式を最小二乗法で推定すると<span class="math notranslate nohighlight">\(\beta_{\text{tfp}}\)</span>と<span class="math notranslate nohighlight">\(\beta_{\text{factors}}\)</span>を計算できることが分かる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+&amp;r_i^{\text{tfp}}=a+\beta_{\text{tfp}}+e_i \\
+&amp;r_i^{\text{factors}}=c+\beta_{\text{factors}}+u_i
+\end{align*}
+\end{split}\]</div>
+<p>以下では<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使って実際に計算してみよう。</p>
+</div>
+<div class="section" id="id7">
+<h3>最小二乗法による計算<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">df2019</span></code>にある変数を使って，計算に使う変数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 労働者一人当たりGDP（USA=1）の対数化</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># 全要素生産性（USA=1）の対数化</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># 蓄積生産要素（USA=1）の対数化</span>
+<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に推定式を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula_tfp</span> <span class="o">=</span> <span class="s1">&#39;tfp_relative_log ~ gdp_pc_relative_log&#39;</span>
+<span class="n">formula_factors</span> <span class="o">=</span> <span class="s1">&#39;factors_relative_log ~ gdp_pc_relative_log&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>自動計算のための準備をし，実際に計算した結果を変数に割り当てる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">result_factors</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>パラメータの値を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;全要素生産性の寄与度：</span><span class="si">{</span><span class="n">result_tfp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;蓄積生産要素の寄与度：</span><span class="si">{</span><span class="n">result_factors</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>全要素生産性の寄与度：0.5391873123319043
+蓄積生産要素の寄与度：0.4608126876680956
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>は以前説明した<code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使って<code class="docutils literal notranslate"><span class="pre">{}</span></code>に値を代入している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">()</span></code>は複数行にしても構わない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">''</span></code>で囲んだ文字列を複数行にする場合は，それぞれの行で閉じる必要がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code>は改行という意味。</p></li>
+</ul>
+</div>
+<p><a class="reference internal" href="5_Income_Differences.html#sec-tfp-factors"><span class="std std-ref">全要素生産性と蓄積生産要素の寄与度</span></a>で計算した値と同じになることが確認できる。</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="5_Income_Differences.html" title="previous page">発展会計と成長会計</a>
+    <a class='right-next' id="next-link" href="Pandas_plot.html" title="next page">Pandas：プロット</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 春山 鉄源  Tetsugen HARUYAMA<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

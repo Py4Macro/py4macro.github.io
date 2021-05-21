@@ -55,7 +55,7 @@
     <link rel="canonical" href="https://py4macro.github.io/5_Income_Differences.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Pandas：プロット" href="Pandas_plot.html" />
+    <link rel="next" title="回帰分析" href="6_Regression.html" />
     <link rel="prev" title="Matplotlib" href="4_Matplotlib.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -120,6 +120,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    発展会計と成長会計
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_Regression.html">
+   回帰分析
   </a>
  </li>
 </ul>
@@ -228,7 +233,7 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
+  <a class="reference internal nav-link" href="#sec-5-hajimeni">
    はじめに
   </a>
  </li>
@@ -263,7 +268,7 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
+      <a class="reference internal nav-link" href="#sec-5-tfp">
        全要素生産性
       </a>
      </li>
@@ -275,7 +280,7 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#sec-tfp-factors">
      全要素生産性と蓄積生産要素の寄与度
     </a>
    </li>
@@ -340,11 +345,6 @@
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id23">
-   所得分布の推移
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -356,8 +356,8 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>発展会計と成長会計<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="chap-5-accounting">
+<span id="id1"></span><h1>発展会計と成長会計<a class="headerlink" href="#chap-5-accounting" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -368,9 +368,14 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
 </div>
-<div class="section" id="id2">
-<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="sec-5-hajimeni">
+<span id="id2"></span><h2>はじめに<a class="headerlink" href="#sec-5-hajimeni" title="Permalink to this headline">¶</a></h2>
 <p>一人当たりGDP（国内総生産）は経済の豊かさを示す一つの尺度として使われるが，下の左の図は2019年の世界経済での一人当たりGDPの分布を示している。日本と他の国・地域との比較を容易にするために、日本の一人当たりGDPを100として相対的な所得分布を表している。日本は38位で、１位であるルクセンブルグの一人当たりGDPは日本のそれより2倍強あり（米国は159.9で10位）、最下位のベネズエラは日本の一人当たりGDPの0.63％である。また、一人当たりGDPが日本の10％に満たない国・地域が107ある。こういった数字が示すように、世界の所得分布は大きな偏りがあり、非常に不平等である。</p>
 <blockquote>
 <div><p>（問１）なぜある国は豊かで他の国は貧しいのだろうか？</p>
@@ -379,13 +384,17 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># データ</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span>
+
 <span class="c1"># 一人当たりGDP</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDPpc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rgdpe&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
+
 <span class="c1"># 2019だけを取り出す</span>
 <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2019</span><span class="p">)</span>
 <span class="n">df2019</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;GDPpc&#39;</span><span class="p">]]</span>
+
 <span class="c1"># 日本の値を抽出</span>
 <span class="n">jp</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country==&quot;Japan&quot;&#39;</span><span class="p">)[</span><span class="s1">&#39;GDPpc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
 <span class="c1"># 日本を100として計算</span>
 <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;GDPpc_normalized&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDPpc&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">jp</span>
 
@@ -393,15 +402,15 @@
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;GDPpc_normalized&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;日本を100として，2019年, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df2019</span><span class="p">)</span><span class="si">}</span><span class="s1">の国・地域, PWT10.0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;１人当たり実質GDPの分布&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_4_0.png" src="_images/5_Income_Differences_4_0.png" />
+<img alt="_images/5_Income_Differences_5_0.png" src="_images/5_Income_Differences_5_0.png" />
 </div>
 </div>
 <p>この問いはマクロ経済学の根本的な問いである。この重要な問題を考える上で、経済成長率に関する考察を無視できない。経済成長率とは、一人当たりGDP等の変数がある一定期間（例えば、一年間）にどれだけ変化したかをパーセントで表している。「現在の所得水準は過去に達成した成長率に依存し、またこれからの成長率が将来の所得水準を決定する」という質的な結果は直感的に理解できる。では、成長率と所得水準にはどういった量的な関係があるのだろうか。これを理解するために、<a class="reference internal" href="#tab-growth"><span class="std std-numref">Table 1</span></a>を見てみよう。</p>
@@ -448,23 +457,29 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 一人当たりGDP</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;naGDPpc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
-<span class="c1"># 1970を閾値とする</span>
-<span class="n">yr</span> <span class="o">=</span> <span class="mi">1970</span>
+
+<span class="c1"># 1960を閾値とする</span>
+<span class="n">yr</span> <span class="o">=</span> <span class="mi">1960</span>
 <span class="n">df_growth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @yr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
 <span class="c1"># 成長率の計算</span>
-<span class="n">df_growth</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;naGDPpc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span>
-<span class="c1"># 平均成長率の計算</span>
-<span class="n">growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">col</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;naGDPpc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+
 <span class="c1"># 1970以降で全ての年でGDPのデータある国・地域を抽出</span>
 <span class="n">notna_check</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="n">cond</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @yr&#39;</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;naGDPpc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[</span><span class="s1">&#39;naGDPpc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">notna_check</span><span class="p">)</span>
 <span class="n">growth</span> <span class="o">=</span> <span class="n">growth</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span>
+
 <span class="c1"># 日本の平均成長率</span>
-<span class="n">jp_growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country==&quot;Japan&quot;&#39;</span><span class="p">)[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">jp_growth</span> <span class="o">=</span> <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Japan&#39;</span><span class="p">,:][</span><span class="mi">0</span><span class="p">]</span>
+
 <span class="c1"># プロット</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">jp_growth</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">yr</span><span class="si">}</span><span class="s1">-2019年，</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">growth</span><span class="p">)</span><span class="si">}</span><span class="s1">の国・地域, PWT10.0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;１人当たり実質GDPの平均成長率(％)の分布&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -472,10 +487,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_6_0.png" src="_images/5_Income_Differences_6_0.png" />
+<img alt="_images/5_Income_Differences_7_0.png" src="_images/5_Income_Differences_7_0.png" />
 </div>
 </div>
-<p>日本の平均成長率は2.02％であり、図では赤い直線で示している。最も高い成長率は韓国の5.91％であり，最も低い成長率はアラブ首長国連邦のマイナス2.01％である。実に、最高と最低成長率の差は7.92％ある。また、マイナスの成長率とは一人当たり所得の減少を意味するが、157の国・地域のうち14（約8.9％）が約50年の間平均して所得が縮小しているのである。</p>
+<p>日本の平均成長率は3.1％であり、図では赤い直線で示している。最も高い成長率は台湾の5.61％であり，最も低い成長率はコンゴ民主共和国のマイナス1.62％である。実に、最高と最低成長率の差は7.23％ある。また、マイナスの成長率とは一人当たり所得の減少を意味するが、111の国・地域のうち8（約7.2％）が約60年の間平均して所得が縮小しているのである。</p>
 <blockquote>
 <div><p>（問２）なぜ国々の経済成長率は大きく異なるのか？</p>
 </div></blockquote>
@@ -815,6 +830,7 @@ data(dataset=None, description=0)
 </table>
 </div></div></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">countrycode</span></code>は3つのアルファベットで表した標準的な国名コードであり，日本は<code class="docutils literal notranslate"><span class="pre">JPN</span></code>となる。よく使われるので，<a class="reference external" href="https://ja.wikipedia.org/wiki/ISO_3166-1">このサイト</a>を参考に主な国の表記を覚えておくと良いだろう。</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><code class="docutils literal notranslate"><span class="pre">description=1</span></code>は表示するだけなので，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として扱いたい場合は<code class="docutils literal notranslate"><span class="pre">description=2</span></code>とする。</p>
@@ -1354,11 +1370,9 @@ memory usage: 176.0+ bytes
 <div class="section" id="id5">
 <h3>説明<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>経済間の所得格差の要因を探るために，次の生産関数を考えよう。</p>
-<div class="math notranslate nohighlight">
-\[
-Y_i=A_iK_i^\alpha H_i^{1-\alpha}
-,\quad
-M_i=h_iH_iL_i
+<div class="math notranslate nohighlight" id="equation-eq-5-production">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-5-production" title="Permalink to this equation">¶</a></span>\[
+Y_i=A_iK_i^\alpha\left(h_iH_iL_i\right)^{1-\alpha}
 ,\quad
 0&lt;\alpha&lt;1
 \]</div>
@@ -1372,8 +1386,8 @@ M_i=h_iH_iL_i
 <li><p><span class="math notranslate nohighlight">\(L_i\)</span>：労働者数</p></li>
 </ul>
 <p>GDPは労働，物的人的資本とTFPによって決定されると考える，ということである。このアプローチは「大雑把」な印象を否めないが，データを使う事により，重要な知見を得ることが可能となる。次に，生産関数を一人当たりに書き換えよう。</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-5-yi">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-5-yi" title="Permalink to this equation">¶</a></span>\[
 \frac{Y_i}{L_i}=A_i
 \left(
     \frac{K_i}{L_i}
@@ -1388,14 +1402,20 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-&amp;\text{人的資本サービス： } h_iH_i\\
-&amp;\text{蓄積生産要素： } k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
+&amp;\text{（労働者一人当たり）人的資本サービス： } h_iH_i\\
+&amp;\text{（労働者一人当たり）蓄積生産要素： } k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 \end{align*}
 \end{split}\]</div>
 <p>使うデータ・セットには，<span class="math notranslate nohighlight">\(y_i\)</span>，<span class="math notranslate nohighlight">\(k_i\)</span>，<span class="math notranslate nohighlight">\(h_i\)</span>に対応する変数があり，蓄積生産要素がどれだけ一人当たりGDPに寄与するかを数値で表すことができる。一方，全要素生産性は次の式で求めることができる。</p>
-<div class="math notranslate nohighlight">
-\[A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-5-ai">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-5-ai" title="Permalink to this equation">¶</a></span>\[
+A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
+\]</div>
 <p>これらの式とデータを使って，一人当たりGDPに対する蓄積生産要素と全要素生産性の寄与度を数量化する事になる。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>生産関数<a class="reference internal" href="#equation-eq-5-production">(1)</a>の仮定のもとで<span class="math notranslate nohighlight">\(A_i\)</span>が上昇したとしよう。物的人的資本の限界生産性が上昇するため，<span class="math notranslate nohighlight">\(k_i\)</span>と<span class="math notranslate nohighlight">\(H_i\)</span>は増加することになる。即ち，<span class="math notranslate nohighlight">\(A_i\)</span>の上昇により一人当たりGDPは上昇するが，間接的に<span class="math notranslate nohighlight">\(k_i\)</span>と<span class="math notranslate nohighlight">\(H_i\)</span>も増加させ<span class="math notranslate nohighlight">\(y_i\)</span>が増加する。これにより本来<span class="math notranslate nohighlight">\(A_i\)</span>による効果が<span class="math notranslate nohighlight">\(k_i\)</span>と<span class="math notranslate nohighlight">\(H_i\)</span>の寄与度に算入されることになり，全要素生産性の寄与度の過小評価につながる可能性がある。この問題は練習問題で取り上げることにする。</p>
+</div>
 <p>データ・セットに含まれるどの変数を使うかという問題があるが，ここでは次のデータを使うことにする。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rgdpo</span></code>：生産面から計算したGDP（current PPPs; in mil. 2011US$）</p>
@@ -1418,7 +1438,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hc</span></code>：人的資本の指標</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">hc</span></code>：一人当たり人的資本の指標</p>
 <ul>
 <li><p>教育年数と教育の収益から計算されている</p></li>
 </ul>
@@ -1465,7 +1485,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p><code class="docutils literal notranslate"><span class="pre">df</span></code>から2019年だけ<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し，メソッド<code class="docutils literal notranslate"><span class="pre">copy()</span></code>を使って，そのコピーを左辺の<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に割り当てている。これは，ある警告が出ないようにするためである。</p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span></code>から2019年だけ抽出後，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">copy()</span></code>を使いそのコピーを作成し，それを左辺の<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に割り当てている。ある警告が出ないようにするために<code class="docutils literal notranslate"><span class="pre">copy()</span></code>を使っている。さらに<code class="docutils literal notranslate"><span class="pre">Python</span></code>について学習した後に説明する事にする。</p>
 </div>
 <p>わかりやすくするために，全ての国の一人当たりGDPを米国の一人当たりGDPで割り、米国を１（基準）として議論を進める事にする。先に，米国だけのデータを抽出する。</p>
 <div class="cell docutils container">
@@ -1485,7 +1505,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p><code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code>は<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>に変換するメソッドである。</p>
+<p><code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code>は<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>に変換するメソッドである。<code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code>を省くと<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">Series</span></code>で割る事になりエラーとなる。</p>
 </div>
 <div class="section" id="id7">
 <h4>物的資本<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
@@ -1506,7 +1526,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_56_0.png" src="_images/5_Income_Differences_56_0.png" />
+<img alt="_images/5_Income_Differences_59_0.png" src="_images/5_Income_Differences_59_0.png" />
 </div>
 </div>
 <p>正の関係があることが確認できる。またデータの曲線トレンドは凹関数のようである。<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>に対する<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>増加の影響は，<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>が低いと大きく，<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>が高いと小さくなる。即ち，資本の限界生産性の逓減の反映と考えられる。ただ，この効果のみで上の図を解釈するには問題がある。第一に，異なる経済のクロスセクション・データ（横断面データ）であるため，経済間の様々な異質性が反映されている。即ち，全ての観測値は同じ生産関数から生成されている訳ではない。第二に，資本の限界生産性の逓減という概念は，労働や他の投入が一定のもとでの比較静学の結果である。しかし，他の投入は一定に固定されている訳ではない。これらを考慮しつつ図の解釈をするべきではあるが，データの裏には資本の限界生産性の逓減のメカニズムが働いていると考えるのは自然であろう。</p>
@@ -1531,7 +1551,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_62_0.png" src="_images/5_Income_Differences_62_0.png" />
+<img alt="_images/5_Income_Differences_65_0.png" src="_images/5_Income_Differences_65_0.png" />
 </div>
 </div>
 <p>正の関係があることがわかる。即ち，人的資本ストックが高ければ，一人当たり所得も増えるという事であり，非常に直感的でもある。一方，物的資本と比べると，曲線トレンドは凸関数になっている。裏にあるメカニズムとして様々なことが想定できる。</p>
@@ -1565,7 +1585,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_67_0.png" src="_images/5_Income_Differences_67_0.png" />
+<img alt="_images/5_Income_Differences_70_0.png" src="_images/5_Income_Differences_70_0.png" />
 </div>
 </div>
 <p>正の関係であることは変わらないが，相関度は減少している。これは労働時間の影響であるり，一人当たりGDPとの散布図をプロットして確認してみよう。</p>
@@ -1579,13 +1599,13 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_69_0.png" src="_images/5_Income_Differences_69_0.png" />
+<img alt="_images/5_Income_Differences_72_0.png" src="_images/5_Income_Differences_72_0.png" />
 </div>
 </div>
 <p>負の相関関係にあると言えるだろう。即ち，豊かな経済では労働時間が短くなる傾向にある。この傾向は，ミクロ経済学の授業で習った消費者の労働供給モデルを考えて解釈することができる。所得が上昇すると，所得効果により労働供給は減少するが，代替効果により労働時間は上昇する。上の図は，所得効果が代替効果を上回っている結果の反映と考えることが可能である。一方で，経済間では所得だけではなく他の要因も異なることも念頭においておこう。いずれにしろ，労働時間の負の関係により，人的資本サービスと一人当たりGDPの相関は弱くなっている。</p>
 </div>
-<div class="section" id="id9">
-<h4>全要素生産性<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="sec-5-tfp">
+<span id="id9"></span><h4>全要素生産性<a class="headerlink" href="#sec-5-tfp" title="Permalink to this headline">¶</a></h4>
 <p>米国を<code class="docutils literal notranslate"><span class="pre">1</span></code>に基準化して一人当たりGDPと全要素生産性との関係を図示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1597,7 +1617,7 @@ y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_73_0.png" src="_images/5_Income_Differences_73_0.png" />
+<img alt="_images/5_Income_Differences_77_0.png" src="_images/5_Income_Differences_77_0.png" />
 </div>
 </div>
 <p>正の相関関係にあることは明らかであり，直線のトレンドであることがわかる。物的資本の場合は凹関数トレンドで，限界生産性の逓減の反映とも解釈できた。人的資本の場合は凸関数トレンドで，外部性の効果が示唆された。全要素生産性の直線トレンドの解釈はどうなるのだろう。まず，物的資本のように，限界生産性の逓減があれば凹型トレンドになるはずだが，それを抑えるメカニズムが働いていると考えられる。それが正の外部性の存在である。</p>
@@ -1676,9 +1696,9 @@ Y_i=\tilde{A}_i\left(K_i^\alpha H_i^{1-\alpha}\right)^\mu,
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>は<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行を削除するメソッド
-*<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>は相関係数を計算するメソッド</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>は<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行を削除するメソッド</p></li>
 </ul>
+<p>*<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>は相関係数を計算するメソッド</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">GDPpc_relative</span></code>と<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>の相関係数は約<code class="docutils literal notranslate"><span class="pre">0.93</span></code>であり、非常に高いことがわかる。</p>
 <p>次に，蓄積生産要素と一人当たりGDPの散布図を作成し，相関係数を計算してみよう図示する。</p>
@@ -1692,7 +1712,7 @@ Y_i=\tilde{A}_i\left(K_i^\alpha H_i^{1-\alpha}\right)^\mu,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_79_0.png" src="_images/5_Income_Differences_79_0.png" />
+<img alt="_images/5_Income_Differences_83_0.png" src="_images/5_Income_Differences_83_0.png" />
 </div>
 </div>
 <p>視覚的には，TFPと比べて相関度は低いようである。コードで確認しよう。</p>
@@ -1743,8 +1763,8 @@ Y_i=\tilde{A}_i\left(K_i^\alpha H_i^{1-\alpha}\right)^\mu,
 <p>TFPより相関係数は低いことが確認できた。</p>
 </div>
 </div>
-<div class="section" id="id11">
-<h3>全要素生産性と蓄積生産要素の寄与度<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sec-tfp-factors">
+<span id="id11"></span><h3>全要素生産性と蓄積生産要素の寄与度<a class="headerlink" href="#sec-tfp-factors" title="Permalink to this headline">¶</a></h3>
 <p>全要素生産性と蓄積生産要素はそれぞれ一人当たりGDPにどれだけ寄与しているかを考えるために，次の方法を考える。まず生産関数を使い以下を定義する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1755,57 +1775,84 @@ R_i^y=R_i^{\text{tfp}}R_i^{\text{factors}}
 \[
 R_i^y\equiv\dfrac{y_i}{y_{\text{US}}},\quad
 R_i^{\text{tfp}}\equiv\dfrac{A_i}{A_{\text{US}}},\quad
-R_i^{\text{factors}}\equiv\dfrac{k_i^ah_i^{1-a}}{k_{\text{US}}^ah_{\text{US}}^{1-a}}
+R_i^{\text{factors}}\equiv
+\dfrac{k_i^a\left(h_iH_i\right)^{1-a}}{k_{\text{US}}^a\left(h_{\text{US}}H_{\text{US}}\right)^{1-a}}
 \]</div>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(R_i^y\)</span>：米国を基準とした相対所得</p></li>
 <li><p><span class="math notranslate nohighlight">\(R_i^{\text{tfp}}\)</span>：米国を基準とした相対全要素生産性</p></li>
 <li><p><span class="math notranslate nohighlight">\(R_i^{\text{factors}}\)</span>：米国を基準とした相対蓄積生産要素</p></li>
 </ol>
-<p>両辺に対数を取り、相対所得<span class="math notranslate nohighlight">\(R_i^y\)</span>の分散を計算する。</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}\left(\log\left(R_i^y\right)\right) =
-\text{Var}\left(\log\left(R_i^{\text{tfp}}\right)\right) +
-\text{Var}\left(\log\left(R_i^{\text{factors}}\right)\right) +
-2\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)
+<p>まず両辺に対数を取ると次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-riy-decomposition">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-riy-decomposition" title="Permalink to this equation">¶</a></span>\[
+r_i^y =
+r_i^{\text{tfp}} +
+r_i^{\text{factors}}
 \]</div>
-<p>左辺の相対所得の変動は右辺の３つの項に分解することができる。</p>
-<ol class="simple">
-<li><p>相対全要素生産性の変動：<span class="math notranslate nohighlight">\(\text{Var}\left(\log\left(R_i^{\text{tfp}}\right)\right)\)</span></p></li>
-<li><p>相対蓄積生産要素の変動：<span class="math notranslate nohighlight">\(\text{Var}\left(\log\left(R_i^{\text{factors}}\right)\right)\)</span></p></li>
-<li><p>相対全要素生産性と相対蓄積生産要素の共分散散：<span class="math notranslate nohighlight">\(2\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)\)</span></p></li>
-</ol>
-<p>これを利用して</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\text{全要素生産性の寄与度}&amp;=
-\dfrac{
-    \text{Var}\left(\log\left(R_i^{\text{tfp}}\right)\right)
-    +\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)
-    }{
-    \text{Var}(\log(R_i^y))
-    } \\
-\text{蓄積生産要素の寄与度}&amp;=
-\dfrac{
-    \text{Var}\left(\log\left(R_i^{\text{factors}}\right)\right)
-    +\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)
-    }{
-    \text{Var}(\log(R_i^y))
-    }    
-\end{align*}
-\end{split}\]</div>
-<p>を定義する。ここで <span class="math notranslate nohighlight">\(2\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)\)</span> は等分されている。</p>
-<p>（考え方）</p>
-<p>極端な例として、全ての経済の全要素生産性が同じで蓄積生産要素だけが異なる場合を考えよう。即ち，</p>
+<p>ここで，</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Var}\left(\log\left(R_i^{\text{tfp}}\right)\right)
-=\text{Cov}\left(\log\left(R_i^{\text{tfp}}\right),\log\left(R_i^{\text{factors}}\right)\right)
+r_i^y\equiv \log\left(R_i^y\right),\quad
+r_i^{\text{tfp}}\equiv\log\left(R_i^{\text{tfp}}\right),\quad
+r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
+\]</div>
+<p>次に式<a class="reference internal" href="#equation-eq-riy-decomposition">(4)</a>の両辺の分散を計算するが，次の関係が成立することを思い出そう。</p>
+<div class="math notranslate nohighlight" id="equation-eq-var-a-b">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-var-a-b" title="Permalink to this equation">¶</a></span>\[
+\text{Var}(a+b)= \text{Var}(a)+ \text{Var}(b)+2\text{Cov}(a,b)
+\]</div>
+<p>式<a class="reference internal" href="#equation-eq-var-a-b">(5)</a>を使うと<a class="reference internal" href="#equation-eq-riy-decomposition">(4)</a>は次のように書き換えることができる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-varriy-decomposition">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-varriy-decomposition" title="Permalink to this equation">¶</a></span>\[
+\text{Var}\left(r_i^y\right) =
+\text{Var}\left(r_i^{\text{tfp}}\right) +
+\text{Var}\left(r_i^{\text{factors}}\right) +
+2\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
+\]</div>
+<p>式<a class="reference internal" href="#equation-eq-varriy-decomposition">(6)</a>は左辺の相対所得の変動は右辺の３つの項に分解することができることを示している。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{tfp}}\right)\)</span>：全要素生産性（対数; 米国＝１）の変動</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{factors}}\right)\)</span>：蓄積生産要素（対数; 米国＝１）の変動</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span>：全要素生産性と相対蓄積生産要素の共分散（それぞれ対数; 米国＝１）</p></li>
+</ul>
+<p>更に，<a class="reference internal" href="#equation-eq-varriy-decomposition">(6)</a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(r_i^y)\)</span>で割ると，次のように書くことができる。</p>
+<div class="math notranslate nohighlight">
+\[
+1= \text{全要素生産性の寄与度}
++\text{蓄積生産要素の寄与度}
+\]</div>
+<p>ここで</p>
+<div class="math notranslate nohighlight" id="equation-eq-tfp-contribution">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-tfp-contribution" title="Permalink to this equation">¶</a></span>\[
+\text{全要素生産性の寄与度}=
+\dfrac{
+    \text{Var}\left(r_i^{\text{tfp}}\right)
+    +\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
+    }{
+    \text{Var}(r_i^y)
+    }
+\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-factor-contribution">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-factor-contribution" title="Permalink to this equation">¶</a></span>\[
+\text{蓄積生産要素の寄与度}=
+\dfrac{
+    \text{Var}\left(r_i^{\text{factors}}\right)
+    +\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
+    }{
+    \text{Var}(r_i^y)
+    }    
+\]</div>
+<p>と定義する。<span class="math notranslate nohighlight">\(2\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span> は等分されている。</p>
+<p>（考え方）</p>
+<p>式<a class="reference internal" href="#equation-eq-tfp-contribution">(7)</a>と<a class="reference internal" href="#equation-eq-factor-contribution">(8)</a>の分母は<span class="math notranslate nohighlight">\(\log(R_i^y)\)</span>の分散であり，それに対して分子はどれだけ変動しているかで寄与度を計算しようということである。分母に対して分子の変動が大きければ大きい程，説明力が高いと判断するわけである。極端な例として、全ての経済の全要素生産性が同じで蓄積生産要素だけが異なる場合を考えてみよう。即ち，</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}\left(r_i^{\text{tfp}}\right)=0\quad\Rightarrow\quad
+\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
 =0
 \]</div>
-<p>この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は<code class="docutils literal notranslate"><span class="pre">0</span></code>であり蓄積生産要素は<code class="docutils literal notranslate"><span class="pre">1</span></code>である。即ち、一人当たりGDP（対数）の分散に対して分散がより大きいほど説明力が高いといえる。</p>
+<p>この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は<code class="docutils literal notranslate"><span class="pre">0</span></code>であり蓄積生産要素は<code class="docutils literal notranslate"><span class="pre">1</span></code>である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 欠損値であるNaNがある行を削除</span>
@@ -1842,7 +1889,6 @@ R_i^{\text{factors}}\equiv\dfrac{k_i^ah_i^{1-a}}{k_{\text{US}}^ah_{\text{US}}^{1
 </div>
 </div>
 </div>
-<p>相対所得の変動の約<code class="docutils literal notranslate"><span class="pre">54</span></code>%は全要素生産性によって説明される。</p>
 <p><strong>蓄積生産要素の寄与度</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1856,7 +1902,6 @@ R_i^{\text{factors}}\equiv\dfrac{k_i^ah_i^{1-a}}{k_{\text{US}}^ah_{\text{US}}^{1
 </div>
 </div>
 </div>
-<p>相対所得の変動の約<code class="docutils literal notranslate"><span class="pre">46</span></code>%は蓄積生産要素によって説明される。</p>
 <p><strong>結果</strong></p>
 <p>2019年の一人当たりGDPの変動の約54%は全要素生産性によって説明され，残りの46%は蓄積生産要素によって説明される。即ち，一人当たりGDPの決定要因としての全要素生産性は蓄積生産要素は重要性は同等もしくはそれ以上である。</p>
 </div>
@@ -2044,7 +2089,7 @@ y_t=A_tk_t^a\left(h_tH_t\right)^{1-a}
 \[
 1+g_x\equiv\frac{x_{t+1}}{x_t}
 \]</div>
-<p>としよう。<span class="math notranslate nohighlight">\(g_x\)</span>は<span class="math notranslate nohighlight">\(x\)</span>の成長率（例えば、0.02）である。これにより、</p>
+<p>とすると，<span class="math notranslate nohighlight">\(g_x\)</span>は<span class="math notranslate nohighlight">\(x\)</span>の成長率（例えば、0.02）である。これにより、</p>
 <div class="math notranslate nohighlight">
 \[
     1+g_y=(1+g_A)(1+g_k)^a\left[(1+g_h)(1+g_H)\right]^{1-a}
@@ -2055,8 +2100,8 @@ y_t=A_tk_t^a\left(h_tH_t\right)^{1-a}
     \log(1+g_y)=\log(1+g_A)+a\log(1+g_k)+(1-a)\left[\log(1+g_h)+\log(1+g_H)\right]
 \]</div>
 <p>となる。また成長率が十分に小さい場合（例えば、0.02）、次式で近似することが可能となる。</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-gx-approx">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-gx-approx" title="Permalink to this equation">¶</a></span>\[
 \log(1+g_x)\approx g_x
 \]</div>
 <div class="cell docutils container">
@@ -2076,19 +2121,75 @@ y_t=A_tk_t^a\left(h_tH_t\right)^{1-a}
 \[
     g_y=g_A+ag_k+(1-a)(g_h+g_H)
 \]</div>
-<p>使うデータの期間を<span class="math notranslate nohighlight">\(n\)</span>とし、変数<span class="math notranslate nohighlight">\(x\)</span>の<span class="math notranslate nohighlight">\(n\)</span>年間の年間平均成長率を<span class="math notranslate nohighlight">\(g_x\)</span>としよう。この場合、次式が成立する。</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{x_{n}}{x_{0}}=(1+g_x)^{n}
+<p>となる。</p>
+<p>この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数<span class="math notranslate nohighlight">\(x\)</span>が<span class="math notranslate nohighlight">\(n\)</span>年間<span class="math notranslate nohighlight">\(g_x\)</span>の率で成長したとしよう。初期の<span class="math notranslate nohighlight">\(x=x_0\)</span>に対する<span class="math notranslate nohighlight">\(n\)</span>年後の比率を考えると，次式が成立する。</p>
+<div class="math notranslate nohighlight" id="equation-eq-5-growth-average-expanded">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-5-growth-average-expanded" title="Permalink to this equation">¶</a></span>\[
+\frac{x_{n}}{x_{0}}=
+\frac{x_1}{x_{0}}\cdot
+\frac{x_2}{x_{1}}\cdot
+\frac{x_3}{x_{2}}\cdot
+\cdots
+\frac{x_{n-2}}{x_{n-3}}\cdot
+\frac{x_{n-1}}{x_{n-2}}\cdot
+\frac{x_n}{x_{n-1}}
+=(1+g_x)^{n}
 \]</div>
-<p>この式を書き直すと次式となる。</p>
-<div class="math notranslate nohighlight">
-\[
+<p>この式の両辺を<span class="math notranslate nohighlight">\(1/n\)</span>乗すると次式となる。
+$<span class="math notranslate nohighlight">\(
+\left(\frac{x_n}{x_0}\right)^{\frac{1}{n}}=1+g_x
+\)</span>$</p>
+<p>即ち，<span class="math notranslate nohighlight">\(1+g_x\)</span>は<span class="math notranslate nohighlight">\(\dfrac{x_n}{x_0}\)</span>の幾何平均であり，<span class="math notranslate nohighlight">\(g_x\)</span>が平均成長率である。</p>
+<div class="math notranslate nohighlight" id="equation-eq-5-growth-average">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eq-5-growth-average" title="Permalink to this equation">¶</a></span>\[
 g_x=
 \left(
 \dfrac{x_{n}}{x_{0}}
 \right)^{\frac{1}{n}}-1
 \]</div>
+<p>この場合，算術平均ではなく幾何平均を使うことに注意しよう。また<span class="math notranslate nohighlight">\(g_x\)</span>が毎期毎期違っても式<a class="reference internal" href="#equation-eq-5-growth-average">(11)</a>は成立することも覚えておこう。</p>
+<p>年間平均成長率を計算する場合，<a class="reference internal" href="#equation-eq-5-growth-average-expanded">(10)</a>の両辺を対数化し式<a class="reference internal" href="#equation-eq-gx-approx">(9)</a>の近似を使う方法もある。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\ln\left(\frac{x_n}{x_0}\right)
+&amp;=\ln\left(1+g_x\right)^n \\
+&amp;\Downarrow
+\end{align*}
+\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-5-growth-average-2">
+<span class="eqno">(12)<a class="headerlink" href="#equation-eq-5-growth-average-2" title="Permalink to this equation">¶</a></span>\[
+g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
+\]</div>
+<p><span class="math notranslate nohighlight">\(g_x\)</span>が十分に小さい場合は，<a class="reference internal" href="#equation-eq-5-growth-average">(11)</a>と<a class="reference internal" href="#equation-eq-5-growth-average-2">(12)</a>のどちらを使っても大きな差は出ない。重要な点は，どちらかの一つの方法を計算の対象全てに一貫して使うことである。</p>
+<p>例：<span class="math notranslate nohighlight">\(x_0=10\)</span>，<span class="math notranslate nohighlight">\(x_n=30\)</span>，<span class="math notranslate nohighlight">\(n=50\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">xn</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">n</span>  <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">houhou1</span> <span class="o">=</span> <span class="p">(</span><span class="n">xn</span><span class="o">/</span><span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">houhou2</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">n</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;方法１：</span><span class="si">{</span><span class="n">houhou1</span><span class="si">:}</span><span class="se">\n</span><span class="s1">方法２：</span><span class="si">{</span><span class="n">houhou2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>方法１：0.022215413278477092
+方法２：0.02197224577336219
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>は以前説明した<code class="docutils literal notranslate"><span class="pre">f-string</span></code>である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code>は改行を意味する。</p></li>
+</ul>
+</div>
 <p>Penn World Tableの次の変数を使う。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rgdpna</span></code>：実質GDP</p>
@@ -2331,7 +2432,7 @@ g_x=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_118_0.png" src="_images/5_Income_Differences_118_0.png" />
+<img alt="_images/5_Income_Differences_124_0.png" src="_images/5_Income_Differences_124_0.png" />
 </div>
 </div>
 <p>多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も存在する。平均成長率がマイナスの国数を計算してみよう。</p>
@@ -2465,7 +2566,7 @@ g_{\text{factors}}=ag_k+(1-a)(g_h+g_H)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_129_0.png" src="_images/5_Income_Differences_129_0.png" />
+<img alt="_images/5_Income_Differences_135_0.png" src="_images/5_Income_Differences_135_0.png" />
 </div>
 </div>
 <p>マイナスの成長率の国数を調べてみよう。</p>
@@ -2505,7 +2606,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_136_0.png" src="_images/5_Income_Differences_136_0.png" />
+<img alt="_images/5_Income_Differences_142_0.png" src="_images/5_Income_Differences_142_0.png" />
 </div>
 </div>
 <p>蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。</p>
@@ -2533,7 +2634,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_141_0.png" src="_images/5_Income_Differences_141_0.png" />
+<img alt="_images/5_Income_Differences_147_0.png" src="_images/5_Income_Differences_147_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -2640,7 +2741,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6120634566381636
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6120634566381635
 </pre></div>
 </div>
 </div>
@@ -2653,7 +2754,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3879365433618367
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.38793654336183664
 </pre></div>
 </div>
 </div>
@@ -3076,7 +3177,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_170_0.png" src="_images/5_Income_Differences_170_0.png" />
+<img alt="_images/5_Income_Differences_176_0.png" src="_images/5_Income_Differences_176_0.png" />
 </div>
 </div>
 <p>1960年代をピークに成長率は下降線をたどっている。</p>
@@ -3089,7 +3190,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_172_0.png" src="_images/5_Income_Differences_172_0.png" />
+<img alt="_images/5_Income_Differences_178_0.png" src="_images/5_Income_Differences_178_0.png" />
 </div>
 </div>
 <p>以下では，全要素生産性と蓄積生産要素の成長率に焦点を当てるので，<code class="docutils literal notranslate"><span class="pre">dropna()</span></code>を使って1950年代のデータは削除する。</p>
@@ -3109,7 +3210,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_176_0.png" src="_images/5_Income_Differences_176_0.png" />
+<img alt="_images/5_Income_Differences_182_0.png" src="_images/5_Income_Differences_182_0.png" />
 </div>
 </div>
 <p>次のグラフでは，一人当たりGDPの線グラフと一緒に表示している。</p>
@@ -3122,233 +3223,11 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_178_0.png" src="_images/5_Income_Differences_178_0.png" />
+<img alt="_images/5_Income_Differences_184_0.png" src="_images/5_Income_Differences_184_0.png" />
 </div>
 </div>
 <p>1990年代に入ると，それ以前と比べて全要素生産性の成長率の下落が著しく，一人当たりGDPの成長率に大きく影響している。「失われた10年」の原因と主張する研究者もいる。</p>
 </div>
-</div>
-<div class="section" id="id23">
-<h2>所得分布の推移<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
-<p>世界経済の所得分布が時間と共にどのように変化したかを考える。手法としては，一人当たりGDPの分布自体の変化を図示して確認する。分析に使うデータはPenn World Talbeの次の２変数：</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rgdpe</span></code>：支出面から計算したGDP（連鎖PPPs; in mil. 2017US$）</p>
-<ul>
-<li><p>経済間そして時系列的にも一定な価格を使い計算されてい「実質」</p></li>
-<li><p>経済間そして時間の次元での比較に適している</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pop</span></code>：人口（in millions）</p></li>
-</ul>
-<p>一人当たりGDPの変数（対数）を作成する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rgdpe&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span> <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>2019年の日本の一人当たりGDP</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_jp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;Japan&quot; &amp; year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>
-<span class="n">y_jp</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6159    10.587516
-Name: gdp_pc_log, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>このコードで返されるのは<code class="docutils literal notranslate"><span class="pre">Series</span></code>なので，<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>の値自体を抽出するためには<code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code>を使う。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_jp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.587515569810463
-</pre></div>
-</div>
-</div>
-</div>
-<p>次に2019年のヒストグラムを作成しよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_189_0.png" src="_images/5_Income_Differences_189_0.png" />
-</div>
-</div>
-<p>ヒストグラムは縦軸に度数，横軸に階級を取ったグラフだが，関連する手法に<a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">カーネル密度推定</a>と呼ばれるものがある。考え方は簡単で，上のようなヒストグラムのデータに基づき面積が１になるようにスムーズな分布を推計する手法である。詳細は割愛するが，下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ヒストグラム</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># 密度関数</span>
-<span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-
-<span class="c1"># 日本</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">y_jp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-
-<span class="c1"># 横軸の表示範囲</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_191_0.png" src="_images/5_Income_Differences_191_0.png" />
-</div>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">コードの説明</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">density=True</span></code>は縦軸を確率として表示する引数</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">kind='density'</span></code>は分布のスムーズな形を推定し表示する引数（密度関数を推定する）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は<code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドであり，横軸の第一引数の値に垂直線を表示する。<code class="docutils literal notranslate"><span class="pre">color</span></code>は色を指定する引数。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>は横軸の表示範囲を指定する。</p></li>
-</ul>
-</div>
-<p>最頻値（モード）は中心より右側にあるが，横軸は対数になっていることを思い出そう。対数を取らない分布では，最頻値は分布の中心より左側に位置することになる。試してみよう。</p>
-<p>ここで確かめたいのは，約70年の間に上の所得分布のどのように変化してきたか，という問題である。この問いに答えるために，カーネル密度関数（<code class="docutils literal notranslate"><span class="pre">kind=density</span></code>）を使って1950年から10年毎の分布を表示する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">+</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span>                        <span class="c1"># (1)</span>
-
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 1950&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="c1"># (2)</span>
-                                                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1950&#39;</span><span class="p">,</span>
-                                                  <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yr_list</span><span class="p">:</span>                                                 <span class="c1"># (3)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == @y&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span>     <span class="c1"># (4)</span>
-                                              <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-                                              <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                              <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">12.5</span><span class="p">])</span>                                          <span class="c1"># (5)</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_194_0.png" src="_images/5_Income_Differences_194_0.png" />
-</div>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">コードの説明</p>
-<ul class="simple">
-<li><p>(1) <code class="docutils literal notranslate"><span class="pre">range(start,</span> <span class="pre">end,</span> <span class="pre">step)</span></code>は<code class="docutils literal notranslate"><span class="pre">start</span></code>から<code class="docutils literal notranslate"><span class="pre">end</span></code>までの整数を<code class="docutils literal notranslate"><span class="pre">step</span></code>の間隔で準備する。更に<code class="docutils literal notranslate"><span class="pre">list()</span></code>を使ってリストに変換し，<code class="docutils literal notranslate"><span class="pre">+[2019]</span></code>を使ってリストの最後に<code class="docutils literal notranslate"><span class="pre">2019</span></code>を追加している。</p></li>
-<li><p>(2) 1950年の密度関数を表示し，その「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
-<li><p>(3) <code class="docutils literal notranslate"><span class="pre">yr_list</span></code>に対しての<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで1960から10年毎のループとなる。</p></li>
-<li><p>(4) <code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で表示する密度関数</p>
-<ul>
-<li><p>「軸」を選ぶ引数<code class="docutils literal notranslate"><span class="pre">ax</span></code>には<code class="docutils literal notranslate"><span class="pre">ax_</span></code>を選んでいる。</p></li>
-</ul>
-</li>
-<li><p>(5) <code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドである<code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>は横軸の表示範囲を指定する。</p>
-<ul>
-<li><p>最小値，最大値をリストもしくはタプルで指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>が設定されない場合は，自動で設定される。</p></li>
-</ul>
-</li>
-</ul>
-</div>
-<p>分布の偏り（もしくは頂点）が左から右に移っているように見える。一方，1960年の分布の最頻値（モード）は1950年のそれの左に位置している。これは，それぞれの年に<code class="docutils literal notranslate"><span class="pre">gdp_pc</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国数は変わっており，1950年と1960年のサンプルにある国数は大きく違うためである。それぞれの年の国数を調べるために，次のコードを実行してみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>183
-</pre></div>
-</div>
-</div>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">コードの説明</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返す。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>は<code class="docutils literal notranslate"><span class="pre">1</span></code>と数えられるので，メソッド<code class="docutils literal notranslate"><span class="pre">sum()</span></code>を使うことにより<code class="docutils literal notranslate"><span class="pre">True</span></code>の数，即ち，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない要素の数を返す。</p></li>
-</ul>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って数えてみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gdp_pc_logに含まれる国数：</span><span class="se">\n</span><span class="s1">----------------------&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1950</span><span class="p">]</span><span class="o">+</span><span class="n">yr_list</span><span class="p">:</span>
-    
-    <span class="n">no</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == @y&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">：</span><span class="si">{</span><span class="n">no</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdp_pc_logに含まれる国数：
-----------------------
-1950：55
-1960：111
-1970：157
-1980：157
-1990：181
-2000：181
-2010：183
-2019：183
-</pre></div>
-</div>
-</div>
-</div>
-<p>データが整備されている国は典型的に先進国であり，後から含まれる国は比較的に所得が低い経済である。従って，貧しい国が所得分布に含まれることにより，分布は左側に引っ張られる傾向にある。特に，1950年から1960年には2倍以上になっており，上で説明したように，その影響で1960年の最頻値（モード）は1950年のそれよりも低くなっている。1960年以降も国数は増え続けるが，それでも分布の最頻値が右に移って行くということは，貧しい国が豊かな国に少しずつ追いついていることを示している。例えば，台湾，シンガポール，香港，韓国，中国やインドなど。</p>
-<p>次に，分布の広がりの指標として変動係数を考えてみる。</p>
-<p>変動係数（Coefficient of Variation）＝<span class="math notranslate nohighlight">\(\dfrac{\text{標準偏差}}{\text{平均}}\)</span></p>
-<p>変動係数は，平均値１単位あたりの標準偏差を表しており，平均値を使って標準化することにより分布の幅の程度を比べることが可能となる。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cv_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 空のリスト</span>
-
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>
-    <span class="n">stdev</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == @y&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>  <span class="c1"># 標準偏差の計算</span>
-    <span class="n">avr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == @y&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>   <span class="c1"># 平均の計算</span>
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">stdev</span> <span class="o">/</span> <span class="n">avr</span>                                    <span class="c1"># 変動係数の計算</span>
-    <span class="n">cv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>                                  <span class="c1"># リストに追加</span>
-
-<span class="n">df_cv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;CV&#39;</span><span class="p">:</span><span class="n">cv_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>最後の行の引数<code class="docutils literal notranslate"><span class="pre">index=year_list</span></code>はインデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cv</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5_Income_Differences_204_0.png" src="_images/5_Income_Differences_204_0.png" />
-</div>
-</div>
-<p>サンプルに含まれる国数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろには国数の増加は少なくり，それと同時に変動係数は減少し始めている。即ち，少なくとも1990年頃から経済間の所得格差は減少している。</p>
-<p>＜これまでの分析で注意する点＞</p>
-<ul class="simple">
-<li><p>分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。</p></li>
-<li><p><strong>国内</strong>の所得不平等は全く考慮されていない。</p></li>
-<li><p>年によって計算に含まれる国数が異なる。</p></li>
-</ul>
 </div>
 </div>
 
@@ -3378,7 +3257,7 @@ Name: gdp_pc_log, dtype: float64
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="4_Matplotlib.html" title="previous page">Matplotlib</a>
-    <a class='right-next' id="next-link" href="Pandas_plot.html" title="next page">Pandas：プロット</a>
+    <a class='right-next' id="next-link" href="6_Regression.html" title="next page">回帰分析</a>
 
         </div>
         
