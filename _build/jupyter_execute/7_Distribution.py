@@ -453,8 +453,8 @@ df_reg['gdp_pc1960_for_grow'] = df_reg['rgdpna1960']/df_reg['pop1960']
 df_reg['gdp_pc2019_for_grow'] = df_reg['rgdpna2019']/df_reg['pop2019']
 
 # それぞれの国の平均成長率
-df_reg['growth'] = 100 *( ( df_reg['gdp_pc2019_for_grow']/df_reg['gdp_pc1960_for_grow']
-                          )**(1/(2019-1960+1))-1)
+df_reg['growth'] = ( df_reg['gdp_pc2019_for_grow']/df_reg['gdp_pc1960_for_grow']
+                   )**(1/(2019-1960+1))-1
 
 # growthがNaNの行は削除
 df_reg = df_reg.dropna(subset=['growth'])
@@ -607,9 +607,9 @@ def growth_regression(yr):
     df0['gdp_pc2019_for_grow'] = df0['rgdpna2019']/df0['pop2019']
 
     # それぞれの国の平均成長率
-    df0['growth'] = 100 *( ( df0['gdp_pc2019_for_grow']/df0['gdp_pc0_for_grow']
-                           )**(1/(2019-yr+1))-1
-                         )
+    df0['growth'] =  ( df0['gdp_pc2019_for_grow']/df0['gdp_pc0_for_grow']
+                     )**(1/(2019-yr+1))-1
+
 
     # 列 growthとcgdpe0 に欠損値がある行は削除
     df0 = df0.dropna(subset=['growth','cgdpe0'])
