@@ -464,14 +464,3 @@ print(f'全要素生産性の寄与度：{result_tfp.params[1]}\n'
 # ```
 
 # [全要素生産性と蓄積生産要素の寄与度](sec:5-tfp-factors)で計算した値と同じになることが確認できる。
-
-# ## 練習問題
-# 
-# ````{admonition} 練習問題
-# 全要素生産性のトレンド回帰分析の推定式を次のようにする。
-# ```
-# formula = 'np.log(gdp_pc_relative) ~ np.log(tfp_relative)'
-# ```
-# ````
-# 
-# 
