@@ -540,7 +540,8 @@ G=\frac{n}{(n-1)(n-2)}
 <p>これらの点を考えるために<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国数を確認しよう。次のコードは，2019年に<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値ではない国数を返している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -553,7 +554,7 @@ G=\frac{n}{(n-1)(n-2)}
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">notna</span></code>は英語の<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">na</span></code>のことであり，<code class="docutils literal notranslate"><span class="pre">na</span></code>は<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">available</span></code>の略で欠損値のこと。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>は<code class="docutils literal notranslate"><span class="pre">1</span></code>と数えられるので，メソッド<code class="docutils literal notranslate"><span class="pre">sum()</span></code>を使うことにより<code class="docutils literal notranslate"><span class="pre">True</span></code>の数，即ち，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない要素の数を返す。</p></li>
 </ul>
 </div>
@@ -1216,16 +1217,16 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jb"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "jb",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jb'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

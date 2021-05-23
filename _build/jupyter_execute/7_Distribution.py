@@ -238,11 +238,12 @@ pass
 # In[9]:
 
 
-df.query('year == 2019')['gdp_pc_log'].notna().sum()
+cond = ( df.loc[:,'year']==2019 )
+df.loc[cond,'gdp_pc_log'].notna().sum()
 
 
 # ```{admonition} コードの説明
-# * `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`であれば`False`を，`NaN`でなければ`True`を返す。
+# * `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`でなければ`True`を返し，`NaN`であれば`False`を返す。`notna`は英語の`not na`のことであり，`na`は`not available`の略で欠損値のこと。
 # * `True`は`1`と数えられるので，メソッド`sum()`を使うことにより`True`の数，即ち，`NaN`ではない要素の数を返す。
 # ```
 
