@@ -92,20 +92,20 @@ df['naGDPpc'] = df['rgdpna']/df['pop']
 yr = 1960
 df_growth = df.query('year >= @yr').copy()
 
+# yr以降で全ての年でGDPのデータある国・地域を抽出
+notna_check = lambda x: x.notna().all()
+cond = df_growth[['country','year','naGDPpc']].groupby('country')['naGDPpc'].transform(notna_check)
+df_growth = df_growth.loc[cond,:]
+
 # 成長率の計算
 def fun(col):
-    return (col.iat[-1]/col.iat[0])**(1/len(col))-1
-growth = df_growth.groupby('country')[['naGDPpc']].agg(fun)*100
+    return 100 * ( (col.iat[-1]/col.iat[0])**(1/len(col))-1 )
+growth = df_growth.groupby('country')[['naGDPpc']].agg(fun)
 
-# 1970以降で全ての年でGDPのデータある国・地域を抽出
-notna_check = lambda x: x.notna().all()
-cond = df.query('year >= @yr')[['country','year','naGDPpc']].groupby('country')['naGDPpc'].agg(notna_check)
-growth = growth[cond]
-
-# 日本の平均成長率
+# # 日本の平均成長率
 jp_growth = growth.loc['Japan',:][0]
 
-# プロット
+# # プロット
 fig, ax = plt.subplots(figsize=(6,4), tight_layout=True)
 ax.hist(growth, bins=25, edgecolor='black', linewidth=1.2)
 ax.axvline(jp_growth, c='red')
@@ -169,13 +169,13 @@ df.head()
 
 
 # 次の変数は上の定義のリストには含まれていないので，ここで簡単に紹介する。
-# * `oecd`：OECDのメンバー国であれば`1`，そうでなければ`0`
-# * `income_group_wb`：世界銀行は所得水準に従って国を次の４つに分けており，それを使っている。
+# * `oecd`：1990年代に始まった中央ヨーロッパへの拡大前にOECDメンバー国であれば`1`，そうでなければ`0`
+# * `income_group`：世界銀行は所得水準に従って国を次の４つに分けており，それを使っている。
 #     * High income
 #     * Upper middle income
 #     * Lower middle income
 #     * Low income
-# * `region_wb`：世界銀行は次の７つの地域に国・地域をグループ化しており，それを使っている。
+# * `region`：世界銀行が国・地域に従って分けた７つのグループ化
 #     * East Asia & Pacific
 #     * Europe & Central Asia
 #     * Latin America & Caribbean
@@ -514,7 +514,7 @@ pass
 # 
 # > If I have seen further, it is by standing on the shoulders of Giants.
 # 
-# ここでのhave seenとはニュートンの天才的な能力・発見を指し，the shoulders of Giantsは先人が築き上げた知識・知見を意味する。ここで重要な点は，ニュートンは殆ど無料（書籍代や読書の機会費用はあるだろうが）で当時までに蓄積された知識を使うことができたということである。また多くの「先人」はニュートンがアイデアを参考にするとは想定していない，もしくはアイデアを使う対価を受け取っていないと思われれ，まさしく正の外部性が存在している（研究開発には負の外部性もある）。このようなことは，今でも発生している。新薬や新しいくゲーム・ソフトを作る場合，まず市場にある財を参考にする。知的財産権で守られているためコピー商品は違法だが，特許で開示されている技術やデザインなどを参考に新たな財を作り出すことは日常茶飯事である。この考えを使って上のデータを解釈してみよう。技術水準が低ければ，他から学ぶ土壌が乏しい。従って，TFPが低い場合は一人当たりGDPに対する影響は限定的になる。しかし技術水準が高ければ，他からより多くを学ぶ環境が存在するため，TFPの効果はより大きなものとなって現れていると考えられる。この効果により，技術水準の限界生産性の逓減が中和され直線トレンドとしてあらわれていると解釈できる。
+# ここでのhave seen furtherとはニュートンの天才的な能力・発見を指し，the shoulders of Giantsは先人が築き上げた知識・知見を意味する。ここで重要な点は，ニュートンは殆ど無料（書籍代や読書の機会費用はあるだろうが）で当時までに蓄積された知識を使うことができたということである。また多くの「先人」はニュートンがアイデアを参考にするとは想定していない，もしくはアイデアを使う対価を受け取っていないと思われれ，まさしく正の外部性が存在している（研究開発には負の外部性もある）。このようなことは，今でも発生している。新薬や新しいくゲーム・ソフトを作る場合，まず市場にある財を参考にする。知的財産権で守られているためコピー商品は違法だが，特許で開示されている技術やデザインなどを参考に新たな財を作り出すことは日常茶飯事である。この考えを使って上のデータを解釈してみよう。技術水準が低ければ，他から学ぶ土壌が乏しい。従って，TFPが低い場合は一人当たりGDPに対する影響は限定的になる。しかし技術水準が高ければ，他からより多くを学ぶ環境が存在するため，TFPの効果はより大きなものとなって現れていると考えられる。この効果により，技術水準の限界生産性の逓減が中和され直線トレンドとしてあらわれていると解釈できる。
 # 
 # 関連する問題として，生産関数の仮定と全要素生産性の関係について次の点を付け加えておく。TFPを計算する上でコブ・ダグラス生産関数を使ったが，規模に対して収穫一定を仮定している。もしこの仮定が間違っていて，規模に関して収穫逓増が正しい場合どのようなバイアスが発生するのだろうか。この点を明らかにするために，真の生産関数が次式で与えられるとしよう。
 # 
@@ -579,7 +579,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 
 # ### 全要素生産性と蓄積生産要素の寄与度
 
-# (5-sec-tfp-factors)=
+# (sec:5-tfp-factors)=
 # ### 全要素生産性と蓄積生産要素の寄与度
 
 # 全要素生産性と蓄積生産要素はそれぞれ一人当たりGDPにどれだけ寄与しているかを考えるために，次の方法を考える。まず生産関数を使い以下を定義する。
@@ -844,6 +844,7 @@ np.log(1+0.02)
 # $$ (eq:5-growth_average-expanded)
 # 
 # この式の両辺を$1/n$乗すると次式となる。
+# 
 # $$
 # \left(\frac{x_n}{x_0}\right)^{\frac{1}{n}}=1+g_x
 # $$
@@ -857,7 +858,7 @@ np.log(1+0.02)
 # \right)^{\frac{1}{n}}-1
 # $$ (eq:5-growth_average)
 # 
-# この場合，算術平均ではなく幾何平均を使うことに注意しよう。また$g_x$が毎期毎期違っても式[](eq:5-growth_average)は成立することも覚えておこう。
+# この場合，算術平均ではなく幾何平均を使うことに注意しよう。また毎期毎期の成長率が違っても同じ結果[](eq:5-growth_average)は成立することも覚えておこう。
 # 
 # 年間平均成長率を計算する場合，[](eq:5-growth_average-expanded)の両辺を対数化し式[](eq:gx_approx)の近似を使う方法もある。
 # 
@@ -1466,9 +1467,3 @@ pass
 # * Hall and Jones (99, QJE, p.88)
 # * 
 # ```
-
-# In[ ]:
-
-
-
-

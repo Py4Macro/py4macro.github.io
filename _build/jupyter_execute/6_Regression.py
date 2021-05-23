@@ -287,17 +287,21 @@ df2019['OLS fitted'] = result.fittedvalues
 
 
 ax_ = df2019.plot(x='tfp_relative', y='gdp_pc_relative', kind='scatter')
-df2019.plot(x='tfp_relative',
-            y='OLS fitted',
-            color='r',
-            ax=ax_)
+df2019.sort_values('OLS fitted').plot(x='tfp_relative',
+                                      y='OLS fitted',
+                                      color='r',
+                                      ax=ax_)
 pass
 
+
+# ```{admonition} コードの説明
+# ２行目の`sort_values()`は引数の`'OLS fitted'`を基準に昇順に並べ替える。これを指定しないと直線が綺麗に表示されない。
+# ```
 
 # ````{note}
 # 係数の推定値は、`result`の属性`params`でアクセスできることを説明したが、この値を使い次のコードで`gdp_pc_relative`の予測値を計算することも可能である。
 # ```
-# df2019['fitted'] = ahat + bhat * df2019['tfp_relative']
+# df2019['fitted'] = ahat + bhat * df2019.loc[:,'tfp_relative']
 # ```
 # ````
 
@@ -459,7 +463,7 @@ print(f'全要素生産性の寄与度：{result_tfp.params[1]}\n'
 # * `\n`は改行という意味。
 # ```
 
-# [全要素生産性と蓄積生産要素の寄与度](5-sec-tfp-factors)で計算した値と同じになることが確認できる。
+# [全要素生産性と蓄積生産要素の寄与度](sec:5-tfp-factors)で計算した値と同じになることが確認できる。
 
 # ## 練習問題
 # 

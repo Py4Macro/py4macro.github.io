@@ -457,8 +457,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Fri, 21 May 2021   Prob (F-statistic):           7.55e-26
-Time:                        14:34:40   Log-Likelihood:                 49.266
+Date:                Sun, 23 May 2021   Prob (F-statistic):           7.55e-26
+Time:                        15:25:15   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -694,10 +694,10 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
-            <span class="n">y</span><span class="o">=</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
-            <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+<span class="n">df2019</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
+                                      <span class="n">y</span><span class="o">=</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">,</span>
+                                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                                      <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -706,10 +706,14 @@ dtype: float64
 <img alt="_images/6_Regression_44_0.png" src="_images/6_Regression_44_0.png" />
 </div>
 </div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<p>２行目の<code class="docutils literal notranslate"><span class="pre">sort_values()</span></code>は引数の<code class="docutils literal notranslate"><span class="pre">'OLS</span> <span class="pre">fitted'</span></code>を基準に昇順に並べ替える。これを指定しないと直線が綺麗に表示されない。</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>係数の推定値は、<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">params</span></code>でアクセスできることを説明したが、この値を使い次のコードで<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>の予測値を計算することも可能である。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df2019</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -874,7 +878,7 @@ y_i = a + bx_i+e_i
 <li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code>は改行という意味。</p></li>
 </ul>
 </div>
-<p><a class="reference internal" href="5_Income_Differences.html#sec-tfp-factors"><span class="std std-ref">全要素生産性と蓄積生産要素の寄与度</span></a>で計算した値と同じになることが確認できる。</p>
+<p><a class="reference internal" href="5_Income_Differences.html#sec-5-tfp-factors"><span class="std std-ref">全要素生産性と蓄積生産要素の寄与度</span></a>で計算した値と同じになることが確認できる。</p>
 </div>
 </div>
 </div>
@@ -888,16 +892,16 @@ y_i = a + bx_i+e_i
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jb"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "jb",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jb'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
