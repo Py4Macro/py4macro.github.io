@@ -287,6 +287,7 @@
                 
   <div class="section" id="id1">
 <h1>所得分布と所得収斂<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>If you come here without expecting Japanese, please click <a class="reference external" href="https://translate.google.com/translate?sl=auto&amp;tl=en&amp;u=https://py4macro.github.io/7_Distribution.html">Google translated version</a> in English or the language of your choice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -373,7 +374,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_13_0.png" src="_images/7_Distribution_13_0.png" />
+<img alt="_images/7_Distribution_14_0.png" src="_images/7_Distribution_14_0.png" />
 </div>
 </div>
 <p>ヒストグラムは縦軸に度数，横軸に階級を取ったグラフだが，関連する手法に<a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">カーネル密度推定</a>と呼ばれるものがある。考え方は簡単で，上のようなヒストグラムのデータに基づき面積が１になるようにスムーズな分布を推計する手法である。詳細は割愛するが，下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。</p>
@@ -395,7 +396,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_15_0.png" src="_images/7_Distribution_15_0.png" />
+<img alt="_images/7_Distribution_16_0.png" src="_images/7_Distribution_16_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -429,7 +430,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_18_0.png" src="_images/7_Distribution_18_0.png" />
+<img alt="_images/7_Distribution_19_0.png" src="_images/7_Distribution_19_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -505,7 +506,7 @@ G=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_22_0.png" src="_images/7_Distribution_22_0.png" />
+<img alt="_images/7_Distribution_23_0.png" src="_images/7_Distribution_23_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -528,7 +529,8 @@ G=\frac{n}{(n-1)(n-2)}
 <p>これらの点を考えるために<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国数を確認しよう。次のコードは，2019年に<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値ではない国数を返している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -541,7 +543,7 @@ G=\frac{n}{(n-1)(n-2)}
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">notna</span></code>は英語の<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">na</span></code>のことであり，<code class="docutils literal notranslate"><span class="pre">na</span></code>は<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">available</span></code>の略で欠損値のこと。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>は<code class="docutils literal notranslate"><span class="pre">1</span></code>と数えられるので，メソッド<code class="docutils literal notranslate"><span class="pre">sum()</span></code>を使うことにより<code class="docutils literal notranslate"><span class="pre">True</span></code>の数，即ち，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない要素の数を返す。</p></li>
 </ul>
 </div>
@@ -561,7 +563,7 @@ G=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_28_0.png" src="_images/7_Distribution_28_0.png" />
+<img alt="_images/7_Distribution_29_0.png" src="_images/7_Distribution_29_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -608,7 +610,7 @@ G=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_33_0.png" src="_images/7_Distribution_33_0.png" />
+<img alt="_images/7_Distribution_34_0.png" src="_images/7_Distribution_34_0.png" />
 </div>
 </div>
 <p>サンプルに含まれる国数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろにはデータセットに含まれる国数は安定し，その後直ぐに変動係数は減少し始めている。即ち，少なくとも1990年代半ば頃から経済間の所得格差は減少している。変動係数を見る限りキャッチアップの効果が1990年代から現れていると言える。</p>
@@ -933,7 +935,7 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_51_0.png" src="_images/7_Distribution_51_0.png" />
+<img alt="_images/7_Distribution_52_0.png" src="_images/7_Distribution_52_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -1026,7 +1028,7 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_65_0.png" src="_images/7_Distribution_65_0.png" />
+<img alt="_images/7_Distribution_66_0.png" src="_images/7_Distribution_66_0.png" />
 </div>
 </div>
 <p>これらの結果から，データに含まれる全ての国で無条件所得収斂（キャッチアップ）が成立しているとは言い難い。しかし<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>からキャッチアップを示唆する結果を得たば，結果の差はどこから来ているのだろうか。一つの可能性は分析の中で使った国数でり，次節ではその点について考察する。</p>
@@ -1094,8 +1096,8 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
                            <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
                          <span class="p">)</span>
 
-    <span class="c1"># 列growthに欠損値がある行は削除</span>
-    <span class="n">df0</span> <span class="o">=</span> <span class="n">df0</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">])</span>
+    <span class="c1"># 列 growthとcgdpe0 に欠損値がある行は削除</span>
+    <span class="n">df0</span> <span class="o">=</span> <span class="n">df0</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe0&#39;</span><span class="p">])</span>
 
     <span class="c1"># </span>
     <span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;growth ~ gdp_pc0_log&#39;</span>
@@ -1174,7 +1176,7 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_76_0.png" src="_images/7_Distribution_76_0.png" />
+<img alt="_images/7_Distribution_77_0.png" src="_images/7_Distribution_77_0.png" />
 </div>
 </div>
 <p>上から一番目の図から，初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1970年までの推定値の統計的優位性低く，1970年以降は高いように見える。1970以降だけを表示してみよう。</p>
@@ -1187,7 +1189,7 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_78_0.png" src="_images/7_Distribution_78_0.png" />
+<img alt="_images/7_Distribution_79_0.png" src="_images/7_Distribution_79_0.png" />
 </div>
 </div>
 <p>推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，1970年以降は絶対的所得収斂が成立しており，平均して貧しい経済は豊かな経済にキャッチアップしている。この結果は，<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>で示した所得分布の歪度の変化の図と整合性があると言える。</p>
