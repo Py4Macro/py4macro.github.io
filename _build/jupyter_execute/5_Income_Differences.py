@@ -4,6 +4,8 @@
 # (chap:5-accounting)=
 # # 発展会計と成長会計
 
+# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/5_Income_Differences.html) in English or the language of your choice.
+
 # In[1]:
 
 

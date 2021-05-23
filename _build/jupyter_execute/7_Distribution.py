@@ -3,6 +3,8 @@
 
 # # 所得分布と所得収斂
 
+# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/7_Distribution.html) in English or the language of your choice.
+
 # In[1]:
 
 
@@ -608,8 +610,8 @@ def growth_regression(yr):
                            )**(1/(2019-yr+1))-1
                          )
 
-    # 列growthに欠損値がある行は削除
-    df0 = df0.dropna(subset=['growth'])
+    # 列 growthとcgdpe0 に欠損値がある行は削除
+    df0 = df0.dropna(subset=['growth','cgdpe0'])
 
     # 
     formula = 'growth ~ gdp_pc0_log'

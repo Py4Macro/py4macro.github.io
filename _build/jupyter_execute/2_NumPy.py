@@ -3,6 +3,8 @@
 
 # # NumPy
 
+# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/2_NumPy.html) in English or the language of your choice.
+
 # このトピックでしようするパッケージとモジュールをインポートする。
 
 # In[1]:

@@ -4,6 +4,8 @@
 # (pandas)=
 # # Pandas
 
+# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/3_Pandas.html) in English or the language of your choice.
+
 # ## 説明
 
 # `Pandas`はデータを扱う上で欠かせないパッケージであり，エクセルをイメージすれば良いだろう。`Pandas`にはスプレッド・シートに対応する`DataFrame`（データ・フレーム）と`Series`（シリーズ）呼ばれるオブジェクトがあり，それらを駆使してデータ分析をおこなう。
