@@ -910,8 +910,8 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 <span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;rgdpna2019&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;pop2019&#39;</span><span class="p">]</span>
 
 <span class="c1"># それぞれの国の平均成長率</span>
-<span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span><span class="p">(</span> <span class="p">(</span> <span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;gdp_pc1960_for_grow&#39;</span><span class="p">]</span>
-                          <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="mi">1960</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;gdp_pc1960_for_grow&#39;</span><span class="p">]</span>
+                   <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="mi">1960</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
 
 <span class="c1"># growthがNaNの行は削除</span>
 <span class="n">df_reg</span> <span class="o">=</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">])</span>
@@ -993,8 +993,8 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================================================
                      coef    std err          t      P&gt;|t|      [0.025      0.975]
 ----------------------------------------------------------------------------------
-Intercept          2.2673      1.130      2.006      0.047       0.027       4.508
-gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.236
+Intercept          0.0227      0.011      2.006      0.047       0.000       0.045
+gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.002
 ==================================================================================
 </pre></div>
 </div>
@@ -1092,9 +1092,9 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
     <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;rgdpna2019&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;pop2019&#39;</span><span class="p">]</span>
 
     <span class="c1"># それぞれの国の平均成長率</span>
-    <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span><span class="p">(</span> <span class="p">(</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp_pc0_for_grow&#39;</span><span class="p">]</span>
-                           <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
-                         <span class="p">)</span>
+    <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">(</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp_pc2019_for_grow&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp_pc0_for_grow&#39;</span><span class="p">]</span>
+                     <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+
 
     <span class="c1"># 列 growthとcgdpe0 に欠損値がある行は削除</span>
     <span class="n">df0</span> <span class="o">=</span> <span class="n">df0</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe0&#39;</span><span class="p">])</span>
@@ -1119,7 +1119,7 @@ gdp_pc1960_log    -0.0420      0.140     -0.299      0.765      -0.320       0.2
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.04198401871441761, 0.7654443398976621, 0.0008199886481217167, 111)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.00041984018714417504, 0.7654443398976627, 0.0008199886481217167, 111)
 </pre></div>
 </div>
 </div>
