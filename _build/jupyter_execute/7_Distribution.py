@@ -84,25 +84,25 @@ pass
 # In[6]:
 
 
-# ヒストグラム
+# 1 ヒストグラム
 ax_ = df.query('year == 2019')['gdp_pc_log'].plot(kind='hist', bins=20, density=True)
 
-# 密度関数
+# 2 密度関数
 df.query('year == 2019')['gdp_pc_log'].plot(kind='density',ax=ax_)
 
-# 日本
+# 3 日本
 ax_.axvline(y_jp.iloc[0],color='red')
 
-# 横軸の表示範囲
+# 4 横軸の表示範囲
 ax_.set_xlim(4,12)
 pass
 
 
 # ```{admonition} コードの説明
-# * `density=True`は縦軸を確率として表示する引数
-# * `kind='density'`は分布のスムーズな形を推定し表示する引数（密度関数を推定する）
-# * `axvline()`は`ax_`のメソッドであり，横軸の第一引数の値に垂直線を表示する。`color`は色を指定する引数。
-# * `set_xlim()`は横軸の表示範囲を指定する。
+# 1. `density=True`は縦軸を確率として表示する引数
+# 2. `kind='density'`は分布のスムーズな形を推定し表示する引数（密度関数を推定する）
+# 3. `axvline()`は`ax_`のメソッドであり，横軸の第一引数の値に垂直線を表示する。`color`は色を指定する引数。
+# 4. `set_xlim()`は横軸の表示範囲を指定する。
 # ```
 
 # 最頻値（モード）は中心より右側にあるが，横軸は対数になっていることを思い出そう。対数を取らない分布では，最頻値は分布の中心より左側に位置することになる。試してみよう。
@@ -112,46 +112,35 @@ pass
 # In[7]:
 
 
-yr_list = list(range(1960,2020,10))+[2019]           # (1)
+yr_list = list(range(1960,2020,10))+[2019]           # 1
 
-cond = ( df.loc[:,'year'] == 1950 )                  # (2)
-ax_ = df.loc[cond,'gdp_pc_log'].plot(kind='density', # (3)
-                                     label='1950',   # (4)
-                                     legend=True)    # (5)
-for y in yr_list:                                    # (6)
-    cond = ( df.loc[:,'year'] == y )                 # (7)
-    df.loc[cond,'gdp_pc_log'].plot(kind='density',   # (8)
-                                   label=str(y),     # (9)
-                                   legend=True,      # (10)
-                                   ax=ax_)           # (11)
-ax_.set_xlim([5.5,13.0])                             # (12)
+cond = ( df.loc[:,'year'] == 1950 )                  # 2
+ax_ = df.loc[cond,'gdp_pc_log'].plot(kind='density', # 3
+                                     label='1950',   # 4
+                                     legend=True)    # 5
+for y in yr_list:                                    # 6
+    cond = ( df.loc[:,'year'] == y )                 # 7
+    df.loc[cond,'gdp_pc_log'].plot(kind='density',   # 8
+                                   label=str(y),     # 9
+                                   legend=True,      # 10
+                                   ax=ax_)           # 11
+ax_.set_xlim([5.5,13.0])                             # 12
 pass
 
 
 # ```{admonition} コードの説明
-# (1) `range(start, end, step)`は`start`から`end`までの整数を`step`の間隔で準備する。更に`list()`を使ってリストに変換し，`+[2019]`を使ってリストの最後に`2019`を追加している。
-# 
-# (2) 列`year`が`1950`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。
-# 
-# (3) 1950年の行を抽出し，密度関数を表示する。また，その「軸」を`ax_`に割り当てる。
-# 
-# (4) 凡例の表示を`'1950'`（文字列）とする。
-# 
-# (5) 凡例の表示を指定する。
-# 
-# (6) `yr_list`に対しての`for`ループで1960から10年毎のループの開始。
-# 
-# (7) 列`year`が`y`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。(2)で設定した`cond`は上書きされる。
-# 
-# (8) `y`の行を抽出し，密度関数を表示する。
-# 
-# (9) 凡例の表示を文字列に変換した`y`とする。`str()`は文字列に変換する関数。
-# 
-# (10) 凡例の表示を指定する。
-# 
-# (11) 「軸」を選ぶ引数`ax`には`ax_`を指定する。
-# 
-# (12) `ax_`のメソッドである`set_xlim()`は横軸の表示範囲を指定する。
+# 1. `range(start, end, step)`は`start`から`end`までの整数を`step`の間隔で準備する。更に`list()`を使ってリストに変換し，`+[2019]`を使ってリストの最後に`2019`を追加している。
+# 2. 列`year`が`1950`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。
+# 3. 1950年の行を抽出し，密度関数を表示する。また，その「軸」を`ax_`に割り当てる。
+# 4. 凡例の表示を`'1950'`（文字列）とする。
+# 5. 凡例の表示を指定する。
+# 6. `yr_list`に対しての`for`ループで1960から10年毎のループの開始。
+# 7. 列`year`が`y`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。(2)で設定した`cond`は上書きされる。
+# 8. `y`の行を抽出し，密度関数を表示する。
+# 9. 凡例の表示を文字列に変換した`y`とする。`str()`は文字列に変換する関数。
+# 10. 凡例の表示を指定する。
+# 11. 「軸」を選ぶ引数`ax`には`ax_`を指定する。
+# 12. `ax_`のメソッドである`set_xlim()`は横軸の表示範囲を指定する。
 #     * 最小値，最大値をリストもしくはタプルで指定する。
 #     * `set_xlim()`が設定されない場合は，自動で設定される。
 # ```
@@ -194,57 +183,50 @@ year_list = df.loc[:,'year'].unique()
 
 skew_list = []
 
-for yr in year_list:                       # (1)
+for yr in year_list:                       # 1
     
-    cond = ( df.loc[:,'year']==yr )        # (2)
-    s = df.loc[cond, 'gdp_pc_log']         # (3)
+    cond = ( df.loc[:,'year']==yr )        # 2
+    s = df.loc[cond, 'gdp_pc_log']         # 3
     
     # 歪度
-    skew_val = s.skew()                    # (4)
-    skew_list.append( skew_val )           # (5)
+    skew_val = s.skew()                    # 4
+    skew_list.append( skew_val )           # 5
 
-ax_ = pd.DataFrame({'歪度':skew_list},      # (6)
+ax_ = pd.DataFrame({'歪度':skew_list},      # 6
                    index=year_list) \
-                  .plot(marker='o')        # (7)
-ax_.axhline(0, color='red')                # (8)
+                  .plot(marker='o')        # 7
+ax_.axhline(0, color='red')                # 8
 pass
 
 
 # ```{admonition} コードの確認
-# (1) `year_list`に対して`for`ループの開始。
-# 
-# (2) 列`year`が`yr`と同じ場合は`True`となり，そうでない場合は`False`となる`Series`を返し`cond`に割り当てる。
-# 
-# (3) 列`gdp_pc_lo`で`cond`がTrue`となる行を`Series`として抽出し`s`に割り当てる。
-# 
-# (4) `s`のメソッド`.skew()`を使い，`s`の歪度を計算し`skew_val`に割り当てる。
-# 
-# (5) `skew_val`を`skew_list`に割り当てる。
-# 
-# (6) `skew_list`からなる`DataFrame`を作成し，`year_list`を行インデックスに指定する。また(8)で`.plot()`によって生成される「軸」を`ax_`に割り当てる。
-# 
-# (7) プロットのマーカーを`'o'`（点）に指定する。
-# 
-# (8) `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
+# 1. `year_list`に対して`for`ループの開始。
+# 2. 列`year`が`yr`と同じ場合は`True`となり，そうでない場合は`False`となる`Series`を返し`cond`に割り当てる。
+# 3. 列`gdp_pc_lo`で`cond`がTrue`となる行を`Series`として抽出し`s`に割り当てる。
+# 4. `s`のメソッド`.skew()`を使い，`s`の歪度を計算し`skew_val`に割り当てる。
+# 5. `skew_val`を`skew_list`に割り当てる。
+# 6. `skew_list`からなる`DataFrame`を作成し，`year_list`を行インデックスに指定する。また(8)で`.plot()`によって生成される「軸」を`ax_`に割り当てる。
+# 7. プロットのマーカーを`'o'`（点）に指定する。
+# 8. `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
 # ```
 
 # 次の特徴がある。
-# 1. 1970年以降は減少トレンドが確認できる。このことからキャッチアップが発生していることを示唆している。また1990年頃を境に「正の歪み」から「負の歪み」に変化している。
-# 1. 1960年，1970年，1990年に上方・下方ジャンプが発生している。これは以下で確認するように，`gdp_pc_log`が`NaN`ではない国数が大きく増加しているためである。
-# 1. 1970年前だけを考えると，歪度は上昇トレンドとなっている。これも欠損値がない国数の変化による影響とも考えられる。
+# * 1970年以降は減少トレンドが確認できる。このことからキャッチアップが発生していることを示唆している。また1990年頃を境に「正の歪み」から「負の歪み」に変化している。
+# * 1960年，1970年，1990年に上方・下方ジャンプが発生している。これは以下で確認するように，`gdp_pc_log`が`NaN`ではない国数が大きく増加しているためである。
+# * 1970年前だけを考えると，歪度は上昇トレンドとなっている。これも欠損値がない国数の変化による影響とも考えられる。
 # 
 # これらの点を考えるために`gdp_pc_log`が`NaN`ではない国数を確認しよう。次のコードは，2019年に`gdp_pc_log`が欠損値ではない国数を返している。
 
 # In[9]:
 
 
-cond = ( df.loc[:,'year']==2019 )
-df.loc[cond,'gdp_pc_log'].notna().sum()
+cond = ( df.loc[:,'year']==2019 )        # 1
+df.loc[cond,'gdp_pc_log'].notna().sum()  # 2
 
 
 # ```{admonition} コードの説明
-# * `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`でなければ`True`を返し，`NaN`であれば`False`を返す。`notna`は英語の`not na`のことであり，`na`は`not available`の略で欠損値のこと。
-# * `True`は`1`と数えられるので，メソッド`sum()`を使うことにより`True`の数，即ち，`NaN`ではない要素の数を返す。
+# 1. `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`でなければ`True`を返し，`NaN`であれば`False`を返す。`notna`は英語の`not na`のことであり，`na`は`not available`の略で欠損値のこと。
+# 2. `True`は`1`と数えられるので，メソッド`sum()`を使うことにより`True`の数，即ち，`NaN`ではない要素の数を返す。
 # ```
 
 # 次に`for`ループを使って全ての年で`gdp_pc_log`に欠損値ない国の数を確認してみる。
@@ -255,8 +237,8 @@ df.loc[cond,'gdp_pc_log'].notna().sum()
 notna_list = []
 
 for yr in year_list:
-    cond = ( df.loc[:,'year']==yr )                # (1)
-    no = df.loc[cond, 'gdp_pc_log'].notna().sum()  # (2)
+    cond = ( df.loc[:,'year']==yr )                # 1
+    no = df.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
     notna_list.append(no)
 
 pd.DataFrame({'国数':notna_list}, index=year_list).plot()
@@ -264,9 +246,8 @@ pass
 
 
 # ```{admonition} コードの説明
-# (1) 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
-# 
-# (2) `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
+# 1. 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
+# 2. `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
 # ```
 
 # 上の図から`gdp_pc_log`が欠損値でない国は増加しており，1960年，1970年，1990年に大きく増えている。データが整備されている国は典型的に先進国であり，後から含まれる国は比較的に所得が低い経済である。従って，貧しい国が所得分布に含まれることにより，分布は左側に引っ張られる傾向にある。特に，1950年から1960年には徐々に国数は増えているが，それが歪度の上昇につながっていると考えられる。また1960年と1970年の国数の急激な増加が歪度の上方ジャンプとして現れている。このようなことから，1970年までの歪度の上昇トレンドは，貧しい経済がPWTのデータセットに含まれることによって引き起こされており，豊かな国と比較して貧しい国が引き離されているからではない。一方で，1970年以降も国数は膨らんでいるが，それにも関わらず歪度は減少傾向を示しているということはキャッチアップが発生していることを示している。典型的な例は，台湾，シンガポール，香港，韓国，中国やインドなどである。
@@ -287,22 +268,19 @@ cv_list = []   # 空のリスト
 for yr in year_list:
     cond = ( df.loc[:,'year']==yr )
     s = df.loc[cond, 'gdp_pc_log']
-    stdev = s.std()                 # (1)
-    avr = s.mean()                  # (2)
-    cv = stdev / avr                # (3)
+    stdev = s.std()                 # 1
+    avr = s.mean()                  # 2
+    cv = stdev / avr                # 3
     cv_list.append(cv)
 
-df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)  # (4)
+df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)  # 4
 
 
 # ```{admonition} コードの説明
-# (1) `s`は`cond`の条件を満たす`gdp_pc_log`の列の要素からなる`Series`だが，そのメソッド`.std()`を使い標準偏差を計算し`stdev`に割り当てる。
-# 
-# (2) `s`のメソッド`.mean()`を使い平均を計算し`avr`に割り当てる。
-# 
-# (3) 変動係数を計算し`cv`に割り当てる。
-# 
-# (4) `index=year_list`は行インデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。
+# 1. `s`は`cond`の条件を満たす`gdp_pc_log`の列の要素からなる`Series`だが，そのメソッド`.std()`を使い標準偏差を計算し`stdev`に割り当てる。
+# 2. `s`のメソッド`.mean()`を使い平均を計算し`avr`に割り当てる。
+# 3. 変動係数を計算し`cv`に割り当てる。
+# 4. `index=year_list`は行インデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。
 # ```
 
 # In[12]:
@@ -352,22 +330,14 @@ pass
 # 
 # * `rgdpna`：平均成長率の計算に使う
 # * `cgdpe`：初期時点の一人当たりGDPの計算に使う
-# * `csh_i`：貯蓄率の計算に使う
 # * `pop`：人口（in millions）
-# * `regions`：6つの地域
-#     * North America, Africa, Europe, Asia, South America,Australia
-# * `income_group_wb`：所得水準位よる4つのグループ（世界銀行による）
-#     * High income, Lower middle income, Upper middle income,
-#        Low income（`NaN`が2つ含まれる）
-# * `oecd`：OECDメンバー国であれば`1`そうでなければ`0`（2017年時点）
 # 
 # 上で使った`DataFrame`である`df`を使うが，回帰分析用の`DataFrame`を別途作成するために使用する変数のリストを作成する。
 
 # In[13]:
 
 
-var_list = ['countrycode','income_group','oecd','year','rgdpna','cgdpe','pop']
-# var_list = ['countrycode','year','rgdpna','cgdpe','pop']
+var_list = ['countrycode','year','rgdpna','cgdpe','pop']
 
 
 # 最初に1960年のデータだけを抽出する。
@@ -375,24 +345,21 @@ var_list = ['countrycode','income_group','oecd','year','rgdpna','cgdpe','pop']
 # In[14]:
 
 
-cond = ( df.loc[:,'year'] == 1960 )                 # (1)
-                                                    # (2)
-df_reg = df.loc[cond,var_list]            .rename(columns={'rgdpna':'rgdpna1960',  # (3)
+cond = ( df.loc[:,'year'] == 1960 )                 # 1
+                                                    # 2
+df_reg = df.loc[cond,var_list]            .rename(columns={'rgdpna':'rgdpna1960',  # 3
                             'cgdpe': 'cgdpe1960',
                             'pop':   'pop1960'})  \
-           .reset_index(drop=True)                  # (4)
+           .reset_index(drop=True)                  # 4
 
 df_reg.head()
 
 
 # ```{admonition} コードの説明
-# (1) 1960年の行だけを取り出すための条件を作る。`cond`には列`year`の中で1960の行だけが`True`になり，その他は`False`になる`Series`となっている。。
-# 
-# (2) `.loc`を使って，`var_list`の列で`cond`の条件を満たす列だけを抽出する。
-# 
-# (3) メソッド`.rename()`に引数`columns`を指定することにより列ラベルを変更する。引数には辞書を使い，キーは変更前の列ラベル，値には変更後の列ラベルを指定する。辞書に含まれない列のラベルは変更されない。
-# 
-# (4) `.reset_index()`は行インデックスを0から振りなおす。デフォルトでは，元の行インデックスが新たな列として残るが，その列を作らないように`drop=True`を指定している。
+# 1. 1960年の行だけを取り出すための条件を作る。`cond`には列`year`の中で1960の行だけが`True`になり，その他は`False`になる`Series`となっている。。
+# 2. `.loc`を使って，`var_list`の列で`cond`の条件を満たす列だけを抽出する。
+# 3. メソッド`.rename()`に引数`columns`を指定することにより列ラベルを変更する。引数には辞書を使い，キーは変更前の列ラベル，値には変更後の列ラベルを指定する。辞書に含まれない列のラベルは変更されない。
+# 4. `.reset_index()`は行インデックスを0から振りなおす。デフォルトでは，元の行インデックスが新たな列として残るが，その列を作らないように`drop=True`を指定している。
 # ```
 # 
 # 次に，`df_reg`と同じ方法で2019年のデータを抽出して，`df_temp`に割り当てる。
@@ -465,31 +432,30 @@ df_reg = df_reg.dropna(subset=['growth'])
 # In[18]:
 
 
-growth_average = df_reg.loc[:,'growth'].mean()           # (1)
+growth_average = df_reg.loc[:,'growth'].mean()           # 1
 
 fig, ax = plt.subplots(tight_layout=True)
-ax.hist('growth', data=df_reg, bins=25, edgecolor='k')   # (2)
-ax.axvline(growth_average , c='red')                     # (3)
+ax.hist('growth', data=df_reg, bins=25, edgecolor='k')   # 2
+ax.axvline(growth_average , c='red')                     # 3
 ax.set_ylabel('国の数', size=15)
-ax.set_title('赤い線は平均', size=15)                      # (4)
-fig.suptitle(f'{len(df_reg)}ヵ国の平均成長率 (%)', size=20) # (5)
+ax.set_title('赤い線は平均', size=15)                      # 4
+fig.suptitle(f'{len(df_reg)}ヵ国の平均成長率 (%)', size=20) # 5
 pass
 
 
 # ```{admonition} コードの説明
-# (1) 平均成長率の平均を計算し，結果を変数`growth_average`に割り当てている。
-# 
-# (2) `.hist`はヒストグラムをプロットする`ax`のメソッド。
+# 1. 平均成長率の平均を計算し，結果を変数`growth_average`に割り当てている。
+# 2. `.hist`はヒストグラムをプロットする`ax`のメソッド。
 #     * 第一引数はプロットしたい列ラベル（ここでは`growth`）
 #     * `data`は使用する`DataFrame`を指定する（ここでは`df_reg`）
 #     * `bins`は階級の数を指定する引数（ここでは`25`）
 #     * `edgecolor`はヒストグラムの棒の枠線の色を指定する引数で，`k`は黒を示す。`black`としても構わない。
-# (3) `axvline()`は縦の線を引く`ax`のメソッド
+# 3. `axvline()`は縦の線を引く`ax`のメソッド
 #     * 第一引数は横軸の値
 #     * `c`は色を指定する引数
-# (4) `plt.subplots()`によって「軸」が`ax`に割り当てられるが，「軸」のタイトルを設定する`ax`のメソッドが`.set_title()`。
+# 4. `plt.subplots()`によって「軸」が`ax`に割り当てられるが，「軸」のタイトルを設定する`ax`のメソッドが`.set_title()`。
 #     * `size`はフォントの大きさを指定する。
-# (5) `plt.subplots()`によって「キャンバス」が`fig`に割り当てられるが，「キャンバス」のタイトルを設定する`fig`のメソッドが`.suptitle()`。
+# 5. `plt.subplots()`によって「キャンバス」が`fig`に割り当てられるが，「キャンバス」のタイトルを設定する`fig`のメソッドが`.suptitle()`。
 #     * `f-string`を使って`{}`の中に`len(df_reg)`を代入している。
 #     * `size`はフォントの大きさを指定する。
 #     
@@ -639,21 +605,21 @@ growth_regression(1960)
 # In[26]:
 
 
-bhat_list = []       # (1)
-pval_list = []       # (2)
-rsquared_list = []   # (3)
-nobs_list = []       # (4)
-yr_list = []         # (5)
+bhat_list = []       # 1
+pval_list = []       # 2
+rsquared_list = []   # 3
+nobs_list = []       # 4
+yr_list = []         # 5
 
-for yr in range(1950, 2010):    # (6)
-    v = growth_regression(yr)   # (7)
-    bhat_list.append(v[0])      # (8)
-    pval_list.append(v[1])      # (9)
-    rsquared_list.append(v[2])  # (10)
-    nobs_list.append(v[3])      # (11)
-    yr_list.append(yr)          # (12)
+for yr in range(1950, 2010):    # 6
+    v = growth_regression(yr)   # 7
+    bhat_list.append(v[0])      # 8
+    pval_list.append(v[1])      # 9
+    rsquared_list.append(v[2])  # 10
+    nobs_list.append(v[3])      # 11
+    yr_list.append(yr)          # 12
 
-# (13)
+# 13
 df_reg_result = pd.DataFrame({'初期時点の一人当たりGDPの係数':bhat_list,
                               'p値':pval_list,
                               '決定係数':rsquared_list,
@@ -662,29 +628,19 @@ df_reg_result = pd.DataFrame({'初期時点の一人当たりGDPの係数':bhat_
 
 
 # ```{admonition} コードの説明
-# (1) 初期の一人当たりGDP（対数）の係数の推定値を格納する空のリスト
-# 
-# (2) p値を格納する空のリスト
-# 
-# (3) 決定係数を格納する空のリスト
-# 
-# (4) 標本の大きさ（国数）を格納する空のリスト
-# 
-# (5) 回帰分析で初期時点の`year`を格納する空のリスト
-# 
-# (6) 1950-2009年を初期時点とする`for`ループの開始
-# 
-# (7) `growth_regression(yr)`を使い`yr`を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを`v`に割り当てる。
-# 
-# (8) `v`の0番目の要素（推定値）を`bhat_list`に追加する。
-# 
-# (9) `v`の1番目の要素（p値）を`pval_list`に追加する。
-# 
-# (10) `v`の2番目の要素（決定係数）を`rsquared_list`に追加する。
-# 
-# (11) `v`の3番目の要素（標本のサイズ; 国数）を`nobs_list`に追加する。
-# 
-# (13) `for`ループの結果を使い`DataFrame`を作成し`df_reg_result`に割り当てる。
+# 1. 初期の一人当たりGDP（対数）の係数の推定値を格納する空のリスト
+# 2. p値を格納する空のリスト
+# 3. 決定係数を格納する空のリスト
+# 4. 標本の大きさ（国数）を格納する空のリスト
+# 5. 回帰分析で初期時点の`year`を格納する空のリスト
+# 6. 1950-2009年を初期時点とする`for`ループの開始
+# 7. `growth_regression(yr)`を使い`yr`を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを`v`に割り当てる。
+# 8. `v`の0番目の要素（推定値）を`bhat_list`に追加する。
+# 9. `v`の1番目の要素（p値）を`pval_list`に追加する。
+# 10. `v`の2番目の要素（決定係数）を`rsquared_list`に追加する。
+# 11. `v`の3番目の要素（標本のサイズ; 国数）を`nobs_list`に追加する。
+# 12. 初期に使った`yr`を`yr_list`に追加する。
+# 13. `for`ループの結果を使い`DataFrame`を作成し`df_reg_result`に割り当てる。
 # ```
 
 # ステップ３として`df_reg_result`のメソッド`.plot()`を使い時系列データをプロットする。
@@ -706,4 +662,8 @@ ax_.set_title('初期時点の一人当たりGDPの係数のp値', size=18)
 pass
 
 
-# 推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，[所得分布の推移](sec:7-distribution)で示した所得分布の歪度の変化の図と整合性があると言える。次章では，経済成長の理論モデルからこの問題を再考し，修正が必要な点を検討することになる。
+# 推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，[所得分布の推移](sec:7-distribution)で示した所得分布の歪度の変化の図と整合性があると言える。
+# 
+# 次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について議論する。
+# * 初期の一人当たりGDPの係数の推定値の解釈
+# * 回帰式に必要な修正点

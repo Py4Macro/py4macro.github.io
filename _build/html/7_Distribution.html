@@ -391,16 +391,16 @@ Name: gdp_pc_log, dtype: float64
 <p>ヒストグラムは縦軸に度数，横軸に階級を取ったグラフだが，関連する手法に<a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">カーネル密度推定</a>と呼ばれるものがある。考え方は簡単で，上のようなヒストグラムのデータに基づき面積が１になるようにスムーズな分布を推計する手法である。詳細は割愛するが，下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ヒストグラム</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1 ヒストグラム</span>
 <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># 密度関数</span>
+<span class="c1"># 2 密度関数</span>
 <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 
-<span class="c1"># 日本</span>
+<span class="c1"># 3 日本</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">y_jp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 
-<span class="c1"># 横軸の表示範囲</span>
+<span class="c1"># 4 横軸の表示範囲</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
@@ -412,30 +412,30 @@ Name: gdp_pc_log, dtype: float64
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<ul class="simple">
+<ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">density=True</span></code>は縦軸を確率として表示する引数</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">kind='density'</span></code>は分布のスムーズな形を推定し表示する引数（密度関数を推定する）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は<code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドであり，横軸の第一引数の値に垂直線を表示する。<code class="docutils literal notranslate"><span class="pre">color</span></code>は色を指定する引数。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>は横軸の表示範囲を指定する。</p></li>
-</ul>
+</ol>
 </div>
 <p>最頻値（モード）は中心より右側にあるが，横軸は対数になっていることを思い出そう。対数を取らない分布では，最頻値は分布の中心より左側に位置することになる。試してみよう。</p>
 <p>ここで確かめたいのは，約70年の間に上の所得分布のどのように変化してきたか，という問題である。この問いに答えるために，カーネル密度関数（<code class="docutils literal notranslate"><span class="pre">kind=density</span></code>）を使って1950年から10年毎の分布を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">+</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span>           <span class="c1"># (1)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">+</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span>           <span class="c1"># 1</span>
 
-<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1950</span> <span class="p">)</span>                  <span class="c1"># (2)</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="c1"># (3)</span>
-                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1950&#39;</span><span class="p">,</span>   <span class="c1"># (4)</span>
-                                     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># (5)</span>
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yr_list</span><span class="p">:</span>                                    <span class="c1"># (6)</span>
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span> <span class="p">)</span>                 <span class="c1"># (7)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span>   <span class="c1"># (8)</span>
-                                   <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>     <span class="c1"># (9)</span>
-                                   <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># (10)</span>
-                                   <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>           <span class="c1"># (11)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">13.0</span><span class="p">])</span>                             <span class="c1"># (12)</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1950</span> <span class="p">)</span>                  <span class="c1"># 2</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="c1"># 3</span>
+                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;1950&#39;</span><span class="p">,</span>   <span class="c1"># 4</span>
+                                     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># 5</span>
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yr_list</span><span class="p">:</span>                                    <span class="c1"># 6</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span> <span class="p">)</span>                 <span class="c1"># 7</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span>   <span class="c1"># 8</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>     <span class="c1"># 9</span>
+                                   <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># 10</span>
+                                   <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>           <span class="c1"># 11</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">13.0</span><span class="p">])</span>                             <span class="c1"># 12</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -446,20 +446,25 @@ Name: gdp_pc_log, dtype: float64
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) <code class="docutils literal notranslate"><span class="pre">range(start,</span> <span class="pre">end,</span> <span class="pre">step)</span></code>は<code class="docutils literal notranslate"><span class="pre">start</span></code>から<code class="docutils literal notranslate"><span class="pre">end</span></code>までの整数を<code class="docutils literal notranslate"><span class="pre">step</span></code>の間隔で準備する。更に<code class="docutils literal notranslate"><span class="pre">list()</span></code>を使ってリストに変換し，<code class="docutils literal notranslate"><span class="pre">+[2019]</span></code>を使ってリストの最後に<code class="docutils literal notranslate"><span class="pre">2019</span></code>を追加している。</p>
-<p>(2) 列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">1950</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p>
-<p>(3) 1950年の行を抽出し，密度関数を表示する。また，その「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p>
-<p>(4) 凡例の表示を<code class="docutils literal notranslate"><span class="pre">'1950'</span></code>（文字列）とする。</p>
-<p>(5) 凡例の表示を指定する。</p>
-<p>(6) <code class="docutils literal notranslate"><span class="pre">yr_list</span></code>に対しての<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで1960から10年毎のループの開始。</p>
-<p>(7) 列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">y</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。(2)で設定した<code class="docutils literal notranslate"><span class="pre">cond</span></code>は上書きされる。</p>
-<p>(8) <code class="docutils literal notranslate"><span class="pre">y</span></code>の行を抽出し，密度関数を表示する。</p>
-<p>(9) 凡例の表示を文字列に変換した<code class="docutils literal notranslate"><span class="pre">y</span></code>とする。<code class="docutils literal notranslate"><span class="pre">str()</span></code>は文字列に変換する関数。</p>
-<p>(10) 凡例の表示を指定する。</p>
-<p>(11) 「軸」を選ぶ引数<code class="docutils literal notranslate"><span class="pre">ax</span></code>には<code class="docutils literal notranslate"><span class="pre">ax_</span></code>を指定する。</p>
-<p>(12) <code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドである<code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>は横軸の表示範囲を指定する。
-* 最小値，最大値をリストもしくはタプルで指定する。
-* <code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>が設定されない場合は，自動で設定される。</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">range(start,</span> <span class="pre">end,</span> <span class="pre">step)</span></code>は<code class="docutils literal notranslate"><span class="pre">start</span></code>から<code class="docutils literal notranslate"><span class="pre">end</span></code>までの整数を<code class="docutils literal notranslate"><span class="pre">step</span></code>の間隔で準備する。更に<code class="docutils literal notranslate"><span class="pre">list()</span></code>を使ってリストに変換し，<code class="docutils literal notranslate"><span class="pre">+[2019]</span></code>を使ってリストの最後に<code class="docutils literal notranslate"><span class="pre">2019</span></code>を追加している。</p></li>
+<li><p>列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">1950</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p></li>
+<li><p>1950年の行を抽出し，密度関数を表示する。また，その「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
+<li><p>凡例の表示を<code class="docutils literal notranslate"><span class="pre">'1950'</span></code>（文字列）とする。</p></li>
+<li><p>凡例の表示を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yr_list</span></code>に対しての<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで1960から10年毎のループの開始。</p></li>
+<li><p>列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">y</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。(2)で設定した<code class="docutils literal notranslate"><span class="pre">cond</span></code>は上書きされる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>の行を抽出し，密度関数を表示する。</p></li>
+<li><p>凡例の表示を文字列に変換した<code class="docutils literal notranslate"><span class="pre">y</span></code>とする。<code class="docutils literal notranslate"><span class="pre">str()</span></code>は文字列に変換する関数。</p></li>
+<li><p>凡例の表示を指定する。</p></li>
+<li><p>「軸」を選ぶ引数<code class="docutils literal notranslate"><span class="pre">ax</span></code>には<code class="docutils literal notranslate"><span class="pre">ax_</span></code>を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドである<code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>は横軸の表示範囲を指定する。</p>
+<ul class="simple">
+<li><p>最小値，最大値をリストもしくはタプルで指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_xlim()</span></code>が設定されない場合は，自動で設定される。</p></li>
+</ul>
+</li>
+</ol>
 </div>
 <p>まず分布は左から右に移動しているが，これは世界経済が成長している結果である。次に気づくのが，分布が左に偏っているが少しずつ右への偏りに変化しているように見える。これを数値として確かめるために歪度（わいど; skewness）という概念を使おう。歪度は平均や標準偏差のように簡単に計算できる統計量であり，次のように定義される。</p>
 <div class="math notranslate nohighlight">
@@ -499,19 +504,19 @@ S=\frac{n}{(n-1)(n-2)}
 
 <span class="n">skew_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>                       <span class="c1"># (1)</span>
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>                       <span class="c1"># 1</span>
     
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">yr</span> <span class="p">)</span>        <span class="c1"># (2)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>         <span class="c1"># (3)</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">yr</span> <span class="p">)</span>        <span class="c1"># 2</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>         <span class="c1"># 3</span>
     
     <span class="c1"># 歪度</span>
-    <span class="n">skew_val</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>                    <span class="c1"># (4)</span>
-    <span class="n">skew_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">skew_val</span> <span class="p">)</span>           <span class="c1"># (5)</span>
+    <span class="n">skew_val</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>                    <span class="c1"># 4</span>
+    <span class="n">skew_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">skew_val</span> <span class="p">)</span>           <span class="c1"># 5</span>
 
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;歪度&#39;</span><span class="p">:</span><span class="n">skew_list</span><span class="p">},</span>      <span class="c1"># (6)</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;歪度&#39;</span><span class="p">:</span><span class="n">skew_list</span><span class="p">},</span>      <span class="c1"># 6</span>
                    <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span> \
-                  <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>        <span class="c1"># (7)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                <span class="c1"># (8)</span>
+                  <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>        <span class="c1"># 7</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                <span class="c1"># 8</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -522,26 +527,28 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの確認</p>
-<p>(1) <code class="docutils literal notranslate"><span class="pre">year_list</span></code>に対して<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始。</p>
-<p>(2) 列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">yr</span></code>と同じ場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>となり，そうでない場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返し<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p>
-<p>(3) 列<code class="docutils literal notranslate"><span class="pre">gdp_pc_lo</span></code>で<code class="docutils literal notranslate"><span class="pre">cond</span></code>がTrue<code class="docutils literal notranslate"><span class="pre">となる行を</span></code>Series<code class="docutils literal notranslate"><span class="pre">として抽出し</span></code>s`に割り当てる。</p>
-<p>(4) <code class="docutils literal notranslate"><span class="pre">s</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.skew()</span></code>を使い，<code class="docutils literal notranslate"><span class="pre">s</span></code>の歪度を計算し<code class="docutils literal notranslate"><span class="pre">skew_val</span></code>に割り当てる。</p>
-<p>(5) <code class="docutils literal notranslate"><span class="pre">skew_val</span></code>を<code class="docutils literal notranslate"><span class="pre">skew_list</span></code>に割り当てる。</p>
-<p>(6) <code class="docutils literal notranslate"><span class="pre">skew_list</span></code>からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し，<code class="docutils literal notranslate"><span class="pre">year_list</span></code>を行インデックスに指定する。また(8)で<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>によって生成される「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p>
-<p>(7) プロットのマーカーを<code class="docutils literal notranslate"><span class="pre">'o'</span></code>（点）に指定する。</p>
-<p>(8) <code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">0</span></code>に赤の横線を引く。</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">year_list</span></code>に対して<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始。</p></li>
+<li><p>列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">yr</span></code>と同じ場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>となり，そうでない場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返し<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p></li>
+<li><p>列<code class="docutils literal notranslate"><span class="pre">gdp_pc_lo</span></code>で<code class="docutils literal notranslate"><span class="pre">cond</span></code>がTrue<code class="docutils literal notranslate"><span class="pre">となる行を</span></code>Series<code class="docutils literal notranslate"><span class="pre">として抽出し</span></code>s`に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.skew()</span></code>を使い，<code class="docutils literal notranslate"><span class="pre">s</span></code>の歪度を計算し<code class="docutils literal notranslate"><span class="pre">skew_val</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skew_val</span></code>を<code class="docutils literal notranslate"><span class="pre">skew_list</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skew_list</span></code>からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し，<code class="docutils literal notranslate"><span class="pre">year_list</span></code>を行インデックスに指定する。また(8)で<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>によって生成される「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
+<li><p>プロットのマーカーを<code class="docutils literal notranslate"><span class="pre">'o'</span></code>（点）に指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">0</span></code>に赤の横線を引く。</p></li>
+</ol>
 </div>
 <p>次の特徴がある。</p>
-<ol class="simple">
+<ul class="simple">
 <li><p>1970年以降は減少トレンドが確認できる。このことからキャッチアップが発生していることを示唆している。また1990年頃を境に「正の歪み」から「負の歪み」に変化している。</p></li>
 <li><p>1960年，1970年，1990年に上方・下方ジャンプが発生している。これは以下で確認するように，<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国数が大きく増加しているためである。</p></li>
 <li><p>1970年前だけを考えると，歪度は上昇トレンドとなっている。これも欠損値がない国数の変化による影響とも考えられる。</p></li>
-</ol>
+</ul>
 <p>これらの点を考えるために<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国数を確認しよう。次のコードは，2019年に<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値ではない国数を返している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>        <span class="c1"># 1</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 2</span>
 </pre></div>
 </div>
 </div>
@@ -553,10 +560,10 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<ul class="simple">
+<ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">notna()</span></code>は要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>かどうかを調べるメソッドである。要素が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>でなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>であれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">notna</span></code>は英語の<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">na</span></code>のことであり，<code class="docutils literal notranslate"><span class="pre">na</span></code>は<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">available</span></code>の略で欠損値のこと。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>は<code class="docutils literal notranslate"><span class="pre">1</span></code>と数えられるので，メソッド<code class="docutils literal notranslate"><span class="pre">sum()</span></code>を使うことにより<code class="docutils literal notranslate"><span class="pre">True</span></code>の数，即ち，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない要素の数を返す。</p></li>
-</ul>
+</ol>
 </div>
 <p>次に<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って全ての年で<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>に欠損値ない国の数を確認してみる。</p>
 <div class="cell docutils container">
@@ -564,8 +571,8 @@ S=\frac{n}{(n-1)(n-2)}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">notna_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">yr</span> <span class="p">)</span>                <span class="c1"># (1)</span>
-    <span class="n">no</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># (2)</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">yr</span> <span class="p">)</span>                <span class="c1"># 1</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 2</span>
     <span class="n">notna_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">no</span><span class="p">)</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;国数&#39;</span><span class="p">:</span><span class="n">notna_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -579,8 +586,10 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) 列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">yr</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>となり，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返す。</p>
-<p>(2) <code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>の列で<code class="docutils literal notranslate"><span class="pre">cond</span></code>が<code class="docutils literal notranslate"><span class="pre">True</span></code>の行を<code class="docutils literal notranslate"><span class="pre">Series</span></code>としてを返す。そのメソッド<code class="docutils literal notranslate"><span class="pre">.notna()</span></code>は欠損値でない場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，欠損値の場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">.sum()</span></code>は<code class="docutils literal notranslate"><span class="pre">True</span></code>の数を返し<code class="docutils literal notranslate"><span class="pre">no</span></code>に割り当てる。</p>
+<ol class="simple">
+<li><p>列<code class="docutils literal notranslate"><span class="pre">year</span></code>が<code class="docutils literal notranslate"><span class="pre">yr</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>となり，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>の列で<code class="docutils literal notranslate"><span class="pre">cond</span></code>が<code class="docutils literal notranslate"><span class="pre">True</span></code>の行を<code class="docutils literal notranslate"><span class="pre">Series</span></code>としてを返す。そのメソッド<code class="docutils literal notranslate"><span class="pre">.notna()</span></code>は欠損値でない場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，欠損値の場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">.sum()</span></code>は<code class="docutils literal notranslate"><span class="pre">True</span></code>の数を返し<code class="docutils literal notranslate"><span class="pre">no</span></code>に割り当てる。</p></li>
+</ol>
 </div>
 <p>上の図から<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値でない国は増加しており，1960年，1970年，1990年に大きく増えている。データが整備されている国は典型的に先進国であり，後から含まれる国は比較的に所得が低い経済である。従って，貧しい国が所得分布に含まれることにより，分布は左側に引っ張られる傾向にある。特に，1950年から1960年には徐々に国数は増えているが，それが歪度の上昇につながっていると考えられる。また1960年と1970年の国数の急激な増加が歪度の上方ジャンプとして現れている。このようなことから，1970年までの歪度の上昇トレンドは，貧しい経済がPWTのデータセットに含まれることによって引き起こされており，豊かな国と比較して貧しい国が引き離されているからではない。一方で，1970年以降も国数は膨らんでいるが，それにも関わらず歪度は減少傾向を示しているということはキャッチアップが発生していることを示している。典型的な例は，台湾，シンガポール，香港，韓国，中国やインドなどである。</p>
 <p>分布の形の変化を確認するために歪度を使ったが，キャッチアップを捉える統計量として変動係数を考えてみよう。変動係数は分布の広がりを示す統計量であり，次のように定義される。</p>
@@ -596,22 +605,24 @@ S=\frac{n}{(n-1)(n-2)}
 <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>
     <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">yr</span> <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>
-    <span class="n">stdev</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>                 <span class="c1"># (1)</span>
-    <span class="n">avr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                  <span class="c1"># (2)</span>
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">stdev</span> <span class="o">/</span> <span class="n">avr</span>                <span class="c1"># (3)</span>
+    <span class="n">stdev</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>                 <span class="c1"># 1</span>
+    <span class="n">avr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                  <span class="c1"># 2</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">stdev</span> <span class="o">/</span> <span class="n">avr</span>                <span class="c1"># 3</span>
     <span class="n">cv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
 
-<span class="n">df_cv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;CV&#39;</span><span class="p">:</span><span class="n">cv_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span>  <span class="c1"># (4)</span>
+<span class="n">df_cv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;CV&#39;</span><span class="p">:</span><span class="n">cv_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span>  <span class="c1"># 4</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) <code class="docutils literal notranslate"><span class="pre">s</span></code>は<code class="docutils literal notranslate"><span class="pre">cond</span></code>の条件を満たす<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>の列の要素からなる<code class="docutils literal notranslate"><span class="pre">Series</span></code>だが，そのメソッド<code class="docutils literal notranslate"><span class="pre">.std()</span></code>を使い標準偏差を計算し<code class="docutils literal notranslate"><span class="pre">stdev</span></code>に割り当てる。</p>
-<p>(2) <code class="docutils literal notranslate"><span class="pre">s</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>を使い平均を計算し<code class="docutils literal notranslate"><span class="pre">avr</span></code>に割り当てる。</p>
-<p>(3) 変動係数を計算し<code class="docutils literal notranslate"><span class="pre">cv</span></code>に割り当てる。</p>
-<p>(4) <code class="docutils literal notranslate"><span class="pre">index=year_list</span></code>は行インデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>は<code class="docutils literal notranslate"><span class="pre">cond</span></code>の条件を満たす<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>の列の要素からなる<code class="docutils literal notranslate"><span class="pre">Series</span></code>だが，そのメソッド<code class="docutils literal notranslate"><span class="pre">.std()</span></code>を使い標準偏差を計算し<code class="docutils literal notranslate"><span class="pre">stdev</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>を使い平均を計算し<code class="docutils literal notranslate"><span class="pre">avr</span></code>に割り当てる。</p></li>
+<li><p>変動係数を計算し<code class="docutils literal notranslate"><span class="pre">cv</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index=year_list</span></code>は行インデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。</p></li>
+</ol>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -666,26 +677,12 @@ S=\frac{n}{(n-1)(n-2)}
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rgdpna</span></code>：平均成長率の計算に使う</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cgdpe</span></code>：初期時点の一人当たりGDPの計算に使う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">csh_i</span></code>：貯蓄率の計算に使う</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pop</span></code>：人口（in millions）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">regions</span></code>：6つの地域</p>
-<ul>
-<li><p>North America, Africa, Europe, Asia, South America,Australia</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">income_group_wb</span></code>：所得水準位よる4つのグループ（世界銀行による）</p>
-<ul>
-<li><p>High income, Lower middle income, Upper middle income,
-Low income（<code class="docutils literal notranslate"><span class="pre">NaN</span></code>が2つ含まれる）</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">oecd</span></code>：OECDメンバー国であれば<code class="docutils literal notranslate"><span class="pre">1</span></code>そうでなければ<code class="docutils literal notranslate"><span class="pre">0</span></code>（2017年時点）</p></li>
 </ul>
 <p>上で使った<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>である<code class="docutils literal notranslate"><span class="pre">df</span></code>を使うが，回帰分析用の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を別途作成するために使用する変数のリストを作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span><span class="s1">&#39;income_group&#39;</span><span class="p">,</span><span class="s1">&#39;oecd&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe&#39;</span><span class="p">,</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
-<span class="c1"># var_list = [&#39;countrycode&#39;,&#39;year&#39;,&#39;rgdpna&#39;,&#39;cgdpe&#39;,&#39;pop&#39;]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe&#39;</span><span class="p">,</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -693,13 +690,13 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 <p>最初に1960年のデータだけを抽出する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1960</span> <span class="p">)</span>                 <span class="c1"># (1)</span>
-                                                    <span class="c1"># (2)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1960</span> <span class="p">)</span>                 <span class="c1"># 1</span>
+                                                    <span class="c1"># 2</span>
 <span class="n">df_reg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="n">var_list</span><span class="p">]</span> \
-           <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">:</span><span class="s1">&#39;rgdpna1960&#39;</span><span class="p">,</span>  <span class="c1"># (3)</span>
+           <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">:</span><span class="s1">&#39;rgdpna1960&#39;</span><span class="p">,</span>  <span class="c1"># 3</span>
                             <span class="s1">&#39;cgdpe&#39;</span><span class="p">:</span> <span class="s1">&#39;cgdpe1960&#39;</span><span class="p">,</span>
                             <span class="s1">&#39;pop&#39;</span><span class="p">:</span>   <span class="s1">&#39;pop1960&#39;</span><span class="p">})</span>  \
-           <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                  <span class="c1"># (4)</span>
+           <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                  <span class="c1"># 4</span>
 
 <span class="n">df_reg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -725,8 +722,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr style="text-align: right;">
       <th></th>
       <th>countrycode</th>
-      <th>income_group</th>
-      <th>oecd</th>
       <th>year</th>
       <th>rgdpna1960</th>
       <th>cgdpe1960</th>
@@ -737,8 +732,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>0</th>
       <td>ABW</td>
-      <td>High income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -747,8 +740,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>1</th>
       <td>AGO</td>
-      <td>Lower middle income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -757,8 +748,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>2</th>
       <td>AIA</td>
-      <td>NaN</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -767,8 +756,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>3</th>
       <td>ALB</td>
-      <td>Upper middle income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -777,8 +764,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>4</th>
       <td>ARE</td>
-      <td>High income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -790,10 +775,12 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) 1960年の行だけを取り出すための条件を作る。<code class="docutils literal notranslate"><span class="pre">cond</span></code>には列<code class="docutils literal notranslate"><span class="pre">year</span></code>の中で1960の行だけが<code class="docutils literal notranslate"><span class="pre">True</span></code>になり，その他は<code class="docutils literal notranslate"><span class="pre">False</span></code>になる<code class="docutils literal notranslate"><span class="pre">Series</span></code>となっている。。</p>
-<p>(2) <code class="docutils literal notranslate"><span class="pre">.loc</span></code>を使って，<code class="docutils literal notranslate"><span class="pre">var_list</span></code>の列で<code class="docutils literal notranslate"><span class="pre">cond</span></code>の条件を満たす列だけを抽出する。</p>
-<p>(3) メソッド<code class="docutils literal notranslate"><span class="pre">.rename()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">columns</span></code>を指定することにより列ラベルを変更する。引数には辞書を使い，キーは変更前の列ラベル，値には変更後の列ラベルを指定する。辞書に含まれない列のラベルは変更されない。</p>
-<p>(4) <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code>は行インデックスを0から振りなおす。デフォルトでは，元の行インデックスが新たな列として残るが，その列を作らないように<code class="docutils literal notranslate"><span class="pre">drop=True</span></code>を指定している。</p>
+<ol class="simple">
+<li><p>1960年の行だけを取り出すための条件を作る。<code class="docutils literal notranslate"><span class="pre">cond</span></code>には列<code class="docutils literal notranslate"><span class="pre">year</span></code>の中で1960の行だけが<code class="docutils literal notranslate"><span class="pre">True</span></code>になり，その他は<code class="docutils literal notranslate"><span class="pre">False</span></code>になる<code class="docutils literal notranslate"><span class="pre">Series</span></code>となっている。。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.loc</span></code>を使って，<code class="docutils literal notranslate"><span class="pre">var_list</span></code>の列で<code class="docutils literal notranslate"><span class="pre">cond</span></code>の条件を満たす列だけを抽出する。</p></li>
+<li><p>メソッド<code class="docutils literal notranslate"><span class="pre">.rename()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">columns</span></code>を指定することにより列ラベルを変更する。引数には辞書を使い，キーは変更前の列ラベル，値には変更後の列ラベルを指定する。辞書に含まれない列のラベルは変更されない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code>は行インデックスを0から振りなおす。デフォルトでは，元の行インデックスが新たな列として残るが，その列を作らないように<code class="docutils literal notranslate"><span class="pre">drop=True</span></code>を指定している。</p></li>
+</ol>
 </div>
 <p>次に，<code class="docutils literal notranslate"><span class="pre">df_reg</span></code>と同じ方法で2019年のデータを抽出して，<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>に割り当てる。</p>
 <div class="cell docutils container">
@@ -837,8 +824,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr style="text-align: right;">
       <th></th>
       <th>countrycode</th>
-      <th>income_group</th>
-      <th>oecd</th>
       <th>year</th>
       <th>rgdpna1960</th>
       <th>cgdpe1960</th>
@@ -851,8 +836,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>0</th>
       <td>ABW</td>
-      <td>High income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -863,8 +846,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>1</th>
       <td>AGO</td>
-      <td>Lower middle income</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -875,8 +856,6 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
     <tr>
       <th>2</th>
       <td>AIA</td>
-      <td>NaN</td>
-      <td>0</td>
       <td>1960</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -933,14 +912,14 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 <p>平均成長率のヒストグラムを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_average</span> <span class="o">=</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>           <span class="c1"># (1)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_average</span> <span class="o">=</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>           <span class="c1"># 1</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_reg</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>   <span class="c1"># (2)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">growth_average</span> <span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                     <span class="c1"># (3)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_reg</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>   <span class="c1"># 2</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">growth_average</span> <span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                     <span class="c1"># 3</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;赤い線は平均&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>                      <span class="c1"># (4)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_reg</span><span class="p">)</span><span class="si">}</span><span class="s1">ヵ国の平均成長率 (%)&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># (5)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;赤い線は平均&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>                      <span class="c1"># 4</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_reg</span><span class="p">)</span><span class="si">}</span><span class="s1">ヵ国の平均成長率 (%)&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># 5</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -951,20 +930,34 @@ Low income（<code class="docutils literal notranslate"><span class="pre">NaN</s
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) 平均成長率の平均を計算し，結果を変数<code class="docutils literal notranslate"><span class="pre">growth_average</span></code>に割り当てている。</p>
-<p>(2) <code class="docutils literal notranslate"><span class="pre">.hist</span></code>はヒストグラムをプロットする<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド。
-* 第一引数はプロットしたい列ラベル（ここでは<code class="docutils literal notranslate"><span class="pre">growth</span></code>）
-* <code class="docutils literal notranslate"><span class="pre">data</span></code>は使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を指定する（ここでは<code class="docutils literal notranslate"><span class="pre">df_reg</span></code>）
-* <code class="docutils literal notranslate"><span class="pre">bins</span></code>は階級の数を指定する引数（ここでは<code class="docutils literal notranslate"><span class="pre">25</span></code>）
-* <code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>はヒストグラムの棒の枠線の色を指定する引数で，<code class="docutils literal notranslate"><span class="pre">k</span></code>は黒を示す。<code class="docutils literal notranslate"><span class="pre">black</span></code>としても構わない。
-(3) <code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は縦の線を引く<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド
-* 第一引数は横軸の値
-* <code class="docutils literal notranslate"><span class="pre">c</span></code>は色を指定する引数
-(4) <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「軸」が<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられるが，「軸」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.set_title()</span></code>。
-* <code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。
-(5) <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「キャンバス」が<code class="docutils literal notranslate"><span class="pre">fig</span></code>に割り当てられるが，「キャンバス」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">fig</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.suptitle()</span></code>。
-* <code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使って<code class="docutils literal notranslate"><span class="pre">{}</span></code>の中に<code class="docutils literal notranslate"><span class="pre">len(df_reg)</span></code>を代入している。
-* <code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p>
+<ol class="simple">
+<li><p>平均成長率の平均を計算し，結果を変数<code class="docutils literal notranslate"><span class="pre">growth_average</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.hist</span></code>はヒストグラムをプロットする<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド。</p>
+<ul class="simple">
+<li><p>第一引数はプロットしたい列ラベル（ここでは<code class="docutils literal notranslate"><span class="pre">growth</span></code>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>は使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を指定する（ここでは<code class="docutils literal notranslate"><span class="pre">df_reg</span></code>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bins</span></code>は階級の数を指定する引数（ここでは<code class="docutils literal notranslate"><span class="pre">25</span></code>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>はヒストグラムの棒の枠線の色を指定する引数で，<code class="docutils literal notranslate"><span class="pre">k</span></code>は黒を示す。<code class="docutils literal notranslate"><span class="pre">black</span></code>としても構わない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は縦の線を引く<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド</p>
+<ul class="simple">
+<li><p>第一引数は横軸の値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>は色を指定する引数</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「軸」が<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられるが，「軸」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.set_title()</span></code>。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「キャンバス」が<code class="docutils literal notranslate"><span class="pre">fig</span></code>に割り当てられるが，「キャンバス」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">fig</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.suptitle()</span></code>。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使って<code class="docutils literal notranslate"><span class="pre">{}</span></code>の中に<code class="docutils literal notranslate"><span class="pre">len(df_reg)</span></code>を代入している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p></li>
+</ul>
+</li>
+</ol>
 <p>上のヒストグラムは<a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長会計</span></a>の章の「はじめに」で表示したヒストグラムと同じである。そこでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby</span></code>を使っており，それを使うと国ごとの統計量を簡単に計算することができる。詳細については<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">このサイト</a>を参照するか，「pandas groupby」で検索してみよう。</p>
 </div>
 <p>何％の国で平均を下回るか確認してみよう。</p>
@@ -1139,21 +1132,21 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <p>ステップ２として，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って４つの変数からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bhat_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># (1)</span>
-<span class="n">pval_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># (2)</span>
-<span class="n">rsquared_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># (3)</span>
-<span class="n">nobs_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># (4)</span>
-<span class="n">yr_list</span> <span class="o">=</span> <span class="p">[]</span>         <span class="c1"># (5)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bhat_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># 1</span>
+<span class="n">pval_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># 2</span>
+<span class="n">rsquared_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 3</span>
+<span class="n">nobs_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># 4</span>
+<span class="n">yr_list</span> <span class="o">=</span> <span class="p">[]</span>         <span class="c1"># 5</span>
 
-<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>    <span class="c1"># (6)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">growth_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>   <span class="c1"># (7)</span>
-    <span class="n">bhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>      <span class="c1"># (8)</span>
-    <span class="n">pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>      <span class="c1"># (9)</span>
-    <span class="n">rsquared_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># (10)</span>
-    <span class="n">nobs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>      <span class="c1"># (11)</span>
-    <span class="n">yr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>          <span class="c1"># (12)</span>
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>    <span class="c1"># 6</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">growth_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>   <span class="c1"># 7</span>
+    <span class="n">bhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>      <span class="c1"># 8</span>
+    <span class="n">pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>      <span class="c1"># 9</span>
+    <span class="n">rsquared_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># 10</span>
+    <span class="n">nobs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>      <span class="c1"># 11</span>
+    <span class="n">yr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>          <span class="c1"># 12</span>
 
-<span class="c1"># (13)</span>
+<span class="c1"># 13</span>
 <span class="n">df_reg_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;初期時点の一人当たりGDPの係数&#39;</span><span class="p">:</span><span class="n">bhat_list</span><span class="p">,</span>
                               <span class="s1">&#39;p値&#39;</span><span class="p">:</span><span class="n">pval_list</span><span class="p">,</span>
                               <span class="s1">&#39;決定係数&#39;</span><span class="p">:</span><span class="n">rsquared_list</span><span class="p">,</span>
@@ -1165,18 +1158,21 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
-<p>(1) 初期の一人当たりGDP（対数）の係数の推定値を格納する空のリスト</p>
-<p>(2) p値を格納する空のリスト</p>
-<p>(3) 決定係数を格納する空のリスト</p>
-<p>(4) 標本の大きさ（国数）を格納する空のリスト</p>
-<p>(5) 回帰分析で初期時点の<code class="docutils literal notranslate"><span class="pre">year</span></code>を格納する空のリスト</p>
-<p>(6) 1950-2009年を初期時点とする<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始</p>
-<p>(7) <code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">yr</span></code>を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを<code class="docutils literal notranslate"><span class="pre">v</span></code>に割り当てる。</p>
-<p>(8) <code class="docutils literal notranslate"><span class="pre">v</span></code>の0番目の要素（推定値）を<code class="docutils literal notranslate"><span class="pre">bhat_list</span></code>に追加する。</p>
-<p>(9) <code class="docutils literal notranslate"><span class="pre">v</span></code>の1番目の要素（p値）を<code class="docutils literal notranslate"><span class="pre">pval_list</span></code>に追加する。</p>
-<p>(10) <code class="docutils literal notranslate"><span class="pre">v</span></code>の2番目の要素（決定係数）を<code class="docutils literal notranslate"><span class="pre">rsquared_list</span></code>に追加する。</p>
-<p>(11) <code class="docutils literal notranslate"><span class="pre">v</span></code>の3番目の要素（標本のサイズ; 国数）を<code class="docutils literal notranslate"><span class="pre">nobs_list</span></code>に追加する。</p>
-<p>(13) <code class="docutils literal notranslate"><span class="pre">for</span></code>ループの結果を使い<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し<code class="docutils literal notranslate"><span class="pre">df_reg_result</span></code>に割り当てる。</p>
+<ol class="simple">
+<li><p>初期の一人当たりGDP（対数）の係数の推定値を格納する空のリスト</p></li>
+<li><p>p値を格納する空のリスト</p></li>
+<li><p>決定係数を格納する空のリスト</p></li>
+<li><p>標本の大きさ（国数）を格納する空のリスト</p></li>
+<li><p>回帰分析で初期時点の<code class="docutils literal notranslate"><span class="pre">year</span></code>を格納する空のリスト</p></li>
+<li><p>1950-2009年を初期時点とする<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">yr</span></code>を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを<code class="docutils literal notranslate"><span class="pre">v</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の0番目の要素（推定値）を<code class="docutils literal notranslate"><span class="pre">bhat_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の1番目の要素（p値）を<code class="docutils literal notranslate"><span class="pre">pval_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の2番目の要素（決定係数）を<code class="docutils literal notranslate"><span class="pre">rsquared_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の3番目の要素（標本のサイズ; 国数）を<code class="docutils literal notranslate"><span class="pre">nobs_list</span></code>に追加する。</p></li>
+<li><p>初期に使った<code class="docutils literal notranslate"><span class="pre">yr</span></code>を<code class="docutils literal notranslate"><span class="pre">yr_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループの結果を使い<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し<code class="docutils literal notranslate"><span class="pre">df_reg_result</span></code>に割り当てる。</p></li>
+</ol>
 </div>
 <p>ステップ３として<code class="docutils literal notranslate"><span class="pre">df_reg_result</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を使い時系列データをプロットする。</p>
 <div class="cell docutils container">
@@ -1203,7 +1199,12 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <img alt="_images/7_Distribution_79_0.png" src="_images/7_Distribution_79_0.png" />
 </div>
 </div>
-<p>推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>で示した所得分布の歪度の変化の図と整合性があると言える。次章では，経済成長の理論モデルからこの問題を再考し，修正が必要な点を検討することになる。</p>
+<p>推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>で示した所得分布の歪度の変化の図と整合性があると言える。</p>
+<p>次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について議論する。</p>
+<ul class="simple">
+<li><p>初期の一人当たりGDPの係数の推定値の解釈</p></li>
+<li><p>回帰式に必要な修正点</p></li>
+</ul>
 </div>
 </div>
 </div>

@@ -16,8 +16,6 @@ import japanize_matplotlib
 import py4macro
 
 
-# (sec:5-hajimeni)=
-
 # ## はじめに
 
 # 一人当たりGDP（国内総生産）は経済の豊かさを示す一つの尺度として使われるが，下の左の図は2019年の世界経済での一人当たりGDPの分布を示している。日本と他の国・地域との比較を容易にするために、日本の一人当たりGDPを100として相対的な所得分布を表している。日本は38位で、１位であるルクセンブルグの一人当たりGDPは日本のそれより2倍強あり（米国は159.9で10位）、最下位のベネズエラは日本の一人当たりGDPの0.63％である。また、一人当たりGDPが日本の10％に満たない国・地域が107ある。こういった数字が示すように、世界の所得分布は大きな偏りがあり、非常に不平等である。
@@ -734,17 +732,17 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 # In[34]:
 
 
-#（１）
+# 1
 country_table = ['Japan', 'United Kingdom','United States', 'Norway',
                 'Mexico','Peru','India','China','Zimbabwe','Niger']
 
-#（２）
+# 2
 cond = df2019['country'].isin(country_table)
 
-#（３）
+# 3
 col = ['country','gdp_pc_relative','tfp_relative','factors_relative']
 
-#（４）
+# 4
 table2019 = df2019.loc[cond,col].set_index('country')                   .sort_values('gdp_pc_relative', ascending=False)                   .round(2)                   .rename(columns={'gdp_pc_relative':'一人当たりGDP',
                                    'tfp_relative':'全要素生産性',
                                    'factors_relative':'蓄積生産要素'})
@@ -943,62 +941,62 @@ df['tfp'] = df['rgdp_pc'] / df['factors']
 # In[39]:
 
 
-var_list = ['rgdp_pc','k_pc','avh','hc']   # (1)
+var_list = ['rgdp_pc','k_pc','avh','hc']   # 1
 
-dic = {}             # (2)
+growth_dict = {}            # 2
 
-for v in var_list:   # (3)
+for v in var_list:          # 3
     
-    g_list = []             # (4)
+    growth_list = []        # 4
     
-    for c in country_list:  # (5)
-        start = 1999        # (6)
-        end = 2019          # (7)
-        n = end-start       # (8)
+    for c in country_list:  # 5
+        start = 1999        # 6
+        end = 2019          # 7
+        n = end-start       # 8
         
-        df_start = df.query('country == @c & year == @start')  # (9)
-        df_end = df.query('country == @c & year == @end')      # (10)
+        df_start = df.query('country == @c & year == @start')  # 9
+        df_end = df.query('country == @c & year == @end')      # 10
 
 
-        g = ( df_end[v].iat[0] / df_start[v].iat[0] )**(1/n)-1  # (11)
-        g_list.append(100*g)                                    # (12)
+        g = ( df_end[v].iat[0] / df_start[v].iat[0] )**(1/n)-1  # 11
+        growth_list.append(100*g)                               # 12
             
-    dic[v] = g_list          # (13)
+    growth_dict[v] = growth_list                                # 13
 
 
-df_growth = pd.DataFrame({'country':country_list,               # (14)
-                          'rgdp_pc':dic['rgdp_pc'],             # (15)
-                          'k_pc':dic['k_pc'],                   # (16)
-                          'avh':dic['avh'],                     # (17)
-                          'hc':dic['hc']})                      # (18)
+df_growth = pd.DataFrame({'country':country_list,               # 14
+                          'rgdp_pc':growth_dict['rgdp_pc'],     # 15
+                          'k_pc':growth_dict['k_pc'],
+                          'avh':growth_dict['avh'],
+                          'hc':growth_dict['hc']})
 
 
 # ```{admonition} コードの説明
-# * (1)：成長率を計算する対象となる変数リスト
-# * (2)：空の辞書。次の形になるように(1)の平均成長率のリストを格納する。
+# 1. 成長率を計算する対象となる変数リスト
+# 2. 空の辞書。次の形になるように(1)の平均成長率のリストを格納する。
 #     * キー：変数名（`rgdp_pc`、`k_pc`、`hc`）
 #     * 値：それぞれの国の成長率からなるリスト
-# * (3)：(1)の`var_list`に対しての`for`ループ。１回目のループでは`rdgp_pc`について計算する。
-# * (4)：空リスト（役割は以下で説明）
-# * (5)：`country_list`に対しての`for`ループ。(3)の１回目の`for`ループで変数`rdgp_pc`に対して`country_list`にある国の成長率を下に続くコードを使って計算する。
-#     * (6)：最初の年を指定
-#     * (7)：最後の年を指定
-#     * (8)：何年間かを計算
-#     * (9)：最初の年の`DataFrame`を抽出
-#     * (10)：最後の年の`DataFrame`を抽出
-#     * (11)：平均成長率を計算する。
-#         * `df_end[v]`と`df_start[v]`は列ラベル`v`の列を抽出しており、`Series`として返される。
-#         * `.iat[0]`は`Series`の`0`番目の数値を取り出すメソッド
-#     * (12)：計算した成長率を(4)のリストに追加する。
+# 3. `var_list`に対しての`for`ループ。１回目のループでは`rdgp_pc`について計算する。
+# 4. 空リスト（役割は以下で説明）
+# 5. `country_list`に対しての`for`ループ。(3)の１回目の`for`ループで変数`rdgp_pc`に対して`country_list`にある国の成長率を下に続くコードを使って計算する。
+# 6. 最初の年を指定
+# 7. 最後の年を指定
+# 8. 何年間かを計算
+# 9. 最初の年の`DataFrame`を抽出
+# 10. 最後の年の`DataFrame`を抽出
+# 11. 平均成長率を計算する。
+#     * `df_end[v]`と`df_start[v]`は列ラベル`v`の列を抽出しており、`Series`として返される。
+#     * `.iat[0]`は`Series`の`0`番目の数値を取り出すメソッド
+# 12. 計算した成長率を(4)のリストに追加する。
 #         * `100`をかけて％表示にする。
-# * (13)： (5)のループが終わると、(4)のリストを(2)の辞書に追加する
+# 13. ループが終わると、(4)のリストを(2)の辞書に追加する。
 #     * 辞書に追加する際に変数名`v`を指定することにより、次のペアのデータが追加される
 #         * キー：変数名（`rgdp_pc`、`k_pc`、`hc`）
 #         * 値：それぞれの国の成長率のリスト
-# * (3)の`for`ループの次の変数に移り、上で説明した作業が繰り返される。
-# * (14)：`country_list`を`DataFrame`の列に設定
-# * (15)〜(18)：それぞれの成長率を`DataFrame`の列に設定
-#     * `dic['キー']`で`dic`の`キー`にあるリストを抽出している。
+#     * 3.の`for`ループの次の変数に移り、3.以下で説明した作業が繰り返される。
+# 14. `country_list`を`DataFrame`の列に設定
+# 15. `rgdp_pc`の成長率を`DataFrame`の列に設定するが，その際，`growth_dict['キー']`で`growth_dic`の`キー`にあるリストを抽出している。
+#     * 下の３行は`k_pc`，`avh`，`hc`に対して同じ作業を行なっている。
 # ```
 
 # In[40]:
