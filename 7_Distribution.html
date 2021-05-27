@@ -55,7 +55,7 @@
     <link rel="canonical" href="https://py4macro.github.io/7_Distribution.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Pandas：プロット" href="Pandas_plot.html" />
+    <link rel="next" title="漸化式と経済分析" href="8_DifferenceEq.html" />
     <link rel="prev" title="回帰分析" href="6_Regression.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -130,6 +130,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    所得分布と所得収斂
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_DifferenceEq.html">
+   漸化式と経済分析
   </a>
  </li>
 </ul>
@@ -248,7 +253,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
+  <a class="reference internal nav-link" href="#sec-7-convergence">
    所得収斂
   </a>
   <ul class="nav section-nav flex-column">
@@ -285,8 +290,8 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>所得分布と所得収斂<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="chap-distribution">
+<span id="id1"></span><h1>所得分布と所得収斂<a class="headerlink" href="#chap-distribution" title="Permalink to this headline">¶</a></h1>
 <p>If you come here without expecting Japanese, please click <a class="reference external" href="https://translate.google.com/translate?sl=auto&amp;tl=en&amp;u=https://py4macro.github.io/7_Distribution.html">Google translated version</a> in English or the language of your choice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -483,10 +488,10 @@ S=\frac{n}{(n-1)(n-2)}
 <li><p><span class="math notranslate nohighlight">\(S=0\)</span>：左右対称分布</p></li>
 </ul>
 <div class="figure align-default" id="fig-7-skewness">
-<a class="reference internal image-reference" href="_images/skewness.jpeg"><img alt="_images/skewness.jpeg" src="_images/skewness.jpeg" style="width: 641.0px; height: 250.0px;" /></a>
+<a class="reference internal image-reference" href="_images/skewness.jpeg"><img alt="_images/skewness.jpeg" src="_images/skewness.jpeg" style="width: 512.8000000000001px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Sの符号と分布の歪み（偏り）の関係</span><a class="headerlink" href="#fig-7-skewness" title="Permalink to this image">¶</a></p>
 </div>
-<p>もしキャッチアップが起こると，一人当たりGDPが低い経済はより高い所得を得る経済に近づき，所得が比較的に高い国が増えることになる。従って，キャッチアップによって<span class="math notranslate nohighlight">\(G\)</span>は減少すると考えられる。歪度の推移を計算してみよう。</p>
+<p>もしキャッチアップが起こると，一人当たりGDPが低い経済はより高い所得を得る経済に近づき，所得が比較的に高い国が増えることになる。従って，キャッチアップによって左側の分布から右側の分布に移り，それにつれて<span class="math notranslate nohighlight">\(G\)</span>は減少すると考えられる。では実際に歪度の推移を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -630,8 +635,8 @@ S=\frac{n}{(n-1)(n-2)}
 <li><p>分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。中国やインドのように大きな国も，ルクセンブルクやシンガポールのように小さな国も１つの経済として扱っている。この場合の変動係数は，全ての国には一人だけしか住んでいないと仮定した場合の経済間の所得格差と同じであり，<strong>国内</strong>の人口や所得不平等やは全く考慮されていない。</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>所得収斂<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sec-7-convergence">
+<span id="id4"></span><h2>所得収斂<a class="headerlink" href="#sec-7-convergence" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id5">
 <h3>説明<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>ここでは問３を回帰分析の手法に基づき検討する。では問３を捉えるにはどのような回帰式になれば良いだろうか？それを考えるために，高校体育の10km持久走を思い出してみよう。スタートして１０分程経つと，先頭を走る学生とタラタラ走る学生などに別れるのが通常のパターンだと思うが，後ろの集団にＡ君が混じっているとしよう。そして，ある時点でＡ君は先頭に追いつこうと決心して真面目に走り出し，身体能力が高いＡ君はゴール寸前で先頭集団に追いつき，晴れて１位になれたとしよう。</p>
@@ -914,7 +919,7 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_52_0.png" src="_images/7_Distribution_52_0.png" />
+<img alt="_images/7_Distribution_53_0.png" src="_images/7_Distribution_53_0.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -1015,16 +1020,15 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <span class="c1"># 図示</span>
 <span class="n">ax_</span> <span class="o">=</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_pc1960_log&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="n">df_reg</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;all_fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_pc1960_log&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;all_fitted&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_66_0.png" src="_images/7_Distribution_66_0.png" />
+<img alt="_images/7_Distribution_67_0.png" src="_images/7_Distribution_67_0.png" />
 </div>
 </div>
-<p>これらの結果から，データに含まれる全ての国で無条件所得収斂（キャッチアップ）が成立しているとは言い難い。しかし<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>からキャッチアップを示唆する結果を得たば，結果の差はどこから来ているのだろうか。一つの可能性は分析の中で使った国数でり，次節ではその点について考察する。</p>
+<p>これらの結果から，データに含まれる全ての国で無条件所得収斂（キャッチアップ）が成立しているとは言い難い。しかし<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>ではキャッチアップを示唆する結果を得たが，結果の差はどこから来ているのだろうか。１つの可能性は分析の中で使った国数であり，次節ではその点を考慮して回帰分析を行なってみよう。</p>
 </div>
 <div class="section" id="id8">
 <h3>期間を変えて回帰分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
@@ -1042,7 +1046,8 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 </ul>
 <p>次の３つのステップに分けてコードを書いていく。</p>
 <ol class="simple">
-<li><p>引数<code class="docutils literal notranslate"><span class="pre">yr</span></code>に初期時点の一人当たりGDPの年（例えば，1980）を指定すると，次の４つを返す<code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>という関数を作成する。</p>
+<li><p>引数<code class="docutils literal notranslate"><span class="pre">yr</span></code>に初期時点の一人当たりGDPの年（例えば，1980）を指定すると，回帰分析ようの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を次の４つを返す<code class="docutils literal notranslate"><span class="pre">data_for_regression(yr)</span></code>という関数を作成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループで<code class="docutils literal notranslate"><span class="pre">data_for_regression(yr)</span></code>を使い，次の４つの変数の推移を示す変数からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <ul class="simple">
 <li><p>初期時点の一人当たりGDP（対数）の係数の推定値</p></li>
 <li><p><span class="math notranslate nohighlight">\(p\)</span>値</p></li>
@@ -1050,13 +1055,12 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <li><p>標本に含まれる国数</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループで<code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>を使い，上の４つの変数の推移を示す変数からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p></li>
 <li><p>４つの変数の時系列プロット</p></li>
 </ol>
-<p>ステップ１の<code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>は基本的に<a class="reference internal" href="#sec-7-regression"><span class="std std-ref">回帰分析：1960~2019</span></a>で使ったコードを関数としてまとめることで作成する。</p>
+<p>ステップ１の<code class="docutils literal notranslate"><span class="pre">data_for_regression(yr)</span></code>は基本的に<a class="reference internal" href="#sec-7-regression"><span class="std std-ref">回帰分析：1960~2019</span></a>で使ったコードを関数としてまとめることで作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">growth_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_for_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">):</span>
 
     <span class="c1"># 変数リスト</span>
     <span class="n">var</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">,</span><span class="s1">&#39;pop&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe&#39;</span><span class="p">]</span>    
@@ -1092,32 +1096,119 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
     <span class="c1"># 列 growthとcgdpe0 に欠損値がある行は削除</span>
     <span class="n">df0</span> <span class="o">=</span> <span class="n">df0</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpe0&#39;</span><span class="p">])</span>
 
-    <span class="c1"># </span>
-    <span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;growth ~ gdp_pc0_log&#39;</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    
-    <span class="k">return</span> <span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>   <span class="c1"># 推定値</span>
-             <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># p値</span>
-             <span class="n">res</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span>    <span class="c1"># 決定係数</span>
-             <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span> <span class="p">)</span>  <span class="c1"># 国の数</span>
+    <span class="k">return</span> <span class="n">df0</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">yr=1960</span></code>として関数を実行してみよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">yr=1960</span></code>として関数を実行して内容を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_regression</span><span class="p">(</span><span class="mi">1960</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_for_regression</span><span class="p">(</span><span class="mi">1960</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.00041984018714417504, 0.7654443398976627, 0.0008199886481217167, 111)
-</pre></div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>countrycode</th>
+      <th>rgdpna0</th>
+      <th>pop0</th>
+      <th>cgdpe0</th>
+      <th>rgdpna2019</th>
+      <th>pop2019</th>
+      <th>gdp_pc0_log</th>
+      <th>gdp_pc0_for_grow</th>
+      <th>gdp_pc2019_for_grow</th>
+      <th>growth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>ARG</td>
+      <td>270342.000000</td>
+      <td>20.545674</td>
+      <td>64586.855469</td>
+      <td>9.755690e+05</td>
+      <td>44.780677</td>
+      <td>8.053116</td>
+      <td>13158.098665</td>
+      <td>21785.490201</td>
+      <td>0.008439</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>AUS</td>
+      <td>185281.281250</td>
+      <td>10.470019</td>
+      <td>165522.125000</td>
+      <td>1.315734e+06</td>
+      <td>25.203198</td>
+      <td>9.668344</td>
+      <td>17696.365472</td>
+      <td>52205.051518</td>
+      <td>0.018194</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>AUT</td>
+      <td>98201.617188</td>
+      <td>7.093828</td>
+      <td>73102.203125</td>
+      <td>4.767233e+05</td>
+      <td>8.955102</td>
+      <td>9.240389</td>
+      <td>13843.247652</td>
+      <td>53234.827755</td>
+      <td>0.022702</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>BDI</td>
+      <td>1941.153931</td>
+      <td>2.781160</td>
+      <td>1893.712646</td>
+      <td>9.250676e+03</td>
+      <td>11.530580</td>
+      <td>6.523427</td>
+      <td>697.965696</td>
+      <td>802.273240</td>
+      <td>0.002324</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>BEL</td>
+      <td>115497.296875</td>
+      <td>9.113383</td>
+      <td>103177.218750</td>
+      <td>5.341023e+05</td>
+      <td>11.539328</td>
+      <td>9.334459</td>
+      <td>12673.373099</td>
+      <td>46285.391359</td>
+      <td>0.021823</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
-</div>
-<p>返り値は４つの値のタプルとなっており，<a class="reference internal" href="#sec-7-regression"><span class="std std-ref">回帰分析：1960~2019</span></a>の結果と同じになることが確認できる。</p>
 <p>ステップ２として，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って４つの変数からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1127,15 +1218,19 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <span class="n">nobs_list</span> <span class="o">=</span> <span class="p">[]</span>       <span class="c1"># 4</span>
 <span class="n">yr_list</span> <span class="o">=</span> <span class="p">[]</span>         <span class="c1"># 5</span>
 
-<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>    <span class="c1"># 6</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">growth_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>   <span class="c1"># 7</span>
-    <span class="n">bhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>      <span class="c1"># 8</span>
-    <span class="n">pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>      <span class="c1"># 9</span>
-    <span class="n">rsquared_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># 10</span>
-    <span class="n">nobs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>      <span class="c1"># 11</span>
-    <span class="n">yr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>          <span class="c1"># 12</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;growth ~ gdp_pc0_log&#39;</span>          <span class="c1"># 6</span>
 
-<span class="c1"># 13</span>
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>              <span class="c1"># 7</span>
+    
+    <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>         <span class="c1"># 8 </span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># 9</span>
+    <span class="n">bhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>     <span class="c1"># 10</span>
+    <span class="n">pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>    <span class="c1"># 11</span>
+    <span class="n">rsquared_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">rsquared</span> <span class="p">)</span>  <span class="c1"># 12</span>
+    <span class="n">nobs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span> <span class="p">)</span>     <span class="c1"># 13</span>
+    <span class="n">yr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>                    <span class="c1"># 14</span>
+
+                                          <span class="c1"># 15</span>
 <span class="n">df_reg_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;初期時点の一人当たりGDPの係数&#39;</span><span class="p">:</span><span class="n">bhat_list</span><span class="p">,</span>
                               <span class="s1">&#39;p値&#39;</span><span class="p">:</span><span class="n">pval_list</span><span class="p">,</span>
                               <span class="s1">&#39;決定係数&#39;</span><span class="p">:</span><span class="n">rsquared_list</span><span class="p">,</span>
@@ -1153,16 +1248,121 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 <li><p>決定係数を格納する空のリスト</p></li>
 <li><p>標本の大きさ（国数）を格納する空のリスト</p></li>
 <li><p>回帰分析で初期時点の<code class="docutils literal notranslate"><span class="pre">year</span></code>を格納する空のリスト</p></li>
+<li><p>回帰式。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中では同じ回帰式を使うので<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの外に配置している。</p></li>
 <li><p>1950-2009年を初期時点とする<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">growth_regression(yr)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">yr</span></code>を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを<code class="docutils literal notranslate"><span class="pre">v</span></code>に割り当てる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の0番目の要素（推定値）を<code class="docutils literal notranslate"><span class="pre">bhat_list</span></code>に追加する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の1番目の要素（p値）を<code class="docutils literal notranslate"><span class="pre">pval_list</span></code>に追加する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の2番目の要素（決定係数）を<code class="docutils literal notranslate"><span class="pre">rsquared_list</span></code>に追加する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>の3番目の要素（標本のサイズ; 国数）を<code class="docutils literal notranslate"><span class="pre">nobs_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_for_regression(yr)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">yr</span></code>を初期時点として回帰分析に使う<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を<code class="docutils literal notranslate"><span class="pre">df0</span></code>に割り当てる。</p></li>
+<li><p>回帰分析の計算結果を<code class="docutils literal notranslate"><span class="pre">res</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.params</span></code>を使い1番目の要素を<code class="docutils literal notranslate"><span class="pre">bhat_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.pvalues</span></code>はp値を返す。その1番目の要素を<code class="docutils literal notranslate"><span class="pre">pval_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.rsquared</span></code>は決定係数を返す。それを<code class="docutils literal notranslate"><span class="pre">rsquared_list</span></code>に追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.nobs</span></code>は標本の大きさ（国数と同じ）を返す。それを<code class="docutils literal notranslate"><span class="pre">nobs_list</span></code>に追加する。</p></li>
 <li><p>初期に使った<code class="docutils literal notranslate"><span class="pre">yr</span></code>を<code class="docutils literal notranslate"><span class="pre">yr_list</span></code>に追加する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループの結果を使い<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し<code class="docutils literal notranslate"><span class="pre">df_reg_result</span></code>に割り当てる。</p></li>
 </ol>
 </div>
+<p>作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を確認してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_reg_result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>初期時点の一人当たりGDPの係数</th>
+      <th>p値</th>
+      <th>決定係数</th>
+      <th>国の数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1950</th>
+      <td>0.000079</td>
+      <td>0.957589</td>
+      <td>0.000054</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>1951</th>
+      <td>-0.000794</td>
+      <td>0.623433</td>
+      <td>0.004184</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>1952</th>
+      <td>-0.001100</td>
+      <td>0.492978</td>
+      <td>0.008002</td>
+      <td>61</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>それぞれの列には計算した変数が並んでおり，行インデックスには年が配置されている。初期時点を1960年とする結果を確かめてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_reg_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1960</span><span class="p">],:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>初期時点の一人当たりGDPの係数</th>
+      <th>p値</th>
+      <th>決定係数</th>
+      <th>国の数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1960</th>
+      <td>-0.00042</td>
+      <td>0.765444</td>
+      <td>0.00082</td>
+      <td>111</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><a class="reference internal" href="#sec-7-regression"><span class="std std-ref">回帰分析：1960~2019</span></a>の結果と同じになることが確認できる。</p>
 <p>ステップ３として<code class="docutils literal notranslate"><span class="pre">df_reg_result</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を使い時系列データをプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1172,10 +1372,10 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_77_0.png" src="_images/7_Distribution_77_0.png" />
+<img alt="_images/7_Distribution_83_0.png" src="_images/7_Distribution_83_0.png" />
 </div>
 </div>
-<p>上から一番目の図から，初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1970年までの推定値の統計的優位性低く，1970年以降は高いように見える。1970以降だけを表示してみよう。</p>
+<p>一番上の図から初期の一人当たりGDPの係数の推定値は殆ど全て負の値となることがわかる。しかし二番目の図からわかるように，1970年までの推定値の統計的優位性低いが，1970年以降は高いように見える。1970以降だけを表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df_reg_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1970</span><span class="p">:,</span><span class="s1">&#39;p値&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -1185,11 +1385,35 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7_Distribution_79_0.png" src="_images/7_Distribution_79_0.png" />
+<img alt="_images/7_Distribution_85_0.png" src="_images/7_Distribution_85_0.png" />
 </div>
 </div>
 <p>推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，<a class="reference internal" href="#sec-7-distribution"><span class="std std-ref">所得分布の推移</span></a>で示した所得分布の歪度の変化の図と整合性があると言える。</p>
-<p>次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について議論する。</p>
+<p>確認のために，初期時点を1970年とする散布図と回帰直線をプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1970年のデータを作成</span>
+<span class="n">df1970</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="mi">1970</span><span class="p">)</span>
+
+<span class="c1"># 回帰分析の計算</span>
+<span class="n">res1970</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df1970</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># 予測値</span>
+<span class="n">df1970</span><span class="p">[</span><span class="s1">&#39;1970_fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res1970</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="c1"># 図示</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_pc0_log&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;growth&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">df1970</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;1970_fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_pc0_log&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;1970_fitted&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;1970-2019年のデータを使った回帰分析&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Distribution_87_0.png" src="_images/7_Distribution_87_0.png" />
+</div>
+</div>
+<p>次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について検討する。</p>
 <ul class="simple">
 <li><p>初期の一人当たりGDPの係数の推定値の解釈</p></li>
 <li><p>回帰式に必要な修正点</p></li>
@@ -1224,7 +1448,7 @@ gdp_pc1960_log    -0.0004      0.001     -0.299      0.765      -0.003       0.0
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="6_Regression.html" title="previous page">回帰分析</a>
-    <a class='right-next' id="next-link" href="Pandas_plot.html" title="next page">Pandas：プロット</a>
+    <a class='right-next' id="next-link" href="8_DifferenceEq.html" title="next page">漸化式と経済分析</a>
 
         </div>
         
