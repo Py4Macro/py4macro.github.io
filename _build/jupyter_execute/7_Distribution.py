@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# (chap:distribution)=
 # # 所得分布と所得収斂
 
 # If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/7_Distribution.html) in English or the language of your choice.
@@ -168,13 +169,13 @@ pass
 
 # ```{figure} /images/skewness.jpeg
 # ---
-# scale: 25%
+# scale: 20%
 # name: fig:7-skewness
 # ---
 # Sの符号と分布の歪み（偏り）の関係
 # ```
 # 
-# もしキャッチアップが起こると，一人当たりGDPが低い経済はより高い所得を得る経済に近づき，所得が比較的に高い国が増えることになる。従って，キャッチアップによって$G$は減少すると考えられる。歪度の推移を計算してみよう。
+# もしキャッチアップが起こると，一人当たりGDPが低い経済はより高い所得を得る経済に近づき，所得が比較的に高い国が増えることになる。従って，キャッチアップによって左側の分布から右側の分布に移り，それにつれて$G$は減少すると考えられる。では実際に歪度の推移を計算してみよう。
 
 # In[8]:
 
@@ -295,6 +296,9 @@ pass
 # 上で扱った変動係数は経済間における所得格差を表す指標として解釈することができるが，その場合次の点に注意する必要がある。
 # * 分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。中国やインドのように大きな国も，ルクセンブルクやシンガポールのように小さな国も１つの経済として扱っている。この場合の変動係数は，全ての国には一人だけしか住んでいないと仮定した場合の経済間の所得格差と同じであり，**国内**の人口や所得不平等やは全く考慮されていない。
 
+# ## 所得収斂
+
+# (sec:7-convergence)=
 # ## 所得収斂
 
 # ### 説明
@@ -513,11 +517,10 @@ df_reg['all_fitted'] = res_all.fittedvalues
 # 図示
 ax_ = df_reg.plot(x='gdp_pc1960_log', y='growth', kind='scatter')
 df_reg.sort_values('all_fitted').plot(x='gdp_pc1960_log', y='all_fitted', color='red', ax=ax_)
-
 pass
 
 
-# これらの結果から，データに含まれる全ての国で無条件所得収斂（キャッチアップ）が成立しているとは言い難い。しかし[所得分布の推移](sec:7-distribution)からキャッチアップを示唆する結果を得たば，結果の差はどこから来ているのだろうか。一つの可能性は分析の中で使った国数でり，次節ではその点について考察する。
+# これらの結果から，データに含まれる全ての国で無条件所得収斂（キャッチアップ）が成立しているとは言い難い。しかし[所得分布の推移](sec:7-distribution)ではキャッチアップを示唆する結果を得たが，結果の差はどこから来ているのだろうか。１つの可能性は分析の中で使った国数であり，次節ではその点を考慮して回帰分析を行なってみよう。
 
 # ### 期間を変えて回帰分析
 
@@ -533,20 +536,20 @@ pass
 # * 2009~2019年
 # 
 # 次の３つのステップに分けてコードを書いていく。
-# 1. 引数`yr`に初期時点の一人当たりGDPの年（例えば，1980）を指定すると，次の４つを返す`growth_regression(yr)`という関数を作成する。
+# 1. 引数`yr`に初期時点の一人当たりGDPの年（例えば，1980）を指定すると，回帰分析ようの`DataFrame`を次の４つを返す`data_for_regression(yr)`という関数を作成する。
+# 1. `for`ループで`data_for_regression(yr)`を使い，次の４つの変数の推移を示す変数からなる`DataFrame`を作成する。
 #     * 初期時点の一人当たりGDP（対数）の係数の推定値
 #     * $p$値
 #     * 決定係数
 #     * 標本に含まれる国数
-# 1. `for`ループで`growth_regression(yr)`を使い，上の４つの変数の推移を示す変数からなる`DataFrame`を作成する。
 # 1. ４つの変数の時系列プロット
 # 
-# ステップ１の`growth_regression(yr)`は基本的に[](sec:7-regression)で使ったコードを関数としてまとめることで作成する。
+# ステップ１の`data_for_regression(yr)`は基本的に[](sec:7-regression)で使ったコードを関数としてまとめることで作成する。
 
 # In[24]:
 
 
-def growth_regression(yr):
+def data_for_regression(yr):
 
     # 変数リスト
     var = ['countrycode','rgdpna','pop','cgdpe']    
@@ -580,26 +583,17 @@ def growth_regression(yr):
     # 列 growthとcgdpe0 に欠損値がある行は削除
     df0 = df0.dropna(subset=['growth','cgdpe0'])
 
-    # 
-    formula = 'growth ~ gdp_pc0_log'
-    res = sm.ols(formula, data=df0).fit()
-    
-    return ( res.params[1],   # 推定値
-             res.pvalues[1],  # p値
-             res.rsquared,    # 決定係数
-             int(res.nobs) )  # 国の数
+    return df0
 
 
-# `yr=1960`として関数を実行してみよう。
+# `yr=1960`として関数を実行して内容を確認してみよう。
 
 # In[25]:
 
 
-growth_regression(1960)
+data_for_regression(1960).head()
 
 
-# 返り値は４つの値のタプルとなっており，[](sec:7-regression)の結果と同じになることが確認できる。
-# 
 # ステップ２として，`for`ループを使って４つの変数からなる`DataFrame`を作成する。
 
 # In[26]:
@@ -611,15 +605,19 @@ rsquared_list = []   # 3
 nobs_list = []       # 4
 yr_list = []         # 5
 
-for yr in range(1950, 2010):    # 6
-    v = growth_regression(yr)   # 7
-    bhat_list.append(v[0])      # 8
-    pval_list.append(v[1])      # 9
-    rsquared_list.append(v[2])  # 10
-    nobs_list.append(v[3])      # 11
-    yr_list.append(yr)          # 12
+formula = 'growth ~ gdp_pc0_log'          # 6
 
-# 13
+for yr in range(1950, 2010):              # 7
+    
+    df0 = data_for_regression(yr)         # 8 
+    res = sm.ols(formula, data=df0).fit() # 9
+    bhat_list.append( res.params[1] )     # 10
+    pval_list.append( res.pvalues[1] )    # 11
+    rsquared_list.append( res.rsquared )  # 12
+    nobs_list.append( int(res.nobs) )     # 13
+    yr_list.append(yr)                    # 14
+
+                                          # 15
 df_reg_result = pd.DataFrame({'初期時点の一人当たりGDPの係数':bhat_list,
                               'p値':pval_list,
                               '決定係数':rsquared_list,
@@ -633,28 +631,48 @@ df_reg_result = pd.DataFrame({'初期時点の一人当たりGDPの係数':bhat_
 # 3. 決定係数を格納する空のリスト
 # 4. 標本の大きさ（国数）を格納する空のリスト
 # 5. 回帰分析で初期時点の`year`を格納する空のリスト
-# 6. 1950-2009年を初期時点とする`for`ループの開始
-# 7. `growth_regression(yr)`を使い`yr`を初期時点として回帰分析を行う。返り値の４つの変数からなるタプルを`v`に割り当てる。
-# 8. `v`の0番目の要素（推定値）を`bhat_list`に追加する。
-# 9. `v`の1番目の要素（p値）を`pval_list`に追加する。
-# 10. `v`の2番目の要素（決定係数）を`rsquared_list`に追加する。
-# 11. `v`の3番目の要素（標本のサイズ; 国数）を`nobs_list`に追加する。
-# 12. 初期に使った`yr`を`yr_list`に追加する。
-# 13. `for`ループの結果を使い`DataFrame`を作成し`df_reg_result`に割り当てる。
+# 6. 回帰式。`for`ループの中では同じ回帰式を使うので`for`ループの外に配置している。
+# 7. 1950-2009年を初期時点とする`for`ループの開始
+# 8. `data_for_regression(yr)`を使い`yr`を初期時点として回帰分析に使う`DataFrame`を`df0`に割り当てる。
+# 9. 回帰分析の計算結果を`res`に割り当てる。
+# 10. `res`の属性`.params`を使い1番目の要素を`bhat_list`に追加する。
+# 11. `res`の属性`.pvalues`はp値を返す。その1番目の要素を`pval_list`に追加する。
+# 12. `res`の属性`.rsquared`は決定係数を返す。それを`rsquared_list`に追加する。
+# 13. `res`の属性`.nobs`は標本の大きさ（国数と同じ）を返す。それを`nobs_list`に追加する。
+# 14. 初期に使った`yr`を`yr_list`に追加する。
+# 15. `for`ループの結果を使い`DataFrame`を作成し`df_reg_result`に割り当てる。
 # ```
+
+# 作成した`DataFrame`を確認してみよう。
+
+# In[27]:
+
+
+df_reg_result.head(3)
+
+
+# それぞれの列には計算した変数が並んでおり，行インデックスには年が配置されている。初期時点を1960年とする結果を確かめてみよう。
+
+# In[28]:
+
+
+df_reg_result.loc[[1960],:]
+
+
+# [](sec:7-regression)の結果と同じになることが確認できる。
 
 # ステップ３として`df_reg_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[27]:
+# In[29]:
 
 
 df_reg_result.plot(subplots=True, figsize=(6,8))
 pass
 
 
-# 上から一番目の図から，初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1970年までの推定値の統計的優位性低く，1970年以降は高いように見える。1970以降だけを表示してみよう。
+# 一番上の図から初期の一人当たりGDPの係数の推定値は殆ど全て負の値となることがわかる。しかし二番目の図からわかるように，1970年までの推定値の統計的優位性低いが，1970年以降は高いように見える。1970以降だけを表示してみよう。
 
-# In[28]:
+# In[30]:
 
 
 ax_ = df_reg_result.loc[1970:,'p値'].plot()
@@ -664,6 +682,27 @@ pass
 
 # 推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1970年以降は平均して貧しい経済は豊かな経済にキャッチアップしていることを示唆している。この結果は，[所得分布の推移](sec:7-distribution)で示した所得分布の歪度の変化の図と整合性があると言える。
 # 
-# 次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について議論する。
+# 確認のために，初期時点を1970年とする散布図と回帰直線をプロットしてみよう。
+
+# In[31]:
+
+
+# 1970年のデータを作成
+df1970 = data_for_regression(1970)
+
+# 回帰分析の計算
+res1970 = sm.ols(formula, data=df1970).fit()
+
+# 予測値
+df1970['1970_fitted'] = res1970.fittedvalues
+
+# 図示
+ax_ = df1970.plot(x='gdp_pc0_log', y='growth', kind='scatter')
+df1970.sort_values('1970_fitted').plot(x='gdp_pc0_log', y='1970_fitted', color='red', ax=ax_)
+ax_.set_title('1970-2019年のデータを使った回帰分析', size=18)
+pass
+
+
+# 次章では，経済成長の理論モデルから所得収斂の問題を再考し次の点について検討する。
 # * 初期の一人当たりGDPの係数の推定値の解釈
 # * 回帰式に必要な修正点

@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>漸化式と経済分析 &#8212; Pythonで学ぶ中級マクロ経済学</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://py4macro.github.io/8_DifferenceEq.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pandas：プロット" href="Pandas_plot.html" />
+    <link rel="prev" title="所得分布と所得収斂" href="7_Distribution.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://py4macro.github.io/8_DifferenceEq.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="漸化式と経済分析" />
+<meta property="og:description" content="漸化式と経済分析  import numpy as np import pandas as pd import statsmodels.formula.api as sm import japanize_matplotlib  はじめに  この章ではまず第一に，動学モデルの基礎（の基礎）を理解することである。マクロ経済" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Pythonで学ぶ中級マクロ経済学</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  １. Pythonの学習
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Python_Basics.html">
+   Pythonの基礎
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_NumPy.html">
+   NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Pandas.html">
+   Pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Matplotlib.html">
+   Matplotlib
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  ２. マクロ経済学
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Income_Differences.html">
+   発展会計と成長会計
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_Regression.html">
+   回帰分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_Distribution.html">
+   所得分布と所得収斂
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   漸化式と経済分析
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  ３. 参考
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Pandas_plot.html">
+   Pandas：プロット
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;<!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code --></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/8_DifferenceEq.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro//source?urlpath=tree/8_DifferenceEq.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro//blob/source/8_DifferenceEq.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   はじめに
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   1階差分方程式
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     例１
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       方法１
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       方法２
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       方法３
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     例２
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     例３
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   45度線モデル
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   蜘蛛の巣モデル
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>漸化式と経済分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>この章ではまず第一に，動学モデルの基礎（の基礎）を理解することである。マクロ経済は時間を考慮せざるを得ない。経済成長，インフレ，デフレ，景気循環などは全て時間軸に沿って考える必要がある。マクロ経済では変数の変化が重要な役割を果たすためである。そして時間と密接に関係するのがpersistenceと呼ばれるマクロ変数の特徴である。persistenceとは，マクロ変数が一度ある状態に陥ると，その状態が継続する傾向にある性質を指す。典型的な例がデフレである。日本はデフレからなかなか脱却できないが，それがデフレのpersistenceである。これは前期の影響が今期に，今期の影響が来期に現れることによって発生する。時間という概念から離れてpersistenceを考えるのは難しい。一方で，時間を扱う「動学」と聞くと難しく感じるかもしれないが，構える必要はない。高校数学で習った漸化式（以下では「差分方程式」を同義として扱う）を使うが，解法テクニックが重要ではなく，漸化式の考え方を捉えるコードを書き，後は<code class="docutils literal notranslate"><span class="pre">Python</span></code>が計算することになる。</p>
+</div>
+<div class="section" id="id3">
+<h2>1階差分方程式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>説明<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>差分方程式（漸化式）とは，初期の値を所与として値の数列を定義する方程式である。言い換えると，<span class="math notranslate nohighlight">\(t\)</span>期の変数の値は<span class="math notranslate nohighlight">\(t-1\)</span>期やそれ以前の値に依存する関係を表す式である。例を考えよう。</p>
+<div class="math notranslate nohighlight">
+\[
+x_{t+1}=ax_t+b,\quad b\geq0
+\]</div>
+<p><span class="math notranslate nohighlight">\(x_0\)</span>は与えられていると仮定しよう。連続して代入する（逐次代入法）。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_{t+1}
+&amp;=ax_t+b\\
+&amp;=a(ax_{t-1}+b)+b=a^2x_{t-1}+b(1+a) \\
+&amp;=a^2(ax_{t-2}+b)+b(1+a)=a^3x_{t-2}+b(1+a+a^2) \\
+&amp;=a^3(ax_{t-3}+b)+b(1+a+a^2)=a^4x_{t-3}+b(1+a+a^2+a^3) \\
+&amp;\qquad\vdots \\
+&amp;=a^{t+1}x_0+b\sum_{i=0}^ta^t
+\end{align*}
+\end{split}\]</div>
+<p>このことから次のことがわかる。</p>
+<p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>とすると</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a=1\)</span>の場合</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(b&gt;0\)</span>の場合，<span class="math notranslate nohighlight">\(x_t\)</span>は発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b=0\)</span>の場合，<span class="math notranslate nohighlight">\(x_t\)</span>は同じ値<span class="math notranslate nohighlight">\(x_0\)</span>にとどまる。</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(a=-1\)</span>の場合</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_t\)</span>は振動する。</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(a&gt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は正の無限大に発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(a&lt;-1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は振動し発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(|a|&lt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は収束（<span class="math notranslate nohighlight">\(-1&lt;a&lt;0\)</span>の場合は振動）：</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a^{t+1}x_0\rightarrow 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sum_{i=0}^ta^t\)</span>は<span class="math notranslate nohighlight">\(S\)</span>に収束する。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+        \begin{align*}
+            S&amp;=\sum_{i=0}^{\infty}a^t=1+a+a^2+a^3+\cdots \\
+            aS&amp;=a+a^2+a^3+\cdots \\
+            S-aS&amp;=1 \\
+            &amp;\Downarrow \\
+            S&amp;=\dfrac{1}{1-a}
+        \end{align*}
+        \end{split}\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の<span class="math notranslate nohighlight">\(x_t\)</span>の値を<span class="math notranslate nohighlight">\(x_{*}\)</span>としよう。<span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の下では<span class="math notranslate nohighlight">\(x_t=x_{t-1}\equiv x_{*}\)</span>となるため以下が成立する。</p>
+<div class="math notranslate nohighlight">
+\[
+        x_{*}=ax_{*}+b
+        \quad
+        \Rightarrow
+        \quad
+        x_{*}=\dfrac{b}{1-a}=bS
+        \]</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>均衡を考える上で<span class="math notranslate nohighlight">\(x_t\)</span>が発散するケースは意味がなく，収束するケースに着目する必要がある。</p>
+</div>
+<div class="section" id="id5">
+<h3>例１<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight" id="equation-eq-8-1">
+<span class="eqno">(20)<a class="headerlink" href="#equation-eq-8-1" title="Permalink to this equation">¶</a></span>\[
+x_{t+1}=0.4x_{t}+3
+\]</div>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(0.4&lt;1\)</span>なため収束することが分かる。</p></li>
+<li><p>定常状態は次の値となる。</p>
+<div class="math notranslate nohighlight">
+\[
+    x_{*}=0.4x_{*}+3
+    \quad\Rightarrow\quad
+    x_{*}=\dfrac{3}{1-0.4}=5
+    \]</div>
+</li>
+</ul>
+<p>ここでまとめたことは<a class="reference internal" href="#fig-8-ex1"><span class="std std-numref">Fig. 2</span></a>から確認できる。</p>
+<ul class="simple">
+<li><p>① 初期を<span class="math notranslate nohighlight">\(x_0&lt;5\)</span>（例えば，1）とする。</p></li>
+<li><p>② <span class="math notranslate nohighlight">\(x_0\)</span>を所与として式<a class="reference internal" href="#equation-eq-8-1">(20)</a>の右辺によって<span class="math notranslate nohighlight">\(x_1\)</span>が決まる。</p></li>
+<li><p>③ <span class="math notranslate nohighlight">\(x_1\)</span>を縦軸で確かめる。</p></li>
+<li><p>④ ③から平行移動した45度線上の点</p></li>
+<li><p>⑤ ④から垂直に降りて横軸に<span class="math notranslate nohighlight">\(x_1\)</span>を確認できる。</p></li>
+<li><p>⑥ <span class="math notranslate nohighlight">\(x_1\)</span>を所与として式<a class="reference internal" href="#equation-eq-8-1">(20)</a>の右辺によって<span class="math notranslate nohighlight">\(x_2\)</span>が決まる。</p></li>
+<li><p>⑦ <span class="math notranslate nohighlight">\(x_2\)</span>を縦軸で確かめる。</p></li>
+<li><p>⑧ ⑦から平行移動した45度線上の点</p></li>
+<li><p>⑨ ⑧から垂直に降りて横軸に<span class="math notranslate nohighlight">\(x_2\)</span>を確認できる。</p></li>
+<li><p>このプロセスのリピートし最終的に定常状態（<span class="math notranslate nohighlight">\(x_t=x_{t+1}\)</span>）に収束する</p></li>
+</ul>
+<p>この場合の定常状態を「安定的（stable）」と呼ぶ。ここで覚えて欲しいことは，まず第一に式<a class="reference internal" href="#equation-eq-8-1">(20)</a>と45度線の交点が定常状態である。そして45度線の傾きは1に対して式<a class="reference internal" href="#equation-eq-8-1">(20)</a>の傾きは0.4なので，式<a class="reference internal" href="#equation-eq-8-1">(20)</a>は「上から」45度線と交わっている。</p>
+<div class="figure align-default" id="fig-8-ex1">
+<a class="reference internal image-reference" href="_images/ex1.jpeg"><img alt="_images/ex1.jpeg" src="_images/ex1.jpeg" style="width: 520.1px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">例１</span><a class="headerlink" href="#fig-8-ex1" title="Permalink to this image">¶</a></p>
+</div>
+<p>次にコードを書いて<span class="math notranslate nohighlight">\(x_t\)</span>を計算しプロットするが，３つの方法を紹介する。</p>
+<div class="section" id="id6">
+<h4>方法１<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>計算した<span class="math notranslate nohighlight">\(x\)</span>の値を一時的に割り当てるアップデート用の変数を使う方法である。またリストを使う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>                  <span class="c1"># 1</span>
+
+<span class="n">x_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>           <span class="c1"># 2</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>      <span class="c1"># 3</span>
+        
+    <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># 4</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x_list</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_DifferenceEq_14_0.png" src="_images/8_DifferenceEq_14_0.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>はアップデート用の変数であり、初期値を1とする。</p></li>
+<li><p>初期値が入ったリストであり、このリストに計算結果を追加する。</p></li>
+<li><p>右辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>は(1)にある<code class="docutils literal notranslate"><span class="pre">x</span></code>の値を使い、計算結果を左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>に割り当てる。この時点で(1)の<code class="docutils literal notranslate"><span class="pre">x</span></code>がアップデートされる。</p></li>
+<li><p>計算結果を(2)のリストに追加する。</p></li>
+</ol>
+</div>
+<p>この図の縦軸は<span class="math notranslate nohighlight">\(x_t\)</span>であり，小数点になっているが横軸はループの回数となる（自動表示なので整数となる場合もある）。強制的に横軸に整数を表示したい場合は<code class="docutils literal notranslate"><span class="pre">df.plot()</span></code>の代わりに次のコードを使えば良いだろう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p>１行目：<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>で生成される「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
+<li><p>２行目：<code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.set_xticks</span></code>は横軸の目盛を設定し，引数には使う目盛を指定する。<code class="docutils literal notranslate"><span class="pre">range(21)</span></code>を使うことで<code class="docutils literal notranslate"><span class="pre">0</span></code>から<code class="docutils literal notranslate"><span class="pre">10</span></code>の全ての整数を指定しているが，<code class="docutils literal notranslate"><span class="pre">range(0,11,2)</span></code>にすれば<code class="docutils literal notranslate"><span class="pre">0</span></code>，<code class="docutils literal notranslate"><span class="pre">2</span></code>，<code class="docutils literal notranslate"><span class="pre">4</span></code>，<code class="docutils literal notranslate"><span class="pre">6</span></code>…といった表示も可能である。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h4>方法２<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>この方法では，値を格納するために使うリストを使うが、その中にある値を直接<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で使う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>                     <span class="c1"># 1</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">x_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>        <span class="c1"># 2</span>
+        
+    <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>             <span class="c1"># 3</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x_list</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_DifferenceEq_19_0.png" src="_images/8_DifferenceEq_19_0.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">主なコードの説明</p>
+<ol class="simple">
+<li><p>初期値が入ったリストを用意する。</p></li>
+<li><p>リストの中にある<code class="docutils literal notranslate"><span class="pre">i</span></code>番目の値を使い右辺を計算し<code class="docutils literal notranslate"><span class="pre">x</span></code>に割り当てる。</p></li>
+<li><p>(2)で計算した<code class="docutils literal notranslate"><span class="pre">x</span></code>の値をリストに追加する。</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id8">
+<h4>方法３<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code>（初期値）と計算する回数分の<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>を用意し、計算結果をその中に格納する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>                          <span class="c1"># 1</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n</span><span class="p">)</span>             <span class="c1"># 2</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                      <span class="c1"># 3</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    
+    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>   <span class="c1"># 4</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x_list</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_DifferenceEq_23_0.png" src="_images/8_DifferenceEq_23_0.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p>ループの回数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code>は引数の数だけ<code class="docutils literal notranslate"><span class="pre">0</span></code>が並ぶ<code class="docutils literal notranslate"><span class="pre">array</span></code>を作成する関数。<code class="docutils literal notranslate"><span class="pre">1+n</span></code>の<code class="docutils literal notranslate"><span class="pre">1</span></code>は(3)で初期値を代入するために必要となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">0</span></code>番目に初期値を代入する。</p></li>
+<li><p>右辺では<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i</span></code>番目の値を使い来期の値を計算し、<code class="docutils literal notranslate"><span class="pre">=</span></code>を使い<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i+1</span></code>番目に代入する。</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>例２<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight" id="equation-eq-8-ex2">
+<span class="eqno">(21)<a class="headerlink" href="#equation-eq-8-ex2" title="Permalink to this equation">¶</a></span>\[
+x_{t+1}=1.2x_{t}-0.2
+\]</div>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(1.2&gt;1\)</span>なため発散する。</p></li>
+<li><p>定常状態の値を計算する。</p>
+<div class="math notranslate nohighlight">
+\[
+    x_{*}=1.2x_{*}-0.2
+    \quad\Rightarrow\quad
+    x_{*}=\dfrac{0.2}{1.2-1.0}=1
+    \]</div>
+</li>
+</ul>
+<p>この結果は<a class="reference internal" href="#fig-8-ex2"><span class="std std-numref">Fig. 3</span></a>を使って確認できる。図の読み方は例１と同じである。式<a class="reference internal" href="#equation-eq-8-ex2">(21)</a>は「下から」45度線を交差している。初期値を<span class="math notranslate nohighlight">\(x_0=1.1&gt;x_*\)</span>として発散することを示しているが，<span class="math notranslate nohighlight">\(x_0&lt;1\)</span>の場合でも発散することになる（試してみよう）。この場合の定常状態<span class="math notranslate nohighlight">\(x_*\)</span>は「不安定（unstable）」と呼ぶ。</p>
+<div class="figure align-default" id="fig-8-ex2">
+<a class="reference internal image-reference" href="_images/ex2.jpeg"><img alt="_images/ex2.jpeg" src="_images/ex2.jpeg" style="width: 465.49999999999994px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">例２</span><a class="headerlink" href="#fig-8-ex2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mf">1.1</span>  <span class="c1"># 初期値 x0</span>
+
+<span class="n">x_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.2</span>
+        
+    <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x_list</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_DifferenceEq_27_0.png" src="_images/8_DifferenceEq_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>例３<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight" id="equation-eq-8-ex3">
+<span class="eqno">(22)<a class="headerlink" href="#equation-eq-8-ex3" title="Permalink to this equation">¶</a></span>\[
+x_{t+1}=ax_{t}^{0.5},\quad x_t&gt;0,\;a&gt;0
+\]</div>
+<p>この式は上の例と違って非線形の差分方程式となっている。しかし数値計算のための<code class="docutils literal notranslate"><span class="pre">Python</span></code>コードに関しては大きな違いはない。単に，コードの中で非線形の式を書くだけで良い。しかし収束か発散かの安定性（stability）を解析的に確認するには，定常状態の<strong>近傍</strong>を考える必要がある。基本的なアイデアは次のようなものである。定常状態に非常に近い周辺を考えよう。十分に定常状態に近ければ、非線形差分方程式は線形に非常に近くなる。例えば、地球は丸いが、その上で暮らす小さな人間にとって大きな地球は平らに感じる。これは無意識に線形近似を行なっているのと同じである。この考えを使い、非線形差分方程式を定常状態の周りで線形近似することで，あたかも線形の様に考えて安定性を確認できる。手法としてはテイラー展開を使い線形近似する。</p>
+<p>＜テイラー展開による１次線形近似＞</p>
+<ul class="simple">
+<li><p>関数<span class="math notranslate nohighlight">\(y=f(k)\)</span>を<span class="math notranslate nohighlight">\(k_{*}\)</span>でテイラー展開すると次式となる。
+$<span class="math notranslate nohighlight">\(
+  y=f(k_{*})+\left.\frac{df}{dk}\right|_{k=k_{*}}(k-k_{*})
+  \)</span>$</p></li>
+</ul>
+<p>式<a class="reference internal" href="#equation-eq-8-ex3">(22)</a>に当てはめると次のような対応関係にある。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y\;\Rightarrow\;x_{t+1}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(k)\;\Rightarrow\;ak_{t}^{0.5}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(z_{*}\;\Rightarrow\;x_{*}=a^2\)</span></p></li>
+</ul>
+<p>式<a class="reference internal" href="#equation-eq-8-ex3">(22)</a>をテーラー展開すると</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_{t+1}
+&amp;=ax_{*}^{0.5}
++\left.0.5ax_{t}^{-0.5}\right|_{x_t=x_{*}}(x_t-x_{*}) \\
+&amp;=ax_{*}^{0.5}+0.5ax_{*}^{-0.5}(x_t-x_{*}) \\
+&amp;=a\left(a^2\right)^{0.5}+0.5a\left(a^2\right)^{-0.5}(x_t-x_{*}) \\
+&amp;=a^{2}+0.5(x_t-a^2)\\
+&amp;=0.5x_t+0.5a^2
+\end{align*}
+\end{split}\]</div>
+<p>となる。<span class="math notranslate nohighlight">\(0.5&lt;1\)</span>なので収束することが確認できた。図示すると<a class="reference internal" href="#fig-8-ex3"><span class="std std-numref">Fig. 4</span></a>の様になる。</p>
+<div class="figure align-default" id="fig-8-ex3">
+<a class="reference internal image-reference" href="_images/ex3.jpeg"><img alt="_images/ex3.jpeg" src="_images/ex3.jpeg" style="width: 512.75px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">例３</span><a class="headerlink" href="#fig-8-ex3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>45度線モデル<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>マクロ経済学の基本モデルとなるケインズの45度線モデルを考えてみる。次の仮定を置く。</p>
+<ul class="simple">
+<li><p>所得恒等式：<span class="math notranslate nohighlight">\(y_t=c_t+inv_t\)</span></p></li>
+<li><p>消費：<span class="math notranslate nohighlight">\(c_t=a+by_t\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a&gt;0\)</span>：所得とは独立した消費</p></li>
+<li><p><span class="math notranslate nohighlight">\(0&lt;b&lt;1\)</span>：限界消費性向</p></li>
+</ul>
+</li>
+<li><p>投資：<span class="math notranslate nohighlight">\(inv_t=d+fy_{t-1}\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>期の投資は前期である<span class="math notranslate nohighlight">\(t-1\)</span>期の産出量に依存すると仮定する。工場を建てたりするには時間が掛かる様に投資計画を実行するには時間を要することを捉えている。この仮定により産出量の動学的な動きが発生する事になる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(f&gt;0\)</span>：前期の産出量に依存する投資</p></li>
+<li><p><span class="math notranslate nohighlight">\(d&gt;0\)</span>：産出量に依存しない投資</p></li>
+</ul>
+</li>
+<li><p>均衡式：<span class="math notranslate nohighlight">\(y_t=a+by_t+d+fy_{t-1}\)</span></p></li>
+</ul>
+<p>均衡式を１期進めると次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-45degree">
+<span class="eqno">(23)<a class="headerlink" href="#equation-eq-8-45degree" title="Permalink to this equation">¶</a></span>\[
+y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
+\]</div>
+<p>この式から次のことが分かる。定常状態の安定性は<span class="math notranslate nohighlight">\(\dfrac{f}{1-b}\)</span>に依存しており，パラメータの値から定常状態は安定的であり，初期値<span class="math notranslate nohighlight">\(y_0\)</span>から収束することになる。定常状態を計算しよう。実質変数である<span class="math notranslate nohighlight">\(y_t\)</span>が一定になる状態なので次式が成立する。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+    y_{t+1}&amp;=y_t=y_* \\
+    &amp;\Downarrow \\
+    y_*&amp;=\frac{a+d}{1-b-f}
+\end{align*}
+\end{split}\]</div>
+<p>定常状態で<span class="math notranslate nohighlight">\(y_*&gt;0\)</span>が成立してこそ意味があるので，<span class="math notranslate nohighlight">\(1&gt;b+f\)</span>を仮定しよう。モデルの動学を図示したのが<a class="reference internal" href="#fig-8-45degree"><span class="std std-numref">Fig. 5</span></a>である。</p>
+<div class="figure align-default" id="fig-8-45degree">
+<a class="reference internal image-reference" href="_images/45degree.jpeg"><img alt="_images/45degree.jpeg" src="_images/45degree.jpeg" style="width: 458.15px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">45度線モデル</span><a class="headerlink" href="#fig-8-45degree" title="Permalink to this image">¶</a></p>
+</div>
+<p>次に，実際にコードを書いて<span class="math notranslate nohighlight">\(y_t\)</span>の動学的な動きを確認してみよう。次の関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model45</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;引数</span>
+<span class="sd">            y0: GDPの初期値</span>
+<span class="sd">            a: 所得に依存しない消費</span>
+<span class="sd">            b: 限界消費性向</span>
+<span class="sd">            d: 産出量に依存しない投資</span>
+<span class="sd">            f: 前期の産出量に依存する投資</span>
+<span class="sd">            n: ループの回数（デフォルト10）</span>
+<span class="sd">        戻り値</span>
+<span class="sd">            yの値からなるDataFrame&quot;&quot;&quot;</span>
+    
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                              <span class="c1"># 1</span>
+    
+    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                       <span class="c1"># 2</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">f</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>     <span class="c1"># 3</span>
+        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                <span class="c1"># 4</span>
+
+    <span class="n">yss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">f</span><span class="p">)</span>                 <span class="c1"># 5</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での産出量:</span><span class="si">{</span><span class="n">yss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># 6</span>
+    
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">})</span>  <span class="c1"># 7</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>はアップデート用の変数であり，初期値<code class="docutils literal notranslate"><span class="pre">y0</span></code>を<code class="docutils literal notranslate"><span class="pre">y</span></code>に割り当てる。</p></li>
+<li><p>初期値が入ったリストであり，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算する<code class="docutils literal notranslate"><span class="pre">y</span></code>を格納する。</p></li>
+<li><p>右辺の<code class="docutils literal notranslate"><span class="pre">y</span></code>は(1)の<code class="docutils literal notranslate"><span class="pre">y</span></code>であり，右辺の計算結果を左辺の<code class="docutils literal notranslate"><span class="pre">y</span></code>に割り当て(1)の<code class="docutils literal notranslate"><span class="pre">y</span></code>の値をアップデートする。</p></li>
+<li><p>(3)で計算した<code class="docutils literal notranslate"><span class="pre">y</span></code>の値を<code class="docutils literal notranslate"><span class="pre">y_list</span></code>に追加する。</p></li>
+<li><p>定常状態<code class="docutils literal notranslate"><span class="pre">yss</span></code>を計算する。</p></li>
+<li><p>定常状態の値を表示する。<code class="docutils literal notranslate"><span class="pre">:.1f</span></code>は小数点第一位まで表示することを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成し，関数が実行されるとそれを返す。</p></li>
+</ol>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model45</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常状態での産出量:333.3
+</pre></div>
+</div>
+<img alt="_images/8_DifferenceEq_36_1.png" src="_images/8_DifferenceEq_36_1.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<p><code class="docutils literal notranslate"><span class="pre">model45()</span></code>の返り値は<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>である。そのメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を直接使って図示している。</p>
+</div>
+<p>初期値は定常状態の値よりも低く設定されているため，産出量は徐々に増加することになる。初期値を定常状態の値よりも大きい場合どうなるか確認してみよう。</p>
+</div>
+<div class="section" id="id12">
+<h2>蜘蛛の巣モデル<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>もう一つの簡単な経済モデルを取り上げる。需要と供給モデルであり，均衡では価格と量が決定される。</p>
+<ul>
+<li><p>需要曲線</p>
+<ul>
+<li><p>消費者は今期の価格に基づいて今期の需要を決める。</p>
+<div class="math notranslate nohighlight">
+\[
+        d_t = a - bp_t,\quad a,b&gt;0
+        \]</div>
+</li>
+</ul>
+</li>
+<li><p>供給曲線</p>
+<ul>
+<li><p>生産者は価格を観察し生産量を決めるが，その決定は１期前の価格に依存すると仮定する。例えば，農家が想定できる。種を植え収穫し市場に供給するまで時間が掛かることを<span class="math notranslate nohighlight">\(p_{t-1}\)</span>が捉えている。</p>
+<div class="math notranslate nohighlight">
+\[
+        s_t = -c + dp_{t-1},\quad c,d&gt;0
+        \]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>期の供給量が<span class="math notranslate nohighlight">\(t-1\)</span>期の価格に依存することにより，動学的な動きが発生する事になる。</p></li>
+</ul>
+</li>
+<li><p>均衡条件</p>
+<div class="math notranslate nohighlight">
+\[
+    d_t=s_t\equiv q_t
+    \]</div>
+</li>
+</ul>
+<p>均衡式を１つにまとめる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-cobweb">
+<span class="eqno">(24)<a class="headerlink" href="#equation-eq-8-cobweb" title="Permalink to this equation">¶</a></span>\[
+p_t = \frac{a+c}{b} - \frac{d}{b}p_{t-1}
+\]</div>
+<p>この式から定常状態の安定性が簡単に確認できる。均衡が収束するのか発散するのかは需要と供給の価格の係数，言い換えると，需要と供給がどれだけ価格に反応するかに依存していることが分かる。この結果を需要曲線と供給曲線の傾きで表すために次のこと確認しよう。</p>
+<div class="math notranslate nohighlight">
+\[
+\text{需要曲線の傾き}=\frac{1}{b},
+\quad
+\text{供給曲線の傾き}=\frac{1}{d}
+\]</div>
+<ul class="simple">
+<li><p>収束：<span class="math notranslate nohighlight">\(\dfrac{d}{b}&lt;1\)</span>もしくは<span class="math notranslate nohighlight">\(\dfrac{1}{b}&lt;\dfrac{1}{d}\)</span></p>
+<ul>
+<li><p>需要曲線と比べて供給曲線の傾きが大きい場合に長期均衡に収束する。</p></li>
+</ul>
+</li>
+<li><p>発散：<span class="math notranslate nohighlight">\(\dfrac{d}{b}&gt;1\)</span>もしくは<span class="math notranslate nohighlight">\(\dfrac{1}{b}&gt;\dfrac{1}{d}\)</span></p>
+<ul>
+<li><p>需要曲線と比べて供給曲線の傾きが小さい場合に発散する。</p></li>
+</ul>
+</li>
+<li><p>2期間サイクル：<span class="math notranslate nohighlight">\(\dfrac{d}{b}=1\)</span></p></li>
+</ul>
+<p>式<a class="reference internal" href="#equation-eq-8-cobweb">(24)</a>を使うと定常状態（長期的均衡）の価格は次のように計算できる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p_*
+&amp;= \frac{a+c}{b} - \frac{d}{b}p_{*} \\
+&amp;\Downarrow \\
+p_{*}&amp;=\dfrac{a+c}{b+d}
+\end{align*}
+\end{split}\]</div>
+<p>また定常状態の量は需要曲線もしくは供給曲線を使って計算する。</p>
+<div class="math notranslate nohighlight">
+\[
+q_t=q_{*}=a-bp_{*}
+\]</div>
+<p><a class="reference internal" href="#fig-8-cobweb"><span class="std std-numref">Fig. 6</span></a>は価格<span class="math notranslate nohighlight">\(p_t\)</span>の動学を示している。需要曲線に比べて供給曲線がより急な傾きになっているため定常状態に収束している。その逆の場合は発散することになるので図を描いて確かめてみよう。</p>
+<div class="figure align-default" id="fig-8-cobweb">
+<a class="reference internal image-reference" href="_images/cobweb.jpeg"><img alt="_images/cobweb.jpeg" src="_images/cobweb.jpeg" style="width: 456.74999999999994px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">蜘蛛の巣モデル</span><a class="headerlink" href="#fig-8-cobweb" title="Permalink to this image">¶</a></p>
+</div>
+<p>次にコードを書いて価格と量の動学を確かめるが，45度線モデルと同じように関数を作りプロットする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cobweb</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;引数</span>
+<span class="sd">            p0: 初期値</span>
+<span class="sd">            a: 需要曲線の切片</span>
+<span class="sd">            b: 需要曲線の傾き</span>
+<span class="sd">            c: 供給曲線の切片</span>
+<span class="sd">            d: 供給曲線の傾き</span>
+<span class="sd">        返り値：</span>
+<span class="sd">            価格と量のDataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p0</span>       <span class="c1"># 初期の価格</span>
+    
+    <span class="n">q_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">p_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">p</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">p</span>
+
+        <span class="n">q_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="c1"># 定常状態</span>
+    <span class="n">pss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">qss</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">pss</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での価格:</span><span class="si">{</span><span class="n">pss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="se">\n</span><span class="s1">定常状態での量:　</span><span class="si">{</span><span class="n">qss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">q_list</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">:</span><span class="n">p_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まず<span class="math notranslate nohighlight">\(\dfrac{d}{b}&lt;1\)</span>を仮定し収束するケースを考えよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常状態での価格:48.1
+定常状態での量:　47.1
+</pre></div>
+</div>
+<img alt="_images/8_DifferenceEq_46_1.png" src="_images/8_DifferenceEq_46_1.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<p><code class="docutils literal notranslate"><span class="pre">.plot()</span></code>の引数<code class="docutils literal notranslate"><span class="pre">secondary_y</span></code>は右の縦軸の変数をしている。ここでは<code class="docutils literal notranslate"><span class="pre">'price'</span></code>を指定している。凡例を見ると<code class="docutils literal notranslate"><span class="pre">price</span> <span class="pre">(right)</span></code>となっている。</p>
+</div>
+<p><span class="math notranslate nohighlight">\(\dfrac{d}{b}&gt;1\)</span>を仮定し発散するケースをプロットする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常状態での価格:48.1
+定常状態での量:　51.9
+</pre></div>
+</div>
+<img alt="_images/8_DifferenceEq_48_1.png" src="_images/8_DifferenceEq_48_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="7_Distribution.html" title="previous page">所得分布と所得収斂</a>
+    <a class='right-next' id="next-link" href="Pandas_plot.html" title="next page">Pandas：プロット</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 春山 鉄源  Tetsugen HARUYAMA<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
