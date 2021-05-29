@@ -96,8 +96,8 @@ for pack, ver in zip(packages, versions):
 # 
 # 5_Income_Differences
 # 6_Regression
-# 7_Distribution
-# 8_DifferenceEq
+# 7_DifferenceEq
+# 8_Solow
 # ```
 # 
 # 
