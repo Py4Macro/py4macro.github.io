@@ -266,34 +266,54 @@
   <a class="reference internal nav-link" href="#id6">
    線形近似
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   長期均衡の予測
-  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id7">
      説明
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#lambda">
+     <span class="math notranslate nohighlight">
+      \(\lambda\)
+     </span>
+     の解釈
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     線形近似による誤差
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   長期均衡の予測
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sec-8-data">
      データ
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
+      <a class="reference internal nav-link" href="#id12">
        貯蓄率
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
+      <a class="reference internal nav-link" href="#id13">
        資本減耗率
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
+      <a class="reference internal nav-link" href="#id14">
        労働人口成長率
       </a>
      </li>
@@ -303,14 +323,14 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id13">
+      <a class="reference internal nav-link" href="#id15">
        データの結合
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id16">
      トレンド線と散布図
     </a>
    </li>
@@ -582,6 +602,8 @@ y_*=Ak_*^{a}
 </div>
 <div class="section" id="id6">
 <h2>線形近似<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>説明<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>は，定常状態は安定的であることを示している。またシミュレーションの結果からも定常状態の安定性が確認できる。次に，線形近似を使って解析的に安定性を確認してみることにする。また線形近似は真の値からの乖離が発生するが，その乖離がどの程度のものかをコードを使って計算することにする。</p>
 <p>＜テイラー展開による１次線形近似＞</p>
 <ul>
@@ -627,7 +649,7 @@ k_{t+1}
 \]</div>
 <p>が成立する。<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>の赤い直線が式<a class="reference internal" href="#equation-eq-8-kapprox">(35)</a>である。従って，初期値<span class="math notranslate nohighlight">\(k_0&gt;0\)</span>からスタートする経済は必ず長期的均衡に収束することがわかる。</p>
 <p>式<a class="reference internal" href="#equation-eq-8-lambda">(36)</a>は<span class="math notranslate nohighlight">\(k_t\)</span>の係数だが，その裏にあるメカニズムを考えてみよう。特に，<span class="math notranslate nohighlight">\(a\)</span>の役割を考える。<span class="math notranslate nohighlight">\(a\)</span>は資本の所得比率であり，目安の値は1/3である。そしてソロー・モデルにおける重要な役割が<strong>資本の限界生産性の逓減</strong>を決定することである。この効果により資本ストックが増加する毎に産出量も増加するがその増加自体が減少する。この効果により，<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>の曲線は凹関数になっており，生産関数<a class="reference internal" href="#equation-eq-8-production">(26)</a>の場合は必ず45度線と交差することになる。即ち，資本の限界生産性の逓減こそが<span class="math notranslate nohighlight">\(k_t\)</span>が一定になる定常状態に経済が収束す理由なのである。この点がソロー・モデルの一番重要なメカニズムとなる。</p>
-<p>ここで<span class="math notranslate nohighlight">\(a\)</span>が上昇したとしよう。そうなると資本の限界生産性の逓減の効果は弱くなり，資本ストックが増加しても産出量の増加自体の減少は小さくなる。また式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>が示すように定常状態での資本ストックはより大きくなる。これは<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>で曲線が上方シフトしている考えると良いだろう。次章で収束速度について考察する際，<span class="math notranslate nohighlight">\(a\)</span>の大きさが重要になってくるので，この点を覚えておこう。</p>
+<p>ここで<span class="math notranslate nohighlight">\(a\)</span>が上昇したとしよう。そうなると資本の限界生産性の逓減の効果は弱くなり，資本ストックが増加しても産出量の増加自体の減少は小さくなる。また式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>が示すように定常状態での資本ストックはより大きくなる。これは<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>で曲線が上方シフトしている考えると良いだろう。</p>
 <div class="note admonition">
 <p class="admonition-title">内生的成長</p>
 <p>更に<span class="math notranslate nohighlight">\(a\)</span>を上昇させて<span class="math notranslate nohighlight">\(a=1\)</span>になるとどうなるのだろう。この場合，資本の限界生産性は逓減せず一定となる。そして<span class="math notranslate nohighlight">\(k_t\)</span>の係数である式<a class="reference internal" href="#equation-eq-8-coef-of-kt">(37)</a>は1になってしまい，<span class="math notranslate nohighlight">\(k_t\)</span>が一定になる定常状態が存在しなくなる。<span class="math notranslate nohighlight">\(a=1\)</span>となる極限の状態を内生的成長と呼ぶ。ここでは立ち入った議論はしないが，内生的成長の典型的な生産関数は次式となり，</p>
@@ -635,6 +657,52 @@ k_{t+1}
 \[y_t=Ak_t\]</div>
 <p>この生産関数に基づくモデルは<span class="math notranslate nohighlight">\(AK\)</span>モデルと呼ばれる。資本の限界生産性は<span class="math notranslate nohighlight">\(A\)</span>で一定になることが分かると思う。</p>
 </div>
+</div>
+<div class="section" id="lambda">
+<h3><span class="math notranslate nohighlight">\(\lambda\)</span>の解釈<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h3>
+<p>上の議論から<span class="math notranslate nohighlight">\(\lambda\)</span>が定常状態の安定性を決定することが分かったが，<span class="math notranslate nohighlight">\(\lambda\)</span>の値はどのように解釈できるだろうか。例えば，<span class="math notranslate nohighlight">\(\lambda\)</span>が大きい場合と小さい場合では何が違うのだろうか。次式は式<a class="reference internal" href="#equation-eq-8-kapprox">(35)</a>の最後の等号を少し書き換えたものである。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-approx-lastline">
+<span class="eqno">(38)<a class="headerlink" href="#equation-eq-8-approx-lastline" title="Permalink to this equation">¶</a></span>\[
+k_*-k_{t+1}=(1-\lambda)(k_*-k_t)
+\]</div>
+<p>左辺は<span class="math notranslate nohighlight">\(t+1\)</span>期において定常状態までの残りの「距離」であり，右辺の<span class="math notranslate nohighlight">\(k_*-k_t\)</span>は<span class="math notranslate nohighlight">\(t\)</span>においての定常状態までの残りの「距離」である。後者を次の様に定義し</p>
+<div class="math notranslate nohighlight">
+\[z_t\equiv k_*-k_t\]</div>
+<p>式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>を整理すると次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-kspeed">
+<span class="eqno">(39)<a class="headerlink" href="#equation-eq-8-kspeed" title="Permalink to this equation">¶</a></span>\[
+\frac{z_{t+1}-z_t}{z_t}=-\lambda
+\]</div>
+<p>左辺は<span class="math notranslate nohighlight">\(t\)</span>期と<span class="math notranslate nohighlight">\(t+1\)</span>期において定常状態までの「距離」が何％減少したかを示す<strong>資本ストックの収束速度</strong>である。このモデルの中での収束速度の決定要因は資本の所得比率<span class="math notranslate nohighlight">\(\alpha\)</span>，労働人口増加率<span class="math notranslate nohighlight">\(n\)</span>と資本の減耗率<span class="math notranslate nohighlight">\(d\)</span>ということである。</p>
+<p>ここでは<span class="math notranslate nohighlight">\(a\)</span>の役割に着目し，なぜ<span class="math notranslate nohighlight">\(a\)</span>の上昇は収束速度の減少をもたらすのかを直感的に考えてみよう。この点を理解するために，まず<span class="math notranslate nohighlight">\(a\)</span>は資本の限界生産性の逓減を決定するパラーメータであることを思い出そう。<span class="math notranslate nohighlight">\(a\)</span>が上昇するとその効果は弱まる。即ち，資本ストックが１単位増加すると産出量は増え，その増加分が減少するのが「逓減」であるが，その減少が小さくなるのである。これにより（上で説明したように）<span class="math notranslate nohighlight">\(k_t\)</span>が一定となる定常状態は増加することになる。重要な点は，定常状態の増加の意味である。定常状態はマラソンのゴールの様なものである。トップランナーはゴールすると走るのを止め，後続ランナーはトップランナーとの「距離」を縮めることができる。定常状態の増加は，ゴールが遠くなることと同じである。ゴールが遠のくとトップランナーは走り続けるわけだから，それだけ距離を縮めることが難しくなり収束速度が減少することになる。極端なケースとして<span class="math notranslate nohighlight">\(a=1\)</span>の場合，<span class="math notranslate nohighlight">\(k_t\)</span>が一定になる定常状態は存在せず，ゴールがない状態が永遠に続いており，永遠に収束しないということである。言い換えると，資本の限界生産性の逓減（<span class="math notranslate nohighlight">\(a&lt;1\)</span>）こそが「距離」を縮めキャッチアップを可能にするメカニズムなのだ。</p>
+<p>労働人口増加率<span class="math notranslate nohighlight">\(n\)</span>と資本の減耗率<span class="math notranslate nohighlight">\(d\)</span>の上昇は収束速度を速くする。式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>から分かる様に，<span class="math notranslate nohighlight">\(n\)</span>もしくは<span class="math notranslate nohighlight">\(d\)</span>の上昇は定常状態を減少させる。即ち，ゴールはより近くになるということだ。</p>
+<p>これである程度キャッチアップのメカニズムが分かったと思うが，今までの議論で足りないものが２点あるので，それらについて簡単に言及する。第一に，ここで考えたソロー・モデルには技術進歩が抜けている（一定な<span class="math notranslate nohighlight">\(A\)</span>を仮定した）。この点を導入してこそソロー・モデルのフルバージョンであり，その場合の労働効率１単位当たり資本ストック（<span class="math notranslate nohighlight">\(K_t/(A_tL_t)\)</span>）の収束速度は次の式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-lambda-g">
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-8-lambda-g" title="Permalink to this equation">¶</a></span>\[
+\lambda\equiv \frac{(1-a)(g+n+d+ng)}{(1+n)(1+g)}
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(g\)</span>は技術進歩率である。ソロー・モデルでは4つの変数が収束速度の決定要因になるる。<span class="math notranslate nohighlight">\(g=0\)</span>の場合，式<a class="reference internal" href="#equation-eq-8-lambda">(36)</a>と同じになることが確認できる。第二に，式<a class="reference internal" href="#equation-eq-8-lambda">(36)</a>は資本ストックの収束速度であり一人当たりGDPの収束速度と異なるのではないかという疑問である。実は同じである。これはコブ・ダグラス生産関数<a class="reference internal" href="#equation-eq-8-production">(26)</a>を仮定しているからであり，対数の近似を使えば簡単に示すことができる。式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>を次のように書き直そう。</p>
+<div class="math notranslate nohighlight" id="equation-eq-8-ks-rewrite">
+<span class="eqno">(41)<a class="headerlink" href="#equation-eq-8-ks-rewrite" title="Permalink to this equation">¶</a></span>\[
+\frac{k_{t+1}}{k_*}-1=(1-\lambda)\left(\frac{k_t}{k_*}-1\right)
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\log(1+x-1)\approx x-1\)</span>の近似を使い左辺を次のように書き換える。</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{k_{t+1}}{k_*}-1
+\approx\log\left(\frac{k_{t+1}}{k_*}\right)
+=\log\left(\frac{y_{t+1}}{y_*}\right)^{\frac{1}{\alpha}}
+=\frac{1}{\alpha}\left(\frac{y_{t+1}}{y_*}-1\right)
+\]</div>
+<p>同様に<span class="math notranslate nohighlight">\(\dfrac{k_{t}}{k_*}-1\)</span>もこの形に書き換えることができる。後はこの関係を使うことにより，式<a class="reference internal" href="#equation-eq-8-ks-rewrite">(41)</a>を整理すると次式となる。</p>
+<div class="math notranslate nohighlight">
+\[
+y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
+\]</div>
+<p>式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>と同じ形になっているので所得の収束速度も式<a class="reference internal" href="#equation-eq-8-kspeed">(39)</a>と同じである。</p>
+</div>
+<div class="section" id="id8">
+<h3>線形近似による誤差<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>次に関数<code class="docutils literal notranslate"><span class="pre">solow_model()</span></code>を修正して線形近似の誤差を確かめてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -695,7 +763,7 @@ k_{t+1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_35_0.png" src="_images/8_Solow_35_0.png" />
+<img alt="_images/8_Solow_40_0.png" src="_images/8_Solow_40_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">df_approx</span></code>が図示され、その上に<code class="docutils literal notranslate"><span class="pre">df</span></code>が重ねて表示されるが、殆ど同じのように見える。誤差を％で計算し図示してみよう。</p>
@@ -707,15 +775,16 @@ k_{t+1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_37_0.png" src="_images/8_Solow_37_0.png" />
+<img alt="_images/8_Solow_42_0.png" src="_images/8_Solow_42_0.png" />
 </div>
 </div>
 <p>初期の資本ストック<span class="math notranslate nohighlight">\(k_0\)</span>は同じなので誤差はゼロであり，<span class="math notranslate nohighlight">\(t=1\)</span>から線形近似の誤差が現れることになる。誤差は単調ではない。<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 6</span></a>の図が示しているように，階段のような形で増加していくためであり，その階段お大きさや進み具合が異なるためである。線形近似の値は大き過ぎるため負の値になっているが、誤差は大きくても約0.02％であり、定常状態に近づくにつれて誤差はゼロに近づいている。もちろん，誤差の値は初期値が定常値から離れればそれだけ大きくなっていく。</p>
 </div>
-<div class="section" id="id7">
-<h2>長期均衡の予測<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id8">
-<h3>説明<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id9">
+<h2>長期均衡の予測<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>説明<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>この節では長期均衡（定常状態）に焦点を当て，理論的な予測のデータとの整合性をチェックする。まず定常状態の特徴をまとめよう。式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>と<a class="reference internal" href="#equation-eq-8-yss">(34)</a>を使いうと定常状態での一人当たり資本ストックとGDPは次式で与えれる。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -728,7 +797,7 @@ y_*=Ak_*^a
 \]</div>
 <p>この２つをそれぞれ試すこともできるが，同時に捉えるために２つの式の比率を考える。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kyratio">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eq-8-kyratio" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(42)<a class="headerlink" href="#equation-eq-8-kyratio" title="Permalink to this equation">¶</a></span>\[
 \frac{k_*}{y_*}=\frac{s}{n+d}
 =\left.\frac{K_t/L_t}{Y_t/L_t}\right|_{\text{定常状態}}
 =\left.\frac{K_t}{Y_t}\right|_{\text{定常状態}}
@@ -761,8 +830,8 @@ y_*=Ak_*^a
 </li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h3>データ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sec-8-data">
+<span id="id11"></span><h3>データ<a class="headerlink" href="#sec-8-data" title="Permalink to this headline">¶</a></h3>
 <p>1960年以降のデータを<code class="docutils literal notranslate"><span class="pre">pwt</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -771,8 +840,8 @@ y_*=Ak_*^a
 </div>
 </div>
 </div>
-<div class="section" id="id10">
-<h4>貯蓄率<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>貯蓄率<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要があるが，ここでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使いデータを整形する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
@@ -1285,8 +1354,8 @@ y_*=Ak_*^a
 </div>
 </div>
 </div>
-<div class="section" id="id11">
-<h4>資本減耗率<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>資本減耗率<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">saving</span></code>と同じ方法で資本減耗率の平均からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1317,8 +1386,8 @@ y_*=Ak_*^a
 </div>
 </div>
 </div>
-<div class="section" id="id12">
-<h4>労働人口成長率<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h4>労働人口成長率<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <p>平均成長率を計算するには1960年と2019年の労働人口だけで計算できるが，上と同じ方法で計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1499,8 +1568,8 @@ y_*=Ak_*^a
 </div>
 <p>180ヵ国含まれており，<code class="docutils literal notranslate"><span class="pre">saving</span></code>や<code class="docutils literal notranslate"><span class="pre">depreciation</span></code>の国数よりも多くの国が含まれている。</p>
 </div>
-<div class="section" id="id13">
-<h4>データの結合<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>データの結合<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <p>上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合する必要があり，そのための<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>の使い方を説明する。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>の２つの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>があるとしよう。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>を左の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>，<code class="docutils literal notranslate"><span class="pre">df_right</span></code>を右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と呼ぶことにする。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">df_right</span></code>と結合する場合，次のコードとなる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">)</span> 
 </pre></div>
@@ -1532,11 +1601,11 @@ y_*=Ak_*^a
 <p>では実際に上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df_right</span> <span class="ow">in</span> <span class="p">[</span><span class="n">saving</span><span class="p">,</span> <span class="n">depreciation</span><span class="p">,</span> <span class="n">emp_growth</span><span class="p">]:</span>    <span class="c1"># 1</span>
-    <span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">,</span>         <span class="c1"># 2</span>
-                              <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 3</span>
-                              <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># 4</span>
-                              <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>      <span class="c1"># 5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df_right</span> <span class="ow">in</span> <span class="p">[</span><span class="n">saving</span><span class="p">,</span> <span class="n">depreciation</span><span class="p">,</span> <span class="n">emp_growth</span><span class="p">]:</span>  <span class="c1"># 1</span>
+    <span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">,</span>              <span class="c1"># 2</span>
+                              <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># 3</span>
+                              <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># 4</span>
+                              <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>           <span class="c1"># 5</span>
 </pre></div>
 </div>
 </div>
@@ -1673,8 +1742,8 @@ memory usage: 9.8+ KB
 <p>180ヵ国が含まれるが<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある国も多いことが分かる。</p>
 </div>
 </div>
-<div class="section" id="id14">
-<h3>トレンド線と散布図<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>トレンド線と散布図<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>ここでは次の３つをおこなう。</p>
 <ul class="simple">
 <li><p>資本ストック対GDP比と次の３つの変数の散布図の表示</p>
@@ -1727,9 +1796,9 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_90_0.png" src="_images/8_Solow_90_0.png" />
-<img alt="_images/8_Solow_90_1.png" src="_images/8_Solow_90_1.png" />
-<img alt="_images/8_Solow_90_2.png" src="_images/8_Solow_90_2.png" />
+<img alt="_images/8_Solow_96_0.png" src="_images/8_Solow_96_0.png" />
+<img alt="_images/8_Solow_96_1.png" src="_images/8_Solow_96_1.png" />
+<img alt="_images/8_Solow_96_2.png" src="_images/8_Solow_96_2.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -1761,7 +1830,7 @@ memory usage: 9.8+ KB
 <li><p>横軸のラベルの設定であり，<code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使い<code class="docutils literal notranslate"><span class="pre">var</span></code>の値を代入している。<code class="docutils literal notranslate"><span class="pre">size=20</span></code>はフォントの大きさの指定。</p></li>
 </ol>
 </div>
-<p>３つの図からソロー・モデルの理論的予測はデータと整合性があることが確認できる。ここで注意する点が一つある。式<a class="reference internal" href="#equation-eq-8-kyratio">(38)</a>は因果関係を予測している。例えば，貯蓄率が高くなることにより長期的な一人
+<p>３つの図からソロー・モデルの理論的予測はデータと整合性があることが確認できる。ここで注意する点が一つある。式<a class="reference internal" href="#equation-eq-8-kyratio">(42)</a>は因果関係を予測している。例えば，貯蓄率が高くなることにより長期的な一人
 当たりGDPは増加する。一方，トレンド線は因果関係を示しているのではなく単なる相関関係を表している。ソロー・モデルの因果関係を計量経済学的に検討するにはさまざまな要因の検討が必要になり，本章の域を超える事になる。</p>
 </div>
 </div>
