@@ -92,19 +92,20 @@ for pack, ver in zip(packages, versions):
 # ```{toctree}
 # :hidden:
 # :titlesonly:
-# :caption: ２. マクロ経済学
+# :caption: ２. マクロ経済学（長期分析）
 # 
 # 5_Income_Differences
 # 6_Regression
 # 7_DifferenceEq
 # 8_Solow
+# 9_Convergence
 # ```
 # 
 # 
 # ```{toctree}
 # :hidden:
 # :titlesonly:
-# :caption: ３. 参考
+# :caption: ４. 参考
 # 
 # Pandas_plot
 # ```

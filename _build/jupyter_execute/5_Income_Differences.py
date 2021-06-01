@@ -170,7 +170,7 @@ df.head()
 
 # 次の変数は上の定義のリストには含まれていないので，ここで簡単に紹介する。
 # * `oecd`：1990年代に始まった中央ヨーロッパへの拡大前にOECDメンバー国であれば`1`，そうでなければ`0`
-# * `income_group`：世界銀行は所得水準に従って国を次の４つに分けており，それを使っている。
+# * `income_group`：世界銀行は所得水準に従って国を次の４つに分けている。
 #     * High income
 #     * Upper middle income
 #     * Lower middle income
@@ -183,7 +183,7 @@ df.head()
 #     * North America
 #     * South Asia
 #     * Sub-Saharan Africa
-# * `region`：南極以外の6大陸
+# * `continent`：南極以外の6大陸
 #     * Africa
 #     * Asia
 #     * Australia

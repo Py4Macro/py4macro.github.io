@@ -360,7 +360,7 @@ print(f'定常状態での資本ストック:{ss[0]:.1f}'
 # 
 # $$
 # y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
-# $$
+# $$ (eq:8-y_difference_eq)
 # 
 # 式[](eq:8-approx_lastline)と同じ形になっているので所得の収束速度も式[](eq:8-kspeed)と同じである。
 
