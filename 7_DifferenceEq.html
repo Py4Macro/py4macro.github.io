@@ -154,6 +154,11 @@
    Pandas：プロット
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ScipyOptimize.html">
+   解の求め方と最適化問題
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -317,8 +322,8 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>差分方程式と経済分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="chap-7-differenceeq">
+<span id="id1"></span><h1>差分方程式と経済分析<a class="headerlink" href="#chap-7-differenceeq" title="Permalink to this headline">¶</a></h1>
 <p>If you come here without expecting Japanese, please click <a class="reference external" href="https://translate.google.com/translate?sl=auto&amp;tl=en&amp;u=https://py4macro.github.io/7_DifferenceEq.html">Google translated version</a> in English or the language of your choice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -680,7 +685,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model45</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;引数</span>
+    <span class="sd">&quot;&quot;&quot;引数                             # 1</span>
 <span class="sd">            y0: GDPの初期値</span>
 <span class="sd">            a: 所得に依存しない消費</span>
 <span class="sd">            b: 限界消費性向</span>
@@ -690,20 +695,20 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <span class="sd">        戻り値</span>
 <span class="sd">            yの値からなるDataFrame&quot;&quot;&quot;</span>
     
-    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                              <span class="c1"># 1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                              <span class="c1"># 2</span>
     
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                       <span class="c1"># 2</span>
+    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                       <span class="c1"># 3</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         
-        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">f</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>     <span class="c1"># 3</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                <span class="c1"># 4</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">f</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>     <span class="c1"># 4</span>
+        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                <span class="c1"># 5</span>
 
-    <span class="n">yss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">f</span><span class="p">)</span>                 <span class="c1"># 5</span>
+    <span class="n">yss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">f</span><span class="p">)</span>                 <span class="c1"># 6</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での産出量:</span><span class="si">{</span><span class="n">yss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># 6</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での産出量:</span><span class="si">{</span><span class="n">yss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># 7</span>
     
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">})</span>  <span class="c1"># 7</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">})</span>  <span class="c1"># 8</span>
 </pre></div>
 </div>
 </div>
@@ -711,6 +716,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <div class="admonition- admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>で挟んだ領域は<code class="docutils literal notranslate"><span class="pre">docstring</span></code>と呼ばれ、関数の説明をする。書かなくても良いが、自分が忘れた頃に関数のコードを読むことになるかも知れないので、書く方がオススメ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>はアップデート用の変数であり，初期値<code class="docutils literal notranslate"><span class="pre">y0</span></code>を<code class="docutils literal notranslate"><span class="pre">y</span></code>に割り当てる。</p></li>
 <li><p>初期値が入ったリストであり，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算する<code class="docutils literal notranslate"><span class="pre">y</span></code>を格納する。</p></li>
 <li><p>右辺の<code class="docutils literal notranslate"><span class="pre">y</span></code>は(1)の<code class="docutils literal notranslate"><span class="pre">y</span></code>であり，右辺の計算結果を左辺の<code class="docutils literal notranslate"><span class="pre">y</span></code>に割り当て(1)の<code class="docutils literal notranslate"><span class="pre">y</span></code>の値をアップデートする。</p></li>
