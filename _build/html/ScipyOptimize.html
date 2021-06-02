@@ -1,0 +1,2330 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>解の求め方と最適化問題 &#8212; Pythonで学ぶ中級マクロ経済学</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://py4macro.github.io/ScipyOptimize.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Pandas：プロット" href="Pandas_plot.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://py4macro.github.io/ScipyOptimize.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="解の求め方と最適化問題" />
+<meta property="og:description" content="解の求め方と最適化問題  If you come here without expecting Japanese, please click Google translated version in English or the language of your choice.  import numpy as np " />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Pythonで学ぶ中級マクロ経済学</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  １. Pythonの学習
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Python_Basics.html">
+   Pythonの基礎
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_NumPy.html">
+   NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Pandas.html">
+   Pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Matplotlib.html">
+   Matplotlib
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  ２. マクロ経済学（長期分析）
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Income_Differences.html">
+   発展会計と成長会計
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_Regression.html">
+   回帰分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_DifferenceEq.html">
+   差分方程式と経済分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Solow.html">
+   ソロー・モデル
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_Convergence.html">
+   所得分布と所得収斂
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  ４. 参考
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Pandas_plot.html">
+   Pandas：プロット
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   解の求め方と最適化問題
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;<!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code --></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/ScipyOptimize.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro//source?urlpath=tree/ScipyOptimize.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro//blob/source/ScipyOptimize.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   解の求め方と考え方
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bisection">
+     Bisection法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       説明
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       手計算
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#scipy">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Scipy
+        </span>
+       </code>
+       の関数
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#bisect">
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           bisect
+          </span>
+         </code>
+         関数
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#brentq">
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           brentq
+          </span>
+         </code>
+         関数
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#newton">
+     Newton法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       説明
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       手計算
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Scipy
+        </span>
+       </code>
+       の関数
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     マクロ経済学への応用
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       45度線モデル
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#is">
+       IS曲線の導出
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       ソロー・モデル
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id11">
+       投資
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   最適化問題：１変数の場合
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     例１
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     例２
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     ソロー・モデル：黄金律
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     労働供給問題
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   最適化問題：２変数の場合
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     例１
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     例２
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     例３
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     例４
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id24">
+     労働供給問題
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     練習問題
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>解の求め方と最適化問題<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>If you come here without expecting Japanese, please click <a class="reference external" href="https://translate.google.com/translate?sl=auto&amp;tl=en&amp;u=https://py4macro.github.io/ScipyOptimize.html">Google translated version</a> in English or the language of your choice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>線形の方程式の解を求めることは比較的簡単である。１変数の場合は簡単に式を変形できる。変数が複数ある場合でも，<a class="reference internal" href="2_NumPy.html#sec-2-simultaneouseq"><span class="std std-ref">「連立一次方程式の解」の節</span></a>で説明したように，<code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code>を使えば簡単に解を求めることができる。例えば，<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">差分方程式と経済分析</span></a>で扱った45度線モデルと蜘蛛の巣モデルは線形であるため、長期的な均衡の値を簡単に計算することができる。またソロー・モデルも線形ではないが、定常状態の資本ストック（<span class="math notranslate nohighlight">\(k_*\)</span>）について解くことができるので、長期的な値を計算することが可能である。しかし非線形モデルによっては、長期的均衡の値を簡単に求めることができない場合もあり、その場合に使う手法をここで説明する。</p>
+<p>コードを書いて非線形の方程式の解を求めるには色々な方法があるり，ここではその代表的な方法の考え方についてまず説明する。その後<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>（「サイパイ」と読み，Scientific Pythonの略）というパッケージにある<code class="docutils literal notranslate"><span class="pre">optimize</span></code>というモジュールを紹介する。<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>は<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の大幅な拡張版と理解して良いだろう。<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>を読み込むと<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の関数などを利用できるようになる。しかし<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>は大きなパッケージであり，全てを読み込む必要もない。従って，<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>を読み込んで<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>のサブパッケージや関数を読み込むということで十分であろう。そして<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>のモジュール<code class="docutils literal notranslate"><span class="pre">optimize</span></code>に非線形の方程式の解を簡単に求めることができる関数が含まれている。もちろんこれらの関数は線形の方程式の解を求める為にも使える。また<code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>には最適化問題のための関数も用意されており，<code class="docutils literal notranslate"><span class="pre">Python</span></code>で経済学を学ぶ為には必須となるツールと言えるだろう。消費者の効用最大化問題やソロー・モデルの資本の黄金律水準などに応用して使い方を説明する。</p>
+<div class="section" id="id2">
+<h2>解の求め方と考え方<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bisection">
+<h3>Bisection法<a class="headerlink" href="#bisection" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>説明<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>次の関数を考えよう。</p>
+<div class="math notranslate nohighlight">
+\[f(x)=x^3+4x^2-3\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span><span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(x\)</span>が次の<code class="docutils literal notranslate"><span class="pre">a</span></code>、<code class="docutils literal notranslate"><span class="pre">b</span></code>、<code class="docutils literal notranslate"><span class="pre">c</span></code>の値を取るとしよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この場合の<span class="math notranslate nohighlight">\(f(x)\)</span>の値は次のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(6.0, -2.125, 3.890625)
+</pre></div>
+</div>
+</div>
+</div>
+<p>これを図示しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>          <span class="c1"># 1</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)})</span>  <span class="c1"># 2</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>     <span class="c1"># 3</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>  <span class="c1"># 4</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>          <span class="c1"># 5</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>  <span class="c1"># 6</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_14_0.png" src="_images/ScipyOptimize_14_0.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-3.1</span></code>から<code class="docutils literal notranslate"><span class="pre">0</span></code>から等間隔で<code class="docutils literal notranslate"><span class="pre">100</span></code>の値を生成し横軸に設定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>と<code class="docutils literal notranslate"><span class="pre">f(x)</span></code>の値からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の作成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>を横軸、<code class="docutils literal notranslate"><span class="pre">Y</span></code>を縦軸に指定し<code class="docutils literal notranslate"><span class="pre">f(x)</span></code>の曲線をプロットする。また図の軸を<code class="docutils literal notranslate"><span class="pre">ax</span></code>とする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">axhline(&lt;横軸の値&gt;)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">ax</span></code>に平行線を表示する。<code class="docutils literal notranslate"><span class="pre">c='orange'</span></code>は色を指定する引数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">text(&lt;横軸の値&gt;,&lt;縦軸の値&gt;,&lt;表示する文字&gt;)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">ax</span></code>に文字を表示する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">scatter()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">ax</span></code>に点を表示する。</p>
+<ul class="simple">
+<li><p>第１引数：横軸の値のリスト</p></li>
+<li><p>第２引数：縦軸の値のリスト</p></li>
+<li><p>第３引数：点のサイズ</p></li>
+<li><p>第４引数：点の色</p></li>
+</ul>
+</li>
+</ol>
+</div>
+<p>＜<code class="docutils literal notranslate"><span class="pre">bisection</span></code>方の考え方＞</p>
+<ul class="simple">
+<li><p>中間値の定理に基づく。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(a)</span></code>と<code class="docutils literal notranslate"><span class="pre">f(b)</span></code>の符号が異なり<code class="docutils literal notranslate"><span class="pre">f</span></code>が連続関数である場合、<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の間には<code class="docutils literal notranslate"><span class="pre">f</span></code>がゼロになる<code class="docutils literal notranslate"><span class="pre">x</span></code>の値が必ず存在する。</p></li>
+<li><p>上の図の<code class="docutils literal notranslate"><span class="pre">c=(a+b)/2</span></code>は<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の中間値であり、次の３つの可能性がある。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(c)=0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(c)&gt;0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(c)&lt;0</span></code></p></li>
+</ul>
+</li>
+<li><p>上の図のように<code class="docutils literal notranslate"><span class="pre">f(c)</span></code>と<code class="docutils literal notranslate"><span class="pre">f(a)</span></code>が同じ符号であれば、同じ計算を<code class="docutils literal notranslate"><span class="pre">c</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の間で同じプロセスを繰り返す。</p></li>
+<li><p>同じ計算プロセスを続けると<code class="docutils literal notranslate"><span class="pre">f(x)=0</span></code>を満たす<code class="docutils literal notranslate"><span class="pre">x</span></code>の値に十分に近い値を求めることができる。</p></li>
+</ul>
+<p>＜注意点＞</p>
+<ul class="simple">
+<li><p>計算には<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>のように１つの根を挟む２点が必要となる。</p></li>
+<li><p>挟んだ根だけを求めることになる。</p></li>
+<li><p>求めた値は近似となる。</p></li>
+<li><p>求めた値は収束値なので収束する速度が一つの「壁」になり得る。</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h4>手計算<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>次の関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_bisect</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; [a,b]におけるf(x)=0の近似解（bisection法）   # 1</span>
+<span class="sd">    </span>
+<span class="sd">    引数</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f : f(x)=0の連続関数</span>
+<span class="sd">    a,b : 根を挟む初期の値</span>
+<span class="sd">    N : 中間値を計算するプロセスの回数</span>
+
+<span class="sd">    返り値</span>
+<span class="sd">    -------</span>
+<span class="sd">    N回ループ後の解の近似値</span>
+<span class="sd">    * f(a)*f(b) &gt;= 0 の場合、メッセージが返される。</span>
+<span class="sd">    * c=(a+b)/2とし、f(a)、f(b)、f(c)が同じ符号の場合、メッセージが返される。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>       <span class="c1"># 2</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f(a)とf(b)は同じ符号です。a、bの値を変えてください。&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="n">a_</span> <span class="o">=</span> <span class="n">a</span>                   <span class="c1"># 3</span>
+    <span class="n">b_</span> <span class="o">=</span> <span class="n">b</span>                   <span class="c1"># 4</span>
+    
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>   <span class="c1"># (5)</span>
+        
+        <span class="n">c_</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_</span> <span class="o">+</span> <span class="n">b_</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>     <span class="c1"># 6</span>
+        <span class="n">fc</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">c_</span><span class="p">)</span>           <span class="c1"># 7</span>
+        
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a_</span><span class="p">)</span><span class="o">*</span><span class="n">fc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>     <span class="c1"># 8</span>
+            <span class="n">b_</span> <span class="o">=</span> <span class="n">c_</span>
+            
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">b_</span><span class="p">)</span><span class="o">*</span><span class="n">fc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>   <span class="c1"># 9</span>
+            <span class="n">a_</span> <span class="o">=</span> <span class="n">c_</span>
+            
+        <span class="k">elif</span> <span class="n">fc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>        <span class="c1"># 10</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正確な根が求められました。&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">c_</span>
+        
+        <span class="k">else</span><span class="p">:</span>                <span class="c1"># 11</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;計算に失敗しました。&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">回ループ後の値です。&#39;</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="p">(</span><span class="n">a_</span> <span class="o">+</span> <span class="n">b_</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>       <span class="c1"># 12</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>で挟んだ領域は<code class="docutils literal notranslate"><span class="pre">docstring</span></code>と呼ばれ、関数の説明をする。書かなくても良いが、自分が忘れた頃に関数のコードを読むことになるかもしれないので、書く方がオススメ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(a)</span></code>と<code class="docutils literal notranslate"><span class="pre">f(b)</span></code>の符号が同じ場合は計算を中止する。
+3.<code class="docutils literal notranslate"><span class="pre">bisection</span></code>法では根を挟む２つの変数が必要だが、計算を繰り返す毎に両変数がアップデートされる。そのアップデート用の変数として<code class="docutils literal notranslate"><span class="pre">a_</span></code>と<code class="docutils literal notranslate"><span class="pre">b_</span></code>の初期値を<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>に設定している。</p></li>
+<li><p>(3)を参照。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>回の<code class="docutils literal notranslate"><span class="pre">for</span></code>ループとして中間値を計算する。</p></li>
+<li><p>中間値の設定。</p></li>
+<li><p>中間値での関数の値の計算。</p></li>
+<li><p>中間値と<code class="docutils literal notranslate"><span class="pre">a_</span></code>での関数の符号が異なる場合、<code class="docutils literal notranslate"><span class="pre">b_</span></code>は<code class="docutils literal notranslate"><span class="pre">c_</span></code>にアップデートする。（<code class="docutils literal notranslate"><span class="pre">a_</span></code>は以前と同じ値。）</p></li>
+<li><p>中間値と<code class="docutils literal notranslate"><span class="pre">b_</span></code>での関数の符号が異なる場合、<code class="docutils literal notranslate"><span class="pre">a_</span></code>は<code class="docutils literal notranslate"><span class="pre">c_</span></code>にアップデートする。（<code class="docutils literal notranslate"><span class="pre">b_</span></code>は以前と同じ値。）</p></li>
+<li><p>中間値である<code class="docutils literal notranslate"><span class="pre">c_</span></code>での関数の値が<code class="docutils literal notranslate"><span class="pre">0</span></code>の場合、近似ではなく正確な根が求められることになる。</p></li>
+<li><p>その他の場合は計算の失敗となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a_</span></code>と<code class="docutils literal notranslate"><span class="pre">b_</span></code>の中間値として根の近似値が返される。</p></li>
+</ol>
+</div>
+<p>次の例を使って計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_ex1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(x&gt;0\)</span>の解</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_bisect</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100回ループ後の値です。
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(x&lt;0\)</span>の解</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_bisect</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100回ループ後の値です。
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code>の値が変わると根の近似値がどう変化するか試してみよう。</p>
+<p>計算に失敗する場合。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_bisect</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f(a)とf(b)は同じ符号です。a、bの値を変えてください。
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scipy">
+<h4><code class="docutils literal notranslate"><span class="pre">Scipy</span></code>の関数<a class="headerlink" href="#scipy" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Scipy</span></code>パッケージの<code class="docutils literal notranslate"><span class="pre">optimize</span></code>モジュールにはBisection法の計算関数が用意されている。基本的な考えは同じであり，<code class="docutils literal notranslate"><span class="pre">my_bisect()</span></code>よりパワフルな関数と考えれば良いだろう。またBisection法だけではなく他にも様々な方法があるので，Brent法に基づく関数もここで紹介する。</p>
+<div class="section" id="bisect">
+<h5><code class="docutils literal notranslate"><span class="pre">bisect</span></code>関数<a class="headerlink" href="#bisect" title="Permalink to this headline">¶</a></h5>
+<p>使い方は、上で定義した<code class="docutils literal notranslate"><span class="pre">my_bisect</span></code>関数と基本的に同じで、近似値が十分に近い数値になるように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ回数の引数<code class="docutils literal notranslate"><span class="pre">N</span></code>は自動で決定される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bisect</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>：評価の対象となる関数名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>：解探査区間の最小値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>：解探査区間の最大値</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4142135623715149
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.4142135623715149
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="brentq">
+<h5><code class="docutils literal notranslate"><span class="pre">brentq</span></code>関数<a class="headerlink" href="#brentq" title="Permalink to this headline">¶</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">brentq</span></code>関数はBrent法に基づいており、<code class="docutils literal notranslate"><span class="pre">bisect</span></code>関数を拡張した手法（ここでは説明を割愛）である。より安定的により速く解への収束が可能となっている。基本的に使い方は<code class="docutils literal notranslate"><span class="pre">bisect</span></code>と同じである。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brentq</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>：評価の対象となる関数名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>：解探査区間の最小値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>：解探査区間の最大値</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4142135623731364
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.4142135623730951
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">bisect</span></code>と<code class="docutils literal notranslate"><span class="pre">brentq</span></code>のどちらを使っても良いが、<code class="docutils literal notranslate"><span class="pre">brentq</span></code>を使うことを推奨する。</p>
+</div>
+</div>
+</div>
+<div class="section" id="newton">
+<h3>Newton法<a class="headerlink" href="#newton" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4>説明<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>図にある関数<code class="docutils literal notranslate"><span class="pre">f(x)</span></code>を考えよう。<span class="math notranslate nohighlight">\(x_1\)</span>での傾きは<span class="math notranslate nohighlight">\(f^{\prime}(x_1)\)</span>であり、次の式が成り立つことが確認できる。</p>
+<div class="math notranslate nohighlight">
+\[
+f^{\prime}(x_0)=\dfrac{f(x_0)}{x_1-x_0}
+\quad\Rightarrow\quad
+x_1 = x_0 - \dfrac{f(x_0)}{f^{\prime}(x_0)}
+\]</div>
+<div class="figure align-default" id="fig-scipy-newton">
+<a class="reference internal image-reference" href="_images/newton.jpeg"><img alt="_images/newton.jpeg" src="_images/newton.jpeg" style="width: 539.2px; height: 400.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Newton法</span><a class="headerlink" href="#fig-scipy-newton" title="Permalink to this image">¶</a></p>
+</div>
+<p>即ち、<span class="math notranslate nohighlight">\(x_0\)</span>が与えられ<span class="math notranslate nohighlight">\(f^{\prime}(x_0)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_1\)</span>を求めることができる。更に、<span class="math notranslate nohighlight">\(x_1\)</span>が与えられるれ、<span class="math notranslate nohighlight">\(f^{\prime}(x_1)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_2\)</span>を求めることができる。このことから次の差分方程式が成り立つことが分かる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-scipy-newton">
+<span class="eqno">(52)<a class="headerlink" href="#equation-eq-scipy-newton" title="Permalink to this equation">¶</a></span>\[
+x_{t+1} = x_t - \dfrac{f(x_t)}{f^{\prime}(x_t)}
+\]</div>
+<p>この式に従って、<span class="math notranslate nohighlight">\(x_{t+1}\)</span>の計算を続けると、<span class="math notranslate nohighlight">\(x_{t+1}\)</span>は<span class="math notranslate nohighlight">\(f(x)=0\)</span>を満たす<span class="math notranslate nohighlight">\(x\)</span>に漸近的に近づいていき、根に十分に近い値を計算することが可能となる。</p>
+<p>＜注意点＞</p>
+<ul class="simple">
+<li><p>求めた値は近似となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bisec</span></code>関数と<code class="docutils literal notranslate"><span class="pre">brentq</span></code>関数よりも早い率で解に収束することになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bisec</span></code>関数と<code class="docutils literal notranslate"><span class="pre">brentq</span></code>関数と違って、必ず解を求めることができるとは限らない。解探索の<code class="docutils literal notranslate"><span class="pre">x</span></code>の初期値の設定が重要となる。</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>手計算<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Newton法の基本的な考えを説明するために式<a class="reference internal" href="#fig-scipy-newton"><span class="std std-ref">Newton法</span></a>を捉える関数を定義しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">Df</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Newton法でf(x)=0の根を近似する。</span>
+
+<span class="sd">    引数</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f : f(x)=0の関数名f</span>
+<span class="sd">    Df : f(x)の導関数</span>
+<span class="sd">    x0 : 解探索の初期のxの値</span>
+<span class="sd">    N : ループの回数</span>
+
+<span class="sd">    返り値</span>
+<span class="sd">    -------</span>
+<span class="sd">    根の近似値</span>
+<span class="sd">    Df(x) == 0の場合は None がメッセージが表示される。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">x_</span> <span class="o">=</span> <span class="n">x0</span>              <span class="c1"># 1</span>
+    
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>   <span class="c1"># 2</span>
+        
+        <span class="n">fx</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>       <span class="c1"># 3</span>
+        <span class="n">Dfx</span> <span class="o">=</span> <span class="n">Df</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>     <span class="c1"># 4</span>
+        
+        <span class="k">if</span> <span class="n">Dfx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>     <span class="c1"># 5</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;導関数はゼロです。解は見つかりませんでした&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+        <span class="k">else</span><span class="p">:</span>            <span class="c1"># (6)</span>
+            <span class="n">x_</span> <span class="o">=</span> <span class="n">x_</span> <span class="o">-</span> <span class="n">fx</span><span class="o">/</span><span class="n">Dfx</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">回ループ後の値です。&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x_</span>            <span class="c1"># 7</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(x\)</span>の初期値の設定。また、式（**）の左辺の値<span class="math notranslate nohighlight">\(x_{1+t}\)</span>は計算を繰り返す毎にアップデートされるが、そのアップデート用の変数として<code class="docutils literal notranslate"><span class="pre">x_</span></code>を設定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを<code class="docutils literal notranslate"><span class="pre">N</span></code>回行う。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_</span></code>での関数<code class="docutils literal notranslate"><span class="pre">f(x)</span></code>の値を<code class="docutils literal notranslate"><span class="pre">fx</span></code>とする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_</span></code>での導関数<code class="docutils literal notranslate"><span class="pre">Df(x)</span></code>の値を<code class="docutils literal notranslate"><span class="pre">Dfx</span></code>とする。</p></li>
+<li><p>導関数<code class="docutils literal notranslate"><span class="pre">Dfx</span></code>がゼロになる場合は計算せずにメッセージを表示し、<code class="docutils literal notranslate"><span class="pre">None</span></code>を返す。</p></li>
+<li><p>導関数<code class="docutils literal notranslate"><span class="pre">Dfx</span></code>がゼロでなければ、式（**）に従って計算し、<code class="docutils literal notranslate"><span class="pre">x_</span></code>をアップデートする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_</span></code>を返す。</p></li>
+</ol>
+</div>
+<p>例として<code class="docutils literal notranslate"><span class="pre">f_ex(x)</span></code>を使うが、まず導関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Df_ex1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="n">Df_ex1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10回ループ後の値です。
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="n">Df_ex1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10回ループ後の値です。
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="n">Df_ex1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>導関数はゼロです。解は見つかりませんでした
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h4><code class="docutils literal notranslate"><span class="pre">Scipy</span></code>の関数<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Scipy</span></code>パッケージの<code class="docutils literal notranslate"><span class="pre">optimize</span></code>モジュールには<code class="docutils literal notranslate"><span class="pre">newton</span></code>法の関数が用意されており、説明で使った手計算の<code class="docutils literal notranslate"><span class="pre">my_newton()</span></code>関数と比べると格段に洗練れている。使い方は簡単で、引数に関数と<code class="docutils literal notranslate"><span class="pre">x</span></code>の初期値を指定するだけであり、近似の誤差とループの回数は自動的に設定される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>：評価の対象となる関数名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x0</span></code>：解探査の初期値</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.414213562373095
+</pre></div>
+</div>
+</div>
+</div>
+<p>またリストとして<code class="docutils literal notranslate"><span class="pre">x</span></code>の初期値を複数設定することも可能である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.41421356, 1.41421356])
+</pre></div>
+</div>
+</div>
+</div>
+<p>これを利用して、複数の根を同時に計算することも可能となる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.41421356,  1.41421356])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>マクロ経済学への応用<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h4>45度線モデル<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>45度線モデルでは，所得<span class="math notranslate nohighlight">\(Y\)</span>以外の変数は外生変数として所得が決定されるマクロ経済学の基本的なモデルである。次の記号・仮定を使う。</p>
+<ul class="simple">
+<li><p>所得：<span class="math notranslate nohighlight">\(Y\)</span></p></li>
+<li><p>計画支出：<span class="math notranslate nohighlight">\(E=C(Y)+I+G\)</span></p></li>
+<li><p>消費関数：<span class="math notranslate nohighlight">\(C(Y)=d+cY^{a}\)</span></p>
+<ul>
+<li><p>自発的消費：<span class="math notranslate nohighlight">\(d=10\)</span></p></li>
+<li><p>限界消費性向：<span class="math notranslate nohighlight">\(c=0.7\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha=0.7\)</span></p></li>
+</ul>
+</li>
+<li><p>投資：<span class="math notranslate nohighlight">\(I=15\)</span></p></li>
+<li><p>政府支出：<span class="math notranslate nohighlight">\(G=10\)</span></p></li>
+<li><p>均衡：<span class="math notranslate nohighlight">\(E=Y\)</span></p></li>
+</ul>
+<p>１つの式でまとめてみる。
+$<span class="math notranslate nohighlight">\(
+0= I+G+C(Y) -Y\equiv h_0(Y)
+\)</span>$</p>
+<p>この式をプロットするために，次のパラメータの下での関数を定義する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">h0</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">a</span> <span class="o">-</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>プロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;h0(Y)&#39;</span><span class="p">:</span><span class="n">h0</span><span class="p">(</span><span class="n">yy</span><span class="p">)})</span>
+
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;h0(Y)&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_66_0.png" src="_images/ScipyOptimize_66_0.png" />
+</div>
+</div>
+<p>均衡の<span class="math notranslate nohighlight">\(Y\)</span>を計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">h0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>51.35063858666513
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">h0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>51.35063858666476
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">h0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>51.35063858666476
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="is">
+<h4>IS曲線の導出<a class="headerlink" href="#is" title="Permalink to this headline">¶</a></h4>
+<p>ここでも45度線モデルを使い財市場の均衡で決定される所得<span class="math notranslate nohighlight">\(Y\)</span>を考えるが，投資は利子率<span class="math notranslate nohighlight">\(r\)</span>の非線形の減少関数と仮定する。この仮定により，利子率<span class="math notranslate nohighlight">\(r\)</span>を所与とした所得の均衡を考えることが可能となり，非線形の<span class="math notranslate nohighlight">\(IS\)</span>曲線をプロットすることができる。</p>
+<p>45度線モデルの投資<span class="math notranslate nohighlight">\(I\)</span>を次のように変更する。</p>
+<div class="math notranslate nohighlight">
+\[
+I = \dfrac{j}{r^{b}}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r=\)</span> 実質利子率</p></li>
+<li><p><span class="math notranslate nohighlight">\(j=15\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(b=0.5\)</span></p></li>
+</ul>
+<p>均衡式は次式で与えられる。
+$<span class="math notranslate nohighlight">\(
+0= \dfrac{j}{r^{b}}+G+C(Y) -Y\equiv h_1(Y)
+\)</span>$</p>
+<p>まず関数を再定義するが，<span class="math notranslate nohighlight">\(y\)</span>と<span class="math notranslate nohighlight">\(r\)</span>を引数とする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">h1</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+    
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">return</span> <span class="n">j</span><span class="o">/</span><span class="n">r</span><span class="o">**</span><span class="n">b</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">a</span> <span class="o">-</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(r\)</span>の値を設定する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い、財市場での均衡が成立する<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の組み合わせを計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_arr</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">,))</span>    <span class="c1"># 1</span>
+    <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span><span class="n">r_arr</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p>関数<code class="docutils literal notranslate"><span class="pre">h1(y,r)</span></code>には<code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">r</span></code>の２つの引数がある。一方、関数<code class="docutils literal notranslate"><span class="pre">newton</span></code>では<code class="docutils literal notranslate"><span class="pre">h1()</span></code>の第一引数の値を計算することを想定しており，「その他の引数」は<code class="docutils literal notranslate"><span class="pre">args</span></code>で指定する必要がある。この機能を利用することにより、<code class="docutils literal notranslate"><span class="pre">r</span></code>を所与として<code class="docutils literal notranslate"><span class="pre">h1(y,r)=0</span></code>となる<code class="docutils literal notranslate"><span class="pre">y</span></code>の値を計算することが可能となる。<code class="docutils literal notranslate"><span class="pre">args</span></code>を指定する際、タプル<code class="docutils literal notranslate"><span class="pre">()</span></code>で「その他の引数」を指定し、それが１つの場合は<code class="docutils literal notranslate"><span class="pre">(r,)</span></code>のように<code class="docutils literal notranslate"><span class="pre">,</span></code>を付け加える必要がある（基本的にタプルは<code class="docutils literal notranslate"><span class="pre">,</span></code>で定義されるため）。</p></li>
+</ol>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_79_0.png" src="_images/ScipyOptimize_79_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h4>ソロー・モデル<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>モデルの簡単な説明は<a class="reference internal" href="8_Solow.html#chap-9-solow"><span class="std std-ref">「ソロー・モデル」の章</span></a>を参照してほしい。</p>
+<ul>
+<li><p>産出量：<span class="math notranslate nohighlight">\(y_t\)</span></p></li>
+<li><p>資本ストック：<span class="math notranslate nohighlight">\(k_t\)</span></p></li>
+<li><p>労働：<span class="math notranslate nohighlight">\(l_t=1\)</span>（労働人口増加率は<code class="docutils literal notranslate"><span class="pre">0</span></code>）</p></li>
+<li><p>貯蓄率：<span class="math notranslate nohighlight">\(0&lt;s&lt;1\)</span></p></li>
+<li><p>資本減耗率：<span class="math notranslate nohighlight">\(0&lt;d&lt;1\)</span></p></li>
+<li><p>生産性：<span class="math notranslate nohighlight">\(A&gt;0\)</span></p></li>
+<li><p>生産関数：<span class="math notranslate nohighlight">\(y_t=Ak_t^a\)</span></p></li>
+<li><p>資本の蓄積方程式：</p>
+<div class="math notranslate nohighlight">
+\[
+    k_{t+1} = sAk_t^a + (1-d)k_t
+    \]</div>
+</li>
+<li><p>定常状態での<span class="math notranslate nohighlight">\(k_t\)</span>：<span class="math notranslate nohighlight">\(k_*\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+    0 = sAk_*^a + (1-d)k_* - k_* \equiv m(k_*)
+    \]</div>
+</li>
+</ul>
+<p>パラメターを次の値とする</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(k\)</span>の定常状態<span class="math notranslate nohighlight">\(k_*\)</span>は次式で定義される。</p>
+<div class="math notranslate nohighlight" id="equation-eq-scipy-kss">
+<span class="eqno">(53)<a class="headerlink" href="#equation-eq-scipy-kss" title="Permalink to this equation">¶</a></span>\[
+0 = sAk_*^a + (1-d)k_* - k_{*}
+\]</div>
+<p>この方程式の解を求めるが，関数<code class="docutils literal notranslate"><span class="pre">kss()</span></code>を定義しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kss</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="n">k</span> <span class="o">-</span> <span class="n">k</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まず式<a class="reference internal" href="#equation-eq-scipy-kss">(53)</a>をプロットするが，そのために<span class="math notranslate nohighlight">\(k\)</span>の値を設定しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループで<code class="docutils literal notranslate"><span class="pre">kss(k_*)</span></code>を計算し、結果を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>に格納する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_arr</span><span class="p">:</span>
+    <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kss</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;k&#39;</span><span class="p">:</span><span class="n">k_arr</span><span class="p">,</span> <span class="s1">&#39;kss(k)&#39;</span><span class="p">:</span><span class="n">k_list</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;kss(k)&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_89_0.png" src="_images/ScipyOptimize_89_0.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>を使い定常状態<span class="math notranslate nohighlight">\(k_*\)</span>を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">kss</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.21281575281978
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">kss</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.21281575282009
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">kss</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>72.21281575281984
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h4>投資<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>企業の投資問題を考える。初期投資<code class="docutils literal notranslate"><span class="pre">fc</span></code>を投入すると<span class="math notranslate nohighlight">\(T\)</span>期間<span class="math notranslate nohighlight">\(\pi\)</span>の利潤を得るとする。実質利子率は<code class="docutils literal notranslate"><span class="pre">r</span></code>とすると<span class="math notranslate nohighlight">\(T\)</span>期間の利潤の現在価値の合計は次のようになる。</p>
+<div class="math notranslate nohighlight">
+\[
+\int_0^{T}e^{-rt}\pi dt=\frac{\pi}{r}\left(1-e^{-Tr}\right)
+\]</div>
+<p>パラメータは次の値としよう</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.07</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">fc</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>問題：</p>
+<blockquote>
+<div><p>「投資の正味現在価値（net present value）がゼロになるにはどれだけ長く事業が続く必要があるか？」</p>
+</div></blockquote>
+<p>利潤の正味現在価値は</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\pi}{r}\left(1-e^{-Tr}\right)-fc
+\]</div>
+<p>で与えられる。この式を捉える関数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">npv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">r</span><span class="p">))</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">r</span> <span class="o">-</span> <span class="n">fc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">npv()</span></code>がゼロになる<span class="math notranslate nohighlight">\(T\)</span>を計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">npv</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17.19961149037052
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>最適化問題：１変数の場合<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h3>説明<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>最適化問題は経済学の根幹をなすが、ここでは<code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>の<code class="docutils literal notranslate"><span class="pre">minimize_scalar</span></code>関数の使い方を簡単に説明する。様々な引数が用意されているが、基本的には次のようなコードの書き方となる。</p>
+<ol>
+<li><p>デフォルトではBrent法が使われる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>は最小化したい関数名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bracket</span></code>は計算の初期値を指定する引数であり、省略可能。初期値を設定する場合は２つ必要である。関数を最小化すると思われる<code class="docutils literal notranslate"><span class="pre">x</span></code>に対して必ずしも<code class="docutils literal notranslate"><span class="pre">a&lt;x&lt;b</span></code>が満たされるように<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の値を設定する必要はなく、下で定義する<code class="docutils literal notranslate"><span class="pre">f_ex2</span></code>の例が示すように、必ずしも区間内に解があるとは限らない。</p></li>
+</ul>
+</li>
+<li><p>Bounded法を使う場合</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>：最小化したい関数名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>：計算手法を指定する引数であり、<code class="docutils literal notranslate"><span class="pre">bounded</span></code>を指定する（デフォルトは<code class="docutils literal notranslate"><span class="pre">brent</span></code>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bounds</span></code>は関数を最大化する<code class="docutils literal notranslate"><span class="pre">x</span></code>の値を探す区間を指定する引数であり、<code class="docutils literal notranslate"><span class="pre">a</span></code>は区間の最小値、<code class="docutils literal notranslate"><span class="pre">b</span></code>は区間の最大値（裏でBrent法が使われており、関数を最小化する<code class="docutils literal notranslate"><span class="pre">x</span></code>の探索は<code class="docutils literal notranslate"><span class="pre">bounds</span></code>で指定した区間に限られる）</p></li>
+</ul>
+</li>
+</ol>
+<p>＜２つの注意点＞</p>
+<ol class="simple">
+<li><p>返り値は、関数を最小化する変数の値だけではなく、様々な情報が整理されたオブジェクトとして返される。</p></li>
+<li><p>最大化のための関数は用意されていない。従って、最大化した関数にマイナスの符号をつけて<code class="docutils literal notranslate"><span class="pre">minimize_scalar()</span></code>関数を評価する必要がある。</p></li>
+</ol>
+</div>
+<div class="section" id="id14">
+<h3>例１<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">f_ex1</span></code>関数を例として考えよう。最小化される<code class="docutils literal notranslate"><span class="pre">x</span></code>を計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res1</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex1</span><span class="p">)</span>
+<span class="n">res1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -2.0
+    nfev: 40
+     nit: 36
+ success: True
+       x: 9.803862664247969e-09
+</pre></div>
+</div>
+</div>
+</div>
+<p>この返り値の中で重要なのは次の３つである。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fun</span></code>（１行目）：最小化された場合の関数の値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">success</span></code>（最後から２行目）：計算が成功したかどうかを示す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>（最後）：関数を最小化する変数の値</p></li>
+</ul>
+<p>それぞれは次のように属性としてアクセスできる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res1</span><span class="o">.</span><span class="n">fun</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-2.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res1</span><span class="o">.</span><span class="n">success</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res1</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.803862664247969e-09
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>例２<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>次に最小値が複数ある場合を考えよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_ex2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まずこの関数を図示しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">df_ex2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">xx</span><span class="p">,</span> <span class="s1">&#39;f_ex2&#39;</span><span class="p">:</span><span class="n">f_ex2</span><span class="p">(</span><span class="n">xx</span><span class="p">)})</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df_ex2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;f_ex2&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_116_0.png" src="_images/ScipyOptimize_116_0.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">method</span></code>のデフォルトである<code class="docutils literal notranslate"><span class="pre">brent</span></code>法を使う。解が２つあるため、次のコードでは<code class="docutils literal notranslate"><span class="pre">Python</span></code>が選んだ解しか求めることができない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res2</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex2</span><span class="p">)</span>
+<span class="n">res2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.24999999999999994
+    nfev: 15
+     nit: 11
+ success: True
+       x: 0.7071067853059209
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に引数<code class="docutils literal notranslate"><span class="pre">bracket</span></code>を使ってみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex2</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">res3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.24999999999999994
+    nfev: 16
+     nit: 12
+ success: True
+       x: -0.7071067842613271
+</pre></div>
+</div>
+</div>
+</div>
+<p>しかし次の２つ例は<code class="docutils literal notranslate"><span class="pre">bracket</span></code>内に必ず解が存在するとは限らないことを示している。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex2</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="p">))</span>
+<span class="n">res3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.25
+    nfev: 14
+     nit: 10
+ success: True
+       x: -0.7071067804088556
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex2</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="n">res3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.25
+    nfev: 16
+     nit: 12
+ success: True
+       x: 0.7071067805303989
+</pre></div>
+</div>
+</div>
+</div>
+<p>「ん？」と思うかもしれないが、<code class="docutils literal notranslate"><span class="pre">brent</span></code>のアルゴリズムがそのようになっているので、その性質を覚えるしかない。</p>
+<p>一方、<code class="docutils literal notranslate"><span class="pre">method='bounded'</span></code>を使うと、<code class="docutils literal notranslate"><span class="pre">bounds</span></code>で指定された区間の解が探索される。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res4</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f_ex2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">res4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.24999999999998732
+ message: &#39;Solution found.&#39;
+    nfev: 10
+  status: 0
+ success: True
+       x: -0.707106701474177
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>ソロー・モデル：黄金律<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>資本の黄金律水準とは、長期均衡において一人当たり消費を最大化する資本ストックであり、貯蓄率<span class="math notranslate nohighlight">\(s\)</span>に依存している。それを示すために、まず定常状態の資本ストック<span class="math notranslate nohighlight">\(k_*\)</span>をパラメータで示す。この式は上の蓄積方程式から導出できる。</p>
+<div class="math notranslate nohighlight">
+\[
+k_*=\left(
+        \frac{As}{d}
+    \right)^{\frac{1}{1-a}}
+\]</div>
+<p>更に、定常状態での一人当たりGDPと消費は次式で与えられる。</p>
+<div class="math notranslate nohighlight">
+\[
+y_*=Ak_*^{a}
+\quad
+c_*=(1-s)y_*
+\]</div>
+<p>これらを使うと、一人当たり消費を貯蓄率の関数として表すことができる。</p>
+<div class="math notranslate nohighlight">
+\[
+c=(1-s)A\left(\frac{As}{d}\right)^{\frac{a}{1-a}}
+\]</div>
+<p>関数として定義し図示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
+
+<span class="n">c_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">s_arr</span><span class="p">:</span>
+    <span class="n">c_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="n">s_arr</span><span class="p">,</span> <span class="s1">&#39;c(s)&#39;</span><span class="p">:</span><span class="n">c_list</span><span class="p">})</span>
+
+<span class="n">df4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="s1">&#39;c(s)&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_128_0.png" src="_images/ScipyOptimize_128_0.png" />
+</div>
+</div>
+<p>一人当たり消費を最大化する貯蓄率を求めるために、次の関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">c_minus</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>デフォルトのBrent法を使う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">c_minus</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -30.071147877019232
+    nfev: 17
+     nit: 13
+ success: True
+       x: 0.30000000024161544
+</pre></div>
+</div>
+</div>
+</div>
+<p>Bounded法でも同じ解が求められる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">c_minus</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -30.071147877017722
+ message: &#39;Solution found.&#39;
+    nfev: 9
+  status: 0
+ success: True
+       x: 0.2999998786598638
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>労働供給問題<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>ミクロ経済学で学ぶ消費者の労働供給問題を考えよう。消費者は消費財と余暇の２財を消費すると考える。</p>
+<p>変数の定義：</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(u\)</span>：効用</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span>：消費</p></li>
+<li><p><span class="math notranslate nohighlight">\(l\)</span>：労働供給（24時間のパーセント）</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>：消費財の価格</p></li>
+<li><p><span class="math notranslate nohighlight">\(w\)</span>：賃金</p></li>
+<li><p><span class="math notranslate nohighlight">\(1\)</span>：24時間を100%として。</p></li>
+<li><p><span class="math notranslate nohighlight">\(1-l\)</span>：余暇</p></li>
+<li><p>効用関数：</p>
+<div class="math notranslate nohighlight">
+\[u=a\ln(c)+(1-a)\ln(1-l)\]</div>
+</li>
+<li><p>制約式：</p>
+<div class="math notranslate nohighlight">
+\[pc=wl\]</div>
+</li>
+</ul>
+<p>制約式のもとで消費者は<span class="math notranslate nohighlight">\(c\)</span>と<span class="math notranslate nohighlight">\(l\)</span>を選択し効用を最大化する。</p>
+<p>＜解法＞</p>
+<ul>
+<li><p>制約式を効用関数に代入する</p>
+<div class="math notranslate nohighlight">
+\[\max_{l}\;a\ln\left(\frac{wl}{p}\right)+(1-a)\ln(1-l)\]</div>
+<p>これにより効用は<span class="math notranslate nohighlight">\(l\)</span>の関数になり，<code class="docutils literal notranslate"><span class="pre">.minimize_scalar()</span></code>が使える形になっている。</p>
+</li>
+</ul>
+<p>次の値を仮定する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>目的関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u_minus</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="n">p</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">l</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>効用を最大化する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_u</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize_scalar</span><span class="p">(</span><span class="n">u_minus</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">res_u</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.7085393887825051
+ message: &#39;Solution found.&#39;
+    nfev: 9
+  status: 0
+ success: True
+       x: 0.5999985035112788
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最適な労働供給は</span><span class="si">{</span><span class="n">res_u</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">である。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>最適な労働供給は0.60である。
+</pre></div>
+</div>
+</div>
+</div>
+<p>予算制約式から消費量は</p>
+<div class="math notranslate nohighlight" id="equation-eq-scipy-c">
+<span class="eqno">(54)<a class="headerlink" href="#equation-eq-scipy-c" title="Permalink to this equation">¶</a></span>\[
+c=\frac{wl}{p}
+\]</div>
+<p>となるので，</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最適な消費量は</span><span class="si">{</span><span class="n">res_u</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="o">/</span><span class="n">p</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">である。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>最適な消費量は6.00である。
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最大化された効用水準は</span><span class="si">{</span><span class="o">-</span><span class="n">res_u</span><span class="o">.</span><span class="n">fun</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">である。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>最大化された効用水準は0.71である。
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果を図示するために、効用関数を<span class="math notranslate nohighlight">\(c\)</span>で解くと次式となる。</p>
+<div class="math notranslate nohighlight">
+\[
+c=
+\left(
+    \frac{e^u}{(1-l)^{1-a}}
+\right)^{\frac{1}{a}}
+\]</div>
+<p>この関数を捉える<code class="docutils literal notranslate"><span class="pre">Python</span></code>の関数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">c_utility</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">res_u</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>図の横軸になる値を生成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.999</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>これらを使い、無差別曲線の値を計算する。この際、<code class="docutils literal notranslate"><span class="pre">res_u.fun</span></code>を利用する（マイナスになることに注意しよう）。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c_utility_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">l_arr</span><span class="p">:</span>
+    <span class="n">c_utility_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_utility</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に、制約線の値を生成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c_constraint_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">l_arr</span><span class="p">:</span>
+    <span class="n">c_constraint_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここで式<a class="reference internal" href="#equation-eq-scipy-c">(54)</a>を使っている。</p>
+<p>値を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>にまとめる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;l&#39;</span><span class="p">:</span><span class="n">l_arr</span><span class="p">,</span>
+                     <span class="s1">&#39;c_utility&#39;</span><span class="p">:</span><span class="n">c_utility_list</span><span class="p">,</span>
+                     <span class="s1">&#39;c_constraint&#39;</span><span class="p">:</span><span class="n">c_constraint_list</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>図示</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df_5</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">,</span><span class="s1">&#39;c_utility&#39;</span><span class="p">)</span>       <span class="c1"># 1</span>
+<span class="n">df_5</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">,</span><span class="s1">&#39;c_constraint&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>  <span class="c1"># 2</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>                   <span class="c1"># 3</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ScipyOptimize_157_0.png" src="_images/ScipyOptimize_157_0.png" />
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p>プロットの軸を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てている。</p></li>
+<li><p>制約式のずを同じ軸に表示するために引数<code class="docutils literal notranslate"><span class="pre">ax=ax_</span></code>を使い、軸を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_ylim()</span></code>は軸<code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッドであり、縦軸の表示範囲を指定する。</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>最適化問題：２変数の場合<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h3>説明<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>２変数の場合は<code class="docutils literal notranslate"><span class="pre">minimize</span></code>関数を使う。様々な引数が用意されているが、基本的には次のようなコードの書き方となる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimize</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span> <span class="n">constraints</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>は最小化したい関数名</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">f(x)</span></code>のように引数は<code class="docutils literal notranslate"><span class="pre">x</span></code>１つで書く必要があり、<code class="docutils literal notranslate"><span class="pre">x</span></code>を<code class="docutils literal notranslate"><span class="pre">array</span></code>と理解すれば良いだろう（例を参照）。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bounds</span></code>（指定しなくても良い）は関数を最大化する<code class="docutils literal notranslate"><span class="pre">x</span></code>の値を探す区間を指定する引数であり、<code class="docutils literal notranslate"><span class="pre">a</span></code>は区間の最小値、<code class="docutils literal notranslate"><span class="pre">b</span></code>は区間の最大値（裏でBrent法が使われており、関数を最小化する<code class="docutils literal notranslate"><span class="pre">x</span></code>の探索は<code class="docutils literal notranslate"><span class="pre">bounds</span></code>で指定した区間に限られる）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">[(変数１の最小値,変数１の最大値),(変数２の最小値,変数２の最大値)]</span></code>で指定する。</p></li>
+<li><p>指定しない箇所は<code class="docutils literal notranslate"><span class="pre">None</span></code>とする。例えば、非負の値に限定したい場合は<code class="docutils literal notranslate"><span class="pre">[(0,None),(0,None)]</span></code>とする。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code>（指定しなくても良い）は制約式。</p>
+<ul>
+<li><p>１つの制約式を１つの辞書として設定する。また制約式が複数ある場合は、それぞれに辞書を作成し、複数の辞書からなるリストもしくはタプルとして設定する。</p></li>
+<li><p>詳細は例３と例４を参照</p></li>
+</ul>
+</li>
+</ul>
+<p>＜２つの注意点＞</p>
+<ol class="simple">
+<li><p>返り値は、関数を最小化るる変数の値だけではなく、様々な情報が整理されたオブジェクトとして返される。</p></li>
+<li><p>最大化のための関数は用意されていない。従って、最大化した関数にマイナスの符号をつけて<code class="docutils literal notranslate"><span class="pre">minimize()</span></code>関数を評価する必要がある。</p></li>
+</ol>
+</div>
+<div class="section" id="id20">
+<h3>例１<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>次の最小化問題を考えよう。
+$<span class="math notranslate nohighlight">\(
+\min_{y,z}\; y^2+2zy+z^2+10
+\)</span>$</p>
+<p>まず関数を定義するが、次の点に留意すること。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">f_ex3</span></code>の引数<code class="docutils literal notranslate"><span class="pre">x</span></code>は<code class="docutils literal notranslate"><span class="pre">array</span></code>として考える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>の第0要素を<code class="docutils literal notranslate"><span class="pre">y</span></code>とし、第1要素を<code class="docutils literal notranslate"><span class="pre">z</span></code>とする。</p></li>
+<li><p>次のようなイメージ</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_ex3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に解探索の初期値を設定する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">x0</span></code>の第0要素は<code class="docutils literal notranslate"><span class="pre">y</span></code>の初期値、第1要素は<code class="docutils literal notranslate"><span class="pre">z</span></code>の初期値となる。これは関数<code class="docutils literal notranslate"><span class="pre">f_ex3</span></code>に対応している。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">f_ex3</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">)</span>
+<span class="n">res3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      fun: 10.000000000001792
+ hess_inv: array([[ 0.66873401, -0.33559015],
+       [-0.33559015,  0.66913043]])
+      jac: array([-1.07288361e-06,  1.54972076e-06])
+  message: &#39;Optimization terminated successfully.&#39;
+     nfev: 12
+      nit: 3
+     njev: 4
+   status: 0
+  success: True
+        x: array([-1.26041337e-06,  1.40562889e-06])
+</pre></div>
+</div>
+</div>
+</div>
+<p>この返り値の中で重要なのは次の４つである。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fun</span></code>（１行目）：最小化された場合の関数の値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>（５行目）:「最適化は成功した」というメッセージ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">success</span></code>（最後から２行目）：計算が成功したかどうかを示すブール値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>（最後）：関数を最小化する変数の値</p>
+<ul>
+<li><p>第0要素は<code class="docutils literal notranslate"><span class="pre">y</span></code>の値、第1要素は<code class="docutils literal notranslate"><span class="pre">z</span></code>の値</p></li>
+</ul>
+</li>
+</ul>
+<p>それぞれは次のように属性としてアクセスできる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span><span class="o">.</span><span class="n">fun</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.000000000001792
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span><span class="o">.</span><span class="n">message</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Optimization terminated successfully.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span><span class="o">.</span><span class="n">success</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res3</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.26041337e-06,  1.40562889e-06])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>例２<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>次の最大化問題を考えよう。
+$<span class="math notranslate nohighlight">\(
+\max_{y,z}\; -z^2-y^2+zy+z+y
+\)</span>$</p>
+<p>まず関数を定義する。次の点に要注意。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">f_ex4</span></code>の引数<code class="docutils literal notranslate"><span class="pre">x</span></code>は<code class="docutils literal notranslate"><span class="pre">array</span></code>として考える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>の第0要素を<code class="docutils literal notranslate"><span class="pre">y</span></code>とし、第1要素を<code class="docutils literal notranslate"><span class="pre">z</span></code>とする。</p></li>
+<li><p>次のようなイメージ</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>返り値にマイナスの符号が追加されている。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_ex4</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span> <span class="o">-</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">z</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="n">z</span><span class="o">+</span><span class="n">y</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に解探索の初期値を設定する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">x0</span></code>の第0要素は<code class="docutils literal notranslate"><span class="pre">y</span></code>の初期値、第1要素は<code class="docutils literal notranslate"><span class="pre">z</span></code>の初期値となる。これは関数<code class="docutils literal notranslate"><span class="pre">f_ex4</span></code>に対応している。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res4</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">f_ex4</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">)</span>
+<span class="n">res4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      fun: -0.9999999999999998
+ hess_inv: array([[1, 0],
+       [0, 1]])
+      jac: array([0., 0.])
+  message: &#39;Optimization terminated successfully.&#39;
+     nfev: 6
+      nit: 1
+     njev: 2
+   status: 0
+  success: True
+        x: array([0.99999999, 0.99999999])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>例３<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>ここでは制約付き最大化問題を考える。次の制約のもとで例２の<code class="docutils literal notranslate"><span class="pre">f_ex4</span></code>を最大化するとしよう。</p>
+<div class="math notranslate nohighlight">
+\[
+y+z=1
+\]</div>
+<p>この制約式を捉えるコード書くために、左辺が非負となるように書き換えよう。</p>
+<div class="math notranslate nohighlight">
+\[
+y+z-1=0
+\]</div>
+<p>この式の左辺が返り値となる関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_const</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この関数を使い次のように引数<code class="docutils literal notranslate"><span class="pre">constraints</span></code>に設定する変数を作成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">f_const</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>右辺は辞書となっており、キーと値の２つのペアがある。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>：制約式のタイプを指定しするキー。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">eq</span></code>：制約式が等号の場合。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ineq</span></code>：制約式が不等号の場合。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fun</span></code>：制約式を指定するキー。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">f_const</span></code>：制約式の関数名</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 初期値</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]</span>
+
+<span class="c1"># 最大化の計算</span>
+<span class="n">res5</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">f_ex4</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">const</span><span class="p">)</span>
+<span class="n">res5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.7499999999999016
+     jac: array([-0.50000054, -0.49999945])
+ message: &#39;Optimization terminated successfully&#39;
+    nfev: 13
+     nit: 4
+    njev: 4
+  status: 0
+ success: True
+       x: array([0.49999982, 0.50000018])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;yは</span><span class="si">{</span><span class="n">res5</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">であり、zは</span><span class="si">{</span><span class="n">res5</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yは0.5であり、zは0.5です。
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code>の値と<code class="docutils literal notranslate"><span class="pre">z</span></code>の値は制約式を満たすことがわかる。また制約式がない場合と比べて、<code class="docutils literal notranslate"><span class="pre">y</span></code>の値と<code class="docutils literal notranslate"><span class="pre">z</span></code>の値は異なり、最大化された関数の値も異なる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;制約式がない場合の関数の最大値は</span><span class="si">{</span><span class="o">-</span><span class="n">res4</span><span class="o">.</span><span class="n">fun</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">であり、制約がある場合は</span><span class="si">{</span><span class="o">-</span><span class="n">res5</span><span class="o">.</span><span class="n">fun</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">となる。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>制約式がない場合の関数の最大値は1.00であり、制約がある場合は0.75となる。
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h3>例４<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>制約が不等式の場合を簡単に説明する。例３の制約式を
+$<span class="math notranslate nohighlight">\(
+y+z\leq 1
+\)</span><span class="math notranslate nohighlight">\(
+としよう。左辺が非負になるように書き換えると
+\)</span><span class="math notranslate nohighlight">\(
+1-y-z\geq 0
+\)</span>$
+となる。この不等式の左辺を制約式としてコードを書くことになるが、上の<code class="docutils literal notranslate"><span class="pre">f_const</span></code>と異なることがわかる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_const_ineq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この場合に引数<code class="docutils literal notranslate"><span class="pre">constraint</span></code>に使う辞書は次のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">const_ineq</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">f_const_ineq</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">const</span></code>との違いは、キー<code class="docutils literal notranslate"><span class="pre">type</span></code>に対応する値が<code class="docutils literal notranslate"><span class="pre">ineq</span></code>になっており、<code class="docutils literal notranslate"><span class="pre">fun</span></code>には<code class="docutils literal notranslate"><span class="pre">f_const_ineq</span></code>が指定されている。計算してみると同じ結果になることが確認できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">f_ex4</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">const_ineq</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.7499999999999043
+     jac: array([-0.50000052, -0.49999944])
+ message: &#39;Optimization terminated successfully&#39;
+    nfev: 13
+     nit: 4
+    njev: 4
+  status: 0
+ success: True
+       x: array([0.49999982, 0.50000018])
+</pre></div>
+</div>
+</div>
+</div>
+<p>当たり前だが例３の解と同じになっている。</p>
+</div>
+<div class="section" id="id24">
+<h3>労働供給問題<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>労働供給問題を再考する。まず効用関数を設定し直そう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">l</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>制約式だが、次のように書き換えることができる。
+$<span class="math notranslate nohighlight">\(
+pc=wl
+\quad
+\Rightarrow
+\quad
+wl-pc=0
+\)</span>$
+これを使い制約式を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>引数<code class="docutils literal notranslate"><span class="pre">constraint</span></code>に使う辞書は次で与えられる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">budget</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>また経済理論から次のことが明らかである。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>は非負</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code>は0と1の間にある</p></li>
+</ul>
+<p>この情報を引数<code class="docutils literal notranslate"><span class="pre">bounds</span></code>に設定するが、次のような書き方となる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[(cの最小値、cの最大値),(lの最小値、lの最大値)]
+</pre></div>
+</div>
+<p>ここで</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>の最小値：0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>の最大値：<span class="math notranslate nohighlight">\(w/p\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code>の最小値：0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code>の最大値：1</p></li>
+</ul>
+<p>となる。即ち、</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bnds</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">w</span><span class="o">/</span><span class="n">p</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 初期値</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+
+<span class="c1"># 計算</span>
+<span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">const</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -0.7085392478935648
+     jac: array([-0.09995668,  1.00065053])
+ message: &#39;Optimization terminated successfully&#39;
+    nfev: 18
+     nit: 6
+    njev: 6
+  status: 0
+ success: True
+       x: array([6.00260037, 0.60026004])
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">minimize_scalar()</span></code>で解いた値と同じであることが確認できる。</p>
+</div>
+<div class="section" id="id25">
+<h3>練習問題<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p>予算制約式が不等号の場合の労働供給問題を解きなさい。</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Pandas_plot.html" title="previous page">Pandas：プロット</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 春山 鉄源  Tetsugen HARUYAMA<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

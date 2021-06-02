@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# (chap:7-differenceEq)=
 # # 差分方程式と経済分析
 
 # If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/7_DifferenceEq.html) in English or the language of your choice.
@@ -343,7 +344,7 @@ pass
 
 
 def model45(y0,a,b,d,f,n=10):
-    """引数
+    """引数                             # 1
             y0: GDPの初期値
             a: 所得に依存しない消費
             b: 限界消費性向
@@ -353,30 +354,32 @@ def model45(y0,a,b,d,f,n=10):
         戻り値
             yの値からなるDataFrame"""
     
-    y = y0                              # 1
+    y = y0                              # 2
     
-    y_list = [y0]                       # 2
+    y_list = [y0]                       # 3
 
     for i in range(n):
         
-        y = y*f/(1-b) + (a+d)/(1-b)     # 3
-        y_list.append(y)                # 4
+        y = y*f/(1-b) + (a+d)/(1-b)     # 4
+        y_list.append(y)                # 5
 
-    yss = (a+d)/(1-b-f)                 # 5
+    yss = (a+d)/(1-b-f)                 # 6
     
-    print(f'定常状態での産出量:{yss:.1f}') # 6
+    print(f'定常状態での産出量:{yss:.1f}') # 7
     
-    return pd.DataFrame({'output':y_list})  # 7
+    return pd.DataFrame({'output':y_list})  # 8
 
 
 # ```{admonition} コードの説明
-# 1. `y`はアップデート用の変数であり，初期値`y0`を`y`に割り当てる。
-# 2. 初期値が入ったリストであり，`for`ループで計算する`y`を格納する。
-# 3. 右辺の`y`は(1)の`y`であり，右辺の計算結果を左辺の`y`に割り当て(1)の`y`の値をアップデートする。
-# 4. (3)で計算した`y`の値を`y_list`に追加する。
-# 5. 定常状態`yss`を計算する。
-# 6. 定常状態の値を表示する。`:.1f`は小数点第一位まで表示することを指定する。
-# 7. `DataFrame`を作成し，関数が実行されるとそれを返す。
+# 1. `"""`と`"""`で挟んだ領域は`docstring`と呼ばれ、関数の説明をする。書かなくても良いが、自分が忘れた頃に関数のコードを読むことになるかも知れないので、書く方がオススメ。
+# 
+# 2. `y`はアップデート用の変数であり，初期値`y0`を`y`に割り当てる。
+# 3. 初期値が入ったリストであり，`for`ループで計算する`y`を格納する。
+# 4. 右辺の`y`は(1)の`y`であり，右辺の計算結果を左辺の`y`に割り当て(1)の`y`の値をアップデートする。
+# 5. (3)で計算した`y`の値を`y_list`に追加する。
+# 6. 定常状態`yss`を計算する。
+# 7. 定常状態の値を表示する。`:.1f`は小数点第一位まで表示することを指定する。
+# 8. `DataFrame`を作成し，関数が実行されるとそれを返す。
 # ```
 
 # In[7]:

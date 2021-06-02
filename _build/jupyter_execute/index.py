@@ -108,4 +108,5 @@ for pack, ver in zip(packages, versions):
 # :caption: ４. 参考
 # 
 # Pandas_plot
+# ScipyOptimize
 # ```
