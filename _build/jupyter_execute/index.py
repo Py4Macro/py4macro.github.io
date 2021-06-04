@@ -105,6 +105,15 @@ for pack, ver in zip(packages, versions):
 # ```{toctree}
 # :hidden:
 # :titlesonly:
+# :caption: ３. マクロ経済学（短期分析）
+# 
+# 10_Data_Fluctuation
+# ```
+# 
+# 
+# ```{toctree}
+# :hidden:
+# :titlesonly:
 # :caption: ４. 参考
 # 
 # Pandas_plot

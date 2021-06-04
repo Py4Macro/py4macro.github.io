@@ -156,6 +156,18 @@
 </ul>
 <p class="caption collapsible-parent">
  <span class="caption-text">
+  ３. マクロ経済学（短期分析）
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_Data_Fluctuation.html">
+   GDPと構成要素
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
   ４. 参考
  </span>
 </p>
@@ -796,7 +808,7 @@ x_1 = x_0 - \dfrac{f(x_0)}{f^{\prime}(x_0)}
 </div>
 <p>即ち、<span class="math notranslate nohighlight">\(x_0\)</span>が与えられ<span class="math notranslate nohighlight">\(f^{\prime}(x_0)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_1\)</span>を求めることができる。更に、<span class="math notranslate nohighlight">\(x_1\)</span>が与えられるれ、<span class="math notranslate nohighlight">\(f^{\prime}(x_1)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_2\)</span>を求めることができる。このことから次の差分方程式が成り立つことが分かる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-scipy-newton">
-<span class="eqno">(52)<a class="headerlink" href="#equation-eq-scipy-newton" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(59)<a class="headerlink" href="#equation-eq-scipy-newton" title="Permalink to this equation">¶</a></span>\[
 x_{t+1} = x_t - \dfrac{f(x_t)}{f^{\prime}(x_t)}
 \]</div>
 <p>この式に従って、<span class="math notranslate nohighlight">\(x_{t+1}\)</span>の計算を続けると、<span class="math notranslate nohighlight">\(x_{t+1}\)</span>は<span class="math notranslate nohighlight">\(f(x)=0\)</span>を満たす<span class="math notranslate nohighlight">\(x\)</span>に漸近的に近づいていき、根に十分に近い値を計算することが可能となる。</p>
@@ -993,10 +1005,11 @@ x_{t+1} = x_t - \dfrac{f(x_t)}{f^{\prime}(x_t)}
 <li><p>政府支出：<span class="math notranslate nohighlight">\(G=10\)</span></p></li>
 <li><p>均衡：<span class="math notranslate nohighlight">\(E=Y\)</span></p></li>
 </ul>
-<p>１つの式でまとめてみる。
-$<span class="math notranslate nohighlight">\(
+<p>１つの式でまとめてみる。</p>
+<div class="math notranslate nohighlight">
+\[
 0= I+G+C(Y) -Y\equiv h_0(Y)
-\)</span>$</p>
+\]</div>
 <p>この式をプロットするために，次のパラメータの下での関数を定義する。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">c</span> <span class="o">=</span> <span class="mf">0.7</span>
@@ -1187,7 +1200,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <p><span class="math notranslate nohighlight">\(k\)</span>の定常状態<span class="math notranslate nohighlight">\(k_*\)</span>は次式で定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-scipy-kss">
-<span class="eqno">(53)<a class="headerlink" href="#equation-eq-scipy-kss" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(60)<a class="headerlink" href="#equation-eq-scipy-kss" title="Permalink to this equation">¶</a></span>\[
 0 = sAk_*^a + (1-d)k_* - k_{*}
 \]</div>
 <p>この方程式の解を求めるが，関数<code class="docutils literal notranslate"><span class="pre">kss()</span></code>を定義しよう。</p>
@@ -1199,7 +1212,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 </div>
-<p>まず式<a class="reference internal" href="#equation-eq-scipy-kss">(53)</a>をプロットするが，そのために<span class="math notranslate nohighlight">\(k\)</span>の値を設定しよう。</p>
+<p>まず式<a class="reference internal" href="#equation-eq-scipy-kss">(60)</a>をプロットするが，そのために<span class="math notranslate nohighlight">\(k\)</span>の値を設定しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
@@ -1707,7 +1720,7 @@ c=(1-s)A\left(\frac{As}{d}\right)^{\frac{a}{1-a}}
 </div>
 <p>予算制約式から消費量は</p>
 <div class="math notranslate nohighlight" id="equation-eq-scipy-c">
-<span class="eqno">(54)<a class="headerlink" href="#equation-eq-scipy-c" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(61)<a class="headerlink" href="#equation-eq-scipy-c" title="Permalink to this equation">¶</a></span>\[
 c=\frac{wl}{p}
 \]</div>
 <p>となるので，</p>
@@ -1782,7 +1795,7 @@ c=
 </div>
 </div>
 </div>
-<p>ここで式<a class="reference internal" href="#equation-eq-scipy-c">(54)</a>を使っている。</p>
+<p>ここで式<a class="reference internal" href="#equation-eq-scipy-c">(61)</a>を使っている。</p>
 <p>値を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>にまとめる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
