@@ -25,12 +25,6 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # 
 # 本サイトに関するコメント等はGitHubの[Discussions](https://github.com/Py4Macro/py4macro.github.io/discussions)もしくは<haruyama@econ.kobe-u.ac.jp>にご連絡ください。
 # 
-# ---
-# 
-# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.co.jp/translate?hl=ja&sl=ja&tl=en&u=https%3A%2F%2Fpy4macro.github.io&sandbox=1) in English or the language of your choice. Note that my name is Tetsu HARUYAMA, not  "Haruyama Iron Source" as Google claims. The title of this site may be more appropriately translated as "Learning Intermediate Macroeconomics with Python."
-# 
-# ---
-# 
 # <br>
 # 
 # 姉妹サイト：[「Pythonで学ぶ入門計量経済学」](https://py4etrics.github.io) <font size="+0">🐍</font>

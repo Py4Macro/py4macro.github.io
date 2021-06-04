@@ -3,8 +3,6 @@
 
 # # 解の求め方と最適化問題
 
-# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/ScipyOptimize.html) in English or the language of your choice.
-
 # In[1]:
 
 
@@ -12,6 +10,8 @@ import numpy as np
 import scipy.optimize as op
 import pandas as pd
 
+
+# ## はじめに
 
 # 線形の方程式の解を求めることは比較的簡単である。１変数の場合は簡単に式を変形できる。変数が複数ある場合でも，[「連立一次方程式の解」の節](sec:2-simultaneousEq)で説明したように，`numpy.linalg`を使えば簡単に解を求めることができる。例えば，[差分方程式と経済分析](chap:7-differenceEq)で扱った45度線モデルと蜘蛛の巣モデルは線形であるため、長期的な均衡の値を簡単に計算することができる。またソロー・モデルも線形ではないが、定常状態の資本ストック（$k_*$）について解くことができるので、長期的な値を計算することが可能である。しかし非線形モデルによっては、長期的均衡の値を簡単に求めることができない場合もあり、その場合に使う手法をここで説明する。
 # 

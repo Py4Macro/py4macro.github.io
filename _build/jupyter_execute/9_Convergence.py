@@ -4,8 +4,6 @@
 # (chap:distribution)=
 # # 所得分布と所得収斂
 
-# If you come here without expecting Japanese, please click [Google translated version](https://translate.google.com/translate?sl=auto&tl=en&u=https://py4macro.github.io/9_Distribution.html) in English or the language of your choice.
-
 # In[1]:
 
 
