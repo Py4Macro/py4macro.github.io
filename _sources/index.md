@@ -43,13 +43,58 @@ dt = datetime.datetime.today()
 第二に，経済学部の学生に今後変わりゆく社会に少しでも対応できるように，プログラミングという[transferable skill](https://www.google.co.jp/search?q=transferable+skills&spell=1&sa=X&ved=2ahUKEwj68fqc7LPwAhWKfd4KHT_xC64QBSgAegQIARA1&biw=1440&bih=767)を身につける機会を提供することである。新聞，雑誌やインターネット上で「AI」や「機械学習」などプログラミングに関するキーワードを頻繁に見聞きする。これは一過性の流行りではなく，社会全体がデジタル化する大きなうねりの「大音」である。実際，政府もプログラミングの重要性を強く認識している。2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され，続いて中高教育でもプログラミングに関する内容・科目が充実される予定である。このようにプログラミングのスキルの重要性は益々大きくなると思われる。一方，今の経済学部の学生は，デジタル化による社会のうねりとプログラミング教育の盛り上がりの狭間にあり，プログラミングの「プの字」も知らずにデジタル化社会へ飛び込むことになりかねない。学生にとって卒業後の社会は「人生の本番」であり，その準備を少しでも手助けするのが教育の役割ではないだろうか。もちろん，近年一般教養科目としてプログラミング科目が導入されている大学も多くある。しかし，専門科目として提供することにより専門性とプログラミングの「いいとこ取り」を提供できる機会を利用しないのは，経済学でいう「非効率的」な教育になってしまう。
 
 では，なぜ`Python`なのか？プログラミング言語は無数に存在し，それぞれ様々な特徴があり，お互いに影響し合い進化している。その過程で，広く使われ出す言語もあれば廃れていく言語もある。その中で`Python`は，近年注目を集める言語となっている。それを示す一つの参考指標として[2020 Kaggle Machine Learning & Data Science Survey](https://www.kaggle.com/c/kaggle-survey-2020/data)を紹介する。
+
 ```{figure} /images/popularity.jpeg
 ---
-scale: 20%
+scale: 17%
 name: popularity
 ---
 2020年Kaggleアンケート結果（重複回答含む）
 ```
+
+````{admonition} 棒グラフのコード
+:class: dropdown
+
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+# load .csv
+df = pd.read_csv('kaggle_survey_2020_responses.csv', header=1)
+
+# 関連する列を抽出し，それぞれの言語の回数を計算
+lang = df.iloc[:,20].value_counts().reset_index()
+lang.columns = ['language','no']
+lang = lang.query('language != "None"').sort_values('no').reset_index(drop=True)
+
+# プロット
+fig, ax = plt.subplots(figsize=(6,9))
+ax.barh(y='language', width='no', height=0.8, color='orange', data=lang)
+ax.set_xlabel('回答回数', size=16)
+ax.set_title('データサイエンティストを目指す人に\n最初に学ぶ言語として何を薦めますか？\n', size=25)
+
+# 上と右の枠を削除
+for s in ['top', 'right']:
+    ax.spines[s].set_visible(False)
+
+# 棒の先に数字を追加
+for i in ax.patches:
+    ax.text(i.get_width()+300.0, i.get_y()+0.3,
+             str(round((i.get_width()), 2)),
+             fontsize=13, fontweight='bold',
+             color='k')
+
+# 縦軸のラベルのサイズ
+ax.yaxis.set_tick_params(labelsize=17)
+ax.xaxis.set_tick_params(labelsize=12)
+
+# 縦横軸とラベルの間隔の調整
+ax.xaxis.set_tick_params(pad=7)
+ax.yaxis.set_tick_params(pad=10)
+```
+````
+
 Google合同会社の子会社である[Kaggle](https://www.kaggle.com)は，データサイエンスや機械学習などに関連する課題を解決するためのコンテストがおこなわれる有名なオンライン・コミュニティであり，課題には賞金が設定され世界中からの参加者が切磋琢磨して競争する。2020年におこなわれたKaggle参加者へのアンケートの中に「データサイエンティストになりたい人に最初に学ぶ言語として何を薦めますか？」の質問があり，その回答結果が{numref}`popularity`である。17,740の回答中（重複回答含む）80％が`Python`を選んでおり，`Python`の独り勝ち状態である。もう一つの人気指標として[Stack Overflow](https://stackoverflow.com/)（プログラミングに関する質問をすると参加者が回答する定評あるサイト）が集計するデータによると2012年頃からPythonの人気は急上昇している（[図はこちらを参照](https://py4etrics.github.io/index.html#stackoverflow)）。
 
 `Python`の人気はどこにあるのか？まず最初の理由は無料ということである。経済学研究でよく使われる数十万円するソフトと比べると，その人気の理由は理解できる。しかし計量経済学で広く使われる`R`を含めて他の多くの言語も無料であり，それだけが理由ではない。人気の第２の理由は，汎用性である。`Python`はデータ分析や科学的数値計算だけではなく，ゲーム（ゲーム理論ではない），画像処理や顔認識にも使われている。また多くの人が使うYouTubeやDropBoxにも`Python`が使われているのは有名である。第３の理由は，学習コストが比較的に低いことである。`Python`のコードは英語を読む・書く感覚と近いため，他の言語と比べて可読性の高さが大きな特徴である（日本語にも近い点もある）。これらの理由が{numref}`popularity`に反映されていると考えられる。もちろん，`Python`の文法や基本的な関数を覚える必要があるが，相対的に最も初心者に易しい言語と言われる程であり，スタートアップ企業にも人気がある。他にも理由はあるが，`Python`はIT産業だけではなく金融・コンサルティング・保険・医療などの幅広い分野で使われており，データ分析の重要性が増すごとにより多くの産業で使われると思われる。経済学部の大多数の卒業生は幅広い産業で働くことになることを考えると，社会全体で注目され，今後より多くの産業で使われることが予想される言語を学ぶことは有意義ではないだろうか。

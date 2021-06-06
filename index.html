@@ -85,7 +85,7 @@
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
-  １. Pythonの学習
+  Pythonの学習
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -112,7 +112,7 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  ２. マクロ経済学 - 長期分析
+  マクロ経済学 - 長期分析
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -144,7 +144,7 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  ３. マクロ経済学 - 短期分析
+  マクロ経済学 - 短期分析
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -161,7 +161,7 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  ４. 参考
+  参考
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -173,6 +173,21 @@
  <li class="toctree-l1">
   <a class="reference internal" href="ScipyOptimize.html">
    解の求め方と最適化問題
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="things_to_note.html">
+   Tipsと注意点
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Grade.html">
+   成績分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py4etrics.html">
+   Pythonで学ぶ入門計量経済学
   </a>
  </li>
 </ul>
@@ -275,8 +290,6 @@
   <a class="reference internal nav-link" href="#id2">
    本サイトで使うPythonとパッケージのバージョン
   </a>
-  <ul class="nav section-nav flex-column">
-  </ul>
  </li>
 </ul>
 
@@ -304,7 +317,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Version: 2021年06月05日
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Version: 2021年06月06日
 </pre></div>
 </div>
 </div>
@@ -323,8 +336,49 @@ dt = datetime.datetime.today()
 <p>第二に，経済学部の学生に今後変わりゆく社会に少しでも対応できるように，プログラミングという<a class="reference external" href="https://www.google.co.jp/search?q=transferable+skills&amp;spell=1&amp;sa=X&amp;ved=2ahUKEwj68fqc7LPwAhWKfd4KHT_xC64QBSgAegQIARA1&amp;biw=1440&amp;bih=767">transferable skill</a>を身につける機会を提供することである。新聞，雑誌やインターネット上で「AI」や「機械学習」などプログラミングに関するキーワードを頻繁に見聞きする。これは一過性の流行りではなく，社会全体がデジタル化する大きなうねりの「大音」である。実際，政府もプログラミングの重要性を強く認識している。2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され，続いて中高教育でもプログラミングに関する内容・科目が充実される予定である。このようにプログラミングのスキルの重要性は益々大きくなると思われる。一方，今の経済学部の学生は，デジタル化による社会のうねりとプログラミング教育の盛り上がりの狭間にあり，プログラミングの「プの字」も知らずにデジタル化社会へ飛び込むことになりかねない。学生にとって卒業後の社会は「人生の本番」であり，その準備を少しでも手助けするのが教育の役割ではないだろうか。もちろん，近年一般教養科目としてプログラミング科目が導入されている大学も多くある。しかし，専門科目として提供することにより専門性とプログラミングの「いいとこ取り」を提供できる機会を利用しないのは，経済学でいう「非効率的」な教育になってしまう。</p>
 <p>では，なぜ<code class="docutils literal notranslate"><span class="pre">Python</span></code>なのか？プログラミング言語は無数に存在し，それぞれ様々な特徴があり，お互いに影響し合い進化している。その過程で，広く使われ出す言語もあれば廃れていく言語もある。その中で<code class="docutils literal notranslate"><span class="pre">Python</span></code>は，近年注目を集める言語となっている。それを示す一つの参考指標として<a class="reference external" href="https://www.kaggle.com/c/kaggle-survey-2020/data">2020 Kaggle Machine Learning &amp; Data Science Survey</a>を紹介する。</p>
 <div class="figure align-default" id="popularity">
-<a class="reference internal image-reference" href="_images/popularity.jpeg"><img alt="_images/popularity.jpeg" src="_images/popularity.jpeg" style="width: 415.0px; height: 519.8000000000001px;" /></a>
+<a class="reference internal image-reference" href="_images/popularity.jpeg"><img alt="_images/popularity.jpeg" src="_images/popularity.jpeg" style="width: 352.75px; height: 441.83000000000004px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">2020年Kaggleアンケート結果（重複回答含む）</span><a class="headerlink" href="#popularity" title="Permalink to this image">¶</a></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">棒グラフのコード</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+
+<span class="c1"># load .csv</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;kaggle_survey_2020_responses.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 関連する列を抽出し，それぞれの言語の回数を計算</span>
+<span class="n">lang</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">lang</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">,</span><span class="s1">&#39;no&#39;</span><span class="p">]</span>
+<span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;language != &quot;None&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">lang</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;回答回数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;データサイエンティストを目指す人に</span><span class="se">\n</span><span class="s1">最初に学ぶ言語として何を薦めますか？</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+
+<span class="c1"># 上と右の枠を削除</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 棒の先に数字を追加</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">+</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span>
+             <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">get_width</span><span class="p">()),</span> <span class="mi">2</span><span class="p">)),</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="c1"># 縦軸のラベルのサイズ</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># 縦横軸とラベルの間隔の調整</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <p>Google合同会社の子会社である<a class="reference external" href="https://www.kaggle.com">Kaggle</a>は，データサイエンスや機械学習などに関連する課題を解決するためのコンテストがおこなわれる有名なオンライン・コミュニティであり，課題には賞金が設定され世界中からの参加者が切磋琢磨して競争する。2020年におこなわれたKaggle参加者へのアンケートの中に「データサイエンティストになりたい人に最初に学ぶ言語として何を薦めますか？」の質問があり，その回答結果が<a class="reference internal" href="#popularity"><span class="std std-numref">Fig. 1</span></a>である。17,740の回答中（重複回答含む）80％が<code class="docutils literal notranslate"><span class="pre">Python</span></code>を選んでおり，<code class="docutils literal notranslate"><span class="pre">Python</span></code>の独り勝ち状態である。もう一つの人気指標として<a class="reference external" href="https://stackoverflow.com/">Stack Overflow</a>（プログラミングに関する質問をすると参加者が回答する定評あるサイト）が集計するデータによると2012年頃からPythonの人気は急上昇している（<a class="reference external" href="https://py4etrics.github.io/index.html#stackoverflow">図はこちらを参照</a>）。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Python</span></code>の人気はどこにあるのか？まず最初の理由は無料ということである。経済学研究でよく使われる数十万円するソフトと比べると，その人気の理由は理解できる。しかし計量経済学で広く使われる<code class="docutils literal notranslate"><span class="pre">R</span></code>を含めて他の多くの言語も無料であり，それだけが理由ではない。人気の第２の理由は，汎用性である。<code class="docutils literal notranslate"><span class="pre">Python</span></code>はデータ分析や科学的数値計算だけではなく，ゲーム（ゲーム理論ではない），画像処理や顔認識にも使われている。また多くの人が使うYouTubeやDropBoxにも<code class="docutils literal notranslate"><span class="pre">Python</span></code>が使われているのは有名である。第３の理由は，学習コストが比較的に低いことである。<code class="docutils literal notranslate"><span class="pre">Python</span></code>のコードは英語を読む・書く感覚と近いため，他の言語と比べて可読性の高さが大きな特徴である（日本語にも近い点もある）。これらの理由が<a class="reference internal" href="#popularity"><span class="std std-numref">Fig. 1</span></a>に反映されていると考えられる。もちろん，<code class="docutils literal notranslate"><span class="pre">Python</span></code>の文法や基本的な関数を覚える必要があるが，相対的に最も初心者に易しい言語と言われる程であり，スタートアップ企業にも人気がある。他にも理由はあるが，<code class="docutils literal notranslate"><span class="pre">Python</span></code>はIT産業だけではなく金融・コンサルティング・保険・医療などの幅広い分野で使われており，データ分析の重要性が増すごとにより多くの産業で使われると思われる。経済学部の大多数の卒業生は幅広い産業で働くことになることを考えると，社会全体で注目され，今後より多くの産業で使われることが予想される言語を学ぶことは有意義ではないだろうか。</p>
@@ -346,17 +400,17 @@ dt = datetime.datetime.today()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python        3.8.5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python        3.8.10
 gapminder     0.1
-matplotlib    3.3.4
-numba         0.51.2
-numpy         1.19.2
-pandas        1.2.2
+matplotlib    3.4.2
+numba         0.53.1
+numpy         1.20.3
+pandas        1.2.4
 py4macro      0.3.1
-scipy         1.6.0
+scipy         1.6.3
 see           1.4.1
-statsmodels   0.12.1
-wooldridge    0.4.2
+statsmodels   0.12.2
+wooldridge    0.4.3
 </pre></div>
 </div>
 </div>
@@ -365,7 +419,6 @@ wooldridge    0.4.2
 <p><a class="reference external" href="http://inesad.edu.bo/developmentroast/2012/10/21-reasons-why-you-should-never-date-an-economist/">Economists（経済学を勉強する人も含めて(?)）と付き合わない方が良い２１＋<span class="math notranslate nohighlight">\(\alpha\)</span>の理由</a></p>
 <hr class="docutils" />
 <p><a class="reference external" href="https://mybinder.org/v2/gh/Haruyama-KobeU/for_binder/main?filepath=for_binder.ipynb"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a> for an interactive Jupyter Notebook session with empty code cells.</p>
-<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -373,6 +426,7 @@ wooldridge    0.4.2
 </div>
 <div class="toctree-wrapper compound">
 </div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
