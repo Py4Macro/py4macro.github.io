@@ -45,7 +45,7 @@ dt = datetime.datetime.today()
 では，なぜ`Python`なのか？プログラミング言語は無数に存在し，それぞれ様々な特徴があり，お互いに影響し合い進化している。その過程で，広く使われ出す言語もあれば廃れていく言語もある。その中で`Python`は，近年注目を集める言語となっている。それを示す一つの参考指標として[2020 Kaggle Machine Learning & Data Science Survey](https://www.kaggle.com/c/kaggle-survey-2020/data)を紹介する。
 ```{figure} /images/popularity.jpeg
 ---
-scale: 20%
+scale: 17%
 name: popularity
 ---
 2020年Kaggleアンケート結果（重複回答含む）
