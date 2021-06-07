@@ -420,6 +420,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -563,19 +568,13 @@ data(dataset=None, description=0)
     |         &#39;weo&#39;:   IMF World Economic Outlook 2021
     |         &#39;mad&#39;:   country data of Maddison Project Database 2020
     |         &#39;mad-regions&#39;:   regional data of Maddison Project Database 2020
-    |         &#39;jpn-q&#39;: Japan&#39;s quarterly data
     |
     |     description (デフォルト：0, 整数型):
     |         0: データのDataFrameを返す
-    |            * 全てのデータセット
     |         1: 変数の定義を全て表示する
-    |            * 全てのデータセット
     |         2: 変数の定義のDataFrameを返す
-    |            * `&#39;pwt&#39;`，`&#39;weo&#39;``&#39;mad&#39;`のみ
-    |        -1: 何年以降から予測値なのかを全て示す
-    |            * `&#39;weo&#39;`のみ
-    |        -2: 何年以降から予測値なのかを示すDataFrameを返す
-    |            * `&#39;weo&#39;`のみ
+    |        -1: (dataset=&#39;weo&#39;場合にのみ有効) 何年以降から予測値なのかを全て示す
+    |        -2: (dataset=&#39;weo&#39;場合にのみ有効) 何年以降から予測値なのかを示すDataFrameを返す
     |
     | 返り値：
     |     DataFrame もしくは DataFrameの表示
@@ -2428,56 +2427,153 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>countrycode</th>
       <th>country</th>
-      <th>rgdp_pc</th>
-      <th>k_pc</th>
-      <th>avh</th>
-      <th>hc</th>
+      <th>oecd</th>
+      <th>income_group</th>
+      <th>region</th>
+      <th>continent</th>
+      <th>year</th>
+      <th>rgdpe</th>
+      <th>rgdpo</th>
+      <th>pop</th>
+      <th>...</th>
+      <th>csh_r</th>
+      <th>pl_c</th>
+      <th>pl_i</th>
+      <th>pl_g</th>
+      <th>pl_x</th>
+      <th>pl_m</th>
+      <th>pl_n</th>
+      <th>pl_k</th>
+      <th>GDPpc</th>
+      <th>naGDPpc</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>Aruba</td>
-      <td>-0.138189</td>
-      <td>2.924345</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>360</th>
+      <td>ARG</td>
+      <td>Argentina</td>
+      <td>0</td>
+      <td>Upper middle income</td>
+      <td>Latin America &amp; Caribbean</td>
+      <td>South America</td>
+      <td>1960</td>
+      <td>66827.484375</td>
+      <td>65991.281250</td>
+      <td>20.545674</td>
+      <td>...</td>
+      <td>-0.006370</td>
+      <td>0.271127</td>
+      <td>0.397345</td>
+      <td>0.301257</td>
+      <td>0.222954</td>
+      <td>0.208810</td>
+      <td>0.271675</td>
+      <td>8.028473</td>
+      <td>3252.630494</td>
+      <td>13158.098665</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>Angola</td>
-      <td>1.948414</td>
-      <td>-0.560107</td>
-      <td>NaN</td>
-      <td>0.734893</td>
+      <th>361</th>
+      <td>ARG</td>
+      <td>Argentina</td>
+      <td>0</td>
+      <td>Upper middle income</td>
+      <td>Latin America &amp; Caribbean</td>
+      <td>South America</td>
+      <td>1961</td>
+      <td>70027.468750</td>
+      <td>68127.414062</td>
+      <td>20.879106</td>
+      <td>...</td>
+      <td>-0.012109</td>
+      <td>0.259216</td>
+      <td>0.474233</td>
+      <td>0.247230</td>
+      <td>0.215637</td>
+      <td>0.154222</td>
+      <td>0.324749</td>
+      <td>7.677029</td>
+      <td>3353.949600</td>
+      <td>13369.295571</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>Anguilla</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>362</th>
+      <td>ARG</td>
+      <td>Argentina</td>
+      <td>0</td>
+      <td>Upper middle income</td>
+      <td>Latin America &amp; Caribbean</td>
+      <td>South America</td>
+      <td>1962</td>
+      <td>66726.812500</td>
+      <td>69384.203125</td>
+      <td>21.211170</td>
+      <td>...</td>
+      <td>-0.023212</td>
+      <td>0.283077</td>
+      <td>0.420927</td>
+      <td>0.391306</td>
+      <td>0.121268</td>
+      <td>0.272310</td>
+      <td>0.281171</td>
+      <td>7.113203</td>
+      <td>3145.833725</td>
+      <td>13244.195444</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>Albania</td>
-      <td>3.588328</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.387198</td>
+      <th>363</th>
+      <td>ARG</td>
+      <td>Argentina</td>
+      <td>0</td>
+      <td>Upper middle income</td>
+      <td>Latin America &amp; Caribbean</td>
+      <td>South America</td>
+      <td>1963</td>
+      <td>66221.085938</td>
+      <td>66981.187500</td>
+      <td>21.542655</td>
+      <td>...</td>
+      <td>-0.005033</td>
+      <td>0.289022</td>
+      <td>0.413887</td>
+      <td>0.316746</td>
+      <td>0.192207</td>
+      <td>0.290324</td>
+      <td>0.283136</td>
+      <td>6.622288</td>
+      <td>3073.951879</td>
+      <td>12561.557889</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>United Arab Emirates</td>
-      <td>-2.068514</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.335975</td>
+      <th>364</th>
+      <td>ARG</td>
+      <td>Argentina</td>
+      <td>0</td>
+      <td>Upper middle income</td>
+      <td>Latin America &amp; Caribbean</td>
+      <td>South America</td>
+      <td>1964</td>
+      <td>70699.460938</td>
+      <td>70325.312500</td>
+      <td>21.874360</td>
+      <td>...</td>
+      <td>-0.025692</td>
+      <td>0.302359</td>
+      <td>0.424155</td>
+      <td>0.249198</td>
+      <td>0.168494</td>
+      <td>0.195441</td>
+      <td>0.295434</td>
+      <td>6.777170</td>
+      <td>3232.069949</td>
+      <td>13332.580200</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 57 columns</p>
 </div></div></div>
 </div>
 <p>欠損値が含まれているので、<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は全て削除する。</p>
@@ -2819,7 +2915,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6120634566381636
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6120634566381635
 </pre></div>
 </div>
 </div>
@@ -2832,7 +2928,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3879365433618367
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.38793654336183664
 </pre></div>
 </div>
 </div>
@@ -3360,5 +3456,12 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
   <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PF9YZY5QVK"></script>
+<script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('config', 'G-PF9YZY5QVK');
+                </script>
+
   </body>
 </html>
