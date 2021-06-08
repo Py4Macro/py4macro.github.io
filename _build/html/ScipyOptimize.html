@@ -815,12 +815,12 @@
 <p>図にある関数<code class="docutils literal notranslate"><span class="pre">f(x)</span></code>を考えよう。<span class="math notranslate nohighlight">\(x_1\)</span>での傾きは<span class="math notranslate nohighlight">\(f^{\prime}(x_1)\)</span>であり、次の式が成り立つことが確認できる。</p>
 <div class="math notranslate nohighlight">
 \[
-f^{\prime}(x_0)=\dfrac{f(x_0)}{x_1-x_0}
+f^{\prime}(x_0)=\dfrac{f(x_0)}{x_0-x_1}
 \quad\Rightarrow\quad
 x_1 = x_0 - \dfrac{f(x_0)}{f^{\prime}(x_0)}
 \]</div>
 <div class="figure align-default" id="fig-scipy-newton">
-<a class="reference internal image-reference" href="_images/newton.jpeg"><img alt="_images/newton.jpeg" src="_images/newton.jpeg" style="width: 539.2px; height: 400.0px;" /></a>
+<a class="reference internal image-reference" href="_images/newton.jpeg"><img alt="_images/newton.jpeg" src="_images/newton.jpeg" style="width: 406.2px; height: 300.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Newton法</span><a class="headerlink" href="#fig-scipy-newton" title="Permalink to this image">¶</a></p>
 </div>
 <p>即ち、<span class="math notranslate nohighlight">\(x_0\)</span>が与えられ<span class="math notranslate nohighlight">\(f^{\prime}(x_0)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_1\)</span>を求めることができる。更に、<span class="math notranslate nohighlight">\(x_1\)</span>が与えられるれ、<span class="math notranslate nohighlight">\(f^{\prime}(x_1)\)</span>が分かれば、<span class="math notranslate nohighlight">\(x_2\)</span>を求めることができる。このことから次の差分方程式が成り立つことが分かる。</p>
@@ -1118,10 +1118,11 @@ I = \dfrac{j}{r^{b}}
 <li><p><span class="math notranslate nohighlight">\(j=15\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(b=0.5\)</span></p></li>
 </ul>
-<p>均衡式は次式で与えられる。
-$<span class="math notranslate nohighlight">\(
+<p>均衡式は次式で与えられる。</p>
+<div class="math notranslate nohighlight">
+\[
 0= \dfrac{j}{r^{b}}+G+C(Y) -Y\equiv h_1(Y)
-\)</span>$</p>
+\]</div>
 <p>まず関数を再定義するが，<span class="math notranslate nohighlight">\(y\)</span>と<span class="math notranslate nohighlight">\(r\)</span>を引数とする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1882,10 +1883,11 @@ c=
 </div>
 <div class="section" id="id21">
 <h3>例１<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
-<p>次の最小化問題を考えよう。
-$<span class="math notranslate nohighlight">\(
+<p>次の最小化問題を考えよう。</p>
+<div class="math notranslate nohighlight">
+\[
 \min_{y,z}\; y^2+2zy+z^2+10
-\)</span>$</p>
+\]</div>
 <p>まず関数を定義するが、次の点に留意すること。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">f_ex3</span></code>の引数<code class="docutils literal notranslate"><span class="pre">x</span></code>は<code class="docutils literal notranslate"><span class="pre">array</span></code>として考える。</p></li>
@@ -2001,10 +2003,11 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="section" id="id22">
 <h3>例２<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
-<p>次の最大化問題を考えよう。
-$<span class="math notranslate nohighlight">\(
+<p>次の最大化問題を考えよう。</p>
+<div class="math notranslate nohighlight">
+\[
 \max_{y,z}\; -z^2-y^2+zy+z+y
-\)</span>$</p>
+\]</div>
 <p>まず関数を定義する。次の点に要注意。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">f_ex4</span></code>の引数<code class="docutils literal notranslate"><span class="pre">x</span></code>は<code class="docutils literal notranslate"><span class="pre">array</span></code>として考える。</p></li>
@@ -2157,15 +2160,17 @@ y+z-1=0
 </div>
 <div class="section" id="id24">
 <h3>例４<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
-<p>制約が不等式の場合を簡単に説明する。例３の制約式を
-$<span class="math notranslate nohighlight">\(
+<p>制約が不等式の場合を簡単に説明する。例３の制約式を</p>
+<div class="math notranslate nohighlight">
+\[
 y+z\leq 1
-\)</span><span class="math notranslate nohighlight">\(
-としよう。左辺が非負になるように書き換えると
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>としよう。左辺が非負になるように書き換えると</p>
+<div class="math notranslate nohighlight">
+\[
 1-y-z\geq 0
-\)</span>$
-となる。この不等式の左辺を制約式としてコードを書くことになるが、上の<code class="docutils literal notranslate"><span class="pre">f_const</span></code>と異なることがわかる。</p>
+\]</div>
+<p>となる。この不等式の左辺を制約式としてコードを書くことになるが、上の<code class="docutils literal notranslate"><span class="pre">f_const</span></code>と異なることがわかる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_const_ineq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -2220,15 +2225,16 @@ y+z\leq 1
 </div>
 </div>
 </div>
-<p>制約式だが、次のように書き換えることができる。
-$<span class="math notranslate nohighlight">\(
+<p>制約式だが、次のように書き換えることができる。</p>
+<div class="math notranslate nohighlight">
+\[
 pc=wl
 \quad
 \Rightarrow
 \quad
 wl-pc=0
-\)</span>$
-これを使い制約式を定義する。</p>
+\]</div>
+<p>これを使い制約式を定義する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
