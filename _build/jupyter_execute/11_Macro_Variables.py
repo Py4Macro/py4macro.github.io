@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # マクロ変数：法則・曲線・増加率
+# # 法則・曲線・増加率
 
 # In[1]:
 
