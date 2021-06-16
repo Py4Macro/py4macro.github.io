@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# (chap:10-gdp)=
 # # GDPと構成要素
 
 # In[1]:
