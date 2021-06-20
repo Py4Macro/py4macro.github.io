@@ -123,7 +123,6 @@ import py4macro
 
 # {numref}`fig:8-solow`は資本ストックの動学的均衡を示している。
 # 
-# 
 # ```{figure} /images/solow.jpeg
 # ---
 # scale: 30%
