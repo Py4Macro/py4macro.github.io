@@ -954,6 +954,7 @@ df_res_2 = ismppc_impulse(c=0.5, d=1.5, shock_pc=1.)
 
 fig, ax = plt.subplots(2, 2,                 # 1
                        figsize=(8,5),        # 2
+               
                        tight_layout=True)    # 3
 
                                              # 4
@@ -976,7 +977,8 @@ ax[1,1].set_title('実質利子率',size=20)
 fig.legend(['ケース１','ケース２'],             # 8
            fontsize=13,                      # 9
            ncol=2,                           # 10
-           bbox_to_anchor=(0.7, 1.1))        # 11
+           loc=7)
+#            bbox_to_anchor=(0.7, 1.1))        # 11
 pass
 
 

@@ -949,6 +949,7 @@ func_3(2)
 # * `pi`：インフレ率（例えば，0.03）
 # 
 # 次の式が成立する。
+# 
 # $$
 # 1+r=\dfrac{1+i}{1+pi}
 # $$
@@ -994,6 +995,7 @@ current_value(100, 0.05, 0.03, 10)
 # * `r`：実質利子率（年率）
 # * `m`：複利の周期（年間の利息発生回数）
 # * `y_total`：`t`年後の元利合計
+# 
 # $$
 # \text{y_total}=y\left( 1+\dfrac{r}{m}  \right)^{mt}
 # $$
@@ -1293,6 +1295,7 @@ list(enumerate(['A','B']))
 # * `r`：実質利子率（年率）
 # * `m`：複利の周期（年間の利息発生回数）
 # * `y_total`：`t`年後の元利合計
+# 
 # $$
 # \text{y_total}=y\left( 1+\dfrac{r}{m}  \right)^{mt}
 # $$
@@ -1432,19 +1435,24 @@ else:
 
 # ---
 # 次の例として一般的な生産関数を考えよう。
+# 
 # $$
 # Y=F(K,L)
 # $$
+# 
 # 要素間の代替の弾力性は次のように定義される。
+# 
 # $$
 # \sigma = 
 # \dfrac{\log(L/K)}{\log\left(\frac{dF}{dK}/\frac{dF}{dL}\right)}
 # $$
 # 
 # $\sigma$が一定な生産関数はCES生産関数（Constant Elasticity of Substitution）と呼ばれ，次の式で与えられる。
+# 
 # $$
 # Y = a\left[\alpha (bK)^\rho+(1-\alpha)(cL)^\rho\right]^{\frac{1}{\rho}}
 # $$
+# 
 # ここで
 # * $\sigma=\dfrac{1}{1-\rho}$
 # * $\rho\leq 1$：要素の代替の程度を決定する。
@@ -1453,6 +1461,7 @@ else:
 # * $a>0$：生産の単位に依存する。
 # 
 # また，$\rho$の値によって次のような生産関数となる。
+# 
 # $$
 # Y = 
 # \begin{cases}
