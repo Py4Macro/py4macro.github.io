@@ -10,7 +10,7 @@ import numpy as np
 from numpy.linalg import inv, eigvals, solve
 from numpy.random import default_rng
 import pandas as pd
-from statsmodels.formula.api import ols
+import statsmodels.formula.api as sm
 import japanize_matplotlib
 import py4macro
 
@@ -57,7 +57,7 @@ rng = default_rng()
 # `rng`（random number generatorの略）はランダム変数を生成するための「種」であり，この「種」に分布関数を指定することによりランダム変数が生成される。ここでは正規分布と一様分布を使う。
 
 # ```{tip}
-# ランダム変数の生成にはパッケージ`SciPy`の`stats`モジュールを使うこともできる。興味がある人は[このリンク](https://py4etrics.github.io/5_SciPy_stats.html)を参照してください。
+# ランダム変数の生成にはパッケージ`SciPy`の`stats`モジュールを使うこともできる。興味がある人は[このリンク](https://py4etrics.github.io/5_SciPy_stats.html)を参照しよう。
 # ```
 
 # ### 正規分布
@@ -406,13 +406,13 @@ ar1_model(0.9)
 # TFPについて解くと次式を得る。
 # 
 # $$
-# A_t=\dfrac{Y_t}{K_t^aL^{1-a}}
+# A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 # $$
 # 
 # 景気循環を考えているため、TFPを計算する際には次の点を考慮することが望ましい。
 # 1. 年次データではなく四半期データを使う（年次データでは短期的な変動を捉えることができない）。
-# 1. $H$は労働者数ではなく，総労働時間とする（短期的な労働供給の変化を捉えるため）。
-# 1. $K$は資本ストックの稼働率を考慮したデータとする（短期的に実際に生産に使われた資本ストックの変化を捉えるため）。
+# 1. $H_t$は労働者数ではなく，総労働時間とする（短期的な労働供給の変化を捉えるため）。
+# 1. $K_t$は資本ストックの稼働率を考慮したデータとする（短期的に実際に生産に使われた資本ストックの変化を捉えるため）。
 # 
 # ここでは１と２のみを考慮したデータを使いTFPの変動を考えることにする。これにより資本ストックの稼働率はTFPの一部となってしまうが，RBCモデルの基本的なアイデアは変わらない。
 # 
@@ -632,7 +632,7 @@ df[['tfp_cycle','tfp_cycle_lag']].head()
 # In[39]:
 
 
-res_tfp = ols('tfp_cycle ~ -1 + tfp_cycle_lag', data=df).fit()
+res_tfp = sm.ols('tfp_cycle ~ -1 + tfp_cycle_lag', data=df).fit()
 rho = res_tfp.params[0]
 rho
 
@@ -698,9 +698,12 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # * 生産関数：$Y_t=A_tB_tK_t^aH^{1-a}$
 #     * $A_tB_t$が全要素生産性
 #     * $A_t$は変動を捉える項
+#     
 #         $$
-#         \log(A_{t})=\rho\log(A_{t-1})+\varepsilon_t,
-#         \qquad\varepsilon_t\sim \textit{WH}(0,\sigma^2) \\
+#         \begin{align*}
+#         \log(A_{t})&=\rho\log(A_{t-1})+\varepsilon_t \\
+#         \varepsilon_t&\sim \textit{WH}(0,\sigma^2)
+#         \end{align*}
 #         $$
 # 
 #     * $B_t$はトレンドを捉える項
@@ -807,7 +810,7 @@ gdp_dict
 # K2019 = mean2019[1]
 # H2019 = mean2019[2]
 # ```
-# 同じようなコードが並んでいる。`py4macro`のデータがアップデートされて`2020`年までのデータが含まれることになったとしよう。`for`ループを使うコードであれば`2019`を`2020`に一ヵ所だけ変更でする。`for`ループを使わなければ何ヵ所修正する必要があるか数えてみよう。面倒と感じないだろうか？それに修正箇所が増えればbugが紛れ込む可能性が増えていきます。
+# 同じようなコードが並んでいる。`py4macro`のデータがアップデートされて`2020`年までのデータが含まれることになったとしよう。`for`ループを使うコードであれば`2019`を`2020`に一ヵ所だけ変更すれば良い（変更する必要もないコードを書くことも可能）。`for`ループを使わないコードで何ヵ所修正する必要があるか数えてみよう。面倒と感じないだろうか。それに修正箇所が増えればbugが紛れ込む可能性が増えていく。
 # ````
 
 # 次に全要素生産性の平均四半期成長率を計算するために`df`の列名を確認しよう。
@@ -924,21 +927,14 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
     df_sim['Y'] = df_sim['A']*df_sim['B']*df_sim['K']**a * H**(1-a)
     df_sim['C'] = (1-s)*df_sim['Y']
     df_sim['I'] = s*df_sim['Y']
-
-    # ========== トレンドの計算 ==========        # 14
-    df_sim['K_trend'] = py4macro.trend(df_sim['K'])
-    df_sim['A_trend'] = py4macro.trend(df_sim['A'])
-    df_sim['Y_trend'] = py4macro.trend(df_sim['Y'])
-    df_sim['C_trend'] = py4macro.trend(df_sim['C'])
-    df_sim['I_trend'] = py4macro.trend(df_sim['I'])
     
-    # ========== サイクルの計算 ==========        # 15
-    df_sim['K_cycle'] = np.log( df_sim['K']/df_sim['K_trend'] )
-    df_sim['A_cycle'] = np.log( df_sim['A']/df_sim['A_trend'] )
-    df_sim['Y_cycle'] = np.log( df_sim['Y']/df_sim['Y_trend'] )
-    df_sim['C_cycle'] = np.log( df_sim['C']/df_sim['C_trend'] )
-    df_sim['I_cycle'] = np.log( df_sim['I']/df_sim['I_trend'] )
-
+    # ========== トレンドとサイクルの計算 ==========
+    for v in ['K','A','Y','C','I']:
+        # ---------- レンドの計算 ----------      # 14
+        df_sim[f'{v}_trend'] = py4macro.trend(df_sim[v])
+        # ---------- サイクルの計算 ----------    # 15
+        df_sim[f'{v}の変動'] = np.log( df_sim[v]/df_sim[f'{v}_trend'] )
+    
     return df_sim
 
 
@@ -957,7 +953,9 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
 # 12. リスト(1)~(3)を使いDataFrameの作成
 # 13. `Y`，`C`，`I`を計算し新たな列としてDataFrameに追加
 # 14. トレンドを計算し新たな列としてDataFrameに追加
+#     * `f-string`を使って新しく作る列名を`K_trend`のように`_trend`を追加する。
 # 15. トレンドからの乖離を計算し新たな列としてDataFrameに追加
+#     * `f-string`を使って新しく作る列名を`K_cycle`のように`_cycle`を追加する。
 # ```
 
 # #### 実行
@@ -988,7 +986,7 @@ pass
 # In[51]:
 
 
-ax_ = df_sim['Y_cycle'].plot(legend=True)
+ax_ = df_sim['Yの変動'].plot(legend=True)
 ax_.axhline(0, c='red')
 pass
 
@@ -1002,13 +1000,13 @@ pass
 # In[52]:
 
 
-var_list = ['Y_cycle','C_cycle','I_cycle','K_cycle','A_cycle']
+var_list = ['Y','C','I','K','A']
 
 print('\n--- シミュレーション：変動の自己相関係数 ---\n')
 
 for v in var_list:
-    ac = df_sim[v].autocorr()
-    print(f'{v}： {ac:.3f}')
+    ac = df_sim[f'{v}の変動'].autocorr()
+    print(f'{v}の変動： {ac:.3f}')
 
 
 # まずシミュレーションを行う度にこれらの値は変化することに留意し結果を考えよう。ある程度の自己相関が発生しており，$A$の影響が反映されている。$Y$，$C$，$I$の値は同じなのは，$C$，$I$は$Y$の線形関数であるためであり，これらの３つの変数は$A$の変動と似た動きになっている。また$K$の値が大きいのは、ストック変数であるため変化に時間が掛かるためある。データ`df`に含まれる変数の自己相関係数と比べるために，まず消費，投資，資本の変動を計算する。
@@ -1037,13 +1035,13 @@ print('\n--- データ：変動の自己相関係数 ---\n')
 
 for v in data_var_list:
     ac = df[f'{v}_cycle'].autocorr()
-    print(f'{v:<11}{ac:>7.3f}')      # 1
+    print(f'{v:>11}の変動： {ac:>5.3f}')      # 1
 
 
 # ```{admonition} コードの説明
 # 1. `f-string`を使って変数`v`と`ac`を代入している。
-#     * `:<11`は`v`を表示する幅を`11`に設定して左寄せ`<`にしている。
-#     * `:>7`は`ac`を表示する幅を`7`に設定して右寄せ`>`にしている。
+#     * `:>11`は`v`を表示する幅を`11`に設定し右寄せ（`>`）にしている。
+#     * `:>5`は`ac`を表示する幅を`5`に設定して右寄せ（`>`）にしている。
 #     * `.3f`は`ac`を小数点第三位までを表示するように指定している。
 # ```
 
@@ -1059,8 +1057,8 @@ for v in data_var_list:
 print('\n--- シミュレーション：GDPとの相関係数 ---\n')
 
 for v in var_list[1:]:
-    cov = df_sim[['Y_cycle',v]].corr().iloc[0,1]
-    print(f'{v}： {cov:.3f}')
+    cov = df_sim[['Yの変動',v]].corr().iloc[0,1]
+    print(f'{v}の変動： {cov:.3f}')
 
 
 # * $C$と$I$の値は1.0となっている理由は$Y$と線形になっているためであり，全く同じように変動するためである。
@@ -1075,7 +1073,7 @@ print('\n--- データ：GDPとの相関係数 ---\n')
 
 for v in data_var_list[1:]:
     cor = df[['gdp_cycle',f'{v}_cycle']].corr().iloc[0,1]
-    print(f'{v:<11}{cor:>7.3f}')
+    print(f'{v:>11}の変動：{cor:>5.3f}')
 
 
 # $C$と$I$に関してはシミュレーションの相関係数は大きすぎる結果となっている。
