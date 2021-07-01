@@ -413,23 +413,26 @@ x_{t+1}
 \end{align*}
 \end{split}\]</div>
 <p>このことから次のことがわかる。</p>
-<p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>とすると</p>
+<p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>とすると（<span class="math notranslate nohighlight">\(x_0\ne 0\)</span>）</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(a=1\)</span>の場合</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(b&gt;0\)</span>の場合，<span class="math notranslate nohighlight">\(x_t\)</span>は発散する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(b=0\)</span>の場合，<span class="math notranslate nohighlight">\(x_t\)</span>は同じ値<span class="math notranslate nohighlight">\(x_0\)</span>にとどまる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b&gt;0\)</span>の場合，<span class="math notranslate nohighlight">\(b\sum_{i=0}^ta^t\rightarrow\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b&lt;0\)</span>の場合，<span class="math notranslate nohighlight">\(b\sum_{i=0}^ta^t\rightarrow-\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は発散する。</p></li>
 </ul>
 </li>
 <li><p><span class="math notranslate nohighlight">\(a=-1\)</span>の場合</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_t\)</span>は振動する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span>の値に関わらず，<span class="math notranslate nohighlight">\(x_t\)</span>は振動する。</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(a&gt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は正の無限大に発散する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(a&lt;-1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は振動し発散する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(|a|&lt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は収束（<span class="math notranslate nohighlight">\(-1&lt;a&lt;0\)</span>の場合は振動）：</p>
+<li><p><span class="math notranslate nohighlight">\(a&gt;1\)</span>の場合，<span class="math notranslate nohighlight">\(a^{t+1}\rightarrow\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は正の無限大に発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(a&lt;-1\)</span>の場合，<span class="math notranslate nohighlight">\(a^{t+1}\rightarrow\infty\)</span>もしくは<span class="math notranslate nohighlight">\(-\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は振動し発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(|a|&lt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は収束</p>
 <ul>
+<li><p><span class="math notranslate nohighlight">\(0&lt;a&lt;1\)</span>の場合は単調的に収束</p></li>
+<li><p><span class="math notranslate nohighlight">\(-1&lt;a&lt;0\)</span>の場合は振動し収束</p></li>
 <li><p><span class="math notranslate nohighlight">\(a^{t+1}x_0\rightarrow 0\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\sum_{i=0}^ta^t\)</span>は<span class="math notranslate nohighlight">\(S\)</span>に収束する。</p>
 <div class="math notranslate nohighlight">
@@ -519,13 +522,18 @@ x_{t+1}=0.4x_{t}+3
 <img alt="_images/7_DifferenceEq_14_0.png" src="_images/7_DifferenceEq_14_0.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>はアップデート用の変数であり、初期値を1とする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>はアップデート用の変数として設定するために初期値を1とする。</p></li>
 <li><p>初期値が入ったリストであり、このリストに計算結果を追加する。</p></li>
-<li><p>右辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>は(1)にある<code class="docutils literal notranslate"><span class="pre">x</span></code>の値を使い、計算結果を左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>に割り当てる。この時点で(1)の<code class="docutils literal notranslate"><span class="pre">x</span></code>がアップデートされる。</p></li>
-<li><p>計算結果を(2)のリストに追加する。</p></li>
+<li><p>来期の<code class="docutils literal notranslate"><span class="pre">x</span></code>の計算</p>
+<ul class="simple">
+<li><p>１回目のループ：右辺では(1)で設定した<code class="docutils literal notranslate"><span class="pre">x</span></code>の初期値を使い計算し，結果を左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>に割り当てる。この時点で，(1)の<code class="docutils literal notranslate"><span class="pre">x</span></code>は(3)の左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>と同じ変数なので，同じ計算結果が割り当てられアップデートされる。</p></li>
+<li><p>２回目以降のループ：右辺では<code class="docutils literal notranslate"><span class="pre">x</span></code>の最新の値を使い計算し，結果を左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>に割り当てる。この時点，(1)の<code class="docutils literal notranslate"><span class="pre">x</span></code>は(3)の左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>と同じ変数なので，同じ計算結果が割り当てられアップデートされる。</p></li>
+</ul>
+</li>
+<li><p>(3)の左辺の<code class="docutils literal notranslate"><span class="pre">x</span></code>を(2)のリストに追加する。</p></li>
 </ol>
 </div>
 <p>この図の縦軸は<span class="math notranslate nohighlight">\(x_t\)</span>であり，小数点になっているが横軸はループの回数となる（自動表示なので整数となる場合もある）。強制的に横軸に整数を表示したい場合は<code class="docutils literal notranslate"><span class="pre">df.plot()</span></code>の代わりに次のコードを使えば良いだろう。</p>
@@ -533,7 +541,7 @@ x_{t+1}=0.4x_{t}+3
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
 <li><p>１行目：<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>で生成される「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
@@ -564,7 +572,7 @@ x_{t+1}=0.4x_{t}+3
 <img alt="_images/7_DifferenceEq_19_0.png" src="_images/7_DifferenceEq_19_0.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">主なコードの説明</p>
 <ol class="simple">
 <li><p>初期値が入ったリストを用意する。</p></li>
@@ -597,13 +605,13 @@ x_{t+1}=0.4x_{t}+3
 <img alt="_images/7_DifferenceEq_23_0.png" src="_images/7_DifferenceEq_23_0.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p>ループの回数</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code>は引数の数だけ<code class="docutils literal notranslate"><span class="pre">0</span></code>が並ぶ<code class="docutils literal notranslate"><span class="pre">array</span></code>を作成する関数。<code class="docutils literal notranslate"><span class="pre">1+n</span></code>の<code class="docutils literal notranslate"><span class="pre">1</span></code>は(3)で初期値を代入するために必要となる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">0</span></code>番目に初期値を代入する。</p></li>
-<li><p>右辺では<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i</span></code>番目の値を使い来期の値を計算し、<code class="docutils literal notranslate"><span class="pre">=</span></code>を使い<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i+1</span></code>番目に代入する。</p></li>
+<li><p>右辺では<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i</span></code>番目の値を使い来期の値を計算し，<code class="docutils literal notranslate"><span class="pre">=</span></code>を使い<code class="docutils literal notranslate"><span class="pre">arr</span></code>の<code class="docutils literal notranslate"><span class="pre">i+1</span></code>番目に代入する。</p></li>
 </ol>
 </div>
 </div>
@@ -764,7 +772,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>で挟んだ領域は<code class="docutils literal notranslate"><span class="pre">docstring</span></code>と呼ばれ、関数の説明をする。書かなくても良いが、自分が忘れた頃に関数のコードを読むことになるかも知れないので、書く方がオススメ。</p></li>
@@ -791,7 +799,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <img alt="_images/7_DifferenceEq_36_1.png" src="_images/7_DifferenceEq_36_1.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p><code class="docutils literal notranslate"><span class="pre">model45()</span></code>の返り値は<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>である。そのメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を直接使って図示している。</p>
 </div>
@@ -929,7 +937,7 @@ q_t=q_{*}=a-bp_{*}
 <img alt="_images/7_DifferenceEq_46_1.png" src="_images/7_DifferenceEq_46_1.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p><code class="docutils literal notranslate"><span class="pre">.plot()</span></code>の引数<code class="docutils literal notranslate"><span class="pre">secondary_y</span></code>は右の縦軸の変数をしている。ここでは<code class="docutils literal notranslate"><span class="pre">'price'</span></code>を指定している。凡例を見ると<code class="docutils literal notranslate"><span class="pre">price</span> <span class="pre">(right)</span></code>となっている。</p>
 </div>

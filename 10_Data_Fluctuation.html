@@ -385,11 +385,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="id1">
 <h2>説明<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -412,8 +407,8 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    | `gdp`: 国内総生産（GDP）
-    | `consumption`: 消費 
-    | `investment`: 投資 
+    | `consumption`: 消費
+    | `investment`: 投資
     | `government`: 政府支出
     | `exports`: 輸出
     | `imports`: 輸入
@@ -425,24 +420,28 @@
     | `total_hours`: 月平均総労働時間（`employed`X`hours`）
     | `inflation`: インフレ率
     |
-    | ＜参考＞
+    | ＜出典＞
     | GDPとその構成要素
     |    * 1994年Q1~2019年Q4
     |        * 実額・四半期・実質季節調整系列（年換算）
     |        * 2011暦年（平成23年）連鎖価格
     |        * 単位：10億円
+    |        * 国民経済計算（GDP統計）
     |    * 1980年Q1~1993年Q4
     |        * 実額・四半期・実質季節調整系列（年換算）
     |        * 平成23年基準支出側GDP系列簡易遡及（参考系列であり上のデータと接続可能）
     |        * 単位：10億円
+    |        * 国民経済計算（GDP統計）
     |
     | 実質資本ストック
     |   * 1994年Q1~2019年Q4
-    |       * 平成23年基準
-    |       * 単位：10億円
+    |        * 平成23年基準
+    |        * 単位：10億円
+    |        * 国民経済計算（GDP統計）
     |   * 1980年Q1~1993年Q4
     |        * 平成23年基準遡及系列
     |        * 単位：10億円
+    |        * 国民経済計算（GDP統計）
     |
     | 就業者数，失業者数，失業率
     |   * 総務省「労働力調査」
@@ -728,7 +727,7 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <img alt="_images/10_Data_Fluctuation_19_0.png" src="_images/10_Data_Fluctuation_19_0.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.diff()</span></code>は差分を計算するメソッドであり，引数の数（デフォルトは<code class="docutils literal notranslate"><span class="pre">1</span></code>）は何期前の値と差分を計算するかを指定する。</p></li>
@@ -839,7 +838,7 @@ Net Exports 	-1.6
 </div>
 </div>
 <p>景気の動向によって上下することがわかる。例えば、リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方、景気悪化に反応し政府支出の割合は上昇している。またバブル景気ではその逆が起こっており、順位が逆転する程である。このデータセットには入ってないが，2020年にはコロナ禍によって大きな変化が発生している。</p>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">zip()</span></code>について説明する。<code class="docutils literal notranslate"><span class="pre">zip()</span></code>はループによく使われる便利な関数である。以下の単純な<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ</p>
@@ -901,7 +900,7 @@ trend(s, lamb=1600)
     | 返り値:
     |     Hodrick-Prescott filterで計算したtrend（トレンド）のSeries
     |
-    | 例: trend(df.loc[:,&#39;gdp&#39;])
+    | 例: py4macro.trend(df.loc[:,&#39;gdp&#39;])
 </pre></div>
 </div>
 </div>
@@ -928,7 +927,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの使い方</p>
 <ol class="simple">
 <li><p>右辺の<code class="docutils literal notranslate"><span class="pre">py4macro.trend()</span></code>はトレンドを<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返し，それを左辺では新たな列として追加している。ここで列ラベルを<code class="docutils literal notranslate"><span class="pre">v+'_trend'</span></code>としているのは元々の変数名の後に<code class="docutils literal notranslate"><span class="pre">_trend</span></code>を追加するためである。例えば，１回目のループの新たな列ラベルは<code class="docutils literal notranslate"><span class="pre">gdp_trend</span></code>となり，２回目のループでは<code class="docutils literal notranslate"><span class="pre">consumption_trend</span></code>となる。</p></li>
@@ -999,7 +998,7 @@ trend(s, lamb=1600)
 <img alt="_images/10_Data_Fluctuation_51_0.png" src="_images/10_Data_Fluctuation_51_0.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コード説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>は図を表示すると共に図の「軸（axis）」を返すが、それを変数<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。</p>
@@ -1046,7 +1045,7 @@ Y=x_t,\quad Z=x_{t-1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7644516243719673
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7644516243720128
 </pre></div>
 </div>
 </div>
@@ -1129,7 +1128,7 @@ imports_cycle       0.83
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>は自己相関係数を計算するメソッド。</p></li>
@@ -1180,7 +1179,7 @@ imports_cycle       0.70
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.corr()</span></code>は相関係数を計算するメソッドであり、2x2の行列を返す。</p>
@@ -1236,14 +1235,16 @@ imports_cycle       0.70
   6期先の政府支出: -0.151
   7期先の政府支出: -0.045
   8期先の政府支出:  0.043
-  9期先の政府支出:  0.089
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9期先の政府支出:  0.089
  10期先の政府支出:  0.101
  11期先の政府支出:  0.091
 </pre></div>
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">df</span></code>を変更しないように<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>を新しく作成する。</p></li>
