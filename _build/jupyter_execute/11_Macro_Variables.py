@@ -149,6 +149,8 @@ result = model.fit()                   # 3
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 回帰式を文字列で作成し変数`formula`に割り当てる。
 # 2. `sm`の関数`.ols`を使い最小二乗法の準備をし，変数`model`に割り当てる。
 #     * 引数は(1)の`formula`と`data`に使用する`DataFrame`（ここでは`df_okun`）を指定する。
@@ -333,6 +335,8 @@ for s, e in zip(start_list, end_list):                 # 5
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 10年間の最初の四半期をリストとして`start_list`に割り当てる。要素を`1980-03-31`等としてもOK。
 # 2. 10年間の最後の四半期をリストとして`end_list`に割り当てる。要素を`1989-12-31`等としてもOK。
 # 3. 定数項の推定値を格納する空のリスト。
@@ -399,6 +403,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 色のリスト
 #     * `['orange','k', 'b', 'r']`としてもOK。
 # 2. `edgecolor`は散布図の円形マーカーの縁の色を指定する引数。
@@ -711,6 +717,8 @@ for df, t in zip(df_list,title_list):
 
 
 # ```{admonition} コード説明
+# :class: dropdown
+# 
 # 1. それぞれのプロットのタイトルのリスト。
 # 2. 最小二乗法の結果を変数`res`に割り当てる。
 # 3. `res.fittedvalues`はOLSの予測値であり，新たな列としてそれぞれの`DataFrame`に追加する。その際の列名を`トレンド`とする。
@@ -854,6 +862,8 @@ notna
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 欠損値である`NaN`は`na`（not available）とも呼ばれる。メソッド`.notna()`は文字通り`na`ではない要素には`True`を`na`である要素には`False`を返す。`.sum()`は`True`の数を合計している。
 # ```
 # 
@@ -929,6 +939,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `world`には`inflation`と`money_growth`が`NaN`となっている行が含まれるが，上の図では自動的に省かれる。`world.dropna().plot()`としても図は変わらない。
 # ```
 
@@ -985,6 +997,8 @@ world_mean = pd.DataFrame({'country':country_list,
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. マネーストックの平均増加率を格納する空のリスト。
 # 2. 平均インフレ率を格納する空のリスト。
 # 3. 国のisoを格納する空のリスト。
@@ -1025,6 +1039,8 @@ print(f'{len(world_mean)}ヵ国中{hyper}ヵ国でハイパーインフレが発
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # * `world_mean.loc[:,'inflation_mean']`で`inflation_mean`の列を抽出。
 # * `world_mean.loc[:,'inflation_mean'] >= 50`を使い，列`inflation_mean`の要素が50以上であれば`True`，50未満であれば`False`となる`Series`を返す。
 # * `True`は１，`False`は０と等しいので，`.sum()`で合計することによってハイパーインフレ国の数が計算できる。

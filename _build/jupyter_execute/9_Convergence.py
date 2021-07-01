@@ -99,6 +99,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `density=True`は縦軸を確率として表示する引数
 # 2. `kind='density'`は分布のスムーズな形を推定し表示する引数（密度関数を推定する）
 # 3. `axvline()`は`ax_`のメソッドであり，横軸の第一引数の値に垂直線を表示する。`color`は色を指定する引数。
@@ -129,6 +131,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `range(start, end, step)`は`start`から`end`までの整数を`step`の間隔で準備する。更に`list()`を使ってリストに変換し，`+[2019]`を使ってリストの最後に`2019`を追加している。
 # 2. 列`year`が`1950`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。
 # 3. 1950年の行を抽出し，密度関数を表示する。また，その「軸」を`ax_`に割り当てる。
@@ -200,6 +204,8 @@ pass
 
 
 # ```{admonition} コードの確認
+# :class: dropdown
+# 
 # 1. `year_list`に対して`for`ループの開始。
 # 2. 列`year`が`yr`と同じ場合は`True`となり，そうでない場合は`False`となる`Series`を返し`cond`に割り当てる。
 # 3. 列`gdp_pc_lo`で`cond`がTrue`となる行を`Series`として抽出し`s`に割り当てる。
@@ -225,6 +231,8 @@ df.loc[cond,'gdp_pc_log'].notna().sum()  # 2
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`でなければ`True`を返し，`NaN`であれば`False`を返す。`notna`は英語の`not na`のことであり，`na`は`not available`の略で欠損値のこと。`True`は`1`と数えられるので，メソッド`sum()`を使うことにより`True`の数，即ち，`NaN`ではない要素の数を返す。
 # ```
 
@@ -245,6 +253,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
 # 2. `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
 # ```
@@ -276,6 +286,8 @@ df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)  # 4
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `s`は`cond`の条件を満たす`gdp_pc_log`の列の要素からなる`Series`だが，そのメソッド`.std()`を使い標準偏差を計算し`stdev`に割り当てる。
 # 2. `s`のメソッド`.mean()`を使い平均を計算し`avr`に割り当てる。
 # 3. 変動係数を計算し`cv`に割り当てる。
@@ -561,6 +573,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 平均成長率の平均を計算し，結果を変数`growth_average`に割り当てている。
 # 2. `.hist`はヒストグラムをプロットする`ax`のメソッド。
 #     * 第一引数はプロットしたい列ラベル（ここでは`gdp_pc_growth`）
@@ -660,6 +674,8 @@ print('\n--- 2019年の一人当たりGDP ---------\n\n'
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `len()`は`DataFrame`の行数を返す。
 # 2. `cond`は`True/False`の`Series`
 #     * 右辺は２行にまたがっているので，右辺の一番外側の`()`が必要となる。
@@ -732,6 +748,8 @@ print(res_conditional.summary().tables[1])
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `formula_conditional`に回帰式が割り当てられているが，右辺は文字列が複数行にまたがっている。この場合は両端を`()`で囲み，文字列を一行毎`'`と`'`で囲む必要がある。もちろんシングル・クオート`'`の代わりにダブル・クオート`"`を使っても良い。
 # ```
 
@@ -875,6 +893,8 @@ df_simple_result = pd.DataFrame({'初期の一人当たりGDPの係数':b_coef_l
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 初期の一人当たりGDP（対数）の係数の推定値を格納する空のリスト
 # 2. 初期の一人当たりGDP（対数）p値を格納する空のリスト
 # 3. 決定係数を格納する空のリスト
@@ -935,6 +955,8 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. $p$値が格納される列のラベルは`p値（初期の一人当たりGDP）`であり，これを直接書くには面倒であり，また全角を使うのを極力避けたい。その為に列ラベルを抽出している。`.columns`は列ラベルを返する属性であり，その一番目の要素が目的の列ラベルである。
 # 2. `.axhline()`は横線を引くメソッド。
 # ```
@@ -1006,6 +1028,8 @@ df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 貯蓄率$s$の係数を格納する空のリスト。
 # 2. 貯蓄率$s$の$p$値を格納する空のリスト。
 # 3. 労働人口増加率$n$の係数を格納する空のリスト。
@@ -1055,6 +1079,8 @@ pass
 
 
 # ````{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `DataFrame`には10の列があるが，ここでは８つだけ表示するために`.iloc`を使っている。この場合，列をインデックスで指定する必要がある。`[0,1,2,3,4,5,6,7,8]`を作成するために`range(0,9)`で0~8の整数を準備し関数`list()`を使ってリストに変換している。次の内包表記でも同じ結果となる。
 # ```
 # [i for i in range(0,9)]
@@ -1205,6 +1231,8 @@ def data_for_regression_group(yr, oecd=None,          # 修正
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `data_for_regression`と異なる箇所は次の２点：
 # * `# 修正`ある５箇所
 # * `# === 初期の変数を抽出 ====================== 修正`とある箇所
@@ -1282,6 +1310,8 @@ def regression_result(**kwargs):                      # 1
 
 
 # ````{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 関数なので`def`を使うが，重要なのは引数`**kwargs`。「キーワード引数ならなんでも書いて良いよ」いう意味で，全てのキーワード引数は`**kwargs`に格納される。ここでのキーワード引数は関数`data_for_regression_group()`を想定している。(2)を確認しよう。
 # 2. (1)で設定されたキーワード引数は`**kwargs`に入っているので，それを`data_for_regression_group()`の引数として設定している。`data_for_regression_group()`が想定しないキーワード引数が`**kwargs`に入っていると`data_for_regression_group()`はエラーなどを出す事になる。次のように使う。
 #     ```
@@ -1324,6 +1354,8 @@ asia.loc[cond,:].index            # 2
 
 
 # ```{admonition} コートの説明
+# :class: dropdown
+# 
 # 1. 第７列目（初期の一人当たりGDPの$p$値）の要素が0.05より小さい場合は`True`，そうでない場合は`False`を返す。
 # 2. (1)で`True`の行を抽出し，`.index`を使い行ラベルを取得している。
 # ```

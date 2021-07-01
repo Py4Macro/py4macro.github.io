@@ -382,6 +382,8 @@ df2019 = df.query('year == 2019').copy()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `df`から2019年だけ抽出後，`DataFrame`のメソッド`copy()`を使いそのコピーを作成し，それを左辺の`df2019`に割り当てている。ある警告が出ないようにするために`copy()`を使っている。さらに`Python`について学習した後に説明する事にする。
 # ```
 
@@ -402,6 +404,8 @@ df2019['gdp_pc_relative'] = df2019['gdp_pc'] / us2019['gdp_pc'].to_numpy()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `.to_numpy()`は`NumPy`の`array`に変換するメソッドである。`.to_numpy()`を省くと`Series`を`Series`で割る事になりエラーとなる。
 # ```
 
@@ -547,6 +551,8 @@ df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # * `.dropna()`は`NaN`がある行を削除するメソッド
 # 
 # *`.corr()`は相関係数を計算するメソッド
@@ -700,6 +706,8 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # １行目で使った`.dropna()`は，引数なしでそのまま使うと１つでも`NaN`がある行は削除される。引数の`subset=[]`に列を指定すると，その列に`NaN`がある行だけが削除される。
 # ```
 
@@ -750,6 +758,8 @@ table2019
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 表示する国のリスト
 # 2. 列`country`に`country_list`にある国名と同じであれば`True`、異なる場合は`False`を返す条件を作成している。
 #     * `.isin()`はそのためのメソッド
@@ -890,7 +900,9 @@ print(f'方法１：{houhou1:}\n方法２：{houhou2}')
 
 
 # ```{admonition} コードの説明
-# * `f`は以前説明した`f-string`である。
+# :class: dropdown
+# 
+# * `f`は以前説明した`f-string`である。`houhou1`と`houhou2`にそれぞれの値を代入している。
 # * `\n`は改行を意味する。
 # ```
 
@@ -970,6 +982,8 @@ df_growth = pd.DataFrame({'country':country_list,               # 14
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. 成長率を計算する対象となる変数リスト
 # 2. 空の辞書。次の形になるように(1)の平均成長率のリストを格納する。
 #     * キー：変数名（`rgdp_pc`、`k_pc`、`hc`）
@@ -1130,6 +1144,7 @@ pass
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
 # * ２つの列を選択することにより，同じ図に２つのヒストグラムが表示できるようになる。
 # * 引数`alpha`は図の透過度を指定する。0から1の間の値が指定可能で，デフォルトは1（透過なし）。
 # ```
@@ -1320,22 +1335,52 @@ def jp_growth_decomposition(start, end):
 # In[62]:
 
 
-# 10年ごとの平均成長率からなる辞書
-dic = {'1950s':jp_growth_decomposition(1950,1959),
-       '1960s':jp_growth_decomposition(1960,1969),
-       '1970s':jp_growth_decomposition(1970,1979),
-       '1980s':jp_growth_decomposition(1980,1989),
-       '1990s':jp_growth_decomposition(1990,1999),
-       '2000s':jp_growth_decomposition(2000,2010),
-       '2010s':jp_growth_decomposition(2010,2019)}
+dic = {}                                          # 1
 
-# 下のDataFrameで使うインデックス
-idx = ['gdp_pc_growth','k_pc_growth','avh_growth','hc_growth',
-       'factors_growth','tfp_growth','tfp_contribution']
+yr_list = ['1950s','1960s','1970s',               # 2
+           '1980s','1990s','2000s','2010s']
 
-df_jp = pd.DataFrame(dic, index=idx)
+for yr in yr_list:                                # 3
+    start = int(yr[:4])                           # 4
+    end = start+9                                 # 5
+    dic[yr] = jp_growth_decomposition(start,end)  # 6
+
+
+idx = ['gdp_pc_growth','k_pc_growth',             # 7
+       'avh_growth','hc_growth','factors_growth',
+       'tfp_growth','tfp_contribution']
+
+df_jp = pd.DataFrame(dic, index=idx)              # 8
 df_jp
 
+
+# ````{admonition} コードの説明
+# :class: dropdown
+# 
+# 1~6のコードは次のコードを`for`ループとして書いている。
+# ```
+# dic = {'1950s':jp_growth_decomposition(1950,1959),
+#        '1960s':jp_growth_decomposition(1960,1969),
+#        '1970s':jp_growth_decomposition(1970,1979),
+#        '1980s':jp_growth_decomposition(1980,1989),
+#        '1990s':jp_growth_decomposition(1990,1999),
+#        '2000s':jp_growth_decomposition(2000,2010),
+#        '2010s':jp_growth_decomposition(2010,2019)}
+# 
+# ```
+# 1. 空の辞書`dic`を作成する。
+# 2. `dic`のキーになる値のリストを作成する。
+# 3. `yr_list`に対しての`for`ループ。
+# 4. 関数`jp_growth_decomposition()`の引数として使用する開始年を作成する。
+#     * 右辺の`yr`は5つの文字からなる文字列であり，`yr[:4]`は最初の4文字を抽出する。それを整数に変換するために`int()`を使っている。
+#     * 右辺の開始年を変数`start`に割り当てる。
+# 5. 関数`jp_growth_decomposition()`の引数として使用する最終年を作成する。
+#     * 右辺では`start`の9年後を最終年としている。
+#     * 右辺の最終年を変数`end`に割り当てる。
+# 6. `dic`のキー`yr`に対応する値として`jp_growth_decomposition(start,end)`の返り値を`設定する。
+# 7. (8)で`DataFrame`を作成するが，その行ラベルに使うリストを作成する。
+# 8. `dic`を使い`DataFrame`を作成する。
+# ````
 
 # 値を確認するだけであればこのままでも良いが，棒グラフを作成するために列と行を入れ替えることにする。`df_jp`のメソッド`.transpose()`を使う。
 

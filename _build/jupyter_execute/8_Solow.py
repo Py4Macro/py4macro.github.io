@@ -201,6 +201,8 @@ pass
 
 
 # ````{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `range(100,300,10)`は100から300-1=299までの間の数を10間隔で生成する。100，110，120，$cdots$，290となる。
 # 1. `.subplots()`を使ってキャンバスを`fig`に，「軸」を`ax`に割り当てる。
 # 1. `initial_list`に対して`for`ループを設定する。一回のループごとに以下をおこなう。
@@ -499,6 +501,8 @@ saving.head()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `pwt`の３つの列`year`，`country`，`csh_i`を使って新たな`DataFrame`を作成し`saving`に割り当てている。引数は次の役割をする。
 # * `index`：新たな`DataFrame`の**行ラベル**を指定する。
 #     * コードでは`year`が指定され行ラベルになっている。
@@ -518,6 +522,8 @@ saving.head()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `.dropna()`は`NaN`がある行か列を削除する。行と列のどちらを削除するかは引数`axis`で指定するが，デフォルトは`'rows'`である。即ち，引数なしで`.dropna()`を実行すると`NaN`がある行が削除される。ここでは列を削除したいので，引数に`'columns'`を指定している。
 # ```
 
@@ -530,6 +536,8 @@ saving.shape
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 属性`.shape`は`DataFrame`の行の数（左の数字）と列（右の数字）の数を返す。
 # ```
 # 
@@ -543,6 +551,8 @@ saving.head()
 
 
 # ````{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `.mean()`はそれぞれの列の平均を計算し，`Series`を返す。後で`DataFrame`を結合するメソッド`.merge()`を使うために`.to_frame()`を使って`Series`を`DataFrame`に変換しており，引数`saving_rate`は列ラベルを指定している。もちろん引数を使わずに２行に分けることも可能である。
 # ```
 # saving = saving.mean().to_frame()
@@ -614,6 +624,8 @@ ky_ratio.head()
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # `.set_index(''country')`を使って`country`を行ラベルに指定し，`.dropna()`によって欠損値がある行は削除する。
 # ```
 # 
@@ -678,6 +690,8 @@ for df_right in [saving, depreciation, emp_growth]:  # 1
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `df_right`が上の説明の`df_right`に対応している。`[saving, depreciation, emp_growth]`は上で作成した`DataFrame`のリスト。
 # 2. 右辺の`ky_ratio`が上の説明の`df_left`に対応している。右辺で結合した`DataFrame`を左辺にある`ky_ratio`に割り当てている（上書き）。
 # 3. `ky_ratio`の行ラベルを基準とすることを指定する。
@@ -751,6 +765,8 @@ for var in ky_ratio.columns[-3:]:              # 1
 
 
 # ```{admonition} コードの説明
+# :class: dropdown
+# 
 # 1. `ky_ratio`の最後の３列のラベルに対して`for`ループを組んで，`var`はその列ラベルを指す。
 # 2. `ky_ratio`のコピーを作り`df_temp`に割り当てる。`.copy()`は実態としては別物のコピーを作成する。詳細は割愛するが`.copy()`がないと実態は同じで参照記号のみが異なることになり，予期しない結果につながることを防ぐために`.copy()`を使っている。
 # 3. 回帰分析をおこなっているが，`f-string`を使い回帰式の説明変数を指定している。また回帰分析の結果を`res`に割り当てている。
