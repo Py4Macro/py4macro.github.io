@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>古典派の二分法と金融政策 &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://py4macro.github.io/16_data_on_money.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="今後の計画" href="Plan.html" />
+    <link rel="prev" title="ランダム変数と全要素生産性" href="13_NumPy_random.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Pythonで学ぶマクロ経済学 (中級＋レベル)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Pythonの学習
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Python_Basics.html">
+   Pythonの基礎
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_NumPy.html">
+   NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Pandas.html">
+   Pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_matplotlib.html">
+   Matplotlib
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  マクロ経済学 - 長期分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Income_Differences.html">
+   発展会計と成長会計
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_Regression.html">
+   回帰分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_DifferenceEq.html">
+   差分方程式と経済分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Solow.html">
+   ソロー・モデル
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_Convergence.html">
+   所得分布と所得収斂
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  マクロ経済学 - 短期分析
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_Data_Fluctuation.html">
+   GDPと構成要素
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_Macro_Variables.html">
+   法則・曲線・増加率
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_IS-MP-PC.html">
+   IS-MP-PCモデル
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_NumPy_random.html">
+   ランダム変数と全要素生産性
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   古典派の二分法と金融政策
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Plan.html">
+   今後の計画
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  参考
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="pandas_plot.html">
+   Pandas：プロット
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ScipyOptimize.html">
+   解の求め方と最適化問題
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://py4etrics.github.io/6_things_to_note.html">
+   Tipsと注意点
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://py4etrics.github.io/Grade.html">
+   成績の分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://py4etrics.github.io">
+   Pythonで学ぶ入門計量経済学
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;<!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code --></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/16_data_on_money.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/16_data_on_money.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/16_data_on_money.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   はじめに
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gdp">
+   GDPとインフレ率
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   金融政策
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     相対価格（おさらい）
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     ブレトンウッズ体制
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     データ
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>古典派の二分法と金融政策<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">py4macro</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>「古典派の二分法」とは，実質変数と名目変数は別々の異なるメカニズムで決定されているという考え方である。実質変数である実質GDPや相対価格は，技術水準，選好，市場構造，資源の保有量などの「実質的」な要因に依存し，一方，財・サービスの価格や一般物価水準はマネーストックによって決定されると考える。またこの考えから派生する結果が「貨幣の中立性」である。即ち，中央銀行によるマネーストックの調整を通した金融政策は実質変数に影響を及ぼさない。実質GDPは金融政策から独立であるという考えである。</p>
+<p>「古典派の二分法」と「貨幣の中立性」が成立するかどうかによって，マクロ経済学の短期分析のアプローチが全くことになる。前章で議論したRBCモデルにはマネーストックが入っておらず，インフレ率も出てこない。古典派の二分法が成立し，一般物価水準とインフレ率は別のメカニズムで決定されているので，わざわざ明示的にRBCの中で議論する必要がないということである。その裏にある仮定が，瞬時に調整される価格である。この仮定が成立する限り，実質変数と名目変数の決定プロセスを同時にモデル化することは余分な労力であり，実質変数のみにフォーカスすれば良いのである。</p>
+<p>本章の目的は，「古典派の二分法」と「貨幣の中立性」が成立するかをデータに基づき考察することである。計量経済学の洗練された手法を用いて検証するということではなく，次の２つのデータセットを使って「古典派の二分法」と「貨幣の中立性」が成立しないこと示唆する「状況証拠」を考える。</p>
+<ul class="simple">
+<li><p>GDPとインフレ率の相関性</p></li>
+<li><p>ブレトンウッズ体制の崩壊</p></li>
+</ul>
+</div>
+<div class="section" id="gdp">
+<h2>GDPとインフレ率<a class="headerlink" href="#gdp" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-1</span></code>を使うが，その中にある<code class="docutils literal notranslate"><span class="pre">gdp</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation</span></code>を使い両変数の関係を考える。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次の変数を作成し図示しよう。</p>
+<ul class="simple">
+<li><p>GDPトレンドからの乖離率（％）</p></li>
+<li><p>インフレ率のトレンドからの乖離（％ポイント）</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
+
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/16_data_on_money_8_0.png" src="_images/16_data_on_money_8_0.png" />
+</div>
+</div>
+<p>この図は次の２つの点を示している。第一に，GDPとインフレ率の変動は循環的である。即ち，同じ方向に動く傾向にある。第二に，GDPの変動に後追いするようにインフレ率が動いている。この点をさらに探るためにGDPとラグがあるインフレ率の相関係数を計算してみよう。次のコードの<code class="docutils literal notranslate"><span class="pre">shift()</span></code>は以前も使ったが，変数を１期ずらすメソッドである。引数に負の整数を設定することにより先の期の変数を指定することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">-------------------------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    
+    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>   <span class="c1"># 1</span>
+    
+    <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span> <span class="s1">&#39;インフレ率の変動_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先のインフレ率の変動: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      GDPの変動との相関係数
+-------------------------------
+  0期先のインフレ率の変動:  0.335
+  1期先のインフレ率の変動:  0.478
+  2期先のインフレ率の変動:  0.524
+  3期先のインフレ率の変動:  0.506
+  4期先のインフレ率の変動:  0.453
+  5期先のインフレ率の変動:  0.311
+  6期先のインフレ率の変動:  0.183
+  7期先のインフレ率の変動:  0.076
+  8期先のインフレ率の変動: -0.029
+  9期先のインフレ率の変動: -0.129
+ 10期先のインフレ率の変動: -0.197
+ 11期先のインフレ率の変動: -0.206
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.copy()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">df</span></code>のコピーを作成し，それを<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>に割り当てる。続く行では<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>を使い計算などを行うが，１回のループが終わる度に<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>は<code class="docutils literal notranslate"><span class="pre">df</span></code>のコピーとしてリセットされる。</p></li>
+</ol>
+</div>
+<p>実質GDPとインフレ率の相関係数は徐々に高くなり，２期先で最大になり減少することが確認でき，両変数は密接に関係していることを示唆している。一方で，因果関係を示すための洗練された手法を使っているのではなく，単なる相関係数であり「状況証拠」にしか過ぎない。しかし「状況証拠」も含めてデータが示しているものを説明できてこそ「真のメカニズム」を捉える経済モデルということができる。RBCモデルは古典派の二分法が成立しており，実質GDPとインフレ率の相関関係を説明できないのが大きな欠点の一つとなっている。</p>
+</div>
+<div class="section" id="id3">
+<h2>金融政策<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>金融政策が実質GDPのような実質変数に影響を及ぼすかという問題は，一見明白なように見えるが非常に複雑な問題である。因果関係を示すために様々なそして高度な手法が提案されており，それを説明することは授業の範囲を超えることになる。ここでは代わりに，歴史的に重大な金融政策が実質変数に影響をもたらした例を取り上げる。<a class="reference external" href="https://eml.berkeley.edu/~enakamura/papers/macroempirics.pdf">参考資料</a></p>
+<div class="section" id="id4">
+<h3>相対価格（おさらい）<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>本題に入る前に，実質変数と名目変数の違いを確認する。<span class="math notranslate nohighlight">\(w\)</span>を名目賃金（円），<span class="math notranslate nohighlight">\(p_A\)</span>をA財の価格（円）としよう。実質賃金<span class="math notranslate nohighlight">\(\dfrac{w}{p_A}\)</span>は，<span class="math notranslate nohighlight">\(w\)</span>円で購入できるA財の数量を表している。即ち，A財で測る名目賃金<span class="math notranslate nohighlight">\(w\)</span>の購買力を示しており，<span class="math notranslate nohighlight">\(w\)</span>の実質的な価値はA財の<span class="math notranslate nohighlight">\(\dfrac{w}{p_A}\)</span>個に相当するという意味である。</p>
+<p>次にB財の価格を<span class="math notranslate nohighlight">\(p_B\)</span>として相対価格<span class="math notranslate nohighlight">\(\dfrac{p_B}{p_A}\)</span>を考えよう。実質賃金を使うと次のように解釈できる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\frac{p_B}{p_A}
+&amp;=
+\frac{w/p_A}{w/p_B}=
+\frac{\text{名目賃金$w$で購入できるA財の数量}}{\text{名目賃金$w$で購入できるB財の数量}} \\
+&amp;=\text{B財１単位に対してのA財の数量}
+\end{align*}
+\end{split}\]</div>
+<p>即ち，B財１単位はA財<span class="math notranslate nohighlight">\(\dfrac{p_B}{p_A}\)</span>単位に相当する。ここで重要なポイントは，<span class="math notranslate nohighlight">\(\dfrac{w}{p_A}\)</span>であっても<span class="math notranslate nohighlight">\(\dfrac{p_B}{p_A}\)</span>であってもA財の数量で表されており，貨幣単位（円）ではないことである。</p>
+<p>実質変数を考える上で基準となる財はニューメレール財と呼ばれる。上の例ではA財であり，より一般的には一般物価水準が使われる。</p>
+<p>次に為替レートを考えよう。名目為替レートは相対価格のように比率になっているが，もちろん名目である。円・ドルの名目為替レート（円/＄）は，1米ドルを何円と交換できるかの比率を表しており，単位は貨幣単位（円）で与えられる。一方で日米の実質為替レートは次のように解釈できる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(e\)</span>：名目為替レート（円/＄）</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_{\text{日}}\)</span>：日本財の価格（円）</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_{\text{米}}\)</span>：米国財の価格（＄）</p></li>
+<li><p><span class="math notranslate nohighlight">\(eP_{\text{米}}\)</span>：円で表示した米国財の価格（円）</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\varepsilon
+&amp;=\frac{eP_{\text{米}}}{P_{\text{日}}} \tag{RealEx}\\
+&amp;=\frac{w/P_{\text{日}}}{w/\left(eP_{\text{米}}\right)}
+=\frac{\text{名目賃金$w$で購入できる日本財の数量}}{\text{名目賃金$w$で購入できる米国財の数量}} \\
+&amp;=\text{米国財１単位に対しての日本財の数量} \\
+&amp;=\text{米国財と日本財の交換比率}
+\end{align*}
+\end{split}\]</div>
+<p>実質為替レートは米国財の数量で表されている。</p>
+<p>古典派の二分法が成立している場合，相対価格は「実質的」な要因によって決定され，分母・分子の名目変数はマネーストックのような貨幣的な要因に依存する事になる。この点を念頭にブレトンウッズ体制の崩壊の効果について考えよう。</p>
+</div>
+<div class="section" id="id5">
+<h3>ブレトンウッズ体制<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>歴史的な金融政策の例としてブレトンウッズ体制を考える。ブレトンウッズ体制下では名目為替レートの固定相場制が採用されていた。しかし1973年2月にブレトンウッズ体制は崩壊し、変動相場制に移行する。</p>
+<ul class="simple">
+<li><p>1971年8月15日に米国はドルと金との交換停止を発表</p></li>
+<li><p>1973年2月14日に変動相場制に移行</p></li>
+</ul>
+<p>この政策変更は名目為替レートに関しての政策であり，「実質的」な要因の変化ではない。純粋に貨幣的な政策変更である。この金融政策変更の効果を考えるために，全ての財・サービスの価格は十分に伸縮的であり，瞬時に価格は調整され市場は常に精算する（需要と供給は常に等しい）と<strong>仮定</strong>しよう。この仮定のもとでは，古典派の二分法が成立し実質変数である相対価格と実質為替レートは技術や選好などの「実質的」な要因のみに依存することになる。更に，ブレトンウッズ体制は崩壊の前後では「実質的」な要因の大きな変化は起きていないため，実質為替レートは大きく変化していない事になる。</p>
+<p>この事を念頭に，実質変数がどのように変化したかを考察する。特に，価格の水準ではなく<strong>変化</strong>に注目するために実質為替レートの変化率を考えることにする。式（RealEx）を時間微分すると次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-16-change-in-rex">
+<span class="eqno">(73)<a class="headerlink" href="#equation-eq-16-change-in-rex" title="Permalink to this equation">¶</a></span>\[
+\frac{\dot{\varepsilon}}{\varepsilon}=
+\frac{\dot{e}}{e}+
+\frac{\dot{P}_{\text{米}}}{P_{\text{米}}}-
+\frac{\dot{P}_{\text{日}}}{P_{\text{日}}}
+\]</div>
+<p>古典派の二分法の下では，<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は金融政策から影響を受けないことになる。実際にそうだったのかを確かめるために<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">ex</span></code>を使う。</p>
+</div>
+<div class="section" id="id6">
+<h3>データ<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;ex&#39;</span><span class="p">)</span>
+<span class="n">df_ex</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>real_ex_geus_%change</th>
+      <th>real_ex_jpus_%change</th>
+      <th>real_ex_jpus</th>
+      <th>ex_jpus</th>
+      <th>relative_p_jpus</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1960-01-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>247.109328</td>
+      <td>361.77</td>
+      <td>0.683056</td>
+    </tr>
+    <tr>
+      <th>1960-02-01</th>
+      <td>0.906208</td>
+      <td>0.239840</td>
+      <td>247.701994</td>
+      <td>361.77</td>
+      <td>0.684695</td>
+    </tr>
+    <tr>
+      <th>1960-03-01</th>
+      <td>-0.004076</td>
+      <td>-0.680012</td>
+      <td>246.017589</td>
+      <td>358.22</td>
+      <td>0.686778</td>
+    </tr>
+    <tr>
+      <th>1960-04-01</th>
+      <td>-0.229978</td>
+      <td>0.721608</td>
+      <td>247.792871</td>
+      <td>361.77</td>
+      <td>0.684946</td>
+    </tr>
+    <tr>
+      <th>1960-05-01</th>
+      <td>-0.283286</td>
+      <td>-1.041546</td>
+      <td>245.211994</td>
+      <td>361.25</td>
+      <td>0.678788</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>内容を確認しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;ex&#39;</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    | `real_ex_geus_%change`: 独マルク/米ドル実質為替レート変動率（％）
+    |                           * 月次，季節調整ない
+    | `real_ex_jpus_%change`: 円/米ドル実質為替レート変動率（％）
+    |                           * 月次，季節調整ない
+    | `real_ex_jpus`:         円/米ドル実質為替レート
+    |                           * 月次，季節調整ない
+    | `ex_jpus`:              円/米ドル名目為替レート
+    |                           * 月次，季節調整ない
+    | `relative_p_jpus`:      日本の一般物価水準に対しての米国の一般物価水準の比率
+    |                           * 日本のCPI分の米国のCPI
+    |                           * 2015年CPI=100
+    |                           * 月次，季節調整ない
+    |
+    | * 期間：1960年1月〜
+    |
+    | ＜出典＞
+    | OECD Main Economic Indicators
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.info()</span></code>を使うと行ラベルが時系列用になっていることが確認できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 736 entries, 1960-01-01 to 2021-04-01
+Data columns (total 5 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   real_ex_geus_%change  735 non-null    float64
+ 1   real_ex_jpus_%change  735 non-null    float64
+ 2   real_ex_jpus          736 non-null    float64
+ 3   ex_jpus               736 non-null    float64
+ 4   relative_p_jpus       736 non-null    float64
+dtypes: float64(5)
+memory usage: 34.5 KB
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">real_ex_jpus_%change</span></code>と<code class="docutils literal notranslate"><span class="pre">real_ex_geus_%change</span></code>を使い1986年3月までのデータを並べてプロットしよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">columns</span>          <span class="c1"># 1</span>
+<span class="n">end_month</span> <span class="o">=</span> <span class="s1">&#39;1986-03-01&#39;</span>     <span class="c1"># 2</span>
+<span class="n">float_month</span> <span class="o">=</span> <span class="s1">&#39;1973-02-01&#39;</span>   <span class="c1"># 3</span>
+
+<span class="c1"># 4</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_month</span><span class="p">,[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span> \
+          <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>  <span class="c1">#5f</span>
+    
+    <span class="c1"># 6</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">float_month</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># 7</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">/＄実質為替レート変化率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/16_data_on_money_28_0.png" src="_images/16_data_on_money_28_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ol>
+<li><p>列名を変数<code class="docutils literal notranslate"><span class="pre">col</span></code>に割り当てる。</p></li>
+<li><p>文字列<code class="docutils literal notranslate"><span class="pre">'1986-03-01'</span></code>を変数<code class="docutils literal notranslate"><span class="pre">end_month</span></code>に割り当てる。</p></li>
+<li><p>文字列<code class="docutils literal notranslate"><span class="pre">'1973-02-01'</span></code>を変数<code class="docutils literal notranslate"><span class="pre">float_month</span></code>に割り当てる。</p></li>
+<li><p>引数として<code class="docutils literal notranslate"><span class="pre">subplots=(1,2)</span></code>を使っているので２つの「軸」があり，<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>として次のように格納されている。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span><span class="n">軸１</span><span class="p">,</span><span class="n">軸２</span><span class="p">]])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>この<code class="docutils literal notranslate"><span class="pre">array</span></code>が<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられている。従って、(2)と(3)にあるように，軸１にアクセスするには<code class="docutils literal notranslate"><span class="pre">ax[0]</span></code>，軸２にアクセスするには<code class="docutils literal notranslate"><span class="pre">ax[1]</span></code>とする必要がある。</p></li>
+<li><p>列名を<code class="docutils literal notranslate"><span class="pre">col[0]</span></code>と<code class="docutils literal notranslate"><span class="pre">col[1]</span></code>を使って指定しており，<code class="docutils literal notranslate"><span class="pre">col[0]</span></code>は<code class="docutils literal notranslate"><span class="pre">col</span></code>の0番目の要素であり，<code class="docutils literal notranslate"><span class="pre">col[1]</span></code>は<code class="docutils literal notranslate"><span class="pre">col</span></code>の1番目の要素である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">legend=False</span></code>は凡例を隠すため。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enumerate()</span></code>は引数のリストの要素のインデックと要素自体をタプルとして返す。最初のループで<code class="docutils literal notranslate"><span class="pre">(0,'円')</span></code>，次のループで<code class="docutils literal notranslate"><span class="pre">(1,'マルク')</span></code>を返し，タプルの0番目の要素は<code class="docutils literal notranslate"><span class="pre">i</span></code>に，1番目の要素は<code class="docutils literal notranslate"><span class="pre">c</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は縦線を引くメソッドであり，３つの引数を使っている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'1973-2-1'</span></code>：横軸の値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c=red</span></code>：色を赤に指定（<code class="docutils literal notranslate"><span class="pre">k</span></code>は黒）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linestyle='--'</span></code>：点線に指定</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.set_title()</span></code>は「軸」にタイトルを付けている。</p></li>
+</ol>
+<p>次のコード同じ図（色は異なる）をプロットすることができる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;real_ex_jpus_</span><span class="si">%c</span><span class="s1">hange&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_month</span><span class="p">,:])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;real_ex_geus_</span><span class="si">%c</span><span class="s1">hange&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_month</span><span class="p">,:])</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">float_month</span><span class="p">),</span>  <span class="c1"># 1</span>
+              <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">float_month</span><span class="p">),</span>  <span class="c1"># 2</span>
+              <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;円/＄実質為替レート変化率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;マルク/＄実質為替レート変化率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>この場合は次の点に要注意</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df_ex</span></code>の行ラベルが<code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>と呼ばれる時系列用になっており，図の横軸に使われている。それにより<code class="docutils literal notranslate"><span class="pre">.axvline()</span></code>の引数に<code class="docutils literal notranslate"><span class="pre">'1973-02-01'</span></code>とするとエラーとなる。文字列<code class="docutils literal notranslate"><span class="pre">'1973-02-01'</span></code>を時系列用に変換するために関数<code class="docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code>を使う必要がある。</p></li>
+<li><p>同上。</p></li>
+</ol>
+</div>
+<p>図にある黒の点線は固定相場制から変動相場制に移行した1973年2月を示している。点線の右側と左側では明らかに変動に違いがある。どの程度変動の大きさが異なるのかを調べるために、固定相場制（158ヶ月）と変動相場制（158ヶ月）での標準偏差を計算し、その比率を比べてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">country_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Yen/$&#39;</span><span class="p">,</span><span class="s1">&#39;Mark/$&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">実質為替レート変動率の標準偏差</span><span class="se">\n</span><span class="s1">-------------------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ex_list</span><span class="p">,</span> <span class="n">country_list</span><span class="p">):</span>
+    
+    <span class="n">ex_before</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="s1">&#39;1973-01-01&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="n">ex_after</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1973-02-01&#39;</span><span class="p">:</span><span class="n">end_month</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}{</span><span class="n">ex_after</span><span class="o">/</span><span class="n">ex_before</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>実質為替レート変動率の標準偏差
+-------------------------
+Yen/$   3.58
+Mark/$  3.82
+</pre></div>
+</div>
+</div>
+</div>
+<p>実質為替レートの変動は3倍以上になっている。固定相場制から変動相場制への移行は貨幣的な政策変更であるが，実質変数である実質為替レートに大きな影響を与えているのである。従って，実質為替レートに依存する他の実質変数も影響を受けることになる。例えば，輸出入に対してのインパクトがあるだろうし，最終的には実質GDPへの影響につながっていく。古典派の二分法と貨幣の中立性が成立していないことを示唆する結果である。</p>
+<p>では，なぜ実質為替レートの変動は大きくなったのだろう。固定相場制の場合，<span class="math notranslate nohighlight">\(\dot{e}=0\)</span>であり式<a class="reference internal" href="#equation-eq-16-change-in-rex">(73)</a>は次式となる。</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\dot{\varepsilon}}{\varepsilon}=
+\frac{\dot{P}_{\text{米}}}{P_{\text{米}}}-
+\frac{\dot{P}_{\text{日}}}{P_{\text{日}}}
+\]</div>
+<p>もし古典派の二分法と貨幣の中立性が成立しているのであれば，名目為替レートが一定になっている分，価格の変動がより大きくなり，ブレトンウッズ体制崩壊の前後で実質為替レートの変動は大きく変わっていないはずである。そうなっていない理由は，価格の粘着性と考えられる。価格調整に時間がかかるため，ブレトンウッズ体制崩壊前では実質為替レートは十分に変動しなかったのである。一旦，変動相場制に移行すると、価格調整のペースは同じでも名目為替レートの変動により実質為替レートの変動が大きくなっていると考えられる。もし価格が瞬時に調整されたのであれば，固定相場制での実質為替レートの変動はより大きかっただろうし，変動相場制移行後も概ね同じ変動が続いていたはずだということである。</p>
+<p>この歴史的な「実験」は金融政策は実質変数に影響を与えることを示唆している。一方，前章のRBCモデルは貨幣の中立性が成立（仮定）されており，マクロ経済の短期的な動きを十分に捉えているとは言い難い。その点を克服する理論がニューケインジアン・モデルである。</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="13_NumPy_random.html" title="previous page">ランダム変数と全要素生産性</a>
+    <a class='right-next' id="next-link" href="Plan.html" title="next page">今後の計画</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 春山 鉄源  Tetsugen HARUYAMA<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-165998213-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>
