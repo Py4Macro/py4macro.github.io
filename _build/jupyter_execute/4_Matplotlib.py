@@ -875,4 +875,4 @@ df2.loc[:,'Z'].plot(marker='x',
 pass
 
 
-# ここで使った引数については，３.参考にある[Pandas:プロット](pandas_plot)を参照してください。
+# ここで使った引数については，３.参考にある[Pandas:プロット](chap:pandas_plot)を参照してください。
