@@ -782,7 +782,7 @@ pass
 
 # ## `Pandas`のメソッド`plot()`
 
-# この章で付け加えたいもう一つのプロット方法がある。それが`Pandas`の`DataFrame`と`Series`のメソッド`plot()`である。これを使うと簡単にプロットできる場合が多々ある。詳細については[参考サイト（英語）](https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html)を参照して欲しいが，裏で動いているのは`Matplotlib`であり，より複雑な図を作成する場合は、やはり`Matplotlib`のコードを直接書くことが必要になるだろう。ちなみに，`pyplot`をインポートしなくても`Pandas`の`plot()`のみでプロットすることは可能である。
+# この章で付け加えたいもう一つのプロット方法がある。それが`Pandas`の`DataFrame`と`Series`のメソッド`plot()`である。これを使うと簡単にプロットできる場合が多々ある。詳細については[Pandas:プロット](chap:pandas_plot)もしくは[参考サイト（英語）](https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html)を参照して欲しいが，裏で動いているのは`Matplotlib`であり，より複雑な図を作成する場合は、やはり`Matplotlib`のコードを直接書くことが必要になるだろう。ちなみに，`pyplot`をインポートしなくても`Pandas`の`plot()`のみでプロットすることは可能である。
 
 # ### `plot()`の使い方
 

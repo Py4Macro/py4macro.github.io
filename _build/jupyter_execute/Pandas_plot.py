@@ -12,7 +12,7 @@
 import pandas as pd
 
 
-# プロット用のパッケージ`Matplotlib`を紹介したが，実は，`Pandas`のデータ・フレームとシリーズにはメソッド`plot()`が備えられており，それを使えば基本的なプロットをより簡単に実行できる。[参考サイト（英語）](https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html) 裏で動いているのは`Matplotlib`であり，より複雑な図を作成する場合は、`Matplotlib`のコードを直接書くことが必要になるだろう。
+# プロット用のパッケージ`Matplotlib`を紹介したが，実は`Pandas`のデータ・フレームとシリーズにはメソッド`plot()`が備えられており，それを使えば基本的なプロットをより簡単に実行できる。[参考サイト（英語）](https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html) 裏で動いているのは`Matplotlib`であり，より複雑な図を作成する場合は、`Matplotlib`のコードを直接書くことが必要になるだろう。
 # 
 # 次の`df0`を使って説明する。
 
