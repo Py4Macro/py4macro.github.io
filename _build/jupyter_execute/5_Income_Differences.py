@@ -557,12 +557,20 @@ df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
 # 
 # *`.corr()`は相関係数を計算するメソッド
 # ```
-# 
-# `GDPpc_relative`と`tfp_relative`の相関係数は約`0.93`であり、非常に高いことがわかる。
+
+# In[29]:
+
+
+from myst_nb import glue
+corr_gdp_pc_relative_tfp_relative = df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr().loc['gdp_pc_relative','tfp_relative']
+glue("corr_gdp_pc_relative_tfp_relative", round(corr_gdp_pc_relative_tfp_relative,3),display=False)
+
+
+# `GDPpc_relative`と`tfp_relative`の相関係数は約{glue:}`corr_gdp_pc_relative_tfp_relative`であり、非常に高いことがわかる。
 # 
 # 次に，蓄積生産要素と一人当たりGDPの散布図を作成し，相関係数を計算してみよう図示する。
 
-# In[29]:
+# In[30]:
 
 
 df2019['factors_relative'] = df2019['factors'] / us2019['factors'].to_numpy()
@@ -573,7 +581,7 @@ pass
 
 # 視覚的には，TFPと比べて相関度は低いようである。コードで確認しよう。
 
-# In[30]:
+# In[31]:
 
 
 df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
@@ -687,7 +695,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 
 # この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は`0`であり蓄積生産要素は`1`である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。
 
-# In[31]:
+# In[32]:
 
 
 # 欠損値であるNaNがある行を削除
@@ -713,29 +721,45 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 # **全要素生産性の寄与度**
 
-# In[32]:
+# In[33]:
 
 
 (tfp_var + tfp_factors_cov) / gdp_pc_var
 
 
+# In[34]:
+
+
+from myst_nb import glue
+contribution_of_tfp = (tfp_var + tfp_factors_cov) / gdp_pc_var
+glue("contribution_of_tfp", int(100*round(contribution_of_tfp,2)),display=False)
+
+
 # **蓄積生産要素の寄与度**
 
-# In[33]:
+# In[35]:
 
 
 (factors_var + tfp_factors_cov) / gdp_pc_var
 
 
+# In[36]:
+
+
+from myst_nb import glue
+contribution_of_factors = (factors_var + tfp_factors_cov) / gdp_pc_var
+glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),display=False)
+
+
 # **結果**
 # 
-# 2019年の一人当たりGDPの変動の約54%は全要素生産性によって説明され，残りの46%は蓄積生産要素によって説明される。即ち，一人当たりGDPの決定要因としての全要素生産性は蓄積生産要素は重要性は同等もしくはそれ以上である。
+# 2019年の一人当たりGDPの変動の約{glue:}`contribution_of_tfp`%は全要素生産性によって説明され，残りの{glue:}`contribution_of_factors`%は蓄積生産要素によって説明される。即ち，一人当たりGDPの決定要因としての全要素生産性は蓄積生産要素は重要性は同等もしくはそれ以上である。
 
 # ### 表の作成
 
 # 最後に、主要な国のデータを表にまとめてみる。
 
-# In[34]:
+# In[37]:
 
 
 # 1
@@ -774,12 +798,17 @@ table2019
 # ＜コメント＞ `print()`関数を使うとテキストとして表示される。
 # ```
 
-# In[35]:
+# In[38]:
 
 
-print(f"日本の全要素生産性は米国の{table2019.loc['Japan','全要素生産性']*100}%であり，"
-      f"蓄積生産要素は米国の{table2019.loc['Japan','蓄積生産要素']*100}%である。")
+from myst_nb import glue
+tfp_jp_relative_to_us = int(table2019.loc['Japan','全要素生産性']*100)
+glue("tfp_jp_relative_to_us", tfp_jp_relative_to_us,display=False)
+factors_jp_relative_to_us = int(table2019.loc['Japan','蓄積生産要素']*100)
+glue("factors_jp_relative_to_us", factors_jp_relative_to_us,display=False)
 
+
+# この表から日本の全要素生産性は米国の{glue:}`tfp_jp_relative_to_us`%であり，蓄積生産要素は米国の{glue:}``%であることが分かる。
 
 # ## 成長会計
 
@@ -823,7 +852,7 @@ print(f"日本の全要素生産性は米国の{table2019.loc['Japan','全要素
 # \log(1+g_x)\approx g_x
 # $$ (eq:gx_approx)
 
-# In[36]:
+# In[39]:
 
 
 np.log(1+0.02)
@@ -886,7 +915,7 @@ np.log(1+0.02)
 # 
 # 例：$x_0=10$，$x_n=30$，$n=50$
 
-# In[37]:
+# In[40]:
 
 
 x0 = 10
@@ -924,7 +953,7 @@ print(f'方法１：{houhou1:}\n方法２：{houhou2}')
 # 
 # それぞれの変数を計算しよう。
 
-# In[38]:
+# In[41]:
 
 
 # 資本の所得シャア
@@ -948,7 +977,7 @@ df['tfp'] = df['rgdp_pc'] / df['factors']
 
 # まず1999年から2019年の20年間の`rgdp_pc`、`k_pc`、`avh`，`hc`の平均成長率を計算する。次のコードを使うが`for`ループが二重（入れ子）になっている。
 
-# In[39]:
+# In[42]:
 
 
 var_list = ['rgdp_pc','k_pc','avh','hc']   # 1
@@ -1011,7 +1040,7 @@ df_growth = pd.DataFrame({'country':country_list,               # 14
 #     * 下の３行は`k_pc`，`avh`，`hc`に対して同じ作業を行なっている。
 # ```
 
-# In[40]:
+# In[43]:
 
 
 df_growth.head()
@@ -1019,7 +1048,7 @@ df_growth.head()
 
 # 欠損値が含まれているので、`NaN`がある行は全て削除する。
 
-# In[41]:
+# In[44]:
 
 
 df_growth = df_growth.dropna()
@@ -1027,7 +1056,7 @@ df_growth = df_growth.dropna()
 
 # 残った国数を確認してみよう。
 
-# In[42]:
+# In[45]:
 
 
 len(df_growth)
@@ -1035,7 +1064,7 @@ len(df_growth)
 
 # `rgdp_pc`の成長率のヒストグラムをプロットするが，ここでは`DataFrame`のメソッド`plot()`を使う。まず使用する列を選んでメソッド`plot()`の引数に`kind='hist'`を指定するだけである。`bins=20`は階級（棒）の数を指定する引数（デフォルトは`10`）と理解すれば良いだろう。
 
-# In[43]:
+# In[46]:
 
 
 df_growth['rgdp_pc'].plot(kind='hist',bins=15)
@@ -1044,7 +1073,7 @@ pass
 
 # 多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も存在する。平均成長率がマイナスの国数を計算してみよう。
 
-# In[44]:
+# In[47]:
 
 
 len(df_growth.query('rgdp_pc < 0'))
@@ -1052,7 +1081,7 @@ len(df_growth.query('rgdp_pc < 0'))
 
 # 最も平均成長率が低い経済の国名を探してみよう。
 
-# In[45]:
+# In[48]:
 
 
 df_growth_sorted = df_growth.sort_values('rgdp_pc')
@@ -1061,7 +1090,7 @@ df_growth_sorted.head()
 
 # ここで使ったメソッド`sort_values()`は，引数の列を基準に昇順に並べ替える。引数に`ascending=False`を使うと，降順に並び替えることができる。
 
-# In[46]:
+# In[49]:
 
 
 print( '上のヒストグラムで最も成長率が低い国は'
@@ -1078,7 +1107,7 @@ print( '上のヒストグラムで最も成長率が低い国は'
 # 
 # 結果を`df_growth`に追加するが，その際、$a=\dfrac{1}{3}$と仮定する。
 
-# In[47]:
+# In[50]:
 
 
 df_growth['factors'] = (1/3)*df_growth['k_pc']+(1-1/3)*( df_growth['avh']+df_growth['hc'] )
@@ -1086,7 +1115,7 @@ df_growth['factors'] = (1/3)*df_growth['k_pc']+(1-1/3)*( df_growth['avh']+df_gro
 
 # `factors`の成長率のヒストグラムを図示する。
 
-# In[48]:
+# In[51]:
 
 
 df_growth['factors'].plot(kind='hist',bins=15)
@@ -1095,7 +1124,7 @@ pass
 
 # マイナスの成長率の国数を調べてみよう。
 
-# In[49]:
+# In[52]:
 
 
 len(df_growth.query('factors < 0'))
@@ -1109,7 +1138,7 @@ len(df_growth.query('factors < 0'))
 # g_A=g_y-g_{\text{factors}}
 # $$
 
-# In[50]:
+# In[53]:
 
 
 df_growth['tfp'] = df_growth['rgdp_pc'] - df_growth['factors']
@@ -1117,26 +1146,28 @@ df_growth['tfp'] = df_growth['rgdp_pc'] - df_growth['factors']
 
 # `tfp`の成長率のヒストグラムを図示してみよう。
 
-# In[51]:
+# In[54]:
 
 
 df_growth['tfp'].plot(kind='hist',bins=15)
 pass
 
 
-# 蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。
+# 蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。TFP成長率がマイナスの国の数を確認してみよう。
 
-# In[52]:
+# In[55]:
 
 
 len(df_growth.query('tfp < 0'))
 
 
+# 蓄積要素生産性のマイナス成長率の国数と比べると10倍である。
+
 # ### 全要素生産性と蓄積生産要素の貢献度
 
 # 全要素生産性と蓄積生産要素のどちらが成長率に貢献しているのだろうか。まず図を使って比較してみよう。
 
-# In[53]:
+# In[56]:
 
 
 df_growth[['tfp','factors']].plot(kind='hist',bins=20,alpha=0.5)
@@ -1161,7 +1192,7 @@ pass
 # 100\times\frac{g_{A}}{g_y}
 # $$
 
-# In[54]:
+# In[57]:
 
 
 df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
@@ -1169,17 +1200,21 @@ df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
 
 # 全要素生産性の貢献度が`50`％以上の国は何％かを計算する。
 
-# In[55]:
+# In[58]:
 
 
-tfp_contribution_more_than_50 = 100 * len(df_growth.query('50<=tfp_contribution')) / len(df_growth)
+100 * len(df_growth.query('50<=tfp_contribution')) / len(df_growth)
 
 
-# In[56]:
+# In[59]:
 
 
-print(f'約{tfp_contribution_more_than_50:.1f}％の国で全要素生産性がより大きな貢献をしている。')
+from myst_nb import glue
+tfp_contribution_more_than_50 = round(100 * len(df_growth.query('50<=tfp_contribution')) / len(df_growth),1)
+glue("tfp_contribution_more_than_50", tfp_contribution_more_than_50,display=False)
 
+
+# 約{glue:}`tfp_contribution_more_than_50`％の国で全要素生産性がより大きな貢献をしている。
 
 # #### 方法２
 
@@ -1221,7 +1256,7 @@ print(f'約{tfp_contribution_more_than_50:.1f}％の国で全要素生産性が�
 # 
 # これらの式に従って計算してみよう。
 
-# In[57]:
+# In[60]:
 
 
 # それぞれの変数を設定
@@ -1238,7 +1273,7 @@ tfp_factors_growth_cov = np.cov(tfp_growth, factors_growth)[0,1]
 
 # **全要素生産性の寄与度**
 
-# In[58]:
+# In[61]:
 
 
 (tfp_growth_var + tfp_factors_growth_cov) / rgdp_pc_growth_var
@@ -1246,19 +1281,19 @@ tfp_factors_growth_cov = np.cov(tfp_growth, factors_growth)[0,1]
 
 # **蓄積生産要素の寄与度**
 
-# In[59]:
+# In[62]:
 
 
 (factors_growth_var+ tfp_factors_growth_cov) / rgdp_pc_growth_var
 
 
-# 蓄積生産要素と全要素生産性の寄与度は6対4の割合でであることが確認できる。この結果は両変数の成長率のヒストグラムからも伺える。全要素生産性の方がより幅広く変化しているようである。いずれにしろ，蓄積生産要素と全要素生産性ともに一人当たりGDPの成長に大きく貢献していることが確認できる。
+# 蓄積生産要素と全要素生産性の寄与度は概ね6対4の割合でであることが確認できる。この結果は両変数の成長率のヒストグラムからも伺える。全要素生産性の方がより幅広く変化しているようである。いずれにしろ，蓄積生産要素と全要素生産性ともに一人当たりGDPの成長に大きく貢献していることが確認できる。
 
 # ### 表の作成
 
 # 結果を表としてまとめてみる。右端の列は方法１の結果を使っている。
 
-# In[60]:
+# In[63]:
 
 
 country_table = ['Japan', 'United Kingdom','United States', 'Norway',
@@ -1274,13 +1309,13 @@ df_growth.loc[cond,col].set_index('country')          .sort_values('rgdp_pc', as
                           'tfp_contribution':'全要素生産性の寄与度(％)'})
 
 
-# ここでの全要素生産性の寄与度は，一人当たりGDPの成長率のうち何％がTFPによるものかを示している。この表を見ると，日本の全要素生産性の寄与度は非常に大きい。このデータは1999~2019年のデータであり，それ以前ではどうだったのかを含めて，次節では年代を区切って日本の経済成長を考察してみよう。
+# ここでの全要素生産性の寄与度は，一人当たりGDPの成長率のうち何％がTFPによるものかを示している。この表を見ると，日本の全要素生産性の寄与度は非常に大きい。このデータは1999~2019年のデータであり，それ以前ではどうだったのかを含めて，次節では年代を区切って日本の経済成長を考察してみることにする。
 
 # ### 日本
 
 # 年代別に成長率を考えるために，次の関数を定義しよう。`start`から`end`までの間の平均成長率と全要素生産性の寄与度をリストとして返す。
 
-# In[61]:
+# In[64]:
 
 
 def jp_growth_decomposition(start, end):
@@ -1332,7 +1367,7 @@ def jp_growth_decomposition(start, end):
 
 # この関数を使って`DataFrame`を作成する。
 
-# In[62]:
+# In[65]:
 
 
 dic = {}                                          # 1
@@ -1384,7 +1419,7 @@ df_jp
 
 # 値を確認するだけであればこのままでも良いが，棒グラフを作成するために列と行を入れ替えることにする。`df_jp`のメソッド`.transpose()`を使う。
 
-# In[63]:
+# In[66]:
 
 
 df_jp = df_jp.transpose()
@@ -1393,7 +1428,7 @@ df_jp
 
 # 1950年代に欠損値があるが，そのまま議論を進めよう。まず一人当たりGDP成長率`gdp_pc_growth`を棒グラフとして表示してみよう。表示したい列を選択し，引数に`kind='bar'`を選択するだけである。
 
-# In[64]:
+# In[67]:
 
 
 df_jp['gdp_pc_growth'].plot(kind='bar')
@@ -1404,7 +1439,7 @@ pass
 # 
 # 次にヒストグラムに異なる変数を並べて表示してみる。この場合も、表示したい変数を先に選び`kind='bar'`を指定するだけである。
 
-# In[65]:
+# In[68]:
 
 
 df_jp.iloc[:,[0,-3,-2]].plot(kind='bar')
@@ -1413,7 +1448,7 @@ pass
 
 # 以下では，全要素生産性と蓄積生産要素の成長率に焦点を当てるので，`dropna()`を使って1950年代のデータは削除する。
 
-# In[66]:
+# In[69]:
 
 
 df_jp = df_jp.dropna()
@@ -1421,7 +1456,7 @@ df_jp = df_jp.dropna()
 
 # 上の棒グラフで，引数`stacked=True`を設定すると棒を積み重ねて表示することができる。
 
-# In[67]:
+# In[70]:
 
 
 df_jp.iloc[:,[-3,-2]].plot(kind='bar', stacked=True)
@@ -1430,7 +1465,7 @@ pass
 
 # 次のグラフでは，一人当たりGDPの線グラフと一緒に表示している。
 
-# In[68]:
+# In[71]:
 
 
 ax_ = df_jp.iloc[:,0].plot(marker='o',color='k', legend=True)
