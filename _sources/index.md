@@ -12,7 +12,7 @@ kernelspec:
 # Pythonで学ぶマクロ経済学 (中級＋レベル)
 
 ```{epigraph}
-**Learning Intermediate+ Macroeconomics with Python**
+**Python for Intermediate+ Macroeconomics**
 
 [春山 鉄源](https://t-haruyama.github.io)
 
