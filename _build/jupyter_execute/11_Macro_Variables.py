@@ -428,10 +428,10 @@ pass
 # 
 # A mathematician, a theoretical economist and an econometrician are asked to find a black cat (who doesn't really exist) in a closed room with the lights off: 
 # * The mathematician (数学者) gets crazy trying to find a black cat that doesn't exist inside the darkened room and ends up in a psychiatric hospital. 
-# * The theoretical economist (経済学者) is unable to catch the black cat that doesn't exist inside the darkened room, but exits the room proudly proclaiming that he can construct a model to describe all his movements with extreme accuracy. 
-# * The econometrician (計量経済学者，特に経済データを使う実証研究をする研究者) walks securely into the darkened room, spend one hour looking for the black cat that doesn't exits and shouts from inside the room that he has it catched by the neck." 
+# * The theoretical economist (理論経済学者) is unable to catch the black cat that doesn't exist inside the darkened room, but exits the room proudly proclaiming that he can construct a model to describe all his movements with extreme accuracy. 
+# * The econometrician (計量経済学者，特に経済データを使い実証研究をする研究者) walks securely into the darkened room, spend one hour looking for the black cat that doesn't exits and shouts from inside the room that he has it catched by the neck." 
 # 
-# [経済学のジョーク](https://www.google.co.jp/search?q=economics+jokes)
+# [経済学のジョークのGoogle検索結果](https://www.google.co.jp/search?q=economics+jokes)
 # ```
 
 # ## インフレ率とマネーストックの増加率
