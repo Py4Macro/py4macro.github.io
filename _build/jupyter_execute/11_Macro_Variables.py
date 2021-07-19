@@ -419,11 +419,20 @@ pass
 # 3. 1980年代のPC曲線の傾きは，データ上では大きく見えるが，真のPC曲線はフラットだったという解釈である。上の散布図は観測されたデータを単純にプロットしただけであり，データだけを見てもその裏にあるデータ生成メカニズムは分からない。更には，1980年代にインフレ率が急に減少しているが，インフレ率の下落はPC曲線の下方シフトとして発生したと考えられ，それがデータ上ではPC曲線の急な傾きとして観測されているに過ぎない。
 # 4. PC曲線は直線ではなく非線形であり，失業率が高くなると傾きが緩やかになる。直感的には次のように理解できる。企業にとって価格改定にはコストがかかる。従って，インフレ率が高い場合は企業は価格改定をしないと損をするのでより頻繁に価格を上昇させる。一方，インフレ率が低いと，価格改定しない場合の損失は大きくないので，価格の変化は頻繁に起こらなくなる。
 # 
-# 解釈１〜３によると，「真のメカニズム」が変化したと考えることができる。一方，解釈４では「真のメカニズム」は変わらないという事になる。経済学に関するジョークに，真っ暗な部屋で黒猫を探す経済学者が登場するものがある。それ模して黒猫がPC曲線だとしよう。そして，黒猫の小さな可愛い鳴き声を何度か聞いただけで，黒猫がいた場所が少しでも変わったかどうかを判断するとしよう。非常に難しそうである。
+# 解釈１〜３によると，「真のメカニズム」が変化したと考えることができる。一方，解釈４では「真のメカニズム」は変わらないという事になる。どの解釈がより妥当なのだろうか。非常に難しい問題であり，その解明が経済学の進歩につながる事は言うまでもない。（データと整合的な解釈が複数存在することは経済学でよくあることである。）
 # 
-# ＜蛇足＞
+# 経済学に関するジョークに，真っ暗な部屋で黒猫を探す経済学者が登場するものがある。それを模して黒猫がPC曲線だとしよう。最初に黒猫の小さな可愛い鳴き声が聞こえ，５分後にまた同じ方向から鳴き声が聞こえたとする。それだけで，黒猫がいた場所が少しでも変わったかどうかを判断するとした場合，非常に難しそうである。
+
+# ```{admonition} 黒猫のジョーク
+# :class: note, dropdown
 # 
-# 更に難しい問題は「真のメカニズム」が存在するかどうかという点である。もちろん，経済学はScienceなので「真のメカニズム」があるというのが前提である。真っ暗な部屋には黒猫がいて，可愛い鳴き声はスピーカーから流されたわけでもなく幻聴でもないというのが前提である。黒猫は一匹だけというもう一つの前提もあるが，，，。
+# A mathematician, a theoretical economist and an econometrician are asked to find a black cat (who doesn't really exist) in a closed room with the lights off: 
+# * The mathematician (数学者) gets crazy trying to find a black cat that doesn't exist inside the darkened room and ends up in a psychiatric hospital. 
+# * The theoretical economist (経済学者) is unable to catch the black cat that doesn't exist inside the darkened room, but exits the room proudly proclaiming that he can construct a model to describe all his movements with extreme accuracy. 
+# * The econometrician (計量経済学者，特に経済データを使う実証研究をする研究者) walks securely into the darkened room, spend one hour looking for the black cat that doesn't exits and shouts from inside the room that he has it catched by the neck." 
+# 
+# [経済学のジョーク](https://www.google.co.jp/search?q=economics+jokes)
+# ```
 
 # ## インフレ率とマネーストックの増加率
 
