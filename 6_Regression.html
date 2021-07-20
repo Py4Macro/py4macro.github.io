@@ -464,7 +464,7 @@ y_i = a+bA_i
 <li><p>メソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使って自動計算を行う。</p></li>
 <li><p>結果の属性やメソッドを使い推定値を表示する。</p></li>
 </ol>
-<p><strong>ステップ１</strong>：推定式の設定</p>
+<p><strong>＜ステップ１＞</strong> 推定式の設定</p>
 <p>回帰式は次のような形で文字列を使って指定する。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;非説明変数 ~ 定数項以外の説明変数&#39;</span>
 </pre></div>
@@ -481,7 +481,7 @@ y_i = a+bA_i
 </div>
 </div>
 </div>
-<p><strong>ステップ２</strong>：自動計算の準備</p>
+<p><strong>＜ステップ２＞</strong> 自動計算の準備</p>
 <p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使って自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成する。次のコードでは変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -491,7 +491,7 @@ y_i = a+bA_i
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ols()</span></code>の第１引数は上で定義した文字列の回帰式であり、第２引数<code class="docutils literal notranslate"><span class="pre">data</span></code>は使用するデータを指定する。</p>
-<p><strong>ステップ３</strong>：自動計算</p>
+<p><strong>＜ステップ３＞</strong> 自動計算</p>
 <p><code class="docutils literal notranslate"><span class="pre">model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使って自動計算し，計算した結果を変数<code class="docutils literal notranslate"><span class="pre">result</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -504,7 +504,7 @@ y_i = a+bA_i
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>ステップ４</strong>：結果の表示</p>
+<p><strong>＜ステップ４＞</strong> 結果の表示</p>
 <p><code class="docutils literal notranslate"><span class="pre">result</span></code>には様々な属性が用意されているが、メソッド<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>を使うと基本的な推定結果を表示することができる。（関数<code class="docutils literal notranslate"><span class="pre">print()</span></code>を使っているが使わなくても同じ情報が表示される。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -518,8 +518,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Mon, 19 Jul 2021   Prob (F-statistic):           7.55e-26
-Time:                        23:01:46   Log-Likelihood:                 49.266
+Date:                Tue, 20 Jul 2021   Prob (F-statistic):           7.55e-26
+Time:                        00:16:46   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -595,8 +595,8 @@ Notes:
 <ul>
 <li><p>左側</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Omnibus</span></code>：オムニバス検定等計量</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Prob(Omnibus)</span></code>：オムニバス検定統計値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Omnibus</span></code>：オムニバス検定統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prob(Omnibus)</span></code>：オムニバス検定<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Skew</span></code>：歪度</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Kurtosis</span></code>：尖度</p></li>
 </ul>
@@ -605,8 +605,8 @@ Notes:
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>：ダービン・ワトソン統計量</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Jarque-Bera</span> <span class="pre">(JB)</span></code>：ジャーク・ベラ検定統計量</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Prob(JB)</span></code>：ジャーク・ベラ検定統計量</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Cond.</span> <span class="pre">No.</span></code>：条件数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Prob(JB)</span></code>：ジャーク・ベラ検定<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cond.</span> <span class="pre">No.</span></code>：条件指数</p></li>
 </ul>
 </li>
 </ul>
@@ -874,8 +874,8 @@ y_i = a + bx_i+e_i
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-&amp;r_i^{\text{tfp}}=a+\beta_{\text{tfp}}+e_i \\
-&amp;r_i^{\text{factors}}=c+\beta_{\text{factors}}+u_i
+&amp;r_i^{\text{tfp}}=a+\beta_{\text{tfp}}r_i^{y}+e_i \\
+&amp;r_i^{\text{factors}}=c+\beta_{\text{factors}}r_i^{y}+u_i
 \end{align*}
 \end{split}\]</div>
 <p>以下では<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使って実際に計算してみよう。</p>
