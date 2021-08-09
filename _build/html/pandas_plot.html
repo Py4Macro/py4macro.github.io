@@ -401,7 +401,7 @@
 </div>
 </div>
 </div>
-<p>プロット用のパッケージ<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>を紹介したが，実は<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のデータ・フレームとシリーズにはメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>が備えられており，それを使えば基本的なプロットをより簡単に実行できる。<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html">参考サイト（英語）</a> 裏で動いているのは<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>であり，より複雑な図を作成する場合は、<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>のコードを直接書くことが必要になるだろう。</p>
+<p>プロット用のパッケージ<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>を紹介したが，実は<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>が備えられており，それを使えば基本的なプロットをより簡単んコードで実現できる。裏で動いているのは<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>であり，より複雑な図を作成する場合は、<code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>のコードを直接書くことが必要になるだろうが，手っ取り早くプロットしたい場合には重宝する手法である。詳細は<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html">参考サイト（英語）</a>を参考にして欲しいが，ここでは基本的な使い方を紹介する。</p>
 <p>次の<code class="docutils literal notranslate"><span class="pre">df0</span></code>を使って説明する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -482,14 +482,14 @@
 <li><p>凡例は自動的に表示され、列ラベルが使われる。</p></li>
 <li><p>図の上に文字が表示されるが，表示したくない場合は最後に<code class="docutils literal notranslate"><span class="pre">;</span></code>を加えるか次の行に<code class="docutils literal notranslate"><span class="pre">pass</span></code>と書くと良いだろう。</p></li>
 </ul>
-<p>次にある列だけをプロットしたいとしよう。その場合は，プロットしたい列を抽出しメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使う。選択には<code class="docutils literal notranslate"><span class="pre">[]</span></code>を使い，その中に列ラベルをリストとして指定する。まず１つの列を選択する場合を考えよう。例えば，<code class="docutils literal notranslate"><span class="pre">X</span></code>を選択するとしよう。この場合、２つの方法がある。</p>
+<p>次にある列だけをプロットしたい場合を考えよう。その場合は，プロットしたい列を抽出しメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使う。選択には<code class="docutils literal notranslate"><span class="pre">[]</span></code>を使い，その中に列ラベルをリストとして指定する。まず１つの列を選択する場合を考えよう。例えば，<code class="docutils literal notranslate"><span class="pre">X</span></code>を選択するとしよう。この場合、２つの方法がある。</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>をシリーズとして抽出する場合</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">Series</span></code>として抽出する場合</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>をデータ・フレームとして抽出する場合</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として抽出する場合</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[[</span><span class="s1">&#39;X&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
@@ -497,7 +497,7 @@
 </li>
 </ul>
 <p>列ラベルは文字列<code class="docutils literal notranslate"><span class="pre">X</span></code>で指定していることに留意しよう。</p>
-<p><code class="docutils literal notranslate"><span class="pre">X</span></code>のシリーズ</p>
+<p>まず<code class="docutils literal notranslate"><span class="pre">X</span></code>の<code class="docutils literal notranslate"><span class="pre">Series</span></code>として抽出しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
@@ -513,7 +513,7 @@ Name: X, dtype: int64
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">X</span></code>のデータ・フレーム</p>
+<p>次に<code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として抽出する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[[</span><span class="s1">&#39;X&#39;</span><span class="p">]]</span>
@@ -559,7 +559,7 @@ Name: X, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>メソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使って図示してみよう。<code class="docutils literal notranslate"><span class="pre">X</span></code>をシリーズとしてプロットする。</p>
+<p>表示が少し異なることが確認できるが，メソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>でも少しだけ違いがある。まず<code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">Series</span></code>としてプロットしてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -571,7 +571,7 @@ Name: X, dtype: int64
 <img alt="_images/pandas_plot_13_0.png" src="_images/pandas_plot_13_0.png" />
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">X</span></code>をデータ・フレームとしてプロットすると凡例も表示される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>としてプロットすると凡例も表示される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[[</span><span class="s1">&#39;X&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -583,6 +583,7 @@ Name: X, dtype: int64
 <img alt="_images/pandas_plot_15_0.png" src="_images/pandas_plot_15_0.png" />
 </div>
 </div>
+<p>この場合の凡例は列ラベルがそのまま使われている。</p>
 <p>次に<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">Z</span></code>をプロットしたいとしよう。２つの列を抽出するためには，以下のように列ラベルをリストとして書く。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -645,7 +646,7 @@ Name: X, dtype: int64
 <img alt="_images/pandas_plot_19_0.png" src="_images/pandas_plot_19_0.png" />
 </div>
 </div>
-<p>もしくはシリーズを2行に分けても同じ図となる。</p>
+<p>もしくは<code class="docutils literal notranslate"><span class="pre">Series</span></code>を2行に分けても同じ図となるが，凡例は表示されない。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df0</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
