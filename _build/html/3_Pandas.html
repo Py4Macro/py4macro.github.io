@@ -3979,8 +3979,8 @@ dtype: int64
 <p>（注意）<code class="docutils literal notranslate"><span class="pre">any()</span></code>の<code class="docutils literal notranslate"><span class="pre">axis</span></code>は「行を縦断」か「列を横断」かを指定する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">filter</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">filter</span><span class="p">,:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span>
 </pre></div>
 </div>
 </div>
@@ -5040,9 +5040,7 @@ Name: gdp, dtype: float64
 <blockquote>
 <div><p>１行目：<code class="docutils literal notranslate"><span class="pre">s</span></code>のコピーを作り<code class="docutils literal notranslate"><span class="pre">s_new</span></code>に割り当てる。</p>
 <p>２行目の右辺：内包表記を使い次のリストを作成する。</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c',</span> <span class="pre">'d',</span> <span class="pre">'e',</span> <span class="pre">'f',</span> <span class="pre">'g',</span> <span class="pre">'h',</span> <span class="pre">'i',</span> <span class="pre">'j',</span> <span class="pre">'k']</span></code></p>
-</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c',</span> <span class="pre">'d',</span> <span class="pre">'e',</span> <span class="pre">'f',</span> <span class="pre">'g',</span> <span class="pre">'h',</span> <span class="pre">'i',</span> <span class="pre">'j',</span> <span class="pre">'k']</span></code></p>
 <p>２行目：<code class="docutils literal notranslate"><span class="pre">s_new</span></code>のインデックス・ラベルを変更
 ３行目：<code class="docutils literal notranslate"><span class="pre">s_new</span></code>の表示</p>
 </div></blockquote>
@@ -5059,6 +5057,7 @@ Name: gdp, dtype: float64
 </div>
 </div>
 </div>
+<p>複数のインデックスを使うことも可能である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_new</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]]</span>
@@ -5093,12 +5092,12 @@ Name: gdp, dtype: float64
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">s</span></code>の場合、順番を表すインデックスで要素アクセスしようとするとエラーが発生する。これはインデックス・ラベルが整数になっている理由のようである。この場合は、インデックス・ラベルである<code class="docutils literal notranslate"><span class="pre">2000</span></code>や<code class="docutils literal notranslate"><span class="pre">2008</span></code>を使い次のようにするとエラーは発生しない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">s</span></code>の場合、順番を表すインデックスで要素アクセスしようとするとエラーが発生する。これはラベルが整数<code class="docutils literal notranslate"><span class="pre">2000,2001...</span></code>になっている理由のようである。この場合は、ラベルである<code class="docutils literal notranslate"><span class="pre">2000</span></code>や<code class="docutils literal notranslate"><span class="pre">2008</span></code>を使い次のようにするとエラーは発生しない。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="p">[</span><span class="mi">2000</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-<p>次にインデックス・ラベルを使った要素のアクセス方法を考える。この場合は辞書と同じ形になる。</p>
+<p>次にラベルを使った要素のアクセス方法を考える。この場合は辞書と同じ形になる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_new</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>

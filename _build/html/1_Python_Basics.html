@@ -2266,28 +2266,32 @@
 <div class="section" id="id29">
 <h4>複利計算<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>：元金</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y0</span></code>：元金</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">t</span></code>：投資期間</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r</span></code>：実質利子率（年率）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：複利の周期（年間の利息発生回数）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">y_total</span></code>：<code class="docutils literal notranslate"><span class="pre">t</span></code>年後の元利合計</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：複利の周期（年間の利息発生回数）</p>
+<ul>
+<li><p>例えば，毎月利息が発生する場合は<code class="docutils literal notranslate"><span class="pre">m=12</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yt</span></code>：<code class="docutils literal notranslate"><span class="pre">t</span></code>年後の元利合計</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
-\text{y_total}=y\left( 1+\dfrac{r}{m}  \right)^{mt}
+yt=y0\left( 1+\dfrac{r}{m}  \right)^{mt}
 \]</div>
 <p><code class="docutils literal notranslate"><span class="pre">t</span></code>年後の元利合計を計算する関数を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">y_total</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">y</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="o">/</span><span class="n">m</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_yt</span><span class="p">(</span><span class="n">y0</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">y0</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="o">/</span><span class="n">m</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_total</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_yt</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2299,7 +2303,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_total</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_yt</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3077,42 +3081,42 @@ Y=F(K,L)
 <p><span class="math notranslate nohighlight">\(\sigma\)</span>が一定な生産関数はCES生産関数（Constant Elasticity of Substitution）と呼ばれ，次の式で与えられる。</p>
 <div class="math notranslate nohighlight">
 \[
-Y = a\left[\alpha (bK)^\rho+(1-\alpha)(cL)^\rho\right]^{\frac{1}{\rho}}
+Y = A\left[a(bK)^\rho+(1-a)(cL)^\rho\right]^{\frac{1}{\rho}}
 \]</div>
 <p>ここで</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\sigma=\dfrac{1}{1-\rho}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\rho\leq 1\)</span>：要素の代替の程度を決定する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(0&lt;\alpha&lt;1\)</span>：要素の貢献度のシェアを決定する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(0&lt;a&lt;1\)</span>：要素の貢献度のシェアを決定する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(b&gt;0,c&gt;\)</span>：要素の単位に依存する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(a&gt;0\)</span>：生産の単位に依存する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(A&gt;0\)</span>：生産の単位に依存する（生産性）。</p></li>
 </ul>
 <p>また，<span class="math notranslate nohighlight">\(\rho\)</span>の値によって次のような生産関数となる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 Y = 
 \begin{cases}
-    &amp;a\left[\alpha bK+(1-\alpha)cL\right],\quad\rho=1\quad \text{（完全代替型）}\\
-    &amp;aK^\alpha L^{1-\alpha},\quad\rho=0\quad\text{（コブ・ダグラス型）}\\
-    &amp;a\cdot\text{min}\left\{bK, cL\right\},\quad\rho=-\infty\quad\text{（完全補完型またはレオンティエフ型）}
+    &amp;A\left[a bK+(1-a)cL\right],\quad\rho=1\quad \text{（完全代替型）}\\
+    &amp;AK^a L^{1-a},\quad\rho=0\quad\text{（コブ・ダグラス型）}\\
+    &amp;A\cdot\text{min}\left\{bK, cL\right\},\quad\rho=-\infty\quad\text{（完全補完型またはレオンティエフ型）}
 \end{cases}
 \end{split}\]</div>
 <p>次のコードで<span class="math notranslate nohighlight">\(\rho=-\infty\)</span>以外のケースを関数で表している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ces_production</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ces_production</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     
     <span class="k">if</span> <span class="n">rho</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rhoには１以下の数字を入力してください。&#39;</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">rho</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span> <span class="n">alpha</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">l</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">l</span> <span class="p">)</span>
     
     <span class="k">elif</span> <span class="n">rho</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">l</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">l</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
     
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">k</span><span class="p">)</span><span class="o">**</span><span class="n">rho</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">l</span><span class="p">)</span><span class="o">**</span><span class="n">rho</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">k</span><span class="p">)</span><span class="o">**</span><span class="n">rho</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">l</span><span class="p">)</span><span class="o">**</span><span class="n">rho</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3543,12 +3547,12 @@ print(...)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a	 b	 c	 c_list	 calculate_futre_value	 ces_production	 change_in_gdp	 con	 consumption	 
-current_value	 d	 dict0	 func_0	 func_1	 func_100	 func_2	 func_3	 func_kobe	 
-future_value	 gdp_component	 gdp_components	 i	 income_list	 keyword	 list0	 list1	 log	 
-lst	 m	 math	 my_list	 my_tuple	 s	 scope_0	 scope_1	 scope_2	 
-scope_3	 scope_4	 see	 sqrt	 tuple0	 v	 values	 var_list	 x	 
-x_list	 y	 y_total	 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a	 b	 c	 c_list	 calculate_futre_value	 calculate_yt	 ces_production	 change_in_gdp	 con	 
+consumption	 current_value	 d	 dict0	 func_0	 func_1	 func_100	 func_2	 func_3	 
+func_kobe	 future_value	 gdp_component	 gdp_components	 i	 income_list	 keyword	 list0	 list1	 
+log	 lst	 m	 math	 my_list	 my_tuple	 s	 scope_0	 scope_1	 
+scope_2	 scope_3	 scope_4	 see	 sqrt	 tuple0	 v	 values	 var_list	 
+x	 x_list	 y	 
 </pre></div>
 </div>
 </div>

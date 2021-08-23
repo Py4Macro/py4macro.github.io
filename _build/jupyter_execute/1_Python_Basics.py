@@ -1020,14 +1020,15 @@ current_value(100, 0.05, 0.03, 10)
 
 # #### 複利計算
 
-# * `y`：元金
+# * `y0`：元金
 # * `t`：投資期間
 # * `r`：実質利子率（年率）
 # * `m`：複利の周期（年間の利息発生回数）
-# * `y_total`：`t`年後の元利合計
+#     * 例えば，毎月利息が発生する場合は`m=12`
+# * `yt`：`t`年後の元利合計
 # 
 # $$
-# \text{y_total}=y\left( 1+\dfrac{r}{m}  \right)^{mt}
+# yt=y0\left( 1+\dfrac{r}{m}  \right)^{mt}
 # $$
 # 
 # `t`年後の元利合計を計算する関数を考えよう。
@@ -1035,20 +1036,20 @@ current_value(100, 0.05, 0.03, 10)
 # In[104]:
 
 
-def y_total(y=100, r=0.05, m=1, t=10):
-    return y*( 1+r/m )**(m*t)
+def calculate_yt(y0=100, r=0.05, m=1, t=10):
+    return y0*( 1+r/m )**(m*t)
 
 
 # In[105]:
 
 
-y_total()
+calculate_yt()
 
 
 # In[106]:
 
 
-y_total(m=12)
+calculate_yt(m=12)
 
 
 # (object)=
@@ -1543,24 +1544,24 @@ else:
 # $\sigma$が一定な生産関数はCES生産関数（Constant Elasticity of Substitution）と呼ばれ，次の式で与えられる。
 # 
 # $$
-# Y = a\left[\alpha (bK)^\rho+(1-\alpha)(cL)^\rho\right]^{\frac{1}{\rho}}
+# Y = A\left[a(bK)^\rho+(1-a)(cL)^\rho\right]^{\frac{1}{\rho}}
 # $$
 # 
 # ここで
 # * $\sigma=\dfrac{1}{1-\rho}$
 # * $\rho\leq 1$：要素の代替の程度を決定する。
-# * $0<\alpha<1$：要素の貢献度のシェアを決定する。
+# * $0<a<1$：要素の貢献度のシェアを決定する。
 # * $b>0,c>$：要素の単位に依存する。
-# * $a>0$：生産の単位に依存する。
+# * $A>0$：生産の単位に依存する（生産性）。
 # 
 # また，$\rho$の値によって次のような生産関数となる。
 # 
 # $$
 # Y = 
 # \begin{cases}
-#     &a\left[\alpha bK+(1-\alpha)cL\right],\quad\rho=1\quad \text{（完全代替型）}\\
-#     &aK^\alpha L^{1-\alpha},\quad\rho=0\quad\text{（コブ・ダグラス型）}\\
-#     &a\cdot\text{min}\left\{bK, cL\right\},\quad\rho=-\infty\quad\text{（完全補完型またはレオンティエフ型）}
+#     &A\left[a bK+(1-a)cL\right],\quad\rho=1\quad \text{（完全代替型）}\\
+#     &AK^a L^{1-a},\quad\rho=0\quad\text{（コブ・ダグラス型）}\\
+#     &A\cdot\text{min}\left\{bK, cL\right\},\quad\rho=-\infty\quad\text{（完全補完型またはレオンティエフ型）}
 # \end{cases}
 # $$
 # 
@@ -1569,19 +1570,19 @@ else:
 # In[134]:
 
 
-def ces_production(k, l, rho=0, alpha=0.3, a=1, b=1, c=1):
+def ces_production(k, l, rho=0, A=1, a=0.3, b=1, c=1):
     
     if rho > 1:
         print('rhoには１以下の数字を入力してください。')
 
     elif rho == 1:
-        return a*( alpha*b*k + (1-alpha)*c*l )
+        return A*( a*b*k + (1-a)*c*l )
     
     elif rho == 0:
-        return a*k**alpha * l**(1-alpha)
+        return A*k**a * l**(1-a)
     
     else:
-        return a*( alpha*(b*k)**rho + (1-alpha)*(c*l)**rho )**(1/rho)
+        return A*( a*(b*k)**rho + (1-a)*(c*l)**rho )**(1/rho)
 
 
 # In[135]:
