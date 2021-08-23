@@ -303,7 +303,7 @@ pass
 # ### `plot()`の基本的な引数
 
 # `plot()`は軸`ax`にデータを描くメソッドだが、引数を使うことによりデータの表示方法を指定できる。詳しくは[このリンク](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html)を参照することにして，ここでは基本的な引数だけを紹介する。
-# * `linestyle`：線のスタイル（リストにして列の順番で指定する;`-``--``-.``:`などがある）
+# * `linestyle`：線のスタイル（リストにして列の順番で指定する;`-`，`--`，`-.`，`:`などがある）
 # * `linewidth` or `lw`：線の幅
 # * `color` or `c`：色（[参照サイト](https://matplotlib.org/stable/gallery/color/named_colors.html)）
 #     * `r`は赤
