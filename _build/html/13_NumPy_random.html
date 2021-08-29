@@ -453,7 +453,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">inv</span><span class="p">,</span> <span class="n">eigvals</span><span class="p">,</span> <span class="n">solve</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
@@ -495,15 +494,15 @@
 </div>
 <div class="section" id="id3">
 <h2>ランダム変数生成コード<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>ランダム変数の生成について説明する。ここでは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使いランダム変数を生成する。最初に<code class="docutils literal notranslate"><span class="pre">default_rng</span></code>をインポートしているが，その関数を使うと様々なランダム変数を生成することが可能となる。まず以下に続くのコードを分かりやすくするために<code class="docutils literal notranslate"><span class="pre">default_rng</span></code>を変数<code class="docutils literal notranslate"><span class="pre">rng</span></code>に割り当てる。</p>
+<p>ランダム変数の生成について説明する。ここでは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使いランダム変数を生成するが，<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールの中でまず最初に使う必要があるのが<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>関数である。以下では続くコードを分かりやすくするために<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>を変数<code class="docutils literal notranslate"><span class="pre">rng</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">rng</span></code>（random number generatorの略）はランダム変数を生成するための「種」であり，この「種」に分布関数を指定することによりランダム変数が生成される。ここでは正規分布と一様分布を使う。</p>
+<p><code class="docutils literal notranslate"><span class="pre">rng</span></code>はrandom number generatorの略であり，様々なランダム変数のための下準備となる。言い換えると，<code class="docutils literal notranslate"><span class="pre">rng</span></code>はランダム変数を生成するための「種」であり，この「種」に分布関数を指定することによりランダム変数が生成される。以下では正規分布と一様分布の使い方を例に説明する。</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>ランダム変数の生成にはパッケージ<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>の<code class="docutils literal notranslate"><span class="pre">stats</span></code>モジュールを使うこともできる。興味がある人は<a class="reference external" href="https://py4etrics.github.io/5_SciPy_stats.html">このリンク</a>を参照しよう。</p>
@@ -526,8 +525,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 5.91249868, 10.43198281,  4.44524554,  3.78841242,  4.55062835,
-        7.46553103,  3.21686225,  6.82498401,  5.80903818, 10.33992329])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.86138251, 6.22208177, 2.46824863, 6.45454051, 5.41932338,
+       0.84846988, 7.20222194, 6.68402135, 2.57345992, 6.77283395])
 </pre></div>
 </div>
 </div>
@@ -541,7 +540,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.59573709, -0.99736369,  1.47026581, -0.84122129, -0.1399665 ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.6356757 , -0.70434905, -0.74748934, -0.60635975, -0.6815117 ])
 </pre></div>
 </div>
 </div>
@@ -587,8 +586,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 9.92932862, 22.93075648, 26.46555238,  9.38090555, 21.6212021 ,
-       21.86660582,  8.42626659, 12.96349154, 16.3026549 ,  8.82992044])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([22.51692338,  9.50405588, 28.47262098,  6.32595594, 10.05490016,
+       14.83771741, 16.73192308,  6.98272709, 24.60615875, 22.9819857 ])
 </pre></div>
 </div>
 </div>
@@ -601,7 +600,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.69547498, 0.96590825, 0.09803251, 0.05584828, 0.31117773])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.14426777, 0.79646078, 0.5831598 , 0.83672742, 0.03487957])
 </pre></div>
 </div>
 </div>
@@ -691,7 +690,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.19670126481238928, 0.8740704571499991)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.03466235846926736, 0.9712686511126186)
 </pre></div>
 </div>
 </div>
@@ -768,8 +767,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.88808407, -0.17161549],
-       [-0.17161549,  0.88847209]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.9845798 , -0.00157212],
+       [-0.00157212,  0.98065401]])
 </pre></div>
 </div>
 </div>
@@ -783,7 +782,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.1932001868580427
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.0015999327677097574
 </pre></div>
 </div>
 </div>
@@ -1349,7 +1348,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.698
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.671
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_118_1.png" src="_images/13_NumPy_random_118_1.png" />
@@ -1728,92 +1727,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>768812.004430</td>
-      <td>-0.000274</td>
-      <td>1.005190</td>
-      <td>-0.005177</td>
-      <td>263176.187542</td>
-      <td>-0.012548</td>
-      <td>209602.576038</td>
-      <td>-0.012548</td>
-      <td>53573.611503</td>
-      <td>-0.012548</td>
+      <td>769137.528332</td>
+      <td>-0.000697</td>
+      <td>1.004363</td>
+      <td>-0.004354</td>
+      <td>262989.932753</td>
+      <td>-0.011840</td>
+      <td>209454.236312</td>
+      <td>-0.011840</td>
+      <td>53535.696441</td>
+      <td>-0.011840</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>1.002904</td>
+      <td>1.004516</td>
       <td>0.377800</td>
-      <td>265399.684221</td>
-      <td>211373.445341</td>
-      <td>54026.238880</td>
-      <td>803118.431438</td>
-      <td>-0.001029</td>
-      <td>1.004850</td>
-      <td>-0.001938</td>
-      <td>267360.489065</td>
-      <td>-0.007361</td>
-      <td>212935.097823</td>
-      <td>-0.007361</td>
-      <td>54425.391242</td>
-      <td>-0.007361</td>
+      <td>265826.268275</td>
+      <td>211713.191567</td>
+      <td>54113.076707</td>
+      <td>803325.339955</td>
+      <td>-0.001287</td>
+      <td>1.003887</td>
+      <td>0.000627</td>
+      <td>267114.955021</td>
+      <td>-0.004836</td>
+      <td>212739.546057</td>
+      <td>-0.004836</td>
+      <td>54375.408964</td>
+      <td>-0.004836</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>836261.154116</td>
-      <td>1.009396</td>
+      <td>836347.991943</td>
+      <td>1.001823</td>
       <td>0.378790</td>
-      <td>271845.555035</td>
-      <td>216507.158767</td>
-      <td>55338.396268</td>
-      <td>837424.726990</td>
-      <td>-0.001390</td>
-      <td>1.004507</td>
-      <td>0.004856</td>
-      <td>271542.739580</td>
-      <td>0.001115</td>
-      <td>216265.986114</td>
-      <td>0.001115</td>
-      <td>55276.753466</td>
-      <td>0.001115</td>
+      <td>269816.160998</td>
+      <td>214890.879491</td>
+      <td>54925.281507</td>
+      <td>837512.816669</td>
+      <td>-0.001392</td>
+      <td>1.003408</td>
+      <td>-0.001580</td>
+      <td>271238.042689</td>
+      <td>-0.005256</td>
+      <td>216023.315021</td>
+      <td>-0.005256</td>
+      <td>55214.727669</td>
+      <td>-0.005256</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>870693.021531</td>
-      <td>1.004148</td>
+      <td>870364.573652</td>
+      <td>1.015649</td>
       <td>0.379782</td>
-      <td>275107.992494</td>
-      <td>219105.476274</td>
-      <td>56002.516219</td>
-      <td>871730.243249</td>
-      <td>-0.001191</td>
-      <td>1.004156</td>
-      <td>-0.000007</td>
-      <td>275719.662572</td>
-      <td>-0.002221</td>
-      <td>219592.631383</td>
-      <td>-0.002221</td>
-      <td>56127.031190</td>
-      <td>-0.002221</td>
+      <td>278220.977543</td>
+      <td>221584.764737</td>
+      <td>56636.212806</td>
+      <td>871698.977867</td>
+      <td>-0.001532</td>
+      <td>1.002924</td>
+      <td>0.012608</td>
+      <td>275356.455728</td>
+      <td>0.010349</td>
+      <td>219303.360948</td>
+      <td>0.010349</td>
+      <td>56053.094780</td>
+      <td>0.010349</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>904928.212212</td>
-      <td>1.010100</td>
+      <td>905241.672116</td>
+      <td>1.001635</td>
       <td>0.380777</td>
-      <td>281342.701725</td>
-      <td>224071.013347</td>
-      <td>57271.688379</td>
-      <td>906033.605144</td>
-      <td>-0.001221</td>
-      <td>1.003796</td>
-      <td>0.006261</td>
-      <td>279888.170790</td>
-      <td>0.005183</td>
-      <td>222912.574835</td>
-      <td>0.005183</td>
-      <td>56975.595955</td>
-      <td>0.005183</td>
+      <td>279019.828057</td>
+      <td>222220.996789</td>
+      <td>56798.831269</td>
+      <td>905882.114926</td>
+      <td>-0.000707</td>
+      <td>1.002431</td>
+      <td>-0.000794</td>
+      <td>279466.565431</td>
+      <td>-0.001600</td>
+      <td>222576.793813</td>
+      <td>-0.001600</td>
+      <td>56889.771618</td>
+      <td>-0.001600</td>
     </tr>
   </tbody>
 </table>
@@ -1866,11 +1865,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.399
-Cの変動： 0.399
-Iの変動： 0.399
-Kの変動： 0.861
-Aの変動： 0.396
+Yの変動： 0.347
+Cの変動： 0.347
+Iの変動： 0.347
+Kの変動： 0.882
+Aの変動： 0.344
 </pre></div>
 </div>
 </div>
@@ -1944,10 +1943,10 @@ consumptionの変動： 0.522
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：GDPとの相関係数 ---
 
-Cの変動： 0.033
-Iの変動： 0.033
-Kの変動： 0.004
-Aの変動： 0.945
+Cの変動： 0.034
+Iの変動： 0.034
+Kの変動： 0.003
+Aの変動： 0.865
 </pre></div>
 </div>
 </div>

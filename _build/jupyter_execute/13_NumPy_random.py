@@ -8,7 +8,6 @@
 
 import numpy as np
 from numpy.linalg import inv, eigvals, solve
-from numpy.random import default_rng
 import pandas as pd
 import statsmodels.formula.api as sm
 import japanize_matplotlib
@@ -46,15 +45,15 @@ pass
 
 # ## ランダム変数生成コード
 
-# ランダム変数の生成について説明する。ここでは`NumPy`の`random`モジュールを使いランダム変数を生成する。最初に`default_rng`をインポートしているが，その関数を使うと様々なランダム変数を生成することが可能となる。まず以下に続くのコードを分かりやすくするために`default_rng`を変数`rng`に割り当てる。
+# ランダム変数の生成について説明する。ここでは`NumPy`の`random`モジュールを使いランダム変数を生成するが，`random`モジュールの中でまず最初に使う必要があるのが`default_rng()`関数である。以下では続くコードを分かりやすくするために`default_rng()`を変数`rng`に割り当てる。
 
 # In[3]:
 
 
-rng = default_rng()
+rng = np.random.default_rng()
 
 
-# `rng`（random number generatorの略）はランダム変数を生成するための「種」であり，この「種」に分布関数を指定することによりランダム変数が生成される。ここでは正規分布と一様分布を使う。
+# `rng`はrandom number generatorの略であり，様々なランダム変数のための下準備となる。言い換えると，`rng`はランダム変数を生成するための「種」であり，この「種」に分布関数を指定することによりランダム変数が生成される。以下では正規分布と一様分布の使い方を例に説明する。
 
 # ```{tip}
 # ランダム変数の生成にはパッケージ`SciPy`の`stats`モジュールを使うこともできる。興味がある人は[このリンク](https://py4etrics.github.io/5_SciPy_stats.html)を参照しよう。
