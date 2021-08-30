@@ -7,7 +7,6 @@
 
 
 import numpy as np
-from numpy.linalg import inv, eigvals, solve
 import pandas as pd
 import statsmodels.formula.api as sm
 import japanize_matplotlib
