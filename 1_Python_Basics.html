@@ -710,7 +710,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/ipykernel_3716/347005933.py&quot;</span><span class="gt">, line </span><span class="mi">1</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/ipykernel_3610/347005933.py&quot;</span><span class="gt">, line </span><span class="mi">1</span>
 <span class="g g-Whitespace">    </span><span class="mi">10</span>
       <span class="o">^</span>
 <span class="ne">SyntaxError</span>: invalid character in identifier
@@ -1088,7 +1088,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">8</span><span class="n">k48jl6d249_n_qfxwsl6xvm0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3716</span><span class="o">/</span><span class="mf">3456849713.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">8</span><span class="n">k48jl6d249_n_qfxwsl6xvm0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3610</span><span class="o">/</span><span class="mf">3456849713.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span> <span class="o">+</span> <span class="s1">&#39;1.0&#39;</span>
 
 <span class="ne">TypeError</span>: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;
@@ -2135,9 +2135,6 @@
 64
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>返り値はタプルなので、それに合わせて次のように書くこともできる。
@@ -3178,11 +3175,24 @@ print(...)
 <h3>説明<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <p>Pythonには組み込み関数が多く用意されているが，Jupyter Notebookで<code class="docutils literal notranslate"><span class="pre">Python</span></code>のセッションを開始しても全ての関数が使える状態になっていない。使えるようにするためには，モジュール（modules）やパッケージ（package）と呼ばれるものを読み込む必要がある。２つの違いを簡単にいうと</p>
 <ul class="simple">
-<li><p>モジュールは１つのファイル（.py）にまとめられた関数群であり，</p></li>
-<li><p>パッケージは複数つのファイル（.py）で構成されている（フォルダーにまとめられている）</p></li>
+<li><p>モジュール（module）は<strong>１つ</strong>のファイル（拡張子が<code class="docutils literal notranslate"><span class="pre">.py</span></code>）にまとめられた関数群であり，</p></li>
+<li><p>パッケージは（package）<strong>複数</strong>つのファイル（拡張子が<code class="docutils literal notranslate"><span class="pre">.py</span></code>）で構成されている（フォルダーにまとめられている）</p></li>
 </ul>
 <p>となる。従って，モジュール全体を読み込んだり，あるパッケージの１つのモジュールだけを読み込むということも可能である。授業では，<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>，<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>，<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>を使うが，ここでは例として数学用の<code class="docutils literal notranslate"><span class="pre">math</span></code>モジュールを考える。</p>
 <p>含まれる関数を使うためには<code class="docutils literal notranslate"><span class="pre">import</span></code>を使って読み込む必要がある。モジュールの全てを読み込むとモジュール内の全ての関数が使用可能となる。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>更に付け加えると，サブパッケージ（subpackage）とサブモジュール（submodule）がある大きなパッケージもある。例えば，次の章で説明する<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>パッケージである。フォルダーのの構成で考えると次のようになる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>package（フォルダー）
+|-- __init__.py（ファイル）
+|-- module.py（ファイル; 関数が配置）
+|-- subpackage（フォルダー）
+        |-- __init__.py（ファイル）
+        |-- submodule.py（ファイル; 関数が配置）
+</pre></div>
+</div>
+<p>ここで<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>はパッケージとサブパッケージのフォルダーに必ず必要なファイルであり，空の場合もあれば関数が含まれる場合もある。</p>
+</div>
 </div>
 <div class="section" id="math">
 <h3><code class="docutils literal notranslate"><span class="pre">math</span></code>モジュール<a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h3>
@@ -3250,7 +3260,7 @@ print(...)
 </div>
 <div class="section" id="see">
 <h3><code class="docutils literal notranslate"><span class="pre">see</span></code>モジュール<a class="headerlink" href="#see" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="#object"><span class="std std-ref">オブジェクトと属性</span></a>の節で属性を確認する<code class="docutils literal notranslate"><span class="pre">dir()</span></code>関数について説明した。<code class="docutils literal notranslate"><span class="pre">dir()</span></code>は組み込み関数であるため，パッケージやモジュールをインポートしなくても使えるので便利である。しかし，通常使う必要がないダンダー<code class="docutils literal notranslate"><span class="pre">__</span></code>が付いている属性（例えば，<code class="docutils literal notranslate"><span class="pre">__init__</span></code>）まで表示される。それらを省いて，属性のリストを見やすく表示する<code class="docutils literal notranslate"><span class="pre">see</span></code>モジュールを紹介する。使い方は簡単で，まず次のコードでインポートする。</p>
+<p><a class="reference internal" href="#object"><span class="std std-ref">オブジェクトと属性</span></a>の節で属性を確認する<code class="docutils literal notranslate"><span class="pre">dir()</span></code>関数について説明した。<code class="docutils literal notranslate"><span class="pre">dir()</span></code>は組み込み関数であるため，パッケージやモジュールをインポートしなくても使えるので便利である。しかし通常使う必要がないダンダー<code class="docutils literal notranslate"><span class="pre">__</span></code>が付いている属性（例えば，<code class="docutils literal notranslate"><span class="pre">__init__</span></code>）まで表示される。それらを省いて，属性のリストを見やすく表示する<code class="docutils literal notranslate"><span class="pre">see</span></code>モジュールを紹介する。使い方は簡単で，まず次のコードでインポートする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="n">see</span>
@@ -3461,7 +3471,7 @@ print(...)
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">8</span><span class="n">k48jl6d249_n_qfxwsl6xvm0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3716</span><span class="o">/</span><span class="mf">3973646127.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">8</span><span class="n">k48jl6d249_n_qfxwsl6xvm0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3610</span><span class="o">/</span><span class="mf">3973646127.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">s_local</span>
 
 <span class="ne">NameError</span>: name &#39;s_local&#39; is not defined
