@@ -4,7 +4,13 @@
 # (chap:2-numpy)=
 # # NumPy
 
-# このトピックでしようするパッケージとモジュールをインポートする。
+# <div name="html-admonition" style="background: transparent; padding: 10px">
+# If you come here without expecting Japanese, please click 
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" /> in English or the language of your choice.
+# </div>
+
+# ---
+# `NumPy`は，数値計算をする上で重要な役割を果たすパッケージであり，特に，行列計算に威力を発揮する。`NumPy`は「ナンパイ」と読む。慣例として`np`としてインポートする。
 
 # In[1]:
 
@@ -13,8 +19,6 @@ import numpy as np
 
 
 # ## `array`
-
-# `NumPy`は，数値計算をする上で重要な役割を果たすパッケージであり，特に，行列計算に威力を発揮する。`NumPy`は「ナンパイ」と読む。慣例として`np`としてインポートする。
 
 # 基本となる関数が`np.array()`であり，次のコードでは１次元配列を作る。
 
@@ -60,6 +64,8 @@ np.array([l,l])
 
 
 # 後述するが、`ndarray`をリストに変換するメソッドも用意されている。
+# 
+# `array`について[このサイト](https://note.com/sayajewels/n/n95edaedb0fc5)では図を使って説明しているので興味があるひとは参考にしてはどうだろうか。
 
 # ## １次元配列：要素の抽出
 
