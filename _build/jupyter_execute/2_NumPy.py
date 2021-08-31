@@ -4,12 +4,6 @@
 # (chap:2-numpy)=
 # # NumPy
 
-# <div name="html-admonition" style="background: transparent; padding: 10px">
-# If you come here without expecting Japanese, please click 
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" /> in English or the language of your choice.
-# </div>
-
-# ---
 # `NumPy`は，数値計算をする上で重要な役割を果たすパッケージであり，特に，行列計算に威力を発揮する。`NumPy`は「ナンパイ」と読む。慣例として`np`としてインポートする。
 
 # In[1]:
@@ -29,7 +23,15 @@ arr = np.array([10, 20, 30, 40, 50])
 arr
 
 
-# 次に２次元配列、即ち、行列を作る。
+# ```{margin}
+# <div name="html-admonition">
+# Do you want to read in a differnt language? Open the 
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+# in English or the language of your choice.
+# </div>
+# ```
+
+# 次に２次元配列を作成しよう。
 
 # In[3]:
 
@@ -37,6 +39,8 @@ arr
 mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 mat
 
+
+# `mat`は行列と解釈できる。データ型を確認してみよう。
 
 # In[4]:
 
