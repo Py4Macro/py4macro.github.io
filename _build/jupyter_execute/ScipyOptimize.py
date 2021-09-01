@@ -14,7 +14,15 @@ import pandas as pd
 # ## はじめに
 
 # 線形の方程式の解を求めることは比較的簡単である。１変数の場合は簡単に式を変形できる。変数が複数ある場合でも，[「連立一次方程式の解」の節](sec:2-simultaneousEq)で説明したように，`numpy.linalg`を使えば簡単に解を求めることができる。例えば，[差分方程式と経済分析](chap:7-differenceEq)で扱った45度線モデルと蜘蛛の巣モデルは線形であるため、長期的な均衡の値を簡単に計算することができる。またソロー・モデルも線形ではないが、定常状態の資本ストック（$k_*$）について解くことができるので、長期的な値を計算することが可能である。しかし非線形モデルによっては、長期的均衡の値を簡単に求めることができない場合もあり、その場合に使う手法をここで説明する。
-# 
+
+# ```{margin}
+# <div name="html-admonition">
+# Do you want to read in a differnt language? Open the 
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+# in English or the language of your choice.
+# </div>
+# ```
+
 # コードを書いて非線形の方程式の解を求めるには色々な方法があるり，ここではその代表的な方法の考え方についてまず説明する。その後`SciPy`（「サイパイ」と読み，Scientific Pythonの略）というパッケージにある`optimize`というモジュールを紹介する。`SciPy`は`NumPy`の大幅な拡張版と理解して良いだろう。`SciPy`を読み込むと`NumPy`の関数などを利用できるようになる。しかし`SciPy`は大きなパッケージであり，全てを読み込む必要もない。従って，`NumPy`を読み込んで`SciPy`のサブパッケージや関数を読み込むということで十分であろう。そして`SciPy`のモジュール`optimize`に非線形の方程式の解を簡単に求めることができる関数が含まれている。もちろんこれらの関数は線形の方程式の解を求める為にも使える。また`scipy.optimize`には最適化問題のための関数も用意されており，`Python`で経済学を学ぶ為には必須となるツールと言えるだろう。消費者の効用最大化問題やソロー・モデルの資本の黄金律水準などに応用して使い方を説明する。
 
 # ## 解の求め方と考え方
