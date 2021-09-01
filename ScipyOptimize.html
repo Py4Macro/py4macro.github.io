@@ -529,6 +529,14 @@
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>線形の方程式の解を求めることは比較的簡単である。１変数の場合は簡単に式を変形できる。変数が複数ある場合でも，<a class="reference internal" href="2_NumPy.html#sec-2-simultaneouseq"><span class="std std-ref">「連立一次方程式の解」の節</span></a>で説明したように，<code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code>を使えば簡単に解を求めることができる。例えば，<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">差分方程式と経済分析</span></a>で扱った45度線モデルと蜘蛛の巣モデルは線形であるため、長期的な均衡の値を簡単に計算することができる。またソロー・モデルも線形ではないが、定常状態の資本ストック（<span class="math notranslate nohighlight">\(k_*\)</span>）について解くことができるので、長期的な値を計算することが可能である。しかし非線形モデルによっては、長期的均衡の値を簡単に求めることができない場合もあり、その場合に使う手法をここで説明する。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div name="html-admonition">
+Do you want to read in a differnt language? Open the 
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+in English or the language of your choice.
+</div>
+</div>
 <p>コードを書いて非線形の方程式の解を求めるには色々な方法があるり，ここではその代表的な方法の考え方についてまず説明する。その後<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>（「サイパイ」と読み，Scientific Pythonの略）というパッケージにある<code class="docutils literal notranslate"><span class="pre">optimize</span></code>というモジュールを紹介する。<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>は<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の大幅な拡張版と理解して良いだろう。<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>を読み込むと<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の関数などを利用できるようになる。しかし<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>は大きなパッケージであり，全てを読み込む必要もない。従って，<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>を読み込んで<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>のサブパッケージや関数を読み込むということで十分であろう。そして<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>のモジュール<code class="docutils literal notranslate"><span class="pre">optimize</span></code>に非線形の方程式の解を簡単に求めることができる関数が含まれている。もちろんこれらの関数は線形の方程式の解を求める為にも使える。また<code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>には最適化問題のための関数も用意されており，<code class="docutils literal notranslate"><span class="pre">Python</span></code>で経済学を学ぶ為には必須となるツールと言えるだろう。消費者の効用最大化問題やソロー・モデルの資本の黄金律水準などに応用して使い方を説明する。</p>
 </div>
 <div class="section" id="id3">
@@ -591,7 +599,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_14_0.png" src="_images/ScipyOptimize_14_0.png" />
+<img alt="_images/ScipyOptimize_16_0.png" src="_images/ScipyOptimize_16_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1122,7 +1130,7 @@ x_{t+1} = x_t - \dfrac{f(x_t)}{f^{\prime}(x_t)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_71_0.png" src="_images/ScipyOptimize_71_0.png" />
+<img alt="_images/ScipyOptimize_73_0.png" src="_images/ScipyOptimize_73_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">h0(y)</span></code>関数は右上りとなっている。傾きを直感的に説明すると次のようになる。<code class="docutils literal notranslate"><span class="pre">Y</span></code>が増加すると，当たり前だが所得<code class="docutils literal notranslate"><span class="pre">Y</span></code>は線形的に増加する。一方で，計画支出の一部である消費も増加するが，<code class="docutils literal notranslate"><span class="pre">a</span></code>は0.5に設定されているため，増加分は逓減している。したがって，所得と計画支出の差は上昇することになる。</p>
@@ -1239,7 +1247,7 @@ I = \dfrac{j}{r^{b}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_86_0.png" src="_images/ScipyOptimize_86_0.png" />
+<img alt="_images/ScipyOptimize_88_0.png" src="_images/ScipyOptimize_88_0.png" />
 </div>
 </div>
 </div>
@@ -1322,7 +1330,7 @@ I = \dfrac{j}{r^{b}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_96_0.png" src="_images/ScipyOptimize_96_0.png" />
+<img alt="_images/ScipyOptimize_98_0.png" src="_images/ScipyOptimize_98_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>を使い定常状態<span class="math notranslate nohighlight">\(k_*\)</span>を計算してみよう。</p>
@@ -1541,7 +1549,7 @@ I = \dfrac{j}{r^{b}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_125_0.png" src="_images/ScipyOptimize_125_0.png" />
+<img alt="_images/ScipyOptimize_127_0.png" src="_images/ScipyOptimize_127_0.png" />
 </div>
 </div>
 <p>まず<code class="docutils literal notranslate"><span class="pre">method</span></code>のデフォルトである<code class="docutils literal notranslate"><span class="pre">brent</span></code>法を使ってみよう。解が２つあるため、次のコードでは<code class="docutils literal notranslate"><span class="pre">Python</span></code>が選んだ解しか求めることができない。</p>
@@ -1684,7 +1692,7 @@ c=(1-s)A\left(\frac{As}{d}\right)^{\frac{a}{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_137_0.png" src="_images/ScipyOptimize_137_0.png" />
+<img alt="_images/ScipyOptimize_139_0.png" src="_images/ScipyOptimize_139_0.png" />
 </div>
 </div>
 <p>次に一人当たり消費を最大化する貯蓄率を求めるために関数を定義する。</p>
@@ -1913,7 +1921,7 @@ c=
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ScipyOptimize_168_0.png" src="_images/ScipyOptimize_168_0.png" />
+<img alt="_images/ScipyOptimize_170_0.png" src="_images/ScipyOptimize_170_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
