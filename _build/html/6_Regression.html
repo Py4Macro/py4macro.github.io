@@ -56,7 +56,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="差分方程式と経済分析" href="7_DifferenceEq.html" />
-    <link rel="prev" title="発展会計と成長会計" href="5_Income_Differences.html" />
+    <link rel="prev" title="成長会計" href="5b_Growth_Accounting.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -118,8 +118,13 @@
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="5_Income_Differences.html">
-   発展会計と成長会計
+  <a class="reference internal" href="5a_Development_Accounting.html">
+   発展会計
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5b_Growth_Accounting.html">
+   成長会計
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -377,11 +382,11 @@
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>この章の目的は２つある。第一に，<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使って回帰分析の方法を紹介する事である。読者には統計学や計量経済学を学び，実際にソフトを使い回帰分析をした経験を持つ人も多く含まれると思う。例えば，無料のRやGretl，そして有料ではあるがStataやEViewsあたりが人気ではないだろうか。<code class="docutils literal notranslate"><span class="pre">Python</span></code>でも回帰分析を簡単におこなうことが可能であり，有名な<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>と<code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>パッケージを使うと学部の授業で習うことは殆ど全て可能だろう。この章では基本的な回帰分析を考えるので<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>だけを取り上げ，その基本的なコードを紹介するが，より多くを知りたい場合は<a class="reference external" href="https://py4etrics.github.io">「Pythonで学ぶ入門計量経済学」</a>を参照して欲しい。</p>
-<p>この章の第二の目的は，<a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長会計</span></a>の章で考察した問題を再考することである。その章では，全要素生産性と蓄積生産要素の２つにフォーカスし，それぞれが一人当たりGDPの水準と成長率にどれだけ貢献しているかを考えた。その際，寄与度として分散と共分散を使い計算したが，回帰分析を使うと簡単に計算できる事を示す。更に，回帰分析を使い，所得が低い経済は所得が高い経済にキャッチアップしているかを検討する。</p>
+<p>この章の第二の目的は，<a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>と<a class="reference internal" href="5b_Growth_Accounting.html#chap-5b-accounting"><span class="std std-ref">成長会計</span></a>の章で考察した問題を再考することである。その章では，全要素生産性と蓄積生産要素の２つにフォーカスし，それぞれが一人当たりGDPの水準と成長率にどれだけ貢献しているかを考えた。その際，寄与度として分散と共分散を使い計算したが，回帰分析を使うと簡単に計算できる事を示す。更に，回帰分析を使い，所得が低い経済は所得が高い経済にキャッチアップしているかを検討する。</p>
 </div>
 <div class="section" id="python">
 <h2><code class="docutils literal notranslate"><span class="pre">Python</span></code>を使った回帰分析<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章で経済間の所得格差の要因を考え，<a class="reference internal" href="5_Income_Differences.html#sec-5-tfp"><span class="std std-ref">全要素生産性</span></a>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
+<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章で経済間の所得格差の要因を考え，<span class="xref myst">全要素生産性</span>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
 <div class="section" id="id3">
 <h3>データ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>まずデータを作成する。</p>
@@ -450,13 +455,13 @@
 </div>
 <div class="section" id="id4">
 <h3>回帰分析<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>上の散布図に直線のトレンドの描く場合，次式となる。</p>
-<div class="math notranslate nohighlight" id="equation-eq-regression">
-<span class="eqno">(13)<a class="headerlink" href="#equation-eq-regression" title="Permalink to this equation">¶</a></span>\[
+<p>上の散布図に直線のトレンドの描く場合</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-regression">
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-6-regression" title="Permalink to this equation">¶</a></span>\[
 y_i = a+bA_i
 \]</div>
-<p>ここでの目的は，散布図のデータを使い定数項<code class="docutils literal notranslate"><span class="pre">a</span></code>とスロープ係数<code class="docutils literal notranslate"><span class="pre">b</span></code>を計算し直線トレンドを描く事である。</p>
-<p>式[](eq:regression）のパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推計するために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>パッケージを使うが，そのサブパッケージ<code class="docutils literal notranslate"><span class="pre">formula.api</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使うことにより、最小二乗法の多くの計算（例えば、検定値など）を自動で行うことが可能である。また推定式を文字列で書くことができるので直感的にコードを書くことが可能となる。より具体的な説明は<a class="reference external" href="https://py4etrics.github.io">このサイト</a>を参照してほしい。</p>
+<p>となり，<code class="docutils literal notranslate"><span class="pre">i</span></code>は個々の観測値（即ち，経済）を表す。ここでの目的は，散布図のデータを使い定数項<code class="docutils literal notranslate"><span class="pre">a</span></code>とスロープ係数<code class="docutils literal notranslate"><span class="pre">b</span></code>を計算し直線トレンドを描く事である。</p>
+<p>式<a class="reference internal" href="#equation-eq-6-regression">(13)</a>のパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推計するために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>パッケージを使うが，そのサブパッケージ<code class="docutils literal notranslate"><span class="pre">formula.api</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使うことにより、最小二乗法の多くの計算（例えば、検定値など）を自動で行うことが可能である。また推定式を文字列で書くことができるので直感的にコードを書くことが可能となる。より具体的な説明は<a class="reference external" href="https://py4etrics.github.io">このサイト</a>を参照してほしい。</p>
 <p>次のステップでコードを書く。</p>
 <ol class="simple">
 <li><p>文字列で推定式を書く。</p></li>
@@ -518,8 +523,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Mon, 30 Aug 2021   Prob (F-statistic):           7.55e-26
-Time:                        22:23:57   Log-Likelihood:                 49.266
+Date:                Fri, 03 Sep 2021   Prob (F-statistic):           7.55e-26
+Time:                        22:24:38   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -784,7 +789,7 @@ dtype: float64
 <h2>回帰分析による発展会計<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
 <h3>説明<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="5_Income_Differences.html#chap-5-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章では，米国の一人当たりGDPを基準として経済<span class="math notranslate nohighlight">\(i\)</span>の一人当たりGDPを次式で表した。</p>
+<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の式<a class="reference internal" href="5a_Development_Accounting.html#equation-eq-riy-decomposition">(4)</a>では，米国の一人当たりGDPを基準として経済<span class="math notranslate nohighlight">\(i\)</span>の一人当たりGDPを次式で表した。</p>
 <div class="math notranslate nohighlight" id="equation-eq-6-riy">
 <span class="eqno">(14)<a class="headerlink" href="#equation-eq-6-riy" title="Permalink to this equation">¶</a></span>\[
 r_i^y =
@@ -939,7 +944,7 @@ y_i = a + bx_i+e_i
 <li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code>は改行という意味。</p></li>
 </ul>
 </div>
-<p><a class="reference internal" href="5_Income_Differences.html#sec-5-tfp-factors"><span class="std std-ref">全要素生産性と蓄積生産要素の寄与度</span></a>で計算した値と同じになることが確認できる。</p>
+<p><a class="reference internal" href="5a_Development_Accounting.html#sec-5-tfp-factors"><span class="std std-ref">全要素生産性と蓄積生産要素の寄与度</span></a>で計算した値と同じになることが確認できる。</p>
 </div>
 </div>
 </div>
@@ -969,7 +974,7 @@ y_i = a + bx_i+e_i
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="5_Income_Differences.html" title="previous page">発展会計と成長会計</a>
+    <a class='left-prev' id="prev-link" href="5b_Growth_Accounting.html" title="previous page">成長会計</a>
     <a class='right-next' id="next-link" href="7_DifferenceEq.html" title="next page">差分方程式と経済分析</a>
 
         </div>
