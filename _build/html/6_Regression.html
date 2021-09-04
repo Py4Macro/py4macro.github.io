@@ -381,12 +381,20 @@
 </div>
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div name="html-admonition">
+Do you want to read in a differnt language? Open the 
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+in English or the language of your choice.
+</div>
+</div>
 <p>この章の目的は２つある。第一に，<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使って回帰分析の方法を紹介する事である。読者には統計学や計量経済学を学び，実際にソフトを使い回帰分析をした経験を持つ人も多く含まれると思う。例えば，無料のRやGretl，そして有料ではあるがStataやEViewsあたりが人気ではないだろうか。<code class="docutils literal notranslate"><span class="pre">Python</span></code>でも回帰分析を簡単におこなうことが可能であり，有名な<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>と<code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>パッケージを使うと学部の授業で習うことは殆ど全て可能だろう。この章では基本的な回帰分析を考えるので<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>だけを取り上げ，その基本的なコードを紹介するが，より多くを知りたい場合は<a class="reference external" href="https://py4etrics.github.io">「Pythonで学ぶ入門計量経済学」</a>を参照して欲しい。</p>
 <p>この章の第二の目的は，<a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>と<a class="reference internal" href="5b_Growth_Accounting.html#chap-5b-accounting"><span class="std std-ref">成長会計</span></a>の章で考察した問題を再考することである。その章では，全要素生産性と蓄積生産要素の２つにフォーカスし，それぞれが一人当たりGDPの水準と成長率にどれだけ貢献しているかを考えた。その際，寄与度として分散と共分散を使い計算したが，回帰分析を使うと簡単に計算できる事を示す。更に，回帰分析を使い，所得が低い経済は所得が高い経済にキャッチアップしているかを検討する。</p>
 </div>
 <div class="section" id="python">
 <h2><code class="docutils literal notranslate"><span class="pre">Python</span></code>を使った回帰分析<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計と成長開会</span></a>の章で経済間の所得格差の要因を考え，<span class="xref myst">全要素生産性</span>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
+<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の章で経済間の所得格差の要因を考え，<a class="reference internal" href="5a_Development_Accounting.html#sec-5a-tfp"><span class="std std-ref">全要素生産性</span></a>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
 <div class="section" id="id3">
 <h3>データ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>まずデータを作成する。</p>
@@ -449,7 +457,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6_Regression_13_0.png" src="_images/6_Regression_13_0.png" />
+<img alt="_images/6_Regression_14_0.png" src="_images/6_Regression_14_0.png" />
 </div>
 </div>
 </div>
@@ -523,8 +531,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Fri, 03 Sep 2021   Prob (F-statistic):           7.55e-26
-Time:                        22:24:38   Log-Likelihood:                 49.266
+Date:                Sat, 04 Sep 2021   Prob (F-statistic):           7.55e-26
+Time:                        09:56:07   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -769,7 +777,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6_Regression_44_0.png" src="_images/6_Regression_44_0.png" />
+<img alt="_images/6_Regression_45_0.png" src="_images/6_Regression_45_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
