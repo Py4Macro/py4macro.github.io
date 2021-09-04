@@ -19,14 +19,6 @@ kernelspec:
 神戸大学経済学研究科
 ```
 
-```{margin}
-<div name="html-admonition">
-Do you want to read in a differnt language? Open the 
-<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-in English or the language of your choice.
-</div>
-```
-
 ```{code-cell} python3
 import datetime
 dt = datetime.datetime.now()
@@ -38,6 +30,14 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 dt = datetime.datetime.now()
 dt = datetime.datetime.today()
 -->
+
+```{margin}
+<div name="html-admonition">
+Do you want to read in a differnt language? Open the 
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+in English or the language of your choice.
+</div>
+```
 
 本サイトに関するコメント等はGitHubの[Discussions](https://github.com/Py4Macro/py4macro.github.io/discussions)もしくは<haruyama@econ.kobe-u.ac.jp>にご連絡ください。
 
