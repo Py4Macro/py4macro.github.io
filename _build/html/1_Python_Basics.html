@@ -648,6 +648,16 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       random
+      </span>
+     </code>
+     モジュール
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#see">
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -3164,6 +3174,7 @@ print(...)
 </div>
 <div class="section" id="math">
 <h3><code class="docutils literal notranslate"><span class="pre">math</span></code>モジュール<a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h3>
+<p>名前が示すように数学に関する関数がまとめられているモジュールとなる（<a class="reference external" href="https://docs.python.org/ja/3/library/math.html">詳細はこのリンクを参照</a>）。<code class="docutils literal notranslate"><span class="pre">math</span></code>を次のコードで読み込むことができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -3171,9 +3182,10 @@ print(...)
 </div>
 </div>
 </div>
+<p>最初の例として平方根を計算してみよう。使う関数名は，square rootの略となる<code class="docutils literal notranslate"><span class="pre">sqrt()</span></code>。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>    <span class="c1"># sqrt（）とはルート</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3225,6 +3237,43 @@ print(...)
 </div>
 </div>
 <p>ただ、この場合は他のモジュールやパッケージ、もしくは自分が定義した関数をバッティングしないように注意する必要がある。</p>
+</div>
+<div class="section" id="random">
+<h3><code class="docutils literal notranslate"><span class="pre">random</span></code>モジュール<a class="headerlink" href="#random" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使うことにより乱数を発生させることができる（<a class="reference external" href="https://docs.python.org/ja/3/library/random.html">詳細はこのリンクを参照</a>）。まず<code class="docutils literal notranslate"><span class="pre">random</span></code>をインポートしよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>様々な関数が用意されているが，その中の<code class="docutils literal notranslate"><span class="pre">randint()</span></code>関数は，引数で指定するランダムな整数を返す。次のコードは，サイコロの目（1~6）の１つを返す。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>内包表記を使って10回サイコロを振った結果を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[6, 3, 3, 5, 4, 3, 1, 2, 2, 2]
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="see">
 <h3><code class="docutils literal notranslate"><span class="pre">see</span></code>モジュール<a class="headerlink" href="#see" title="Permalink to this headline">¶</a></h3>
@@ -3439,7 +3488,7 @@ print(...)
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">149</span><span class="o">-</span><span class="mi">221</span><span class="n">da6df6ee2</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">152</span><span class="o">-</span><span class="mi">221</span><span class="n">da6df6ee2</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">s_local</span>
 
 <span class="ne">NameError</span>: name &#39;s_local&#39; is not defined
@@ -3531,9 +3580,9 @@ print(...)
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a	 b	 c	 c_list	 calculate_futre_value	 calculate_yt	 ces_production	 change_in_gdp	 con	 
 consumption	 current_value	 d	 dict0	 func_0	 func_1	 func_100	 func_2	 func_3	 
 func_kobe	 future_value	 gdp_component	 gdp_components	 i	 income_list	 keyword	 list0	 list1	 
-log	 lst	 m	 math	 my_list	 my_tuple	 s	 scope_0	 scope_1	 
-scope_2	 scope_3	 scope_4	 see	 sqrt	 tuple0	 v	 values	 var_list	 
-x	 x_list	 y	 
+log	 lst	 m	 math	 my_list	 my_tuple	 random	 s	 scope_0	 
+scope_1	 scope_2	 scope_3	 scope_4	 see	 sqrt	 tuple0	 v	 values	 
+var_list	 x	 x_list	 y	 
 </pre></div>
 </div>
 </div>
