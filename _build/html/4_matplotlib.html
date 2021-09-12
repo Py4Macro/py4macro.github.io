@@ -569,7 +569,14 @@ in English or the language of your choice.
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plot(＜横軸の変数名＞, ＜縦軸の変数名＞, data=＜データ名＞)
 </pre></div>
 </div>
-<p>それぞれの引数の書き方について解説する。</p>
+<p>この２つの書き方の簡略形として，横軸の変数を省略することもできる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>plot(＜縦軸のデータ＞)
+
+plot(＜縦軸の変数名＞, data=＜データ名＞)
+</pre></div>
+</div>
+<p>この場合，横軸には<code class="docutils literal notranslate"><span class="pre">縦軸のデータ</span></code>のインデックス番号が使われることになる。手っ取り早く図示したい場合は良いかも知れない。</p>
+<p>以下ではそれぞれの引数の書き方について解説する。</p>
 </div>
 <div class="section" id="id2">
 <h2>引数の書き方１<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -612,7 +619,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc8800e0e80&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd8d2fa1e80&gt;]
 </pre></div>
 </div>
 <img alt="_images/4_matplotlib_14_1.png" src="_images/4_matplotlib_14_1.png" />
@@ -637,7 +644,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc8801588b0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd8d3077790&gt;]
 </pre></div>
 </div>
 <img alt="_images/4_matplotlib_18_1.png" src="_images/4_matplotlib_18_1.png" />
@@ -796,7 +803,7 @@ in English or the language of your choice.
 <img alt="_images/4_matplotlib_31_0.png" src="_images/4_matplotlib_31_0.png" />
 </div>
 </div>
-<p>縦軸の変数だけを指定した場合はどうなるかを考えてみよう。</p>
+<p>引数の書き方１の簡略形として，横軸の変数を省略できることを紹介した。その場合はどうなるかを考えてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -845,6 +852,15 @@ in English or the language of your choice.
 <img alt="_images/4_matplotlib_41_0.png" src="_images/4_matplotlib_41_0.png" />
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>この場合，同じようなコードが続いているのでforループを使うと良いだろう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Y0&#39;</span><span class="p">,</span><span class="s1">&#39;Y1&#39;</span><span class="p">,</span><span class="s1">&#39;Y2&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <p>横軸の<code class="docutils literal notranslate"><span class="pre">X</span></code>を指定せずにプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -855,7 +871,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_43_0.png" src="_images/4_matplotlib_43_0.png" />
+<img alt="_images/4_matplotlib_44_0.png" src="_images/4_matplotlib_44_0.png" />
 </div>
 </div>
 <p>行インデックスが横軸の値として使われている。</p>
@@ -941,7 +957,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_49_0.png" src="_images/4_matplotlib_49_0.png" />
+<img alt="_images/4_matplotlib_50_0.png" src="_images/4_matplotlib_50_0.png" />
 </div>
 </div>
 </div>
@@ -1007,7 +1023,7 @@ in English or the language of your choice.
 </table>
 </div></div></div>
 </div>
-<p>以下のプロットでは，行インデックが横軸に使われるので注意しよう。</p>
+<p>以下のプロットでは，横軸の変数を省略する簡略形を使うので，行インデックが横軸に使われるので注意しよう。</p>
 <div class="section" id="subplots">
 <h3><code class="docutils literal notranslate"><span class="pre">subplots()</span></code>の引数<a class="headerlink" href="#subplots" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">subplots()</span></code>はキャンバスと軸を設定する<code class="docutils literal notranslate"><span class="pre">plt</span></code>のメソッドとなるが、主に３つの引数を紹介する。</p>
@@ -1032,7 +1048,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_56_0.png" src="_images/4_matplotlib_56_0.png" />
+<img alt="_images/4_matplotlib_57_0.png" src="_images/4_matplotlib_57_0.png" />
 </div>
 </div>
 </div>
@@ -1077,7 +1093,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_59_0.png" src="_images/4_matplotlib_59_0.png" />
+<img alt="_images/4_matplotlib_60_0.png" src="_images/4_matplotlib_60_0.png" />
 </div>
 </div>
 <p>引数をいちいち書くのが面倒な場合、次の３つを簡略して一緒に指定できる。</p>
@@ -1102,7 +1118,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_61_0.png" src="_images/4_matplotlib_61_0.png" />
+<img alt="_images/4_matplotlib_62_0.png" src="_images/4_matplotlib_62_0.png" />
 </div>
 </div>
 <p>（注意点）</p>
@@ -1155,7 +1171,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_65_0.png" src="_images/4_matplotlib_65_0.png" />
+<img alt="_images/4_matplotlib_66_0.png" src="_images/4_matplotlib_66_0.png" />
 </div>
 </div>
 </div>
@@ -1188,7 +1204,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_68_0.png" src="_images/4_matplotlib_68_0.png" />
+<img alt="_images/4_matplotlib_69_0.png" src="_images/4_matplotlib_69_0.png" />
 </div>
 </div>
 <p>６つの軸が表示されているが、それらは<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられている。<code class="docutils literal notranslate"><span class="pre">ax</span></code>を表示してみよう。</p>
@@ -1242,7 +1258,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_74_0.png" src="_images/4_matplotlib_74_0.png" />
+<img alt="_images/4_matplotlib_75_0.png" src="_images/4_matplotlib_75_0.png" />
 </div>
 </div>
 <p>横軸と縦軸を共有するには次のようにする。</p>
@@ -1260,7 +1276,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_76_0.png" src="_images/4_matplotlib_76_0.png" />
+<img alt="_images/4_matplotlib_77_0.png" src="_images/4_matplotlib_77_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド（例えば、軸のタイトル）はそれぞれ設定することができる。</p>
@@ -1294,7 +1310,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_79_0.png" src="_images/4_matplotlib_79_0.png" />
+<img alt="_images/4_matplotlib_80_0.png" src="_images/4_matplotlib_80_0.png" />
 </div>
 </div>
 </div>
@@ -1314,7 +1330,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_82_0.png" src="_images/4_matplotlib_82_0.png" />
+<img alt="_images/4_matplotlib_83_0.png" src="_images/4_matplotlib_83_0.png" />
 </div>
 </div>
 <p>コードの説明</p>
@@ -1347,7 +1363,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_85_0.png" src="_images/4_matplotlib_85_0.png" />
+<img alt="_images/4_matplotlib_86_0.png" src="_images/4_matplotlib_86_0.png" />
 </div>
 </div>
 <p>コードの説明</p>
@@ -1396,7 +1412,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_92_0.png" src="_images/4_matplotlib_92_0.png" />
+<img alt="_images/4_matplotlib_93_0.png" src="_images/4_matplotlib_93_0.png" />
 </div>
 </div>
 </div>
@@ -1444,7 +1460,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_96_0.png" src="_images/4_matplotlib_96_0.png" />
+<img alt="_images/4_matplotlib_97_0.png" src="_images/4_matplotlib_97_0.png" />
 </div>
 </div>
 <blockquote>
@@ -1616,7 +1632,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_110_0.png" src="_images/4_matplotlib_110_0.png" />
+<img alt="_images/4_matplotlib_111_0.png" src="_images/4_matplotlib_111_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">df_inv</span></code>はデータ・フレームだが、変数が１つしかないため<code class="docutils literal notranslate"><span class="pre">plot()</span></code>の引数に<code class="docutils literal notranslate"><span class="pre">df_inv</span></code>を指定するだけで<code class="docutils literal notranslate"><span class="pre">investment</span></code>のデータが描かれている。</p>
@@ -1813,7 +1829,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_122_0.png" src="_images/4_matplotlib_122_0.png" />
+<img alt="_images/4_matplotlib_123_0.png" src="_images/4_matplotlib_123_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ax.plot()</span></code>が続いているので、<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使う事を推奨する。</p>
@@ -1830,7 +1846,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_124_0.png" src="_images/4_matplotlib_124_0.png" />
+<img alt="_images/4_matplotlib_125_0.png" src="_images/4_matplotlib_125_0.png" />
 </div>
 </div>
 <p>（１）の<code class="docutils literal notranslate"><span class="pre">df_future.columns</span></code>について説明すると、<code class="docutils literal notranslate"><span class="pre">.columns</span></code>はデータ・フレーム<code class="docutils literal notranslate"><span class="pre">df_future</span></code>の属性であり列ラベルを返す。</p>
@@ -1850,7 +1866,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_130_0.png" src="_images/4_matplotlib_130_0.png" />
+<img alt="_images/4_matplotlib_131_0.png" src="_images/4_matplotlib_131_0.png" />
 </div>
 </div>
 <p>気づいたと思うが，列ラベルが自動的に凡例に表示される。</p>
@@ -1863,20 +1879,20 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_132_0.png" src="_images/4_matplotlib_132_0.png" />
+<img alt="_images/4_matplotlib_133_0.png" src="_images/4_matplotlib_133_0.png" />
 </div>
 </div>
 <p>もしくは2行に分けても同じ図となる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_134_0.png" src="_images/4_matplotlib_134_0.png" />
+<img alt="_images/4_matplotlib_135_0.png" src="_images/4_matplotlib_135_0.png" />
 </div>
 </div>
 <p>デフォルトでは横軸に行インデックが使われるが，横軸を指定したい場合は，次の引数を使う。</p>
@@ -1892,7 +1908,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_136_0.png" src="_images/4_matplotlib_136_0.png" />
+<img alt="_images/4_matplotlib_137_0.png" src="_images/4_matplotlib_137_0.png" />
 </div>
 </div>
 </div>
@@ -1907,7 +1923,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_139_0.png" src="_images/4_matplotlib_139_0.png" />
+<img alt="_images/4_matplotlib_140_0.png" src="_images/4_matplotlib_140_0.png" />
 </div>
 </div>
 <p>図を横に並べるには<code class="docutils literal notranslate"><span class="pre">layout=(1,3)</span></code>を付け加える。<code class="docutils literal notranslate"><span class="pre">layout</span></code>は図の配置を行列のように考えて指定し、<code class="docutils literal notranslate"><span class="pre">1</span></code>は行の数であり、<code class="docutils literal notranslate"><span class="pre">3</span></code>は列の数。</p>
@@ -1922,7 +1938,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_141_0.png" src="_images/4_matplotlib_141_0.png" />
+<img alt="_images/4_matplotlib_142_0.png" src="_images/4_matplotlib_142_0.png" />
 </div>
 </div>
 </div>
@@ -1937,7 +1953,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_144_0.png" src="_images/4_matplotlib_144_0.png" />
+<img alt="_images/4_matplotlib_145_0.png" src="_images/4_matplotlib_145_0.png" />
 </div>
 </div>
 <p>別々の飾り付けをする場合は次のようにする。</p>
@@ -1954,7 +1970,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_matplotlib_146_0.png" src="_images/4_matplotlib_146_0.png" />
+<img alt="_images/4_matplotlib_147_0.png" src="_images/4_matplotlib_147_0.png" />
 </div>
 </div>
 <p>ここで使った引数については，３.参考にある<a class="reference internal" href="pandas_plot.html#chap-pandas-plot"><span class="std std-ref">Pandas:プロット</span></a>を参照してください。</p>
