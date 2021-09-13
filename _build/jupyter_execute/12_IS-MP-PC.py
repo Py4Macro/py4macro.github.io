@@ -13,6 +13,14 @@ import matplotlib.pyplot as plt
 import japanize_matplotlib
 
 
+# ```{margin}
+# <div name="html-admonition">
+# Do you want to read in a differnt language? Open the 
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+# in English or the language of your choice.
+# </div>
+# ```
+
 # ## はじめに
 
 # この章では，ケインズ的なマクロ経済理論の流れをくむ動学的マクロ経済モデルを考える。ここではIS-MP-PCモデルと呼ぶことにする。中心となるメカニズムは価格粘着性だが，なぜ粘着性が発生するかは所与としてIS-MP-PCモデルの動学的な特徴を中心に議論する。典型的なAD-ASモデルが単純に動学的（時間の概念の明示的な導入）になったのではなく，根本的な違いが存在する。IS-MP-PCモデルの特徴としては次の点を挙げることができる。
