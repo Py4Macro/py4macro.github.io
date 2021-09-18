@@ -211,18 +211,25 @@ print(result.summary())
 # 必要な部分だけを表示する場合は，次のコードを使うと良いだろう。
 # 
 # ```
-# res.summary().tables[0]
-# res.summary().tables[1]
-# res.summary().tables[2]
+# result.summary().tables[0]
+# result.summary().tables[1]
+# result.summary().tables[2]
 # ```
 # 
-# 係数の推定値に関する中段の表を表示してみよう。
+# 係数の推定値に関する中段の表を表示してみる。
 
 # In[9]:
 
 
 print(result.summary().tables[1])
 
+
+# ````{note}
+# `statsmodels 13.0`では`.summary()`に引数`slim`（デフォルトは`False`）が追加されており，`.tables`を使わずに次のコードで簡略化された表を表示できる。
+# ```
+# result.summary(slim=True)
+# ```
+# ````
 
 # 結果の解釈を試みてみよう。
 # * 定数項の推定値のp値は小さく、通常の有意水準では「定数項の値はゼロ」の帰無仮説を棄却できる。一方で，一人当たりGDPは正の値を取るが，定数項はマイナスの値となっている。ここでは非線形の関係が示唆されるので，練習問題で再考する。
@@ -271,7 +278,7 @@ ahat, bhat
 
 def calculate_gdp_pc_relative(x):
     gdp = result.params[0]+result.params[1]*x
-    print(f'相対全要素生産性が{x}の場合の相対的一人当たりGDPは約{gdp:.2f}です。')
+    print(f'相対全要素生産性が{x}の場合の相対的一人当たりGDPは約{gdp:.3f}です。')
 
 
 # `x`が`0.8`の場合を考えよう。
@@ -279,8 +286,16 @@ def calculate_gdp_pc_relative(x):
 # In[15]:
 
 
-calculate_gdp_pc_relative(0.7)
+calculate_gdp_pc_relative(0.8)
 
+
+# ````{note}
+# 予測値だけであれば，次のコードでも同じ結果を表示できる。
+# ```
+# result.predict({'tfp_relative':0.8})
+# ```
+# ここで`.predict()`は予測値を得るメソッド。引数を入れずに使うと，次に説明する属性`.fittedvalues`と同じ値を返す。
+# ````
 
 # 次に、標本の散布図に回帰直線を重ねて表示してみる。まず`result`の属性`.fittedvalues`を使い非説明変数の予測値を抽出することができるので、`df2019`に`fitted`のラベルを使って新たな列として追加する。
 
@@ -310,7 +325,7 @@ pass
 # ```
 
 # ````{note}
-# 係数の推定値は、`result`の属性`params`でアクセスできることを説明したが、この値を使い次のコードで`gdp_pc_relative`の予測値を計算することも可能である。
+# `gdp_pc_relative`の予測値は，属性`.fittedvalues`もしくはメソッド`.predict()`で取得できるが，次のコードでも同じ結果となる。
 # ```
 # df2019['fitted'] = ahat + bhat * df2019.loc[:,'tfp_relative']
 # ```
