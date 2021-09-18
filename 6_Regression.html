@@ -501,8 +501,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Tue, 14 Sep 2021   Prob (F-statistic):           7.55e-26
-Time:                        08:58:42   Log-Likelihood:                 49.266
+Date:                Sat, 18 Sep 2021   Prob (F-statistic):           7.55e-26
+Time:                        10:59:06   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -596,12 +596,12 @@ Notes:
 </li>
 </ul>
 <p>必要な部分だけを表示する場合は，次のコードを使うと良いだろう。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>係数の推定値に関する中段の表を表示してみよう。</p>
+<p>係数の推定値に関する中段の表を表示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -617,6 +617,13 @@ tfp_relative     1.2226      0.067     18.172      0.000       1.088       1.357
 ================================================================================
 </pre></div>
 </div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span> <span class="pre">13.0</span></code>では<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">slim</span></code>（デフォルトは<code class="docutils literal notranslate"><span class="pre">False</span></code>）が追加されており，<code class="docutils literal notranslate"><span class="pre">.tables</span></code>を使わずに次のコードで簡略化された表を表示できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">slim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <p>結果の解釈を試みてみよう。</p>
@@ -708,7 +715,7 @@ dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_gdp_pc_relative</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">gdp</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;相対全要素生産性が</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">の場合の相対的一人当たりGDPは約</span><span class="si">{</span><span class="n">gdp</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;相対全要素生産性が</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">の場合の相対的一人当たりGDPは約</span><span class="si">{</span><span class="n">gdp</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -716,15 +723,23 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>が<code class="docutils literal notranslate"><span class="pre">0.8</span></code>の場合を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_gdp_pc_relative</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_gdp_pc_relative</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対全要素生産性が0.7の場合の相対的一人当たりGDPは約0.57です。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対全要素生産性が0.8の場合の相対的一人当たりGDPは約0.696です。
 </pre></div>
 </div>
 </div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>予測値だけであれば，次のコードでも同じ結果を表示できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">predict</span><span class="p">({</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">:</span><span class="mf">0.8</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>ここで<code class="docutils literal notranslate"><span class="pre">.predict()</span></code>は予測値を得るメソッド。引数を入れずに使うと，次に説明する属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>と同じ値を返す。</p>
 </div>
 <p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
 <div class="cell docutils container">
@@ -747,7 +762,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6_Regression_45_0.png" src="_images/6_Regression_45_0.png" />
+<img alt="_images/6_Regression_47_0.png" src="_images/6_Regression_47_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -756,7 +771,7 @@ dtype: float64
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>係数の推定値は、<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">params</span></code>でアクセスできることを説明したが、この値を使い次のコードで<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>の予測値を計算することも可能である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>の予測値は，属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>もしくはメソッド<code class="docutils literal notranslate"><span class="pre">.predict()</span></code>で取得できるが，次のコードでも同じ結果となる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df2019</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
