@@ -9,8 +9,8 @@ kernelspec:
   name: python3
 ---
 
-# Pythonで学ぶマクロ経済学 (中級＋レベル)
 
+# Pythonで学ぶマクロ経済学 (中級＋レベル)
 ```{epigraph}
 **Python for Intermediate+ Macroeconomics**
 

@@ -2,7 +2,6 @@
 # coding: utf-8
 
 # # Pythonで学ぶマクロ経済学 (中級＋レベル)
-# 
 # ```{epigraph}
 # **Python for Intermediate+ Macroeconomics**
 # 
