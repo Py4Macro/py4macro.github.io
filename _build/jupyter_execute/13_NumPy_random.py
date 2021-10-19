@@ -13,15 +13,15 @@ import japanize_matplotlib
 import py4macro
 
 
+# ## はじめに
+
 # ```{margin}
 # <div name="html-admonition">
-# Do you want to read in a differnt language? Open the 
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translated version" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+# Do you want to read in a differnt language? Start
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
 # in English or the language of your choice.
 # </div>
 # ```
-
-# ## はじめに
 
 # GDPなどのマクロ変数は変動し相関性やpersistenceが大きな特徴であるが，経済モデルでどのように捉えれば良いのだろうか。IS-MP-PCモデルのインパルス反応分析でもマクロ変数の変動のような動きはあるが，それがどの程度データと合致しているのか不明である。またIS-MP-PCモデル自体が問題を抱えており，フォーワード・ルッキングな（前向きな最適化行動に基づく）モデルが必要である。このような背景のもと本章の目的は，`Python`でどのようにランダム変数を扱うことができるかを説明することである。
 # 
