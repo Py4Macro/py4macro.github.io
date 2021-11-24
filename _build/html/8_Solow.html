@@ -887,7 +887,8 @@ y_*=Ak_*^a
 </div>
 <div class="section" id="id12">
 <h4>貯蓄率<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
-<p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要があるが，ここでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使いデータを整形する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
+<p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要がある。<a class="reference external" href="https://py4basics.github.io/3_Pandas.html#id33">ここで説明している</a><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うのが最も簡単な計算方法だろう。ここでは異なる方法として<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を紹介する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>はデータを整形する上で非常に便利なメソッドなので知って損はないだろう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;csh_i&#39;</span><span class="p">)</span>
@@ -1108,7 +1109,7 @@ y_*=Ak_*^a
 </li>
 </ul>
 </div>
-<p>1960年以降欠損値がない国だけを使うので，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある列を削除する必要があるが，<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使う。</p>
+<p>1960年以降欠損値がない国だけを使うことにしよう。<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある列を削除する必要があるので<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使う。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
@@ -1397,6 +1398,10 @@ y_*=Ak_*^a
 <span class="n">saving</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;saving_rate&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>上の計算では1960年以降に欠損値が一つでもあればその国は排除されたが，全ての年でデータが揃っている経済だけを扱いたい場合に便利に使える方法である。一方で，<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと欠損値があっても平均は計算されるので，単純に<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと1960年以降に欠損値がある経済も含まれることになる。どちらが良いかは分析の目的などに依存することになる。</p>
 </div>
 </div>
 <div class="section" id="id13">
@@ -1841,9 +1846,9 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_96_0.png" src="_images/8_Solow_96_0.png" />
-<img alt="_images/8_Solow_96_1.png" src="_images/8_Solow_96_1.png" />
-<img alt="_images/8_Solow_96_2.png" src="_images/8_Solow_96_2.png" />
+<img alt="_images/8_Solow_97_0.png" src="_images/8_Solow_97_0.png" />
+<img alt="_images/8_Solow_97_1.png" src="_images/8_Solow_97_1.png" />
+<img alt="_images/8_Solow_97_2.png" src="_images/8_Solow_97_2.png" />
 </div>
 </div>
 <div class="dropdown admonition">
