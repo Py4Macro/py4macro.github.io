@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ソロー・モデル &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -43,7 +43,7 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -58,8 +58,21 @@
     <link rel="next" title="所得分布と所得収斂" href="9_Convergence.html" />
     <link rel="prev" title="差分方程式と経済分析" href="7_DifferenceEq.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
     
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-165998213-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
@@ -85,7 +98,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption" role="heading">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Pythonの学習
  </span>
@@ -97,7 +110,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   マクロ経済学 - 長期分析
  </span>
@@ -134,7 +147,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   マクロ経済学 - 短期分析
  </span>
@@ -171,7 +184,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   参考
  </span>
@@ -887,7 +900,8 @@ y_*=Ak_*^a
 </div>
 <div class="section" id="id12">
 <h4>貯蓄率<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
-<p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要があるが，ここでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使いデータを整形する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
+<p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要がある。<a class="reference external" href="https://py4basics.github.io/3_Pandas.html#id33">ここで説明している</a><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うのが最も簡単な計算方法だろう。ここでは異なる方法として<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を紹介する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>はデータを整形する上で非常に便利なメソッドなので知って損はないだろう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;csh_i&#39;</span><span class="p">)</span>
@@ -1108,7 +1122,7 @@ y_*=Ak_*^a
 </li>
 </ul>
 </div>
-<p>1960年以降欠損値がない国だけを使うので，<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある列を削除する必要があるが，<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使う。</p>
+<p>1960年以降欠損値がない国だけを使うことにしよう。<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある列を削除する必要があるので<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使う。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
@@ -1397,6 +1411,10 @@ y_*=Ak_*^a
 <span class="n">saving</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;saving_rate&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>上の計算では1960年以降に欠損値が一つでもあればその国は排除されたが，全ての年でデータが揃っている経済だけを扱いたい場合に便利に使える方法である。一方で，<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと欠損値があっても平均は計算されるので，単純に<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと1960年以降に欠損値がある経済も含まれることになる。どちらが良いかは分析の目的などに依存することになる。</p>
 </div>
 </div>
 <div class="section" id="id13">
@@ -1841,9 +1859,9 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_96_0.png" src="_images/8_Solow_96_0.png" />
-<img alt="_images/8_Solow_96_1.png" src="_images/8_Solow_96_1.png" />
-<img alt="_images/8_Solow_96_2.png" src="_images/8_Solow_96_2.png" />
+<img alt="_images/8_Solow_97_0.png" src="_images/8_Solow_97_0.png" />
+<img alt="_images/8_Solow_97_1.png" src="_images/8_Solow_97_1.png" />
+<img alt="_images/8_Solow_97_2.png" src="_images/8_Solow_97_2.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1904,31 +1922,22 @@ memory usage: 9.8+ KB
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="7_DifferenceEq.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">差分方程式と経済分析</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="7_DifferenceEq.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">差分方程式と経済分析</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="9_Convergence.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">所得分布と所得収斂</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="9_Convergence.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">所得分布と所得収斂</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -1949,18 +1958,7 @@ memory usage: 9.8+ KB
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
-  
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-<script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-165998213-2', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
   </body>
 </html>
