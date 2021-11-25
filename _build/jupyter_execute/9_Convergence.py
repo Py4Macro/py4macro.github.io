@@ -436,6 +436,7 @@ pass
 #     * 推定式[](eq:9-absolute_convergence)は全てのパラメータが同じであることを仮定している。
 #     * 推定式[](eq:9-conditional_convergence)は式[](eq:9-a)の違いを捉えるために$X_i$が含まれている。
 # * パラメータ$b$は$\lambda$に依存しており，次式を使い推定値$\hat{b}$から収束速度$\lambda$を計算できる。
+# 
 #     $$
 #     \lambda=1-(1+bt)^{\frac{1}{t}}
 #     $$ (eq:9-lambdahat)
@@ -558,7 +559,7 @@ emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
 
 # ##### 一人当たりGDP成長率の平均
 
-# 労働人口成長率の平均の計算と同じ方法で計算しよう。まず一人当たりGDPの列を作成する。
+# まず一人当たりGDPの列を作成する。
 
 # In[18]:
 
@@ -566,13 +567,13 @@ emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
 pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
 
 
+# 平均成長率は関数`mean_growth_nan()`を使い，労働人口の平均成長率の計算と同じ方法で計算しよう。
+
 # In[19]:
 
 
-rgdpna_pc = pwt.pivot(index='year', columns='country', values='rgdpna_pc')
-rgdpna_pc = rgdpna_pc.dropna(axis='columns')
-growth = ( ( rgdpna_pc.loc[2019,:]/rgdpna_pc.loc[yr,:] )**(1/(2019-yr+1))-1 
-         ).to_frame('gdp_pc_growth')
+growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
+growth.columns = ['gdp_pc_growth']
 
 
 # ##### 1970年の一人当たりGDP
@@ -623,11 +624,17 @@ for df_right in [saving, depreciation, emp_growth, growth]:
 df_convergence = df_convergence.dropna()
 
 
+# In[25]:
+
+
+df_convergence
+
+
 # #### 成長率の分布
 
 # 平均成長率のヒストグラムを図示してみよう。
 
-# In[25]:
+# In[26]:
 
 
 growth_average = df_convergence.loc[:,'gdp_pc_growth'].mean() # 1
@@ -668,7 +675,7 @@ pass
 
 # 何％の国で平均を下回るか確認してみよう。
 
-# In[26]:
+# In[27]:
 
 
 ( df_convergence.loc[:,'gdp_pc_growth'] < growth_average ).sum() / len(df_convergence)
@@ -681,7 +688,7 @@ pass
 # (sec:9-regression_result)=
 # #### 結果
 
-# In[27]:
+# In[28]:
 
 
 formula_absolute = 'gdp_pc_growth ~ gdp_pc_init_log'
@@ -689,7 +696,7 @@ res_absolute = sm.ols(formula_absolute, data=df_convergence).fit()
 print(res_absolute.summary().tables[1])
 
 
-# In[28]:
+# In[29]:
 
 
 # 予測値の列の作成
@@ -712,7 +719,7 @@ pass
 
 # 実際に[上の回帰分析](sec:9-regression_result)の$b$の推定値を使って収束速度を計算してみることにする。
 
-# In[29]:
+# In[30]:
 
 
 period = 2019-yr+1
@@ -724,7 +731,7 @@ print(f'収束速度は約{100*speed1970:.3f}％です')
 
 # この結果は，定常状態までの「距離」は年平均で約0.75％減少することを意味する。ではこの数字をどう理解すれば良いだろうか。仮にもし絶対的所得収斂が成立しているとすると，この数字は大きいのだろうか，小さいのだろうか。この点を探るために，2019年の米国と平均の一人当たりGDPを使って0.75％の意味を考えてみる。
 
-# In[30]:
+# In[31]:
 
 
 pwt['gdp_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
@@ -774,7 +781,7 @@ print('\n--- 2019年の一人当たりGDP ---------\n\n'
 # 
 # この式を使って`n`年後に2019年当時の格差が何％残っているかを関数としてまとめる。
 
-# In[31]:
+# In[32]:
 
 
 def remaining_percent(n, s=speed1970):
@@ -787,7 +794,7 @@ def remaining_percent(n, s=speed1970):
 
 # `for`ループを使って計算してみる。
 
-# In[32]:
+# In[33]:
 
 
 print('\n--- X年後に残る2019年当時の所得格差 ----------\n')
@@ -805,7 +812,7 @@ for n in [10,20,50,100,200,300,500,1000]:
 
 # [単回帰分析](sec:9-simple_regression)では絶対的所得収斂を示唆する結果が示された。しかし推定結果は，貯蓄率など全ての経済構造が同じだと仮定し推定をおこなった。この仮定を取り除いた場合，初期の一人当たりGDPの推定値$\hat{b}$は統計的有意性を保つことができるだろうか。そして他の変数の統計的有意性はどうだろうか。この点を確認するために，重回帰分析をおこなう。
 
-# In[33]:
+# In[34]:
 
 
 formula_conditional = ( 'gdp_pc_growth ~ saving_rate +'
@@ -871,7 +878,7 @@ print(res_conditional.summary().tables[1])
 
 # ステップ１の`data_for_regression(yr)`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。
 
-# In[34]:
+# In[35]:
 
 
 def data_for_regression(yr):
@@ -922,7 +929,7 @@ def data_for_regression(yr):
 
 # `yr=1970`として関数を実行して内容を確認してみよう。
 
-# In[35]:
+# In[36]:
 
 
 data_for_regression(1970).head()
@@ -930,7 +937,7 @@ data_for_regression(1970).head()
 
 # ステップ２として，`for`ループを使って４つの変数からなる`DataFrame`を作成する。
 
-# In[36]:
+# In[37]:
 
 
 b_coef_list = []     # 1
@@ -987,7 +994,7 @@ df_simple_result = pd.DataFrame({'初期の一人当たりGDPの係数':b_coef_l
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[37]:
+# In[38]:
 
 
 df_simple_result.head(3)
@@ -995,7 +1002,7 @@ df_simple_result.head(3)
 
 # それぞれの列には計算した変数が並んでおり，行インデックスには年が配置されている。初期時点を1970年とする結果を確かめてみよう。
 
-# In[38]:
+# In[39]:
 
 
 df_simple_result.loc[[1970],:]
@@ -1005,7 +1012,7 @@ df_simple_result.loc[[1970],:]
 
 # ステップ３として`df_reg_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[39]:
+# In[40]:
 
 
 df_simple_result.plot(subplots=True, figsize=(6,8))
@@ -1014,7 +1021,7 @@ pass
 
 # 一番上の図から初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1950年年代半ばまでの推定値の統計的優位性低いが，それ以降は高いようだ。1955年以降だけを表示してみよう。
 
-# In[40]:
+# In[41]:
 
 
 col_name = df_simple_result.columns[1]  # 1
@@ -1041,7 +1048,7 @@ pass
 
 # 次のステップとして定常状態に関する３つの変数を追加して回帰分析をおこなう。ここでも`for`ループを使い，最終的にはプロットで結果を確認することにする。基本的には`for`ループを使った単回帰分析と同じ方法をとるが，ステップ１の関数`data_for_regression(yr)`は重回帰分析でもそのまま使えるので，ステップ２から始める。次のコードは上で使ったコードの修正版である。新たに追加した箇所だけに番号を振って説明することにする。
 
-# In[41]:
+# In[42]:
 
 
 saving_coef_list = []                            # 1
@@ -1121,7 +1128,7 @@ df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[42]:
+# In[43]:
 
 
 df_multiple_result.head(3)
@@ -1129,7 +1136,7 @@ df_multiple_result.head(3)
 
 # 定常状態に関連する変数の推定値と$p$値が追加されているのが確認できる。
 
-# In[43]:
+# In[44]:
 
 
 df_multiple_result.loc[[1970],:]
@@ -1139,7 +1146,7 @@ df_multiple_result.loc[[1970],:]
 
 # ステップ３として`df_multiple_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[44]:
+# In[45]:
 
 
 df_multiple_result.iloc[:,list(range(0,8))].plot(                # 1
@@ -1205,7 +1212,7 @@ pass
 #     data_for_regression_group(1960, region='Latin America & Caribbean')
 #     ```
 
-# In[45]:
+# In[46]:
 
 
 def data_for_regression_group(yr, oecd=None,          # 修正
@@ -1312,7 +1319,7 @@ def data_for_regression_group(yr, oecd=None,          # 修正
 
 # 実際に，1980年の`oecd=1`として関数を実行して内容を確認してみよう。
 
-# In[46]:
+# In[47]:
 
 
 data_for_regression_group(1980, oecd=1)
@@ -1322,7 +1329,7 @@ data_for_regression_group(1980, oecd=1)
 # 
 # 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。
 
-# In[47]:
+# In[48]:
 
 
 def regression_result(**kwargs):                      # 1
@@ -1394,7 +1401,7 @@ def regression_result(**kwargs):                      # 1
 
 # 準備ができたので，実際に回帰分析をしてみよう。まず`oecd`諸国だけを抽出し結果をプロットする。
 
-# In[48]:
+# In[49]:
 
 
 regression_result(oecd=1).iloc[:,list(range(0,8))]                          .plot(subplots=True,
@@ -1407,7 +1414,7 @@ pass
 # 
 # 次に`region`で`East Asia & Pacific`を考えてみよう。
 
-# In[49]:
+# In[50]:
 
 
 asia = regression_result(region='East Asia & Pacific')
@@ -1417,7 +1424,7 @@ pass
 
 # `East Asia & Pacific`では所得収斂が発生していること示している。初期の一人当たりGDPの$p$値が5％以下になるのは何年からか確認してみよう。
 
-# In[50]:
+# In[51]:
 
 
 cond = ( asia.iloc[:,7] < 0.05 )  # 1
