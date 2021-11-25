@@ -339,12 +339,17 @@
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#sec-9-saving">
+         貯蓄率・労働人口成長率・資本減耗率の平均
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
         <a class="reference internal nav-link" href="#gdp">
          一人当たりGDP成長率の平均
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id11">
+        <a class="reference internal nav-link" href="#id12">
          1970年の一人当たりGDP
         </a>
        </li>
@@ -361,7 +366,7 @@
       </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
+      <a class="reference internal nav-link" href="#id13">
        成長率の分布
       </a>
      </li>
@@ -411,7 +416,7 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id16">
+  <a class="reference internal nav-link" href="#id17">
    クラブ収斂
   </a>
  </li>
@@ -946,28 +951,77 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="section" id="id10">
 <h5>貯蓄率・労働人口成長率・資本減耗率の平均<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h5>
-<p>1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口成長率を計算するが<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用する。もちろん<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使って計算することもできるが，全ての年で欠損値がない国だけを使いたいので，ここでは<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使うことにする。</p>
+</div>
+<div class="section" id="sec-9-saving">
+<span id="id11"></span><h5>貯蓄率・労働人口成長率・資本減耗率の平均<a class="headerlink" href="#sec-9-saving" title="Permalink to this headline">¶</a></h5>
+<p>1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口成長率を計算するが，<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用することもできる。ここでは<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使った計算を紹介することにする。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 平均貯蓄率の計算</span>
-<span class="n">saving</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;csh_i&#39;</span><span class="p">)</span>
-<span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
-<span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;saving_rate&#39;</span><span class="p">)</span>
-
-<span class="c1"># 資本減耗率の平均の計算</span>
-<span class="n">depreciation</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;delta&#39;</span><span class="p">)</span>
-<span class="n">depreciation</span> <span class="o">=</span> <span class="n">depreciation</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
-<span class="n">depreciation</span> <span class="o">=</span> <span class="n">depreciation</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;depreciation&#39;</span><span class="p">)</span>
-
-<span class="c1"># 労働人口成長率の平均の計算</span>
-<span class="n">emp</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;emp&#39;</span><span class="p">)</span>
-<span class="n">emp</span> <span class="o">=</span> <span class="n">emp</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
-<span class="n">emp_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span> <span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2019</span><span class="p">,:]</span><span class="o">/</span><span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">yr</span><span class="p">,:]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span> 
-             <span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;emp_growth&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>         <span class="c1"># 1</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>  <span class="c1"># 2</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># 4</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby()</span></code>に使うので，引数<code class="docutils literal notranslate"><span class="pre">x</span></code>は，各グループのデータと解釈する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.notna()</span></code>は<code class="docutils literal notranslate"><span class="pre">x</span></code>が欠損値でない場合に<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，欠損値の場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">x.notna()</span></code>はグループのデータを<code class="docutils literal notranslate"><span class="pre">True/False</span></code>として置き換えたデータを返すことになる。一方，<code class="docutils literal notranslate"><span class="pre">.all()</span></code>は全てが<code class="docutils literal notranslate"><span class="pre">True</span></code>であれば<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，１つ以上<code class="docutils literal notranslate"><span class="pre">False</span></code>があれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。従って，<code class="docutils literal notranslate"><span class="pre">x.notna().all()</span></code>はグループのデータに欠損値がなければ<code class="docutils literal notranslate"><span class="pre">True</span></code>を，１つでも<code class="docutils literal notranslate"><span class="pre">False</span></code>があれば<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。</p></li>
+<li><p>グループ・データに欠損値がない場合にのみ，その平均を返す。</p></li>
+<li><p>１つ以上<code class="docutils literal notranslate"><span class="pre">False</span></code>があれば<code class="docutils literal notranslate"><span class="pre">np.nan</span></code>を返す。ここで<code class="docutils literal notranslate"><span class="pre">np.nan</span></code>とは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>で生成する浮動小数点型であり，欠損値を示す<code class="docutils literal notranslate"><span class="pre">NaN</span></code>のことである。</p></li>
+</ol>
+</div>
+<p>以下では関数<code class="docutils literal notranslate"><span class="pre">mean_na()</span></code>を使いグループ計算することにしよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 平均貯蓄率の計算</span>
+<span class="n">saving</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;csh_i&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>  <span class="c1"># 1</span>
+<span class="n">saving</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;saving_rate&#39;</span><span class="p">]</span>
+
+<span class="c1"># 資本減耗率の平均の計算</span>
+<span class="n">depreciation</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;delta&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># 2</span>
+<span class="n">depreciation</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;depreciation&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ol class="simple">
+<li><p>ここで重要な点は，最後に<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使って<code class="docutils literal notranslate"><span class="pre">np.nan</span></code>で作られた欠損値の行を削除している点である。これにより1970年〜2019年まで全てのデータが揃っている国だけが含まれていることになる。</p></li>
+<li><p>同様のことが言える。</p></li>
+</ol>
+</div>
+<p>次に労働人口成長率の平均を計算するが，成長率を計算する必要があるので次の関数を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_growth_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
+        <span class="k">return</span> <span class="n">x_growth</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<p>1 のみが<code class="docutils literal notranslate"><span class="pre">mean_na()</span></code>と異なる。ここではグループ・データ<code class="docutils literal notranslate"><span class="pre">x</span></code>を使い，平均成長率を計算している。<code class="docutils literal notranslate"><span class="pre">x.iloc[-1]</span></code>は2019年の値であり，<code class="docutils literal notranslate"><span class="pre">x.iloc[0]</span></code>は1970年のデータとなっている。また<code class="docutils literal notranslate"><span class="pre">2019-yr+1</span></code>は<code class="docutils literal notranslate"><span class="pre">50</span></code>であり<code class="docutils literal notranslate"><span class="pre">50</span></code>年間の平均成長率であることがわかる。</p>
+</div>
+<p>この関数を使い労働人口成長率の平均の計算を計算しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;emp&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでも<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使い欠損値を削除し，全ての年でデータが揃っている国だけを抽出している。</p>
 </div>
 <div class="section" id="gdp">
 <h5>一人当たりGDP成長率の平均<a class="headerlink" href="#gdp" title="Permalink to this headline">¶</a></h5>
@@ -990,8 +1044,8 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 </div>
-<div class="section" id="id11">
-<h5>1970年の一人当たりGDP<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id12">
+<h5>1970年の一人当たりGDP<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
 <p>３つの列<code class="docutils literal notranslate"><span class="pre">country</span></code>，<code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>，<code class="docutils literal notranslate"><span class="pre">emp</span></code>からなる回帰分析用の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として<code class="docutils literal notranslate"><span class="pre">df_convergence</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1043,8 +1097,8 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 </div>
-<div class="section" id="id12">
-<h4>成長率の分布<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>成長率の分布<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>平均成長率のヒストグラムを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,7 +1117,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_73_0.png" src="_images/9_Convergence_73_0.png" />
+<img alt="_images/9_Convergence_84_0.png" src="_images/9_Convergence_84_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1118,7 +1172,7 @@ $<span class="math notranslate nohighlight">\(
 <p>約半分の国の成長率は平均より低いことになる。しかし上でも説明したが，キャッチアップが起こっているかは平均の成長率との比較では確認できない。一方で，平均成長率が負の国もあり，それらの国は経済が縮小しており先進国に追いついているとは言えない。では，<strong>平均</strong>で貧しい国は豊かな国に追いついているのだろうか？回帰分析で検討する。</p>
 </div>
 <div class="section" id="sec-9-regression-result">
-<span id="id13"></span><h4>結果<a class="headerlink" href="#sec-9-regression-result" title="Permalink to this headline">¶</a></h4>
+<span id="id14"></span><h4>結果<a class="headerlink" href="#sec-9-regression-result" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula_absolute</span> <span class="o">=</span> <span class="s1">&#39;gdp_pc_growth ~ gdp_pc_init_log&#39;</span>
@@ -1157,7 +1211,7 @@ gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_81_0.png" src="_images/9_Convergence_81_0.png" />
+<img alt="_images/9_Convergence_92_0.png" src="_images/9_Convergence_92_0.png" />
 </div>
 </div>
 <p>絶対的所得収斂が発生していることを示唆する結果になっている。しかし注意が必要な点がある。定常状態の<strong>位置</strong>の問題である。この回帰分析結果は，全ての国で定常状態が同じだということは示しておらず，むしろ，定常状態が全ての国で同一という仮定の下での推定結果である。次に，たの変数を含めた重回帰分析をおこなう必要があるが，その前に推定結果から所得収束速度計算してみよう。</p>
@@ -1283,7 +1337,7 @@ gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.
 </div>
 </div>
 <div class="section" id="sec-9-multiple-regression">
-<span id="id14"></span><h3>重回帰分析：1970年〜2019年<a class="headerlink" href="#sec-9-multiple-regression" title="Permalink to this headline">¶</a></h3>
+<span id="id15"></span><h3>重回帰分析：1970年〜2019年<a class="headerlink" href="#sec-9-multiple-regression" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="#sec-9-simple-regression"><span class="std std-ref">単回帰分析</span></a>では絶対的所得収斂を示唆する結果が示された。しかし推定結果は，貯蓄率など全ての経済構造が同じだと仮定し推定をおこなった。この仮定を取り除いた場合，初期の一人当たりGDPの推定値<span class="math notranslate nohighlight">\(\hat{b}\)</span>は統計的有意性を保つことができるだろうか。そして他の変数の統計的有意性はどうだろうか。この点を確認するために，重回帰分析をおこなう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1674,7 +1728,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_115_0.png" src="_images/9_Convergence_115_0.png" />
+<img alt="_images/9_Convergence_126_0.png" src="_images/9_Convergence_126_0.png" />
 </div>
 </div>
 <p>一番上の図から初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1950年年代半ばまでの推定値の統計的優位性低いが，それ以降は高いようだ。1955年以降だけを表示してみよう。</p>
@@ -1690,7 +1744,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_117_0.png" src="_images/9_Convergence_117_0.png" />
+<img alt="_images/9_Convergence_128_0.png" src="_images/9_Convergence_128_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1703,7 +1757,7 @@ a\equiv\frac{1}{t}
 <p>推定値は0となる帰無仮説を5%の優位水準で棄却できる。即ち，少なくとも1955年以降は絶対的所得収斂を示唆している。</p>
 </div>
 <div class="section" id="sec-9-multiple-for-loop">
-<span id="id15"></span><h3>重回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析<a class="headerlink" href="#sec-9-multiple-for-loop" title="Permalink to this headline">¶</a></h3>
+<span id="id16"></span><h3>重回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析<a class="headerlink" href="#sec-9-multiple-for-loop" title="Permalink to this headline">¶</a></h3>
 <p>次のステップとして定常状態に関する３つの変数を追加して回帰分析をおこなう。ここでも<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，最終的にはプロットで結果を確認することにする。基本的には<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使った単回帰分析と同じ方法をとるが，ステップ１の関数<code class="docutils literal notranslate"><span class="pre">data_for_regression(yr)</span></code>は重回帰分析でもそのまま使えるので，ステップ２から始める。次のコードは上で使ったコードの修正版である。新たに追加した箇所だけに番号を振って説明することにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1935,7 +1989,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_131_0.png" src="_images/9_Convergence_131_0.png" />
+<img alt="_images/9_Convergence_142_0.png" src="_images/9_Convergence_142_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1955,8 +2009,8 @@ a\equiv\frac{1}{t}
 <p>係数の符号は資本減耗率以外は期待どおりである。<span class="math notranslate nohighlight">\(p\)</span>値に関しては，1950年半ばから2000年頃までの全ての変数の統計的有意性は高い。従って，それぞれの期間で絶対的所得収斂が成立しているとは判断できない。</p>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>クラブ収斂<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h2>クラブ収斂<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="#sec-9-distribution"><span class="std std-ref">「所得分布の推移」の節</span></a>ではキャッチアップを示唆する結果が示された。一方，<a class="reference internal" href="#sec-9-convergence"><span class="std std-ref">「所得収斂」の節</span></a>では絶対的所得収斂のエビデンスはなかった。相反する結果をどのように解釈すれば良いのだろうか。一つの可能性は「クラブ収斂」という概念である。世界全ての経済の定常状態が同じだと仮定するのは無理があると感じるの当たり前かも知れない。日本を含むOECD諸国とサブサハラ・アフリカ地域の国の違いを漠然と考えても，納得できるかも知れない。しかし，ある特性を共有する国では定常状態が概ね同じだとする仮定が成り立つかも知れない。典型的な例がOECD諸国である。ある「クラブ」に属している国の中で所得収斂が発生して，それが世界全体の所得分布の変化に現れている可能性も否定できない。ここではこの問題に焦点を当て，クラブ収斂があるかを確認する。国の集合である「クラブ」は様々な特徴でグループ化できるので，多くの組み合わせがあり得る。ここでは<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>モジュールのPenn World Tableの変数を使い代表的なグループを考察するが，読者はここでは考えないグループ化を試してみてはどうだろうか。</p>
 <p>まず関数<code class="docutils literal notranslate"><span class="pre">data_for_regression()</span></code>を修正して，あるグループからデータを抽出できる関数を定義する。新たな関数名は<code class="docutils literal notranslate"><span class="pre">data_for_regression_group</span></code>として次の５つの引数がある。</p>
 <ul class="simple">
@@ -2445,7 +2499,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_146_0.png" src="_images/9_Convergence_146_0.png" />
+<img alt="_images/9_Convergence_157_0.png" src="_images/9_Convergence_157_0.png" />
 </div>
 </div>
 <p>貯蓄率と労働人口増加率の係数がマイナスなる場合もあり，統計的有意性も低い。一方で資本減耗率の有意性はある程度高い。単回帰分析で確認できるが，初期の一人当たりGDPの係数はマイナスで有意性も高い。全ての経済を使うケースよりも所得収斂により近い結果である。</p>
@@ -2459,7 +2513,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9_Convergence_148_0.png" src="_images/9_Convergence_148_0.png" />
+<img alt="_images/9_Convergence_159_0.png" src="_images/9_Convergence_159_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">East</span> <span class="pre">Asia</span> <span class="pre">&amp;</span> <span class="pre">Pacific</span></code>では所得収斂が発生していること示している。初期の一人当たりGDPの<span class="math notranslate nohighlight">\(p\)</span>値が5％以下になるのは何年からか確認してみよう。</p>
