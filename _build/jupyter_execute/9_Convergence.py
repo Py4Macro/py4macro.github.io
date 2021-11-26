@@ -235,6 +235,14 @@ pass
 # 8. `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
 # ```
 
+# ````{tip}
+# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
+# ```
+# ax_ = df1.groupby('year')[['gdp_pc_log']].skew().rename(columns={'gdp_pc_log':'歪度'}).plot(marker='o')
+# ax_.axhline(0, color='red')
+# ```
+# ````
+
 # 次の特徴がある。
 # * 1970年以降は減少トレンドが確認できる。このことからキャッチアップが発生していることを示唆している。また1990年頃を境に「正の歪み」から「負の歪み」に変化している。
 # * 1960年，1970年，1990年に上方・下方ジャンプが発生している。これは以下で確認するように，`gdp_pc_log`が`NaN`ではない国の数が大きく増加しているためである。
@@ -267,7 +275,7 @@ for yr in year_list:
     no = df.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
     notna_list.append(no)
 
-pd.DataFrame({'国数':notna_list}, index=year_list).plot()
+pd.DataFrame({'国の数':notna_list}, index=year_list).plot()
 pass
 
 
@@ -277,6 +285,17 @@ pass
 # 1. 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
 # 2. `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
 # ```
+
+# ````{tip}
+# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
+# ```
+# def notna_sum(x):
+#     return x.notna().sum()
+#     
+# df.groupby('year')[['gdp_pc_log']].agg(notna_sum).rename(columns={'gdp_pc_log':'国の数'}).plot()
+# ```
+# `notna_sum`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
+# ````
 
 # 上の図から`gdp_pc_log`が欠損値でない国は増加しており，1960年，1970年，1990年に大きく増えている。データが整備されている国は典型的に先進国であり，後から含まれる国は比較的に所得が低い経済である。従って，貧しい国が所得分布に含まれることにより，分布は左側に引っ張られる傾向にある。特に，1950年から1960年には徐々に国の数は増えているが，それが歪度の上昇につながっていると考えられる。また1960年と1970年の国の数の急激な増加が歪度の上方ジャンプとして現れている。このようなことから，1970年までの歪度の上昇トレンドは，貧しい経済がPWTのデータセットに含まれることによって引き起こされており，豊かな国と比較して貧しい国が引き離されているからではない。一方で，1970年以降も国の数は膨らんでいるが，それにも関わらず歪度は減少傾向を示しているということはキャッチアップが発生していることを示唆している。典型的な例は，台湾，シンガポール，香港，韓国，中国やインドなどである。
 # 
@@ -324,6 +343,17 @@ pass
 # 
 # 上で扱った変動係数は経済間における所得格差を表す指標として解釈することができるが，その場合次の点に注意する必要がある。
 # * 分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。中国やインドのように大きな国も，ルクセンブルクやシンガポールのように小さな国も１つの経済として扱っている。この場合の変動係数は，全ての国には一人だけしか住んでいないと仮定した場合の経済間の所得格差と同じであり，**国内**の人口や所得不平等やは全く考慮されていない。
+
+# ````{tip}
+# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
+# ```
+# def cv(x):
+#     return x.std()/x.mean()
+# 
+# df.groupby('year')[['gdp_pc_log']].agg(cv).rename(columns={'gdp_pc_log':'CV'}).plot()
+# ```
+# `cv`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
+# ````
 
 # ## 所得収斂
 
@@ -447,7 +477,7 @@ pass
 # 1. 回帰式[](eq:9-absolute_convergence)推定する。
 #     * $\hat{b}$が負であり統計的有意性が高ければ，絶対的所得収斂を示唆する結果として次に進む。
 # 2. 回帰式[](eq:9-conditional_convergence)推定する。
-#     * $\hat{b}$が負であり統計的有意性が高く，また他の説明変数の有意性が低ければ絶対的所得収斂が成立すると判断する。
+#     * $\hat{b}$が負であり統計的有意性が高く，また他の説明変数の有意性が低ければ絶対的所得収斂が成立すると判断する（$F$検定）。
 #     * その他の場合は絶対的所得収斂は成立しないと判断する。
 
 # ### 単回帰分析：1970年〜2019年
@@ -464,7 +494,8 @@ pass
 # * `cgdpo`：GDP
 #     * 初期時点の一人当たりGDPの計算に使う
 # * `emp`：雇用者数
-#     * GDPを一人当たりに換算する際に使う。
+#     * ソロー・モデルの労働人口に対応する変数としてGDPを一人当たりに換算する際に使う。
+#     * 雇用者数の増加率を$n$の代わりに使う。
 #     * 平均増加率として定常状態を捉える変数として使う。
 # * `csh_i`：GDPに対しての資本形成の比率
 #     * 投資の対GDP比であり$s$の代わりに使う。
@@ -481,12 +512,12 @@ yr = 1970
 pwt = df.query('year >= @yr').copy()
 
 
-# ##### 貯蓄率・労働人口成長率・資本減耗率の平均
+# ##### 貯蓄率・雇用者数の増加率・資本減耗率の平均
 
 # (sec:9-saving)=
-# ##### 貯蓄率・労働人口成長率・資本減耗率の平均
+# ##### 貯蓄率・雇用者数の増加率・資本減耗率の平均
 
-# 1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口成長率を計算するが，[ソロー・モデル](sec:8-data)の章で使ったコードを再利用することもできる。ここでは`.groupby()`を使った計算を紹介することにする。`.groupby()`を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。
+# 1970年〜2019年の貯蓄率，資本減耗率の平均，雇用者数の増加率を計算するが，[ソロー・モデル](sec:8-data)の章で使ったコードを再利用することもできる。ここでは`.groupby()`を使った計算を紹介することにする。`.groupby()`を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。
 
 # In[14]:
 
@@ -528,7 +559,7 @@ depreciation.columns = ['depreciation']
 # 1. 同様のことが言える。
 # ```
 
-# 次に労働人口成長率の平均を計算するが，成長率を計算する必要があるので次の関数を定義する。
+# 次に雇用者数の平均増加率を計算するが，成長率を計算する必要があるので次の関数を定義する。
 
 # In[16]:
 
@@ -547,12 +578,13 @@ def mean_growth_nan(x):
 # 1 のみが`mean_na()`と異なる。ここではグループ・データ`x`を使い，平均成長率を計算している。`x.iloc[-1]`は2019年の値であり，`x.iloc[0]`は1970年のデータとなっている。また`2019-yr+1`は`50`であり`50`年間の平均成長率であることがわかる。
 # ```
 
-# この関数を使い労働人口成長率の平均の計算を計算しよう。
+# この関数を使い雇用者数の平均増加率を計算しよう。
 
 # In[17]:
 
 
 emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
+emp_growth.columns = ['emp_growth']
 
 
 # ここでも`.dropna()`を使い欠損値を削除し，全ての年でデータが揃っている国だけを抽出している。
@@ -567,7 +599,7 @@ emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
 pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
 
 
-# 平均成長率は関数`mean_growth_nan()`を使い，労働人口の平均成長率の計算と同じ方法で計算しよう。
+# 平均成長率は関数`mean_growth_nan()`を使い，雇用者数の平均増加率の計算と同じ方法で計算しよう。
 
 # In[19]:
 
@@ -610,10 +642,10 @@ df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]            
 
 
 for df_right in [saving, depreciation, emp_growth, growth]:
-    df_convergence = df_convergence.merge(df_right,
-                                          left_index=True,
-                                          right_index=True,
-                                          how='outer')
+    df_convergence = pd.merge(df_convergence, df_right,
+                              left_index=True,
+                              right_index=True,
+                              how='outer')
 
 
 # 最後に欠損値がある行は全て削除する。
@@ -624,10 +656,12 @@ for df_right in [saving, depreciation, emp_growth, growth]:
 df_convergence = df_convergence.dropna()
 
 
+# 確認してみよう。
+
 # In[25]:
 
 
-df_convergence
+df_convergence.head()
 
 
 # #### 成長率の分布
@@ -852,7 +886,41 @@ print(res_conditional.summary().tables[1])
 # * $a$は$n$の単調関数ではない $\Rightarrow$ `emp_growth`の係数に関する予想は不明確。
 # * $a$は$d$の単調関数ではない $\Rightarrow$ `depreciation`の係数に関する予想は不明確。
 # 
-# この予想に基づいて係数の統計的有意性を検討しよう。全ての係数の$p$値は非常に小さく統計的な有意性は高い。データに含まれている全ての経済の定常値が同じとは言えない。従って，絶対的所得収斂が成立していると判断できない。
+# この予想に基づいて係数の統計的有意性を検討しよう。全ての係数の$p$値は非常に小さく統計的な有意性は高い。確認のために$F$検定を行ってみよう。ここでは次の帰無仮説と対立仮説を立てることにする。
+# 
+# $H_0$：貯蓄率，雇用者増加率，資本減耗率の推定値は全て`0`<br>
+# $H_A$：$H_0$は成立しない。
+# 
+# `statsmodels`を使って$F$検定をおこなう方法については[このサイト](https://py4etrics.github.io/11_Inference.html#f)参考にして欲しいが，ここでは簡単い説明する。まず帰無仮説を捉える制約式を設定しよう。
+
+# In[35]:
+
+
+hypothesis = 'saving_rate = 0, emp_growth = 0, depreciation = 0'
+
+
+# ３つの説明変数の推定値が全て同時に`0`だという制約式である。次に，回帰結果`res_conditional`には$F$検定をおこなうメソッド`.f_test()`が実装されている。使い方は簡単で，制約式である`hypothesis`を引数として渡すことで結果を表示できる。
+
+# In[36]:
+
+
+print( res_conditional.f_test(hypothesis) )
+
+
+# ＜表示にある記号の意味＞<br>
+# `F`：$F$値<br>
+# `p`：$p$値<br>
+# `df_denom`：分母の自由度<br>
+# `df_num`：分子の自由度<br>
+# 
+# ここで興味があるのは$p$値であり，非常に小さい。従って，1%の有意水準であっても帰無仮説は棄却できる。データに含まれている全ての経済の定常値が同じとは言い難く，絶対的所得収斂が成立していると判断できない。
+# 
+# ````{tip}
+# $F$検定の結果の値は属性として抽出できる。例えば，$p$値は次のコードでアクセスできる。
+# ```
+# res_conditional.f_test(hypothesis).pvalue
+# ```
+# ````
 
 # ### 単回帰分析：`for`ループで回帰分析
 
@@ -873,12 +941,12 @@ print(res_conditional.summary().tables[1])
 #     * 初期時点の一人当たりGDP（対数）の係数の推定値
 #     * $p$値
 #     * 決定係数
-#     * 標本に含まれる国数
+#     * 標本に含まれる国の数
 # 1. ４つの変数の時系列プロット
 
-# ステップ１の`data_for_regression(yr)`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。
+# ステップ１の`data_for_regression(yr)`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。コード自体は上で使ったコードを再利用して関数にまとめている。
 
-# In[35]:
+# In[37]:
 
 
 def data_for_regression(yr):
@@ -890,28 +958,22 @@ def data_for_regression(yr):
     pwt = df.query('year >= @yr').loc[:, var]
     
     # === 平均貯蓄率の計算 ======================
-    saving = pwt.pivot(index='year', columns='country', values='csh_i')
-    saving = saving.dropna(axis='columns')
-    saving = saving.mean().to_frame('saving_rate')
+    saving = pwt.groupby('country')[['csh_i']].agg(mean_nan).dropna()
+    saving.columns = ['saving_rate']
 
     # === 資本減耗率の平均の計算 ======================
-    depreciation = pwt.pivot(index='year', columns='country', values='delta')
-    depreciation = depreciation.dropna(axis='columns')
-    depreciation = depreciation.mean().to_frame('depreciation')
+    depreciation = pwt.groupby('country')[['delta']].agg(mean_nan).dropna()
+    depreciation.columns = ['depreciation']
 
     # === 労働人口成長率の平均の計算 ======================
-    emp = pwt.pivot(index='year', columns='country', values='emp')
-    emp = emp.dropna(axis='columns')
-    emp_growth = ( ( emp.loc[2019,:]/emp.loc[yr,:] )**(1/(2019-yr+1))-1 
-                 ).to_frame('emp_growth')
+    emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
+    emp_growth.columns = ['emp_growth']
     
     # === 一人当たりGDP成長率の平均の計算 ======================
     pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
-    rgdpna_pc = pwt.pivot(index='year', columns='country', values='rgdpna_pc')
-    rgdpna_pc = rgdpna_pc.dropna(axis='columns')
-    growth = ( ( rgdpna_pc.loc[2019,:]/rgdpna_pc.loc[yr,:] )**(1/(2019-yr+1))-1 
-             ).to_frame('gdp_pc_growth')
-    
+    growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
+    growth.columns = ['gdp_pc_growth']
+        
     # === 初期の一人当たりGDPの計算 ======================
     df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]    
     df_convergence['gdp_pc_init_log'] = np.log( pwt.loc[:,'cgdpo']/pwt.loc[:,'emp'] )
@@ -919,17 +981,17 @@ def data_for_regression(yr):
     
     # === DataFrameの結合 ======================
     for df_right in [saving, depreciation, emp_growth, growth]:
-        df_convergence = df_convergence.merge(df_right,
-                                              left_index=True,
-                                              right_index=True,
-                                              how='outer')
+        df_convergence = pd.merge(df_convergence, df_right,
+                                  left_index=True,
+                                  right_index=True,
+                                  how='outer')
 
     return df_convergence.dropna()
 
 
 # `yr=1970`として関数を実行して内容を確認してみよう。
 
-# In[36]:
+# In[38]:
 
 
 data_for_regression(1970).head()
@@ -937,7 +999,7 @@ data_for_regression(1970).head()
 
 # ステップ２として，`for`ループを使って４つの変数からなる`DataFrame`を作成する。
 
-# In[37]:
+# In[39]:
 
 
 b_coef_list = []     # 1
@@ -994,7 +1056,7 @@ df_simple_result = pd.DataFrame({'初期の一人当たりGDPの係数':b_coef_l
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[38]:
+# In[40]:
 
 
 df_simple_result.head(3)
@@ -1002,7 +1064,7 @@ df_simple_result.head(3)
 
 # それぞれの列には計算した変数が並んでおり，行インデックスには年が配置されている。初期時点を1970年とする結果を確かめてみよう。
 
-# In[39]:
+# In[41]:
 
 
 df_simple_result.loc[[1970],:]
@@ -1012,7 +1074,7 @@ df_simple_result.loc[[1970],:]
 
 # ステップ３として`df_reg_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[40]:
+# In[42]:
 
 
 df_simple_result.plot(subplots=True, figsize=(6,8))
@@ -1021,7 +1083,7 @@ pass
 
 # 一番上の図から初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1950年年代半ばまでの推定値の統計的優位性低いが，それ以降は高いようだ。1955年以降だけを表示してみよう。
 
-# In[41]:
+# In[43]:
 
 
 col_name = df_simple_result.columns[1]  # 1
@@ -1048,59 +1110,53 @@ pass
 
 # 次のステップとして定常状態に関する３つの変数を追加して回帰分析をおこなう。ここでも`for`ループを使い，最終的にはプロットで結果を確認することにする。基本的には`for`ループを使った単回帰分析と同じ方法をとるが，ステップ１の関数`data_for_regression(yr)`は重回帰分析でもそのまま使えるので，ステップ２から始める。次のコードは上で使ったコードの修正版である。新たに追加した箇所だけに番号を振って説明することにする。
 
-# In[42]:
+# In[44]:
 
 
 saving_coef_list = []                            # 1
-saving_pval_list = []                            # 2
-emp_growth_coef_list = []                        # 3
-emp_growth_pval_list = []                        # 4
-depreciation_coef_list = []                      # 5
-depreciation_pval_list = []                      # 6
-b_coef_list = []
-b_pval_list = []
-rsquared_list = []
-nobs_list = []
-yr_list = []
+emp_growth_coef_list = []                        # 2
+depreciation_coef_list = []                      # 3
+b_coef_list = []                                 # 4
+b_pval_list = []                                 # 5
+f_pval_list = []                                 # 6
+rsquared_list = []                               # 7
+nobs_list = []                                   # 8
+yr_list = []                                     # 9
 
-formula = ( 'gdp_pc_growth ~ saving_rate +'      # 7
+formula = ( 'gdp_pc_growth ~ saving_rate +'      # 10
                             'emp_growth +'
                             'depreciation +'
                             'gdp_pc_init_log' )
 
-for yr in range(1950, 2010):
+for yr in range(1950, 2000):                     # 11
     
-    df0 = data_for_regression(yr)
-    res = sm.ols(formula, data=df0).fit()
-    c = res.params
-    p = res.pvalues
-        
-    saving_coef_list.append( c[1] )              # 8
-    saving_pval_list.append( p[1] )              # 9
-    
-    emp_growth_coef_list.append( c[2] )          # 10
-    emp_growth_pval_list.append( p[2] )          # 11
-    
-    depreciation_coef_list.append( c[3] )        # 12
-    depreciation_pval_list.append( p[3] )        # 13
-    
-    b_coef_list.append( c[4] )                   # 14
-    b_pval_list.append( p[4] )                   # 15
+    df0 = data_for_regression(yr)                # 12
+    res = sm.ols(formula, data=df0).fit()        # 13
+    c = res.params                               # 14
+    p = res.pvalues                              # 15
+    hypothesis = ( 'saving_rate=0,'              # 16
+                   ' emp_growth=0,'
+                   ' depreciation=0')
+    f_pval = res.f_test(hypothesis).pvalue       # 17
 
-    rsquared_list.append( res.rsquared )
-    nobs_list.append( int(res.nobs) )
-    yr_list.append(yr)
+    saving_coef_list.append( c[1] )              # 18
+    emp_growth_coef_list.append( c[2] )          # 19
+    depreciation_coef_list.append( c[3] )        # 20
+    b_coef_list.append( c[4] )                   # 21
+    b_pval_list.append( p[4] )                   # 22
+    f_pval_list.append( f_pval )                 # 23
+    rsquared_list.append( res.rsquared_adj )     # 24
+    nobs_list.append( int(res.nobs) )            # 25
+    yr_list.append(yr)                           # 26
 
-                                                 # 16
+                                                 # 27
 df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
-                                   'p値（貯蓄率）':saving_pval_list,
                                    '労働人口増加率の係数':emp_growth_coef_list,
-                                   'p値（労働人口増加率）':emp_growth_pval_list,
                                    '資本減耗率の係数':depreciation_coef_list,
-                                   'p値（資本減耗率）':depreciation_pval_list,
                                    '初期の一人当たりGDPの係数':b_coef_list,
                                    'p値（初期の一人当たりGDP）':b_pval_list,
-                                   '決定係数':rsquared_list,
+                                   'p値（F検定）':f_pval_list,                                   
+                                   '決定係数（調整済み）':rsquared_list,                                   
                                    '国の数':nobs_list},
                                    index=yr_list)
 
@@ -1108,45 +1164,56 @@ df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. 貯蓄率$s$の係数を格納する空のリスト。
-# 2. 貯蓄率$s$の$p$値を格納する空のリスト。
-# 3. 労働人口増加率$n$の係数を格納する空のリスト。
-# 4. 労働人口増加率$n$の$p$値を格納する空のリスト。
-# 5. 資本減耗率$d$の係数を格納する空のリスト。
-# 6. 資本減耗率$d$の$p$値を格納する空のリスト。
-# 7. 回帰式が複数行に続いているので，右辺の両端に`()`を使っている。また文字列は一行ずつ`'`と`'`で囲むこと。もちろんシングル・クオート`'`の代わりにダブル・クオート`"`を使っても良い。
-# 8. `c`には推定値が`Series`として入っているので，`c[1]`で$s$の推定値を取得し`saving_coef_list`に割り当てる。
-# 9. `p`には$p$値が`Series`として入っているので，`p[1}`で$s$の$p$値を取得し`saving_pval_list`に割り当てる。
-# 10. `c[2]`で$n$の推定値を取得し`emp_growth_coef_list`に割り当てる。
-# 11. `p[2]`で$n$の$p$値を取得し`emp_growth_pval_list`に割り当てる。
-# 12. `c[3]`で$d$の推定値を取得し`depreciation_coef_list`に割り当てる。
-# 13. `p[3]`で$d$の$p$値を取得し`depreciation_pval_list`に割り当てる。
-# 14. `c[4]`で初期時点の一人当たりGDPの係数の推定値を取得し`b_coef_list`に割り当てる。
-# 15. `p[4]`で初期時点の一人当たりGDPの係数の$p$値を取得し`b_pval_list`に割り当てる。
-# 16. `for`ループの結果を使い`DataFrame`を作成し`df_multiple_result`に割り当てる。
+# 1. 貯蓄率$s$の係数を格納する空のリスト
+# 2. 労働人口増加率$n$の係数を格納する空のリスト
+# 3. 資本減耗率$d$の係数を格納する空のリスト
+# 4. 初期の一人当たりGDPの係数を格納する空のリスト
+# 5. 初期の一人当たりGDPの$p$値を格納する空のリスト
+# 6. $F$検定の$p$値を格納する空のリスト
+# 7. 調整済み決定係数を格納する空のリスト
+# 8. 国の数（標本の大きさ）を格納する空のリスト
+# 9. 年を格納する空のリスト
+# 10. 回帰式が複数行に続いているので，右辺の両端に`()`を使っている。また文字列は一行ずつ`'`と`'`で囲むこと。もちろんシングル・クオート`'`の代わりにダブル・クオート`"`を使っても良い。
+# 11. 初期を1950年から1999年までの`for`ループとする。
+# 12. `DataFrame`の作成し`df0`に割り当てる
+# 13. 推定結果を`res`に割り当てる
+# 14. 係数の推定値を`c`に割り当てる
+# 15. 係数の$p$値を`p`に割り当てる
+# 16. $F$検定の制約式を定義する
+# 17. $F$検定の$p$値を`f_pval`に割り当てる
+# 18. `c`には推定値が`Series`として入っているので，`c[1]`で$s$の推定値を取得し`saving_coef_list`に割り当てる。
+# 19. `c[2]`で$n$の推定値を取得し`emp_growth_coef_list`に割り当てる。
+# 20. `c[3]`で$d$の推定値を取得し`depreciation_coef_list`に割り当てる。
+# 21. `c[4]`で初期時点の一人当たりGDPの係数の推定値を取得し`b_coef_list`に割り当てる。
+# 22. `p[4]`で初期時点の一人当たりGDPの係数の$p$値を取得し`b_pval_list`に割り当てる。
+# 23. $F$検定の$p$値を`f_pval_list`に割り当てる
+# 24. 決定係数（調整済み）を`rsquared_list`に割り当てる
+# 25. 国の数（標本の大きさ）を整数型として`nobs_list`に割り当てる
+# 26. 年を整数型として`yr_list`に割り当てる
+# 27. `for`ループの結果を使い`DataFrame`を作成し`df_multiple_result`に割り当てる。
 # ```
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[43]:
+# In[45]:
 
 
 df_multiple_result.head(3)
 
 
-# 定常状態に関連する変数の推定値と$p$値が追加されているのが確認できる。
+# 定常状態に関連する変数の推定値や$F$検定の$p$値などが追加されているのが確認できる。1970年からの結果を表示してみよう。
 
-# In[44]:
-
-
-df_multiple_result.loc[[1970],:]
+# In[46]:
 
 
-# [上の](sec:9-regression_result)の結果と同じになることが確認できる。
+df_multiple_result.loc[1970,:]
+
+
+# 係数の推定値は[上の](sec:9-regression_result)の結果と同じになることが確認できる。
 
 # ステップ３として`df_multiple_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[45]:
+# In[47]:
 
 
 df_multiple_result.iloc[:,list(range(0,8))].plot(                # 1
@@ -1168,7 +1235,7 @@ pass
 # 4. `figsize=(10,8)`はキャンバスの大きさを指定している。
 # ````
 
-# 係数の符号は資本減耗率以外は期待どおりである。$p$値に関しては，1950年半ばから2000年頃までの全ての変数の統計的有意性は高い。従って，それぞれの期間で絶対的所得収斂が成立しているとは判断できない。
+# 係数の符号は資本減耗率以外は期待どおりである。$F$検定の$p$値に関しては，1960年以降一貫して非常に小さな値となっている。1950年代に高い値になっているのは，国の数が少なく比較的に所得水準が高い国が集まっていたためだと思われる。国の数が多くなる1960年以降，それぞれの期間で絶対的所得収斂が成立しているとは判断できない。
 
 # ## クラブ収斂
 
@@ -1212,7 +1279,7 @@ pass
 #     data_for_regression_group(1960, region='Latin America & Caribbean')
 #     ```
 
-# In[46]:
+# In[48]:
 
 
 def data_for_regression_group(yr, oecd=None,          # 修正
@@ -1271,28 +1338,22 @@ def data_for_regression_group(yr, oecd=None,          # 修正
         print('何かおかしいですよ。引数を確認しましょう (^o^)/')
 
     # === 平均貯蓄率の計算 ======================
-    saving = pwt.pivot(index='year', columns='country', values='csh_i')
-    saving = saving.dropna(axis='columns')
-    saving = saving.mean().to_frame('saving_rate')
+    saving = pwt.groupby('country')[['csh_i']].agg(mean_nan).dropna()
+    saving.columns = ['saving_rate']
 
     # === 資本減耗率の平均の計算 ======================
-    depreciation = pwt.pivot(index='year', columns='country', values='delta')
-    depreciation = depreciation.dropna(axis='columns')
-    depreciation = depreciation.mean().to_frame('depreciation')
+    depreciation = pwt.groupby('country')[['delta']].agg(mean_nan).dropna()
+    depreciation.columns = ['depreciation']
 
     # === 労働人口成長率の平均の計算 ======================
-    emp = pwt.pivot(index='year', columns='country', values='emp')
-    emp = emp.dropna(axis='columns')
-    emp_growth = ( ( emp.loc[2019,:]/emp.loc[yr,:] )**(1/(2019-yr+1))-1 
-                 ).to_frame('emp_growth')
+    emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
+    emp_growth.columns = ['emp_growth']
     
     # === 一人当たりGDP成長率の平均の計算 ======================
     pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
-    rgdpna_pc = pwt.pivot(index='year', columns='country', values='rgdpna_pc')
-    rgdpna_pc = rgdpna_pc.dropna(axis='columns')
-    growth = ( ( rgdpna_pc.loc[2019,:]/rgdpna_pc.loc[yr,:] )**(1/(2019-yr+1))-1 
-             ).to_frame('gdp_pc_growth')
-    
+    growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
+    growth.columns = ['gdp_pc_growth']
+        
     # === 初期の一人当たりGDPの計算 ======================
     df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]    
     df_convergence['gdp_pc_init_log'] = np.log( pwt.loc[:,'cgdpo']/pwt.loc[:,'emp'] )
@@ -1319,7 +1380,7 @@ def data_for_regression_group(yr, oecd=None,          # 修正
 
 # 実際に，1980年の`oecd=1`として関数を実行して内容を確認してみよう。
 
-# In[47]:
+# In[49]:
 
 
 data_for_regression_group(1980, oecd=1)
@@ -1327,21 +1388,19 @@ data_for_regression_group(1980, oecd=1)
 
 # 先進国だけが並んでいることが確認できる。
 # 
-# 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。
+# 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。また`for`ループで使う初期は1960年から1999年としている。
 
-# In[48]:
+# In[50]:
 
 
 def regression_result(**kwargs):                      # 1
 
     saving_coef_list = []
-    saving_pval_list = []
     emp_growth_coef_list = []
-    emp_growth_pval_list = []
     depreciation_coef_list = []
-    depreciation_pval_list = []
     b_coef_list = []
     b_pval_list = []
+    f_pval_list = []
     rsquared_list = []
     nobs_list = []
     yr_list = []
@@ -1351,38 +1410,35 @@ def regression_result(**kwargs):                      # 1
                                 'depreciation +'
                                 'gdp_pc_init_log' )
 
-    for yr in range(1950, 2010):
+    for yr in range(1960, 2000):
 
         df0 = data_for_regression_group(yr, **kwargs)  # 2
         res = sm.ols(formula, data=df0).fit()
         c = res.params
         p = res.pvalues
+        hypothesis = ( 'saving_rate=0,'
+               ' emp_growth=0,'
+               ' depreciation=0')
+        f_pval = res.f_test(hypothesis).pvalue
 
         saving_coef_list.append( c[1] )
-        saving_pval_list.append( p[1] )
-
         emp_growth_coef_list.append( c[2] )
-        emp_growth_pval_list.append( p[2] )
-
         depreciation_coef_list.append( c[3] )
-        depreciation_pval_list.append( p[3] )
-
         b_coef_list.append( c[4] )
         b_pval_list.append( p[4] )
-
-        rsquared_list.append( res.rsquared )
+        f_pval_list.append( f_pval )
+        rsquared_list.append( res.rsquared_adj )
         nobs_list.append( int(res.nobs) )
         yr_list.append(yr)
 
-    return pd.DataFrame({'貯蓄率の係数':saving_coef_list,   # 3
-                         'p値（貯蓄率）':saving_pval_list,
+                                                     # 3
+    return pd.DataFrame({'貯蓄率の係数':saving_coef_list,
                          '労働人口増加率の係数':emp_growth_coef_list,
-                         'p値（労働人口増加率）':emp_growth_pval_list,
                          '資本減耗率の係数':depreciation_coef_list,
-                         'p値（資本減耗率）':depreciation_pval_list,
                          '初期の一人当たりGDPの係数':b_coef_list,
                          'p値（初期の一人当たりGDP）':b_pval_list,
-                         '決定係数':rsquared_list,
+                         'p値（F検定）':f_pval_list,                                   
+                         '決定係数（調整済み）':rsquared_list,                                   
                          '国の数':nobs_list},
                          index=yr_list)
 
@@ -1401,7 +1457,7 @@ def regression_result(**kwargs):                      # 1
 
 # 準備ができたので，実際に回帰分析をしてみよう。まず`oecd`諸国だけを抽出し結果をプロットする。
 
-# In[49]:
+# In[51]:
 
 
 regression_result(oecd=1).iloc[:,list(range(0,8))]                          .plot(subplots=True,
@@ -1410,11 +1466,11 @@ regression_result(oecd=1).iloc[:,list(range(0,8))]                          .plo
 pass
 
 
-# 貯蓄率と労働人口増加率の係数がマイナスなる場合もあり，統計的有意性も低い。一方で資本減耗率の有意性はある程度高い。単回帰分析で確認できるが，初期の一人当たりGDPの係数はマイナスで有意性も高い。全ての経済を使うケースよりも所得収斂により近い結果である。
+# 貯蓄率と労働人口増加率の係数がマイナスなる場合もあり，表示していないが統計的有意性も低い。$F$検定の$p$値は1960年代中頃までは`0.1`以上の値となっている。即ち，長い時間的なスパンでは絶対的所得収斂の成立を示唆している。
 # 
 # 次に`region`で`East Asia & Pacific`を考えてみよう。
 
-# In[50]:
+# In[52]:
 
 
 asia = regression_result(region='East Asia & Pacific')
@@ -1422,20 +1478,28 @@ asia.iloc[:,list(range(0,8))].plot(subplots=True, layout=(4,2), figsize=(10,8))
 pass
 
 
-# `East Asia & Pacific`では所得収斂が発生していること示している。初期の一人当たりGDPの$p$値が5％以下になるのは何年からか確認してみよう。
+# まず$F$検定の$p$値の最小値を表示してみよう。
 
-# In[51]:
+# In[53]:
 
 
-cond = ( asia.iloc[:,7] < 0.05 )  # 1
-asia.loc[cond,:].index            # 2
+asia.loc[:,'p値（F検定）'].min()
+
+
+# $F$検定の$p$値は一貫して`0.05`を上回っていることを意味しており，絶対的所得収斂を示唆している。絶対的所得収斂のもう一つの条件は初期の一人当たりGDPが統計的に優位であることである。その$p$値が5％以下になるのは何年からか確認してみよう。
+
+# In[54]:
+
+
+cond = ( asia.loc[:,'p値（初期の一人当たりGDP）'] <= 0.05 )  # 1
+asia.loc[cond,:].index                                   # 2
 
 
 # ```{admonition} コートの説明
 # :class: dropdown
 # 
-# 1. 第７列目（初期の一人当たりGDPの$p$値）の要素が0.05より小さい場合は`True`，そうでない場合は`False`を返す。
+# 1. `初期の一人当たりGDPの$p$値`の要素が0.05以下の場合は`True`，そうでない場合は`False`を返す。
 # 2. (1)で`True`の行を抽出し，`.index`を使い行ラベルを取得している。
 # ```
 
-# [「所得分布の推移」の節](sec:9-distribution)におけるキャッチアップを示唆する結果の裏では，クラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。
+# 1970年代中頃以降から絶対的所得収斂のメカニズムが働いていることを意味している。[「所得分布の推移」の節](sec:9-distribution)におけるキャッチアップを示唆する結果の裏では，ここで考察したクラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。
