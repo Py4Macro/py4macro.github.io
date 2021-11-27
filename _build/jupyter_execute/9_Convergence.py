@@ -65,10 +65,10 @@ import py4macro
 
 
 # Penn World Tableのデータ
-df = py4macro.data('pwt')
+pwt = py4macro.data('pwt')
 
 # 一人当たりGDP（対数）
-df['gdp_pc_log'] = np.log( df['rgdpe'] / df['pop'] )
+pwt['gdp_pc_log'] = np.log( pwt['rgdpe'] / pwt['pop'] )
 
 
 # 例として2019年の日本の一人当たりGDPを表示してみよう。
@@ -76,7 +76,7 @@ df['gdp_pc_log'] = np.log( df['rgdpe'] / df['pop'] )
 # In[3]:
 
 
-y_jp = df.query('country == "Japan" & year == 2019')['gdp_pc_log']
+y_jp = pwt.query('country == "Japan" & year == 2019')['gdp_pc_log']
 y_jp
 
 
@@ -93,8 +93,8 @@ y_jp.iloc[0]
 # In[5]:
 
 
-cond = ( df.loc[:,'year']==2019 )
-df.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20)
+cond = ( pwt.loc[:,'year']==2019 )
+pwt.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20)
 pass
 
 
@@ -104,10 +104,10 @@ pass
 
 
 # 1 ヒストグラム
-ax_ = df.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20, density=True)
+ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20, density=True)
 
 # 2 密度関数
-df.loc[cond,'gdp_pc_log'].plot(kind='density',ax=ax_)
+pwt.loc[cond,'gdp_pc_log'].plot(kind='density',ax=ax_)
 
 # 3 日本
 ax_.axvline(y_jp.iloc[0],color='red')
@@ -133,19 +133,19 @@ pass
 # In[7]:
 
 
-yr_list = list(range(1960,2020,10))+[2019]           # 1
+yr_list = list(range(1960,2020,10))+[2019]            # 1
 
-cond = ( df.loc[:,'year'] == 1950 )                  # 2
-ax_ = df.loc[cond,'gdp_pc_log'].plot(kind='density', # 3
-                                     label='1950',   # 4
-                                     legend=True)    # 5
-for y in yr_list:                                    # 6
-    cond = ( df.loc[:,'year'] == y )                 # 7
-    df.loc[cond,'gdp_pc_log'].plot(kind='density',   # 8
-                                   label=str(y),     # 9
-                                   legend=True,      # 10
-                                   ax=ax_)           # 11
-ax_.set_xlim([5.5,13.0])                             # 12
+cond = ( pwt.loc[:,'year'] == 1950 )                  # 2
+ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='density', # 3
+                                      label='1950',   # 4
+                                      legend=True)    # 5
+for y in yr_list:                                     # 6
+    cond = ( pwt.loc[:,'year'] == y )                 # 7
+    pwt.loc[cond,'gdp_pc_log'].plot(kind='density',   # 8
+                                    label=str(y),     # 9
+                                    legend=True,      # 10
+                                    ax=ax_)           # 11
+ax_.set_xlim([5.5,13.0])                              # 12
 pass
 
 
@@ -202,14 +202,14 @@ pass
 # In[8]:
 
 
-year_list = df.loc[:,'year'].unique()
+year_list = pwt.loc[:,'year'].unique()
 
 skew_list = []
 
 for yr in year_list:                       # 1
     
-    cond = ( df.loc[:,'year']==yr )        # 2
-    s = df.loc[cond, 'gdp_pc_log']         # 3
+    cond = ( pwt.loc[:,'year']==yr )        # 2
+    s = pwt.loc[cond, 'gdp_pc_log']         # 3
     
     # 歪度
     skew_val = s.skew()                    # 4
@@ -238,7 +238,7 @@ pass
 # ````{tip}
 # 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
 # ```
-# ax_ = df1.groupby('year')[['gdp_pc_log']].skew().rename(columns={'gdp_pc_log':'歪度'}).plot(marker='o')
+# ax_ = pwt.groupby('year')[['gdp_pc_log']].skew().rename(columns={'gdp_pc_log':'歪度'}).plot(marker='o')
 # ax_.axhline(0, color='red')
 # ```
 # ````
@@ -253,8 +253,8 @@ pass
 # In[9]:
 
 
-cond = ( df.loc[:,'year']==2019 )        # 1
-df.loc[cond,'gdp_pc_log'].notna().sum()  # 2
+cond = ( pwt.loc[:,'year']==2019 )        # 1
+pwt.loc[cond,'gdp_pc_log'].notna().sum()  # 2
 
 
 # ```{admonition} コードの説明
@@ -271,8 +271,8 @@ df.loc[cond,'gdp_pc_log'].notna().sum()  # 2
 notna_list = []
 
 for yr in year_list:
-    cond = ( df.loc[:,'year']==yr )                # 1
-    no = df.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
+    cond = ( pwt.loc[:,'year']==yr )                # 1
+    no = pwt.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
     notna_list.append(no)
 
 pd.DataFrame({'国の数':notna_list}, index=year_list).plot()
@@ -292,7 +292,7 @@ pass
 # def notna_sum(x):
 #     return x.notna().sum()
 #     
-# df.groupby('year')[['gdp_pc_log']].agg(notna_sum).rename(columns={'gdp_pc_log':'国の数'}).plot()
+# pwt.groupby('year')[['gdp_pc_log']].agg(notna_sum).rename(columns={'gdp_pc_log':'国の数'}).plot()
 # ```
 # `notna_sum`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
 # ````
@@ -313,8 +313,8 @@ pass
 cv_list = []   # 空のリスト
 
 for yr in year_list:
-    cond = ( df.loc[:,'year']==yr )
-    s = df.loc[cond, 'gdp_pc_log']
+    cond = ( pwt.loc[:,'year']==yr )
+    s = pwt.loc[cond, 'gdp_pc_log']
     stdev = s.std()                 # 1
     avr = s.mean()                  # 2
     cv = stdev / avr                # 3
@@ -350,7 +350,7 @@ pass
 # def cv(x):
 #     return x.std()/x.mean()
 # 
-# df.groupby('year')[['gdp_pc_log']].agg(cv).rename(columns={'gdp_pc_log':'CV'}).plot()
+# pwt.groupby('year')[['gdp_pc_log']].agg(cv).rename(columns={'gdp_pc_log':'CV'}).plot()
 # ```
 # `cv`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
 # ````
@@ -508,8 +508,7 @@ pass
 # In[13]:
 
 
-yr = 1970
-pwt = df.query('year >= @yr').copy()
+df1970 = py4macro.data('pwt').query('year >= 1970')
 
 
 # ##### 貯蓄率・雇用者数の増加率・資本減耗率の平均
@@ -544,11 +543,11 @@ def mean_nan(x):         # 1
 
 
 # 平均貯蓄率の計算
-saving = pwt.groupby('country')[['csh_i']].agg(mean_nan).dropna()  # 1
+saving = df1970.groupby('country')[['csh_i']].agg(mean_nan).dropna()  # 1
 saving.columns = ['saving_rate']
 
 # 資本減耗率の平均の計算
-depreciation = pwt.groupby('country')[['delta']].agg(mean_nan).dropna() # 2
+depreciation = df1970.groupby('country')[['delta']].agg(mean_nan).dropna() # 2
 depreciation.columns = ['depreciation']
 
 
@@ -564,9 +563,9 @@ depreciation.columns = ['depreciation']
 # In[16]:
 
 
-def mean_growth_nan(x):
+def mean_growth_nan1970(x):
     if x.notna().all():
-        x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/(2019-yr+1))-1  # 1
+        x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/(2019-1970+1))-1  # 1
         return x_growth
     else:
         return np.nan
@@ -575,7 +574,7 @@ def mean_growth_nan(x):
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1 のみが`mean_na()`と異なる。ここではグループ・データ`x`を使い，平均成長率を計算している。`x.iloc[-1]`は2019年の値であり，`x.iloc[0]`は1970年のデータとなっている。また`2019-yr+1`は`50`であり`50`年間の平均成長率であることがわかる。
+# 1 のみが`mean_na()`と異なる。ここではグループ・データ`x`を使い，平均成長率を計算している。`x.iloc[-1]`は2019年の値であり，`x.iloc[0]`は1970年のデータとなっている。また`2019-1970+1`は`50`であり`50`年間の平均成長率であることがわかる。
 # ```
 
 # この関数を使い雇用者数の平均増加率を計算しよう。
@@ -583,7 +582,7 @@ def mean_growth_nan(x):
 # In[17]:
 
 
-emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
+emp_growth = df1970.groupby('country')[['emp']].agg(mean_growth_nan1970).dropna()
 emp_growth.columns = ['emp_growth']
 
 
@@ -596,7 +595,7 @@ emp_growth.columns = ['emp_growth']
 # In[18]:
 
 
-pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
+df1970['rgdpna_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
 
 
 # 平均成長率は関数`mean_growth_nan()`を使い，雇用者数の平均増加率の計算と同じ方法で計算しよう。
@@ -604,7 +603,7 @@ pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
 # In[19]:
 
 
-growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
+growth = df1970.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan1970).dropna()
 growth.columns = ['gdp_pc_growth']
 
 
@@ -615,7 +614,7 @@ growth.columns = ['gdp_pc_growth']
 # In[20]:
 
 
-df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]
+df_convergence = df1970.query('year == 1970').loc[:,['country','cgdpo','emp']]
 
 
 # `df_convergence`に上で作成した貯蓄率などの`DataFrame`を結合していくが，その前に1960年の一人当たりGDP（対数）の列を付け加えよう。
@@ -623,7 +622,7 @@ df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]
 # In[21]:
 
 
-df_convergence['gdp_pc_init_log'] = np.log( pwt.loc[:,'cgdpo']/pwt.loc[:,'emp'] )
+df_convergence['gdp_pc_init_log'] = np.log( df1970.loc[:,'cgdpo']/df1970.loc[:,'emp'] )
 
 
 # 必須ではないが，２つの列`country`と`gdp_pc_init`とだけからなる`DataFrame`に整形する。その際，欠損値がある行は削除し，`country`を行ラベルに設定する。
@@ -756,7 +755,7 @@ pass
 # In[30]:
 
 
-period = 2019-yr+1
+period = 2019-1970+1
 bhat = res_absolute.params[1]
 speed1970 = 1-(1+bhat*period)**(1/period)
 
@@ -768,16 +767,16 @@ print(f'収束速度は約{100*speed1970:.3f}％です')
 # In[31]:
 
 
-pwt['gdp_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
+df1970['gdp_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
 
-cond = ( pwt.loc[:,'year']==2019 )
-gdp_pc = pwt.loc[cond,'gdp_pc']
+cond = ( df1970.loc[:,'year']==2019 )
+gdp_pc = df1970.loc[cond,'gdp_pc']
 no = len(gdp_pc)                                   # 1
 gdp_pc_mean = gdp_pc.mean()
 
-cond = ( (pwt.loc[:,'year']==2019) &               # 2
-         (pwt.loc[:,'countrycode']=='USA') )
-gdp_pc_us = pwt.loc[cond,'gdp_pc'].to_numpy()[0]   # 3
+cond = ( (df1970.loc[:,'year']==2019) &               # 2
+         (df1970.loc[:,'countrycode']=='USA') )
+gdp_pc_us = df1970.loc[cond,'gdp_pc'].to_numpy()[0]   # 3
 
 print('\n--- 2019年の一人当たりGDP ---------\n\n'
      f'{no}ヵ国の平均：\t{gdp_pc_mean:.1f}\n'        # 4
@@ -934,62 +933,82 @@ print( res_conditional.f_test(hypothesis) )
 # * ・・・
 # * 2008~2019年
 # * 2009~2019年
-# 
+
 # まず単回帰の場合を考え次の３つのステップに分けてコードを書いていく。
-# 1. 引数`yr`に初期時点の一人当たりGDPの年（例えば，1950）を指定すると，回帰分析用の`DataFrame`を返す`data_for_regression(yr)`という関数を作成する。
-# 1. `for`ループで`data_for_regression(yr)`から生成される`DataFrame`を使い，次の４つの変数の推移を示す変数からなる`DataFrame`を作成する。
+# 1. 関数`data_for_regression()`を作成する。
+#     * 引数
+#         * `init_yr`：年（例えば，1970）
+#         * `df`：`DataFrame`（デフォルトは`pwt`）
+#     * 戻り値
+#         * 次の変数から構成される`DataFrame`
+#             * `init_yr`から2019年までのデータから計算された`saving_rate`, `depreciation`, `emp_growth`, `gdp_pc_growth`
+#             * `init_yr`で指定された年の`gdp_pc_init_log`
+# 1. `for`ループで`data_for_regression()`から生成される`DataFrame`を使い，次の４つの変数の推移を示す変数からなる`DataFrame`を作成する。
 #     * 初期時点の一人当たりGDP（対数）の係数の推定値
 #     * $p$値
 #     * 決定係数
 #     * 標本に含まれる国の数
 # 1. ４つの変数の時系列プロット
 
-# ステップ１の`data_for_regression(yr)`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。コード自体は上で使ったコードを再利用して関数にまとめている。
+# ステップ１の`data_for_regression()`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。コード自体は上で使ったコードを再利用して関数にまとめている。
 
 # In[37]:
 
 
-def data_for_regression(yr):
-
-    # === 変数リスト ======================
-    var = ['country','year','rgdpna','cgdpo','emp','csh_i','delta']  
+def data_for_regression(init_yr, df=pwt):
     
-    # === 初期の変数を抽出 ======================
-    pwt = df.query('year >= @yr').loc[:, var]
+    # === groupby用の集計関数 ======================
+    def mean_nan(x):
+        if x.notna().all():
+            return x.mean()
+        else:
+            return np.nan
+    
+    def mean_growth_nan(x):
+        if x.notna().all():
+            x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/(2019-init_yr+1))-1  # 1
+            return x_growth
+        else:
+            return np.nan
+        
+    # === 初期時点の年からのDataFrameを作成 ======================
+    cond = ( df['year']>=init_yr )
+    df = df.loc[cond,:].copy()          # .copy()は警告が出ないようにする
     
     # === 平均貯蓄率の計算 ======================
-    saving = pwt.groupby('country')[['csh_i']].agg(mean_nan).dropna()
+    saving = df.groupby('country')[['csh_i']].agg(mean_nan).dropna()
     saving.columns = ['saving_rate']
-
+    
     # === 資本減耗率の平均の計算 ======================
-    depreciation = pwt.groupby('country')[['delta']].agg(mean_nan).dropna()
+    depreciation = df.groupby('country')[['delta']].agg(mean_nan).dropna()
     depreciation.columns = ['depreciation']
 
     # === 労働人口成長率の平均の計算 ======================
-    emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
+    emp_growth = df.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
     emp_growth.columns = ['emp_growth']
-    
+
     # === 一人当たりGDP成長率の平均の計算 ======================
-    pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
-    growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
+    df['rgdpna_pc'] = df.loc[:,'rgdpna']/df.loc[:,'emp']
+    growth = df.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
     growth.columns = ['gdp_pc_growth']
-        
+
     # === 初期の一人当たりGDPの計算 ======================
-    df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]    
-    df_convergence['gdp_pc_init_log'] = np.log( pwt.loc[:,'cgdpo']/pwt.loc[:,'emp'] )
+    cond = ( df['year'] == init_yr )
+    df_convergence = df.loc[cond,['country','cgdpo','emp']]    
+    df_convergence['gdp_pc_init_log'] = np.log( df.loc[:,'cgdpo']/df.loc[:,'emp'] )
     df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]                                    .set_index('country')                                    .dropna()
-    
+
     # === DataFrameの結合 ======================
     for df_right in [saving, depreciation, emp_growth, growth]:
         df_convergence = pd.merge(df_convergence, df_right,
                                   left_index=True,
                                   right_index=True,
                                   how='outer')
-
+        
     return df_convergence.dropna()
 
 
-# `yr=1970`として関数を実行して内容を確認してみよう。
+# `init_yr=1970`として関数を実行して内容を確認してみよう。
 
 # In[38]:
 
@@ -1151,7 +1170,7 @@ for yr in range(1950, 2000):                     # 11
 
                                                  # 27
 df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
-                                   '労働人口増加率の係数':emp_growth_coef_list,
+                                   '雇用者数増加率の係数':emp_growth_coef_list,
                                    '資本減耗率の係数':depreciation_coef_list,
                                    '初期の一人当たりGDPの係数':b_coef_list,
                                    'p値（初期の一人当たりGDP）':b_pval_list,
@@ -1282,23 +1301,20 @@ pass
 # In[48]:
 
 
-def data_for_regression_group(yr, oecd=None,          # 修正
-                                  income_group=None,  # 修正
-                                  region=None,        # 修正
-                                  continent=None):    # 修正
+def data_for_regression_group(init_yr, oecd=None,          # 修正
+                                       income_group=None,  # 修正
+                                       region=None,        # 修正
+                                       continent=None):    # 修正
 
-    # === 変数リスト ======================
-    var = ['country','year','rgdpna','cgdpo','emp','csh_i','delta']  
-    
     # === 初期の変数を抽出 ====================== 修正
     if (oecd==None) & (income_group==None) & (region==None) & (continent==None):
-        pwt = df.query('year >= @yr').loc[:, var]
-        
+        df = pwt.query('year >= @init_yr')
+
     elif (oecd != None) & (income_group==None) & (region==None) & (continent==None):
         if oecd==1:
-            pwt = df.query('year >= @yr & oecd == 1').loc[:, var]
+            df = pwt.query('year >= @init_yr & oecd == 1')
         elif oecd==0:
-            pwt = df.query('year >= @yr & oecd == 0').loc[:, var]
+            df = pwt.query('year >= @init_yr & oecd == 0')
         else:
             print('引数を確認しましょう (^o^)/')
         
@@ -1309,7 +1325,7 @@ def data_for_regression_group(yr, oecd=None,          # 修正
                                 'Low income']:
             print('引数を確認しましょう (^o^)/')
         else:
-            pwt = df.query('year >= @yr & income_group == @income_group').loc[:, var]
+            df = pwt.query('year >= @init_yr & income_group == @income_group')
         
     elif (oecd==None) & (income_group==None) & (region != None) & (continent==None):
         if region not in ['East Asia & Pacific',
@@ -1321,7 +1337,7 @@ def data_for_regression_group(yr, oecd=None,          # 修正
                            'Sub-Saharan Africa']:
             print('引数を確認しましょう (^o^)/')
         else:
-            pwt = df.query('year >= @yr & region == @region').loc[:, var]
+            df = pwt.query('year >= @init_yr & region == @region')
         
     elif (oecd==None) & (income_group==None) & (region==None) & (continent != None):
         if continent not in ['Africa',
@@ -1332,41 +1348,15 @@ def data_for_regression_group(yr, oecd=None,          # 修正
                              'South America']:
             print('引数を確認しましょう (^o^)/')
         else:
-            pwt = df.query('year >= @yr & continent == @continent').loc[:, var]
+            df = pwt.query('year >= @init_yr & continent == @continent')
     
     else:
         print('何かおかしいですよ。引数を確認しましょう (^o^)/')
 
-    # === 平均貯蓄率の計算 ======================
-    saving = pwt.groupby('country')[['csh_i']].agg(mean_nan).dropna()
-    saving.columns = ['saving_rate']
-
-    # === 資本減耗率の平均の計算 ======================
-    depreciation = pwt.groupby('country')[['delta']].agg(mean_nan).dropna()
-    depreciation.columns = ['depreciation']
-
-    # === 労働人口成長率の平均の計算 ======================
-    emp_growth = pwt.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
-    emp_growth.columns = ['emp_growth']
-    
-    # === 一人当たりGDP成長率の平均の計算 ======================
-    pwt['rgdpna_pc'] = pwt.loc[:,'rgdpna']/pwt.loc[:,'emp']
-    growth = pwt.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
-    growth.columns = ['gdp_pc_growth']
         
-    # === 初期の一人当たりGDPの計算 ======================
-    df_convergence = pwt.query('year == @yr').loc[:,['country','cgdpo','emp']]    
-    df_convergence['gdp_pc_init_log'] = np.log( pwt.loc[:,'cgdpo']/pwt.loc[:,'emp'] )
-    df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]                                    .set_index('country')                                    .dropna()
-    
-    # === DataFrameの結合 ======================
-    for df_right in [saving, depreciation, emp_growth, growth]:
-        df_convergence = df_convergence.merge(df_right,
-                                              left_index=True,
-                                              right_index=True,
-                                              how='outer')
+    df0 = data_for_regression(init_yr, df)
 
-    return df_convergence.dropna()  # 修正
+    return df0
 
 
 # ```{admonition} コードの説明
@@ -1433,7 +1423,7 @@ def regression_result(**kwargs):                      # 1
 
                                                      # 3
     return pd.DataFrame({'貯蓄率の係数':saving_coef_list,
-                         '労働人口増加率の係数':emp_growth_coef_list,
+                         '雇用者数増加率の係数':emp_growth_coef_list,
                          '資本減耗率の係数':depreciation_coef_list,
                          '初期の一人当たりGDPの係数':b_coef_list,
                          'p値（初期の一人当たりGDP）':b_pval_list,
@@ -1452,7 +1442,7 @@ def regression_result(**kwargs):                      # 1
 #     regression_result(continent='Europe')
 #     ```
 #    この場合，`**kwargs`に`continent='Europe'`が格納され，`data_for_regression_group()`に渡される事になる。
-# 3. `DataFrame`を直接返すようにしようとなっている。
+# 3. `DataFrame`を直接返すようになっている。
 # ````
 
 # 準備ができたので，実際に回帰分析をしてみよう。まず`oecd`諸国だけを抽出し結果をプロットする。
@@ -1460,7 +1450,7 @@ def regression_result(**kwargs):                      # 1
 # In[51]:
 
 
-regression_result(oecd=1).iloc[:,list(range(0,8))]                          .plot(subplots=True,
+regression_result(oecd=1).plot(subplots=True,
                                layout=(4,2),
                                figsize=(10,8))
 pass
@@ -1474,7 +1464,7 @@ pass
 
 
 asia = regression_result(region='East Asia & Pacific')
-asia.iloc[:,list(range(0,8))].plot(subplots=True, layout=(4,2), figsize=(10,8))
+asia.plot(subplots=True, layout=(4,2), figsize=(10,8))
 pass
 
 
@@ -1502,4 +1492,4 @@ asia.loc[cond,:].index                                   # 2
 # 2. (1)で`True`の行を抽出し，`.index`を使い行ラベルを取得している。
 # ```
 
-# 1970年代中頃以降から絶対的所得収斂のメカニズムが働いていることを意味している。[「所得分布の推移」の節](sec:9-distribution)におけるキャッチアップを示唆する結果の裏では，ここで考察したクラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。
+# 1970年代中頃以降から絶対的所得収斂のメカニズムが働いていることを意味している。またデータに含まれる国の数が増加している点も結果に影響していると考えられる。[「所得分布の推移」の節](sec:9-distribution)におけるキャッチアップを示唆する結果の裏では，ここで考察したクラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。
