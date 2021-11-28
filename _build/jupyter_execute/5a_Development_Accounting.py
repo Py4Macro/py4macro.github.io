@@ -197,9 +197,44 @@ df.head()
 #     * North America
 #     * South America
 
-# 属性`.columns`を使うと全ての列名を表示できる。
+# `2019`年のデータを使い内訳を確認してみよう。まず`oecd`を考えるが，条件に従って行を抽出しその数を数えてみる。
 
 # In[8]:
+
+
+cond1 = ( df['year']==2019 )
+cond2 = ( df['oecd']==1 )
+
+len(df.loc[cond1 & cond2, :])
+
+
+# `oecd`には24カ国あることがわかる。
+# 
+# `income_group`，`region`，`continent`の内訳を確認するには，`DataFrame`と`Series`のメソッド`.value_counts()`が便利であり，簡単に要素の個数や頻度を表示できる。
+
+# In[9]:
+
+
+df.loc[cond1,'income_group'].value_counts()
+
+
+# In[10]:
+
+
+df.loc[cond1,'region'].value_counts()
+
+
+# In[11]:
+
+
+df.loc[cond1,'continent'].value_counts()
+
+
+# `.value_counts()`に引数`normalize=True`を追加すると，頻度（パーセント）として表示できる。
+# 
+# 属性`.columns`を使うと全ての列名を表示できる。
+
+# In[12]:
 
 
 df.columns
@@ -207,7 +242,7 @@ df.columns
 
 # また任意の列を選択するとメソッド`.unique()`が使えるようになる。これを使うことにより，選択した列に重複したデータがある場合，ユニークなものだけを抽出できる。このメソッドを使ってデータ・セットに含まれる国・地域名を確認してみよう。
 
-# In[9]:
+# In[13]:
 
 
 country_list = df.loc[:,'country'].unique()
@@ -216,7 +251,7 @@ country_list
 
 # 類似するメソッドに`.nunique()`がある。これを使うと，ユニークなデータの数を確認できる。
 
-# In[10]:
+# In[14]:
 
 
 df.loc[:,'country'].nunique()
@@ -224,7 +259,7 @@ df.loc[:,'country'].nunique()
 
 # 183の国・地域が含まれるということである。`unique()`でデータの年を確認することもできる。
 
-# In[11]:
+# In[15]:
 
 
 year_list = df.loc[:,'year'].unique()
@@ -233,7 +268,7 @@ year_list
 
 # データを扱う際，必ずしもデータ・セットは完璧な形で提供されているわけではないことを念頭に置く必要がある。`df`の場合，必ずしも全ての国で全ての年のデータが揃っているわけではない。それを確認する必要があるが，役に立つのが`df`のメソッド`info()`である。
 
-# In[12]:
+# In[16]:
 
 
 df.info()
@@ -245,7 +280,7 @@ df.info()
 
 # しかし`object`に関しては少し注意が必要となる。列に文字列が１つ混じっていて，他は`float`であっても`object`となるので注意が必要である。次の例がそれを示している。
 
-# In[13]:
+# In[17]:
 
 
 pd.DataFrame({'a':[1,2,3,4,5,'1']}).info()
@@ -253,7 +288,7 @@ pd.DataFrame({'a':[1,2,3,4,5,'1']}).info()
 
 # そしてもう一つ。`hc`には欠損値があると分かったが，その定義を個別で確認したい場合，`py4macro`の引数`description=2`を使うと`DataFrame`が返されるので，それを使うと良いだろう。
 
-# In[14]:
+# In[18]:
 
 
 teigi = py4macro.data('pwt', description=2)
@@ -262,7 +297,7 @@ teigi.loc[['hc'],:]
 
 # ただ，これだと定義の説明が全て表示できない。その場合は`py4macro.show()`関数を使うとフルに表示できる。
 
-# In[15]:
+# In[19]:
 
 
 py4macro.show(teigi.loc[['hc'],:])
@@ -358,7 +393,7 @@ py4macro.show(teigi.loc[['hc'],:])
 # 
 # これに従ってコードを書いていこう。
 
-# In[16]:
+# In[20]:
 
 
 # 資本の所得シャア
@@ -381,7 +416,7 @@ df['tfp'] = df['gdp_pc'] / df['factors']
 
 # 2019年だけを抽出する。
 
-# In[17]:
+# In[21]:
 
 
 df2019 = df.query('year == 2019').copy()
@@ -395,7 +430,7 @@ df2019 = df.query('year == 2019').copy()
 
 # わかりやすくするために，全ての国の一人当たりGDPを米国の一人当たりGDPで割り、米国を１（基準）として議論を進める事にする。先に，米国だけのデータを抽出する。
 
-# In[18]:
+# In[22]:
 
 
 us2019 = df2019.query('country == "United States"')
@@ -403,7 +438,7 @@ us2019 = df2019.query('country == "United States"')
 
 # 次に，米国を基準とした相対的な一人当たりGDP作成し，`df2019`に新たな列として代入によう。
 
-# In[19]:
+# In[23]:
 
 
 df2019['gdp_pc_relative'] = df2019['gdp_pc'] / us2019['gdp_pc'].to_numpy()
@@ -419,7 +454,7 @@ df2019['gdp_pc_relative'] = df2019['gdp_pc'] / us2019['gdp_pc'].to_numpy()
 
 # 物的資本についても同様に，全ての国の`k_pc`を米国の`k_pc`で割り基準化する。
 
-# In[20]:
+# In[24]:
 
 
 df2019['k_pc_relative'] = df2019['k_pc'] / us2019['k_pc'].to_numpy()
@@ -427,7 +462,7 @@ df2019['k_pc_relative'] = df2019['k_pc'] / us2019['k_pc'].to_numpy()
 
 # データを散布図で確認しよう。
 
-# In[21]:
+# In[25]:
 
 
 df2019.plot(x='k_pc_relative', y='gdp_pc_relative', kind='scatter')
@@ -441,7 +476,7 @@ pass
 # まず人的資本`hc`を考察する事にする。それにより労働時間`avh`の効果も理解できるだろう。
 # 全ての国の`hc`を米国の`hc`で割り，米国を`1`とする人的資本インデックスを作成する。
 
-# In[22]:
+# In[26]:
 
 
 df2019['hc_relative'] = df2019['hc'] / us2019['hc'].to_numpy()
@@ -449,7 +484,7 @@ df2019['hc_relative'] = df2019['hc'] / us2019['hc'].to_numpy()
 
 # 散布図で確認してみよう。
 
-# In[23]:
+# In[27]:
 
 
 df2019.plot(x='hc_relative', y='gdp_pc_relative', kind='scatter')
@@ -472,7 +507,7 @@ pass
 
 # 人的資本の効果がある程度わかったので，次に人的資本サービスについて考えよう。全ての国の`hav`x`hc`を米国の`hav`x`hc`で割り基準化する。
 
-# In[24]:
+# In[28]:
 
 
 df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) /                            ( us2019['avh']*us2019['hc'] ).to_numpy()
@@ -480,7 +515,7 @@ df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) /                     
 
 # 散布図で確認してみよう。
 
-# In[25]:
+# In[29]:
 
 
 df2019.plot(x='human_relative', y='gdp_pc_relative', kind='scatter')
@@ -489,7 +524,7 @@ pass
 
 # 正の関係であることは変わらないが，相関度は減少している。これは労働時間の影響であるり，一人当たりGDPとの散布図をプロットして確認してみよう。
 
-# In[26]:
+# In[30]:
 
 
 df2019['avh_relative'] = df2019['avh'] / us2019['avh'].to_numpy()
@@ -507,7 +542,7 @@ pass
 
 # 米国を`1`に基準化して一人当たりGDPと全要素生産性との関係を図示する。
 
-# In[27]:
+# In[31]:
 
 
 df2019['tfp_relative'] = df2019['tfp'] / us2019['tfp'].to_numpy()
@@ -558,7 +593,7 @@ pass
 
 # 一人当たりGDPと全要素生産性の散布図から，両変数の相関度は非常に高いと思われる。相関係数を計算してみよう。
 
-# In[28]:
+# In[32]:
 
 
 df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
@@ -572,7 +607,7 @@ df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
 # *`.corr()`は相関係数を計算するメソッド
 # ```
 
-# In[29]:
+# In[33]:
 
 
 from myst_nb import glue
@@ -584,7 +619,7 @@ glue("corr_gdp_pc_relative_tfp_relative", round(corr_gdp_pc_relative_tfp_relativ
 # 
 # 次に，蓄積生産要素と一人当たりGDPの散布図を作成し，相関係数を計算してみよう図示する。
 
-# In[30]:
+# In[34]:
 
 
 df2019['factors_relative'] = df2019['factors'] / us2019['factors'].to_numpy()
@@ -595,7 +630,7 @@ pass
 
 # 視覚的には，TFPと比べて相関度は低いようである。コードで確認しよう。
 
-# In[31]:
+# In[35]:
 
 
 df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
@@ -709,7 +744,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 
 # この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は`0`であり蓄積生産要素は`1`である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。
 
-# In[32]:
+# In[36]:
 
 
 # 欠損値であるNaNがある行を削除
@@ -735,13 +770,13 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 
 # **全要素生産性の寄与度**
 
-# In[33]:
+# In[37]:
 
 
 (tfp_var + tfp_factors_cov) / gdp_pc_var
 
 
-# In[34]:
+# In[38]:
 
 
 from myst_nb import glue
@@ -751,13 +786,13 @@ glue("contribution_of_tfp", int(100*round(contribution_of_tfp,2)),display=False)
 
 # **蓄積生産要素の寄与度**
 
-# In[35]:
+# In[39]:
 
 
 (factors_var + tfp_factors_cov) / gdp_pc_var
 
 
-# In[36]:
+# In[40]:
 
 
 from myst_nb import glue
@@ -773,7 +808,7 @@ glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),displa
 
 # 最後に、主要な国のデータを表にまとめてみる。
 
-# In[37]:
+# In[41]:
 
 
 # 1
@@ -812,7 +847,7 @@ table2019
 # ＜コメント＞ `print()`関数を使うとテキストとして表示される。
 # ```
 
-# In[38]:
+# In[42]:
 
 
 from myst_nb import glue

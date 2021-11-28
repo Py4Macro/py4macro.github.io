@@ -489,16 +489,17 @@ pass
 
 # ここではPenn World Talbeに含まれる次の変数を使う。後で使う変数も含めてデータを整形することにしよう。
 # 
-# * `rgdpna`：GDP
+# * `rgdpna`：GDP（国民計算）
 #     * 平均成長率の計算に使う
-# * `cgdpo`：GDP
+# * `cgdpo`：GDP（生産側）
 #     * 初期時点の一人当たりGDPの計算に使う
 # * `emp`：雇用者数
-#     * ソロー・モデルの労働人口に対応する変数としてGDPを一人当たりに換算する際に使う。
-#     * 雇用者数の増加率を$n$の代わりに使う。
+#     * 労働人口の代わりに使う。
+#     * 労働人口増加率$n$の計算に使う。
 #     * 平均増加率として定常状態を捉える変数として使う。
 # * `csh_i`：GDPに対しての資本形成の比率
-#     * 投資の対GDP比であり$s$の代わりに使う。
+#     * 投資の対GDP比である。
+#     * 貯蓄率$s$の代わりに使う。
 #     * 平均値を定常状態を捉える変数として使う。
 # * `delta`：資本ストックの年平均減耗率
 #     * 平均値を定常状態を捉える変数として使う。
@@ -514,9 +515,9 @@ df1970 = py4macro.data('pwt').query('year >= 1970')
 # ##### 貯蓄率・雇用者数の増加率・資本減耗率の平均
 
 # (sec:9-saving)=
-# ##### 貯蓄率・雇用者数の増加率・資本減耗率の平均
+# ##### 貯蓄率・資本減耗率・労働人口増加率の平均
 
-# 1970年〜2019年の貯蓄率，資本減耗率の平均，雇用者数の増加率を計算するが，[ソロー・モデル](sec:8-data)の章で使ったコードを再利用することもできる。ここでは`.groupby()`を使った計算を紹介することにする。`.groupby()`を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。
+# 1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口増加率を計算するが，[ソロー・モデル](sec:8-data)の章で使ったコードを再利用することもできる。ここでは`.groupby()`を使った計算を紹介することにする。`.groupby()`を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。
 
 # In[14]:
 
@@ -558,14 +559,15 @@ depreciation.columns = ['depreciation']
 # 1. 同様のことが言える。
 # ```
 
-# 次に雇用者数の平均増加率を計算するが，成長率を計算する必要があるので次の関数を定義する。
+# 次に労働人口の平均成長率を計算するが，成長率を計算する必要があるので次の関数を定義する。
 
 # In[16]:
 
 
-def mean_growth_nan1970(x):
+def mean_growth_nan(x):
+    t = len(x)-1
     if x.notna().all():
-        x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/(2019-1970+1))-1  # 1
+        x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/t)-1  # 1
         return x_growth
     else:
         return np.nan
@@ -574,15 +576,15 @@ def mean_growth_nan1970(x):
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1 のみが`mean_na()`と異なる。ここではグループ・データ`x`を使い，平均成長率を計算している。`x.iloc[-1]`は2019年の値であり，`x.iloc[0]`は1970年のデータとなっている。また`2019-1970+1`は`50`であり`50`年間の平均成長率であることがわかる。
+# 1 のみが`mean_na()`と異なる。ここではグループ・データ`x`を使い，平均成長率を計算している。`x.iloc[-1]`は2019年の値であり，`x.iloc[0]`は1970年のデータとなっている。また`len(x)`は`x`の行数を返しており，ここでは`2019-1970+1=50`と同じである。`50`年間の平均成長率であることがわかる。
 # ```
 
-# この関数を使い雇用者数の平均増加率を計算しよう。
+# この関数を使い労働人口の平均増加率を計算しよう。
 
 # In[17]:
 
 
-emp_growth = df1970.groupby('country')[['emp']].agg(mean_growth_nan1970).dropna()
+emp_growth = df1970.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
 emp_growth.columns = ['emp_growth']
 
 
@@ -598,12 +600,12 @@ emp_growth.columns = ['emp_growth']
 df1970['rgdpna_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
 
 
-# 平均成長率は関数`mean_growth_nan()`を使い，雇用者数の平均増加率の計算と同じ方法で計算しよう。
+# 平均成長率は関数`mean_growth_nan()`を使い，労働人口の平均増加率の計算と同じ方法で計算しよう。
 
 # In[19]:
 
 
-growth = df1970.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan1970).dropna()
+growth = df1970.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
 growth.columns = ['gdp_pc_growth']
 
 
@@ -887,7 +889,7 @@ print(res_conditional.summary().tables[1])
 # 
 # この予想に基づいて係数の統計的有意性を検討しよう。全ての係数の$p$値は非常に小さく統計的な有意性は高い。確認のために$F$検定を行ってみよう。ここでは次の帰無仮説と対立仮説を立てることにする。
 # 
-# $H_0$：貯蓄率，雇用者増加率，資本減耗率の推定値は全て`0`<br>
+# $H_0$：貯蓄率，労働人口増加率，資本減耗率の推定値は全て`0`<br>
 # $H_A$：$H_0$は成立しない。
 # 
 # `statsmodels`を使って$F$検定をおこなう方法については[このサイト](https://py4etrics.github.io/11_Inference.html#f)参考にして欲しいが，ここでは簡単い説明する。まず帰無仮説を捉える制約式を設定しよう。
@@ -965,8 +967,9 @@ def data_for_regression(init_yr, df=pwt):
             return np.nan
     
     def mean_growth_nan(x):
+        t = 2019-init_yr
         if x.notna().all():
-            x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/(2019-init_yr+1))-1  # 1
+            x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/t)-1  # 1
             return x_growth
         else:
             return np.nan
@@ -1170,7 +1173,7 @@ for yr in range(1950, 2000):                     # 11
 
                                                  # 27
 df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
-                                   '雇用者数増加率の係数':emp_growth_coef_list,
+                                   '労働人口成長率の係数':emp_growth_coef_list,
                                    '資本減耗率の係数':depreciation_coef_list,
                                    '初期の一人当たりGDPの係数':b_coef_list,
                                    'p値（初期の一人当たりGDP）':b_pval_list,
@@ -1256,6 +1259,34 @@ pass
 
 # 係数の符号は資本減耗率以外は期待どおりである。$F$検定の$p$値に関しては，1960年以降一貫して非常に小さな値となっている。1950年代に高い値になっているのは，国の数が少なく比較的に所得水準が高い国が集まっていたためだと思われる。国の数が多くなる1960年以降，それぞれの期間で絶対的所得収斂が成立しているとは判断できない。
 
+# ## まとめ
+
+# [「所得分布の推移」の節](sec:9-distribution)ではキャッチアップを示唆する結果が示された。一方，[「所得収斂」の節](sec:9-convergence)では絶対的所得収斂のエビデンスはなかった。相反する結果をどのように解釈すれば良いのだろうか。一つの可能性は「クラブ収斂」という概念である。世界全ての経済の定常状態が同じだと仮定するのは無理があると感じるの当たり前かも知れない。日本を含むOECD諸国とサブサハラ・アフリカ地域の国の違いを漠然と考えても，納得できるかも知れない。しかし，ある特性を共有する国では定常状態が概ね同じだとする仮定が成り立つかも知れない。典型的な例がOECD諸国である。ある「クラブ」（複数あり得る）に属している国の中で絶対的所得収斂が発生し，それが世界全体の所得分布の変化に現れているが，世界全体での絶対的所得収斂としては現れない，という可能性を否定できない。国の集合である「クラブ」は様々な特徴でグループ化できるので，多くの組み合わせがあり得る。`py4macro`に含まれるデータ`pwt`は次の変数を使い，データを様々な形でグループ化している。試してみてはどうだろうか。
+# * `oecd`：1990年代に始まった中央ヨーロッパへの拡大前のOECDメンバー国
+# * `income_group`：世界銀行が所得水準に従って分けた４つのグループ
+#     * `High income`
+#     * `Upper middle income`
+#     * `Lower middle income`
+#     * `Low income`
+# * `region`：世界銀行が国・地域に従って分けた７つのグループ
+#     * `East Asia & Pacific`
+#     * `Europe & Central Asia`
+#     * `Latin America & Caribbean`
+#     * `Middle East & North Africa`
+#     * `North America`
+#     * `South Asia`
+#     * `Sub-Saharan Africa`
+# * `continent`：南極以外の6大陸
+#     * `Africa`
+#     * `Asia`
+#     * `Australia`
+#     * `Europe`   
+#     * `North America`
+#     * `South America`
+#     
+# 【注意】<br>
+# `region`の`South Asia`と`North America`，`continent`の`Australia`は標本の大きさが少ないため回帰分析をするとエラーになるので注意しよう。
+
 # ## クラブ収斂
 
 # [「所得分布の推移」の節](sec:9-distribution)ではキャッチアップを示唆する結果が示された。一方，[「所得収斂」の節](sec:9-convergence)では絶対的所得収斂のエビデンスはなかった。相反する結果をどのように解釈すれば良いのだろうか。一つの可能性は「クラブ収斂」という概念である。世界全ての経済の定常状態が同じだと仮定するのは無理があると感じるの当たり前かも知れない。日本を含むOECD諸国とサブサハラ・アフリカ地域の国の違いを漠然と考えても，納得できるかも知れない。しかし，ある特性を共有する国では定常状態が概ね同じだとする仮定が成り立つかも知れない。典型的な例がOECD諸国である。ある「クラブ」に属している国の中で所得収斂が発生して，それが世界全体の所得分布の変化に現れている可能性も否定できない。ここではこの問題に焦点を当て，クラブ収斂があるかを確認する。国の集合である「クラブ」は様々な特徴でグループ化できるので，多くの組み合わせがあり得る。ここでは`py4macro`モジュールのPenn World Tableの変数を使い代表的なグループを考察するが，読者はここでは考えないグループ化を試してみてはどうだろうか。
@@ -1308,13 +1339,13 @@ def data_for_regression_group(init_yr, oecd=None,          # 修正
 
     # === 初期の変数を抽出 ====================== 修正
     if (oecd==None) & (income_group==None) & (region==None) & (continent==None):
-        df = pwt.query('year >= @init_yr')
+        df = pwt
 
     elif (oecd != None) & (income_group==None) & (region==None) & (continent==None):
         if oecd==1:
-            df = pwt.query('year >= @init_yr & oecd == 1')
+            df = pwt.query('oecd == 1')
         elif oecd==0:
-            df = pwt.query('year >= @init_yr & oecd == 0')
+            df = pwt.query('oecd == 0')
         else:
             print('引数を確認しましょう (^o^)/')
         
@@ -1325,7 +1356,7 @@ def data_for_regression_group(init_yr, oecd=None,          # 修正
                                 'Low income']:
             print('引数を確認しましょう (^o^)/')
         else:
-            df = pwt.query('year >= @init_yr & income_group == @income_group')
+            df = pwt.query('income_group == @income_group')
         
     elif (oecd==None) & (income_group==None) & (region != None) & (continent==None):
         if region not in ['East Asia & Pacific',
@@ -1337,7 +1368,7 @@ def data_for_regression_group(init_yr, oecd=None,          # 修正
                            'Sub-Saharan Africa']:
             print('引数を確認しましょう (^o^)/')
         else:
-            df = pwt.query('year >= @init_yr & region == @region')
+            df = pwt.query('region == @region')
         
     elif (oecd==None) & (income_group==None) & (region==None) & (continent != None):
         if continent not in ['Africa',
@@ -1348,7 +1379,7 @@ def data_for_regression_group(init_yr, oecd=None,          # 修正
                              'South America']:
             print('引数を確認しましょう (^o^)/')
         else:
-            df = pwt.query('year >= @init_yr & continent == @continent')
+            df = pwt.query('continent == @continent')
     
     else:
         print('何かおかしいですよ。引数を確認しましょう (^o^)/')
@@ -1378,12 +1409,12 @@ data_for_regression_group(1980, oecd=1)
 
 # 先進国だけが並んでいることが確認できる。
 # 
-# 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。また`for`ループで使う初期は1960年から1999年としている。
+# 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。
 
 # In[50]:
 
 
-def regression_result(**kwargs):                      # 1
+def regression_result(init_yr=1960, **kwargs):       # 1
 
     saving_coef_list = []
     emp_growth_coef_list = []
@@ -1400,7 +1431,7 @@ def regression_result(**kwargs):                      # 1
                                 'depreciation +'
                                 'gdp_pc_init_log' )
 
-    for yr in range(1960, 2000):
+    for yr in range(init_yr, 2000):
 
         df0 = data_for_regression_group(yr, **kwargs)  # 2
         res = sm.ols(formula, data=df0).fit()
@@ -1423,7 +1454,7 @@ def regression_result(**kwargs):                      # 1
 
                                                      # 3
     return pd.DataFrame({'貯蓄率の係数':saving_coef_list,
-                         '雇用者数増加率の係数':emp_growth_coef_list,
+                         '労働人口成長率の係数':emp_growth_coef_list,
                          '資本減耗率の係数':depreciation_coef_list,
                          '初期の一人当たりGDPの係数':b_coef_list,
                          'p値（初期の一人当たりGDP）':b_pval_list,
@@ -1436,10 +1467,12 @@ def regression_result(**kwargs):                      # 1
 # ````{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. 関数なので`def`を使うが，重要なのは引数`**kwargs`。「キーワード引数ならなんでも書いて良いよ」いう意味で，全てのキーワード引数は`**kwargs`に格納される。ここでのキーワード引数は関数`data_for_regression_group()`を想定している。(2)を確認しよう。
+# 1. 引数について
+#     * `init_yr`：初期の年（デフォルトは`1960`）
+#     * `**kwargs`：「キーワード引数ならなんでも書いて良いよ」いう意味で，`init_yr`以外の全てのキーワード引数は`**kwargs`に格納される。ここでのキーワード引数は関数`data_for_regression_group()`を想定している。(2)を確認しよう。
 # 2. (1)で設定されたキーワード引数は`**kwargs`に入っているので，それを`data_for_regression_group()`の引数として設定している。`data_for_regression_group()`が想定しないキーワード引数が`**kwargs`に入っていると`data_for_regression_group()`はエラーなどを出す事になる。次のように使う。
 #     ```
-#     regression_result(continent='Europe')
+#     regression_result(1950, continent='Europe')
 #     ```
 #    この場合，`**kwargs`に`continent='Europe'`が格納され，`data_for_regression_group()`に渡される事になる。
 # 3. `DataFrame`を直接返すようになっている。
@@ -1450,9 +1483,9 @@ def regression_result(**kwargs):                      # 1
 # In[51]:
 
 
-regression_result(oecd=1).plot(subplots=True,
-                               layout=(4,2),
-                               figsize=(10,8))
+regression_result(init_yr=1950, oecd=1).plot(subplots=True,
+                                             layout=(4,2),
+                                             figsize=(10,8))
 pass
 
 
@@ -1493,3 +1526,6 @@ asia.loc[cond,:].index                                   # 2
 # ```
 
 # 1970年代中頃以降から絶対的所得収斂のメカニズムが働いていることを意味している。またデータに含まれる国の数が増加している点も結果に影響していると考えられる。[「所得分布の推移」の節](sec:9-distribution)におけるキャッチアップを示唆する結果の裏では，ここで考察したクラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。
+# 
+# 【注意】<br>
+# `region`の`South Asia`と`North America`，`continent`の`Australia`は標本の大きさが少ないためエラーになるので注意しよう。

@@ -84,7 +84,7 @@ np.log(1+0.02)
 # 
 # となる。
 
-# この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数$x$が$n$年間$g_x$の率で成長したとしよう。初期の$x=x_0$に対する$n$年後の比率を考えると，次式が成立する。
+# この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数$x$が毎年$g_x$の率（例えば，`0.02`）で$n$年間成長したとしよう。初期の$x=x_0$に対する$n$年後の比率を考えると，次式が成立する。
 # 
 # $$
 # \frac{x_{n}}{x_{0}}=
@@ -98,13 +98,13 @@ np.log(1+0.02)
 # =(1+g_x)^{n}
 # $$ (eq:5-growth_average-expanded)
 # 
-# この式の両辺を$1/n$乗すると次式となる。
+# $g_x$は一定なので$g_x$は年間平均成長率と等しい。このことを踏まえ[](eq:5-growth_average-expanded)の両辺を$1/n$乗すると次式となる。
 # 
 # $$
 # \left(\frac{x_n}{x_0}\right)^{\frac{1}{n}}=1+g_x
 # $$
 # 
-# 即ち，$1+g_x$は$\dfrac{x_n}{x_0}$の幾何平均であり，$g_x$が平均成長率である。
+# 即ち，$1+g_x$は$\dfrac{x_n}{x_0}$の幾何平均であり，平均成長率$g_x$はこの式を使い計算できる。
 # 
 # $$
 # g_x=
@@ -113,7 +113,7 @@ np.log(1+0.02)
 # \right)^{\frac{1}{n}}-1
 # $$ (eq:5-growth_average)
 # 
-# この場合，算術平均ではなく幾何平均を使うことに注意しよう。また毎期毎期の成長率が違っても同じ結果[](eq:5-growth_average)は成立することも覚えておこう。
+# この場合，算術平均ではなく**幾何平均**を使うことに注意しよう。また**毎期毎期の成長率が違っても同じ結果[](eq:5-growth_average)が成立する**ことも覚えておこう。
 # 
 # 年間平均成長率を計算する場合，[](eq:5-growth_average-expanded)の両辺を対数化し式[](eq:gx_approx)の近似を使う方法もある。
 # 
@@ -218,13 +218,13 @@ for v in var_list:          # 3
     for c in country_list:  # 5
         start = 1999        # 6
         end = 2019          # 7
-        n = end-start       # 8
+        t = end-start       # 8
         
-        df_start = df.query('country == @c & year == @start')  # 9
-        df_end = df.query('country == @c & year == @end')      # 10
+        df_start = df.query('country == @c & year == @start')   # 9
+        df_end = df.query('country == @c & year == @end')       # 10
 
 
-        g = ( df_end[v].iat[0] / df_start[v].iat[0] )**(1/n)-1  # 11
+        g = ( df_end[v].iloc[0] / df_start[v].iloc[0] )**(1/t)-1  # 11
         growth_list.append(100*g)                               # 12
             
     growth_dict[v] = growth_list                                # 13

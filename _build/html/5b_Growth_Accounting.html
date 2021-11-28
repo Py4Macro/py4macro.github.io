@@ -424,7 +424,7 @@ y_t=A_tk_t^a\left(h_tH_t\right)^{1-a}
     g_y=g_A+ag_k+(1-a)(g_h+g_H)
 \]</div>
 <p>となる。</p>
-<p>この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数<span class="math notranslate nohighlight">\(x\)</span>が<span class="math notranslate nohighlight">\(n\)</span>年間<span class="math notranslate nohighlight">\(g_x\)</span>の率で成長したとしよう。初期の<span class="math notranslate nohighlight">\(x=x_0\)</span>に対する<span class="math notranslate nohighlight">\(n\)</span>年後の比率を考えると，次式が成立する。</p>
+<p>この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数<span class="math notranslate nohighlight">\(x\)</span>が毎年<span class="math notranslate nohighlight">\(g_x\)</span>の率（例えば，<code class="docutils literal notranslate"><span class="pre">0.02</span></code>）で<span class="math notranslate nohighlight">\(n\)</span>年間成長したとしよう。初期の<span class="math notranslate nohighlight">\(x=x_0\)</span>に対する<span class="math notranslate nohighlight">\(n\)</span>年後の比率を考えると，次式が成立する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-5-growth-average-expanded">
 <span class="eqno">(10)<a class="headerlink" href="#equation-eq-5-growth-average-expanded" title="Permalink to this equation">¶</a></span>\[
 \frac{x_{n}}{x_{0}}=
@@ -437,12 +437,12 @@ y_t=A_tk_t^a\left(h_tH_t\right)^{1-a}
 \frac{x_n}{x_{n-1}}
 =(1+g_x)^{n}
 \]</div>
-<p>この式の両辺を<span class="math notranslate nohighlight">\(1/n\)</span>乗すると次式となる。</p>
+<p><span class="math notranslate nohighlight">\(g_x\)</span>は一定なので<span class="math notranslate nohighlight">\(g_x\)</span>は年間平均成長率と等しい。このことを踏まえ<a class="reference internal" href="#equation-eq-5-growth-average-expanded">(10)</a>の両辺を<span class="math notranslate nohighlight">\(1/n\)</span>乗すると次式となる。</p>
 <div class="math notranslate nohighlight">
 \[
 \left(\frac{x_n}{x_0}\right)^{\frac{1}{n}}=1+g_x
 \]</div>
-<p>即ち，<span class="math notranslate nohighlight">\(1+g_x\)</span>は<span class="math notranslate nohighlight">\(\dfrac{x_n}{x_0}\)</span>の幾何平均であり，<span class="math notranslate nohighlight">\(g_x\)</span>が平均成長率である。</p>
+<p>即ち，<span class="math notranslate nohighlight">\(1+g_x\)</span>は<span class="math notranslate nohighlight">\(\dfrac{x_n}{x_0}\)</span>の幾何平均であり，平均成長率<span class="math notranslate nohighlight">\(g_x\)</span>はこの式を使い計算できる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-5-growth-average">
 <span class="eqno">(11)<a class="headerlink" href="#equation-eq-5-growth-average" title="Permalink to this equation">¶</a></span>\[
 g_x=
@@ -450,7 +450,7 @@ g_x=
 \dfrac{x_{n}}{x_{0}}
 \right)^{\frac{1}{n}}-1
 \]</div>
-<p>この場合，算術平均ではなく幾何平均を使うことに注意しよう。また毎期毎期の成長率が違っても同じ結果<a class="reference internal" href="#equation-eq-5-growth-average">(11)</a>は成立することも覚えておこう。</p>
+<p>この場合，算術平均ではなく<strong>幾何平均</strong>を使うことに注意しよう。また<strong>毎期毎期の成長率が違っても同じ結果<a class="reference internal" href="#equation-eq-5-growth-average">(11)</a>が成立する</strong>ことも覚えておこう。</p>
 <p>年間平均成長率を計算する場合，<a class="reference internal" href="#equation-eq-5-growth-average-expanded">(10)</a>の両辺を対数化し式<a class="reference internal" href="#equation-eq-gx-approx">(9)</a>の近似を使う方法もある。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -565,13 +565,13 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">country_list</span><span class="p">:</span>  <span class="c1"># 5</span>
         <span class="n">start</span> <span class="o">=</span> <span class="mi">1999</span>        <span class="c1"># 6</span>
         <span class="n">end</span> <span class="o">=</span> <span class="mi">2019</span>          <span class="c1"># 7</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span>       <span class="c1"># 8</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span>       <span class="c1"># 8</span>
         
-        <span class="n">df_start</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == @c &amp; year == @start&#39;</span><span class="p">)</span>  <span class="c1"># 9</span>
-        <span class="n">df_end</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == @c &amp; year == @end&#39;</span><span class="p">)</span>      <span class="c1"># 10</span>
+        <span class="n">df_start</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == @c &amp; year == @start&#39;</span><span class="p">)</span>   <span class="c1"># 9</span>
+        <span class="n">df_end</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == @c &amp; year == @end&#39;</span><span class="p">)</span>       <span class="c1"># 10</span>
 
 
-        <span class="n">g</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df_end</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_start</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 11</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df_end</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_start</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 11</span>
         <span class="n">growth_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">g</span><span class="p">)</span>                               <span class="c1"># 12</span>
             
     <span class="n">growth_dict</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">growth_list</span>                                <span class="c1"># 13</span>

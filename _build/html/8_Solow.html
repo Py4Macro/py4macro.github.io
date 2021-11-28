@@ -855,17 +855,19 @@ y_*=Ak_*^a
 </ul>
 <p>この３つの予測が成立するか確かめるために<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>モジュールに含まれるPenn World Dataの次の変数を使う。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：GDP（2019年）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：GDP（2019年;生産側）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cn</span></code>：物的資本ストック（2019年）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">csh_i</span></code>：GDPに対しての資本形成の比率</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">csh_i</span></code>：対GDP比資本形成の比率</p>
 <ul>
-<li><p>投資の対GDP比であり<span class="math notranslate nohighlight">\(s\)</span>の代わりに使う。</p></li>
+<li><p>投資の対GDP比である。</p></li>
+<li><p>貯蓄率<span class="math notranslate nohighlight">\(s\)</span>の代わりに使う。</p></li>
 <li><p>1960年〜2019年の平均を使う。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">emp</span></code>：雇用者数</p>
 <ul>
-<li><p>1960年〜2019年の平均成長率を使う。</p></li>
+<li><p>労働人口の代わりに使う。</p></li>
+<li><p>1960年〜2019年の平均成長率<span class="math notranslate nohighlight">\(n\)</span>の計算に使う。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">delta</span></code>：資本ストックの年平均減耗率</p>
@@ -1401,7 +1403,7 @@ y_*=Ak_*^a
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>上の計算では1960年以降に欠損値が一つでもあればその国は排除されたが，全ての年でデータが揃っている経済だけを扱いたい場合に便利に使える方法である。一方で，<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと欠損値があっても平均は計算されるので，単純に<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと1960年以降に欠損値がある経済も含まれることになる。それを避けるためには一捻り必要だが，それについては<a class="reference internal" href="9_Convergence.html#sec-9-saving"><span class="std std-ref">貯蓄率・雇用者数の増加率・資本減耗率の平均</span></a>が参考になるだろう。</p>
+<p>上の計算では1960年以降に欠損値が一つでもあればその国は排除されたが，全ての年でデータが揃っている経済だけを扱いたい場合に便利に使える方法である。一方で，<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと欠損値があっても平均は計算されるので，単純に<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと1960年以降に欠損値がある経済も含まれることになる。それを避けるためには一捻り必要だが，それについては<a class="reference internal" href="9_Convergence.html#sec-9-saving"><span class="std std-ref">貯蓄率・資本減耗率・労働人口増加率の平均</span></a>が参考になるだろう。</p>
 </div>
 </div>
 <div class="section" id="id13">
@@ -1462,7 +1464,7 @@ y_*=Ak_*^a
 <p>91ヵ国しか含まれていない。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span> <span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2019</span><span class="p">,:]</span><span class="o">/</span><span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1960</span><span class="p">,:]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="mi">1960</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span> <span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2019</span><span class="p">,:]</span><span class="o">/</span><span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1960</span><span class="p">,:]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">emp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span> 
              <span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;employment_growth&#39;</span><span class="p">)</span>
 <span class="n">emp_growth</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -1497,23 +1499,23 @@ y_*=Ak_*^a
   <tbody>
     <tr>
       <th>Algeria</th>
-      <td>0.029604</td>
+      <td>0.030113</td>
     </tr>
     <tr>
       <th>Argentina</th>
-      <td>0.016698</td>
+      <td>0.016983</td>
     </tr>
     <tr>
       <th>Australia</th>
-      <td>0.019011</td>
+      <td>0.019336</td>
     </tr>
     <tr>
       <th>Austria</th>
-      <td>0.004671</td>
+      <td>0.004750</td>
     </tr>
     <tr>
       <th>Bangladesh</th>
-      <td>0.021903</td>
+      <td>0.022279</td>
     </tr>
   </tbody>
 </table>
@@ -1620,8 +1622,8 @@ y_*=Ak_*^a
 </div>
 <div class="section" id="id15">
 <h4>データの結合<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
-<p>上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合する必要があり，そのための<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>の使い方を説明する。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>の２つの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>があるとしよう。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>を左の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>，<code class="docutils literal notranslate"><span class="pre">df_right</span></code>を右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と呼ぶことにする。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>を使い<code class="docutils literal notranslate"><span class="pre">df_right</span></code>と結合する場合，次のコードとなる。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">)</span> 
+<p>上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合する必要があり，そのための<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の関数<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>の使い方を説明する。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>の２つの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>があるとしよう。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>を左の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>，<code class="docutils literal notranslate"><span class="pre">df_right</span></code>を右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と呼ぶことにする。２つを結合する場合，次のコードとなる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_left</span><span class="p">,</span> <span class="n">df_right</span><span class="p">)</span> 
 </pre></div>
 </div>
 <p>しかし注意が必要な点が２つある。</p>
@@ -1629,18 +1631,18 @@ y_*=Ak_*^a
 <li><p>行数が同じでも<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>では行の並びが異なる可能性がある。</p></li>
 <li><p>行数が異なる可能性がある。</p></li>
 </ol>
-<p>これらの問題に対応するためのる引数が用意されている。</p>
-<p>まず１つ目の問題は，ある列を基準列もしくは行ラベルに合わせて行を並び替えることにより対応できる。例えば，上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>であれば，行ラベルが<code class="docutils literal notranslate"><span class="pre">country</span></code>になっているので，それに合わせて結合すれば良い。その場合の引数を含めたコードは次の様になる。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+<p>これらの問題に対応するためのに引数が用意されている。</p>
+<p>まず１つ目の問題は，行ラベルを基準に，もしくはある列に合わせて行を並び替えることにより対応できる。例えば，上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>であれば，行ラベルが<code class="docutils literal notranslate"><span class="pre">country</span></code>になっているので，それに合わせて結合すれば良い。その場合の引数を含めたコードは次の様になる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_left</span><span class="p">,</span> <span class="n">df_right</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
 </pre></div>
 </div>
-<p>ここでの<code class="docutils literal notranslate"><span class="pre">left_index=True</span></code>と<code class="docutils literal notranslate"><span class="pre">right_index=True</span></code>は行ラベルを基準に結合することを指定しており，デフォルトは両方とも<code class="docutils literal notranslate"><span class="pre">False</span></code>である。行ラベルではなく，ある列を基準に結合した場合もあるだろう。その場合は次の引数を使う。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>df_left.merge(df_right,
-              left_on=＜`df_left`の基準列のラベル（文字列）＞,
-              right_on=＜`df_right`の基準列のラベル（文字列）＞) 
+<p>ここでの<code class="docutils literal notranslate"><span class="pre">left_index=True</span></code>と<code class="docutils literal notranslate"><span class="pre">right_index=True</span></code>は行ラベルを基準に結合することを指定しており，デフォルトは両方とも<code class="docutils literal notranslate"><span class="pre">False</span></code>である。行ラベルではなく，ある列を基準に結合したい場合もあるだろう。その場合は次の引数を使う。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pd.merge(df_left, df_right,
+         left_on=＜`df_left`の基準列のラベル（文字列）＞,
+         right_on=＜`df_right`の基準列のラベル（文字列）＞) 
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">left_on</span></code>は基準列に使う左の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>にある列ラベルを文字列で指定する。同様に<code class="docutils literal notranslate"><span class="pre">right_on</span></code>は基準列に使う右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>にある列ラベルを文字列で指定する。デフォルトは両方とも<code class="docutils literal notranslate"><span class="pre">None</span></code>となっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">left_on</span></code>は基準列に使う<code class="docutils literal notranslate"><span class="pre">df_left</span></code>にある列ラベルを文字列で指定する。同様に<code class="docutils literal notranslate"><span class="pre">right_on</span></code>は基準列に使う<code class="docutils literal notranslate"><span class="pre">df_right</span></code>にある列ラベルを文字列で指定する。デフォルトは両方とも<code class="docutils literal notranslate"><span class="pre">None</span></code>となっている。</p>
 <p>２つ目の問題は<code class="docutils literal notranslate"><span class="pre">how</span></code>という引数を使うことにより対処できる。使える値は次の４つであり，いずれも文字列で指定する。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">'inner'</span></code>：<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>の両方の基準列にある共通の行だけを残す（デフォルト）。</p></li>
@@ -1652,10 +1654,10 @@ y_*=Ak_*^a
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df_right</span> <span class="ow">in</span> <span class="p">[</span><span class="n">saving</span><span class="p">,</span> <span class="n">depreciation</span><span class="p">,</span> <span class="n">emp_growth</span><span class="p">]:</span>  <span class="c1"># 1</span>
-    <span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_right</span><span class="p">,</span>              <span class="c1"># 2</span>
-                              <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># 3</span>
-                              <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># 4</span>
-                              <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>           <span class="c1"># 5</span>
+    <span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ky_ratio</span><span class="p">,</span> <span class="n">df_right</span><span class="p">,</span>          <span class="c1"># 2</span>
+                        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>             <span class="c1"># 3</span>
+                        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>            <span class="c1"># 4</span>
+                        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>                 <span class="c1"># 5</span>
 </pre></div>
 </div>
 </div>
@@ -1664,7 +1666,7 @@ y_*=Ak_*^a
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">df_right</span></code>が上の説明の<code class="docutils literal notranslate"><span class="pre">df_right</span></code>に対応している。<code class="docutils literal notranslate"><span class="pre">[saving,</span> <span class="pre">depreciation,</span> <span class="pre">emp_growth]</span></code>は上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のリスト。</p></li>
-<li><p>右辺の<code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>が上の説明の<code class="docutils literal notranslate"><span class="pre">df_left</span></code>に対応している。右辺で結合した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を左辺にある<code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>に割り当てている（上書き）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>が上の説明の<code class="docutils literal notranslate"><span class="pre">df_left</span></code>に対応している。右辺で結合した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を左辺にある<code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>に割り当てている（際割り当て）。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>の行ラベルを基準とすることを指定する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">df_right</span></code>の行ラベルを基準とすることを指定する。</p></li>
 <li><p>ここでの<code class="docutils literal notranslate"><span class="pre">'outer'</span></code>は左右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のそれぞれの行ラベルを残し，値がない箇所には<code class="docutils literal notranslate"><span class="pre">NaN</span></code>を入れることを指定する。</p></li>
@@ -1730,7 +1732,7 @@ y_*=Ak_*^a
       <td>1.596740</td>
       <td>0.349476</td>
       <td>0.041103</td>
-      <td>0.029604</td>
+      <td>0.030113</td>
     </tr>
     <tr>
       <th>Angola</th>
@@ -1846,9 +1848,9 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8_Solow_97_0.png" src="_images/8_Solow_97_0.png" />
-<img alt="_images/8_Solow_97_1.png" src="_images/8_Solow_97_1.png" />
-<img alt="_images/8_Solow_97_2.png" src="_images/8_Solow_97_2.png" />
+<img alt="_images/8_Solow_98_0.png" src="_images/8_Solow_98_0.png" />
+<img alt="_images/8_Solow_98_1.png" src="_images/8_Solow_98_1.png" />
+<img alt="_images/8_Solow_98_2.png" src="_images/8_Solow_98_2.png" />
 </div>
 </div>
 <div class="dropdown admonition">

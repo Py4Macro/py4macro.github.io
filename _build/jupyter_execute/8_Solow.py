@@ -474,13 +474,15 @@ pass
 # * 資本減耗率$d$の上昇は資本ストック対GDP比を減少させる。
 # 
 # この３つの予測が成立するか確かめるために`py4macro`モジュールに含まれるPenn World Dataの次の変数を使う。
-# * `cgdpo`：GDP（2019年）
+# * `cgdpo`：GDP（2019年;生産側）
 # * `cn`：物的資本ストック（2019年）
-# * `csh_i`：GDPに対しての資本形成の比率
-#     * 投資の対GDP比であり$s$の代わりに使う。
+# * `csh_i`：対GDP比資本形成の比率
+#     * 投資の対GDP比である。
+#     * 貯蓄率$s$の代わりに使う。
 #     * 1960年〜2019年の平均を使う。
 # * `emp`：雇用者数
-#     * 1960年〜2019年の平均成長率を使う。
+#     * 労働人口の代わりに使う。
+#     * 1960年〜2019年の平均成長率$n$の計算に使う。
 # * `delta`：資本ストックの年平均減耗率
 #     * 1960年〜2019年の平均を使う。
 
@@ -621,7 +623,7 @@ emp.shape
 # In[21]:
 
 
-emp_growth = ( ( emp.loc[2019,:]/emp.loc[1960,:] )**(1/(2019-1960+1))-1 
+emp_growth = ( ( emp.loc[2019,:]/emp.loc[1960,:] )**(1/(len(emp)-1))-1 
              ).to_frame('employment_growth')
 emp_growth.head()
 
@@ -693,21 +695,51 @@ ky_ratio.shape
 # 
 # では実際に上で作成した`DataFrame`を結合しよう。
 
+# 上で作成した`DataFrame`を結合する必要があり，そのための`Pandas`の関数`.merge()`の使い方を説明する。`df_left`と`df_right`の２つの`DataFrame`があるとしよう。`df_left`を左の`DataFrame`，`df_right`を右の`DataFrame`と呼ぶことにする。２つを結合する場合，次のコードとなる。
+# ```
+# pd.merge(df_left, df_right) 
+# ```
+# しかし注意が必要な点が２つある。
+# 1. 行数が同じでも`df_left`と`df_right`では行の並びが異なる可能性がある。
+# 2. 行数が異なる可能性がある。
+# 
+# これらの問題に対応するためのに引数が用意されている。
+# 
+# まず１つ目の問題は，行ラベルを基準に，もしくはある列に合わせて行を並び替えることにより対応できる。例えば，上で作成した`DataFrame`であれば，行ラベルが`country`になっているので，それに合わせて結合すれば良い。その場合の引数を含めたコードは次の様になる。
+# ```
+# pd.merge(df_left, df_right, left_index=True, right_index=True) 
+# ```
+# ここでの`left_index=True`と`right_index=True`は行ラベルを基準に結合することを指定しており，デフォルトは両方とも`False`である。行ラベルではなく，ある列を基準に結合したい場合もあるだろう。その場合は次の引数を使う。
+# ```
+# pd.merge(df_left, df_right,
+#          left_on=＜`df_left`の基準列のラベル（文字列）＞,
+#          right_on=＜`df_right`の基準列のラベル（文字列）＞) 
+# ```
+# `left_on`は基準列に使う`df_left`にある列ラベルを文字列で指定する。同様に`right_on`は基準列に使う`df_right`にある列ラベルを文字列で指定する。デフォルトは両方とも`None`となっている。
+# 
+# ２つ目の問題は`how`という引数を使うことにより対処できる。使える値は次の４つであり，いずれも文字列で指定する。
+# * `'inner'`：`df_left`と`df_right`の両方の基準列にある共通の行だけを残す（デフォルト）。
+# * `'left'`：`df_left`の行は全て残し，`df_right`からはマッチする行だけが残り，対応する行がない場合は`NaN`が入る。
+# * `'right'`：`df_right`の行は全て残し，`df_left`からはマッチする行だけが残り，対応する行がない場合は`NaN`が入る。
+# * `'outer'`：`df_left`と`df_right`の両方の行を全て残し，マッチする行がない場合は`NaN`を入れる。
+# 
+# では実際に上で作成した`DataFrame`を結合しよう。
+
 # In[25]:
 
 
 for df_right in [saving, depreciation, emp_growth]:  # 1
-    ky_ratio = ky_ratio.merge(df_right,              # 2
-                              left_index=True,       # 3
-                              right_index=True,      # 4
-                              how='outer')           # 5
+    ky_ratio = pd.merge(ky_ratio, df_right,          # 2
+                        left_index=True,             # 3
+                        right_index=True,            # 4
+                        how='outer')                 # 5
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
 # 1. `df_right`が上の説明の`df_right`に対応している。`[saving, depreciation, emp_growth]`は上で作成した`DataFrame`のリスト。
-# 2. 右辺の`ky_ratio`が上の説明の`df_left`に対応している。右辺で結合した`DataFrame`を左辺にある`ky_ratio`に割り当てている（上書き）。
+# 2. `ky_ratio`が上の説明の`df_left`に対応している。右辺で結合した`DataFrame`を左辺にある`ky_ratio`に割り当てている（際割り当て）。
 # 3. `ky_ratio`の行ラベルを基準とすることを指定する。
 # 4. `df_right`の行ラベルを基準とすることを指定する。
 # 5. ここでの`'outer'`は左右の`DataFrame`のそれぞれの行ラベルを残し，値がない箇所には`NaN`を入れることを指定する。

@@ -322,7 +322,7 @@
       <ul class="nav section-nav flex-column">
        <li class="toc-h5 nav-item toc-entry">
         <a class="reference internal nav-link" href="#sec-9-saving">
-         貯蓄率・雇用者数の増加率・資本減耗率の平均
+         貯蓄率・資本減耗率・労働人口増加率の平均
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
@@ -399,7 +399,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id16">
-   クラブ収斂
+   まとめ
   </a>
  </li>
 </ul>
@@ -926,26 +926,27 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <h4>データ<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>ここではPenn World Talbeに含まれる次の変数を使う。後で使う変数も含めてデータを整形することにしよう。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rgdpna</span></code>：GDP</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgdpna</span></code>：GDP（国民計算）</p>
 <ul>
 <li><p>平均成長率の計算に使う</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：GDP</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>：GDP（生産側）</p>
 <ul>
 <li><p>初期時点の一人当たりGDPの計算に使う</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">emp</span></code>：雇用者数</p>
 <ul>
-<li><p>ソロー・モデルの労働人口に対応する変数としてGDPを一人当たりに換算する際に使う。</p></li>
-<li><p>雇用者数の増加率を<span class="math notranslate nohighlight">\(n\)</span>の代わりに使う。</p></li>
+<li><p>労働人口の代わりに使う。</p></li>
+<li><p>労働人口増加率<span class="math notranslate nohighlight">\(n\)</span>の計算に使う。</p></li>
 <li><p>平均増加率として定常状態を捉える変数として使う。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">csh_i</span></code>：GDPに対しての資本形成の比率</p>
 <ul>
-<li><p>投資の対GDP比であり<span class="math notranslate nohighlight">\(s\)</span>の代わりに使う。</p></li>
+<li><p>投資の対GDP比である。</p></li>
+<li><p>貯蓄率<span class="math notranslate nohighlight">\(s\)</span>の代わりに使う。</p></li>
 <li><p>平均値を定常状態を捉える変数として使う。</p></li>
 </ul>
 </li>
@@ -964,8 +965,8 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </div>
 </div>
 <div class="section" id="sec-9-saving">
-<span id="id10"></span><h5>貯蓄率・雇用者数の増加率・資本減耗率の平均<a class="headerlink" href="#sec-9-saving" title="Permalink to this headline">¶</a></h5>
-<p>1970年〜2019年の貯蓄率，資本減耗率の平均，雇用者数の増加率を計算するが，<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用することもできる。ここでは<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使った計算を紹介することにする。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。</p>
+<span id="id10"></span><h5>貯蓄率・資本減耗率・労働人口増加率の平均<a class="headerlink" href="#sec-9-saving" title="Permalink to this headline">¶</a></h5>
+<p>1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口増加率を計算するが，<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用することもできる。ここでは<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使った計算を紹介することにする。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>         <span class="c1"># 1</span>
@@ -1007,12 +1008,13 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <li><p>同様のことが言える。</p></li>
 </ol>
 </div>
-<p>次に雇用者数の平均増加率を計算するが，成長率を計算する必要があるので次の関数を定義する。</p>
+<p>次に労働人口の平均成長率を計算するが，成長率を計算する必要があるので次の関数を定義する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_growth_nan1970</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_growth_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="mi">1970</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
+        <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
         <span class="k">return</span> <span class="n">x_growth</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -1022,12 +1024,12 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<p>1 のみが<code class="docutils literal notranslate"><span class="pre">mean_na()</span></code>と異なる。ここではグループ・データ<code class="docutils literal notranslate"><span class="pre">x</span></code>を使い，平均成長率を計算している。<code class="docutils literal notranslate"><span class="pre">x.iloc[-1]</span></code>は2019年の値であり，<code class="docutils literal notranslate"><span class="pre">x.iloc[0]</span></code>は1970年のデータとなっている。また<code class="docutils literal notranslate"><span class="pre">2019-1970+1</span></code>は<code class="docutils literal notranslate"><span class="pre">50</span></code>であり<code class="docutils literal notranslate"><span class="pre">50</span></code>年間の平均成長率であることがわかる。</p>
+<p>1 のみが<code class="docutils literal notranslate"><span class="pre">mean_na()</span></code>と異なる。ここではグループ・データ<code class="docutils literal notranslate"><span class="pre">x</span></code>を使い，平均成長率を計算している。<code class="docutils literal notranslate"><span class="pre">x.iloc[-1]</span></code>は2019年の値であり，<code class="docutils literal notranslate"><span class="pre">x.iloc[0]</span></code>は1970年のデータとなっている。また<code class="docutils literal notranslate"><span class="pre">len(x)</span></code>は<code class="docutils literal notranslate"><span class="pre">x</span></code>の行数を返しており，ここでは<code class="docutils literal notranslate"><span class="pre">2019-1970+1=50</span></code>と同じである。<code class="docutils literal notranslate"><span class="pre">50</span></code>年間の平均成長率であることがわかる。</p>
 </div>
-<p>この関数を使い雇用者数の平均増加率を計算しよう。</p>
+<p>この関数を使い労働人口の平均増加率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;emp&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan1970</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;emp&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">emp_growth</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;emp_growth&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1045,10 +1047,10 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </div>
 </div>
 </div>
-<p>平均成長率は関数<code class="docutils literal notranslate"><span class="pre">mean_growth_nan()</span></code>を使い，雇用者数の平均増加率の計算と同じ方法で計算しよう。</p>
+<p>平均成長率は関数<code class="docutils literal notranslate"><span class="pre">mean_growth_nan()</span></code>を使い，労働人口の平均増加率の計算と同じ方法で計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;rgdpna_pc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan1970</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;rgdpna_pc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">growth</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1153,40 +1155,40 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
       <td>8.998807</td>
       <td>0.184254</td>
       <td>0.029447</td>
-      <td>0.006735</td>
-      <td>0.021717</td>
+      <td>0.006873</td>
+      <td>0.022165</td>
     </tr>
     <tr>
       <th>Algeria</th>
       <td>10.769834</td>
       <td>0.357435</td>
       <td>0.041222</td>
-      <td>0.034277</td>
-      <td>-0.001204</td>
+      <td>0.034988</td>
+      <td>-0.001228</td>
     </tr>
     <tr>
       <th>Angola</th>
       <td>8.969764</td>
       <td>0.356462</td>
       <td>0.038453</td>
-      <td>0.030721</td>
-      <td>-0.002057</td>
+      <td>0.031358</td>
+      <td>-0.002099</td>
     </tr>
     <tr>
       <th>Argentina</th>
       <td>9.310948</td>
       <td>0.151055</td>
       <td>0.031582</td>
-      <td>0.017544</td>
-      <td>0.001011</td>
+      <td>0.017905</td>
+      <td>0.001031</td>
     </tr>
     <tr>
       <th>Australia</th>
       <td>10.820099</td>
       <td>0.277189</td>
       <td>0.027573</td>
-      <td>0.017246</td>
-      <td>0.011942</td>
+      <td>0.017601</td>
+      <td>0.012187</td>
     </tr>
   </tbody>
 </table>
@@ -1282,8 +1284,8 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===================================================================================
                       coef    std err          t      P&gt;|t|      [0.025      0.975]
 -----------------------------------------------------------------------------------
-Intercept           0.0732      0.011      6.402      0.000       0.051       0.096
-gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.004
+Intercept           0.0747      0.012      6.402      0.000       0.052       0.098
+gdp_pc_init_log    -0.0064      0.001     -5.297      0.000      -0.009      -0.004
 ===================================================================================
 </pre></div>
 </div>
@@ -1327,7 +1329,7 @@ gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>収束速度は約0.752％です
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>収束速度は約0.771％です
 </pre></div>
 </div>
 </div>
@@ -1418,14 +1420,14 @@ gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- X年後に残る2019年当時の所得格差 ----------
 
-10年後：92.73％
-20年後：85.99％
-50年後：68.57％
-100年後：47.02％
-200年後：22.11％
-300年後：10.40％
-500年後：2.30％
-1000年後：0.05％
+10年後：92.56％
+20年後：85.67％
+50年後：67.92％
+100年後：46.14％
+200年後：21.29％
+300年後：9.82％
+500年後：2.09％
+1000年後：0.04％
 </pre></div>
 </div>
 </div>
@@ -1453,11 +1455,11 @@ gdp_pc_init_log    -0.0063      0.001     -5.298      0.000      -0.009      -0.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===================================================================================
                       coef    std err          t      P&gt;|t|      [0.025      0.975]
 -----------------------------------------------------------------------------------
-Intercept           0.0520      0.011      4.944      0.000       0.031       0.073
-saving_rate         0.0725      0.015      4.776      0.000       0.042       0.103
-emp_growth         -0.5794      0.070     -8.300      0.000      -0.718      -0.441
-depreciation        0.5043      0.096      5.230      0.000       0.313       0.695
-gdp_pc_init_log    -0.0066      0.001     -6.314      0.000      -0.009      -0.005
+Intercept           0.0530      0.011      4.942      0.000       0.032       0.074
+saving_rate         0.0740      0.015      4.777      0.000       0.043       0.105
+emp_growth         -0.5790      0.070     -8.298      0.000      -0.717      -0.441
+depreciation        0.5148      0.098      5.231      0.000       0.320       0.710
+gdp_pc_init_log    -0.0068      0.001     -6.313      0.000      -0.009      -0.005
 ===================================================================================
 </pre></div>
 </div>
@@ -1489,7 +1491,7 @@ a\equiv\frac{1}{t}
 <li><p><span class="math notranslate nohighlight">\(a\)</span>は<span class="math notranslate nohighlight">\(d\)</span>の単調関数ではない <span class="math notranslate nohighlight">\(\Rightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">depreciation</span></code>の係数に関する予想は不明確。</p></li>
 </ul>
 <p>この予想に基づいて係数の統計的有意性を検討しよう。全ての係数の<span class="math notranslate nohighlight">\(p\)</span>値は非常に小さく統計的な有意性は高い。確認のために<span class="math notranslate nohighlight">\(F\)</span>検定を行ってみよう。ここでは次の帰無仮説と対立仮説を立てることにする。</p>
-<p><span class="math notranslate nohighlight">\(H_0\)</span>：貯蓄率，雇用者増加率，資本減耗率の推定値は全て<code class="docutils literal notranslate"><span class="pre">0</span></code><br>
+<p><span class="math notranslate nohighlight">\(H_0\)</span>：貯蓄率，労働人口増加率，資本減耗率の推定値は全て<code class="docutils literal notranslate"><span class="pre">0</span></code><br>
 <span class="math notranslate nohighlight">\(H_A\)</span>：<span class="math notranslate nohighlight">\(H_0\)</span>は成立しない。</p>
 <p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使って<span class="math notranslate nohighlight">\(F\)</span>検定をおこなう方法については<a class="reference external" href="https://py4etrics.github.io/11_Inference.html#f">このサイト</a>参考にして欲しいが，ここでは簡単い説明する。まず帰無仮説を捉える制約式を設定しよう。</p>
 <div class="cell docutils container">
@@ -1507,7 +1509,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;F test: F=array([[33.54522851]]), p=2.3063980054330887e-15, df_denom=107, df_num=3&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;F test: F=array([[33.53862295]]), p=2.318091903374656e-15, df_denom=107, df_num=3&gt;
 </pre></div>
 </div>
 </div>
@@ -1585,8 +1587,9 @@ a\equiv\frac{1}{t}
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     
     <span class="k">def</span> <span class="nf">mean_growth_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="mi">2019</span><span class="o">-</span><span class="n">init_yr</span>
         <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-            <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2019</span><span class="o">-</span><span class="n">init_yr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
+            <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
             <span class="k">return</span> <span class="n">x_growth</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -1679,40 +1682,40 @@ a\equiv\frac{1}{t}
       <td>8.998807</td>
       <td>0.184254</td>
       <td>0.029447</td>
-      <td>0.006735</td>
-      <td>0.021717</td>
+      <td>0.006873</td>
+      <td>0.022165</td>
     </tr>
     <tr>
       <th>Algeria</th>
       <td>10.769834</td>
       <td>0.357435</td>
       <td>0.041222</td>
-      <td>0.034277</td>
-      <td>-0.001204</td>
+      <td>0.034988</td>
+      <td>-0.001228</td>
     </tr>
     <tr>
       <th>Angola</th>
       <td>8.969764</td>
       <td>0.356462</td>
       <td>0.038453</td>
-      <td>0.030721</td>
-      <td>-0.002057</td>
+      <td>0.031358</td>
+      <td>-0.002099</td>
     </tr>
     <tr>
       <th>Argentina</th>
       <td>9.310948</td>
       <td>0.151055</td>
       <td>0.031582</td>
-      <td>0.017544</td>
-      <td>0.001011</td>
+      <td>0.017905</td>
+      <td>0.001031</td>
     </tr>
     <tr>
       <th>Australia</th>
       <td>10.820099</td>
       <td>0.277189</td>
       <td>0.027573</td>
-      <td>0.017246</td>
-      <td>0.011942</td>
+      <td>0.017601</td>
+      <td>0.012187</td>
     </tr>
   </tbody>
 </table>
@@ -1810,23 +1813,23 @@ a\equiv\frac{1}{t}
   <tbody>
     <tr>
       <th>1950</th>
-      <td>-0.001415</td>
-      <td>0.364711</td>
-      <td>0.016796</td>
+      <td>-0.001436</td>
+      <td>0.364623</td>
+      <td>0.016803</td>
       <td>51</td>
     </tr>
     <tr>
       <th>1951</th>
-      <td>-0.002221</td>
-      <td>0.189786</td>
-      <td>0.031623</td>
+      <td>-0.002255</td>
+      <td>0.189701</td>
+      <td>0.031635</td>
       <td>56</td>
     </tr>
     <tr>
       <th>1952</th>
-      <td>-0.002555</td>
-      <td>0.121834</td>
-      <td>0.042965</td>
+      <td>-0.002594</td>
+      <td>0.121773</td>
+      <td>0.042979</td>
       <td>57</td>
     </tr>
   </tbody>
@@ -1868,9 +1871,9 @@ a\equiv\frac{1}{t}
   <tbody>
     <tr>
       <th>1970</th>
-      <td>-0.006286</td>
-      <td>6.082595e-07</td>
-      <td>0.203276</td>
+      <td>-0.006415</td>
+      <td>6.090842e-07</td>
+      <td>0.203257</td>
       <td>112</td>
     </tr>
   </tbody>
@@ -1958,7 +1961,7 @@ a\equiv\frac{1}{t}
 
                                                  <span class="c1"># 27</span>
 <span class="n">df_multiple_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;貯蓄率の係数&#39;</span><span class="p">:</span><span class="n">saving_coef_list</span><span class="p">,</span>
-                                   <span class="s1">&#39;雇用者数増加率の係数&#39;</span><span class="p">:</span><span class="n">emp_growth_coef_list</span><span class="p">,</span>
+                                   <span class="s1">&#39;労働人口成長率の係数&#39;</span><span class="p">:</span><span class="n">emp_growth_coef_list</span><span class="p">,</span>
                                    <span class="s1">&#39;資本減耗率の係数&#39;</span><span class="p">:</span><span class="n">depreciation_coef_list</span><span class="p">,</span>
                                    <span class="s1">&#39;初期の一人当たりGDPの係数&#39;</span><span class="p">:</span><span class="n">b_coef_list</span><span class="p">,</span>
                                    <span class="s1">&#39;p値（初期の一人当たりGDP）&#39;</span><span class="p">:</span><span class="n">b_pval_list</span><span class="p">,</span>
@@ -2029,7 +2032,7 @@ a\equiv\frac{1}{t}
     <tr style="text-align: right;">
       <th></th>
       <th>貯蓄率の係数</th>
-      <th>雇用者数増加率の係数</th>
+      <th>労働人口成長率の係数</th>
       <th>資本減耗率の係数</th>
       <th>初期の一人当たりGDPの係数</th>
       <th>p値（初期の一人当たりGDP）</th>
@@ -2041,35 +2044,35 @@ a\equiv\frac{1}{t}
   <tbody>
     <tr>
       <th>1950</th>
-      <td>0.028658</td>
-      <td>-0.673005</td>
-      <td>0.327527</td>
-      <td>-0.004376</td>
-      <td>0.004688</td>
-      <td>3.378931773335629e-06</td>
-      <td>0.416848</td>
+      <td>0.029084</td>
+      <td>-0.673006</td>
+      <td>0.332347</td>
+      <td>-0.004441</td>
+      <td>0.004682</td>
+      <td>3.3757855214249118e-06</td>
+      <td>0.416876</td>
       <td>51</td>
     </tr>
     <tr>
       <th>1951</th>
-      <td>0.035823</td>
-      <td>-0.647801</td>
-      <td>0.356173</td>
-      <td>-0.005199</td>
-      <td>0.002218</td>
-      <td>6.098346023002047e-06</td>
-      <td>0.381058</td>
+      <td>0.036364</td>
+      <td>-0.647806</td>
+      <td>0.361502</td>
+      <td>-0.005278</td>
+      <td>0.002215</td>
+      <td>6.096874815015787e-06</td>
+      <td>0.381072</td>
       <td>56</td>
     </tr>
     <tr>
       <th>1952</th>
-      <td>0.035271</td>
+      <td>0.035812</td>
       <td>-0.662574</td>
-      <td>0.357725</td>
-      <td>-0.005140</td>
-      <td>0.001732</td>
-      <td>3.1061279929681435e-06</td>
-      <td>0.399250</td>
+      <td>0.363158</td>
+      <td>-0.005219</td>
+      <td>0.001729</td>
+      <td>3.10484481350139e-06</td>
+      <td>0.399268</td>
       <td>57</td>
     </tr>
   </tbody>
@@ -2084,14 +2087,14 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>貯蓄率の係数                           0.072521
-雇用者数増加率の係数                      -0.579357
-資本減耗率の係数                         0.504312
-初期の一人当たりGDPの係数                  -0.006634
-p値（初期の一人当たりGDP）                       0.0
-p値（F検定）            2.3063980054330887e-15
-決定係数（調整済み）                       0.574079
-国の数                                   112
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>貯蓄率の係数                          0.074029
+労働人口成長率の係数                     -0.579031
+資本減耗率の係数                        0.514848
+初期の一人当たりGDPの係数                  -0.00677
+p値（初期の一人当たりGDP）                      0.0
+p値（F検定）            2.318091903374656e-15
+決定係数（調整済み）                      0.574028
+国の数                                  112
 Name: 1970, dtype: object
 </pre></div>
 </div>
@@ -2131,13 +2134,11 @@ Name: 1970, dtype: object
 </div>
 </div>
 <div class="section" id="id16">
-<h2>クラブ収斂<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#sec-9-distribution"><span class="std std-ref">「所得分布の推移」の節</span></a>ではキャッチアップを示唆する結果が示された。一方，<a class="reference internal" href="#sec-9-convergence"><span class="std std-ref">「所得収斂」の節</span></a>では絶対的所得収斂のエビデンスはなかった。相反する結果をどのように解釈すれば良いのだろうか。一つの可能性は「クラブ収斂」という概念である。世界全ての経済の定常状態が同じだと仮定するのは無理があると感じるの当たり前かも知れない。日本を含むOECD諸国とサブサハラ・アフリカ地域の国の違いを漠然と考えても，納得できるかも知れない。しかし，ある特性を共有する国では定常状態が概ね同じだとする仮定が成り立つかも知れない。典型的な例がOECD諸国である。ある「クラブ」に属している国の中で所得収斂が発生して，それが世界全体の所得分布の変化に現れている可能性も否定できない。ここではこの問題に焦点を当て，クラブ収斂があるかを確認する。国の集合である「クラブ」は様々な特徴でグループ化できるので，多くの組み合わせがあり得る。ここでは<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>モジュールのPenn World Tableの変数を使い代表的なグループを考察するが，読者はここでは考えないグループ化を試してみてはどうだろうか。</p>
-<p>まず関数<code class="docutils literal notranslate"><span class="pre">data_for_regression()</span></code>を修正して，あるグループからデータを抽出できる関数を定義する。新たな関数名は<code class="docutils literal notranslate"><span class="pre">data_for_regression_group</span></code>として次の５つの引数がある。</p>
+<h2>まとめ<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#sec-9-distribution"><span class="std std-ref">「所得分布の推移」の節</span></a>ではキャッチアップを示唆する結果が示された。一方，<a class="reference internal" href="#sec-9-convergence"><span class="std std-ref">「所得収斂」の節</span></a>では絶対的所得収斂のエビデンスはなかった。相反する結果をどのように解釈すれば良いのだろうか。一つの可能性は「クラブ収斂」という概念である。世界全ての経済の定常状態が同じだと仮定するのは無理があると感じるの当たり前かも知れない。日本を含むOECD諸国とサブサハラ・アフリカ地域の国の違いを漠然と考えても，納得できるかも知れない。しかし，ある特性を共有する国では定常状態が概ね同じだとする仮定が成り立つかも知れない。典型的な例がOECD諸国である。ある「クラブ」（複数あり得る）に属している国の中で絶対的所得収斂が発生し，それが世界全体の所得分布の変化に現れているが，世界全体での絶対的所得収斂としては現れない，という可能性を否定できない。国の集合である「クラブ」は様々な特徴でグループ化できるので，多くの組み合わせがあり得る。<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータ<code class="docutils literal notranslate"><span class="pre">pwt</span></code>は次の変数を使い，データを様々な形でグループ化している。試してみてはどうだろうか。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">yr</span></code>：初期時点の年（以前と同じ）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">oecd</span></code>：1990年代に始まった中央ヨーロッパへの拡大前にOECDメンバー国だけを抽出する場合は<code class="docutils literal notranslate"><span class="pre">1</span></code>（整数），その他の国を選択する場合は<code class="docutils literal notranslate"><span class="pre">0</span></code>（整数）を設定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">income_group</span></code>：世界銀行は所得水準に従って国を次の４つに分けている。それぞれを選択する場合は文字列で指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">oecd</span></code>：1990年代に始まった中央ヨーロッパへの拡大前のOECDメンバー国</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">income_group</span></code>：世界銀行が所得水準に従って分けた４つのグループ</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">income</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Upper</span> <span class="pre">middle</span> <span class="pre">income</span></code></p></li>
@@ -2145,7 +2146,7 @@ Name: 1970, dtype: object
 <li><p><code class="docutils literal notranslate"><span class="pre">Low</span> <span class="pre">income</span></code></p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">region</span></code>：世界銀行が国・地域に従って分けた７つのグループ。それぞれを選択する場合は文字列で指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">region</span></code>：世界銀行が国・地域に従って分けた７つのグループ</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">East</span> <span class="pre">Asia</span> <span class="pre">&amp;</span> <span class="pre">Pacific</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Europe</span> <span class="pre">&amp;</span> <span class="pre">Central</span> <span class="pre">Asia</span></code></p></li>
@@ -2156,7 +2157,7 @@ Name: 1970, dtype: object
 <li><p><code class="docutils literal notranslate"><span class="pre">Sub-Saharan</span> <span class="pre">Africa</span></code></p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">continent</span></code>：南極以外の6大陸。それぞれを選択する場合は文字列で指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">continent</span></code>：南極以外の6大陸</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Africa</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Asia</span></code></p></li>
@@ -2167,471 +2168,8 @@ Name: 1970, dtype: object
 </ul>
 </li>
 </ul>
-<p>＜注意＞</p>
-<ul class="simple">
-<li><p>グループを指定する引数４つは同時に指定することはできない。</p></li>
-<li><p>グループを指定する引数を指定しな場合は，<code class="docutils literal notranslate"><span class="pre">data_for_regression()</span></code>と同じようにデータがある国は全て含まれる。</p></li>
-</ul>
-<p>＜例＞</p>
-<ol>
-<li><p>1980年のOECD以外の国全てのデータを抽出する場合：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_for_regression_group</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="n">oecd</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>1960年の<code class="docutils literal notranslate"><span class="pre">region</span></code>が<code class="docutils literal notranslate"><span class="pre">Latin</span> <span class="pre">America</span> <span class="pre">&amp;</span> <span class="pre">Caribbean</span></code>の場合：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_for_regression_group</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s1">&#39;Latin America &amp; Caribbean&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_for_regression_group</span><span class="p">(</span><span class="n">init_yr</span><span class="p">,</span> <span class="n">oecd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>          <span class="c1"># 修正</span>
-                                       <span class="n">income_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># 修正</span>
-                                       <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># 修正</span>
-                                       <span class="n">continent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>    <span class="c1"># 修正</span>
-
-    <span class="c1"># === 初期の変数を抽出 ====================== 修正</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">oecd</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">income_group</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">region</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">continent</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr&#39;</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="p">(</span><span class="n">oecd</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">income_group</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">region</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">continent</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">oecd</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr &amp; oecd == 1&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">oecd</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr &amp; oecd == 0&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;引数を確認しましょう (^o^)/&#39;</span><span class="p">)</span>
-        
-    <span class="k">elif</span> <span class="p">(</span><span class="n">oecd</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">income_group</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">region</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">continent</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">income_group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;High income&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;Upper middle income&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;Lower middle income&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;Low income&#39;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;引数を確認しましょう (^o^)/&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr &amp; income_group == @income_group&#39;</span><span class="p">)</span>
-        
-    <span class="k">elif</span> <span class="p">(</span><span class="n">oecd</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">income_group</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">region</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">continent</span><span class="o">==</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;East Asia &amp; Pacific&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;Europe &amp; Central Asia&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;Latin America &amp; Caribbean&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;Middle East &amp; North Africa&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;North America&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;South Asia&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;Sub-Saharan Africa&#39;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;引数を確認しましょう (^o^)/&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr &amp; region == @region&#39;</span><span class="p">)</span>
-        
-    <span class="k">elif</span> <span class="p">(</span><span class="n">oecd</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">income_group</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">region</span><span class="o">==</span><span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">continent</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">continent</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Africa&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;Asia&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;Australia&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;Europe&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;North America&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;South America&#39;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;引数を確認しましょう (^o^)/&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= @init_yr &amp; continent == @continent&#39;</span><span class="p">)</span>
-    
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;何かおかしいですよ。引数を確認しましょう (^o^)/&#39;</span><span class="p">)</span>
-
-        
-    <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="n">init_yr</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">df0</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">コードの説明</p>
-<p><code class="docutils literal notranslate"><span class="pre">data_for_regression</span></code>と異なる箇所は次の２点：</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">修正</span></code>ある５箇所</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">===</span> <span class="pre">初期の変数を抽出</span> <span class="pre">======================</span> <span class="pre">修正</span></code>とある箇所</p>
-<ul>
-<li><p>授業の範囲を超えそうなので説明は割愛する</p></li>
-</ul>
-</li>
-</ul>
-</div>
-<p>実際に，1980年の<code class="docutils literal notranslate"><span class="pre">oecd=1</span></code>として関数を実行して内容を確認してみよう。</p>
-<div class="cell tag_output_scroll docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_for_regression_group</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="n">oecd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>gdp_pc_init_log</th>
-      <th>saving_rate</th>
-      <th>depreciation</th>
-      <th>emp_growth</th>
-      <th>gdp_pc_growth</th>
-    </tr>
-    <tr>
-      <th>country</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Australia</th>
-      <td>10.959094</td>
-      <td>0.273514</td>
-      <td>0.028364</td>
-      <td>0.018097</td>
-      <td>0.011090</td>
-    </tr>
-    <tr>
-      <th>Austria</th>
-      <td>10.658199</td>
-      <td>0.294752</td>
-      <td>0.038302</td>
-      <td>0.006498</td>
-      <td>0.012788</td>
-    </tr>
-    <tr>
-      <th>Belgium</th>
-      <td>11.010042</td>
-      <td>0.295789</td>
-      <td>0.039508</td>
-      <td>0.006590</td>
-      <td>0.011429</td>
-    </tr>
-    <tr>
-      <th>Canada</th>
-      <td>11.016548</td>
-      <td>0.250417</td>
-      <td>0.034865</td>
-      <td>0.013967</td>
-      <td>0.009042</td>
-    </tr>
-    <tr>
-      <th>Denmark</th>
-      <td>10.767118</td>
-      <td>0.257788</td>
-      <td>0.037292</td>
-      <td>0.004175</td>
-      <td>0.013937</td>
-    </tr>
-    <tr>
-      <th>Finland</th>
-      <td>10.654041</td>
-      <td>0.300152</td>
-      <td>0.038440</td>
-      <td>0.003078</td>
-      <td>0.017193</td>
-    </tr>
-    <tr>
-      <th>France</th>
-      <td>10.992908</td>
-      <td>0.251893</td>
-      <td>0.031951</td>
-      <td>0.005775</td>
-      <td>0.011694</td>
-    </tr>
-    <tr>
-      <th>Germany</th>
-      <td>10.688699</td>
-      <td>0.249238</td>
-      <td>0.034674</td>
-      <td>0.003660</td>
-      <td>0.012833</td>
-    </tr>
-    <tr>
-      <th>Greece</th>
-      <td>10.600453</td>
-      <td>0.258168</td>
-      <td>0.027068</td>
-      <td>0.003901</td>
-      <td>0.004109</td>
-    </tr>
-    <tr>
-      <th>Iceland</th>
-      <td>10.931063</td>
-      <td>0.294390</td>
-      <td>0.031948</td>
-      <td>0.012505</td>
-      <td>0.015331</td>
-    </tr>
-    <tr>
-      <th>Ireland</th>
-      <td>10.587913</td>
-      <td>0.282270</td>
-      <td>0.041905</td>
-      <td>0.015852</td>
-      <td>0.031818</td>
-    </tr>
-    <tr>
-      <th>Italy</th>
-      <td>10.979916</td>
-      <td>0.258999</td>
-      <td>0.034788</td>
-      <td>0.004484</td>
-      <td>0.006603</td>
-    </tr>
-    <tr>
-      <th>Japan</th>
-      <td>10.665478</td>
-      <td>0.299932</td>
-      <td>0.039504</td>
-      <td>0.004076</td>
-      <td>0.014066</td>
-    </tr>
-    <tr>
-      <th>Luxembourg</th>
-      <td>10.912566</td>
-      <td>0.348296</td>
-      <td>0.035277</td>
-      <td>0.026891</td>
-      <td>0.010756</td>
-    </tr>
-    <tr>
-      <th>Netherlands</th>
-      <td>11.008107</td>
-      <td>0.236115</td>
-      <td>0.037529</td>
-      <td>0.011224</td>
-      <td>0.009110</td>
-    </tr>
-    <tr>
-      <th>New Zealand</th>
-      <td>10.509896</td>
-      <td>0.225112</td>
-      <td>0.030770</td>
-      <td>0.012313</td>
-      <td>0.013193</td>
-    </tr>
-    <tr>
-      <th>Norway</th>
-      <td>10.965890</td>
-      <td>0.261348</td>
-      <td>0.039213</td>
-      <td>0.009588</td>
-      <td>0.013432</td>
-    </tr>
-    <tr>
-      <th>Portugal</th>
-      <td>10.255362</td>
-      <td>0.267261</td>
-      <td>0.029087</td>
-      <td>0.006144</td>
-      <td>0.012449</td>
-    </tr>
-    <tr>
-      <th>Spain</th>
-      <td>10.765241</td>
-      <td>0.273891</td>
-      <td>0.034356</td>
-      <td>0.011208</td>
-      <td>0.010789</td>
-    </tr>
-    <tr>
-      <th>Sweden</th>
-      <td>10.673817</td>
-      <td>0.275432</td>
-      <td>0.035480</td>
-      <td>0.003886</td>
-      <td>0.017004</td>
-    </tr>
-    <tr>
-      <th>Switzerland</th>
-      <td>11.191439</td>
-      <td>0.332465</td>
-      <td>0.044846</td>
-      <td>0.011183</td>
-      <td>0.006261</td>
-    </tr>
-    <tr>
-      <th>Turkey</th>
-      <td>10.203051</td>
-      <td>0.249467</td>
-      <td>0.047252</td>
-      <td>0.018124</td>
-      <td>0.026131</td>
-    </tr>
-    <tr>
-      <th>United Kingdom</th>
-      <td>10.776100</td>
-      <td>0.230929</td>
-      <td>0.035340</td>
-      <td>0.006912</td>
-      <td>0.014794</td>
-    </tr>
-    <tr>
-      <th>United States</th>
-      <td>11.173675</td>
-      <td>0.245328</td>
-      <td>0.038032</td>
-      <td>0.010785</td>
-      <td>0.015349</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>先進国だけが並んでいることが確認できる。</p>
-<p>次に，<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は<a class="reference internal" href="#sec-9-multiple-for-loop"><span class="std std-ref">重回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析</span></a>で使った<code class="docutils literal notranslate"><span class="pre">for</span></code>ループのコードを３箇所だけ変更して再利用する。また<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで使う初期は1960年から1999年としている。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">regression_result</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>                      <span class="c1"># 1</span>
-
-    <span class="n">saving_coef_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">emp_growth_coef_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">depreciation_coef_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">b_coef_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">b_pval_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">f_pval_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">rsquared_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">nobs_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">yr_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="n">formula</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;gdp_pc_growth ~ saving_rate +&#39;</span>
-                                <span class="s1">&#39;emp_growth +&#39;</span>
-                                <span class="s1">&#39;depreciation +&#39;</span>
-                                <span class="s1">&#39;gdp_pc_init_log&#39;</span> <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span> <span class="mi">2000</span><span class="p">):</span>
-
-        <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression_group</span><span class="p">(</span><span class="n">yr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># 2</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span>
-        <span class="n">hypothesis</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;saving_rate=0,&#39;</span>
-               <span class="s1">&#39; emp_growth=0,&#39;</span>
-               <span class="s1">&#39; depreciation=0&#39;</span><span class="p">)</span>
-        <span class="n">f_pval</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">f_test</span><span class="p">(</span><span class="n">hypothesis</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
-
-        <span class="n">saving_coef_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">emp_growth_coef_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">depreciation_coef_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">b_coef_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">b_pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">f_pval_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">f_pval</span> <span class="p">)</span>
-        <span class="n">rsquared_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">rsquared_adj</span> <span class="p">)</span>
-        <span class="n">nobs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span> <span class="p">)</span>
-        <span class="n">yr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>
-
-                                                     <span class="c1"># 3</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;貯蓄率の係数&#39;</span><span class="p">:</span><span class="n">saving_coef_list</span><span class="p">,</span>
-                         <span class="s1">&#39;雇用者数増加率の係数&#39;</span><span class="p">:</span><span class="n">emp_growth_coef_list</span><span class="p">,</span>
-                         <span class="s1">&#39;資本減耗率の係数&#39;</span><span class="p">:</span><span class="n">depreciation_coef_list</span><span class="p">,</span>
-                         <span class="s1">&#39;初期の一人当たりGDPの係数&#39;</span><span class="p">:</span><span class="n">b_coef_list</span><span class="p">,</span>
-                         <span class="s1">&#39;p値（初期の一人当たりGDP）&#39;</span><span class="p">:</span><span class="n">b_pval_list</span><span class="p">,</span>
-                         <span class="s1">&#39;p値（F検定）&#39;</span><span class="p">:</span><span class="n">f_pval_list</span><span class="p">,</span>                                   
-                         <span class="s1">&#39;決定係数（調整済み）&#39;</span><span class="p">:</span><span class="n">rsquared_list</span><span class="p">,</span>                                   
-                         <span class="s1">&#39;国の数&#39;</span><span class="p">:</span><span class="n">nobs_list</span><span class="p">},</span>
-                         <span class="n">index</span><span class="o">=</span><span class="n">yr_list</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">コードの説明</p>
-<ol>
-<li><p>関数なので<code class="docutils literal notranslate"><span class="pre">def</span></code>を使うが，重要なのは引数<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>。「キーワード引数ならなんでも書いて良いよ」いう意味で，全てのキーワード引数は<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>に格納される。ここでのキーワード引数は関数<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>を想定している。(2)を確認しよう。</p></li>
-<li><p>(1)で設定されたキーワード引数は<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>に入っているので，それを<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>の引数として設定している。<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>が想定しないキーワード引数が<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>に入っていると<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>はエラーなどを出す事になる。次のように使う。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">regression_result</span><span class="p">(</span><span class="n">continent</span><span class="o">=</span><span class="s1">&#39;Europe&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>この場合，<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>に<code class="docutils literal notranslate"><span class="pre">continent='Europe'</span></code>が格納され，<code class="docutils literal notranslate"><span class="pre">data_for_regression_group()</span></code>に渡される事になる。</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を直接返すようになっている。</p></li>
-</ol>
-</div>
-<p>準備ができたので，実際に回帰分析をしてみよう。まず<code class="docutils literal notranslate"><span class="pre">oecd</span></code>諸国だけを抽出し結果をプロットする。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regression_result</span><span class="p">(</span><span class="n">oecd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                               <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-                               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/9_Convergence_168_0.png" src="_images/9_Convergence_168_0.png" />
-</div>
-</div>
-<p>貯蓄率と労働人口増加率の係数がマイナスなる場合もあり，表示していないが統計的有意性も低い。<span class="math notranslate nohighlight">\(F\)</span>検定の<span class="math notranslate nohighlight">\(p\)</span>値は1960年代中頃までは<code class="docutils literal notranslate"><span class="pre">0.1</span></code>以上の値となっている。即ち，長い時間的なスパンでは絶対的所得収斂の成立を示唆している。</p>
-<p>次に<code class="docutils literal notranslate"><span class="pre">region</span></code>で<code class="docutils literal notranslate"><span class="pre">East</span> <span class="pre">Asia</span> <span class="pre">&amp;</span> <span class="pre">Pacific</span></code>を考えてみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">asia</span> <span class="o">=</span> <span class="n">regression_result</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s1">&#39;East Asia &amp; Pacific&#39;</span><span class="p">)</span>
-<span class="n">asia</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/9_Convergence_170_0.png" src="_images/9_Convergence_170_0.png" />
-</div>
-</div>
-<p>まず<span class="math notranslate nohighlight">\(F\)</span>検定の<span class="math notranslate nohighlight">\(p\)</span>値の最小値を表示してみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">asia</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;p値（F検定）&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(0.08566816)
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(F\)</span>検定の<span class="math notranslate nohighlight">\(p\)</span>値は一貫して<code class="docutils literal notranslate"><span class="pre">0.05</span></code>を上回っていることを意味しており，絶対的所得収斂を示唆している。絶対的所得収斂のもう一つの条件は初期の一人当たりGDPが統計的に優位であることである。その<span class="math notranslate nohighlight">\(p\)</span>値が5％以下になるのは何年からか確認してみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">asia</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;p値（初期の一人当たりGDP）&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.05</span> <span class="p">)</span>  <span class="c1"># 1</span>
-<span class="n">asia</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">index</span>                                   <span class="c1"># 2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Int64Index([1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986,
-            1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-            1998, 1999],
-           dtype=&#39;int64&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">コートの説明</p>
-<ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">初期の一人当たりGDPの$p$値</span></code>の要素が0.05以下の場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。</p></li>
-<li><p>(1)で<code class="docutils literal notranslate"><span class="pre">True</span></code>の行を抽出し，<code class="docutils literal notranslate"><span class="pre">.index</span></code>を使い行ラベルを取得している。</p></li>
-</ol>
-</div>
-<p>1970年代中頃以降から絶対的所得収斂のメカニズムが働いていることを意味している。またデータに含まれる国の数が増加している点も結果に影響していると考えられる。<a class="reference internal" href="#sec-9-distribution"><span class="std std-ref">「所得分布の推移」の節</span></a>におけるキャッチアップを示唆する結果の裏では，ここで考察したクラブ収斂のメカニズムが動いていると考えられる。他の「クラブ」のデータを使って確認してみよう。</p>
+<p>【注意】<br>
+<code class="docutils literal notranslate"><span class="pre">region</span></code>の<code class="docutils literal notranslate"><span class="pre">South</span> <span class="pre">Asia</span></code>と<code class="docutils literal notranslate"><span class="pre">North</span> <span class="pre">America</span></code>，<code class="docutils literal notranslate"><span class="pre">continent</span></code>の<code class="docutils literal notranslate"><span class="pre">Australia</span></code>は標本の大きさが少ないため回帰分析をするとエラーになるので注意しよう。</p>
 </div>
 </div>
 
