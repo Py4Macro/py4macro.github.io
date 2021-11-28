@@ -1093,6 +1093,78 @@ data(dataset=None, description=0)
 </ul>
 </li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">2019</span></code>年のデータを使い内訳を確認してみよう。まず<code class="docutils literal notranslate"><span class="pre">oecd</span></code>を考えるが，条件に従って行を抽出しその数を数えてみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond1</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<span class="n">cond2</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;oecd&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span> <span class="p">)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span> <span class="o">&amp;</span> <span class="n">cond2</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">oecd</span></code>には24カ国あることがわかる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">income_group</span></code>，<code class="docutils literal notranslate"><span class="pre">region</span></code>，<code class="docutils literal notranslate"><span class="pre">continent</span></code>の内訳を確認するには，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>が便利であり，簡単に要素の個数や頻度を表示できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>High income            65
+Upper middle income    48
+Lower middle income    44
+Low income             24
+Name: income_group, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Europe &amp; Central Asia         48
+Sub-Saharan Africa            45
+Latin America &amp; Caribbean     40
+Middle East &amp; North Africa    20
+East Asia &amp; Pacific           20
+South Asia                     7
+North America                  3
+Name: region, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Africa           50
+Asia             48
+Europe           39
+North America    31
+South America    12
+Australia         3
+Name: continent, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">normalize=True</span></code>を追加すると，頻度（パーセント）として表示できる。</p>
 <p>属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使うと全ての列名を表示できる。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
@@ -1566,7 +1638,7 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_58_0.png" src="_images/5a_Development_Accounting_58_0.png" />
+<img alt="_images/5a_Development_Accounting_64_0.png" src="_images/5a_Development_Accounting_64_0.png" />
 </div>
 </div>
 <p>正の関係があることが確認できる。またデータの曲線トレンドは凹関数のようである。<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>に対する<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>増加の影響は，<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>が低いと大きく，<code class="docutils literal notranslate"><span class="pre">k_pc_relative</span></code>が高いと小さくなる。即ち，資本の限界生産性の逓減の反映と考えられる。ただ，この効果のみで上の図を解釈するには問題がある。第一に，異なる経済のクロスセクション・データ（横断面データ）であるため，経済間の様々な異質性が反映されている。即ち，全ての観測値は同じ生産関数から生成されている訳ではない。第二に，資本の限界生産性の逓減という概念は，労働や他の投入が一定のもとでの比較静学の結果である。しかし，他の投入は一定に固定されている訳ではない。これらを考慮しつつ図の解釈をするべきではあるが，データの裏には資本の限界生産性の逓減のメカニズムが働いていると考えるのは自然であろう。</p>
@@ -1591,7 +1663,7 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_64_0.png" src="_images/5a_Development_Accounting_64_0.png" />
+<img alt="_images/5a_Development_Accounting_70_0.png" src="_images/5a_Development_Accounting_70_0.png" />
 </div>
 </div>
 <p>正の関係があることがわかる。即ち，人的資本ストックが高ければ，一人当たり所得も増えるという事であり，非常に直感的でもある。一方，物的資本と比べると，曲線トレンドは凸関数になっている。裏にあるメカニズムとして様々なことが想定できる。</p>
@@ -1625,7 +1697,7 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_69_0.png" src="_images/5a_Development_Accounting_69_0.png" />
+<img alt="_images/5a_Development_Accounting_75_0.png" src="_images/5a_Development_Accounting_75_0.png" />
 </div>
 </div>
 <p>正の関係であることは変わらないが，相関度は減少している。これは労働時間の影響であるり，一人当たりGDPとの散布図をプロットして確認してみよう。</p>
@@ -1639,7 +1711,7 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_71_0.png" src="_images/5a_Development_Accounting_71_0.png" />
+<img alt="_images/5a_Development_Accounting_77_0.png" src="_images/5a_Development_Accounting_77_0.png" />
 </div>
 </div>
 <p>負の相関関係にあると言えるだろう。即ち，豊かな経済では労働時間が短くなる傾向にある。この傾向は，ミクロ経済学の授業で習った消費者の労働供給モデルを考えて解釈することができる。所得が上昇すると，所得効果により労働供給は減少するが，代替効果により労働時間は上昇する。上の図は，所得効果が代替効果を上回っている結果の反映と考えることが可能である。一方で，経済間では所得だけではなく他の要因も異なることも念頭においておこう。いずれにしろ，労働時間の負の関係により，人的資本サービスと一人当たりGDPの相関は弱くなっている。</p>
@@ -1657,7 +1729,7 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_76_0.png" src="_images/5a_Development_Accounting_76_0.png" />
+<img alt="_images/5a_Development_Accounting_82_0.png" src="_images/5a_Development_Accounting_82_0.png" />
 </div>
 </div>
 <p>正の相関関係にあることは明らかであり，直線のトレンドであることがわかる。物的資本の場合は凹関数トレンドで，限界生産性の逓減の反映とも解釈できた。人的資本の場合は凸関数トレンドで，外部性の効果が示唆された。全要素生産性の直線トレンドの解釈はどうなるのだろう。まず，物的資本のように，限界生産性の逓減があれば凹型トレンドになるはずだが，それを抑えるメカニズムが働いていると考えられる。それが正の外部性の存在である。</p>
@@ -1759,7 +1831,7 @@ K_i^\alpha H_i^{1-\alpha}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5a_Development_Accounting_84_0.png" src="_images/5a_Development_Accounting_84_0.png" />
+<img alt="_images/5a_Development_Accounting_90_0.png" src="_images/5a_Development_Accounting_90_0.png" />
 </div>
 </div>
 <p>視覚的には，TFPと比べて相関度は低いようである。コードで確認しよう。</p>
