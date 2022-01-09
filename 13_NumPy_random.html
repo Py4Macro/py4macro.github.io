@@ -42,7 +42,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -246,7 +246,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -286,7 +286,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -433,7 +433,157 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>ランダム変数と全要素生産性</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   はじめに
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   ランダム変数生成コード
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     正規分布
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     一様分布
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   ホワイト・ノイズ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     図示
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     自己共分散（自己相関）
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ar-1">
+   自己回帰モデル：AR(1)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#persistence">
+     ３つの例：Persistenceの違い
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   全要素生産性
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     データ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     労働時間と雇用の特徴
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tfp">
+     TFPの特徴
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ar-1-tfp">
+     AR(1)としてのTFP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   確率的ソロー・モデル
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     説明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     初期値の計算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     シミュレーション
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id19">
+       関数
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id20">
+       実行
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id21">
+       結果
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
@@ -521,8 +671,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.98955161, 7.28994505, 5.67468305, 6.53273205, 7.07513143,
-       4.40870446, 6.44008498, 7.30908876, 6.9063302 , 3.03475624])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.26827043, 2.13562202, 3.05529877, 6.5133491 , 7.06242294,
+       4.22166166, 5.88540212, 2.75719031, 5.56637143, 4.85008931])
 </pre></div>
 </div>
 </div>
@@ -536,7 +686,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.61124697,  0.35175076, -0.57179976,  1.92767879,  0.30286829])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.64664638, -0.2099782 , -0.07513843, -0.09314261, -0.1902167 ])
 </pre></div>
 </div>
 </div>
@@ -582,8 +732,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([14.43022505,  9.820257  , 23.59615942, 26.48059548, 28.28426199,
-       22.46357176, 10.93543304, 24.49471093,  9.2519518 ,  6.42076416])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([18.29846557,  6.14498975, 20.91918224, 17.13043532, 22.39469773,
+       20.11956669, 18.39752744, 25.00965724, 29.77035   ,  6.74877508])
 </pre></div>
 </div>
 </div>
@@ -596,7 +746,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.97934482, 0.77642172, 0.02245429, 0.57076922, 0.41407287])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.96165688, 0.46640841, 0.59182637, 0.33193926, 0.06596071])
 </pre></div>
 </div>
 </div>
@@ -686,7 +836,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.19848847081489704, 0.9300567496071985)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.1049311967310263, 1.3065367443536118)
 </pre></div>
 </div>
 </div>
@@ -763,8 +913,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.94903686, -0.00914014],
-       [-0.00914014,  0.92251339]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.32990286, 0.00826762],
+       [0.00826762, 1.2997185 ]])
 </pre></div>
 </div>
 </div>
@@ -778,7 +928,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.009768434211001601
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006288482109444151
 </pre></div>
 </div>
 </div>
@@ -1344,7 +1494,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.618
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.500
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_119_1.png" src="_images/13_NumPy_random_119_1.png" />
@@ -1723,92 +1873,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>766809.710039</td>
-      <td>0.002334</td>
-      <td>0.998072</td>
-      <td>0.001930</td>
-      <td>261096.841468</td>
-      <td>-0.004615</td>
-      <td>207946.513240</td>
-      <td>-0.004615</td>
-      <td>53150.328228</td>
-      <td>-0.004615</td>
+      <td>768026.097259</td>
+      <td>0.000749</td>
+      <td>0.992874</td>
+      <td>0.007152</td>
+      <td>259682.545888</td>
+      <td>0.000816</td>
+      <td>206820.119550</td>
+      <td>0.000816</td>
+      <td>52862.426337</td>
+      <td>0.000816</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>0.993937</td>
+      <td>0.999823</td>
       <td>0.377800</td>
-      <td>263026.687428</td>
-      <td>209483.509001</td>
-      <td>53543.178427</td>
-      <td>801189.240797</td>
-      <td>0.001376</td>
-      <td>0.998714</td>
-      <td>-0.004794</td>
-      <td>265565.144286</td>
-      <td>-0.009605</td>
-      <td>211505.223433</td>
-      <td>-0.009605</td>
-      <td>54059.920853</td>
-      <td>-0.009605</td>
+      <td>264584.178616</td>
+      <td>210723.948602</td>
+      <td>53860.230014</td>
+      <td>801816.172689</td>
+      <td>0.000594</td>
+      <td>0.992937</td>
+      <td>0.006911</td>
+      <td>263911.381607</td>
+      <td>0.002546</td>
+      <td>210188.109902</td>
+      <td>0.002546</td>
+      <td>53723.271705</td>
+      <td>0.002546</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>835778.093663</td>
-      <td>0.991831</td>
+      <td>836095.145250</td>
+      <td>0.994433</td>
       <td>0.378790</td>
-      <td>267059.527670</td>
-      <td>212695.401807</td>
-      <td>54364.125863</td>
-      <td>835569.891533</td>
-      <td>0.000249</td>
-      <td>0.999357</td>
-      <td>-0.007559</td>
-      <td>270032.695686</td>
-      <td>-0.011071</td>
-      <td>215063.335171</td>
-      <td>-0.011071</td>
-      <td>54969.360515</td>
-      <td>-0.011071</td>
+      <td>267796.714556</td>
+      <td>213282.522822</td>
+      <td>54514.191734</td>
+      <td>835606.607855</td>
+      <td>0.000584</td>
+      <td>0.993004</td>
+      <td>0.001438</td>
+      <td>268140.349842</td>
+      <td>-0.001282</td>
+      <td>213556.205794</td>
+      <td>-0.001282</td>
+      <td>54584.144048</td>
+      <td>-0.001282</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>869247.767185</td>
-      <td>1.000322</td>
+      <td>869706.958353</td>
+      <td>0.980880</td>
       <td>0.379782</td>
-      <td>273895.705460</td>
-      <td>218139.969145</td>
-      <td>55755.736314</td>
-      <td>869953.471587</td>
-      <td>-0.000812</td>
-      <td>0.999999</td>
-      <td>0.000322</td>
-      <td>274497.157715</td>
-      <td>-0.002194</td>
-      <td>218618.986427</td>
-      <td>-0.002194</td>
-      <td>55878.171287</td>
-      <td>-0.002194</td>
+      <td>268623.596813</td>
+      <td>213941.080318</td>
+      <td>54682.516495</td>
+      <td>869398.060023</td>
+      <td>0.000355</td>
+      <td>0.993085</td>
+      <td>-0.012365</td>
+      <td>272370.003609</td>
+      <td>-0.013850</td>
+      <td>216924.847666</td>
+      <td>-0.013850</td>
+      <td>55445.155942</td>
+      <td>-0.013850</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>903272.309319</td>
-      <td>0.990832</td>
+      <td>902646.800889</td>
+      <td>0.995731</td>
       <td>0.380777</td>
-      <td>275794.174410</td>
-      <td>219651.975175</td>
-      <td>56142.199235</td>
-      <td>904341.920427</td>
-      <td>-0.001183</td>
-      <td>1.000635</td>
-      <td>-0.009845</td>
-      <td>278954.334188</td>
-      <td>-0.011393</td>
-      <td>222168.835216</td>
-      <td>-0.011393</td>
-      <td>56785.498972</td>
-      <td>-0.011393</td>
+      <td>277088.669804</td>
+      <td>220682.955872</td>
+      <td>56405.713932</td>
+      <td>903191.491796</td>
+      <td>-0.000603</td>
+      <td>0.993188</td>
+      <td>0.002557</td>
+      <td>276600.681149</td>
+      <td>0.001763</td>
+      <td>220294.304908</td>
+      <td>0.001763</td>
+      <td>56306.376241</td>
+      <td>0.001763</td>
     </tr>
   </tbody>
 </table>
@@ -1861,11 +2011,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.481
-Cの変動： 0.481
-Iの変動： 0.481
-Kの変動： 0.888
-Aの変動： 0.464
+Yの変動： 0.480
+Cの変動： 0.480
+Iの変動： 0.480
+Kの変動： 0.872
+Aの変動： 0.476
 </pre></div>
 </div>
 </div>
@@ -1939,10 +2089,10 @@ consumptionの変動： 0.522
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：GDPとの相関係数 ---
 
-Cの変動： 0.038
-Iの変動： 0.038
-Kの変動： 0.005
-Aの変動： 0.974
+Cの変動： 0.039
+Iの変動： 0.039
+Kの変動： 0.002
+Aの変動： 0.953
 </pre></div>
 </div>
 </div>
@@ -2016,8 +2166,8 @@ consumptionの変動：0.706
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="12_IS-MP-PC.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -2034,19 +2184,17 @@ consumptionの変動：0.706
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By 春山 鉄源  Tetsugen HARUYAMA<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By 春山 鉄源  Tetsugen HARUYAMA<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 
