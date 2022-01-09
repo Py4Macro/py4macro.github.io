@@ -94,7 +94,9 @@ y_jp.iloc[0]
 
 
 cond = ( pwt.loc[:,'year']==2019 )
-pwt.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20)
+pwt.loc[cond,'gdp_pc_log'].plot(kind='hist',
+                                bins=20,
+                                edgecolor='white')
 pass
 
 
@@ -104,7 +106,10 @@ pass
 
 
 # 1 ヒストグラム
-ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='hist', bins=20, density=True)
+ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='hist',
+                                      bins=20,
+                                      edgecolor='white',
+                                      density=True)
 
 # 2 密度関数
 pwt.loc[cond,'gdp_pc_log'].plot(kind='density',ax=ax_)
@@ -133,40 +138,47 @@ pass
 # In[7]:
 
 
-yr_list = list(range(1960,2020,10))+[2019]            # 1
+yr_list = list(range(1950,2020,10))+[2019]                # 1
 
-cond = ( pwt.loc[:,'year'] == 1950 )                  # 2
-ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='density', # 3
-                                      label='1950',   # 4
-                                      legend=True)    # 5
-for y in yr_list:                                     # 6
-    cond = ( pwt.loc[:,'year'] == y )                 # 7
-    pwt.loc[cond,'gdp_pc_log'].plot(kind='density',   # 8
-                                    label=str(y),     # 9
-                                    legend=True,      # 10
-                                    ax=ax_)           # 11
-ax_.set_xlim([5.5,13.0])                              # 12
+color_arr = np.linspace(0.9,0,len(yr_list))               # 2
+
+for y, c in zip(yr_list, color_arr):                      # 3
+    cond = ( pwt.loc[:,'year'] == y )                     # 4
+    ax_ = pwt.loc[cond,'gdp_pc_log'].plot(kind='density', # 5
+                                          label=str(y),   # 6
+                                          legend=True,    # 7
+                                          color=str(c))   # 8
+
+ax_.set_xlim([5.5,13.0])                                  # 9
 pass
 
 
-# ```{admonition} コードの説明
+# ````{admonition} コードの説明
 # :class: dropdown
 # 
 # 1. `range(start, end, step)`は`start`から`end`までの整数を`step`の間隔で準備する。更に`list()`を使ってリストに変換し，`+[2019]`を使ってリストの最後に`2019`を追加している。
-# 2. 列`year`が`1950`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。
-# 3. 1950年の行を抽出し，密度関数を表示する。また，その「軸」を`ax_`に割り当てる。
-# 4. 凡例の表示を`'1950'`（文字列）とする。
-# 5. 凡例の表示を指定する。
-# 6. `yr_list`に対しての`for`ループで1960から10年毎のループの開始。
-# 7. 列`year`が`y`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。(2)で設定した`cond`は上書きされる。
-# 8. `y`の行を抽出し，密度関数を表示する。
-# 9. 凡例の表示を文字列に変換した`y`とする。`str()`は文字列に変換する関数。
-# 10. 凡例の表示を指定する。
-# 11. 「軸」を選ぶ引数`ax`には`ax_`を指定する。
-# 12. `ax_`のメソッドである`set_xlim()`は横軸の表示範囲を指定する。
+# 2. グレーの濃淡で曲線の色指定するが，その場合`0`（黒）から`1`（白）の間の浮動小数点型を文字列型で指定する。そのために使う数字を用意している（後で文字列に変換する）。`np.linspace(0.9,0,len(yr_list))`は`0.9`から`0`までの数字（降順）で`yr_list`の要素と同じ数の値を生成し`array`として`color_arr`に割り当てている。
+# 3. `zip`は引数の`yr_list`と`color_arr`の順番が同じ要素を一つのタプルにまとめる関数である。例えば，`list(zip(yr_list,color_arr))`はタプルが要素となるリストを返す。
+# ```
+# [(1950, 0.9),
+#  (1960, 0.7714285714285715),
+#  (1970, 0.6428571428571428),
+#  (1980, 0.5142857142857142),
+#  (1990, 0.3857142857142857),
+#  (2000, 0.2571428571428571),
+#  (2010, 0.12857142857142845),
+#  (2019, 0.0)]
+# ```
+# このように`zip`関数は複数のリストや`array`の要素をタプルとしてまとめている。`for`ループが始まると，`0`番目の要素`(1950, 0.9)`を使い`y`に`1950`，`c`に`0.9`が割り当てられ，その下のコードが実行される。同様に次のループでは`1`番目の要素`(1960, 0.7714285714285715)`を使い`y`に`1960`，`c`に`0.7714285714285715`が割り当てられ，その下のコードが実行される。同じ作業が`(2019, 0.0)`まで続くことになる。
+# 4. 列`year`で`y`と等しい行が`True`，そうでない行は`False`となる`Series`を`cond`に割り当てる。
+# 5. 列`'gdp_pc_log'`で`y`に該当する年の行を抽出し，密度関数を表示する。また，その「軸」を`ax_`に割り当てる。
+# 6. 凡例の表示を`y`の文字列とする。
+# 7. 凡例の表示を指定する。
+# 8. `c`を文字列に変換しグレーの濃淡を指定する。
+# 9. `ax_`のメソッドである`set_xlim()`は横軸の表示範囲を指定する。
 #     * 最小値，最大値をリストもしくはタプルで指定する。
 #     * `set_xlim()`が設定されない場合は，自動で設定される。
-# ```
+# ````
 
 # まず分布は左から右に移動しているが，これは世界経済が成長している結果である。次に気づくのが，分布が左に偏っているが少しずつ右への偏りに変化しているように見える。これを数値として確かめるために歪度（わいど; skewness）という概念を使おう。歪度は平均や標準偏差のように簡単に計算できる統計量であり，次のように定義される。
 # 
@@ -967,7 +979,7 @@ def data_for_regression(init_yr, df=pwt):
             return np.nan
     
     def mean_growth_nan(x):
-        t = 2019-init_yr
+        t = len(x)-1
         if x.notna().all():
             x_growth = ( x.iloc[-1]/x.iloc[0] )**(1/t)-1  # 1
             return x_growth
