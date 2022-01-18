@@ -197,42 +197,42 @@ df.head()
 #     * North America
 #     * South America
 
-# `2019`年のデータを使い内訳を確認してみよう。まず`oecd`を考えるが，条件に従って行を抽出しその数を数えてみる。
+# `2019`年のデータを使い内訳を確認してみよう。その際に便利なのが`DataFrame`と`Series`のメソッド`.value_counts()`である。これを使うと簡単に要素の個数や頻度を表示できる。
+# 
+# まず`oecd`を考えるが，条件に従って行を抽出しその数を数えてみる。
 
 # In[8]:
 
 
-cond1 = ( df['year']==2019 )
-cond2 = ( df['oecd']==1 )
-
-len(df.loc[cond1 & cond2, :])
+cond2019 = ( df['year']==2019 )
+df.loc[cond2019,'oecd'].value_counts()
 
 
 # `oecd`には24カ国あることがわかる。
 # 
-# `income_group`，`region`，`continent`の内訳を確認するには，`DataFrame`と`Series`のメソッド`.value_counts()`が便利であり，簡単に要素の個数や頻度を表示できる。
+# 同様に`income_group`，`region`，`continent`の内訳を確認してみよう。
 
 # In[9]:
 
 
-df.loc[cond1,'income_group'].value_counts()
+df.loc[cond2019,'income_group'].value_counts()
 
 
 # In[10]:
 
 
-df.loc[cond1,'region'].value_counts()
+df.loc[cond2019,'region'].value_counts()
 
 
 # In[11]:
 
 
-df.loc[cond1,'continent'].value_counts()
+df.loc[cond2019,'continent'].value_counts()
 
 
 # `.value_counts()`に引数`normalize=True`を追加すると，頻度（パーセント）として表示できる。
 # 
-# 属性`.columns`を使うと全ての列名を表示できる。
+# 属性`.columns`を使い全ての列名を表示してみよう。
 
 # In[12]:
 

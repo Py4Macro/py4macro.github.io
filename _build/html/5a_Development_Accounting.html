@@ -1163,27 +1163,28 @@ data(dataset=None, description=0)
 </ul>
 </li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">2019</span></code>年のデータを使い内訳を確認してみよう。まず<code class="docutils literal notranslate"><span class="pre">oecd</span></code>を考えるが，条件に従って行を抽出しその数を数えてみる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">2019</span></code>年のデータを使い内訳を確認してみよう。その際に便利なのが<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>である。これを使うと簡単に要素の個数や頻度を表示できる。</p>
+<p>まず<code class="docutils literal notranslate"><span class="pre">oecd</span></code>を考えるが，条件に従って行を抽出しその数を数えてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond1</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
-<span class="n">cond2</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;oecd&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span> <span class="p">)</span>
-
-<span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span> <span class="o">&amp;</span> <span class="n">cond2</span><span class="p">,</span> <span class="p">:])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond2019</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond2019</span><span class="p">,</span><span class="s1">&#39;oecd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    159
+1     24
+Name: oecd, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">oecd</span></code>には24カ国あることがわかる。</p>
-<p><code class="docutils literal notranslate"><span class="pre">income_group</span></code>，<code class="docutils literal notranslate"><span class="pre">region</span></code>，<code class="docutils literal notranslate"><span class="pre">continent</span></code>の内訳を確認するには，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>が便利であり，簡単に要素の個数や頻度を表示できる。</p>
+<p>同様に<code class="docutils literal notranslate"><span class="pre">income_group</span></code>，<code class="docutils literal notranslate"><span class="pre">region</span></code>，<code class="docutils literal notranslate"><span class="pre">continent</span></code>の内訳を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond2019</span><span class="p">,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1199,7 +1200,7 @@ Name: income_group, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond2019</span><span class="p">,</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1218,7 +1219,7 @@ Name: region, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond1</span><span class="p">,</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond2019</span><span class="p">,</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1235,7 +1236,7 @@ Name: continent, dtype: int64
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>に引数<code class="docutils literal notranslate"><span class="pre">normalize=True</span></code>を追加すると，頻度（パーセント）として表示できる。</p>
-<p>属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使うと全ての列名を表示できる。</p>
+<p>属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使い全ての列名を表示してみよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
