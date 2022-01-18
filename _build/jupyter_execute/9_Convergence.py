@@ -46,7 +46,7 @@ import py4macro
 # 技術進歩には様々な形がある。(i)同じ財をより効率的に生産する技術，(ii)既存の財・サービスをより質が高いものへ進化させる技術，(iii)今まで存在しなかった新たな財・サービスの出現。(i)~(iii)が中間財の技術進歩であれば，その技術を採用した企業の生産性は上昇する。労働者の移動や様々なネットワークを通じて，それらは他の企業・産業に伝播し経済全体の生産性が向上することになる。技術には特許などの知的財産権に守られるものもあるが，特許権には20年間という時間的制限がある。また知的財産権で守られたとしても，そこからヒントを得た似た技術が広がることも頻繁に発生している。(ii)と(iii)が最終財であれば，消費財の伝播として広がるり効用の増加につながる。重要な点は，このような技術伝播は国内に限らず，国境をまたいで発生することである。国際貿易や人的交流，経済支援などの形で徐々に技術は広がり，新技術を採用する経済の所得は上昇することになる。また後進国にとって有利な点は，新たな技術開発費用よりも既存の技術採用費用の方が断然低いということである。一旦，新しい技術・知識が創出されると，伝播に時間は掛かるが，世界中で利用されるようになり所得収斂につながる。特に，「伝統的な財」と異なり，デジタル技術の輸送費用は低く伝播し易いと考えられる。[参考資料](https://translate.google.com/translate?hl=&sl=en&tl=ja&u=https%3A%2F%2Fvoxeu.org%2Farticle%2Fgrowth-escalators-and-growth-convergence)
 # 
 # **＜制度の伝播＞**<br>
-# 「大富豪」や「ページワン」などのトランプ・ゲームを考えよう。ルールに従ってプレーヤーはゲームを楽しむが，ルールが少しでも変わると勝つことを目的とするプレーヤーは戦略を変えることになる。即ち，ルールが変わると行動が変わるのである。法や習慣などの社会的ルールを所与として最適な行動を選択する消費者や企業の行動も同じである。法が変わり，既存の方法ではビジネスが成り立たたない場合，新たな方法で利潤を得ようとするだろう。ここでの社会的ルールとは政策を含む政治経済**制度**であり，制度が消費者と企業のインセンティブに影響を与えるのである。民主主義の日本と独裁国家では消費者・企業の行動は異なることになる。また所得水準が高くなる（過去の成長率が高かった）制度もあれば，富が少数に集中する搾取的な制度により所得が低いままの（過去の成長率が低かった）経済もある。ここで重要な点は，高所得を発生させる政策や制度が，それらを採用していない経済に伝播するということである。例えば，経済成長に直接関係していないが，中央銀行の独立性の確保は徐々に広がった政策である。もっと広い意味での経済制度の例として，封建社会からの脱却やソ連が崩壊し東欧諸国の民主化と市場化が挙げれるだろう。
+# 「大富豪」や「ページワン」などのトランプ・ゲームを考えよう。ルールに従ってプレーヤーはゲームを楽しむが，ルールが少しでも変わると勝つことを目的とするプレーヤーは戦略を変えることになる。即ち，ルールが変わると行動が変わるのである。法や習慣などの社会的ルールを所与として最適な行動を選択する消費者や企業の行動も同じである。法が変わり，既存の方法ではビジネスが成り立たたない場合，新たな方法で利潤を得ようとするだろう。ここでの社会的ルールとは政策を含む政治経済**制度**であり，制度が消費者と企業のインセンティブに影響を与えるのである。民主主義の日本と独裁国家では消費者・企業の行動は異なることになる。また所得水準が高くなる（過去の成長率が高かった）制度もあれば，富が少数に集中する搾取的な制度により所得が低いままの（過去の成長率が低かった）経済もある。ここで重要な点は，高所得を発生させる政策や制度が，それらを採用していない経済に伝播するということである。典型的な例がソビエト連邦と東側ヨーロッパ社会主義圏の崩壊である。計画に基づく経済活動は成長の鈍化・停滞を招き，最終的には市場という制度の「伝播」が起こったと解釈できる。また，中央銀行の独立性の確保はインフレのコントロールに重要だが，その究極の目的は経済全体の厚生の向上であり，その制度は各国に徐々に広がった。もっと広い意味での経済制度の伝播の例として，明治維新を含め封建社会からの脱却も挙げれるだろう。
 
 # ## 所得分布の推移
 
@@ -214,29 +214,57 @@ pass
 # In[8]:
 
 
-year_list = pwt.loc[:,'year'].unique()
-
-skew_list = []
-
-for yr in year_list:                       # 1
-    
-    cond = ( pwt.loc[:,'year']==yr )        # 2
-    s = pwt.loc[cond, 'gdp_pc_log']         # 3
-    
-    # 歪度
-    skew_val = s.skew()                    # 4
-    skew_list.append( skew_val )           # 5
-
-ax_ = pd.DataFrame({'歪度':skew_list},      # 6
-                   index=year_list) \
-                  .plot(marker='o')        # 7
-ax_.axhline(0, color='red')                # 8
+ax_ = pwt.groupby('year')['gdp_pc_log'].skew().plot(marker='o',  # 1
+                                                    legend=True, # 2
+                                                    label='歪度') # 3
+ax_.axhline(0, color='red')  # 4
 pass
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
+# 1. 列`year`でグループ計算をおこなう。計算対象となる列は`gdp_pc_log`となり，計算方法はとして`.skew()`を使い歪度を計算する。ここでは`Series`が返される。
+#     * `[gdp_pc_log]`とすると`Series`を返す。
+#     * `[[gdp_pc_log]]`とすると`DataFrame`を返す。
+#     `Series`のメソッド`plot`を使い図示するが，マーカーに`'o'`を指定する。
+# 2. `legend=True`は`Series`の場合に凡例を表示する際に必要となる。
+# 3. `label='歪度'`は凡例を変更する（`Series`の場合に有効）。
+# 4. `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
+# ```
+
+# ````{tip}
+# 上のコードでは`Series`が返されているが，`DataFrame`を返す場合は次のように書ける。
+# 
+# ```
+# ax_ = pwt.groupby('year')[['gdp_pc_log']].skew().rename(columns={'gdp_pc_log':'歪度'}).plot(marker='o')
+# ax_.axhline(0, color='red')
+# ```
+# 凡例の表示を変更するために列ラベルを「歪度」に変更している。
+# ````
+
+# ````{admonition} forループで書く場合
+# :class: dropdown
+# 
+# ```
+# year_list = pwt.loc[:,'year'].unique()
+# 
+# skew_list = []
+# 
+# for yr in year_list:                       # 1
+#     
+#     cond = ( pwt.loc[:,'year']==yr )       # 2
+#     s = pwt.loc[cond, 'gdp_pc_log']        # 3
+#     
+#     # 歪度
+#     skew_val = s.skew()                    # 4
+#     skew_list.append( skew_val )           # 5
+# 
+# ax_ = pd.DataFrame({'歪度':skew_list},      # 6
+#                    index=year_list) \
+#                   .plot(marker='o')        # 7
+# ax_.axhline(0, color='red')                # 8
+# ```
 # 1. `year_list`に対して`for`ループの開始。
 # 2. 列`year`が`yr`と同じ場合は`True`となり，そうでない場合は`False`となる`Series`を返し`cond`に割り当てる。
 # 3. 列`gdp_pc_lo`で`cond`がTrue`となる行を`Series`として抽出し`s`に割り当てる。
@@ -245,14 +273,8 @@ pass
 # 6. `skew_list`からなる`DataFrame`を作成し，`year_list`を行インデックスに指定する。また(8)で`.plot()`によって生成される「軸」を`ax_`に割り当てる。
 # 7. プロットのマーカーを`'o'`（点）に指定する。
 # 8. `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
-# ```
-
-# ````{tip}
-# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
-# ```
-# ax_ = pwt.groupby('year')[['gdp_pc_log']].skew().rename(columns={'gdp_pc_log':'歪度'}).plot(marker='o')
-# ax_.axhline(0, color='red')
-# ```
+# 
+# `.groupby()`の便利さとパワフルさが実感できるのではないだろうか。
 # ````
 
 # 次の特徴がある。
@@ -275,38 +297,46 @@ pwt.loc[cond,'gdp_pc_log'].notna().sum()  # 2
 # `notna()`は要素が`NaN`かどうかを調べるメソッドである。要素が`NaN`でなければ`True`を返し，`NaN`であれば`False`を返す。`notna`は英語の`not na`のことであり，`na`は`not available`の略で欠損値のこと。`True`は`1`と数えられるので，メソッド`sum()`を使うことにより`True`の数，即ち，`NaN`ではない要素の数を返す。
 # ```
 
-# 次に`for`ループを使って全ての年で`gdp_pc_log`に欠損値ない国の数を確認してみる。
+# 次に`for`ループを使って全ての年で`gdp_pc_log`に欠損値がない国の数を確認してみる。
 
 # In[10]:
 
 
-notna_list = []
-
-for yr in year_list:
-    cond = ( pwt.loc[:,'year']==yr )                # 1
-    no = pwt.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
-    notna_list.append(no)
-
-pd.DataFrame({'国の数':notna_list}, index=year_list).plot()
+pwt.groupby('year')['gdp_pc_log'].count().plot(marker='o',
+                                               label='国の数',
+                                               legend=True)
 pass
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
-# 2. `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
+# 1. 列`year`でグループ計算をおこなう。計算対象となる列は`gdp_pc_log`となり，計算方法はとして`count()`を使い非欠損値の数を計算する。ここでは`Series`が返される。
+#     * `[gdp_pc_log]`とすると`Series`を返す。
+#     * `[[gdp_pc_log]]`とすると`DataFrame`を返す。
+#     `Series`のメソッド`plot`を使い図示するが，マーカーに`'o'`を指定する。
+# 2. `legend=True`は`Series`の場合に凡例を表示する際に必要となる。
+# 3. `label='国の数'`は凡例を変更する（`Series`の場合に有効）。
+# 4. `ax_`のメソッド`.axhline()`を使い`0`に赤の横線を引く。
 # ```
 
-# ````{tip}
-# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
+# ````{admonition} forループで書く場合
+# :class: dropdown
+# 
 # ```
-# def notna_sum(x):
-#     return x.notna().sum()
-#     
-# pwt.groupby('year')[['gdp_pc_log']].agg(notna_sum).rename(columns={'gdp_pc_log':'国の数'}).plot()
+# year_list = pwt.loc[:,'year'].unique()
+# notna_list = []
+# 
+# for yr in year_list:
+#     cond = ( pwt.loc[:,'year']==yr )                # 1
+#     no = pwt.loc[cond, 'gdp_pc_log'].notna().sum()  # 2
+#     notna_list.append(no)
+# 
+# pd.DataFrame({'国の数':notna_list}, index=year_list).plot(marker='o')
 # ```
-# `notna_sum`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
+# 
+# 1. 列`year`が`yr`と等しい行が`True`となり，そうでない行は`False`となる`Series`を返す。
+# 2. `gdp_pc_log`の列で`cond`が`True`の行を`Series`としてを返す。そのメソッド`.notna()`は欠損値でない場合は`True`を返し，欠損値の場合は`False`を返す。`.sum()`は`True`の数を返し`no`に割り当てる。
 # ````
 
 # 上の図から`gdp_pc_log`が欠損値でない国は増加しており，1960年，1970年，1990年に大きく増えている。データが整備されている国は典型的に先進国であり，後から含まれる国は比較的に所得が低い経済である。従って，貧しい国が所得分布に含まれることにより，分布は左側に引っ張られる傾向にある。特に，1950年から1960年には徐々に国の数は増えているが，それが歪度の上昇につながっていると考えられる。また1960年と1970年の国の数の急激な増加が歪度の上方ジャンプとして現れている。このようなことから，1970年までの歪度の上昇トレンドは，貧しい経済がPWTのデータセットに含まれることによって引き起こされており，豊かな国と比較して貧しい国が引き離されているからではない。一方で，1970年以降も国の数は膨らんでいるが，それにも関わらず歪度は減少傾向を示しているということはキャッチアップが発生していることを示唆している。典型的な例は，台湾，シンガポール，香港，韓国，中国やインドなどである。
@@ -322,50 +352,61 @@ pass
 # In[11]:
 
 
-cv_list = []   # 空のリスト
+def cv(x):                   # 1
+    return x.std()/x.mean()
 
-for yr in year_list:
-    cond = ( pwt.loc[:,'year']==yr )
-    s = pwt.loc[cond, 'gdp_pc_log']
-    stdev = s.std()                 # 1
-    avr = s.mean()                  # 2
-    cv = stdev / avr                # 3
-    cv_list.append(cv)
-
-df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)  # 4
+pwt.groupby('year')['gdp_pc_log'].agg(cv).plot(legend=True,    # 2
+                                               label='変動係数') # 3
+pass
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
+# 1. 変動係数を計算するメソッドが用意されていないので，ユーザー定義の関数を作成する。
+# 2. 列`year`でグループ計算をおこなう。計算対象となる列は`gdp_pc_log`となる。関数`cv`を使うためにメソッド`agg()`を使う。ここでは`Series`が返される。
+#     * `[gdp_pc_log]`とすると`Series`を返す。
+#     * `[[gdp_pc_log]]`とすると`DataFrame`を返す。
+#     `Series`のメソッド`plot`を使い図示するが，凡例表示を指定する。
+# 3. `label='変動係数'`は凡例を変更する（`Series`の場合に有効）。
+# ```
+
+# ````{admonition} forループの場合
+# :class: dropdown
+# 
+# ```
+# year_list = pwt.loc[:,'year'].unique()
+# cv_list = []   # 空のリスト
+# 
+# for yr in year_list:
+#     cond = ( pwt.loc[:,'year']==yr )
+#     s = pwt.loc[cond, 'gdp_pc_log']
+#     stdev = s.std()                 # 1
+#     avr = s.mean()                  # 2
+#     cv = stdev / avr                # 3
+#     cv_list.append(cv)
+# 
+# df_cv = pd.DataFrame({'CV':cv_list}, index=year_list)  # 4
+# ```
+# 
 # 1. `s`は`cond`の条件を満たす`gdp_pc_log`の列の要素からなる`Series`だが，そのメソッド`.std()`を使い標準偏差を計算し`stdev`に割り当てる。
 # 2. `s`のメソッド`.mean()`を使い平均を計算し`avr`に割り当てる。
 # 3. 変動係数を計算し`cv`に割り当てる。
 # 4. `index=year_list`は行インデックスにyear_listを設定しており，それにより，次のコードでは自動的に横軸が年になる。
+# ````
+
+# ````{tip}
+# 関数`cv`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。
 # ```
-
-# In[12]:
-
-
-df_cv.plot()
-pass
-
+# pwt.groupby('year')['gdp_pc_log'].agg(lambda x: x.std()/x.mean()).plot(legend=True,label='変動係数')
+# ```
+# ちなみに，１行コードをone linerと英語で表現する。注意する点は，one linerが必ずしも良いとは限らないという点である。可読性が損なわれる場合があるためである。
+# ````
 
 # サンプルに含まれる国の数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろにはデータセットに含まれる国の数は安定し，その後直ぐに変動係数は減少し始めている。即ち，少なくとも1990年代半ば頃から変動係数で測る経済間の所得格差は減少している。変動係数を見る限りキャッチアップの効果が1990年代から現れていると言える。
 # 
 # 上で扱った変動係数は経済間における所得格差を表す指標として解釈することができるが，その場合次の点に注意する必要がある。
 # * 分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。中国やインドのように大きな国も，ルクセンブルクやシンガポールのように小さな国も１つの経済として扱っている。この場合の変動係数は，全ての国には一人だけしか住んでいないと仮定した場合の経済間の所得格差と同じであり，**国内**の人口や所得不平等やは全く考慮されていない。
-
-# ````{tip}
-# 上のコードでは`for`ループを使っているが，`.groupby()`を使ってグループ計算するとより短いコードで同じ図が描ける。
-# ```
-# def cv(x):
-#     return x.std()/x.mean()
-# 
-# pwt.groupby('year')[['gdp_pc_log']].agg(cv).rename(columns={'gdp_pc_log':'CV'}).plot()
-# ```
-# `cv`の代わりに`lambda`関数を使うと１行のコードで図が描ける事になる。試してみよう。
-# ````
 
 # ## 所得収斂
 
@@ -518,7 +559,7 @@ pass
 
 # 最初に1970年のデータだけを抽出する。
 
-# In[13]:
+# In[12]:
 
 
 df1970 = py4macro.data('pwt').query('year >= 1970')
@@ -531,7 +572,7 @@ df1970 = py4macro.data('pwt').query('year >= 1970')
 
 # 1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口増加率を計算するが，[ソロー・モデル](sec:8-data)の章で使ったコードを再利用することもできる。ここでは`.groupby()`を使った計算を紹介することにする。`.groupby()`を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。
 
-# In[14]:
+# In[13]:
 
 
 def mean_nan(x):         # 1
@@ -552,7 +593,7 @@ def mean_nan(x):         # 1
 
 # 以下では関数`mean_na()`を使いグループ計算することにしよう。
 
-# In[15]:
+# In[14]:
 
 
 # 平均貯蓄率の計算
@@ -573,7 +614,7 @@ depreciation.columns = ['depreciation']
 
 # 次に労働人口の平均成長率を計算するが，成長率を計算する必要があるので次の関数を定義する。
 
-# In[16]:
+# In[15]:
 
 
 def mean_growth_nan(x):
@@ -593,7 +634,7 @@ def mean_growth_nan(x):
 
 # この関数を使い労働人口の平均増加率を計算しよう。
 
-# In[17]:
+# In[16]:
 
 
 emp_growth = df1970.groupby('country')[['emp']].agg(mean_growth_nan).dropna()
@@ -606,7 +647,7 @@ emp_growth.columns = ['emp_growth']
 
 # まず一人当たりGDPの列を作成する。
 
-# In[18]:
+# In[17]:
 
 
 df1970['rgdpna_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
@@ -614,7 +655,7 @@ df1970['rgdpna_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
 
 # 平均成長率は関数`mean_growth_nan()`を使い，労働人口の平均増加率の計算と同じ方法で計算しよう。
 
-# In[19]:
+# In[18]:
 
 
 growth = df1970.groupby('country')[['rgdpna_pc']].agg(mean_growth_nan).dropna()
@@ -625,7 +666,7 @@ growth.columns = ['gdp_pc_growth']
 
 # ３つの列`country`，`cgdpo`，`emp`からなる回帰分析用の`DataFrame`として`df_convergence`を作成する。
 
-# In[20]:
+# In[19]:
 
 
 df_convergence = df1970.query('year == 1970').loc[:,['country','cgdpo','emp']]
@@ -633,7 +674,7 @@ df_convergence = df1970.query('year == 1970').loc[:,['country','cgdpo','emp']]
 
 # `df_convergence`に上で作成した貯蓄率などの`DataFrame`を結合していくが，その前に1960年の一人当たりGDP（対数）の列を付け加えよう。
 
-# In[21]:
+# In[20]:
 
 
 df_convergence['gdp_pc_init_log'] = np.log( df1970.loc[:,'cgdpo']/df1970.loc[:,'emp'] )
@@ -641,7 +682,7 @@ df_convergence['gdp_pc_init_log'] = np.log( df1970.loc[:,'cgdpo']/df1970.loc[:,'
 
 # 必須ではないが，２つの列`country`と`gdp_pc_init`とだけからなる`DataFrame`に整形する。その際，欠損値がある行は削除し，`country`を行ラベルに設定する。
 
-# In[22]:
+# In[21]:
 
 
 df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]                                .set_index('country')                                .dropna()
@@ -651,7 +692,7 @@ df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]            
 
 # 上で作成した`DataFrame`を結合するが，`df_convergence`にまとめることにする。
 
-# In[23]:
+# In[22]:
 
 
 for df_right in [saving, depreciation, emp_growth, growth]:
@@ -663,7 +704,7 @@ for df_right in [saving, depreciation, emp_growth, growth]:
 
 # 最後に欠損値がある行は全て削除する。
 
-# In[24]:
+# In[23]:
 
 
 df_convergence = df_convergence.dropna()
@@ -671,7 +712,7 @@ df_convergence = df_convergence.dropna()
 
 # 確認してみよう。
 
-# In[25]:
+# In[24]:
 
 
 df_convergence.head()
@@ -681,7 +722,7 @@ df_convergence.head()
 
 # 平均成長率のヒストグラムを図示してみよう。
 
-# In[26]:
+# In[25]:
 
 
 growth_average = df_convergence.loc[:,'gdp_pc_growth'].mean() # 1
@@ -722,7 +763,7 @@ pass
 
 # 何％の国で平均を下回るか確認してみよう。
 
-# In[27]:
+# In[26]:
 
 
 ( df_convergence.loc[:,'gdp_pc_growth'] < growth_average ).sum() / len(df_convergence)
@@ -735,7 +776,7 @@ pass
 # (sec:9-regression_result)=
 # #### 結果
 
-# In[28]:
+# In[27]:
 
 
 formula_absolute = 'gdp_pc_growth ~ gdp_pc_init_log'
@@ -743,7 +784,7 @@ res_absolute = sm.ols(formula_absolute, data=df_convergence).fit()
 print(res_absolute.summary().tables[1])
 
 
-# In[29]:
+# In[28]:
 
 
 # 予測値の列の作成
@@ -766,7 +807,7 @@ pass
 
 # 実際に[上の回帰分析](sec:9-regression_result)の$b$の推定値を使って収束速度を計算してみることにする。
 
-# In[30]:
+# In[29]:
 
 
 period = 2019-1970+1
@@ -778,7 +819,7 @@ print(f'収束速度は約{100*speed1970:.3f}％です')
 
 # この結果は，定常状態までの「距離」は年平均で約0.75％減少することを意味する。ではこの数字をどう理解すれば良いだろうか。仮にもし絶対的所得収斂が成立しているとすると，この数字は大きいのだろうか，小さいのだろうか。この点を探るために，2019年の米国と平均の一人当たりGDPを使って0.75％の意味を考えてみる。
 
-# In[31]:
+# In[30]:
 
 
 df1970['gdp_pc'] = df1970.loc[:,'rgdpna']/df1970.loc[:,'emp']
@@ -828,7 +869,7 @@ print('\n--- 2019年の一人当たりGDP ---------\n\n'
 # 
 # この式を使って`n`年後に2019年当時の格差が何％残っているかを関数としてまとめる。
 
-# In[32]:
+# In[31]:
 
 
 def remaining_percent(n, s=speed1970):
@@ -841,7 +882,7 @@ def remaining_percent(n, s=speed1970):
 
 # `for`ループを使って計算してみる。
 
-# In[33]:
+# In[32]:
 
 
 print('\n--- X年後に残る2019年当時の所得格差 ----------\n')
@@ -859,7 +900,7 @@ for n in [10,20,50,100,200,300,500,1000]:
 
 # [単回帰分析](sec:9-simple_regression)では絶対的所得収斂を示唆する結果が示された。しかし推定結果は，貯蓄率など全ての経済構造が同じだと仮定し推定をおこなった。この仮定を取り除いた場合，初期の一人当たりGDPの推定値$\hat{b}$は統計的有意性を保つことができるだろうか。そして他の変数の統計的有意性はどうだろうか。この点を確認するために，重回帰分析をおこなう。
 
-# In[34]:
+# In[33]:
 
 
 formula_conditional = ( 'gdp_pc_growth ~ saving_rate +'
@@ -906,7 +947,7 @@ print(res_conditional.summary().tables[1])
 # 
 # `statsmodels`を使って$F$検定をおこなう方法については[このサイト](https://py4etrics.github.io/11_Inference.html#f)参考にして欲しいが，ここでは簡単い説明する。まず帰無仮説を捉える制約式を設定しよう。
 
-# In[35]:
+# In[34]:
 
 
 hypothesis = 'saving_rate = 0, emp_growth = 0, depreciation = 0'
@@ -914,7 +955,7 @@ hypothesis = 'saving_rate = 0, emp_growth = 0, depreciation = 0'
 
 # ３つの説明変数の推定値が全て同時に`0`だという制約式である。次に，回帰結果`res_conditional`には$F$検定をおこなうメソッド`.f_test()`が実装されている。使い方は簡単で，制約式である`hypothesis`を引数として渡すことで結果を表示できる。
 
-# In[36]:
+# In[35]:
 
 
 print( res_conditional.f_test(hypothesis) )
@@ -966,7 +1007,7 @@ print( res_conditional.f_test(hypothesis) )
 
 # ステップ１の`data_for_regression()`は基本的に上で使ったコードを関数としてまとめることで作成する。重回帰分析も後で行うので，貯蓄率などの平均値も含む`DataFrame`を返す関数とする。コード自体は上で使ったコードを再利用して関数にまとめている。
 
-# In[37]:
+# In[36]:
 
 
 def data_for_regression(init_yr, df=pwt):
@@ -1025,7 +1066,7 @@ def data_for_regression(init_yr, df=pwt):
 
 # `init_yr=1970`として関数を実行して内容を確認してみよう。
 
-# In[38]:
+# In[37]:
 
 
 data_for_regression(1970).head()
@@ -1033,7 +1074,7 @@ data_for_regression(1970).head()
 
 # ステップ２として，`for`ループを使って４つの変数からなる`DataFrame`を作成する。
 
-# In[39]:
+# In[38]:
 
 
 b_coef_list = []     # 1
@@ -1090,7 +1131,7 @@ df_simple_result = pd.DataFrame({'初期の一人当たりGDPの係数':b_coef_l
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[40]:
+# In[39]:
 
 
 df_simple_result.head(3)
@@ -1098,7 +1139,7 @@ df_simple_result.head(3)
 
 # それぞれの列には計算した変数が並んでおり，行インデックスには年が配置されている。初期時点を1970年とする結果を確かめてみよう。
 
-# In[41]:
+# In[40]:
 
 
 df_simple_result.loc[[1970],:]
@@ -1108,7 +1149,7 @@ df_simple_result.loc[[1970],:]
 
 # ステップ３として`df_reg_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[42]:
+# In[41]:
 
 
 df_simple_result.plot(subplots=True, figsize=(6,8))
@@ -1117,7 +1158,7 @@ pass
 
 # 一番上の図から初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1950年年代半ばまでの推定値の統計的優位性低いが，それ以降は高いようだ。1955年以降だけを表示してみよう。
 
-# In[43]:
+# In[42]:
 
 
 col_name = df_simple_result.columns[1]  # 1
@@ -1144,7 +1185,7 @@ pass
 
 # 次のステップとして定常状態に関する３つの変数を追加して回帰分析をおこなう。ここでも`for`ループを使い，最終的にはプロットで結果を確認することにする。基本的には`for`ループを使った単回帰分析と同じ方法をとるが，ステップ１の関数`data_for_regression(yr)`は重回帰分析でもそのまま使えるので，ステップ２から始める。次のコードは上で使ったコードの修正版である。新たに追加した箇所だけに番号を振って説明することにする。
 
-# In[44]:
+# In[43]:
 
 
 saving_coef_list = []                            # 1
@@ -1229,7 +1270,7 @@ df_multiple_result = pd.DataFrame({'貯蓄率の係数':saving_coef_list,
 
 # 作成した`DataFrame`を確認してみる。
 
-# In[45]:
+# In[44]:
 
 
 df_multiple_result.head(3)
@@ -1237,7 +1278,7 @@ df_multiple_result.head(3)
 
 # 定常状態に関連する変数の推定値や$F$検定の$p$値などが追加されているのが確認できる。1970年からの結果を表示してみよう。
 
-# In[46]:
+# In[45]:
 
 
 df_multiple_result.loc[1970,:]
@@ -1247,7 +1288,7 @@ df_multiple_result.loc[1970,:]
 
 # ステップ３として`df_multiple_result`のメソッド`.plot()`を使い時系列データをプロットする。
 
-# In[47]:
+# In[46]:
 
 
 df_multiple_result.iloc[:,list(range(0,8))].plot(                # 1
@@ -1341,7 +1382,7 @@ pass
 #     data_for_regression_group(1960, region='Latin America & Caribbean')
 #     ```
 
-# In[48]:
+# In[47]:
 
 
 def data_for_regression_group(init_yr, oecd=None,          # 修正
@@ -1413,7 +1454,7 @@ def data_for_regression_group(init_yr, oecd=None,          # 修正
 
 # 実際に，1980年の`oecd=1`として関数を実行して内容を確認してみよう。
 
-# In[49]:
+# In[48]:
 
 
 data_for_regression_group(1980, oecd=1)
@@ -1423,7 +1464,7 @@ data_for_regression_group(1980, oecd=1)
 # 
 # 次に，`data_for_regression_group()`で整形されたデータに基づいて回帰分析をおこなうが，何回も計算しやすいように回帰分析結果を`DataFrame`として返す関数を定義する。関数を利用することにより，簡単に色々な「クラブ」のパターンを試すことが可能となる。関数の中身は[重回帰分析：`for`ループで回帰分析](sec:9-multiple_for_loop)で使った`for`ループのコードを３箇所だけ変更して再利用する。
 
-# In[50]:
+# In[49]:
 
 
 def regression_result(init_yr=1960, **kwargs):       # 1
@@ -1492,7 +1533,7 @@ def regression_result(init_yr=1960, **kwargs):       # 1
 
 # 準備ができたので，実際に回帰分析をしてみよう。まず`oecd`諸国だけを抽出し結果をプロットする。
 
-# In[51]:
+# In[50]:
 
 
 regression_result(init_yr=1950, oecd=1).plot(subplots=True,
@@ -1505,7 +1546,7 @@ pass
 # 
 # 次に`region`で`East Asia & Pacific`を考えてみよう。
 
-# In[52]:
+# In[51]:
 
 
 asia = regression_result(region='East Asia & Pacific')
@@ -1515,7 +1556,7 @@ pass
 
 # まず$F$検定の$p$値の最小値を表示してみよう。
 
-# In[53]:
+# In[52]:
 
 
 asia.loc[:,'p値（F検定）'].min()
@@ -1523,7 +1564,7 @@ asia.loc[:,'p値（F検定）'].min()
 
 # $F$検定の$p$値は一貫して`0.05`を上回っていることを意味しており，絶対的所得収斂を示唆している。絶対的所得収斂のもう一つの条件は初期の一人当たりGDPが統計的に優位であることである。その$p$値が5％以下になるのは何年からか確認してみよう。
 
-# In[54]:
+# In[53]:
 
 
 cond = ( asia.loc[:,'p値（初期の一人当たりGDP）'] <= 0.05 )  # 1
