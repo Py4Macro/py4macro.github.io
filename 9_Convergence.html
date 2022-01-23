@@ -579,6 +579,12 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/runner/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/compat/pandas.py:65: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import Int64Index as NumericIndex
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -1038,7 +1044,7 @@ S=\frac{n}{(n-1)(n-2)}
 </div></blockquote>
 <p>絶対的所得収斂は，貧しい国が豊かな国をキャッチアップすることを意味している。</p>
 <p>ここで重要な注意点が一つある。マラソンを想像しよう。トップの選手が折り返し地点に達した時点で，最後尾の選手が走った距離はゴールまでの半分以下である。しかし最後尾の選手がトップ選手よりも速く走り，その状態が続けばゴールまでに追いつくか，もしくはゴールまでにトップ選手との距離を縮めることができる。このマラソンの話の中で前提になっているのが，「全ての選手にとってゴールは同じ」だということである。走った距離を一人当たりGDPの水準，走っている速度を成長率と考え所得収斂の話しに戻すと，マラソンのゴールに対応するのが長期均衡である定常状態である。定常状態が同じという状態は，式<a class="reference internal" href="8_Solow.html#equation-eq-8-kss">(33)</a>と<a class="reference internal" href="8_Solow.html#equation-eq-8-yss">(34)</a>が示す様に，５つのパラメータ（<span class="math notranslate nohighlight">\(s\)</span>，<span class="math notranslate nohighlight">\(A\)</span>，<span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(n\)</span>，<span class="math notranslate nohighlight">\(d\)</span>）が同じ状態である。それが成立する場合にキャッチアップが発生することを意味しているのが絶対的所得収斂である。</p>
-<p>もう一度マラソンの話に戻そう。選手ごとにゴールが違ったらどうだろう。もうマラソンとは言えないが，選手が走った距離と走っている速度だけでは追いついているのかどうかを語れなくなり，他の情報が必要になる。特に，ゴールの位置，そしてコールまでの距離である。同様に，それぞれの経済のパラメータの値が異なり定常状態が違えば，キャチアップしているかは式<a class="reference internal" href="#equation-eq-9-absolute-convergence">(46)</a>では判断できなくなる。では，定常状態の違いを捉える経済構造を反映する変数<span class="math notranslate nohighlight">\(X_i\)</span>を加えた次式であれば良いのだろうか。</p>
+<p>もう一度マラソンの話に戻そう。選手ごとにゴールが違ったらどうだろう。もうマラソンとは言えないが，選手が走った距離だけでは追いついているのかどうかを語れなくなり，他の情報が必要になる。特に，ゴールの位置，そしてゴールまでの距離である。同様に，それぞれの経済のパラメータの値が異なり定常状態が違えば，キャチアップしているかは式<a class="reference internal" href="#equation-eq-9-absolute-convergence">(46)</a>では判断できなくなる。では，定常状態の違いを捉える経済構造を反映する変数<span class="math notranslate nohighlight">\(X_i\)</span>を加えた次式であれば良いのだろうか。</p>
 <div class="math notranslate nohighlight" id="equation-eq-9-conditional-convergence">
 <span class="eqno">(47)<a class="headerlink" href="#equation-eq-9-conditional-convergence" title="Permalink to this equation">¶</a></span>\[
 (T\text{期間の平均成長率})_i = a + cX_i + b\times(t_0\text{における一人当たりGDP（対数）})_i + u_i
@@ -1167,7 +1173,7 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </ul>
 </li>
 </ul>
-<p>最初に1970年のデータだけを抽出する。</p>
+<p>最初に1970年以降のデータを抽出する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1970</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= 1970&#39;</span><span class="p">)</span>
@@ -2315,10 +2321,10 @@ Name: 1970, dtype: float64
 <p>ステップ３として<code class="docutils literal notranslate"><span class="pre">df_multiple_result</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を使い時系列データをプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_multiple_result</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">))]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>                <span class="c1"># 1</span>
-                                                 <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 2</span>
-                                                 <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>   <span class="c1"># 3</span>
-                                                 <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># 4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_multiple_result</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>                <span class="c1"># 1</span>
+                                             <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># 2</span>
+                                             <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>   <span class="c1"># 3</span>
+                                             <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># 4</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
