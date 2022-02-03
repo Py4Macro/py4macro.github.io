@@ -1972,6 +1972,153 @@ a\equiv\frac{1}{t}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">8</span><span class="n">k48jl6d249_n_qfxwsl6xvm0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_1353</span><span class="o">/</span><span class="mf">867158654.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>                <span class="c1"># 7</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> 
+<span class="ne">---&gt; </span><span class="mi">11</span>     <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>           <span class="c1"># 8</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>   <span class="c1"># 9</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">c</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span>                          <span class="c1"># 10</span>
+
+<span class="nn">/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/ipykernel_1353/1935509525.py</span> in <span class="ni">data_for_regression</span><span class="nt">(init_yr, df)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> 
+<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="c1"># === 労働人口成長率の平均の計算 ======================</span>
+<span class="ne">---&gt; </span><span class="mi">31</span>     <span class="n">emp_growth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;emp&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">mean_growth_nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="n">emp_growth</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;emp_growth&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> 
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/generic.py</span> in <span class="ni">aggregate</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">898</span>                 <span class="n">gba</span> <span class="o">=</span> <span class="n">GroupByApply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="n">func</span><span class="p">],</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{})</span>
+<span class="g g-Whitespace">    </span><span class="mi">899</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">900</span>                     <span class="n">result</span> <span class="o">=</span> <span class="n">gba</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">901</span> 
+<span class="g g-Whitespace">    </span><span class="mi">902</span>                 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/apply.py</span> in <span class="ni">agg</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="k">elif</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>             <span class="c1"># we require a list, but not a &#39;str&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">171</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_list_like</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span> 
+<span class="g g-Whitespace">    </span><span class="mi">173</span>         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/apply.py</span> in <span class="ni">agg_list_like</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">373</span>                     <span class="c1"># See GH #43741 for more details</span>
+<span class="g g-Whitespace">    </span><span class="mi">374</span>                     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">record</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">375</span>                         <span class="n">new_res</span> <span class="o">=</span> <span class="n">colg</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">376</span>                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">377</span>                         <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">depr_nuisance_columns_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;.*&quot;</span><span class="p">))</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/generic.py</span> in <span class="ni">aggregate</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>             <span class="c1"># but not the class list / tuple itself.</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>             <span class="n">func</span> <span class="o">=</span> <span class="n">maybe_mangle_lambdas</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">271</span>             <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_multiple_funcs</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span>             <span class="k">if</span> <span class="n">relabeling</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span>                 <span class="c1"># error: Incompatible types in assignment (expression has type</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/generic.py</span> in <span class="ni">_aggregate_multiple_funcs</span><span class="nt">(self, arg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span> 
+<span class="g g-Whitespace">    </span><span class="mi">325</span>             <span class="n">key</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputKey</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">326</span>             <span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> 
+<span class="g g-Whitespace">    </span><span class="mi">328</span>         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/generic.py</span> in <span class="ni">aggregate</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span> 
+<span class="g g-Whitespace">    </span><span class="mi">286</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">287</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_python_agg_general</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span>                 <span class="c1"># TODO: KeyError is raised in _python_agg_general,</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/groupby.py</span> in <span class="ni">_python_agg_general</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1479</span>             <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1480</span>                 <span class="c1"># if this function is invalid for this dtype, we will ignore it.</span>
+<span class="ne">-&gt; </span><span class="mi">1481</span>                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grouper</span><span class="o">.</span><span class="n">agg_series</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1482</span>             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1483</span>                 <span class="n">warn_dropping_nuisance_columns_deprecated</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="s2">&quot;agg&quot;</span><span class="p">)</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/ops.py</span> in <span class="ni">agg_series</span><span class="nt">(self, obj, func, preserve_dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">979</span> 
+<span class="g g-Whitespace">    </span><span class="mi">980</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">981</span>             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_series_pure_python</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">982</span> 
+<span class="g g-Whitespace">    </span><span class="mi">983</span>         <span class="n">npvalues</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">maybe_convert_objects</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">try_float</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/ops.py</span> in <span class="ni">_aggregate_series_pure_python</span><span class="nt">(self, obj, func)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1003</span>         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">splitter</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1004</span>             <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;groupby&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1005</span>             <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1006</span>             <span class="n">res</span> <span class="o">=</span> <span class="n">libreduction</span><span class="o">.</span><span class="n">extract_result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1007</span> 
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/groupby/groupby.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1465</span>     <span class="k">def</span> <span class="nf">_python_agg_general</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1466</span>         <span class="n">func</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">is_builtin_func</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1467</span>         <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1468</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1469</span>         <span class="c1"># iterate through &quot;columns&quot; ex exclusions to populate output dict</span>
+
+<span class="nn">/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/ipykernel_1353/1935509525.py</span> in <span class="ni">mean_growth_nan</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="k">def</span> <span class="nf">mean_growth_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>         <span class="n">t</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+<span class="ne">---&gt; </span><span class="mi">12</span>         <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>             <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>             <span class="k">return</span> <span class="n">x_growth</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ni">notna</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5286</span>     <span class="nd">@doc</span><span class="p">(</span><span class="n">NDFrame</span><span class="o">.</span><span class="n">notna</span><span class="p">,</span> <span class="n">klass</span><span class="o">=</span><span class="n">_shared_doc_kwargs</span><span class="p">[</span><span class="s2">&quot;klass&quot;</span><span class="p">])</span>  <span class="c1"># type: ignore[has-type]</span>
+<span class="g g-Whitespace">   </span><span class="mi">5287</span>     <span class="k">def</span> <span class="nf">notna</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Series</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5288</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">5289</span> 
+<span class="g g-Whitespace">   </span><span class="mi">5290</span>     <span class="c1"># error: Cannot determine type of &#39;notna&#39;</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/generic.py</span> in <span class="ni">notna</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">7360</span>         <span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="g g-Whitespace">   </span><span class="mi">7361</span>         <span class="sd">&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">7362</span><span class="sd">         return notna(self).__finalize__(self, method=&quot;notna&quot;)</span>
+<span class="g g-Whitespace">   </span><span class="mi">7363</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">7364</span><span class="sd">     @doc(notna, klass=_shared_doc_kwargs[&quot;klass&quot;])</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/dtypes/missing.py</span> in <span class="ni">notna</span><span class="nt">(obj)</span>
+<span class="g g-Whitespace">    </span><span class="mi">362</span><span class="sd">     Name: 1, dtype: bool</span>
+<span class="g g-Whitespace">    </span><span class="mi">363</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">364</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">isna</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>     <span class="k">if</span> <span class="n">is_scalar</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span>         <span class="k">return</span> <span class="ow">not</span> <span class="n">res</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/dtypes/missing.py</span> in <span class="ni">isna</span><span class="nt">(obj)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="n">Name</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="sd">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">143</span><span class="sd">     return _isna(obj)</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span><span class="sd"> </span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/dtypes/missing.py</span> in <span class="ni">_isna</span><span class="nt">(obj, inf_as_na)</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span><span class="sd">         result = _isna_array(obj._values, inf_as_na=inf_as_na)</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span><span class="sd">         # box</span>
+<span class="ne">--&gt; </span><span class="mi">183</span><span class="sd">         result = obj._constructor(result, index=obj.index, name=obj.name, copy=False)</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span><span class="sd">         return result</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span><span class="sd">     elif isinstance(obj, ABCDataFrame):</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ni">__init__</span><span class="nt">(self, data, index, dtype, name, copy, fastpath)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span><span class="sd">                     data = data.copy()</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span><span class="sd">             else:</span>
+<span class="ne">--&gt; </span><span class="mi">452</span><span class="sd">                 data = sanitize_array(data, index, dtype, copy)</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">454</span><span class="sd">                 manager = get_option(&quot;mode.data_manager&quot;)</span>
+
+<span class="nn">~/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/core/construction.py</span> in <span class="ni">sanitize_array</span><span class="nt">(data, index, dtype, copy, raise_cast_failure, allow_2d)</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span><span class="sd">     applying to a subset of columns, see GH#24435.</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">503</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ma</span><span class="o">.</span><span class="n">MaskedArray</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="n">data</span> <span class="o">=</span> <span class="n">sanitize_masked_array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> 
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -2438,7 +2585,7 @@ Name: 1970, dtype: float64
     
       By 春山 鉄源  Tetsugen HARUYAMA<br/>
     
-        &copy; Copyright 2021.<br/>
+        &copy; Copyright 2022.<br/>
   </p>
 </footer>
 </main>
