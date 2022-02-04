@@ -676,79 +676,102 @@ annual3.head()
 # ```
 # month.loc[:,'cpi'].pct_change(4)
 # ```
-# 以下では，デフォルトで`.pct_change()`を使い計算する。
+# この方法を使い，`month`，`quarter`，`annual`のデータの年率換算の成長率を計算しよう。
 
 # In[42]:
 
 
-df_list = [month, quarter, annual, annual3]
+df_list = [month, quarter, annual]
+annualize_factor = [12, 4, 1]
 
-for df in df_list:
-    df['inflation'] = df.loc[:,'cpi'].pct_change()
-    df['money_growth'] = df.loc[:,'money'].pct_change()
+for df, i in zip(df_list, annualize_factor):
+    df['inflation'] = df.loc[:,'cpi'].pct_change(i)
+    df['money_growth'] = df.loc[:,'money'].pct_change(i)
 
 
-# `month`を確認してみよう。
+# `quarter`を確認してみよう。
 
 # In[43]:
 
 
-month.head()
+quarter.head()
 
 
-# 行`1955-01-01`の`inflation`と`money_growth`の値は`NaN`となっている。これは前期の値がないためである。
+# 最初の4行の`inflation`と`money_growth`の値は`NaN`となっている。これは4期前の値がないためである。同様に，`month`の同列の最初の12行には`NaN`が入っている。確認してみよう。
+# 
+# 次に，3年次データを年率換算する場合を考えよう。年率の成長率を$g$，3年次データの前期比成長率を$g_3$とすると，次の関係が成り立つ。
+# 
+# $$
+# (1+g)^3=1+g_3\quad
+# \Rightarrow\quad
+# g=\left(1+g_3\right)^{1/3}-1
+# $$
+# 
+# この関係を利用して年率換算の成長率を計算しよう。
+
+# In[44]:
+
+
+annual3['inflation'] = (1+annual3['cpi'].pct_change())**(1/3)-1
+annual3['money_growth'] = (1+annual3['money'].pct_change())**(1/3)-1
+annual3.head()
+
+
+# 2行目の`inflation`の値は，1958年から1960年の３年間の平均インフレ率（年率）であり，`money_growth`も同様に解釈できる。
 
 # #### 散布図とトレンド線
 
 # `for`ループを使ってOLSの計算とプロットを同時におこなおう。
 
-# In[44]:
+# In[45]:
 
 
-title_list = ['月次データ','四半期データ','年次データ','3年期データ']  # 1
+title_list = ['月次データ','四半期データ','年次データ','3年次データ']    # 1
 
-for df, t in zip(df_list,title_list):
+for df, t in zip(df_list+[annual3],title_list):                # 2
     
-    res = sm.ols('inflation ~ money_growth', data=df).fit()     # 2
-    df['トレンド'] = res.fittedvalues                            # 3
+    res = sm.ols('inflation ~ money_growth', data=df).fit()    # 3
+    df['トレンド'] = res.fittedvalues                            # 4
     
-    ax_ = df.plot('money_growth', 'inflation', kind='scatter')  # 4
-    df.sort_values('トレンド').plot('money_growth','トレンド',     # 5
-                                   color='r', ax=ax_)           # 6
-    ax_.set_title(f'{t}\n'                                      # 7
-                  f'スロープ係数：{res.params[1]:.3f}\n'           # 8
-                  f'p値：{res.pvalues[1]:.3f}\n'                 # 9
-                  f'調整済み決定係数：{res.rsquared_adj:.3f}',     # 10
-                  size=18, loc='left')                          # 11
+    ax_ = df.plot('money_growth', 'inflation', kind='scatter') # 5
+    df.sort_values('トレンド').plot('money_growth','トレンド',     # 6
+                                   color='r', ax=ax_)          # 7
+    ax_.set_title(f'{t}：年率換算増加率\n'                                     # 8
+                  f'スロープ係数：{res.params[1]:.3f}\n'           # 9
+                  f'p値：{res.pvalues[1]:.3f}\n'                # 10
+                  f'調整済み決定係数：{res.rsquared_adj:.3f}',      # 11
+                  size=18, loc='left')                         # 12
 
 
 # ```{admonition} コード説明
 # :class: dropdown
 # 
 # 1. それぞれのプロットのタイトルのリスト。
-# 2. 最小二乗法の結果を変数`res`に割り当てる。
-# 3. `res.fittedvalues`はOLSの予測値であり，新たな列としてそれぞれの`DataFrame`に追加する。その際の列名を`トレンド`とする。
-# 4. 散布図を描き，生成される「軸」を`ax_`に割り当てる。
-# 5. トレンド線を描く。`.sort_values('トレンド')`を使って列`トレンド`を昇順に並び替える。
-# 6. `color='r'`は色を赤に指定する。
-# 7. `ax=ax_`はトレンド線を描く際，「軸」`ax_`を使うことをしてしている。`f-string`を使ってタイトルを`{t}`に代入している。
-# 8. `f-string`を使ってスロープ係数の推定値を代入している。
+# 2. `df_list`に`annual3`を追加している。
+# 3. 最小二乗法の結果を変数`res`に割り当てる。
+# 4. `res.fittedvalues`はOLSの予測値であり，新たな列としてそれぞれの`DataFrame`に追加する。その際の列名を`トレンド`とする。
+# 5. 散布図を描き，生成される「軸」を`ax_`に割り当てる。
+# 6. トレンド線を描く。`.sort_values('トレンド')`を使って列`トレンド`を昇順に並び替える。
+# 7. `color='r'`は色を赤に指定する。
+# 8. `ax=ax_`はトレンド線を描く際，「軸」`ax_`を使うことをしてしている。`f-string`を使ってタイトルを`{t}`に代入している。
+# 9. `f-string`を使ってスロープ係数の推定値を代入している。
 #     * `.pvalues`は推定値を抽出する`res`のメソッドであり，１番目の要素であるスロープ係数を`[1]`で指定している。
 #     * `:.3f`は小数点第三位まで表示することを指定している。
-# 9. p値に関して(8)と同じことを行なっている。
-# 10. 調整済み決定係数に対して(8)と同じことを行なっている。
-# 11. `loc`はタイトルの位置を設定する引数。
+# 10. p値に関して(8)と同じことを行なっている。
+# 11. 調整済み決定係数に対して(8)と同じことを行なっている。
+# 12. `loc`はタイトルの位置を設定する引数。
 #     * `'left'`は左寄せ
 #     * `'right'`は右寄せ
 #     * `'center'`は中央（デフォルト）
 # ```
 
 # 上の図とOLSの推定結果から次のことが分かる。
-# * 月次・四半期データではスロープ係数は小さく統計的優位性も非常に低い。
-# * 年次・2年期データでは，スロープ係数の値は正であり統計的優位性も高い。
-# * 年次データよりも3年期データの方の推定値，調整済み決定係数ともに高くなっている。
+# * 月次・四半期データではスロープ係数はあまり変わらない。
+# * 年次データではスロープ係数がやや上昇している。
+# * 3年次データのスロープ係数は更に高くなっている。
+# * データの期間が長くなるにつれて，調整済み決定係数は上昇している。
 # 
-# これらのことからマネーストックの変化の影響は月・四半期単位では観測できないが，より長い期間をかけてインフレへの影響が発生していることが伺える。この結果は，式[](eq:11-qtm_growth_long)は長期的に成立することと整合的であると言える。
+# これらのことからマネーストックの変化の影響は月・四半期単位では小さいが，より長い期間をかけてインフレへの影響が発生していることが伺える。この結果は，式[](eq:11-qtm_growth_long)は長期的に成立することと整合的であると言えそうである。
 # 
 # 一方で，OLS結果は因果関係を示しておらず単なる相関関係を表していることは念頭に置いておこう。
 
@@ -760,7 +783,7 @@ for df, t in zip(df_list,title_list):
 
 # `py4macro`に含まれる`world-money`というデータ・セットを使うが，その内容は次のコードで確認できる。
 
-# In[45]:
+# In[46]:
 
 
 py4macro.data('world-money',description=1)
@@ -770,7 +793,7 @@ py4macro.data('world-money',description=1)
 
 # まず変数`world`にデータを割り当てる。
 
-# In[46]:
+# In[47]:
 
 
 world = py4macro.data('world-money')
@@ -779,7 +802,7 @@ world.head()
 
 # いつも通り`.info()`を使って内容を確かめてみよう。
 
-# In[47]:
+# In[48]:
 
 
 world.info()
@@ -800,7 +823,7 @@ world.info()
 # **＜ステップ１＞**<br>
 # グループ化用のオブジェクトの作成するためには`DataFrame`のメソッド`.groupby()`を使い，その引数にグループ化用の列を指定する。ここでは`world`を`iso`でグループ化した変数`world_group`に割り当てる。
 
-# In[48]:
+# In[49]:
 
 
 world_group = world.groupby('iso')
@@ -812,7 +835,7 @@ world_group
 # **＜ステップ２＞**<br>
 # グループ計算したいのは`money`と`deflator`である。同時に指定しても構わないが，ここでは一つずつ指定することにする。例として`money`を考えよう。列を指定するには`[]`を使う。
 
-# In[49]:
+# In[50]:
 
 
 world_group['money']
@@ -823,7 +846,7 @@ world_group['money']
 # **＜ステップ３＞**<br>
 # グループ計算に平均を使いたいので，ステップ２のオブジェクトに`.pct_change()`をつか加えるだけである。
 
-# In[50]:
+# In[51]:
 
 
 world_group['money'].pct_change()
@@ -831,7 +854,7 @@ world_group['money'].pct_change()
 
 # 返されたのは国ごとに計算されたマネーストック増加率である。`Series`として返されているが，行の並びは`world`と同じである。従って，次のコードでマネーストック増加率の列を`world`に追加できる。
 
-# In[51]:
+# In[52]:
 
 
 world['money_growth'] = world_group['money'].pct_change()*100
@@ -842,7 +865,7 @@ world.head()
 # 
 # 次にインフレ率を計算する。次のコードは上で説明した手順を１行で書いている。
 
-# In[52]:
+# In[53]:
 
 
 world['inflation'] = world_group['deflator'].pct_change()*100
@@ -850,7 +873,7 @@ world['inflation'] = world_group['deflator'].pct_change()*100
 
 # 試しに，日本のデータだけを抽出してみよう。
 
-# In[53]:
+# In[54]:
 
 
 world.query('iso=="JPN"')
@@ -862,7 +885,7 @@ world.query('iso=="JPN"')
 
 # ハイパーインフレの確固たる定義はないが，Mankiwの教科書「マクロ経済学」では年率50％以上と定義している。この定義に基づき，ハイパーインフレは観測値の何％を占めるかを計算してみよう。まず`inflation`で`NaN`ではない行の数を数える。
 
-# In[54]:
+# In[55]:
 
 
 notna = world.loc[:,'inflation'].notna().sum()
@@ -877,14 +900,14 @@ notna
 # 
 # `inflation`の値が`NaN`ではない行は6407あることがわかった。次に`inflation`が50％以上の行数を数えてみよう。
 
-# In[55]:
+# In[56]:
 
 
 hyper = len( world.query('inflation >= 50') )
 hyper
 
 
-# In[56]:
+# In[57]:
 
 
 print(f'観測値の{100*hyper/notna:.2f}％でハイパーインフレが発生している。')
@@ -892,7 +915,7 @@ print(f'観測値の{100*hyper/notna:.2f}％でハイパーインフレが発生
 
 # 次に`inflation`の上位5ヵ国を表示してみよう。
 
-# In[57]:
+# In[58]:
 
 
 world.sort_values('inflation',ascending=False).head()
@@ -908,7 +931,7 @@ world.sort_values('inflation',ascending=False).head()
 # 
 # ここで$g_{{年}}$は年率のインフレ率であり，$g_{{日}}$は1日当たりのインフレ率。この式を使い１に当たりの平均インフレ率を計算してみる。
 
-# In[58]:
+# In[59]:
 
 
 inflation_cod = world.query('(iso=="COD") & (year==1994)').loc[:,'inflation']
@@ -927,7 +950,7 @@ inflation_cod_day
 # 
 # この式を使って$t$を計算してみよう。
 
-# In[59]:
+# In[60]:
 
 
 np.log(2)/np.log(1+inflation_cod_day/100)
@@ -939,7 +962,7 @@ np.log(2)/np.log(1+inflation_cod_day/100)
 
 # 全てのデータを使って散布図をプロットしトレンドを計算してみる。
 
-# In[60]:
+# In[61]:
 
 
 world.plot('money_growth','inflation',kind='scatter')
@@ -954,7 +977,7 @@ pass
 
 # 横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。
 
-# In[61]:
+# In[62]:
 
 
 res_world = sm.ols('inflation ~ money_growth', data=world).fit()
@@ -970,7 +993,7 @@ res_world.summary().tables[1]
 # 
 # まず，それぞれの経済の２変数の平均を計算するが，一つ注意点がある。`world`に`inflation`と`money_growth`があるので，`.mean()`を使って平均を計算すれば良いと思うかもしれない。しかし`.mean()`は算術平均であり，計算したいのは増加率の平均なので可能であれば幾何平均を使うべきである。残念ながら，`DataFrame`には幾何平均のメソッドが良いされて良いないので，次のように`for`ループで計算することにする。
 
-# In[62]:
+# In[63]:
 
 
 money_growth_mean_list = []                   # 1
@@ -1041,7 +1064,7 @@ world_mean = pd.DataFrame({'country':country_list,
 # 
 # 平均でハイパーインフレが発生している国は何ヵ国なるのか計算してみよう。
 
-# In[63]:
+# In[64]:
 
 
 hyper = ( world_mean.loc[:,'inflation_mean'] >= 50 ).sum()
@@ -1059,7 +1082,7 @@ print(f'{len(world_mean)}ヵ国中{hyper}ヵ国でハイパーインフレが発
 
 # 短期的なノイズの影響によってある年にハイパーインフレが発生する場合もあるだろう。しかしこの結果は，長期的にハイパーインフレに悩まされる国が存在することを示している。どのような国なのかを確認するために，インフレ率上位10ヵ国を表示してみよう。
 
-# In[64]:
+# In[65]:
 
 
 world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
@@ -1069,7 +1092,7 @@ world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
 # 
 # `world_mean`を使いクロスセクションのデータをプロットしてみよう。
 
-# In[65]:
+# In[66]:
 
 
 ax_ = world_mean.plot('money_growth_mean','inflation_mean', kind='scatter')
@@ -1081,7 +1104,7 @@ pass
 
 # 綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。
 
-# In[66]:
+# In[67]:
 
 
 res_world_mean = sm.ols('inflation_mean ~ money_growth_mean', data=world_mean).fit()
