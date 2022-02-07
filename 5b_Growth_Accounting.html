@@ -791,26 +791,19 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </table>
 </div></div></div>
 </div>
-<p>欠損値が含まれているので、<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は全て削除する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>にはグループ計算用のメソッド<code class="docutils literal notranslate"><span class="pre">groupby</span></code>が備わっており，それを使うとより短いコードで<code class="docutils literal notranslate"><span class="pre">df_growth</span></code>を作成することができる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_growth</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="n">cond1</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1999</span> <span class="o">&lt;=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">cond2</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">2019</span> <span class="o">&gt;=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="n">cond1</span> <span class="o">&amp;</span> <span class="n">cond2</span>
+<span class="n">df_growth</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;rgdp_pc&#39;</span><span class="p">,</span><span class="s1">&#39;k_pc&#39;</span><span class="p">,</span><span class="s1">&#39;avh&#39;</span><span class="p">,</span><span class="s1">&#39;hc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">calc_growth</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p>残った国数を確認してみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df_growth</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60
-</pre></div>
-</div>
-</div>
+<p><a class="reference external" href="https://py4basics.github.io/3_Pandas.html#id35">ここを参考にしよう。</a></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">rgdp_pc</span></code>の成長率のヒストグラムをプロットするが，ここでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使う。まず使用する列を選んでメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>の引数に<code class="docutils literal notranslate"><span class="pre">kind='hist'</span></code>を指定するだけである。<code class="docutils literal notranslate"><span class="pre">bins=20</span></code>は階級（棒）の数を指定する引数（デフォルトは<code class="docutils literal notranslate"><span class="pre">10</span></code>）と理解すれば良いだろう。</p>
 <div class="cell docutils container">
@@ -821,7 +814,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_27_0.png" src="_images/5b_Growth_Accounting_27_0.png" />
+<img alt="_images/5b_Growth_Accounting_24_0.png" src="_images/5b_Growth_Accounting_24_0.png" />
 </div>
 </div>
 <p>多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も存在する。平均成長率がマイナスの国数を計算してみよう。</p>
@@ -832,7 +825,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>29
 </pre></div>
 </div>
 </div>
@@ -873,44 +866,44 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
-      <td>Argentina</td>
-      <td>-0.347174</td>
-      <td>0.208928</td>
-      <td>-0.794247</td>
-      <td>0.782819</td>
+      <th>176</th>
+      <td>Venezuela (Bolivarian Republic of)</td>
+      <td>-4.638936</td>
+      <td>-0.912619</td>
+      <td>NaN</td>
+      <td>1.572541</td>
     </tr>
     <tr>
-      <th>84</th>
-      <td>Italy</td>
-      <td>-0.268447</td>
-      <td>0.512725</td>
-      <td>-0.423148</td>
-      <td>0.696057</td>
+      <th>179</th>
+      <td>Yemen</td>
+      <td>-3.991010</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.355876</td>
     </tr>
     <tr>
-      <th>102</th>
-      <td>Luxembourg</td>
-      <td>-0.031667</td>
-      <td>-0.309171</td>
-      <td>-0.277986</td>
-      <td>1.191794</td>
+      <th>130</th>
+      <td>Oman</td>
+      <td>-3.275396</td>
+      <td>-0.420316</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>52</th>
-      <td>Ecuador</td>
-      <td>-0.014519</td>
-      <td>0.094647</td>
-      <td>-0.708364</td>
-      <td>0.645785</td>
+      <th>4</th>
+      <td>United Arab Emirates</td>
+      <td>-2.068514</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.335975</td>
     </tr>
     <tr>
-      <th>109</th>
-      <td>Mexico</td>
-      <td>-0.000961</td>
-      <td>0.496348</td>
-      <td>-0.239539</td>
-      <td>0.747133</td>
+      <th>158</th>
+      <td>Syrian Arab Republic</td>
+      <td>-1.832965</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.057546</td>
     </tr>
   </tbody>
 </table>
@@ -925,7 +918,28 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>上のヒストグラムで最も成長率が低い国はArgentinaである。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>上のヒストグラムで最も成長率が低い国はVenezuela (Bolivarian Republic of)である。
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">df_growth_sorted</span></code>から分かるように，他の変数には欠損値が含まれているので<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は全て削除する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>残った国数を確認してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df_growth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60
 </pre></div>
 </div>
 </div>
@@ -955,7 +969,7 @@ g_{\text{factors}}=ag_k+(1-a)(g_h+g_H)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_38_0.png" src="_images/5b_Growth_Accounting_38_0.png" />
+<img alt="_images/5b_Growth_Accounting_39_0.png" src="_images/5b_Growth_Accounting_39_0.png" />
 </div>
 </div>
 <p>マイナスの成長率の国数を調べてみよう。</p>
@@ -995,7 +1009,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_45_0.png" src="_images/5b_Growth_Accounting_45_0.png" />
+<img alt="_images/5b_Growth_Accounting_46_0.png" src="_images/5b_Growth_Accounting_46_0.png" />
 </div>
 </div>
 <p>蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。TFP成長率がマイナスの国の数を確認してみよう。</p>
@@ -1024,7 +1038,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_51_0.png" src="_images/5b_Growth_Accounting_51_0.png" />
+<img alt="_images/5b_Growth_Accounting_52_0.png" src="_images/5b_Growth_Accounting_52_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1597,7 +1611,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_82_0.png" src="_images/5b_Growth_Accounting_82_0.png" />
+<img alt="_images/5b_Growth_Accounting_83_0.png" src="_images/5b_Growth_Accounting_83_0.png" />
 </div>
 </div>
 <p>1960年代をピークに成長率は下降線をたどっている。</p>
@@ -1610,7 +1624,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_84_0.png" src="_images/5b_Growth_Accounting_84_0.png" />
+<img alt="_images/5b_Growth_Accounting_85_0.png" src="_images/5b_Growth_Accounting_85_0.png" />
 </div>
 </div>
 <p>以下では，全要素生産性と蓄積生産要素の成長率に焦点を当てるので，<code class="docutils literal notranslate"><span class="pre">dropna()</span></code>を使って1950年代のデータは削除する。</p>
@@ -1630,7 +1644,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_88_0.png" src="_images/5b_Growth_Accounting_88_0.png" />
+<img alt="_images/5b_Growth_Accounting_89_0.png" src="_images/5b_Growth_Accounting_89_0.png" />
 </div>
 </div>
 <p>次のグラフでは，一人当たりGDPの線グラフと一緒に表示している。</p>
@@ -1643,7 +1657,7 @@ g_{yi} = g_{Ai} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b_Growth_Accounting_90_0.png" src="_images/5b_Growth_Accounting_90_0.png" />
+<img alt="_images/5b_Growth_Accounting_91_0.png" src="_images/5b_Growth_Accounting_91_0.png" />
 </div>
 </div>
 <p>1990年代に入ると，それ以前と比べて全要素生産性の成長率の下落が著しく，一人当たりGDPの成長率に大きく影響している。「失われた10年」の原因と主張する研究者もいる。</p>
