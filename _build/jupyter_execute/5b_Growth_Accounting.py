@@ -273,25 +273,23 @@ df_growth = pd.DataFrame({'country':country_list,               # 14
 df_growth.head()
 
 
-# 欠損値が含まれているので、`NaN`がある行は全て削除する。
-
-# In[8]:
-
-
-df_growth = df_growth.dropna()
-
-
-# 残った国数を確認してみよう。
-
-# In[9]:
-
-
-len(df_growth)
-
+# ````{note}
+# `DataFrame`にはグループ計算用のメソッド`groupby`が備わっており，それを使うとより短いコードで`df_growth`を作成することができる。
+# ```
+# def calc_growth(x):
+#     return ( x.iloc[-1] / x.iloc[0] )**(1/(len(x)-1))-1
+# 
+# cond1 = ( 1999 <= df['year'] )
+# cond2 = ( 2019 >= df['year'] )
+# cond = cond1 & cond2
+# df_growth = 100 * df.loc[cond,:].groupby('country')[['rgdp_pc','k_pc','avh','hc']].agg(calc_growth)
+# ```
+# [ここを参考にしよう。](https://py4basics.github.io/3_Pandas.html#id35)
+# ````
 
 # `rgdp_pc`の成長率のヒストグラムをプロットするが，ここでは`DataFrame`のメソッド`plot()`を使う。まず使用する列を選んでメソッド`plot()`の引数に`kind='hist'`を指定するだけである。`bins=20`は階級（棒）の数を指定する引数（デフォルトは`10`）と理解すれば良いだろう。
 
-# In[10]:
+# In[8]:
 
 
 df_growth['rgdp_pc'].plot(kind='hist',bins=15)
@@ -300,7 +298,7 @@ pass
 
 # 多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も存在する。平均成長率がマイナスの国数を計算してみよう。
 
-# In[11]:
+# In[9]:
 
 
 len(df_growth.query('rgdp_pc < 0'))
@@ -308,7 +306,7 @@ len(df_growth.query('rgdp_pc < 0'))
 
 # 最も平均成長率が低い経済の国名を探してみよう。
 
-# In[12]:
+# In[10]:
 
 
 df_growth_sorted = df_growth.sort_values('rgdp_pc')
@@ -317,11 +315,27 @@ df_growth_sorted.head()
 
 # ここで使ったメソッド`sort_values()`は，引数の列を基準に昇順に並べ替える。引数に`ascending=False`を使うと，降順に並び替えることができる。
 
-# In[13]:
+# In[11]:
 
 
 print( '上のヒストグラムで最も成長率が低い国は'
       f'{df_growth_sorted.iloc[0,0]}である。')
+
+
+# `df_growth_sorted`から分かるように，他の変数には欠損値が含まれているので`NaN`がある行は全て削除する。
+
+# In[12]:
+
+
+df_growth = df_growth.dropna()
+
+
+# 残った国数を確認してみよう。
+
+# In[13]:
+
+
+len(df_growth)
 
 
 # ## 蓄積生産要素の成長率
