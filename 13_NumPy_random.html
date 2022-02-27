@@ -38,20 +38,22 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://py4macro.github.io/13_NumPy_random.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -598,12 +600,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/runner/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/compat/pandas.py:65: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  from pandas import Int64Index as NumericIndex
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="id2">
 <h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -677,8 +673,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 5.59705552,  4.88721237,  4.08941876, 10.50792689,  4.73024796,
-        5.99749688,  2.54324548,  5.19543509,  4.46910877,  4.84354632])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.96480919, 7.20069636, 6.28246021, 3.76292674, 2.14736049,
+       3.96399306, 7.87102618, 5.49517698, 4.15516304, 6.04592442])
 </pre></div>
 </div>
 </div>
@@ -692,7 +688,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-2.20527144,  1.59011736, -0.23486641, -0.0246903 , -0.55164851])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.55598571,  0.0163509 ,  0.99734575,  0.0898081 ,  0.14247244])
 </pre></div>
 </div>
 </div>
@@ -738,8 +734,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([24.66207572, 11.17764696, 16.23048682, 20.27317392, 13.59773624,
-       27.10808221, 16.37038513,  6.97657556, 18.91794779,  7.39345723])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 5.83579172, 24.42562219, 26.43983419, 10.12476226, 23.91995698,
+        8.24089678, 14.42068857, 14.67536386, 29.5596493 , 10.72583599])
 </pre></div>
 </div>
 </div>
@@ -752,7 +748,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.63140454, 0.28804474, 0.71633897, 0.01868798, 0.96777033])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.9868065 , 0.47884683, 0.53448389, 0.17944387, 0.37901861])
 </pre></div>
 </div>
 </div>
@@ -842,7 +838,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.22707170295985282, 1.0752631279414009)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.11883224204068117, 0.8388176786672323)
 </pre></div>
 </div>
 </div>
@@ -919,8 +915,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.04000448, -0.04666338],
-       [-0.04666338,  1.09565161]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.85578487, -0.06785308],
+       [-0.06785308,  0.84742822]])
 </pre></div>
 </div>
 </div>
@@ -934,7 +930,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.043714184149776944
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.07967752041747111
 </pre></div>
 </div>
 </div>
@@ -1314,7 +1310,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8837353731027299
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8837353731027301
 </pre></div>
 </div>
 </div>
@@ -1500,7 +1496,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.224
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.507
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_119_1.png" src="_images/13_NumPy_random_119_1.png" />
@@ -1879,92 +1875,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>767748.544754</td>
-      <td>0.001111</td>
-      <td>0.996950</td>
-      <td>0.003054</td>
-      <td>260800.253364</td>
-      <td>-0.003479</td>
-      <td>207710.300264</td>
-      <td>-0.003479</td>
-      <td>53089.953100</td>
-      <td>-0.003479</td>
+      <td>766566.449312</td>
+      <td>0.002651</td>
+      <td>0.995222</td>
+      <td>0.004790</td>
+      <td>260235.258649</td>
+      <td>-0.001310</td>
+      <td>207260.319022</td>
+      <td>-0.001310</td>
+      <td>52974.939627</td>
+      <td>-0.001310</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>0.996184</td>
+      <td>0.998756</td>
       <td>0.377800</td>
-      <td>263621.291525</td>
-      <td>209957.072174</td>
-      <td>53664.219351</td>
-      <td>801834.954709</td>
-      <td>0.000570</td>
-      <td>0.997113</td>
-      <td>-0.000932</td>
-      <td>265103.605044</td>
-      <td>-0.005607</td>
-      <td>211137.637691</td>
-      <td>-0.005607</td>
-      <td>53965.967352</td>
-      <td>-0.005607</td>
+      <td>264301.939602</td>
+      <td>210499.163735</td>
+      <td>53802.775867</td>
+      <td>800830.898021</td>
+      <td>0.001823</td>
+      <td>0.995958</td>
+      <td>0.002805</td>
+      <td>264722.841041</td>
+      <td>-0.001591</td>
+      <td>210834.384131</td>
+      <td>-0.001591</td>
+      <td>53888.456910</td>
+      <td>-0.001591</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>835899.134587</td>
-      <td>0.999388</td>
+      <td>836037.691103</td>
+      <td>0.988861</td>
       <td>0.378790</td>
-      <td>269108.217130</td>
-      <td>214327.048623</td>
-      <td>54781.168508</td>
-      <td>835921.897870</td>
-      <td>-0.000027</td>
-      <td>0.997278</td>
-      <td>0.002114</td>
-      <td>269406.390673</td>
-      <td>-0.001107</td>
-      <td>214564.524297</td>
-      <td>-0.001107</td>
-      <td>54841.866376</td>
-      <td>-0.001107</td>
+      <td>266289.577920</td>
+      <td>212082.187319</td>
+      <td>54207.390601</td>
+      <td>835096.618745</td>
+      <td>0.001126</td>
+      <td>0.996698</td>
+      <td>-0.007894</td>
+      <td>269210.210504</td>
+      <td>-0.010908</td>
+      <td>214408.279657</td>
+      <td>-0.010908</td>
+      <td>54801.930847</td>
+      <td>-0.010908</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>869782.824730</td>
-      <td>0.996321</td>
+      <td>869344.139426</td>
+      <td>0.979616</td>
       <td>0.379782</td>
-      <td>272860.796108</td>
-      <td>217315.731710</td>
-      <td>55545.064399</td>
-      <td>870010.193235</td>
-      <td>-0.000261</td>
+      <td>268236.967321</td>
+      <td>213633.155280</td>
+      <td>54603.812041</td>
+      <td>869365.796828</td>
+      <td>-0.000025</td>
       <td>0.997446</td>
-      <td>-0.001128</td>
-      <td>273707.117755</td>
-      <td>-0.003097</td>
-      <td>217989.771405</td>
-      <td>-0.003097</td>
-      <td>55717.346350</td>
-      <td>-0.003097</td>
+      <td>-0.018037</td>
+      <td>273696.891046</td>
+      <td>-0.020150</td>
+      <td>217981.626501</td>
+      <td>-0.020150</td>
+      <td>55715.264544</td>
+      <td>-0.020150</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>903583.318511</td>
-      <td>1.000834</td>
+      <td>902214.347981</td>
+      <td>0.987808</td>
       <td>0.380777</td>
-      <td>278612.581031</td>
-      <td>221896.651237</td>
-      <td>56715.929794</td>
-      <td>904100.645575</td>
-      <td>-0.000572</td>
-      <td>0.997620</td>
-      <td>0.003217</td>
-      <td>278004.107435</td>
-      <td>0.002186</td>
-      <td>221412.041917</td>
-      <td>0.002186</td>
-      <td>56592.065518</td>
-      <td>0.002186</td>
+      <td>274836.482157</td>
+      <td>218889.236095</td>
+      <td>55947.246062</td>
+      <td>903641.205783</td>
+      <td>-0.001580</td>
+      <td>0.998201</td>
+      <td>-0.010466</td>
+      <td>278180.581278</td>
+      <td>-0.012094</td>
+      <td>221552.591761</td>
+      <td>-0.012094</td>
+      <td>56627.989517</td>
+      <td>-0.012094</td>
     </tr>
   </tbody>
 </table>
@@ -2017,11 +2013,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.351
-Cの変動： 0.351
-Iの変動： 0.351
-Kの変動： 0.910
-Aの変動： 0.341
+Yの変動： 0.449
+Cの変動： 0.449
+Iの変動： 0.449
+Kの変動： 0.875
+Aの変動： 0.436
 </pre></div>
 </div>
 </div>
@@ -2095,10 +2091,10 @@ consumptionの変動： 0.522
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：GDPとの相関係数 ---
 
-Cの変動： 0.033
-Iの変動： 0.033
-Kの変動： 0.005
-Aの変動： 0.941
+Cの変動： 0.039
+Iの変動： 0.039
+Kの変動： 0.004
+Aの変動： 0.955
 </pre></div>
 </div>
 </div>
