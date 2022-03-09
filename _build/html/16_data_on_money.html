@@ -419,7 +419,7 @@ in English or the language of your choice.
 </div>
 <div class="section" id="gdp">
 <h2>GDPとインフレ率<a class="headerlink" href="#gdp" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-1</span></code>を使うが，その中にある<code class="docutils literal notranslate"><span class="pre">gdp</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation</span></code>を使い両変数の関係を考える。</p>
+<p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>を使うが，その中にある<code class="docutils literal notranslate"><span class="pre">gdp</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation</span></code>を使い両変数の関係を考える。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span>
@@ -437,7 +437,8 @@ in English or the language of your choice.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
 
-<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;トレンドからの乖離（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -490,7 +491,7 @@ in English or the language of your choice.
 </div>
 <div class="section" id="id3">
 <h2>金融政策<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>金融政策が実質GDPのような実質変数に影響を及ぼすかという問題は，一見明白なように見えるが非常に複雑な問題である。因果関係を示すために様々なそして高度な手法が提案されており，それを説明することは授業の範囲を超えることになる。ここでは代わりに，歴史的に重大な金融政策が実質変数に影響をもたらした例を取り上げる。<a class="reference external" href="https://eml.berkeley.edu/~enakamura/papers/macroempirics.pdf">参考資料</a></p>
+<p>金融政策が実質GDPのような実質変数に影響を及ぼすかという問題は，一見明白なように見えるが非常に複雑な問題である。因果関係を示すために様々なそして高度な手法が提案されており，それを説明することはこのサイトの範囲を超えることになる。ここでは代わりに，歴史的に重大な金融政策が実質変数に影響をもたらした例を取り上げる。<a class="reference external" href="https://eml.berkeley.edu/~enakamura/papers/macroempirics.pdf">参考資料</a></p>
 <div class="section" id="id4">
 <h3>相対価格（おさらい）<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>本題に入る前に，実質変数と名目変数の違いを確認する。<span class="math notranslate nohighlight">\(w\)</span>を名目賃金（円），<span class="math notranslate nohighlight">\(p_A\)</span>をA財の価格（円）としよう。実質賃金<span class="math notranslate nohighlight">\(\dfrac{w}{p_A}\)</span>は，<span class="math notranslate nohighlight">\(w\)</span>円で購入できるA財の数量を表している。即ち，A財で測る名目賃金<span class="math notranslate nohighlight">\(w\)</span>の購買力を示しており，<span class="math notranslate nohighlight">\(w\)</span>の実質的な価値はA財の<span class="math notranslate nohighlight">\(\dfrac{w}{p_A}\)</span>個に相当するという意味である。</p>
@@ -699,7 +700,8 @@ memory usage: 34.5 KB
           <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
                 <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>  <span class="c1">#5f</span>
+<span class="c1"># 5</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>
     
     <span class="c1"># 6</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">float_month</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
@@ -761,7 +763,7 @@ memory usage: 34.5 KB
 <li><p>同上。</p></li>
 </ol>
 </div>
-<p>図にある黒の点線は固定相場制から変動相場制に移行した1973年2月を示している。点線の右側と左側では明らかに変動に違いがある。どの程度変動の大きさが異なるのかを調べるために、固定相場制（158ヶ月）と変動相場制（158ヶ月）での標準偏差を計算し、その比率を比べてみよう。</p>
+<p>図にある黒の点線は固定相場制から変動相場制に移行した1973年2月を示している。点線の右側と左側では明らかに変動に違いがある。どの程度変動の大きさが異なるのかを調べるために、固定相場制（158ヶ月）と変動相場制（158ヶ月）での標準偏差を計算し、その<strong>比率</strong>を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
@@ -795,7 +797,7 @@ Mark/$  3.82
 \frac{\dot{P}_{\text{米}}}{P_{\text{米}}}-
 \frac{\dot{P}_{\text{日}}}{P_{\text{日}}}
 \]</div>
-<p>上の図を見ると<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は大きく動いていない。即ち，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>の差は大きく動いていないということである。次に，1973年2月以降の変動相場制をの場合を考えてみよう。</p>
+<p>上の図を見ると<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は大きく動いていない。即ち，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>の差は大きく動いていないということである。次に，1973年2月以降の変動相場制をの場合を考えてみよう。</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\dot{\varepsilon}}{\varepsilon}=
@@ -803,9 +805,11 @@ Mark/$  3.82
 \frac{\dot{P}_{\text{米}}}{P_{\text{米}}}-
 \frac{\dot{P}_{\text{日}}}{P_{\text{日}}}
 \]</div>
-<p>ここでは<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\ne 0\)</span>である。もし古典派の二分法と貨幣の中立性が成立しているのであれば，
-<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>は<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>にキャンセルされ，変動相場制の下でも<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は固定相場制と変わらない動きになるはずである。上の図はそうなっていないことを示している。即ち，<span class="math notranslate nohighlight">\(P_{\text{米}}\)</span>と<span class="math notranslate nohighlight">\(P_{\text{日}}\)</span>は十分に動かず，名目変数<span class="math notranslate nohighlight">\(e\)</span>の変動は実質変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の変化として姿を変えて現れたのである。その裏にあるのが<strong>価格の粘着性</strong>と考えられる。価格調整に時間がかかるため，<span class="math notranslate nohighlight">\(P_{\text{米}}\)</span>と<span class="math notranslate nohighlight">\(P_{\text{日}}\)</span>は大きく動かない。従って，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>は<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>をキャンセルする程大きくなかったという解釈である。</p>
-<p>為替制度の変更が価格調整スピードを瞬時に大きく変えるとは考えにくい。ブレトンウッズ体制崩壊前後での価格調整スピードは変わらないと考えるのが自然であろう。このように考えると，ブレトンウッズ体制の崩壊という歴史的な「実験」は，金融政策は実質変数に影響を与えることを示唆している。一方，前章のRBCモデルは貨幣の中立性が成立（仮定）されており，マクロ経済の短期的な動きを十分に捉えているとは言い難い。その点を克服する理論が次章で考察するニューケインジアン・モデルである。</p>
+<p>ここで<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\ne 0\)</span>である。もし古典派の二分法と貨幣の中立性が成立しているのであれば，
+<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>は<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>にキャンセルされ，変動相場制の下でも<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は固定相場制と変わらない動きになるはずである。上の図はそうなっていないことを示している。</p>
+<p>どのような解釈が成り立つか考えてみよう。まず，為替制度の変更が価格調整スピードを瞬時に大きく変えるとは考えにくい。1973年2月の前後で日米の経済構造が大きく変わっとは考えられないからである。ブレトンウッズ体制崩壊前後での価格調整スピードは変わらないと考えるのが自然であり，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>に大きな変化はなかったと想定できる。このように考えると，名目変数<span class="math notranslate nohighlight">\(e\)</span>の変動が実質変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の変化として姿を変えて現れたと解釈できる。</p>
+<p>では，なぜ<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>は小さな値だったのだろうか。理由は，<strong>価格の粘着性</strong>と考えられる。価格調整に時間がかかるため，<span class="math notranslate nohighlight">\(P_{\text{米}}\)</span>と<span class="math notranslate nohighlight">\(P_{\text{日}}\)</span>は大きく動かない。従って，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>は小さな値となり，<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>をキャンセルする程大きくなかったという解釈である。</p>
+<p>ブレトンウッズ体制の崩壊という歴史的な「実験」は，金融政策は実質変数に影響を与えることを示唆している。一方，前章のRBCモデルは貨幣の中立性が成立（仮定）されており，マクロ経済の短期的な動きを十分に捉えているとは言い難い。その点を克服する理論が次章で考察するニューケインジアン・モデルである。</p>
 </div>
 </div>
 </div>
