@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://py4macro.github.io/13_NumPy_random.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="古典派の二分法と金融政策" href="16_data_on_money.html" />
+    <link rel="next" title="linearsolve" href="14_linearsolve.html" />
     <link rel="prev" title="IS-MP-PCモデル" href="12_IS-MP-PC.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -170,6 +170,20 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    ランダム変数と全要素生産性
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_linearsolve.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     linearsolve
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_RBC.html">
+   実物的景気循環モデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -589,11 +603,11 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>ランダム変数と全要素生産性<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 </div>
 </div>
@@ -670,8 +684,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.58926293, 5.51171691, 7.64487648, 1.03720758, 7.99319294,
-       2.51976465, 9.55093374, 4.95514411, 7.01982142, 5.23540223])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 6.03364555,  7.24402633,  3.75580892,  4.02107255,  5.28234649,
+       -1.12210125,  5.95561197,  4.79895586,  6.65261564,  4.76065592])
 </pre></div>
 </div>
 </div>
@@ -685,7 +699,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.68036604,  0.21669949, -0.69404917,  0.26483826, -1.60765329])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.04211398,  0.03445903,  0.73277919, -0.72115165,  0.60669772])
 </pre></div>
 </div>
 </div>
@@ -731,8 +745,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([16.76831583, 23.66501891, 28.98089744, 25.31313427,  7.28854411,
-       24.46916978, 26.85051261,  6.17935362, 27.99170035,  5.23936706])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([13.12863185, 16.15709693, 26.45157356, 14.30422029, 20.31125381,
+        6.96091741, 26.48993387, 26.30775361, 10.82622709, 21.5780083 ])
 </pre></div>
 </div>
 </div>
@@ -745,7 +759,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.35981627, 0.0284779 , 0.95550457, 0.59491654, 0.19240674])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.22879291, 0.4344345 , 0.26248871, 0.4202286 , 0.81944857])
 </pre></div>
 </div>
 </div>
@@ -835,7 +849,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.13391453692832234, 1.0578890567653563)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.07545673597198858, 1.1421744301054026)
 </pre></div>
 </div>
 </div>
@@ -912,8 +926,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.03678696, -0.17462263],
-       [-0.17462263,  1.05178231]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.16455023, -0.068101  ],
+       [-0.068101  ,  1.16392668]])
 </pre></div>
 </div>
 </div>
@@ -927,7 +941,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.16722177799414287
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.05849403466714898
 </pre></div>
 </div>
 </div>
@@ -1343,7 +1357,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 <div class="section" id="ar-1-tfp">
 <h3>AR(1)としてのTFP<a class="headerlink" href="#ar-1-tfp" title="Permalink to this headline">¶</a></h3>
-<p>全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化しみみようというのがこの節の目的である。そのために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。</p>
+<p>全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化してみようというのがこの節の目的である。そのために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
@@ -1450,7 +1464,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <img alt="_images/13_NumPy_random_114_0.png" src="_images/13_NumPy_random_114_0.png" />
 </div>
 </div>
-<p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，その標準偏差の推定値を上の回帰式の標準偏差の分散と考えよう。</p>
+<p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">res_tfp</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1493,7 +1507,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.620
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.487
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_119_1.png" src="_images/13_NumPy_random_119_1.png" />
@@ -1872,92 +1886,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>767923.602574</td>
-      <td>0.000883</td>
-      <td>1.003314</td>
-      <td>-0.003308</td>
-      <td>262674.491282</td>
-      <td>-0.010640</td>
-      <td>209203.007865</td>
-      <td>-0.010640</td>
-      <td>53471.483417</td>
-      <td>-0.010640</td>
+      <td>768423.341374</td>
+      <td>0.000232</td>
+      <td>1.001665</td>
+      <td>-0.001664</td>
+      <td>262090.043338</td>
+      <td>-0.008412</td>
+      <td>208737.533402</td>
+      <td>-0.008412</td>
+      <td>53352.509936</td>
+      <td>-0.008412</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>0.998152</td>
+      <td>0.991625</td>
       <td>0.377800</td>
-      <td>264142.023221</td>
-      <td>210371.800823</td>
-      <td>53770.222397</td>
-      <td>802348.144374</td>
-      <td>-0.000070</td>
-      <td>1.003425</td>
-      <td>-0.005269</td>
-      <td>266995.324175</td>
-      <td>-0.010744</td>
-      <td>212644.267933</td>
-      <td>-0.010744</td>
-      <td>54351.056242</td>
-      <td>-0.010744</td>
+      <td>262414.703098</td>
+      <td>208996.103612</td>
+      <td>53418.599486</td>
+      <td>802605.019937</td>
+      <td>-0.000390</td>
+      <td>1.001477</td>
+      <td>-0.009887</td>
+      <td>266312.408915</td>
+      <td>-0.014744</td>
+      <td>212100.370709</td>
+      <td>-0.014744</td>
+      <td>54212.038205</td>
+      <td>-0.014744</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>836005.137633</td>
-      <td>0.999208</td>
+      <td>835653.514722</td>
+      <td>1.013489</td>
       <td>0.378790</td>
-      <td>269071.950299</td>
-      <td>214298.164469</td>
-      <td>54773.785829</td>
-      <td>836773.109968</td>
-      <td>-0.000918</td>
-      <td>1.003534</td>
-      <td>-0.004321</td>
-      <td>271314.419619</td>
-      <td>-0.008300</td>
-      <td>216084.144237</td>
-      <td>-0.008300</td>
-      <td>55230.275382</td>
-      <td>-0.008300</td>
+      <td>272876.509594</td>
+      <td>217328.246470</td>
+      <td>55548.263124</td>
+      <td>836786.809958</td>
+      <td>-0.001355</td>
+      <td>1.001288</td>
+      <td>0.012112</td>
+      <td>270533.402323</td>
+      <td>0.008624</td>
+      <td>215462.115174</td>
+      <td>0.008624</td>
+      <td>55071.287149</td>
+      <td>0.008624</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>869878.795022</td>
-      <td>1.011470</td>
+      <td>870310.439978</td>
+      <td>1.016243</td>
       <td>0.379782</td>
-      <td>277020.475624</td>
-      <td>220628.643680</td>
-      <td>56391.831944</td>
-      <td>871198.888201</td>
-      <td>-0.001516</td>
-      <td>1.003636</td>
-      <td>0.007775</td>
-      <td>275628.256851</td>
-      <td>0.005038</td>
-      <td>219519.832719</td>
-      <td>0.005038</td>
-      <td>56108.424132</td>
-      <td>0.005038</td>
+      <td>278377.409754</td>
+      <td>221709.352735</td>
+      <td>56668.057018</td>
+      <td>870968.627397</td>
+      <td>-0.000756</td>
+      <td>1.001091</td>
+      <td>0.015021</td>
+      <td>274749.215326</td>
+      <td>0.013119</td>
+      <td>218819.733786</td>
+      <td>0.013119</td>
+      <td>55929.481540</td>
+      <td>0.013119</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>904523.657091</td>
-      <td>0.995246</td>
+      <td>905220.735996</td>
+      <td>1.009972</td>
       <td>0.380777</td>
-      <td>277160.858816</td>
-      <td>220740.449687</td>
-      <td>56420.409129</td>
-      <td>905625.387933</td>
-      <td>-0.001217</td>
-      <td>1.003722</td>
-      <td>-0.008480</td>
-      <td>279931.913566</td>
-      <td>-0.009948</td>
-      <td>222947.413088</td>
-      <td>-0.009948</td>
-      <td>56984.500478</td>
-      <td>-0.009948</td>
+      <td>281339.699886</td>
+      <td>224068.622578</td>
+      <td>57271.077308</td>
+      <td>905149.679903</td>
+      <td>0.000078</td>
+      <td>1.000886</td>
+      <td>0.009036</td>
+      <td>278957.504130</td>
+      <td>0.008503</td>
+      <td>222171.359868</td>
+      <td>0.008503</td>
+      <td>56786.144263</td>
+      <td>0.008503</td>
     </tr>
   </tbody>
 </table>
@@ -2010,11 +2024,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.454
-Cの変動： 0.454
-Iの変動： 0.454
-Kの変動： 0.903
-Aの変動： 0.439
+Yの変動： 0.510
+Cの変動： 0.510
+Iの変動： 0.510
+Kの変動： 0.866
+Aの変動： 0.511
 </pre></div>
 </div>
 </div>
@@ -2090,8 +2104,8 @@ consumptionの変動： 0.522
 
 Cの変動： 0.038
 Iの変動： 0.038
-Kの変動： 0.004
-Aの変動： 0.913
+Kの変動： 0.002
+Aの変動： 0.927
 </pre></div>
 </div>
 </div>
@@ -2175,10 +2189,10 @@ consumptionの変動：0.706
             <p class="prev-next-title">IS-MP-PCモデル</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="16_data_on_money.html" title="next page">
+    <a class='right-next' id="next-link" href="14_linearsolve.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">古典派の二分法と金融政策</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

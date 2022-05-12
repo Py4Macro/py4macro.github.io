@@ -6,11 +6,11 @@
 # In[1]:
 
 
+import japanize_matplotlib
 import numpy as np
 import pandas as pd
-import statsmodels.formula.api as sm
-import japanize_matplotlib
 import py4macro
+import statsmodels.formula.api as sm
 
 
 # ## はじめに
@@ -619,7 +619,7 @@ df['gdp_cycle'].autocorr()
 
 # ### AR(1)としてのTFP
 
-# 全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化しみみようというのがこの節の目的である。そのために`statsmodels`を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。
+# 全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化してみようというのがこの節の目的である。そのために`statsmodels`を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。
 
 # In[37]:
 
@@ -664,7 +664,7 @@ df.plot(x='tfp_cycle_lag',y='tfp_cycle',kind='scatter')
 pass
 
 
-# 正の相関が図でも確認できる。次に$\epsilon_t$について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，その標準偏差の推定値を上の回帰式の標準偏差の分散と考えよう。
+# 正の相関が図でも確認できる。次に$\epsilon_t$について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。
 
 # In[41]:
 
