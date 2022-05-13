@@ -771,8 +771,16 @@ title="Print to PDF"
 </div>
 <section id="id1">
 <h2>説明<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>後に続く章ではRBCモデルとNew Keynsianモデル（Dynamic Stochastic General Equilibrium Model，略してDSGEモデルとも呼ばれる）を考えるが，消費者と企業の最適化問題を解き，動学方程式を導出する作業は高度な数学的な知識を要求するため，この授業の範囲を超えることになる。従って，それぞれのモデルの考えを説明した後，シミュレーションを使いデータとの整合性などを検討する。そのために<code class="docutils literal notranslate"><span class="pre">linearsove</span></code>というパッケージを使うが，この章の目的は<code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>の使い方を説明することである。</p>
-<p>RBCモデルやNew Keynsianモデルモデルの均衡式は複雑な非線形となっており，また将来の変数に対する期待が重要な役割を果たすため，そのままシミュレーションに使うことは難しい。従って，次の２つのステップを踏むことになる。</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div name="html-admonition">
+Do you want to read in a differnt language? Start
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
+in English or the language of your choice.
+</div>
+</aside>
+<p>後に続く章では，実物的景気循環モデルとNew Keynsianモデル（Dynamic Stochastic General Equilibrium Model，略してDSGEモデルとも呼ばれる）を考える。それらのモデルでは，消費者は効用を最大化し，企業は利潤を最大化する。そのような最適化問題を解き，一般均衡での動学方程式を導出する作業は高度な数学的な知識を要求するため，このサイトの範囲を超えることになる。従って，それぞれのモデルの考えを説明した後，シミュレーションを使いデータとの整合性などを検討する。この章では，そのために使用する<code class="docutils literal notranslate"><span class="pre">linearsove</span></code>というパッケージの使い方を説明する。</p>
+<p>実物的景気循環モデルやNew Keynsianモデルの均衡式は複雑な非線形となっており，また将来の変数に対する期待が重要な役割を果たす。従って，次の２つのステップを踏んでシミュレーションをおこなうことになる。</p>
 <ol class="simple">
 <li><p>非確率的な定常状態の近傍で<strong>線形近似</strong>をおこない，それぞれの変数を定常状態からのパーセント乖離で表した均衡式に書き直してシミュレーションをおこなう。その際の定常状態からのパーセント乖離で表すことを<strong>対数線形近似</strong>と呼ぶ。（ちなみに，このサイトで扱うNew Keynsianモデルの内生変数は最初から％乖離で表されている。）</p></li>
 <li><p>様々な均衡を計算する手法が提案されており，その１つに従ってモデルを「解く」。</p></li>
@@ -781,7 +789,7 @@ title="Print to PDF"
 <code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>は<a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0165188999000457">Klein (2000)</a>を採用している。その詳細については割愛するが，1の対数線形近似について簡単に説明する。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>を事前にインストールする必要があるが，次のコマンドでインストールすることができる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>を使用するためには，事前にインストールする必要がある。MacのターミナルやWindowsのAnaconda Promptでは，次のコマンドでインストールすることができる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">linearsolve</span>
 </pre></div>
 </div>
