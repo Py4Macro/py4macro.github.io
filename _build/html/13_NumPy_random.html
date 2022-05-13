@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>ランダム変数と全要素生産性 &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,12 +20,8 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -32,17 +30,21 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -73,7 +75,21 @@ const thebe_selector_output = ".output, .cell_output"
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -82,9 +98,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -94,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
@@ -216,96 +233,182 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-   <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/13_NumPy_random.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/13_NumPy_random.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/13_NumPy_random.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="発売 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
+            <div class="navbar_extra_footer">
+             <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/13_NumPy_random.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/13_NumPy_random.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/13_NumPy_random.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    はじめに
@@ -440,12 +543,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>ランダム変数と全要素生産性</h1>
@@ -454,7 +556,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <div id="jb-print-toc">
                         
                         <div>
-                            <h2> 目次 </h2>
+                            <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
@@ -596,11 +698,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1>ランダム変数と全要素生産性<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>ランダム変数と全要素生産性<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
@@ -612,16 +715,16 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+<section id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div name="html-admonition">
 Do you want to read in a differnt language? Start
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
 in English or the language of your choice.
 </div>
-</div>
+</aside>
 <p>GDPなどのマクロ変数は変動し相関性やpersistenceが大きな特徴であるが，経済モデルでどのように捉えれば良いのだろうか。IS-MP-PCモデルのインパルス反応分析でもマクロ変数の変動のような動きはあるが，それがどの程度データと合致しているのか不明である。またIS-MP-PCモデル自体が問題を抱えており，フォーワード・ルッキングな（前向きな最適化行動に基づく）モデルが必要である。このような背景のもと本章の目的は，<code class="docutils literal notranslate"><span class="pre">Python</span></code>でどのようにランダム変数を扱うことができるかを説明することである。</p>
 <p>ではなぜマクロ経済学でランダム変数が必要なのだろうか。マクロ変数の変動を説明する上で重要なツールとなっているためである。この点を確認するために，<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>を使いGDPの変動をプロットする。</p>
 <div class="cell docutils container">
@@ -650,9 +753,9 @@ in English or the language of your choice.
 </ol>
 <p>１の考えによると，差分方程式<span class="math notranslate nohighlight">\(x_{t+1}=f(x_t)\)</span>のように今期のGDP（<span class="math notranslate nohighlight">\(x_t\)</span>）が与えられると来期のGDP（<span class="math notranslate nohighlight">\(x_{t+1}\)</span>）は自ずと決定さる。従って，来期のGDPの予測は簡単なものとなる。もしそうであれば政策運営は非常に簡単になるだろうが，現実はそうではない。１では現実を捉えることができない。一方，２の考えはランダム変数の実現値の連続としてGDPが観測され，今期のGDPが与えられても来期のGDPにはランダムな要素があるため，予測が難しいという特徴がある。この特徴こそが，マクロ変数の性質を捉えるには必要であり，上のプロットに現れていると考えられる。主流のマクロ経済学では，消費者や企業はフォーワード・ルッキングであり，且つ経済全体でランダムな要素が重要な役割を果たしているという理解に基づき，景気循環の「真のメカニズム」を解明することが目的となっている。</p>
 <p>以下では，まずランダム変数生成過程を考え，短期分析における全要素生産性の役割について説明する。またSolowモデルを使い簡単な景気循環モデルを展開する。</p>
-</div>
-<div class="section" id="id3">
-<h2>ランダム変数生成コード<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>ランダム変数生成コード<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>ランダム変数の生成について説明する。ここでは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使いランダム変数を生成するが，<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールの中でまず最初に使う必要があるのが<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>関数である。以下では続くコードを分かりやすくするために<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>を変数<code class="docutils literal notranslate"><span class="pre">rng</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -666,8 +769,8 @@ in English or the language of your choice.
 <p class="admonition-title">Tip</p>
 <p>ランダム変数の生成にはパッケージ<code class="docutils literal notranslate"><span class="pre">SciPy</span></code>の<code class="docutils literal notranslate"><span class="pre">stats</span></code>モジュールを使うこともできる。興味がある人は<a class="reference external" href="https://py4etrics.github.io/5_SciPy_stats.html">このリンク</a>を参照しよう。</p>
 </div>
-<div class="section" id="id4">
-<h3>正規分布<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h3>正規分布<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>正規分布に従うランダム変数の生成方法につて説明する。</p>
 <p><strong>コード</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">rng.normal(loc=0,</span> <span class="pre">scale=1,</span> <span class="pre">size=1)</span></code></p>
@@ -684,8 +787,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.49826014, 5.85506087, 6.12554429, 5.05973561, 5.40030252,
-       3.61453535, 6.9210619 , 4.68177912, 3.35738807, 6.81058048])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.21328922, 7.11132374, 3.08246324, 6.75116498, 6.41941926,
+       5.63532515, 2.14099384, 4.77595093, 6.19105377, 4.10302627])
 </pre></div>
 </div>
 </div>
@@ -699,7 +802,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.02748928, -1.15305628, -1.67302104,  1.28700288,  0.5139624 ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.17102877, -1.14944635,  0.50169156, -1.49971123, -1.73616434])
 </pre></div>
 </div>
 </div>
@@ -726,9 +829,9 @@ in English or the language of your choice.
 <img alt="_images/13_NumPy_random_19_0.png" src="_images/13_NumPy_random_19_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id5">
-<h3>一様分布<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id5">
+<h3>一様分布<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <p>一様分布に従うランダム変数の生成方法につて考える。</p>
 <p><strong>コード</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">rng.uniform(low=0,</span> <span class="pre">high=1,</span> <span class="pre">size=1)</span></code></p>
@@ -745,8 +848,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([11.67579383, 22.32259402, 25.72568877, 20.24954989, 29.08489117,
-       29.13821384, 16.82457943, 17.85908372, 18.02799383, 10.00505549])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([21.05124481, 15.6845023 ,  5.92524823, 18.72745085, 23.11355553,
+       29.28653322, 19.46995291, 19.29698666,  5.01882574, 23.62043298])
 </pre></div>
 </div>
 </div>
@@ -759,7 +862,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.68204901, 0.27412268, 0.09826089, 0.0249983 , 0.08333676])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.24024203, 0.59739434, 0.2966522 , 0.53371118, 0.99921801])
 </pre></div>
 </div>
 </div>
@@ -786,12 +889,12 @@ in English or the language of your choice.
 <img alt="_images/13_NumPy_random_26_0.png" src="_images/13_NumPy_random_26_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="id6">
-<h2>ホワイト・ノイズ<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>説明<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id6">
+<h2>ホワイト・ノイズ<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
+<section id="id7">
+<h3>説明<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
 <p>時系列のランダム変数<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>，<span class="math notranslate nohighlight">\(t=0,1,2,3,\cdots\)</span>を考えよう。例えば，レストランの経営者の収入。ビジネスにはリスク（競争相手の出現やコロナ感染症問題）があるため変動すると考えるのが自然である。<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は<span class="math notranslate nohighlight">\(t\)</span>毎にある分布から抽出されると考えることができる。次の３つの性質を満たしたランダム変数をホワイト・ノイズ（White Noise）と呼ぶ。</p>
 <ol>
 <li><p>平均は<code class="docutils literal notranslate"><span class="pre">0</span></code>：<span class="math notranslate nohighlight">\(\quad\text{E}\left[\varepsilon_t\right]=0\)</span></p></li>
@@ -815,9 +918,9 @@ in English or the language of your choice.
 <li><p>毎期毎期平均<code class="docutils literal notranslate"><span class="pre">0</span></code>の正規分布から<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>が抽出されるのであればホワイト・ノイズとなる（正規分布ではない分布でもホワイト・ノイズになり得る）。</p></li>
 <li><p>ホワイト・ノイズは独立同分布（Independe and Identically Distributed）の１つである。</p></li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h3>図示<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>図示<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>標準正規分布からのランダム変数を<code class="docutils literal notranslate"><span class="pre">n</span></code>個抽出しプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -849,7 +952,7 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.006104469359588607, 1.10184944492958)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.011917817165235305, 0.9590270051475032)
 </pre></div>
 </div>
 </div>
@@ -868,9 +971,9 @@ in English or the language of your choice.
 </div>
 </div>
 <p>概ね<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に左右対象に動いている。即ち，平均<code class="docutils literal notranslate"><span class="pre">0</span></code>を反映している。また，<code class="docutils literal notranslate"><span class="pre">0</span></code>から離れている観測値が少ないことが分かる。これは<code class="docutils literal notranslate"><span class="pre">0</span></code>方向に戻ることを示している。これは分散が一定であるためである。この性質は<code class="docutils literal notranslate"><span class="pre">n</span></code>を<code class="docutils literal notranslate"><span class="pre">500</span></code>や<code class="docutils literal notranslate"><span class="pre">1000</span></code>などの大きな数字に設定するより一層分かりやすいだろう。</p>
-</div>
-<div class="section" id="id9">
-<h3>自己共分散（自己相関）<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id9">
+<h3>自己共分散（自己相関）<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>次に１期違いの自己共分散<span class="math notranslate nohighlight">\(\text{E}[\varepsilon_t \varepsilon_{t-1}]\)</span>を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -926,8 +1029,8 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.0691693 , 0.23176669],
-       [0.23176669, 1.11986748]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.97776679, -0.12120338],
+       [-0.12120338,  0.97834927]])
 </pre></div>
 </div>
 </div>
@@ -941,21 +1044,21 @@ in English or the language of your choice.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2118090222749419
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.12392248412281508
 </pre></div>
 </div>
 </div>
 </div>
 <p>自己共分散<code class="docutils literal notranslate"><span class="pre">0</span></code>の仮定の反映である。この結果からわかることは，ホワイト・ノイズだけではマクロ変数のpersistenceを説明できないということである。</p>
-</div>
-</div>
-<div class="section" id="ar-1">
-<h2>自己回帰モデル：AR(1)<a class="headerlink" href="#ar-1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>説明<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="ar-1">
+<h2>自己回帰モデル：AR(1)<a class="headerlink" href="#ar-1" title="Permalink to this headline">#</a></h2>
+<section id="id10">
+<h3>説明<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p>次に確率過程として自己回帰モデルを考えよう。英語で<strong>A</strong>ugo<strong>r</strong>egressive Modelと呼ばれ，AR(1)と表記されるモデルは次式で表される。（AR(1)の<code class="docutils literal notranslate"><span class="pre">(1)</span></code>は右辺と左辺の変数は１期しか違わないことを表している。）</p>
 <div class="math notranslate nohighlight" id="equation-eq-13-ar1">
-<span class="eqno">(74)<a class="headerlink" href="#equation-eq-13-ar1" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(74)<a class="headerlink" href="#equation-eq-13-ar1" title="Permalink to this equation">#</a></span>\[
 y_t=\rho y_{t-1}+\varepsilon_t
 \]</div>
 <p>ここで</p>
@@ -965,9 +1068,9 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <li><p><span class="math notranslate nohighlight">\(\varepsilon_t\sim WN(0,\sigma^2)\)</span>（ホワイト・ノイズ）</p></li>
 </ul>
 <p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>を所与とすると<span class="math notranslate nohighlight">\(y_t\)</span>の差分方程式となっている。<span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span>となっているため，安定的な過程であることがわかる。即ち，<span class="math notranslate nohighlight">\(\varepsilon_t=0\)</span>であれば、<span class="math notranslate nohighlight">\(y_t=\)</span>は定常状態である<span class="math notranslate nohighlight">\(0\)</span>に近づいて行くことになる。しかしホワイト・ノイズである<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>により、毎期確率的なショックが発生し<span class="math notranslate nohighlight">\(y_t\)</span>を定常状態から乖離させることになる。また式<a class="reference internal" href="#equation-eq-13-ar1">(74)</a>からわかるように，今期の値<span class="math notranslate nohighlight">\(y_t\)</span>は前期の値<span class="math notranslate nohighlight">\(y_{t-1}\)</span>に依存しており，その依存度はパラメータ<span class="math notranslate nohighlight">\(\rho\)</span>によって決定される。この<span class="math notranslate nohighlight">\(\rho\)</span>こそが<span class="math notranslate nohighlight">\(y_t\)</span>のpersistenceの強さを決定することになり，自己回帰モデル<a class="reference internal" href="#equation-eq-13-ar1">(74)</a>の自己相関係数は<span class="math notranslate nohighlight">\(\rho\)</span>と等しくなる。</p>
-</div>
-<div class="section" id="persistence">
-<h3>３つの例：Persistenceの違い<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="persistence">
+<h3>３つの例：Persistenceの違い<a class="headerlink" href="#persistence" title="Permalink to this headline">#</a></h3>
 <p>直感的にマクロ変数の特徴であるpersistenceとは，前期の値が今期の値にどれだけ影響を持っているかを示す。以下では、同じホワイト・ノイズ<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>を使い<span class="math notranslate nohighlight">\(\rho\)</span>の値を変えてpersistenceの違いを考えてみる。そのための関数を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,12 +1166,12 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>が非常に高いため、persistenceも非常に強くなっている。即ち、今期の値は前期の値に対する依存度が大きい。</p>
-</div>
-</div>
-<div class="section" id="id11">
-<h2>全要素生産性<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id12">
-<h3>説明<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id11">
+<h2>全要素生産性<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
+<section id="id12">
+<h3>説明<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h3>
 <p>マクロ変数の特徴を捉えるにはホワイト・ノイズよりもAR(1)の方がより適しているということが分かった。では，どの様な形でAR(1)をマクロ・モデルに導入すれば良いのだろうか。現在盛んに行われている景気循環研究はDSGEモデル（<strong>D</strong>ynamic <strong>S</strong>tochastic <strong>G</strong>eneral <strong>E</strong>quilibrium Model）と呼ばれるモデルに基づいており、DSGEは名前が示すように次のような特徴がある。</p>
 <ul class="simple">
 <li><p>時間軸に沿ってマクロ変数の変化を考察する動学的な特徴</p></li>
@@ -1077,9 +1180,9 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <li><p>一般均衡のモデル</p></li>
 </ul>
 <p>そして，DSGE研究の先駆けとなったモデルが実物的景気循環モデル（<strong>R</strong>eal <strong>B</strong>usiness <strong>C</strong>ycles Model; RBCモデル）と呼ばれる理論である。詳細については後の章に譲るが，基本的なアイデアは簡単で全要素生産性（TFP）がAR(1)に従って確率的に変動し，それが消費者と企業の経済行動に影響することにより景気循環が発生するという理論である。ここではデータを使い全要素生産性の性質を考察する。RBCモデルで需要な役割を果たす労働時間についてもデータを使い特徴を探ることにする。</p>
-</div>
-<div class="section" id="id13">
-<h3>データ<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id13">
+<h3>データ<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h3>
 <p>次の生産関数を仮定する。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1112,9 +1215,9 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <li><p><code class="docutils literal notranslate"><span class="pre">hours</span></code>：労働者1人あたり月平均就業時間（以下では「平均労働時間」と呼ぶ）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">total_hours</span></code>：総労働時間（<code class="docutils literal notranslate"><span class="pre">hours</span></code><span class="math notranslate nohighlight">\(\times\)</span><code class="docutils literal notranslate"><span class="pre">employed</span></code>）</p></li>
 </ul>
-</div>
-<div class="section" id="id14">
-<h3>労働時間と雇用の特徴<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id14">
+<h3>労働時間と雇用の特徴<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h3>
 <p>平均労働時間<code class="docutils literal notranslate"><span class="pre">hours</span></code>，就業者数<code class="docutils literal notranslate"><span class="pre">employed</span></code>，総労働時間<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>の特徴を考えてみる。まずサイクルを計算し図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1239,9 +1342,9 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <p>やはり非常に強い正の相関があり，平均労働時間の影響が強いようである。</p>
-</div>
-<div class="section" id="tfp">
-<h3>TFPの特徴<a class="headerlink" href="#tfp" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tfp">
+<h3>TFPの特徴<a class="headerlink" href="#tfp" title="Permalink to this headline">#</a></h3>
 <p>TFPの水準，トレンド，変動（サイクル）を計算するが，資本の所得分配率を次のように仮定する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1354,9 +1457,9 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 <p>＜これらの結果の含意＞</p>
 <p>全要素生産性の変動は大きくpersistenceも高い。またGDPとの相関性も大きい。これらから全要素生産性が景気循環を引き起こす要因ではないかということが示唆される。全要素生産性は資本や労働時間で説明できないGDPの要素であり，そのような「その他」の部分に景気循環を引き起こすランダムな要素が隠されているかも知れない，という考え方である。</p>
-</div>
-<div class="section" id="ar-1-tfp">
-<h3>AR(1)としてのTFP<a class="headerlink" href="#ar-1-tfp" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="ar-1-tfp">
+<h3>AR(1)としてのTFP<a class="headerlink" href="#ar-1-tfp" title="Permalink to this headline">#</a></h3>
 <p>全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化してみようというのがこの節の目的である。そのために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1507,19 +1610,19 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.464
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.638
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_119_1.png" src="_images/13_NumPy_random_119_1.png" />
 </div>
 </div>
 <p>シミュレーションを行う度に図と自己相関係数は異なることになる。</p>
-</div>
-</div>
-<div class="section" id="id15">
-<h2>確率的ソロー・モデル<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id16">
-<h3>説明<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id15">
+<h2>確率的ソロー・モデル<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h2>
+<section id="id16">
+<h3>説明<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
 <p>上で日本のデータを使い全要素生産性の<code class="docutils literal notranslate"><span class="pre">rho</span></code>と<code class="docutils literal notranslate"><span class="pre">sigma</span></code>を計算しシミュレーションを行なったが，そのような全要素生産性の変動が景気循環の主な要因と考えるのがRBCモデルと呼ばれるものである。RBCモデルの詳細については後の章で検討するが，ここではその導入としてソロー・モデルにAR(1)としてのTFPを組み込んでシミュレーションをおこない，計算結果をデータと比べてどの程度整合性があるかを検討する。</p>
 <p>モデルの均衡式として以下を使う。</p>
 <ul>
@@ -1575,9 +1678,9 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <li><p><span class="math notranslate nohighlight">\(Y\)</span>，<span class="math notranslate nohighlight">\(C\)</span>，<span class="math notranslate nohighlight">\(I\)</span>，<span class="math notranslate nohighlight">\(K\)</span>，<span class="math notranslate nohighlight">\(A\)</span>のトレンドの系列</p></li>
 <li><p><span class="math notranslate nohighlight">\(Y\)</span>，<span class="math notranslate nohighlight">\(C\)</span>，<span class="math notranslate nohighlight">\(I\)</span>，<span class="math notranslate nohighlight">\(K\)</span>，<span class="math notranslate nohighlight">\(A\)</span>の変動（サイクル）の系列</p></li>
 </ul>
-</div>
-<div class="section" id="id17">
-<h3>初期値の計算<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id17">
+<h3>初期値の計算<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h3>
 <p>まずGDP，資本，総労働時間の1980年と2019年の平均を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1725,11 +1828,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <p>約20％が投資に回されている。最後にモジュール<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">pwt</span></code>を使い日本の資本減耗率の平均を計算しよう。</p>
-</div>
-<div class="section" id="id18">
-<h3>シミュレーション<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id19">
-<h4>関数<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id18">
+<h3>シミュレーション<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h3>
+<section id="id19">
+<h4>関数<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h4>
 <p>シミュレーションのコードを関数としてまとめよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1829,9 +1932,9 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </li>
 </ol>
 </div>
-</div>
-<div class="section" id="id20">
-<h4>実行<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id20">
+<h4>実行<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h4>
 <p>デフォルトの値でシミュレーションを行い、最初の5行を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1886,92 +1989,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>768257.162200</td>
-      <td>0.000448</td>
-      <td>1.007767</td>
-      <td>-0.007737</td>
-      <td>263957.601131</td>
-      <td>-0.015512</td>
-      <td>210224.920722</td>
-      <td>-0.015512</td>
-      <td>53732.680409</td>
-      <td>-0.015512</td>
+      <td>768912.451431</td>
+      <td>-0.000404</td>
+      <td>1.000856</td>
+      <td>-0.000855</td>
+      <td>262010.351767</td>
+      <td>-0.008108</td>
+      <td>208674.064291</td>
+      <td>-0.008108</td>
+      <td>53336.287476</td>
+      <td>-0.008108</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>0.996927</td>
+      <td>1.003479</td>
       <td>0.377800</td>
-      <td>263817.975312</td>
-      <td>210113.717913</td>
-      <td>53704.257399</td>
-      <td>802860.208597</td>
-      <td>-0.000708</td>
-      <td>1.007736</td>
-      <td>-0.010784</td>
-      <td>268254.540540</td>
-      <td>-0.016677</td>
-      <td>213647.151197</td>
-      <td>-0.016677</td>
-      <td>54607.389343</td>
-      <td>-0.016677</td>
+      <td>265551.676205</td>
+      <td>211494.496990</td>
+      <td>54057.179215</td>
+      <td>802956.652737</td>
+      <td>-0.000828</td>
+      <td>1.000490</td>
+      <td>0.002983</td>
+      <td>266148.652437</td>
+      <td>-0.002246</td>
+      <td>211969.949413</td>
+      <td>-0.002246</td>
+      <td>54178.703024</td>
+      <td>-0.002246</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>835939.172635</td>
-      <td>1.008219</td>
+      <td>836292.094451</td>
+      <td>1.005094</td>
       <td>0.378790</td>
-      <td>271490.857676</td>
-      <td>216224.665579</td>
-      <td>55266.192096</td>
-      <td>837463.470314</td>
-      <td>-0.001822</td>
-      <td>1.007701</td>
-      <td>0.000514</td>
-      <td>272548.940555</td>
-      <td>-0.003890</td>
-      <td>217067.359211</td>
-      <td>-0.003890</td>
-      <td>55481.581344</td>
-      <td>-0.003890</td>
+      <td>270690.489716</td>
+      <td>215587.224982</td>
+      <td>55103.264734</td>
+      <td>837000.659807</td>
+      <td>-0.000847</td>
+      <td>1.000123</td>
+      <td>0.004958</td>
+      <td>270285.630746</td>
+      <td>0.001497</td>
+      <td>215264.781360</td>
+      <td>0.001497</td>
+      <td>55020.849385</td>
+      <td>0.001497</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>870306.885415</td>
-      <td>1.007491</td>
+      <td>870488.056824</td>
+      <td>1.003486</td>
       <td>0.379782</td>
-      <td>275979.588425</td>
-      <td>219799.645280</td>
-      <td>56179.943145</td>
-      <td>872066.807680</td>
-      <td>-0.002020</td>
-      <td>1.007649</td>
-      <td>-0.000158</td>
-      <td>276835.488932</td>
-      <td>-0.003097</td>
-      <td>220481.313910</td>
-      <td>-0.003097</td>
-      <td>56354.175022</td>
-      <td>-0.003097</td>
+      <td>274903.147516</td>
+      <td>218942.330682</td>
+      <td>55960.816834</td>
+      <td>871043.863137</td>
+      <td>-0.000638</td>
+      <td>0.999757</td>
+      <td>0.003723</td>
+      <td>274419.591220</td>
+      <td>0.001761</td>
+      <td>218557.209801</td>
+      <td>0.001761</td>
+      <td>55862.381419</td>
+      <td>0.001761</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>904729.156425</td>
-      <td>1.012410</td>
+      <td>904686.672237</td>
+      <td>0.997590</td>
       <td>0.380777</td>
-      <td>281963.950992</td>
-      <td>224565.797650</td>
-      <td>57398.153342</td>
-      <td>906669.128337</td>
-      <td>-0.002142</td>
-      <td>1.007570</td>
-      <td>0.004793</td>
-      <td>281108.212121</td>
-      <td>0.003040</td>
-      <td>223884.257753</td>
-      <td>0.003040</td>
-      <td>57223.954368</td>
-      <td>0.003040</td>
+      <td>277831.513596</td>
+      <td>221274.582242</td>
+      <td>56556.931354</td>
+      <td>905085.210368</td>
+      <td>-0.000440</td>
+      <td>0.999397</td>
+      <td>-0.001810</td>
+      <td>278549.091424</td>
+      <td>-0.002579</td>
+      <td>221846.085928</td>
+      <td>-0.002579</td>
+      <td>56703.005496</td>
+      <td>-0.002579</td>
     </tr>
   </tbody>
 </table>
@@ -2005,9 +2108,9 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <p>絶対値で約2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
-</div>
-<div class="section" id="id21">
-<h4>結果<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id21">
+<h4>結果<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h4>
 <p>それぞれの変数の自己相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2024,11 +2127,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.443
-Cの変動： 0.443
-Iの変動： 0.443
-Kの変動： 0.905
-Aの変動： 0.424
+Yの変動： 0.396
+Cの変動： 0.396
+Iの変動： 0.396
+Kの変動： 0.884
+Aの変動： 0.394
 </pre></div>
 </div>
 </div>
@@ -2104,8 +2207,8 @@ consumptionの変動： 0.522
 
 Cの変動： 0.035
 Iの変動： 0.035
-Kの変動： 0.005
-Aの変動： 0.939
+Kの変動： 0.003
+Aの変動： 0.931
 </pre></div>
 </div>
 </div>
@@ -2152,10 +2255,10 @@ consumptionの変動：0.706
 </li>
 </ul>
 <p>このような問題意識を持って，RBCモデルとニューケインジアン・モデルを議論していくことにする。</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2179,9 +2282,11 @@ consumptionの変動：0.706
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="12_IS-MP-PC.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2197,24 +2302,28 @@ consumptionの変動：0.706
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 春山 鉄源  Tetsugen HARUYAMA<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      著者 春山 鉄源  Tetsugen HARUYAMA<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

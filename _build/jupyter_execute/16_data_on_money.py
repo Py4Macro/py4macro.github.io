@@ -181,7 +181,8 @@ end_month = '1986-03-01'     # 2
 float_month = '1973-02-01'   # 3
 
 # 4
-ax = df_ex.loc[:end_month,[col[1],col[0]]]           .plot(subplots=True, layout=(1,2),
+ax = df_ex.loc[:end_month,[col[1],col[0]]] \
+          .plot(subplots=True, layout=(1,2),
                 figsize=(10,4),legend=False)
 
 # 5

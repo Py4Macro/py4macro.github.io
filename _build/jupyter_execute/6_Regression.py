@@ -40,7 +40,9 @@ import py4macro
 # In[2]:
 
 
-df2019 = py4macro.data('pwt')                  .query('year == 2019')                  .reset_index(drop=True)
+df2019 = py4macro.data('pwt') \
+                 .query('year == 2019') \
+                 .reset_index(drop=True)
 
 
 # ```{admonition} コードの説明

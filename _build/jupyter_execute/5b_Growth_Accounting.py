@@ -544,7 +544,10 @@ cond = df_growth['country'].isin(country_table)
 
 col = ['country','rgdp_pc','factors','tfp','tfp_contribution']
 
-df_growth.loc[cond,col].set_index('country')          .sort_values('rgdp_pc', ascending=False)          .round(2)          .rename(columns={'rgdp_pc':'一人当たりGDPの成長率',
+df_growth.loc[cond,col].set_index('country') \
+         .sort_values('rgdp_pc', ascending=False) \
+         .round(2) \
+         .rename(columns={'rgdp_pc':'一人当たりGDPの成長率',
                           'factors':'蓄積生産要素の成長率',
                           'tfp':'全要素生産性の成長率',
                           'tfp_contribution':'全要素生産性の寄与度(％)'})

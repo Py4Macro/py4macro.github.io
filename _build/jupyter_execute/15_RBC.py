@@ -22,7 +22,7 @@ import pandas as pd
 # </div>
 # ```
 
-# 実物的景気循環モデル（Real Business Cycles Model; RBCモデル）のモデルは動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。
+# 実物的景気循環モデル（Real Business Cycles Model; RBCモデル）は動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。
 # 1. 全ての市場は完全競争である。
 # 1. 毎期ごとに消費者は財の消費と労働供給量を内生的に決定する。
 # 1. 全要素生産性（TFP）はAR(1)に従って、確率的に変動する。

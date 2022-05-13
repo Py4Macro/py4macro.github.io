@@ -685,7 +685,9 @@ df_convergence['gdp_pc_init_log'] = np.log( df1970.loc[:,'cgdpo']/df1970.loc[:,'
 # In[21]:
 
 
-df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]                                .set_index('country')                                .dropna()
+df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']] \
+                               .set_index('country') \
+                               .dropna()
 
 
 # ##### `DataFrame`の結合
@@ -794,7 +796,8 @@ df_convergence['fitted_absolute'] = res_absolute.fittedvalues
 ax_ = df_convergence.plot(x='gdp_pc_init_log',
                           y='gdp_pc_growth',
                           kind='scatter')
-df_convergence.sort_values('fitted_absolute')               .plot(x='gdp_pc_init_log',
+df_convergence.sort_values('fitted_absolute') \
+              .plot(x='gdp_pc_init_log',
                     y='fitted_absolute',
                     color='red',
                     ax=ax_)
@@ -1052,7 +1055,9 @@ def data_for_regression(init_yr, df=pwt):
     cond = ( df['year'] == init_yr )
     df_convergence = df.loc[cond,['country','cgdpo','emp']]    
     df_convergence['gdp_pc_init_log'] = np.log( df.loc[:,'cgdpo']/df.loc[:,'emp'] )
-    df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']]                                    .set_index('country')                                    .dropna()
+    df_convergence = df_convergence.loc[:,['country','gdp_pc_init_log']] \
+                                   .set_index('country') \
+                                   .dropna()
 
     # === DataFrameの結合 ======================
     for df_right in [saving, depreciation, emp_growth, growth]:

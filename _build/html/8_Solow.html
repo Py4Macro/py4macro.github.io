@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>ソロー・モデル &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,12 +20,8 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -32,17 +30,21 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -73,7 +75,21 @@ const thebe_selector_output = ".output, .cell_output"
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -82,9 +98,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -94,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
@@ -216,96 +233,182 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-   <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/8_Solow.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/8_Solow.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/8_Solow.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="発売 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
+            <div class="navbar_extra_footer">
+             <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/8_Solow.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/8_Solow.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/8_Solow.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    はじめに
@@ -402,12 +505,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>ソロー・モデル</h1>
@@ -416,7 +518,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <div id="jb-print-toc">
                         
                         <div>
-                            <h2> 目次 </h2>
+                            <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
@@ -520,11 +622,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="chap-9-solow">
-<span id="id1"></span><h1>ソロー・モデル<a class="headerlink" href="#chap-9-solow" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chap-9-solow">
+<span id="id1"></span><h1>ソロー・モデル<a class="headerlink" href="#chap-9-solow" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -537,20 +640,20 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+<section id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div name="html-admonition">
 Do you want to read in a differnt language? Start
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
 in English or the language of your choice.
 </div>
-</div>
+</aside>
 <p>前章では差分方程式について説明し，簡単な経済モデルを使いコードの書き方を説明した。本章では，差分方程式の応用となるソロー・モデルを考える。ソロー・モデルは1987年にノーベル経済学賞を受賞した<a class="reference external" href="https://www.nobelprize.org/prizes/economic-sciences/1987/press-release/">Robert M. Solow</a>によって考案された経済成長モデルであり，マクロ経済学の代表的な理論モデルの一つである。今でも盛んに研究が続く経済成長のバックボーン的な存在である。モデルの説明の後，<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使い動学的な特徴を明らかにし，線形近似を使った安定性の確認もおこなう。また理論的な予測がデータと整合性があるかについてもPenn World Tableを使って検討する。本章の内容は次章で議論する所得収斂の分析の基礎となる。</p>
-</div>
-<div class="section" id="id3">
-<h2>モデルの説明<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>モデルの説明<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>ここではモデルの具体的な説明については教科書に譲るとして，簡単にモデルを紹介し，重要な式をまとめることにする。</p>
 <p>＜記号＞</p>
 <ul class="simple">
@@ -573,27 +676,27 @@ in English or the language of your choice.
 </ul>
 <p>全ての市場は完全競争である閉鎖経済を考えよう。この経済には一種類の財（ニューメレール財）しかなく，消費・貯蓄・投資に使われる。財は次の生産関数に従って生産される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-production-level">
-<span class="eqno">(25)<a class="headerlink" href="#equation-eq-8-production-level" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(25)<a class="headerlink" href="#equation-eq-8-production-level" title="Permalink to this equation">#</a></span>\[
 Y_t=AK_t^aL_t^{1-a},\quad 0&lt;a&lt;1
 \]</div>
 <p>両辺を<span class="math notranslate nohighlight">\(L_t\)</span>で割ると一人当たりの変数で表した生産関数となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-production">
-<span class="eqno">(26)<a class="headerlink" href="#equation-eq-8-production" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(26)<a class="headerlink" href="#equation-eq-8-production" title="Permalink to this equation">#</a></span>\[
 y_t=Ak_t^a
 \]</div>
 <p>消費者は所得の割合<span class="math notranslate nohighlight">\(s\)</span>を貯蓄するが，このモデルの中で消費者の役割はこれだけであり，残り全ては生産側で決定される。貯蓄は<span class="math notranslate nohighlight">\(sY_t\)</span>であり投資<span class="math notranslate nohighlight">\(I_t\)</span>と等しくなる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-syi">
-<span class="eqno">(27)<a class="headerlink" href="#equation-eq-8-syi" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(27)<a class="headerlink" href="#equation-eq-8-syi" title="Permalink to this equation">#</a></span>\[
 sY_t=I_t
 \]</div>
 <p><span class="math notranslate nohighlight">\(t\)</span>期の投資により<span class="math notranslate nohighlight">\(t+1\)</span>期の資本ストックは増加するが，毎期ごと資本は<span class="math notranslate nohighlight">\(d\)</span>の率で減耗する。即ち，投資と資本ストックには次の関係が成立する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kk">
-<span class="eqno">(28)<a class="headerlink" href="#equation-eq-8-kk" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(28)<a class="headerlink" href="#equation-eq-8-kk" title="Permalink to this equation">#</a></span>\[
 K_{t+1}-K_{t}=I_t-dK_t
 \]</div>
 <p>ここで左辺は資本ストックの変化であり，右辺は純投資である。<span class="math notranslate nohighlight">\(I_t\)</span>は粗投資，<span class="math notranslate nohighlight">\(dK_t\)</span>は減耗した資本である。式<a class="reference internal" href="#equation-eq-8-syi">(27)</a>，<a class="reference internal" href="#equation-eq-8-kk">(28)</a>，<a class="reference internal" href="#equation-eq-8-production">(26)</a>を使うと資本の蓄積方程式が導出できる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kkdot">
-<span class="eqno">(29)<a class="headerlink" href="#equation-eq-8-kkdot" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(29)<a class="headerlink" href="#equation-eq-8-kkdot" title="Permalink to this equation">#</a></span>\[
 K_{t+1} = sAK_t^a + (1-d)K_t
 \]</div>
 <p>両辺を<span class="math notranslate nohighlight">\(L_t\)</span>で割ることで一人当たりの変数で表すことができる。右辺は単純に一人当たりの変数に直し，左辺は次のように書き換えることに注意しよう。</p>
@@ -604,18 +707,18 @@ K_{t+1} = sAK_t^a + (1-d)K_t
 \]</div>
 <p>従って，<span class="math notranslate nohighlight">\(t+1\)</span>期の一人当たりの資本ストックを決定する式は次式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kdot">
-<span class="eqno">(30)<a class="headerlink" href="#equation-eq-8-kdot" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(30)<a class="headerlink" href="#equation-eq-8-kdot" title="Permalink to this equation">#</a></span>\[
 k_{t+1} = \frac{sAk_t^a + (1-d)k_t}{1+n}
 \]</div>
 <p>この式は非線形の差分方程式だが，前章でも述べたように，考え方は線形差分方程式と同じであり，数値計算のための<code class="docutils literal notranslate"><span class="pre">Python</span></code>コードに関しては大きな違いはない。また式<a class="reference internal" href="#equation-eq-8-kdot">(30)</a>を資本ストックの成長率を示す式に書き換えることもできる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kgrowth">
-<span class="eqno">(31)<a class="headerlink" href="#equation-eq-8-kgrowth" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(31)<a class="headerlink" href="#equation-eq-8-kgrowth" title="Permalink to this equation">#</a></span>\[
 \frac{k_{t+1}}{k_t}-1 = \frac{sAk_t^{-(1-a)}-(n+d)}{1+n}
 \]</div>
 <p>この式から資本が蓄積され<span class="math notranslate nohighlight">\(k_t\)</span>が増加すると，その成長率は減少していくことが分かる。</p>
 <p>産出量の動学は生産関数<a class="reference internal" href="#equation-eq-8-production">(26)</a>を使うことによって<span class="math notranslate nohighlight">\(y_t\)</span>の動きを確認できる。例えば，産出量の成長率を考えてみよう。式<a class="reference internal" href="#equation-eq-8-production">(26)</a>を使うと</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-ygrowth">
-<span class="eqno">(32)<a class="headerlink" href="#equation-eq-8-ygrowth" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(32)<a class="headerlink" href="#equation-eq-8-ygrowth" title="Permalink to this equation">#</a></span>\[
 \frac{y_{t+1}}{y_t}-1
 =\left(\frac{k_{t+1}}{k_t}\right)^{\alpha}-1
 \]</div>
@@ -623,7 +726,7 @@ k_{t+1} = \frac{sAk_t^a + (1-d)k_t}{1+n}
 <p>次に定常状態を考えよう。定常状態では資本ストックは一定なり，資本の成長率である式<a class="reference internal" href="#equation-eq-8-kgrowth">(31)</a>の右辺はゼロになる。
 定常値は次のように確認することができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kss">
-<span class="eqno">(33)<a class="headerlink" href="#equation-eq-8-kss" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(33)<a class="headerlink" href="#equation-eq-8-kss" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align*}
 \frac{k_*}{k_*}-1 
 &amp;=\frac{sAk_*^{-(1-a)} - (n+d)}{1+n} \\
@@ -636,17 +739,19 @@ k_*
 \end{split}\]</div>
 <p>この値を生産関数<a class="reference internal" href="#equation-eq-8-production">(26)</a>に代入することにより一人当たりGDPの定常値を求めることができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-yss">
-<span class="eqno">(34)<a class="headerlink" href="#equation-eq-8-yss" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(34)<a class="headerlink" href="#equation-eq-8-yss" title="Permalink to this equation">#</a></span>\[
 y_*=Ak_*^{a}
 \]</div>
 <p><a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 7</span></a>は資本ストックの動学的均衡を示している。</p>
-<div class="figure align-default" id="fig-8-solow">
+<figure class="align-default" id="fig-8-solow">
 <a class="reference internal image-reference" href="_images/solow.jpeg"><img alt="_images/solow.jpeg" src="_images/solow.jpeg" style="width: 400.5px; height: 300.0px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">一人当たり資本ストックの動学</span><a class="headerlink" href="#fig-8-solow" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="id4">
-<h2>動学<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">一人当たり資本ストックの動学</span><a class="headerlink" href="#fig-8-solow" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id4">
+<h2>動学<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
 <p>差分方程式<a class="reference internal" href="#equation-eq-8-kdot">(30)</a>を使って資本ストックの変化をプロットするが，以前と同じように<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を生成する関数を定義しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -750,9 +855,9 @@ y_*=Ak_*^{a}
 </ol>
 </div>
 <p>図から初期値に関わらず定常値に収束していることが分かる。即ち，定常状態である長期均衡は安定的である。</p>
-</div>
-<div class="section" id="id5">
-<h2>定常状態での変数の値<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>定常状態での変数の値<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
 <p>次に定常状態での変数の値を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -782,11 +887,11 @@ y_*=Ak_*^{a}
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id6">
-<h2>線形近似<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>説明<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h2>線形近似<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
+<section id="id7">
+<h3>説明<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
 <p><a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 7</span></a>は，定常状態は安定的であることを示している。またシミュレーションの結果からも定常状態の安定性が確認できる。次に，線形近似を使って解析的に安定性を確認してみることにする。また線形近似は真の値からの乖離が発生するが，その乖離がどの程度のものかをコードを使って計算することにする。</p>
 <p>＜テイラー展開による１次線形近似＞</p>
 <ul>
@@ -805,7 +910,7 @@ y_*=Ak_*^{a}
 </ul>
 <p>公式に従って計算してみよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kapprox">
-<span class="eqno">(35)<a class="headerlink" href="#equation-eq-8-kapprox" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(35)<a class="headerlink" href="#equation-eq-8-kapprox" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align*}
 k_{t+1}
 &amp;=\frac{Ask_{*}^{\alpha}+(1-d)k_*}{1+n}
@@ -820,12 +925,12 @@ k_{t+1}
 \end{split}\]</div>
 <p>ここで</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-lambda">
-<span class="eqno">(36)<a class="headerlink" href="#equation-eq-8-lambda" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(36)<a class="headerlink" href="#equation-eq-8-lambda" title="Permalink to this equation">#</a></span>\[
 \lambda\equiv \frac{(1-a)(n+d)}{1+n}
 \]</div>
 <p>３行目は定常状態の式<a class="reference internal" href="#equation-eq-8-kdot">(30)</a>と式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>を使っている。式<a class="reference internal" href="#equation-eq-8-kapprox">(35)</a>は<span class="math notranslate nohighlight">\(k_{t+1}\)</span>と<span class="math notranslate nohighlight">\(k_t\)</span>の線形差分方程式になっており，<span class="math notranslate nohighlight">\(k_t\)</span>の係数は</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-coef-of-kt">
-<span class="eqno">(37)<a class="headerlink" href="#equation-eq-8-coef-of-kt" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(37)<a class="headerlink" href="#equation-eq-8-coef-of-kt" title="Permalink to this equation">#</a></span>\[
 0&lt;1-\lambda&lt;1
 \quad\because
 0&lt;a,d&lt;1
@@ -840,12 +945,12 @@ k_{t+1}
 \[y_t=Ak_t\]</div>
 <p>この生産関数に基づくモデルは<span class="math notranslate nohighlight">\(AK\)</span>モデルと呼ばれる。資本の限界生産性は<span class="math notranslate nohighlight">\(A\)</span>で一定になることが分かると思う。</p>
 </div>
-</div>
-<div class="section" id="lambda">
-<h3><span class="math notranslate nohighlight">\(\lambda\)</span>の解釈<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="lambda">
+<h3><span class="math notranslate nohighlight">\(\lambda\)</span>の解釈<a class="headerlink" href="#lambda" title="Permalink to this headline">#</a></h3>
 <p>上の議論から<span class="math notranslate nohighlight">\(\lambda\)</span>が定常状態の安定性を決定することが分かったが，<span class="math notranslate nohighlight">\(\lambda\)</span>の値はどのように解釈できるだろうか。例えば，<span class="math notranslate nohighlight">\(\lambda\)</span>が大きい場合と小さい場合では何が違うのだろうか。次式は式<a class="reference internal" href="#equation-eq-8-kapprox">(35)</a>の最後の等号を少し書き換えたものである。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-approx-lastline">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eq-8-approx-lastline" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(38)<a class="headerlink" href="#equation-eq-8-approx-lastline" title="Permalink to this equation">#</a></span>\[
 k_*-k_{t+1}=(1-\lambda)(k_*-k_t)
 \]</div>
 <p>左辺は<span class="math notranslate nohighlight">\(t+1\)</span>期において定常状態までの残りの「距離」であり，右辺の<span class="math notranslate nohighlight">\(k_*-k_t\)</span>は<span class="math notranslate nohighlight">\(t\)</span>においての定常状態までの残りの「距離」である。後者を次の様に定義し</p>
@@ -853,7 +958,7 @@ k_*-k_{t+1}=(1-\lambda)(k_*-k_t)
 \[z_t\equiv k_*-k_t\]</div>
 <p>式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>を整理すると次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kspeed">
-<span class="eqno">(39)<a class="headerlink" href="#equation-eq-8-kspeed" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(39)<a class="headerlink" href="#equation-eq-8-kspeed" title="Permalink to this equation">#</a></span>\[
 \frac{z_{t+1}-z_t}{z_t}=-\lambda
 \]</div>
 <p>左辺は<span class="math notranslate nohighlight">\(t\)</span>期と<span class="math notranslate nohighlight">\(t+1\)</span>期において定常状態までの「距離」が何％減少したかを示す<strong>資本ストックの収束速度</strong>である。このモデルの中での収束速度の決定要因は資本の所得比率<span class="math notranslate nohighlight">\(\alpha\)</span>，労働人口増加率<span class="math notranslate nohighlight">\(n\)</span>と資本の減耗率<span class="math notranslate nohighlight">\(d\)</span>ということである。</p>
@@ -861,12 +966,12 @@ k_*-k_{t+1}=(1-\lambda)(k_*-k_t)
 <p>労働人口増加率<span class="math notranslate nohighlight">\(n\)</span>と資本の減耗率<span class="math notranslate nohighlight">\(d\)</span>の上昇は収束速度を速くする。式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>から分かる様に，<span class="math notranslate nohighlight">\(n\)</span>もしくは<span class="math notranslate nohighlight">\(d\)</span>の上昇は定常状態を減少させる。即ち，ゴールはより近くになるということだ。</p>
 <p>これである程度キャッチアップのメカニズムが分かったと思うが，今までの議論で足りないものが２点あるので，それらについて簡単に言及する。第一に，ここで考えたソロー・モデルには技術進歩が抜けている（一定な<span class="math notranslate nohighlight">\(A\)</span>を仮定した）。この点を導入してこそソロー・モデルのフルバージョンであり，その場合の労働効率１単位当たり資本ストック（<span class="math notranslate nohighlight">\(K_t/(A_tL_t)\)</span>）の収束速度は次の式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-lambda-g">
-<span class="eqno">(40)<a class="headerlink" href="#equation-eq-8-lambda-g" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-8-lambda-g" title="Permalink to this equation">#</a></span>\[
 \lambda\equiv \frac{(1-a)(g+n+d+ng)}{(1+n)(1+g)}
 \]</div>
 <p>ここで<span class="math notranslate nohighlight">\(g\)</span>は技術進歩率である。ソロー・モデルでは4つの変数が収束速度の決定要因になるる。<span class="math notranslate nohighlight">\(g=0\)</span>の場合，式<a class="reference internal" href="#equation-eq-8-lambda">(36)</a>と同じになることが確認できる。第二に，式<a class="reference internal" href="#equation-eq-8-lambda">(36)</a>は資本ストックの収束速度であり一人当たりGDPの収束速度と異なるのではないかという疑問である。実は同じである。これはコブ・ダグラス生産関数<a class="reference internal" href="#equation-eq-8-production">(26)</a>を仮定しているからであり，対数の近似を使えば簡単に示すことができる。式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>を次のように書き直そう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-ks-rewrite">
-<span class="eqno">(41)<a class="headerlink" href="#equation-eq-8-ks-rewrite" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(41)<a class="headerlink" href="#equation-eq-8-ks-rewrite" title="Permalink to this equation">#</a></span>\[
 \frac{k_{t+1}}{k_*}-1=(1-\lambda)\left(\frac{k_t}{k_*}-1\right)
 \]</div>
 <p>ここで<span class="math notranslate nohighlight">\(\log(1+x-1)\approx x-1\)</span>の近似を使い左辺を次のように書き換える。</p>
@@ -879,13 +984,13 @@ k_*-k_{t+1}=(1-\lambda)(k_*-k_t)
 \]</div>
 <p>同様に<span class="math notranslate nohighlight">\(\dfrac{k_{t}}{k_*}-1\)</span>もこの形に書き換えることができる。後はこの関係を使うことにより，式<a class="reference internal" href="#equation-eq-8-ks-rewrite">(41)</a>を整理すると次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-y-difference-eq">
-<span class="eqno">(42)<a class="headerlink" href="#equation-eq-8-y-difference-eq" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(42)<a class="headerlink" href="#equation-eq-8-y-difference-eq" title="Permalink to this equation">#</a></span>\[
 y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 \]</div>
 <p>式<a class="reference internal" href="#equation-eq-8-approx-lastline">(38)</a>と同じ形になっているので所得の収束速度も式<a class="reference internal" href="#equation-eq-8-kspeed">(39)</a>と同じである。</p>
-</div>
-<div class="section" id="id8">
-<h3>線形近似による誤差<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>線形近似による誤差<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>次に関数<code class="docutils literal notranslate"><span class="pre">solow_model()</span></code>を修正して線形近似の誤差を確かめてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -962,12 +1067,12 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 </div>
 </div>
 <p>初期の資本ストック<span class="math notranslate nohighlight">\(k_0\)</span>は同じなので誤差はゼロであり，<span class="math notranslate nohighlight">\(t=1\)</span>から線形近似の誤差が現れることになる。誤差は単調ではない。<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 7</span></a>の図が示しているように，階段のような形で増加していくためであり，その階段お大きさや進み具合が異なるためである。線形近似の値は大き過ぎるため負の値になっているが、誤差は大きくても約0.02％であり、定常状態に近づくにつれて誤差はゼロに近づいている。もちろん，誤差の値は初期値が定常値から離れればそれだけ大きくなっていく。</p>
-</div>
-</div>
-<div class="section" id="id9">
-<h2>長期均衡の予測<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>説明<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id9">
+<h2>長期均衡の予測<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+<section id="id10">
+<h3>説明<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p>この節では長期均衡（定常状態）に焦点を当て，理論的な予測のデータとの整合性をチェックする。まず定常状態の特徴をまとめよう。式<a class="reference internal" href="#equation-eq-8-kss">(33)</a>と<a class="reference internal" href="#equation-eq-8-yss">(34)</a>を使いうと定常状態での一人当たり資本ストックとGDPは次式で与えれる。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -980,7 +1085,7 @@ y_*=Ak_*^a
 \]</div>
 <p>この２つをそれぞれ試すこともできるが，同時に捉えるために２つの式の比率を考える。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kyratio">
-<span class="eqno">(43)<a class="headerlink" href="#equation-eq-8-kyratio" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(43)<a class="headerlink" href="#equation-eq-8-kyratio" title="Permalink to this equation">#</a></span>\[
 \frac{k_*}{y_*}=\frac{s}{n+d}
 =\left.\frac{K_t/L_t}{Y_t/L_t}\right|_{\text{定常状態}}
 =\left.\frac{K_t}{Y_t}\right|_{\text{定常状態}}
@@ -1014,9 +1119,9 @@ y_*=Ak_*^a
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="sec-8-data">
-<span id="id11"></span><h3>データ<a class="headerlink" href="#sec-8-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="sec-8-data">
+<span id="id11"></span><h3>データ<a class="headerlink" href="#sec-8-data" title="Permalink to this headline">#</a></h3>
 <p>1960年以降のデータを<code class="docutils literal notranslate"><span class="pre">pwt</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1025,8 +1130,8 @@ y_*=Ak_*^a
 </div>
 </div>
 </div>
-<div class="section" id="id12">
-<h4>貯蓄率<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<section id="id12">
+<h4>貯蓄率<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h4>
 <p>1960年から2019年までの国別の貯蓄率の平均を計算するが必要がある。<a class="reference external" href="https://py4basics.github.io/3_Pandas.html#id33">ここで説明している</a><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うのが最も簡単な計算方法だろう。ここでは異なる方法として<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を紹介する。<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>はデータを整形する上で非常に便利なメソッドなので知って損はないだろう。</p>
 <p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
 <div class="cell tag_output_scroll docutils container">
@@ -1543,9 +1648,9 @@ y_*=Ak_*^a
 <p class="admonition-title">Tip</p>
 <p>上の計算では1960年以降に欠損値が一つでもあればその国は排除されたが，全ての年でデータが揃っている経済だけを扱いたい場合に便利に使える方法である。一方で，<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと欠損値があっても平均は計算されるので，単純に<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使うと1960年以降に欠損値がある経済も含まれることになる。それを避けるためには一捻り必要だが，それについては<a class="reference internal" href="9_Convergence.html#sec-9-saving"><span class="std std-ref">貯蓄率・資本減耗率・労働人口増加率の平均</span></a>が参考になるだろう。</p>
 </div>
-</div>
-<div class="section" id="id13">
-<h4>資本減耗率<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id13">
+<h4>資本減耗率<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">saving</span></code>と同じ方法で資本減耗率の平均からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1575,9 +1680,9 @@ y_*=Ak_*^a
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id14">
-<h4>労働人口成長率<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id14">
+<h4>労働人口成長率<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h4>
 <p>平均成長率を計算するには1960年と2019年の労働人口だけで計算できるが，上と同じ方法で計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1659,9 +1764,9 @@ y_*=Ak_*^a
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="gdp">
-<h4>資本ストック対GDP比<a class="headerlink" href="#gdp" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="gdp">
+<h4>資本ストック対GDP比<a class="headerlink" href="#gdp" title="Permalink to this headline">#</a></h4>
 <p>2019年の<code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>と<code class="docutils literal notranslate"><span class="pre">cn</span></code>を使って資本ストック対GDP比を含む<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1757,9 +1862,9 @@ y_*=Ak_*^a
 </div>
 </div>
 <p>180ヵ国含まれており，<code class="docutils literal notranslate"><span class="pre">saving</span></code>や<code class="docutils literal notranslate"><span class="pre">depreciation</span></code>の国数よりも多くの国が含まれている。</p>
-</div>
-<div class="section" id="id15">
-<h4>データの結合<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id15">
+<h4>データの結合<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h4>
 <p>上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合する必要があり，そのための<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の関数<code class="docutils literal notranslate"><span class="pre">.merge()</span></code>の使い方を説明する。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>と<code class="docutils literal notranslate"><span class="pre">df_right</span></code>の２つの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>があるとしよう。<code class="docutils literal notranslate"><span class="pre">df_left</span></code>を左の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>，<code class="docutils literal notranslate"><span class="pre">df_right</span></code>を右の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と呼ぶことにする。２つを結合する場合，次のコードとなる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_left</span><span class="p">,</span> <span class="n">df_right</span><span class="p">)</span> 
 </pre></div>
@@ -1930,10 +2035,10 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <p>180ヵ国が含まれるが<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある国も多いことが分かる。</p>
-</div>
-</div>
-<div class="section" id="id16">
-<h3>トレンド線と散布図<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id16">
+<h3>トレンド線と散布図<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
 <p>ここでは次の３つをおこなう。</p>
 <ul class="simple">
 <li><p>資本ストック対GDP比と次の３つの変数の散布図の表示</p>
@@ -2022,9 +2127,9 @@ memory usage: 9.8+ KB
 </div>
 <p>３つの図からソロー・モデルの理論的予測はデータと整合性があることが確認できる。ここで注意する点が一つある。式<a class="reference internal" href="#equation-eq-8-kyratio">(43)</a>は因果関係を予測している。例えば，貯蓄率が高くなることにより長期的な一人
 当たりGDPは増加する。一方，トレンド線は因果関係を示しているのではなく単なる相関関係を表している。ソロー・モデルの因果関係を計量経済学的に検討するにはさまざまな要因の検討が必要になり，本章の域を超える事になる。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2048,9 +2153,11 @@ memory usage: 9.8+ KB
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="7_DifferenceEq.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2066,24 +2173,28 @@ memory usage: 9.8+ KB
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 春山 鉄源  Tetsugen HARUYAMA<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      著者 春山 鉄源  Tetsugen HARUYAMA<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>実物的景気循環モデル &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,12 +20,8 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -32,17 +30,21 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -73,7 +75,21 @@ const thebe_selector_output = ".output, .cell_output"
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -82,9 +98,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -94,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
@@ -216,96 +233,182 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-   <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/15_RBC.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/15_RBC.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/15_RBC.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="発売 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
+            <div class="navbar_extra_footer">
+             <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/15_RBC.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/15_RBC.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/15_RBC.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    説明
@@ -547,12 +650,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>実物的景気循環モデル</h1>
@@ -561,7 +663,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <div id="jb-print-toc">
                         
                         <div>
-                            <h2> 目次 </h2>
+                            <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
@@ -810,11 +912,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1>実物的景気循環モデル<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>実物的景気循環モデル<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
@@ -825,17 +928,17 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>説明<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+<section id="id2">
+<h2>説明<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div name="html-admonition">
 Do you want to read in a differnt language? Start
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
 in English or the language of your choice.
 </div>
-</div>
-<p>実物的景気循環モデル（Real Business Cycles Model; RBCモデル）のモデルは動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。</p>
+</aside>
+<p>実物的景気循環モデル（Real Business Cycles Model; RBCモデル）は動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。</p>
 <ol class="simple">
 <li><p>全ての市場は完全競争である。</p></li>
 <li><p>毎期ごとに消費者は財の消費と労働供給量を内生的に決定する。</p></li>
@@ -862,11 +965,11 @@ in English or the language of your choice.
 </ol>
 <p>これらのメカニズムは別々に独立して動くのではなく，お互いに影響しあいマクロ変数に影響を与えることになる。もちろん，最初のショック発生後にショックが続かなければマクロ変数は定常状態に戻っていく。しかしTFPはAR(1)のプロセスに従ってショックが発生するため、ショックが発生する度に、上述のメカニズムが作動することになり、景気循環が発生することになる。</p>
 <p>これがRBCモデルの基本的な経済学的なメカニズムとなるが，マクロデータをどの程度説明できるのだろうか。この問を検討するのがこの章の目的である。</p>
-</div>
-<div class="section" id="id3">
-<h2>基本モデルの詳細<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>記号と基本的な仮定<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id3">
+<h2>基本モデルの詳細<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<section id="id4">
+<h3>記号と基本的な仮定<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>ここでは最も簡単なRBCモデルを考えるために，労働供給は一定と仮定する。後に，内生的な労働供給を導入することにする。</p>
 <p>記号：</p>
 <ul class="simple">
@@ -881,7 +984,7 @@ in English or the language of your choice.
 </ul>
 <p>生産関数にはコブ・ダグラス型を仮定しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-production">
-<span class="eqno">(80)<a class="headerlink" href="#equation-eq-15-production" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(80)<a class="headerlink" href="#equation-eq-15-production" title="Permalink to this equation">#</a></span>\[
 Y_t=A_tK_t^{\alpha}L^{1-\alpha}
 \]</div>
 <p>ここでTFPについて次の式を置く。</p>
@@ -893,22 +996,22 @@ v_t\sim\mathcal{N}(0,\sigma^2)
 \]</div>
 <p>所得恒等式は</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-identity">
-<span class="eqno">(81)<a class="headerlink" href="#equation-eq-15-identity" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(81)<a class="headerlink" href="#equation-eq-15-identity" title="Permalink to this equation">#</a></span>\[
 Y_t=C_t+I_t
 \]</div>
 <p>であり、資本ストックは</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-capital">
-<span class="eqno">(82)<a class="headerlink" href="#equation-eq-15-capital" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(82)<a class="headerlink" href="#equation-eq-15-capital" title="Permalink to this equation">#</a></span>\[
 K_{t+1}=I_t+(1-d)K_t
 \]</div>
 <p>に従って変化する。これらの式は基本的に確率的ソロー・モデルと同じであり、異なる点は、投資<span class="math notranslate nohighlight">\(I_t\)</span>と等しい貯蓄は消費者の最適行動を通して決定される点であり、次にそれについて説明する。</p>
-</div>
-<div class="section" id="id5">
-<h3>効用関数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id5">
+<h3>効用関数<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <p>RBCモデルでは効用を最大化する消費者の行動が重要な役割を果たすことになる。<span class="math notranslate nohighlight">\(L\)</span>人の消費者が存在すると仮定するが、全ての消費者は同質（「クローン人間?」）と仮定する。これにより「代表的個人」と呼ばれる1人の消費者の行動だけを考えれば全ての消費者の行動を捉えることが可能となる。</p>
 <p>１期間は四半期と考え、消費者が<span class="math notranslate nohighlight">\(t\)</span>期に得る効用は</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-utility">
-<span class="eqno">(83)<a class="headerlink" href="#equation-eq-15-utility" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(83)<a class="headerlink" href="#equation-eq-15-utility" title="Permalink to this equation">#</a></span>\[\begin{split}
 u_t=
 \begin{cases}
 &amp;\dfrac{C_t^{1-\theta}-1}{1-\theta}\quad\text{for }\theta&gt;0\text{ and }\theta\neq 1\\
@@ -921,14 +1024,14 @@ u_t=
 <p>また消費が<span class="math notranslate nohighlight">\(N\)</span>単位増加する場合の効用の変化は<span class="math notranslate nohighlight">\(\dfrac{N}{C_t^\theta}\)</span>となる。</p>
 <p>更に，消費者は無限期間生存すると仮定しよう。もちろん現実的ではないが，問題を簡単にするためである。初期時点（<span class="math notranslate nohighlight">\(t=0\)</span>）での消費者の生涯（無限期間）効用<span class="math notranslate nohighlight">\(U_0\)</span>を次式とおく。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-lifetimeu">
-<span class="eqno">(84)<a class="headerlink" href="#equation-eq-15-lifetimeu" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(84)<a class="headerlink" href="#equation-eq-15-lifetimeu" title="Permalink to this equation">#</a></span>\[
 U_0=u_0+\beta u_1+\beta^2 u_2+\beta^3 u_3+\cdots
 \]</div>
 <p>ここで<span class="math notranslate nohighlight">\(0&lt;\beta&lt;1\)</span>（例えば、0.99）は主観的割引因子と呼ばれるものであり、将来の効用の重要性（ウェイト）を捉えている。注意する点は，<span class="math notranslate nohighlight">\(\beta^t&gt;\beta^{t+1}\)</span>が必ず成立するため，消費者にとって将来の効用の重要性は減少するということである。将来も重要だが，将来よりも今の方が大事だという考えを捉えている。<span class="math notranslate nohighlight">\(\beta\)</span>の意味をもう少し説明するために<span class="math notranslate nohighlight">\(\beta=1\)</span>としてみよう。この場合、50年後や100年後の将来の効用は今の効用と等しく重要だという意味であり，そのような消費者は極端に我慢強いと言える。そういう意味で、高い<span class="math notranslate nohighlight">\(\beta\)</span>はより我慢強い選好を表している。</p>
 <p>無限期間生きる消費者の効用最大化問題は非常に難しいと思うかもしれない。実際，数学的に緻密な計算をするのは高度な数学が求められる。しかし，ミクロ経済学で学んだ単純な消費者の効用最大化問題を理解することができれば，簡単に理解できるものとなっている。そのために，まず２財の効用最大化問題を復習してみよう。</p>
-</div>
-<div class="section" id="id6">
-<h3>復習：２財の効用最大化問題<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3>復習：２財の効用最大化問題<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <p>消費者は２財<span class="math notranslate nohighlight">\(x_0\)</span>と<span class="math notranslate nohighlight">\(x_1\)</span>を消費し，効用関数は<span class="math notranslate nohighlight">\(u(x_0,x_1)\)</span>と仮定する（例えば，対数効用関数であれば<span class="math notranslate nohighlight">\(\log(x_0)+\log(x_1)\)</span>）。それぞれの価格は<span class="math notranslate nohighlight">\(p_0\)</span>と<span class="math notranslate nohighlight">\(p_1\)</span>とし，消費者の所得は<span class="math notranslate nohighlight">\(E\)</span>とすると，消費者の予算制約式は<span class="math notranslate nohighlight">\(E=p_0x_0+p_1x_1\)</span>である。典型的な２財の効用最大化問題である。問題を解くには次のラグランジュ方程式を最大化する一階条件を求めれば良い。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -943,7 +1046,7 @@ MU_1=\lambda p_1
 \]</div>
 <p>の２つの式で与えられる。<span class="math notranslate nohighlight">\(MU_0\)</span>は０財の限界効用であり，<span class="math notranslate nohighlight">\(MU_1\)</span>は１財の限界効用である（例えば，対数効用関数であれば<span class="math notranslate nohighlight">\(MU_0=\dfrac{1}{x_0}\)</span>，<span class="math notranslate nohighlight">\(MU_1=\dfrac{1}{x_1}\)</span>となる）。即ち，<span class="math notranslate nohighlight">\(MU_i\)</span>は<span class="math notranslate nohighlight">\(i\)</span>財，<span class="math notranslate nohighlight">\(i=0,1\)</span>, を一単位増やした場合の効用の増分である。この２つの一階条件を使うと次式のように書くことができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-foc">
-<span class="eqno">(85)<a class="headerlink" href="#equation-eq-15-foc" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(85)<a class="headerlink" href="#equation-eq-15-foc" title="Permalink to this equation">#</a></span>\[
 MU_0=MU_1\cdot\frac{p_0}{p_1}
 \]</div>
 <p>この式が効用を最大化するために満たされなければならない条件である。</p>
@@ -953,9 +1056,9 @@ MU_0=MU_1\cdot\frac{p_0}{p_1}
 <li><p>まず，交換によって１財が何単位増えるかを考えよう。０財を１単位「売る」と<span class="math notranslate nohighlight">\(p_0\)</span>円得ることになるが，１財を「買う」には<span class="math notranslate nohighlight">\(p_1\)</span>円支払うことになる。このことから，交換によって１財は<span class="math notranslate nohighlight">\(p_0/p1\)</span>単位増えることがわかる。更に，１財が１単位増えると，効用は<span class="math notranslate nohighlight">\(MU_1\)</span>増加するので，交換の限界便益は<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式の右辺<span class="math notranslate nohighlight">\(MU_1\cdot\frac{p_0}{p_1}\)</span>となる。</p></li>
 </ul>
 <p>限界費用と限界便益が等しくなる財の数量が効用を最大化するということを<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式は示している。<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式の<code class="docutils literal notranslate"><span class="pre">=</span></code>が<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>（もしくは<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>）であれば，０財を減らして（増やして）１財を増やした（減らした）方が効用が高くなることを意味する。この結果は，財の数が3であっても100であっても，その内の２財を比べた場合，必ず成立することになる。これさえ理解できれば，無限期間生きる消費者の問題を簡単に解くことができる。</p>
-</div>
-<div class="section" id="id7">
-<h3>オイラー条件<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id7">
+<h3>オイラー条件<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
 <p>生涯効用<a class="reference internal" href="#equation-eq-15-lifetimeu">(84)</a>を最大化する消費者の問題に戻ろう。生涯効用を最大化するために，毎期ごと消費量<span class="math notranslate nohighlight">\(C_t\)</span>を選び、残りの財を貯蓄に回すことができる。ここで重要な点は，貯蓄は今の自分と将来の自分との間での財の交換と考えることができる。この点を踏まえると，<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式を使うことができると気づくのではないだろうか。</p>
 <p>この行動を限界効用を使って考察するために、まず<span class="math notranslate nohighlight">\(t=0\)</span>期の消費を一単位減らし（即ち，貯蓄を一単位増やす）<span class="math notranslate nohighlight">\(t=1\)</span>期の消費を増やすと考えてみよう。<span class="math notranslate nohighlight">\(t=0\)</span>期に消費を１単位減らすと効用は<span class="math notranslate nohighlight">\(\dfrac{1}{C_0^\theta}\)</span>減少する。これが貯蓄の（効用で測った）限界費用であり，<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式の左辺の<span class="math notranslate nohighlight">\(MU_0\)</span>に該当する。一方、貯蓄により<span class="math notranslate nohighlight">\(t=1\)</span>期の消費は増加することになる。<span class="math notranslate nohighlight">\(t=0\)</span>期に１単位貯蓄すると次の期には財が<span class="math notranslate nohighlight">\((1+R_{t+1})\)</span>単位に増加することになる。ここで<span class="math notranslate nohighlight">\(R_{t+1}\)</span>は実質利子率であり，1は「元本」を表す。<span class="math notranslate nohighlight">\((1+R_{t+1})\)</span>が<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式の右辺の相対価格<span class="math notranslate nohighlight">\(p_0/p_1\)</span>に該当する。また<span class="math notranslate nohighlight">\(t=1\)</span>に財が一単位増えるごとに効用は<span class="math notranslate nohighlight">\(\dfrac{1}{C_1^\theta}\)</span>上昇することになる。これが<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式の右辺の<span class="math notranslate nohighlight">\(MU_1\)</span>に該当する。しかし、<span class="math notranslate nohighlight">\(t=1\)</span>期の効用は<span class="math notranslate nohighlight">\(t=0\)</span>期の効用よりウェイトが低く、消費者にとっての効用の増分は<span class="math notranslate nohighlight">\(\beta\dfrac{1+R_1}{C_1^\theta}\)</span>となり，これが貯蓄の（効用で測った）限界便益となる。限界費用と限界便益が等しくなる場合に財の最適な選択となる。即ち，次式が成立することになる。</p>
 <div class="math notranslate nohighlight">
@@ -965,7 +1068,7 @@ MU_0=MU_1\cdot\frac{p_0}{p_1}
 <p>左辺が貯蓄の限界費用であり、右辺が限界便益である。右辺に<span class="math notranslate nohighlight">\(\text{E}_0\)</span>を付け加えているが、これは<span class="math notranslate nohighlight">\(t=0\)</span>時点での将来に対する期待（ExpectationのE）を表している。将来の変数は未知の要素があるため期待値を考える必要があるためであり、将来の不確実性を捉えている。また，添字の<code class="docutils literal notranslate"><span class="pre">0</span></code>は<code class="docutils literal notranslate"><span class="pre">t=0</span></code>時点で形成された期待という意味である。</p>
 <p>ここで説明した行動は連続するどの２期間（<span class="math notranslate nohighlight">\(t\)</span>と<span class="math notranslate nohighlight">\(t+1\)</span>）でも成立することは直感的にも理解できだろう。即ち、次式が成立するのである。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-euler">
-<span class="eqno">(86)<a class="headerlink" href="#equation-eq-15-euler" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(86)<a class="headerlink" href="#equation-eq-15-euler" title="Permalink to this equation">#</a></span>\[
 \frac{1}{C_t^\theta}=\beta\cdot\text{E}_t
 \left\{
 \frac{1+R_{t+1}}{C_{t+1}^\theta}
@@ -973,25 +1076,25 @@ MU_0=MU_1\cdot\frac{p_0}{p_1}
 \]</div>
 <p>この式はオイラー条件と呼ばれるもので、消費者の動学的に最適な消費行動を捉えている。</p>
 <p><a class="reference internal" href="#equation-eq-15-euler">(86)</a>式は消費で表されているが、消費と貯蓄は表裏一体であるため、この式は最適な貯蓄行動も表している。従って、ソロー・モデルでは貯蓄率は外生的に与えられているが、<a class="reference internal" href="#equation-eq-15-euler">(86)</a>式を導入することにより、貯蓄率を内生化することが可能となる。RBCモデルでは<a class="reference internal" href="#equation-eq-15-euler">(86)</a>式が重要な役割を果たすことになる。</p>
-</div>
-<div class="section" id="id8">
-<h3>実質利子率<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>実質利子率<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>はどのように決定されるのかを考えよう。上で説明したように、毎期ごとに消費者は財を消費と貯蓄に分けるが、貯蓄方法として２つの選択肢があると仮定しよう。</p>
 <p>第一に、他の消費者への財の貸し付けであり、その場合の収益率が実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>である。貸し付けが負であれば，借りているという意味となる。</p>
 <p>第二に、消費者は資本を購入する形で貯蓄することもできる。この場合、所有する資本を企業にレンタルし、企業からレンタル料を受け取ることができる。レンタル料を<span class="math notranslate nohighlight">\(\tilde{R}_t\)</span>としよう。しかし、企業が資本を生産に使うと資本は減耗することになる。１単位の資本を企業にレンタルすると<span class="math notranslate nohighlight">\(d\)</span>％（一定）減耗すると仮定しよう。即ち，資本を購入する場合の収益率は<span class="math notranslate nohighlight">\(\tilde{R}_t-d\)</span>となる。均衡では，２つの選択肢の収益率は等しくなる（無差別になる）ため，</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-rt0">
-<span class="eqno">(87)<a class="headerlink" href="#equation-eq-15-rt0" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(87)<a class="headerlink" href="#equation-eq-15-rt0" title="Permalink to this equation">#</a></span>\[
 \tilde{R}_t-d=R_t
 \]</div>
 <p>が成立することになる。</p>
 <p>では，資本のレンタル料<span class="math notranslate nohighlight">\(\tilde{R}_t\)</span>はどのように決定されるのだろうか。ミクロ経済学で学んだ企業の行動を思い出そう。利潤を最大化するために，企業は資本の限界生産性がレンタル料と等しくなる水準の資本を使うことになる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-rt1">
-<span class="eqno">(88)<a class="headerlink" href="#equation-eq-15-rt1" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(88)<a class="headerlink" href="#equation-eq-15-rt1" title="Permalink to this equation">#</a></span>\[
 \text{資本の限界生産性}=\tilde{R}_t
 \]</div>
 <p>更に，生産関数<a class="reference internal" href="#equation-eq-15-production">(80)</a>の下では</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-mpk">
-<span class="eqno">(89)<a class="headerlink" href="#equation-eq-15-mpk" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(89)<a class="headerlink" href="#equation-eq-15-mpk" title="Permalink to this equation">#</a></span>\[
 \text{資本の限界生産性}
 =\alpha \frac{A_tK_t^{\alpha}L^{1-\alpha}}{K_t}
 =\alpha\frac{Y_t}{K_t}
@@ -1002,19 +1105,19 @@ MU_0=MU_1\cdot\frac{p_0}{p_1}
 R_t = \alpha\frac{Y_t}{K_t}-d
 \]</div>
 <p>となる。即ち，資本の限界生産性と資本減耗率によって実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>は決定されることになる。</p>
-</div>
-<div class="section" id="id9">
-<h3>実質賃金の決定<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id9">
+<h3>実質賃金の決定<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>実質利子率と同様に，実質賃金<span class="math notranslate nohighlight">\(W_t\)</span>は労働の限界生産性と等しくなる。即ち、</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-w">
-<span class="eqno">(90)<a class="headerlink" href="#equation-eq-15-w" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(90)<a class="headerlink" href="#equation-eq-15-w" title="Permalink to this equation">#</a></span>\[
 W_t
 =(1-\alpha) \frac{A_tK_t^{\alpha}L^{1-\alpha}}{L}
 =(1-\alpha)\frac{Y_t}{L}
 \]</div>
-</div>
-<div class="section" id="id10">
-<h3>均衡条件<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id10">
+<h3>均衡条件<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p>上の式から、次の条件を導出できる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1047,9 +1150,9 @@ A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id11">
-<h3>シミュレーション<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id11">
+<h3>シミュレーション<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h3>
 <p>次のステップで<code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>パッケージを使って実際に数値計算をおこなうことにする。</p>
 <ol class="simple">
 <li><p>モデルのパラメータを<code class="docutils literal notranslate"><span class="pre">Series</span></code>として保存する。</p></li>
@@ -1065,8 +1168,8 @@ A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
 <li><p>操作変数：<span class="math notranslate nohighlight">\(C_t\)</span>，<span class="math notranslate nohighlight">\(Y_t\)</span>，<span class="math notranslate nohighlight">\(I_t\)</span>，<span class="math notranslate nohighlight">\(W_t\)</span>，<span class="math notranslate nohighlight">\(R_t\)</span></p></li>
 <li><p>ショック変数：<span class="math notranslate nohighlight">\(v_t\)</span></p></li>
 </ul>
-<div class="section" id="id12">
-<h4>ステップ１：パラメータの値<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<section id="id12">
+<h4>ステップ１：パラメータの値<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">.36</span><span class="p">,</span>
@@ -1110,9 +1213,9 @@ dtype: float64
 <li><p><code class="docutils literal notranslate"><span class="pre">theta</span></code>：推定値の幅は広いため（例えば，0.2~10以上）ここでは1とする（色々な値を試して違いを確認してみよう）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">L</span></code>：約1/3の時間が労働に使われると仮定</p></li>
 </ul>
-</div>
-<div class="section" id="id13">
-<h4>ステップ２：変数リスト<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id13">
+<h4>ステップ２：変数リスト<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h4>
 <p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1130,9 +1233,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id14">
-<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id14">
+<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h4>
 <p>上の均衡式の左辺が0になるように書き直すと次のようになる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1184,9 +1287,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id15">
-<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id15">
+<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
@@ -1199,9 +1302,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id16">
-<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id16">
+<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -1228,9 +1331,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id17">
-<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id17">
+<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
@@ -1238,12 +1341,12 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="id18">
-<h3>インパルス反応<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id19">
-<h4>インパクト効果<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+<section id="id18">
+<h3>インパルス反応<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h3>
+<section id="id19">
+<h4>インパクト効果<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h4>
 <p>ステップ６で計算した対数線形近似式を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1282,9 +1385,9 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <li><p><code class="docutils literal notranslate"><span class="pre">i[1]=3.6466a[1]=3.6466%</span></code>であり，投資はは大きく変化する。</p></li>
 </ul>
 <p>インパクト以降の変化は図で確かめることにする。</p>
-</div>
-<div class="section" id="id20">
-<h4>インパルス反応の解釈<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id20">
+<h4>インパルス反応の解釈<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h4>
 <p>インパルス反応の計算にメソッド<code class="docutils literal notranslate"><span class="pre">impulse()</span></code>を使う。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1416,10 +1519,10 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <li><p>投資は貯蓄と常に等しいため，貯蓄の変化を考えれば良い。TFPと資本ストックの増加は産出量を増加させるが，消費の変化は大きくない。従って，貯蓄が大きく増えることになる。</p></li>
 <li><p>一方で，経済が定常状態へ戻る過程で産出量は減少することになり，それに伴い投資も定常値に戻っていくことになる。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id21">
-<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id21">
+<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h3>
 <p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1524,11 +1627,11 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <img alt="_images/15_RBC_68_1.png" src="_images/15_RBC_68_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id22">
-<h3>確率的シミュレーション<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id23">
-<h4>図示<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id22">
+<h3>確率的シミュレーション<a class="headerlink" href="#id22" title="Permalink to this headline">#</a></h3>
+<section id="id23">
+<h4>図示<a class="headerlink" href="#id23" title="Permalink to this headline">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">.stoch_sim()</span></code>を使って確率的シミュレーションをおこなう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1556,9 +1659,9 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <img alt="_images/15_RBC_74_0.png" src="_images/15_RBC_74_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id24">
-<h4>変動の大きさ<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id24">
+<h4>変動の大きさ<a class="headerlink" href="#id24" title="Permalink to this headline">#</a></h4>
 <p>図から次のことがわかる。</p>
 <ul class="simple">
 <li><p>投資の変動は他の変数の変動よりも大きい。</p></li>
@@ -1590,9 +1693,9 @@ i  3.49
 </pre></div>
 </div>
 <p>実際のデータと比べると、投資の変動は近いことがわかる。一方、消費の変動は小さ過ぎる。</p>
-</div>
-<div class="section" id="id25">
-<h4>自己相関<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id25">
+<h4>自己相関<a class="headerlink" href="#id25" title="Permalink to this headline">#</a></h4>
 <p>次に、persistenceを確認するために自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1617,9 +1720,9 @@ i  0.54
 </pre></div>
 </div>
 <p>シミュレーションでは<code class="docutils literal notranslate"><span class="pre">c</span></code>よりも<code class="docutils literal notranslate"><span class="pre">i</span></code>の自己相関係数が高いが，データではその逆となっている。</p>
-</div>
-<div class="section" id="gdp">
-<h4>GDPとの相関度<a class="headerlink" href="#gdp" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="gdp">
+<h4>GDPとの相関度<a class="headerlink" href="#gdp" title="Permalink to this headline">#</a></h4>
 <p>GDPとの相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1644,9 +1747,9 @@ i  0.97
 </pre></div>
 </div>
 <p>シミュレーションの消費の相関係数はデータよりも低い、方向性としては良いのではないだろうか。</p>
-</div>
-<div class="section" id="tfp">
-<h4>TFPと産出量<a class="headerlink" href="#tfp" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="tfp">
+<h4>TFPと産出量<a class="headerlink" href="#tfp" title="Permalink to this headline">#</a></h4>
 <p>RBCモデルにおける景気循環の理由はTFPの変動である。実際、上の図の<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>を比べると同じように動いていることが分かる。それを確認するためにズームインしてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1661,22 +1764,22 @@ i  0.97
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">a</span></code>には「ずれ」があるり、資本ストックの変動を反映している。しかし，このプロットが示しているのは，GDPの変動は殆どTFPの変動により発生しているということだ。</p>
 <p>この基本モデルでは，労働供給は一定と仮定しているため，労働供給の動きは全く存在しない。次のセクションでは，消費者の最適な労働供給を導入し，<code class="docutils literal notranslate"><span class="pre">a</span></code>の効果を増幅させるメカニズムとして機能することを明らかにする。</p>
-</div>
-</div>
-</div>
-<div class="section" id="id26">
-<h2>内生的労働供給の導入<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id27">
-<h3>消費者の最適化行動<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="id26">
+<h2>内生的労働供給の導入<a class="headerlink" href="#id26" title="Permalink to this headline">#</a></h2>
+<section id="id27">
+<h3>消費者の最適化行動<a class="headerlink" href="#id27" title="Permalink to this headline">#</a></h3>
 <p>基本モデルで仮定した効用関数は消費だけに依存しており、労働供給は一定と仮定した。ここではこの仮定を緩め、消費者は効用を最大化する労働供給を選択すると仮定する。</p>
 <p>四半期を想定しているが、その期間の総時間の合計を1に標準化しよう。その内、消費者は<span class="math notranslate nohighlight">\(Z_t\)</span>（％）を余暇に使い、<span class="math notranslate nohighlight">\(L_t\)</span>（％）を労働に使うと仮定すると次式が制約式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-constraint">
-<span class="eqno">(91)<a class="headerlink" href="#equation-eq-15-constraint" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(91)<a class="headerlink" href="#equation-eq-15-constraint" title="Permalink to this equation">#</a></span>\[
 1=Z_t+L_t
 \]</div>
 <p>更に、消費者は消費と余暇の両方から効用を得るとして、<span class="math notranslate nohighlight">\(t\)</span>期の効用は次式で与えられると仮定しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-utility-extended">
-<span class="eqno">(92)<a class="headerlink" href="#equation-eq-15-utility-extended" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(92)<a class="headerlink" href="#equation-eq-15-utility-extended" title="Permalink to this equation">#</a></span>\[\begin{split}
 u_t=
 \begin{cases}
 &amp;\dfrac{C_t^{1-\theta}-1}{1-\theta}+m\log(Z_t)
@@ -1689,7 +1792,7 @@ u_t=
 <p>毎期ごとに消費者は<a class="reference internal" href="#equation-eq-15-utility-extended">(92)</a>式の<span class="math notranslate nohighlight">\(u_t\)</span>を得ることになるが，消費者の生涯効用を最大化するということは、毎期ごとに<span class="math notranslate nohighlight">\(u_t\)</span>を最大化するということでもある。このように考えると、<a class="reference internal" href="#equation-eq-15-utility-extended">(92)</a>式を最大化する消費者の行動を考えれば良いわけで、これは典型的な２財の効用最大化問題と同じである（制約式は<a class="reference internal" href="#equation-eq-15-constraint">(91)</a>だけではなく他にもあるが、ここでは重要ではない）。この場合の利点は<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式を直接使うことができるという点である。<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式を使うために，次のように考えよう。</p>
 <p>消費者は働くことにより所得を得て消費することができる。言い換えると，消費<span class="math notranslate nohighlight">\(C_t\)</span>を１単位犠牲にすることにより，働く時間が減り，余暇<span class="math notranslate nohighlight">\(Z_t\)</span>を増やすことができるのである。このように考えると，余暇を増やす限界費用は消費の限界効用と等しいと考えることができる。この点を念頭に，消費と余暇の「交換」の限界費用と限界便益を<a class="reference internal" href="#equation-eq-15-foc">(85)</a>式に落とし込むと次のようになる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-foc-labour0">
-<span class="eqno">(93)<a class="headerlink" href="#equation-eq-15-foc-labour0" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(93)<a class="headerlink" href="#equation-eq-15-foc-labour0" title="Permalink to this equation">#</a></span>\[
 \text{消費の限界効用}
 =\text{余暇の限界効用}\times\frac{\text{消費財の価格}}{\text{余暇の価格}}
 \]</div>
@@ -1702,13 +1805,13 @@ u_t=
 </ul>
 <p>これらを使うと<a class="reference internal" href="#equation-eq-15-foc-labour0">(93)</a>式は次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-15-foc-labour">
-<span class="eqno">(94)<a class="headerlink" href="#equation-eq-15-foc-labour" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(94)<a class="headerlink" href="#equation-eq-15-foc-labour" title="Permalink to this equation">#</a></span>\[
 \frac{1}{C_t^\theta}=\frac{m}{1-L_t}\cdot\frac{1}{W_t}
 \]</div>
 <p>余暇の限界効用は制約式<a class="reference internal" href="#equation-eq-15-constraint">(91)</a>を使って<span class="math notranslate nohighlight">\(L_t\)</span>で表している。<a class="reference internal" href="#equation-eq-15-foc-labour">(94)</a>式が効用を最大化する労働供給を決める条件であり、全ての期（<span class="math notranslate nohighlight">\(t=0,1,2,3,\cdots\)</span>）で満たされる必要がある。</p>
-</div>
-<div class="section" id="id28">
-<h3>均衡条件<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id28">
+<h3>均衡条件<a class="headerlink" href="#id28" title="Permalink to this headline">#</a></h3>
 <p>上の式から、次の条件を導出できる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1743,11 +1846,11 @@ A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id29">
-<h3>シミュレーション<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id30">
-<h4>ステップ１：パラメータの値<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id29">
+<h3>シミュレーション<a class="headerlink" href="#id29" title="Permalink to this headline">#</a></h3>
+<section id="id30">
+<h4>ステップ１：パラメータの値<a class="headerlink" href="#id30" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
@@ -1790,9 +1893,9 @@ dtype: float64
 <li><p><code class="docutils literal notranslate"><span class="pre">sigma</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の残差の標準偏差</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：定常状態で約1/3の時間が労働に費やされるように設定</p></li>
 </ul>
-</div>
-<div class="section" id="id31">
-<h4>ステップ２：変数リスト<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id31">
+<h4>ステップ２：変数リスト<a class="headerlink" href="#id31" title="Permalink to this headline">#</a></h4>
 <p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1809,9 +1912,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id32">
-<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id32">
+<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id32" title="Permalink to this headline">#</a></h4>
 <p>均衡式の左辺を0にすると次のようになる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1867,9 +1970,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id33">
-<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id33">
+<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id33" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
@@ -1882,9 +1985,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id34">
-<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id34">
+<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id34" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
@@ -1912,9 +2015,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id35">
-<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id35">
+<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id35" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
@@ -1922,10 +2025,10 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="id36">
-<h3>インパクト効果<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id36">
+<h3>インパクト効果<a class="headerlink" href="#id36" title="Permalink to this headline">#</a></h3>
 <p>ステップ６で計算した対数線形近似式を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1968,9 +2071,9 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <li><p><code class="docutils literal notranslate"><span class="pre">l[1]</span></code>は<code class="docutils literal notranslate"><span class="pre">a[1]</span></code>と同じ程度に変化している。</p></li>
 </ul>
 <p>インパクト以降の変化は図で確かめることにする。</p>
-</div>
-<div class="section" id="id37">
-<h3>インパルス反応<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id37">
+<h3>インパルス反応<a class="headerlink" href="#id37" title="Permalink to this headline">#</a></h3>
 <p>インパルス反応のデータを作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2046,9 +2149,9 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </ol>
 </li>
 </ul>
-</div>
-<div class="section" id="id38">
-<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id38">
+<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id38" title="Permalink to this headline">#</a></h3>
 <p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2159,9 +2262,9 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <img alt="_images/15_RBC_133_1.png" src="_images/15_RBC_133_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id39">
-<h3>確率的シミュレーション<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id39">
+<h3>確率的シミュレーション<a class="headerlink" href="#id39" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov</span> <span class="o">=</span> <span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span>
@@ -2195,8 +2298,8 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <img alt="_images/15_RBC_137_0.png" src="_images/15_RBC_137_0.png" />
 </div>
 </div>
-<div class="section" id="id40">
-<h4>TFPと産出量<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<section id="id40">
+<h4>TFPと産出量<a class="headerlink" href="#id40" title="Permalink to this headline">#</a></h4>
 <p>インパルス反応分析からも分かるがTFPと産出量の変動には乖離が生じている。それを確かめるために、最初の50のデータを図示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2210,9 +2313,9 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </div>
 </div>
 <p>労働供給の異時点間代替が産出量の変動を増幅させている。</p>
-</div>
-<div class="section" id="id41">
-<h4>変動の大きさ<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id41">
+<h4>変動の大きさ<a class="headerlink" href="#id41" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
@@ -2244,9 +2347,9 @@ i	3.62	  3.49
 </pre></div>
 </div>
 <p>内生的労働供給モデルの投資の変動はデータに近くなったが、消費の変動はデータとの差が大きくなっている。</p>
-</div>
-<div class="section" id="id42">
-<h4>自己相関<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id42">
+<h4>自己相関<a class="headerlink" href="#id42" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;　内生的労働供給</span><span class="se">\t</span><span class="s1">基本モデル&#39;</span><span class="p">)</span>
@@ -2274,9 +2377,9 @@ i	0.51	0.54
 </pre></div>
 </div>
 <p>内生的労働供給の導入で数値が改善している訳ではない。</p>
-</div>
-<div class="section" id="id43">
-<h4>GDPとの相関度<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id43">
+<h4>GDPとの相関度<a class="headerlink" href="#id43" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;　内生的労働供給</span><span class="se">\t</span><span class="s1">基本モデル&#39;</span><span class="p">)</span>
@@ -2304,11 +2407,11 @@ i	0.98	0.97
 </pre></div>
 </div>
 <p>数値は殆ど変わらない。persistenceは<code class="docutils literal notranslate"><span class="pre">rho</span></code>の値に大きく依存するためである。</p>
-</div>
-</div>
-</div>
-<div class="section" id="rbc">
-<h2>RBCモデルの意義と限界<a class="headerlink" href="#rbc" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="rbc">
+<h2>RBCモデルの意義と限界<a class="headerlink" href="#rbc" title="Permalink to this headline">#</a></h2>
 <p>RBCモデルの意義はどこにあるのだろうか。RBCモデルは消費者と企業の最適化行動に基づいており、ルーカス批判を回避できる。またパラーメ
 ータの設定方法や数値計算方法などでもその後の研究に大きな影響を及ぼしている。これらはマクロ経済学において大きな前進であり、マクロ・モデルの主流であるDSGE（Dynamic Stochastic General Equilibrium）モデルに引き継がれ、マクロ経済学の礎となったと言える。</p>
 <p>しかしRBCモデルには様々な批判があり、ここでは特に次の２つについて言及する。</p>
@@ -2316,8 +2419,8 @@ i	0.98	0.97
 <li><p>全ての市場は完全競争であり、市場の失敗は発生しない。即ち、毎期毎期パレト最適な均衡が達成されており、景気循環は市場の失敗の結果ではなく、TFPのショックに対する市場の最適な反応である。更には、景気循環を軽減する様な政府の介入は社会厚生を減少させることになる。このように現実経済を描写できるかは非常に疑問である。</p></li>
 <li><p>価格は瞬時に調整されるため、古典派の二分法が成立している（名目変数と実質変数は分けて考えることが可能である）。更に、貨幣の中立性が成立しているため、中央銀行の金融政策は景気循環に何の影響も及ぼさない。RBCモデルの景気循環は純粋に実質変数の変動によって引き起こされており、それが実物的景気循環モデルと呼ばれる所以である。しかし、長期では古典派の二分法は成立しているかもしれないが、短期的にはそうではないというのが主流的な考えである。次章では、この点についてデータを使って考察することにする。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2341,9 +2444,11 @@ i	0.98	0.97
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="14_linearsolve.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2359,24 +2464,28 @@ i	0.98	0.97
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 春山 鉄源  Tetsugen HARUYAMA<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      著者 春山 鉄源  Tetsugen HARUYAMA<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

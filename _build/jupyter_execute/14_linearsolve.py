@@ -21,9 +21,9 @@ import pandas as pd
 # </div>
 # ```
 
-# 後に続く章ではRBCモデルとNew Keynsianモデル（Dynamic Stochastic General Equilibrium Model，略してDSGEモデルとも呼ばれる）を考えるが，消費者と企業の最適化問題を解き，動学方程式を導出する作業は高度な数学的な知識を要求するため，この授業の範囲を超えることになる。従って，それぞれのモデルの考えを説明した後，シミュレーションを使いデータとの整合性などを検討する。そのために`linearsove`というパッケージを使うが，この章の目的は`linearsolve`の使い方を説明することである。
+# 後に続く章では，実物的景気循環モデルとNew Keynsianモデル（Dynamic Stochastic General Equilibrium Model，略してDSGEモデルとも呼ばれる）を考える。それらのモデルでは，消費者は効用を最大化し，企業は利潤を最大化する。そのような最適化問題を解き，一般均衡での動学方程式を導出する作業は高度な数学的な知識を要求するため，このサイトの範囲を超えることになる。従って，それぞれのモデルの考えを説明した後，シミュレーションを使いデータとの整合性などを検討する。この章では，そのために使用する`linearsove`というパッケージの使い方を説明する。
 
-# RBCモデルやNew Keynsianモデルモデルの均衡式は複雑な非線形となっており，また将来の変数に対する期待が重要な役割を果たすため，そのままシミュレーションに使うことは難しい。従って，次の２つのステップを踏むことになる。
+# 実物的景気循環モデルやNew Keynsianモデルの均衡式は複雑な非線形となっており，また将来の変数に対する期待が重要な役割を果たす。従って，次の２つのステップを踏んでシミュレーションをおこなうことになる。
 # 1. 非確率的な定常状態の近傍で**線形近似**をおこない，それぞれの変数を定常状態からのパーセント乖離で表した均衡式に書き直してシミュレーションをおこなう。その際の定常状態からのパーセント乖離で表すことを**対数線形近似**と呼ぶ。（ちなみに，このサイトで扱うNew Keynsianモデルの内生変数は最初から％乖離で表されている。）
 # 1. 様々な均衡を計算する手法が提案されており，その１つに従ってモデルを「解く」。
 # 
@@ -31,7 +31,7 @@ import pandas as pd
 # `linearsolve`は[Klein (2000)](http://www.sciencedirect.com/science/article/pii/S0165188999000457)を採用している。その詳細については割愛するが，1の対数線形近似について簡単に説明する。
 
 # ````{note}
-# `linearsolve`を事前にインストールする必要があるが，次のコマンドでインストールすることができる。
+# `linearsolve`を使用するためには，事前にインストールする必要がある。MacのターミナルやWindowsのAnaconda Promptでは，次のコマンドでインストールすることができる。
 # ```
 # pip install linearsolve
 # ```
@@ -627,7 +627,8 @@ def equilibrium_equations(variables_forward, variables_current, parameters):
     
     production_function = cur['a']*cur['k']**p['alpha'] - cur['y']   #5
     
-    capital_change = p['s']*cur['a']*cur['k']**p['alpha'] +                      (1-p['d'])*cur['k'] - fwd['k']              #6
+    capital_change = p['s']*cur['a']*cur['k']**p['alpha'] + \
+                     (1-p['d'])*cur['k'] - fwd['k']              #6
     
     return np.array([tfp, production_function, capital_change])  #7
 
@@ -817,7 +818,8 @@ def equilibrium_equations(variables_forward, variables_current, parameters):
     
     production_function = cur['a']*cur['k']**p['alpha'] - cur['y']
     
-    capital_change = p['s']*cur['a']*cur['k']**p['alpha'] +                      (1-p['d'])*cur['k'] - fwd['k']
+    capital_change = p['s']*cur['a']*cur['k']**p['alpha'] + \
+                     (1-p['d'])*cur['k'] - fwd['k']
     
     return np.array([tfp, production_function, capital_change])
 

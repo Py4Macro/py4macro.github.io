@@ -635,7 +635,10 @@ emp_growth.head()
 # In[22]:
 
 
-ky_ratio = pwt.query('year == 2019')               .loc[:,['country','cgdpo','cn']]               .set_index('country')               .dropna()
+ky_ratio = pwt.query('year == 2019') \
+              .loc[:,['country','cgdpo','cn']] \
+              .set_index('country') \
+              .dropna()
 ky_ratio.head()
 
 

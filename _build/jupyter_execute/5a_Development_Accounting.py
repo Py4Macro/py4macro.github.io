@@ -510,7 +510,8 @@ pass
 # In[28]:
 
 
-df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) /                            ( us2019['avh']*us2019['hc'] ).to_numpy()
+df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) / \
+                           ( us2019['avh']*us2019['hc'] ).to_numpy()
 
 
 # 散布図で確認してみよう。
@@ -822,7 +823,10 @@ cond = df2019['country'].isin(country_table)
 col = ['country','gdp_pc_relative','tfp_relative','factors_relative']
 
 # 4
-table2019 = df2019.loc[cond,col].set_index('country')                   .sort_values('gdp_pc_relative', ascending=False)                   .round(2)                   .rename(columns={'gdp_pc_relative':'一人当たりGDP',
+table2019 = df2019.loc[cond,col].set_index('country') \
+                  .sort_values('gdp_pc_relative', ascending=False) \
+                  .round(2) \
+                  .rename(columns={'gdp_pc_relative':'一人当たりGDP',
                                    'tfp_relative':'全要素生産性',
                                    'factors_relative':'蓄積生産要素'})
 
