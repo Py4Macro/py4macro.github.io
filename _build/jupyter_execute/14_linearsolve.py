@@ -153,7 +153,7 @@ import pandas as pd
 # 
 # またシミュレーションのの中で**決定**される変数は全て「内生変数」と呼ぶ。
 # 
-# 以下では２つの例を使い具体的にシミュレーションのコードの使い方を説明をする。
+# 以下では２つの例を使い具体的にシミュレーションのコードの書き方を説明をする。
 
 # ## 全要素生産性（TFP）
 
@@ -167,7 +167,7 @@ import pandas as pd
 # ここで，底の$e$はネイピア数であり，指数の$u_{t+1}$はショック変数のホワイト・ノイズであり，正規分布に従うと仮定する。
 # 
 # $$
-# u_{t}\sim N(0,\sigma^2)
+# u_{t}\sim\mathcal{N}(0,\sigma^2)
 # $$
 # 
 # * ストック変数：$A_t$
@@ -416,6 +416,56 @@ pass
 
 # この図の`a`は`A_t`の定常状態からの％乖離を表していることを思い出そう。`t=0`から`t=4`の５期間はショックがない定常状態である。`t=5`に`2%`の正のショックが発生し，`t=6`以降のショックは`0`に戻っている。一方，`A`の％乖離である`a`はゆっくりと減少し`50`期間過ぎても`0.1%`以上定常状態から乖離している。例えば，一期間を１四半期と考えた場合，ショック項の影響は`45/4=11.25`年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。
 
+# #### コードを１つのセルにまとめる
+
+# 今までの説明では，それぞれのステップ毎にセル内でコードを書き実行した。しかし，一旦コードにエラーがないと確認できた後は，1つのセルにコードをまとめることを勧める。例えば，パラメーターの値を変えて様々なパターンの結果を確認したいとしよう。1つのセルにコードをまとめると１回のコードの実行で結果を表示できる便利さがある。
+
+# In[14]:
+
+
+# パラメーターの値
+parameters = pd.Series({'rho':0.9,
+                        'sigma':0.0078**2})
+
+# 変数のリスト
+var_names = ['a']
+shock_names = ['u']
+
+# 定常状態での均衡の関数
+def equilibrium_equations(variables_forward, variables_current, parameters):
+    fwd = variables_forward    
+    cur = variables_current
+    p = parameters
+
+    tfp = cur['a']**p['rho']/fwd['a']-1
+    
+    return np.array([tfp])
+
+# モデルの初期化
+tfp_model = ls.model(equations = equilibrium_equations,
+                     n_states=1,
+                     n_exo_states=1,
+                     var_names=var_names,
+                     shock_names=shock_names,
+                     parameters = parameters)
+
+# 定常状態の計算
+tfp_model.compute_ss([1.1])
+ss = tfp_model.ss
+print(f'定常値\n{ss.index[0]}: {ss[0]:.3f}\n')
+
+# 対数線形近似
+tfp_model.approximate_and_solve()
+print('対数線形近似\n', tfp_model.solved().split('\n\n')[1], sep='')
+
+# インパルス反応の計算
+tfp_model.impulse(T=50, t0=5, percent=True)
+
+# プロット
+tfp_model.irs['u'].plot(lw=3, alpha=0.5, grid=True)
+pass
+
+
 # #### 確率的シミュレーション
 
 # インパルス反応は，ある一期間のみにショック項が変化する場合の分析となる。一つのショックの時系列的な効果を検討する上では有用な手法である。一方で，実際経済ではショックが断続的もしくは連続的に発生していると考えることができる。そのような状況を捉えた**確率的シミュレーション**をおこなおうというのが，ここでの目的である。
@@ -432,7 +482,7 @@ pass
 #     * なし
 #     * 結果は`tfp_model`に`DataFrame`として追加され，属性`simulated`で抽出できる。
 
-# In[14]:
+# In[15]:
 
 
 tfp_model.stoch_sim(seed=12345, T=200,
@@ -442,7 +492,7 @@ tfp_model.stoch_sim(seed=12345, T=200,
 
 # 結果の一部を表示してみる。
 
-# In[15]:
+# In[16]:
 
 
 tfp_model.simulated.head()
@@ -450,7 +500,7 @@ tfp_model.simulated.head()
 
 # 図示してみよう。
 
-# In[16]:
+# In[17]:
 
 
 tfp_model.simulated.plot()
@@ -511,7 +561,7 @@ pass
 
 # ４つパラメータの値を入れた`Series`を変数`parameter`に割り当てる。
 
-# In[17]:
+# In[18]:
 
 
 parameters = pd.Series({'alpha':0.36,
@@ -533,7 +583,7 @@ parameters
 # 
 # また対数線形近似されることを念頭に小文字で変数名を設定することにする。
 
-# In[18]:
+# In[19]:
 
 
 var_names = ['a','k','y']
@@ -541,7 +591,7 @@ var_names = ['a','k','y']
 
 # 次に，外生的ショックを表す変数名のリストを作成する。複数ある場合は，`var_names`と同じ順番に並べる。この例では，`a`のみにショック項があるので次のようにする。
 
-# In[19]:
+# In[20]:
 
 
 shock_names = ['u']
@@ -562,7 +612,7 @@ shock_names = ['u']
 # * 返り値：
 #     * （非確率的）定常状態での内生変数の値を格納する`Numpy`の`array`
 
-# In[20]:
+# In[21]:
 
 
 def equilibrium_equations(variables_forward, variables_current, parameters):
@@ -640,7 +690,7 @@ def equilibrium_equations(variables_forward, variables_current, parameters):
 # * 戻り値：
 #     * `linearsolve`の`model`オブジェクトが返される。その中に様々な情報が含まれており，それを使いシミュレーションをおこなう。
 
-# In[21]:
+# In[22]:
 
 
 solow_model = ls.model(equations = equilibrium_equations,
@@ -655,7 +705,7 @@ solow_model = ls.model(equations = equilibrium_equations,
 
 # 最初に定常状態の値を確認しよう。`solow_model`のメソッド`compute_ss()`を使うと自動で計算してくれる。その際，引数に計算の初期値をリストとして与える。ステップ２で設定した`var_names`の順番に合わせて初期値を並べる。
 
-# In[22]:
+# In[23]:
 
 
 solow_model.compute_ss([1,5,2])
@@ -663,7 +713,7 @@ solow_model.compute_ss([1,5,2])
 
 # 上のコードを評価すると，`solow_model`には`.ss`という属性が追加され，それを使い計算結果を表示できる。
 
-# In[23]:
+# In[24]:
 
 
 solow_model.ss
@@ -673,13 +723,13 @@ solow_model.ss
 
 # 次にシミュレーションのための対数線形近似をおこなう。`solow_model`には`.approximate_and_solve()`というメソッドが用意されており，それを評価すると`solow_model`に対数線形近似の結果が追加される。
 
-# In[24]:
+# In[25]:
 
 
 solow_model.approximate_and_solve()
 
 
-# In[25]:
+# In[26]:
 
 
 print(solow_model.solved())
@@ -708,7 +758,7 @@ print(solow_model.solved())
 # * `t0`：何期目にショックが発生するかを指定
 # * `shocks`：ショックの大きさ（％）（デフォルトは0.01）
 
-# In[26]:
+# In[27]:
 
 
 solow_model.impulse(T=50, t0=5, percent=True)
@@ -720,7 +770,7 @@ solow_model.impulse(T=50, t0=5, percent=True)
 # 
 # 辞書は属性`.irs`でアクセスできるので，キー`u`を使い`DataFrame`を表示してみよう。
 
-# In[27]:
+# In[28]:
 
 
 solow_model.irs['u'].head(9)
@@ -730,7 +780,7 @@ solow_model.irs['u'].head(9)
 # 
 # プロットしてみよう。
 
-# In[28]:
+# In[29]:
 
 
 solow_model.irs['u'].plot(subplots=True, figsize=(6,8), grid=True)
@@ -738,6 +788,68 @@ pass
 
 
 # 産出と資本ストックの％乖離の変化は大きく異なる。動物で例えると，産出はカモシカのように動きが素早いが，資本ストックは象のように動きがスローである。前者はフロー変数であり，後者はストック変数であるためであり，それぞれの変数の特徴が反映されたプロットとなっている。
+
+# #### コードを１つのセルにまとめる
+
+# ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。
+
+# In[30]:
+
+
+# パラメーターの値
+parameters = pd.Series({'alpha':0.36,
+                        's':0.1,
+                        'd':0.07,
+                        'rho':0.551,
+                        'sigma':0.0078**2})
+
+# 変数のリスト
+var_names = ['a','k','y']
+shock_names = ['u']
+
+# 定常状態での均衡の関数
+def equilibrium_equations(variables_forward, variables_current, parameters):    
+    fwd = variables_forward
+    cur = variables_current
+    p = parameters
+    
+    tfp = p['rho']*np.log(cur['a'])-np.log(fwd['a'])
+    
+    production_function = cur['a']*cur['k']**p['alpha'] - cur['y']
+    
+    capital_change = p['s']*cur['a']*cur['k']**p['alpha'] +                      (1-p['d'])*cur['k'] - fwd['k']
+    
+    return np.array([tfp, production_function, capital_change])
+
+# モデルの初期化
+solow_model = ls.model(equations = equilibrium_equations,
+                       n_states=2,
+                       n_exo_states=1,
+                       var_names=var_names,
+                       shock_names=shock_names,
+                       parameters = parameters)
+
+# 定常状態の計算
+solow_model.compute_ss([1,5,2])
+print('定常値')
+for i in range(len(solow_model.ss)):
+    print(f'{solow_model.ss.index[i]}: {solow_model.ss[i]:.3f}')
+print('')
+
+# 対数線形近似
+solow_model.approximate_and_solve()
+print('対数線形近似')
+for s in solow_model.solved().split('\n\n')[1:]:
+    print(s, sep='')
+
+# インパルス反応の計算
+solow_model.impulse(T=50, t0=5, percent=True)
+
+# プロット
+solow_model.irs['u'].plot(subplots=True, layout=[2,2],
+                          figsize=(10,5), grid=True)
+pass
+
 
 # #### 確率的シミュレーション
 
@@ -753,7 +865,7 @@ pass
 
 # ショック項`u`の分散の値は0.0078であり，これは日本のTFPを推定した際の残差の分散である。この値を使ってシミュレーションをおこなおう。
 
-# In[29]:
+# In[31]:
 
 
 solow_model.stoch_sim(seed=12345, T=200,
@@ -763,7 +875,7 @@ solow_model.stoch_sim(seed=12345, T=200,
 
 # 結果の一部を表示してみる。
 
-# In[30]:
+# In[32]:
 
 
 solow_model.simulated.head()
@@ -775,15 +887,15 @@ solow_model.simulated.head()
 
 # `DataFrame`を図示してみよう。
 
-# In[31]:
+# In[33]:
 
 
-_ax = solow_model.simulated[['a','u']].plot(subplots=True,
-                                           layout=(1,2),
-                                           grid=True,
-                                           figsize=(12,4),
-                                           color='k')
-solow_model.simulated[['k','y']].plot(grid=True, ax=_ax[0,0])
+ax_ = solow_model.simulated[['a','u']].plot(subplots=True,
+                                            layout=(1,2),
+                                            grid=True,
+                                            figsize=(12,4),
+                                            color='k')
+solow_model.simulated[['k','y']].plot(grid=True, ax=ax_[0,0])
 pass
 
 
@@ -793,7 +905,7 @@ pass
 # 
 # 変動の大きさを確認するために標準偏差を計算してみよう。
 
-# In[32]:
+# In[34]:
 
 
 solow_model.simulated[['y','k','a']].std()
@@ -801,7 +913,7 @@ solow_model.simulated[['y','k','a']].std()
 
 # `a`と`y`の値はは殆ど同じである。一方，`k`の標準偏差は小さく，`a`と`y`の半分以下である。この特徴は相関係数からも確認できる。
 
-# In[33]:
+# In[35]:
 
 
 solow_model.simulated[['y','k','a']].corr()
@@ -811,7 +923,7 @@ solow_model.simulated[['y','k','a']].corr()
 # 
 # 次にpersistenceを考えてみよう。`k`の変動幅は小さいががpersistenceが大きいことが図から確認できる。実際に自己相関係数で確認してみよう。
 
-# In[34]:
+# In[36]:
 
 
 var_list = ['y','k','a']

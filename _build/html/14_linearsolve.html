@@ -390,15 +390,15 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id15">
+       コードを１つのセルにまとめる
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id16">
        確率的シミュレーション
       </a>
      </li>
     </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
-     コメント
-    </a>
    </li>
   </ul>
  </li>
@@ -454,6 +454,11 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id27">
+       コードを１つのセルにまとめる
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id28">
        確率的シミュレーション
       </a>
      </li>
@@ -565,15 +570,15 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id15">
+       コードを１つのセルにまとめる
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id16">
        確率的シミュレーション
       </a>
      </li>
     </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
-     コメント
-    </a>
    </li>
   </ul>
  </li>
@@ -629,6 +634,11 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id27">
+       コードを１つのセルにまとめる
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id28">
        確率的シミュレーション
       </a>
      </li>
@@ -803,7 +813,7 @@ y_t&amp;=\alpha k_t+a_t
 </li>
 </ul>
 <p>またシミュレーションのの中で<strong>決定</strong>される変数は全て「内生変数」と呼ぶ。</p>
-<p>以下では２つの例を使い具体的にシミュレーションのコードの使い方を説明をする。</p>
+<p>以下では２つの例を使い具体的にシミュレーションのコードの書き方を説明をする。</p>
 </div>
 <div class="section" id="tfp">
 <h2>全要素生産性（TFP）<a class="headerlink" href="#tfp" title="Permalink to this headline">¶</a></h2>
@@ -816,7 +826,7 @@ A_{t+1}=A_t^{\rho}e^{u_{t+1}},
 <p>ここで，底の<span class="math notranslate nohighlight">\(e\)</span>はネイピア数であり，指数の<span class="math notranslate nohighlight">\(u_{t+1}\)</span>はショック変数のホワイト・ノイズであり，正規分布に従うと仮定する。</p>
 <div class="math notranslate nohighlight">
 \[
-u_{t}\sim N(0,\sigma^2)
+u_{t}\sim\mathcal{N}(0,\sigma^2)
 \]</div>
 <ul class="simple">
 <li><p>ストック変数：<span class="math notranslate nohighlight">\(A_t\)</span></p></li>
@@ -1195,7 +1205,68 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <p>この図の<code class="docutils literal notranslate"><span class="pre">a</span></code>は<code class="docutils literal notranslate"><span class="pre">A_t</span></code>の定常状態からの％乖離を表していることを思い出そう。<code class="docutils literal notranslate"><span class="pre">t=0</span></code>から<code class="docutils literal notranslate"><span class="pre">t=4</span></code>の５期間はショックがない定常状態である。<code class="docutils literal notranslate"><span class="pre">t=5</span></code>に<code class="docutils literal notranslate"><span class="pre">2%</span></code>の正のショックが発生し，<code class="docutils literal notranslate"><span class="pre">t=6</span></code>以降のショックは<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。一方，<code class="docutils literal notranslate"><span class="pre">A</span></code>の％乖離である<code class="docutils literal notranslate"><span class="pre">a</span></code>はゆっくりと減少し<code class="docutils literal notranslate"><span class="pre">50</span></code>期間過ぎても<code class="docutils literal notranslate"><span class="pre">0.1%</span></code>以上定常状態から乖離している。例えば，一期間を１四半期と考えた場合，ショック項の影響は<code class="docutils literal notranslate"><span class="pre">45/4=11.25</span></code>年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。</p>
 </div>
 <div class="section" id="id15">
-<h4>確率的シミュレーション<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<h4>コードを１つのセルにまとめる<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p>今までの説明では，それぞれのステップ毎にセル内でコードを書き実行した。しかし，一旦コードにエラーがないと確認できた後は，1つのセルにコードをまとめることを勧める。例えば，パラメーターの値を変えて様々なパターンの結果を確認したいとしよう。1つのセルにコードをまとめると１回のコードの実行で結果を表示できる便利さがある。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.9</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
+
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
+
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>    
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">])</span>
+
+<span class="c1"># モデルの初期化</span>
+<span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                     <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># 定常状態の計算</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">ss</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常値</span><span class="se">\n</span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 対数線形近似</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+
+対数線形近似
+a[t+1] = 0.9·a[t]+u[t+1]
+</pre></div>
+</div>
+<img alt="_images/14_linearsolve_59_1.png" src="_images/14_linearsolve_59_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h4>確率的シミュレーション<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <p>インパルス反応は，ある一期間のみにショック項が変化する場合の分析となる。一つのショックの時系列的な効果を検討する上では有用な手法である。一方で，実際経済ではショックが断続的もしくは連続的に発生していると考えることができる。そのような状況を捉えた<strong>確率的シミュレーション</strong>をおこなおうというのが，ここでの目的である。</p>
 <p><code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>には，そのためのメソッド<code class="docutils literal notranslate"><span class="pre">.stoch_sim()</span></code>が実装されている。</p>
 <ul>
@@ -1296,31 +1367,11 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/14_linearsolve_63_0.png" src="_images/14_linearsolve_63_0.png" />
+<img alt="_images/14_linearsolve_66_0.png" src="_images/14_linearsolve_66_0.png" />
 </div>
 </div>
 <p>ショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>は細かく上下している一方，<code class="docutils literal notranslate"><span class="pre">a</span></code>は持続的に上昇もしくは減少し定常値<code class="docutils literal notranslate"><span class="pre">0</span></code>から乖離することがわかる。景気循環におけるマクロ変数の動きと似ていいる様に見えないだろうか。</p>
 </div>
-</div>
-<div class="section" id="id16">
-<h3>コメント<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
-<p>式<a class="reference internal" href="#equation-eq-14-tfp">(76)</a>の両辺に対数をとると次式となる。</p>
-<div class="math notranslate nohighlight">
-\[
-\log(A_{t+1}) = \log(A_t) + u_{t+1}
-\]</div>
-<p>この式に基づいて次のようにしても結果は同じである</p>
-<ul>
-<li><p>ステップ３の(4)を次のコードと入れ替える。</p>
-<p><code class="docutils literal notranslate"><span class="pre">tfp</span> <span class="pre">=</span> <span class="pre">p['rho']*np.log(cur['a'])-np.log(fwd['a'])</span></code></p>
-</li>
-<li><p>ステップ６を</p>
-<p><code class="docutils literal notranslate"><span class="pre">tfp_model.approximate_and_solve(log_linear=False)</span></code></p>
-<p>もしくは</p>
-<p><code class="docutils literal notranslate"><span class="pre">tfp_model.approximate_and_solve()</span></code></p>
-<p>にする。ここで<code class="docutils literal notranslate"><span class="pre">log_linear</span></code>は対数線形近似をおこなうかどうかを設定する引数であり，デフォルトは<code class="docutils literal notranslate"><span class="pre">True</span></code>。<code class="docutils literal notranslate"><span class="pre">False</span></code>の場合は線形近似となる。</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="section" id="id17">
@@ -1727,13 +1778,91 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/14_linearsolve_104_0.png" src="_images/14_linearsolve_104_0.png" />
+<img alt="_images/14_linearsolve_107_0.png" src="_images/14_linearsolve_107_0.png" />
 </div>
 </div>
 <p>産出と資本ストックの％乖離の変化は大きく異なる。動物で例えると，産出はカモシカのように動きが素早いが，資本ストックは象のように動きがスローである。前者はフロー変数であり，後者はストック変数であるためであり，それぞれの変数の特徴が反映されたプロットとなっている。</p>
 </div>
 <div class="section" id="id27">
-<h4>確率的シミュレーション<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<h4>コードを１つのセルにまとめる<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
+                        <span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.07</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
+
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
+
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>    
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+    
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+    
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">,</span> <span class="n">production_function</span><span class="p">,</span> <span class="n">capital_change</span><span class="p">])</span>
+
+<span class="c1"># モデルの初期化</span>
+<span class="n">solow_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                       <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                       <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                       <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                       <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># 定常状態の計算</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 対数線形近似</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                          <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+k: 1.746
+y: 1.222
+
+対数線形近似
+a[t+1] = 0.551·a[t]+u[t+1]
+k[t+1] = 0.07·a[t]+0.9552·k[t]
+  y[t] = a[t]+0.36·k[t]
+</pre></div>
+</div>
+<img alt="_images/14_linearsolve_111_1.png" src="_images/14_linearsolve_111_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id28">
+<h4>確率的シミュレーション<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
 <p>次にメソッド<code class="docutils literal notranslate"><span class="pre">.stoch_sim()</span></code>を使って確率的シミュレーションをおこなってみよう。</p>
 <ul>
 <li><p>主な引数：</p>
@@ -1842,18 +1971,18 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_ax</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                           <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-                                           <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
-                                           <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">_ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                            <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+                                            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/14_linearsolve_114_0.png" src="_images/14_linearsolve_114_0.png" />
+<img alt="_images/14_linearsolve_120_0.png" src="_images/14_linearsolve_120_0.png" />
 </div>
 </div>
 <p>この図の特徴：</p>

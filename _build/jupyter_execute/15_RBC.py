@@ -330,12 +330,12 @@ shock_names = ['v']
 
 
 def equilibrium_equations(variables_forward, variables_current, parameters):
-
-    p = parameters
-
-    cur = variables_current
-
+    
     fwd = variables_forward
+    
+    cur = variables_current
+    
+    p = parameters
 
     # 均衡条件
     euler = p['beta']*( 1+fwd['r'])/fwd['c']**p['theta'] - 1/cur['c']**p['theta']
@@ -516,13 +516,97 @@ print(rbc0[-1])
 # * 投資は貯蓄と常に等しいため，貯蓄の変化を考えれば良い。TFPと資本ストックの増加は産出量を増加させるが，消費の変化は大きくない。従って，貯蓄が大きく増えることになる。
 # * 一方で，経済が定常状態へ戻る過程で産出量は減少することになり，それに伴い投資も定常値に戻っていくことになる。
 
+# ### コードを１つのセルにまとめる
+
+# ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。
+
+# In[18]:
+
+
+# パラメーターの値
+parameters = pd.Series({'alpha':.36,
+                        'beta':0.99,
+                        'd':0.025,
+                        'rho':0.551,
+                        'sigma':0.0078**2,
+                        'theta':1.0,
+                        'L':0.33})
+
+# 変数のリスト
+var_names = ['a','k','y','w','r','c','i']
+shock_names = ['v']
+
+# 定常状態での均衡の関数
+def equilibrium_equations(variables_forward, variables_current, parameters):
+    fwd = variables_forward
+    cur = variables_current
+    p = parameters
+
+    # 均衡条件
+    euler = p['beta']*( 1+fwd['r'])/fwd['c']**p['theta'] - 1/cur['c']**p['theta']
+    
+    capital_change = cur['i'] + (1-p['d'])*cur['k'] - fwd['k']
+    
+    production_function = cur['a']*cur['k']**p['alpha']*p['L']**(1-p['alpha']) - cur['y']
+    
+    income_id = cur['c']+cur['i']-cur['y']
+    
+    wage = (1-p['alpha'])*cur['y']/p['L'] - cur['w']    
+    
+    interest_rate = p['alpha']*cur['y']/cur['k']-p['d']-cur['r']
+    
+    tfp = cur['a']**p['rho']-fwd['a']
+    
+    return np.array([euler,
+                     capital_change,
+                     production_function,
+                     income_id,
+                     wage,
+                     interest_rate,
+                     tfp])
+
+# モデルの初期化
+rbc_basic_model = ls.model(equations = equilibrium_equations,
+                           n_states=2,
+                           n_exo_states = 1,
+                           var_names=var_names,
+                           shock_names=shock_names,
+                           parameters = parameters)
+
+# 定常状態の計算
+rbc_basic_model.compute_ss([1,5,2,1,1,1,1])
+print('定常値')
+for i in range(len(rbc_basic_model.ss)):
+    print(f'{rbc_basic_model.ss.index[i]}: {rbc_basic_model.ss[i]:.3f}')
+print('')
+
+# 対数線形近似
+rbc_basic_model.approximate_and_solve()
+print('対数線形近似')
+for s in rbc_basic_model.solved().split('\n\n')[1:]:
+    print(s, sep='')
+
+# インパルス反応の計算
+rbc_basic_model.impulse(T=50, t0=5, percent=True)
+
+# プロット
+ax_ = rbc_basic_model.irs['v'].plot(subplots=True,
+                                    layout=(4,2),
+                                    lw=3,
+                                    figsize=(12,6),
+                                    sharey=True,
+                                    grid=True)
+ax_[0,0].get_figure().suptitle('定常値からの％乖離',fontsize=20)
+pass
+
+
 # ### 確率的シミュレーション
 
 # #### 図示
 
 # `.stoch_sim()`を使って確率的シミュレーションをおこなう。
 
-# In[18]:
+# In[19]:
 
 
 rbc_basic_model.stoch_sim(seed=123, T=200,
@@ -532,7 +616,7 @@ rbc_basic_model.stoch_sim(seed=123, T=200,
 
 # 結果を図示しよう。
 
-# In[19]:
+# In[20]:
 
 
 ax_ = rbc_basic_model.simulated[['v','a','y','c','i','k']].plot(subplots=True,
@@ -552,7 +636,7 @@ pass
 # 
 # 標準偏差を計算して数値で確かめてみよう。
 
-# In[20]:
+# In[21]:
 
 
 var_list = ['y','c','i']
@@ -576,7 +660,7 @@ for v in var_list:
 
 # 次に、persistenceを確認するために自己相関係数を計算してみよう。
 
-# In[21]:
+# In[22]:
 
 
 for v in var_list:
@@ -597,7 +681,7 @@ for v in var_list:
 
 # GDPとの相関係数を計算してみる。
 
-# In[22]:
+# In[23]:
 
 
 for v in var_list:
@@ -618,7 +702,7 @@ for v in var_list:
 
 # RBCモデルにおける景気循環の理由はTFPの変動である。実際、上の図の`a`と`y`を比べると同じように動いていることが分かる。それを確認するためにズームインしてみる。
 
-# In[23]:
+# In[24]:
 
 
 rbc_basic_model.simulated.loc[:50,['a','y']].plot(color=('k','red'), grid=True)
@@ -712,7 +796,7 @@ pass
 
 # #### ステップ１：パラメータの値
 
-# In[24]:
+# In[25]:
 
 
 parameters = pd.Series({'alpha':0.36,
@@ -738,7 +822,7 @@ parameters
 
 # 内生変数のリストを作成する。状態変数を先に書き出す。
 
-# In[25]:
+# In[26]:
 
 
 var_names = ['a','k','y','w','r','c','i','l']
@@ -746,7 +830,7 @@ var_names = ['a','k','y','w','r','c','i','l']
 
 # ショック変数をリストとして書き出す。
 
-# In[26]:
+# In[27]:
 
 
 shock_names = ['v']
@@ -771,16 +855,16 @@ shock_names = ['v']
 
 # これを次の関数に書き込む。
 
-# In[27]:
+# In[28]:
 
 
 def equilibrium_equations(variables_forward, variables_current, parameters):
-
-    p = parameters
-
-    cur = variables_current
-
+    
     fwd = variables_forward
+    
+    cur = variables_current
+    
+    p = parameters
 
     # 均衡条件
     euler = p['beta']*( 1+fwd['r'])/fwd['c'] - 1/cur['c']
@@ -812,7 +896,7 @@ def equilibrium_equations(variables_forward, variables_current, parameters):
 
 # #### ステップ４：モデルの最終準備（初期化）
 
-# In[28]:
+# In[29]:
 
 
 rbc_model = ls.model(equations = equilibrium_equations,
@@ -825,13 +909,13 @@ rbc_model = ls.model(equations = equilibrium_equations,
 
 # #### ステップ５：定常状態の計算
 
-# In[29]:
+# In[30]:
 
 
 rbc_model.compute_ss([1, 10, 1, 2, 0.1, 1, 1, 0.5])
 
 
-# In[30]:
+# In[31]:
 
 
 rbc_model.ss
@@ -839,7 +923,7 @@ rbc_model.ss
 
 # #### ステップ６：モデルを対数線形近似
 
-# In[31]:
+# In[32]:
 
 
 rbc_model.approximate_and_solve()
@@ -849,7 +933,7 @@ rbc_model.approximate_and_solve()
 
 # ステップ６で計算した対数線形近似式を表示する。
 
-# In[32]:
+# In[33]:
 
 
 print(rbc_model.solved())
@@ -872,7 +956,7 @@ print(rbc_model.solved())
 
 # インパルス反応のデータを作成する。
 
-# In[33]:
+# In[34]:
 
 
 rbc_model.impulse(T=50, t0=5, percent=True)
@@ -880,7 +964,7 @@ rbc_model.impulse(T=50, t0=5, percent=True)
 
 # 図示。
 
-# In[34]:
+# In[35]:
 
 
 ax_ = rbc_model.irs['v'].plot(subplots=True,
@@ -895,7 +979,7 @@ pass
 
 # **＜シミュレーションの結果＞**
 
-# In[35]:
+# In[36]:
 
 
 print(rbc_model.solved().split('\n\n')[-1])
@@ -925,16 +1009,104 @@ print(rbc_model.solved().split('\n\n')[-1])
 #     1. 労働供給の減少（`l`が負になる）。
 #     1. 資本の蓄積
 
+# ### コードを１つのセルにまとめる
+
+# ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。
+
+# In[37]:
+
+
+# パラメーターの値
+parameters = pd.Series({'alpha':0.36,
+                        'beta':0.99,
+                        'd':0.025,
+                        'rho':0.551,
+                        'sigma':0.0078**2,
+                        'theta':1.0,
+                        'm':1.73})
+
+# 変数のリスト
+var_names = ['a','k','y','w','r','c','i','l']
+shock_names = ['v']
+
+# 定常状態での均衡の関数
+def equilibrium_equations(variables_forward, variables_current, parameters):
+    fwd = variables_forward
+    cur = variables_current
+    p = parameters
+
+    # 均衡条件
+    euler = p['beta']*( 1+fwd['r'])/fwd['c'] - 1/cur['c']
+    
+    labour_supply = p['m']/( (1-cur['l'])*cur['w'] ) - 1/cur['c']
+
+    capital_change = cur['i'] + (1-p['d'])*cur['k'] - fwd['k']
+    
+    production_function = cur['a']*cur['k']**p['alpha']*cur['l']**(1-p['alpha']) - cur['y']   # (5)    
+    
+    income_id = cur['c']+cur['i']-cur['y']
+    
+    wage = (1-p['alpha'])*cur['y']/cur['l'] - cur['w']
+    
+    interest_rate = p['alpha']*cur['y']/cur['k']-p['d']-cur['r']
+    
+    tfp = cur['a']**p['rho']-fwd['a']
+    
+    # 返り値
+    return np.array([euler,
+                     labour_supply,
+                     capital_change,
+                     production_function,
+                     income_id,
+                     wage,
+                     interest_rate,
+                     tfp])
+
+# モデルの初期化
+rbc_model = ls.model(equations = equilibrium_equations,
+                     n_states=2,
+                     n_exo_states=1,
+                     var_names=var_names,
+                     shock_names=shock_names,
+                     parameters = parameters)
+
+# 定常状態の計算
+rbc_model.compute_ss([1, 10, 1, 2, 0.1, 1, 1, 0.5])
+print('定常値')
+for i in range(len(rbc_model.ss)):
+    print(f'{rbc_model.ss.index[i]}: {rbc_model.ss[i]:.3f}')
+print('')
+
+# 対数線形近似
+rbc_model.approximate_and_solve()
+print('対数線形近似')
+for s in rbc_model.solved().split('\n\n')[1:]:
+    print(s, sep='')
+
+# インパルス反応の計算
+rbc_model.impulse(T=50, t0=5, percent=True)
+
+# プロット
+ax_ = rbc_model.irs['v'].plot(subplots=True,
+                              layout=(3,3),
+                              lw=3,
+                              figsize=(12,7),
+                              sharey=True,
+                              grid=True)
+ax_[0,0].get_figure().suptitle('定常値からの％乖離',fontsize=20)
+pass
+
+
 # ### 確率的シミュレーション
 
-# In[36]:
+# In[38]:
 
 
 cov = [[parameters['sigma'],0],
        [0,                  0]]
 
 
-# In[37]:
+# In[39]:
 
 
 rbc_model.stoch_sim(seed=12345, T=200,
@@ -942,7 +1114,7 @@ rbc_model.stoch_sim(seed=12345, T=200,
                     percent=True)
 
 
-# In[38]:
+# In[40]:
 
 
 ax_ = rbc_model.simulated[['a','y','c','i','k','l']].plot(subplots=True,
@@ -958,7 +1130,7 @@ pass
 
 # インパルス反応分析からも分かるがTFPと産出量の変動には乖離が生じている。それを確かめるために、最初の50のデータを図示する。
 
-# In[39]:
+# In[41]:
 
 
 rbc_model.simulated.loc[:50,['a','y']].plot(color=('k','red'), grid=True)
@@ -969,7 +1141,7 @@ pass
 
 # #### 変動の大きさ
 
-# In[40]:
+# In[42]:
 
 
 var_list = ['y','c','i']
@@ -996,7 +1168,7 @@ for v in var_list:
 
 # #### 自己相関
 
-# In[41]:
+# In[43]:
 
 
 print('　内生的労働供給\t基本モデル')
@@ -1018,7 +1190,7 @@ for v in var_list:
 
 # #### GDPとの相関度
 
-# In[42]:
+# In[44]:
 
 
 print('　内生的労働供給\t基本モデル')
