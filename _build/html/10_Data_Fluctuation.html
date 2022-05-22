@@ -560,9 +560,9 @@ title="Print to PDF"
 <span id="chap-10-gdp"></span><h1>GDPと構成要素<a class="headerlink" href="#gdp" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
 </pre></div>
 </div>
@@ -840,12 +840,12 @@ memory usage: 17.5 KB
 <img alt="_images/10_Data_Fluctuation_14_0.png" src="_images/10_Data_Fluctuation_14_0.png" />
 </div>
 </div>
-<p>長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，1994年頃のバブル崩壊や2008年のリーマン・ショックの影響でGDPは大きく下落している。</p>
+<p>長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，2008年のリーマン・ショック，そして2020年のコロナ禍の影響でGDPは大きく下落している。</p>
 <blockquote>
 <div><p>(問４）なぜ景気変動は起こるのか？</p>
 </div></blockquote>
 <p>これがマクロ経済学のもう一つのBig Questionである。この章以降は問４を中心にマクロ経済を考察することになる。</p>
-<p>上の図には2020年第１四半期以降のデータは含まれていない。参考の為に最新のデータを次の図に表示する。</p>
+<p>上の図には2022年第1四半期以降のデータは含まれていない。参考に最新のデータを含む図を下にに表示する。</p>
 <div class="cell tag_thebe-init tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
@@ -866,8 +866,8 @@ memory usage: 17.5 KB
 ></iframe>
 </div></div>
 </div>
-<p>コロナ禍の影響により，リーマンショック時以上の下げ幅となっている。ちなみに，この図は<a class="reference external" href="https://fred.stlouisfed.org">米国セントルイス連邦準備銀行が管理するFederal Reserve Economic Data (FRED)</a>と呼ばれるデータ・ベースからライブでダウンロードして表示している。</p>
-<p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>を使った図もしくはFREDの図はGDPの水準を表示しているため，GDPの成長率を直接読み取り異なる時期の成長率を比べることは難しい。それを可能にするのが対数化したGDPのプロットである。</p>
+<p>この図は<a class="reference external" href="https://fred.stlouisfed.org">米国セントルイス連邦準備銀行が管理するFederal Reserve Economic Data (FRED)</a>と呼ばれるデータ・ベースからライブでダウンロードして表示している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>を使った図もしくはFREDの図にあるGDPは水準を表しているため，GDPの成長率を直接読み取り異なる時期の成長率を比べることは難しい。それを可能にするのが対数化したGDPのプロットである。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span>
@@ -1049,7 +1049,7 @@ Net Exports 	-1.6
 </li>
 </ul>
 </div>
-<p>景気の動向によって上下することがわかる。例えば、リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方、景気悪化に反応し政府支出の割合は上昇している。またバブル景気ではその逆が起こっており、順位が逆転する程である。このデータセットには入ってないが，2020年にはコロナ禍によって大きな変化が発生している。</p>
+<p>景気の動向によって上下することがわかる。例えば、リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方、景気悪化に反応し政府支出の割合は上昇している。またバブル景気（1986年から1991年まで）ではその逆が起こっており、順位が逆転する程である。コロナ禍の影響もプロットにハッキリと現れている。</p>
 </section>
 <section id="id4">
 <h2>トレンドと変動<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
@@ -1336,7 +1336,7 @@ imports_cycle       0.83
 </li>
 </ol>
 </div>
-<p>全て<code class="docutils literal notranslate"><span class="pre">0.5</span></code>以上であり，強いpersistenceが確認できる。</p>
+<p>全て<code class="docutils literal notranslate"><span class="pre">0.45</span></code>以上であり，強いpersistenceが確認できる。</p>
 </section>
 <section id="id10">
 <h4>GDPとの相関度<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
@@ -1391,7 +1391,7 @@ imports_cycle       0.70
 </li>
 </ol>
 </div>
-<p>政府支出以外は全て相関係数は正の値であり、値も大きい。即ち、順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり、正の相関を明確に確認できる。</p>
+<p>政府支出以外は全て相関係数は正の値であり、値も大きい。即ち、順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり、正の相関を確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
@@ -1403,7 +1403,7 @@ imports_cycle       0.70
 <img alt="_images/10_Data_Fluctuation_77_0.png" src="_images/10_Data_Fluctuation_77_0.png" />
 </div>
 </div>
-<p>一方、政府支出の値は負であり、景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは、時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり、国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために、<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみる。</p>
+<p>一方、政府支出の値は負であり、景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは、時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり、国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために、<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
@@ -1440,7 +1440,7 @@ imports_cycle       0.70
 <li><p><code class="docutils literal notranslate"><span class="pre">.shift()</span></code>の引数は値を先に何期ずらすかを指定する。比べたいのは<span class="math notranslate nohighlight">\(t\)</span>期のGDPと<span class="math notranslate nohighlight">\(t+n\)</span>期の政府支出なので、後にずらす必要があるためマイナス符号を付けて<code class="docutils literal notranslate"><span class="pre">.shift(-t)</span></code>としている。</p></li>
 </ol>
 </div>
-<p>GDPの乖離は第3四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。</p>
+<p>GDPの乖離は2四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。</p>
 </section>
 <section id="id11">
 <h4>変動の大きさ<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h4>
@@ -1464,7 +1464,7 @@ imports_cycle       3.69
 </div>
 </div>
 </div>
-<p>投資、輸出、輸入の値はGDPの約4の値であり、政府支出とGDPの変動は殆ど同じである。一方、消費の変動は非常に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際、消費は投資よりも比率が大きかったことを思い出そう。変動に関しては、順位が逆転し投資が上回っている。この点を図示して視覚的に確認する。</p>
+<p>投資、輸出、輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く、消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際、消費は投資よりも比率が大きかったことを思い出そう。変動に関しては、順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>

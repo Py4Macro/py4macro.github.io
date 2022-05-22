@@ -930,8 +930,8 @@ memory usage: 5.0 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.410
 Model:                            OLS   Adj. R-squared:                  0.407
 Method:                 Least Squares   F-statistic:                     110.0
-Date:                Fri, 13 May 2022   Prob (F-statistic):           7.39e-20
-Time:                        16:39:28   Log-Likelihood:                -229.21
+Date:                Sun, 22 May 2022   Prob (F-statistic):           7.39e-20
+Time:                        12:31:41   Log-Likelihood:                -229.21
 No. Observations:                 160   AIC:                             462.4
 Df Residuals:                     158   BIC:                             468.6
 Df Model:                           1                                         
@@ -961,14 +961,14 @@ Notes:
 </ul>
 <p>＜コメント＞</p>
 <ul class="simple">
-<li><p>Durbin-Watson比は0.883であり誤差項に正の自己相関が疑われるが，この点ついての議論は割愛する。</p></li>
+<li><p>Durbin-Watson比は誤差項に正の自己相関が疑われことを示しているが，この点ついての議論は割愛する。</p></li>
 </ul>
 <p>回帰分析の結果を踏まえると，失業率の乖離が<code class="docutils literal notranslate"><span class="pre">x</span></code>％ポイントの場合にGDPのトレンドからの乖離率（％）を計算する関数は次のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">growth_deviation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;失業率の乖離が</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">％ポイントの場合のGDPのトレンドからの乖離率は約</span><span class="si">{</span><span class="n">g</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;失業率の乖離が</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％ポイントの場合のGDPのトレンドからの乖離率は約</span><span class="si">{</span><span class="n">g</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -981,12 +981,12 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>失業率の乖離が1.00％ポイントの場合のGDPのトレンドからの乖離率は約-3.78です。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>失業率の乖離が1.0％ポイントの場合のGDPのトレンドからの乖離率は約-3.78です。
 </pre></div>
 </div>
 </div>
 </div>
-<p>この値を解釈してみよう。失業率が1％ポイント乖離するとしよう。GDPの乖離率は約<code class="docutils literal notranslate"><span class="pre">-3.8</span></code>％になることを示しているが、この値は非常に大きい。例えば、以前の図示したGDPのトレンドからの乖離率を考えてみよう。バブル崩壊後の乖離率は約<code class="docutils literal notranslate"><span class="pre">2.5</span></code>％であり、リーマン・ショック時では約<code class="docutils literal notranslate"><span class="pre">5</span></code>％である。これは日本の雇用制度を反映していると考えられ，またHodrick–Prescottフィルターの影響もあるかも知れない。</p>
+<p>この値を解釈してみよう。失業率が1％ポイント乖離するとしよう。GDPの乖離率は約<code class="docutils literal notranslate"><span class="pre">-4.1</span></code>％になることを示しているが、この値は非常に大きい。例えば、上のプロットで示したGDPのトレンドからの乖離率を考えてみよう。バブル崩壊時の乖離率は約<code class="docutils literal notranslate"><span class="pre">2.6</span></code>％，リーマン・ショック時では約<code class="docutils literal notranslate"><span class="pre">6</span></code>％，コロナ禍では<code class="docutils literal notranslate"><span class="pre">7.7</span></code>％である。これは日本の雇用制度を反映していると考えられる。またトレンドを計算する際に使ったHodrick–Prescottフィルターの影響もあるだろう。</p>
 <p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df_okun</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1024,6 +1024,7 @@ Notes:
 </pre></div>
 </div>
 </div>
+<p>プロットの下中央にある２点がリーマン・ショックとコロナ禍によるGDPの乖離率である。この２点に関連して次のことが言える。GDPの乖離率の観点から考えると，２つのショックは「外れ値」的な存在であり，大きなショックだったことがうかがえる。一方，2つのショックに伴う失業率の乖離は大きくなく，<code class="docutils literal notranslate"><span class="pre">0</span></code>に近い値となっている。これはGDPに対するショックが，失業率に影響を及ぼすには時間的なラグが発生することの反映であろう。その結果，回帰直線の傾きに対する影響は限定的だと言える（例えば，失業率の乖離が<code class="docutils literal notranslate"><span class="pre">0.8</span></code>近傍であれば，傾きは絶対値でより大きな値となっていただろう）。従って，傾きが約<code class="docutils literal notranslate"><span class="pre">-4.1</span></code>という結果は，数少ない大きなショックによって大きく影響を受けたものではなく，過去40年以上の平均的な傾向として理解して良いだろう。</p>
 </section>
 </section>
 <section id="id7">
@@ -1056,7 +1057,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_50_0.png" src="_images/11_Macro_Variables_50_0.png" />
+<img alt="_images/11_Macro_Variables_51_0.png" src="_images/11_Macro_Variables_51_0.png" />
 </div>
 </div>
 <p>上下しているのが，過去約35年間は非常に安定している。図からpersistenceが強いことがわかるが，実際に計算してみよう。</p>
@@ -1084,7 +1085,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_54_0.png" src="_images/11_Macro_Variables_54_0.png" />
+<img alt="_images/11_Macro_Variables_55_0.png" src="_images/11_Macro_Variables_55_0.png" />
 </div>
 </div>
 <p>同じ方向に動く傾向が確認できる。相関係数を計算してみる。</p>
@@ -1158,7 +1159,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_62_0.png" src="_images/11_Macro_Variables_62_0.png" />
+<img alt="_images/11_Macro_Variables_63_0.png" src="_images/11_Macro_Variables_63_0.png" />
 </div>
 </div>
 <p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(61)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
@@ -1172,7 +1173,7 @@ Notes:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1980 3&#39;</span><span class="p">,</span> <span class="s1">&#39;1990 3&#39;</span><span class="p">,</span> <span class="s1">&#39;2000 3&#39;</span><span class="p">,</span> <span class="s1">&#39;2010 3&#39;</span><span class="p">]</span>  <span class="c1"># 1</span>
-<span class="n">end_list</span> <span class="o">=</span>   <span class="p">[</span><span class="s1">&#39;1989 12&#39;</span><span class="p">,</span><span class="s1">&#39;1999 12&#39;</span><span class="p">,</span><span class="s1">&#39;2009 12&#39;</span><span class="p">,</span><span class="s1">&#39;2020 3&#39;</span><span class="p">]</span>  <span class="c1"># 2</span>
+<span class="n">end_list</span> <span class="o">=</span>   <span class="p">[</span><span class="s1">&#39;1989 12&#39;</span><span class="p">,</span><span class="s1">&#39;1999 12&#39;</span><span class="p">,</span><span class="s1">&#39;2009 12&#39;</span><span class="p">,</span><span class="s1">&#39;2020 12&#39;</span><span class="p">]</span>  <span class="c1"># 2</span>
 
 <span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 3</span>
 <span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 4</span>
@@ -1276,7 +1277,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_70_0.png" src="_images/11_Macro_Variables_70_0.png" />
+<img alt="_images/11_Macro_Variables_71_0.png" src="_images/11_Macro_Variables_71_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1455,122 +1456,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>5.169284</td>
+      <td>4.916213</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>5.361003</td>
+      <td>6.697929</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>6.653673</td>
+      <td>3.247616</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>6.796736</td>
+      <td>5.376688</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>5.487990</td>
+      <td>5.109150</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>5.234902</td>
+      <td>5.051706</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>6.361275</td>
+      <td>4.785486</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>5.024442</td>
+      <td>5.658881</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>4.459126</td>
+      <td>7.620485</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>5.283841</td>
+      <td>5.867762</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>4.508926</td>
+      <td>3.163752</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>4.791287</td>
+      <td>4.804874</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>4.182420</td>
+      <td>3.682527</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>5.090728</td>
+      <td>5.621106</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>5.030588</td>
+      <td>4.945408</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>5.733077</td>
+      <td>4.458138</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>5.831878</td>
+      <td>5.233400</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>5.846904</td>
+      <td>4.984701</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>5.749349</td>
+      <td>6.775470</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>5.926608</td>
+      <td>6.595909</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>2.846961</td>
+      <td>4.513536</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>4.374418</td>
+      <td>6.695517</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>5.052811</td>
+      <td>4.043117</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>3.399304</td>
+      <td>5.577550</td>
     </tr>
   </tbody>
 </table>
@@ -1597,7 +1598,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7faad06bff10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7f9d5013e9a0&gt;
 </pre></div>
 </div>
 </div>
@@ -1638,42 +1639,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.727986</td>
+      <td>4.953919</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>5.839876</td>
+      <td>5.179181</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>5.281614</td>
+      <td>6.021618</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>4.861351</td>
+      <td>4.612129</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>4.767912</td>
+      <td>4.749680</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>5.803953</td>
+      <td>4.892079</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>4.840972</td>
+      <td>5.961638</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>4.275511</td>
+      <td>5.438728</td>
     </tr>
   </tbody>
 </table>
@@ -1713,12 +1714,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>5.427707</td>
+      <td>5.191712</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>4.922087</td>
+      <td>5.260532</td>
     </tr>
   </tbody>
 </table>
@@ -1806,12 +1807,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.144126</td>
+      <td>0.240760</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.208305</td>
+      <td>0.196202</td>
     </tr>
   </tbody>
 </table>
@@ -2244,10 +2245,10 @@ memory usage: 18.6 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_122_0.png" src="_images/11_Macro_Variables_122_0.png" />
-<img alt="_images/11_Macro_Variables_122_1.png" src="_images/11_Macro_Variables_122_1.png" />
-<img alt="_images/11_Macro_Variables_122_2.png" src="_images/11_Macro_Variables_122_2.png" />
-<img alt="_images/11_Macro_Variables_122_3.png" src="_images/11_Macro_Variables_122_3.png" />
+<img alt="_images/11_Macro_Variables_123_0.png" src="_images/11_Macro_Variables_123_0.png" />
+<img alt="_images/11_Macro_Variables_123_1.png" src="_images/11_Macro_Variables_123_1.png" />
+<img alt="_images/11_Macro_Variables_123_2.png" src="_images/11_Macro_Variables_123_2.png" />
+<img alt="_images/11_Macro_Variables_123_3.png" src="_images/11_Macro_Variables_123_3.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -2470,7 +2471,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7faae0bba760&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f9d8187c0d0&gt;
 </pre></div>
 </div>
 </div>
@@ -2485,7 +2486,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7faae0bd8f70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7f9d63461cd0&gt;
 </pre></div>
 </div>
 </div>
@@ -3453,7 +3454,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_167_0.png" src="_images/11_Macro_Variables_167_0.png" />
+<img alt="_images/11_Macro_Variables_168_0.png" src="_images/11_Macro_Variables_168_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3722,7 +3723,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_180_0.png" src="_images/11_Macro_Variables_180_0.png" />
+<img alt="_images/11_Macro_Variables_181_0.png" src="_images/11_Macro_Variables_181_0.png" />
 </div>
 </div>
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>
