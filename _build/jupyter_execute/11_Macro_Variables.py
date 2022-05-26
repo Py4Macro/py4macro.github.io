@@ -1077,8 +1077,9 @@ world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
 
 ax_ = world_mean.plot('money_growth_mean','inflation_mean', kind='scatter')
 xpoints = ypoints = ax_.get_ylim()
-ax_.plot(xpoints,ypoints,'r-')
-ax_.legend(['45度線'])
+ax_.plot(xpoints,ypoints,'r-', label='45度線')
+ax_.set_title('平均インフレ率とマネーストトックの平均成長率', size='15')
+ax_.legend()
 pass
 
 
