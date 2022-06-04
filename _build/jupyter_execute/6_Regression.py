@@ -3,27 +3,23 @@
 
 # # 回帰分析
 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
+
 # In[1]:
 
 
+import japanize_matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import statsmodels.formula.api as sm
-import matplotlib.pyplot as plt
-import japanize_matplotlib
-from see import see
 import py4macro
+import statsmodels.formula.api as sm
+from see import see
 
 
 # ## はじめに
-
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
 
 # この章の目的は２つある。第一に，`Python`を使って回帰分析の方法を紹介する事である。読者には統計学や計量経済学を学び，実際にソフトを使い回帰分析をした経験を持つ人も多く含まれると思う。例えば，無料のRやGretl，そして有料ではあるがStataやEViewsあたりが人気ではないだろうか。`Python`でも回帰分析を簡単におこなうことが可能であり，有名な`statsmodels`と`linearmodels`パッケージを使うと学部の授業で習うことは殆ど全て可能だろう。この章では基本的な回帰分析を考えるので`statsmodels`だけを取り上げ，その基本的なコードを紹介するが，より多くを知りたい場合は[「Pythonで学ぶ入門計量経済学」](https://py4etrics.github.io)を参照して欲しい。
 # 

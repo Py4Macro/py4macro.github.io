@@ -4,26 +4,22 @@
 # (chap:9-solow)=
 # # ソロー・モデル
 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
+
 # In[1]:
 
 
+import japanize_matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import statsmodels.formula.api as sm
-import japanize_matplotlib
 import py4macro
+import statsmodels.formula.api as sm
 
 
 # ## はじめに
-
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
 
 # 前章では差分方程式について説明し，簡単な経済モデルを使いコードの書き方を説明した。本章では，差分方程式の応用となるソロー・モデルを考える。ソロー・モデルは1987年にノーベル経済学賞を受賞した[Robert M. Solow](https://www.nobelprize.org/prizes/economic-sciences/1987/press-release/)によって考案された経済成長モデルであり，マクロ経済学の代表的な理論モデルの一つである。今でも盛んに研究が続く経済成長のバックボーン的な存在である。モデルの説明の後，`Python`を使い動学的な特徴を明らかにし，線形近似を使った安定性の確認もおこなう。また理論的な予測がデータと整合性があるかについてもPenn World Tableを使って検討する。本章の内容は次章で議論する所得収斂の分析の基礎となる。
 

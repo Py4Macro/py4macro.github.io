@@ -3,6 +3,10 @@
 
 # # `linearsolve`
 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
+
 # In[1]:
 
 
@@ -12,14 +16,6 @@ import pandas as pd
 
 
 # ## 説明
-
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
 
 # 後に続く章では，実物的景気循環モデルとNew Keynsianモデル（Dynamic Stochastic General Equilibrium Model，略してDSGEモデルとも呼ばれる）を考える。それらのモデルでは，消費者は効用を最大化し，企業は利潤を最大化する。そのような最適化問題を解き，一般均衡での動学方程式を導出する作業は高度な数学的な知識を要求するため，このサイトの範囲を超えることになる。従って，それぞれのモデルの考えを説明した後，シミュレーションを使いデータとの整合性などを検討する。この章では，そのために使用する`linearsove`というパッケージの使い方を説明する。
 

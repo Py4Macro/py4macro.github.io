@@ -3,26 +3,22 @@
 
 # # 古典派の二分法と金融政策
 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
+
 # In[1]:
 
 
+import japanize_matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import statsmodels.formula.api as sm
-import matplotlib.pyplot as plt
-import japanize_matplotlib
 import py4macro
+import statsmodels.formula.api as sm
 
 
 # ## はじめに
-
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
 
 # 「古典派の二分法」とは，実質変数と名目変数は別々の異なるメカニズムで決定されているという考え方である。実質変数である実質GDPや相対価格は，技術水準，選好，市場構造，資源の保有量などの「実質的」な要因に依存し，一方，財・サービスの価格や一般物価水準はマネーストックによって決定されると考える。またこの考えから派生する結果が「貨幣の中立性」である。即ち，中央銀行によるマネーストックの調整を通した金融政策は実質変数に影響を及ぼさない。実質GDPは金融政策から独立であるという考えである。
 # 

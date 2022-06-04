@@ -3,6 +3,10 @@
 
 # # 実物的景気循環（RBC）モデル
 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
+
 # In[1]:
 
 
@@ -13,14 +17,6 @@ import pandas as pd
 
 
 # ## 説明
-
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
 
 # 実物的景気循環モデル（Real Business Cycles Model; RBCモデル）は動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。
 # 1. 全ての市場は完全競争である。

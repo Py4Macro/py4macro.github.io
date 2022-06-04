@@ -27,8 +27,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
@@ -45,6 +44,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -700,27 +700,21 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="is-mp-pc">
 <h1>IS-MP-PCモデル<a class="headerlink" href="#is-mp-pc" title="Permalink to this headline">#</a></h1>
-<div class="cell docutils container">
+<div name="html-admonition" style="font-size: 0.8em">
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+</div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eigvals</span><span class="p">,</span> <span class="n">inv</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eigvals</span><span class="p">,</span> <span class="n">inv</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="id1">
 <h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div name="html-admonition">
-Do you want to read in a differnt language? Start
-<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-in English or the language of your choice.
-</div>
-</aside>
 <p>この章では，ケインズ的なマクロ経済理論の流れをくむ動学的マクロ経済モデルを考える。ここではIS-MP-PCモデルと呼ぶことにする。中心となるメカニズムは価格粘着性だが，なぜ粘着性が発生するかは所与としてIS-MP-PCモデルの動学的な特徴を中心に議論する。典型的なAD-ASモデルが単純に動学的（時間の概念の明示的な導入）になったのではなく，根本的な違いが存在する。IS-MP-PCモデルの特徴としては次の点を挙げることができる。</p>
 <p>伝統的なIS-LMモデルではIS曲線が財市場の均衡を表し，LM曲線が貨幣市場の均衡を特徴付け、この２つの曲線から総需要曲線が導出される。本章は、この枠組みから離れより現実的なマクロ・モデルを考察することによりマクロ経済の短期的な均衡を考察することになる。LM曲線は中央銀行がマネー・ストックを調整し金融政策を実施すると仮定するが，現実的とは言えない。実際には，中央銀行は利子率を調整しインフレ率をコントロールする。それを捉えたのが，後述するテイラー・ルールであり，モデルの中ではMP曲線として表される。中央銀行によって設定された利子率に基づいて貨幣市場での均衡が成立し，マクロ変数（インフレ率や産出量）が決定されると考える方がより現実的である。</p>
 <p>以下ではIS-MP-PCモデルを使い，政策変更を含む様々なショックの動学的な効果を検討する。あるショックが発生するとマクロ変数は少しずつ調整し，お互いに影響し合いつつ経済は長期均衡へと移行することになるが，その過程をシミュレーションを通して考える。特に，インパルス反応と呼ばれる手法を用いてショックのダイナミックな効果を明らかにする。更に，その効果は中央銀行の政策スタンスによって違ってくることも明らかにする。</p>

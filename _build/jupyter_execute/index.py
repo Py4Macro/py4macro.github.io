@@ -74,7 +74,7 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # 
 # # プロット
 # fig, ax = plt.subplots(figsize=(6,9))
-# ax.barh(y='language', width='no', height=0.8, color='orange', data=lang)
+# ax.barh(y='language', width='no', height=0.8, color='blue', data=lang)
 # ax.set_xlabel('回答回数', size=16)
 # ax.set_title('データサイエンティストを目指し\n初めてプログラミングを学ぶ人に\nどの言語を薦めますか？\n', size=25)
 # 
@@ -99,7 +99,7 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # ```
 # ````
 # 
-# Google合同会社の子会社である[Kaggle](https://www.kaggle.com)は，データサイエンスや機械学習などに関連する課題を解決するためのコンテストがおこなわれる有名なオンライン・コミュニティであり，課題には賞金が設定され世界中からの参加者が切磋琢磨して競争する。2020年におこなわれたKaggle参加者へのアンケートの中に「データサイエンティストを目指し，初めてプログラミングを学ぶ人にどの言語を薦めますか？」の質問があり，その回答結果が{numref}`popularity`である。17,740の回答中（重複回答含む）80％が`Python`を選んでおり，`Python`のひとり勝ち状態である。もう一つの人気指標として[Stack Overflow](https://stackoverflow.com/)（プログラミングに関する質問をすると参加者が回答する定評あるサイト）が集計するデータがある。それによると2012年頃からPythonの人気は急上昇している（[図はこちらを参照](https://py4etrics.github.io/index.html#stackoverflow)）。次にプログラミング言語のランキングで世界的に有名な[TIOBE programming community index](https://www.tiobe.com/tiobe-index/)を紹介しよう。2021年10月に更新されたサイトは次の文章から始まっている。
+# Google合同会社の子会社である[Kaggle](https://www.kaggle.com)は，データサイエンスや機械学習などに関連する課題を解決するためのコンテストがおこなわれる有名なオンライン・コミュニティであり，課題には賞金が設定され世界中からの参加者が切磋琢磨して競争する。2021年におこなわれたKaggle参加者へのアンケートの中に「データサイエンティストを目指し，初めてプログラミングを学ぶ人にどの言語を薦めますか？」の質問があり，その回答結果が{numref}`popularity`である。24,829の回答中（重複回答含む）81.4％が`Python`を選んでおり，`Python`のひとり勝ち状態である（2020年のアンケート結果では80.3%）。もう一つの人気指標として[Stack Overflow](https://stackoverflow.com/)（プログラミングに関する質問をすると参加者が回答する定評あるサイト）が集計するデータがある。それによると2012年頃からPythonの人気は急上昇している（[図はこちらを参照](https://py4etrics.github.io/index.html#stackoverflow)）。次にプログラミング言語のランキングで世界的に有名な[TIOBE programming community index](https://www.tiobe.com/tiobe-index/)を紹介しよう。2021年10月に更新されたサイトは次の文章から始まっている。
 # > For the first time in more than 20 years we have a new leader of the pack: the `Python` programming language. The long-standing hegemony of `Java` and `C` is over.
 # 
 # > （訳）20数年ぶりに群れのニュー・リーダーが現れた。`Python`プログラミング言語である。長く続いた`Java`と`C`の覇権は終わった。
