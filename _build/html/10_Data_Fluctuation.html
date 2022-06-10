@@ -200,7 +200,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_RBC.html">
-   実物的景気循環（RBC）モデル
+   実物的景気循環(RBC)モデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -578,7 +578,7 @@ title="Print to PDF"
 <p>人の言動　<span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span>　経済データ</p>
 </div></blockquote>
 <p>この章はマクロ・データの特徴を理解することを目的とする。統計量やプロットを駆使して異なるマクロ・データの特性を炙り出し，経済の「言動」に注目しようということである。特に，以下では国内総生産（GDP）とその構成要素に着目し議論を進める。</p>
-<p>使うデータは<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる日本の四半期データである。1980年から1993年のデータと1994年から2019年までの２つのデータ・セットを組み合わせて作成した。2020年までアップデートすることも可能だが，そうすると２つのデータ・セットの整合性に問題は発生してしまうので，2020年の1年間のデータより13年間のデータを優先した形となっている。データを読み込むには次のようにする。</p>
+<p>使うデータは<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる日本の四半期データである。1980年から1993年のデータと1994年から2021年までの２つのデータ・セットを組み合わせて作成した。データを読み込むには次のようにする。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -822,7 +822,7 @@ memory usage: 17.5 KB
 </section>
 <section id="id2">
 <h2>GDPとその変化<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
-<p>このデータはまずGDPを図示しよう。</p>
+<p>まずGDPを図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
@@ -874,7 +874,7 @@ memory usage: 17.5 KB
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-\Downarrow\;\text{左辺を近似}
+\qquad\qquad\quad\Downarrow\text{左辺を近似}\;\log(1+g_x)\approx g_x
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-10-log-growth">
 <span class="eqno">(53)<a class="headerlink" href="#equation-eq-10-log-growth" title="Permalink to this equation">#</a></span>\[
@@ -1201,7 +1201,7 @@ trend(s, lamb=1600)
 </li>
 </ol>
 </div>
-<p>図の景気循環はトレンドからの乖離である。乖離の典型的な特徴としてpersistenceがある。これは同じ方向の乖離が続く傾向があるという意味である。即ち，今期景気が良ければ（悪ければ）来期も景気が良い（悪い）可能性が高いということである。もちろん、いずれは乖離が狭まり「山」から「谷」，そして「山」へと循環して行く。Persistenceを示す数値として自己相関係数がある。</p>
+<p>図の景気循環はトレンドからの乖離である。乖離の典型的な特徴として持続性がある。これは同じ方向の乖離が続く傾向があるという意味である。即ち，今期景気が良ければ（悪ければ）来期も景気が良い（悪い）可能性が高いということである。もちろん、いずれは乖離が狭まり「山」から「谷」，そして「山」へと循環して行く。持続性を示す数値として自己相関係数がある。</p>
 <p>説明するために２つの変数<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>を考え次の係数を定義しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-yz">
 <span class="eqno">(58)<a class="headerlink" href="#equation-eq-10-yz" title="Permalink to this equation">#</a></span>\[
@@ -1287,7 +1287,7 @@ Y=x_t,\quad Z=x_{t-1}
 </div>
 <p>この図に基づいて３つの点について考える。</p>
 <ol class="simple">
-<li><p>Persistenceを示す自己相関</p></li>
+<li><p>持続性を示す自己相関</p></li>
 <li><p>GDPと順循環的（pro-cyclical）か反循環的（counter- cyclical）かどうか</p></li>
 <li><p>変動の大きさの比較</p></li>
 </ol>
@@ -1331,7 +1331,7 @@ imports_cycle       0.83
 </li>
 </ol>
 </div>
-<p>全て<code class="docutils literal notranslate"><span class="pre">0.45</span></code>以上であり，強いpersistenceが確認できる。</p>
+<p>全て<code class="docutils literal notranslate"><span class="pre">0.45</span></code>以上であり，強い持続性が確認できる。</p>
 </section>
 <section id="id10">
 <h4>GDPとの相関度<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>

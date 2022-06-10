@@ -200,7 +200,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_RBC.html">
-   実物的景気循環（RBC）モデル
+   実物的景気循環(RBC)モデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -537,7 +537,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 <span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="n">see</span>
 </pre></div>
 </div>
@@ -635,7 +635,7 @@ y_i = a+bA_i
 </ol>
 <p><strong>＜ステップ１＞</strong> 推定式の設定</p>
 <p>回帰式は次のような形で文字列を使って指定する。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;非説明変数 ~ 定数項以外の説明変数&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;被説明変数 ~ 定数項以外の説明変数&#39;</span>
 </pre></div>
 </div>
 <p>定数項は自動的に挿入される。また定数項以外の説明変数が複数がる場合は、<code class="docutils literal notranslate"><span class="pre">+</span></code>でつなげるが，今回は単回帰分析となるので説明変数は１つとなる。また回帰式の中で使う変数名は，データが含まれる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の列ラベルを使う。</p>
@@ -654,7 +654,7 @@ y_i = a+bA_i
 <p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使って自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成する。次のコードでは変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -687,8 +687,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Sat, 04 Jun 2022   Prob (F-statistic):           7.55e-26
-Time:                        10:17:22   Log-Likelihood:                 49.266
+Date:                Fri, 10 Jun 2022   Prob (F-statistic):           7.55e-26
+Time:                        18:36:35   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -1093,8 +1093,8 @@ y_i = a + bx_i+e_i
 <p>自動計算のための準備をし，実際に計算した結果を変数に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">result_factors</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">result_factors</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

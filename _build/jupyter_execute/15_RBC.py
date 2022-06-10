@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 実物的景気循環（RBC）モデル
+# # 実物的景気循環(RBC)モデル
 
 # <div name="html-admonition" style="font-size: 0.8em">
 # <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
@@ -471,7 +471,7 @@ print(rbc0[3], '\n', rbc0[4], sep='')
 
 # * 右辺は同じになっている。これは$L$が一定と仮定しているためである。この仮定により，$Y_t$と$W_t$の式は異なるが，％乖離である`y`と`w`は同じ式に従って動くことになる。
 # * TFPショックは１対１の割合で`y`及び`w`を変化させる。
-# * TFPもしくは資本ストックの増加により労働の限界生産性及び実質賃金が上昇することを示している。インパクト後`y`も`w`も単調的に減少している。`k`の上昇効果よりも`a`の減少効果が上回るためである。`rho`の値が十分い大きい場合，`a`のpersistence強くなり`y`及び`w`の減少が弱まることになる。
+# * TFPもしくは資本ストックの増加により労働の限界生産性及び実質賃金が上昇することを示している。インパクト後`y`も`w`も単調的に減少している。`k`の上昇効果よりも`a`の減少効果が上回るためである。`rho`の値が十分い大きい場合，`a`の持続性強くなり`y`及び`w`の減少が弱まることになる。
 # 
 # 次に，資本の実質レンタル料を見てみよう。
 
@@ -654,7 +654,7 @@ for v in var_list:
 
 # #### 自己相関
 
-# 次に、persistenceを確認するために自己相関係数を計算してみよう。
+# 次に、持続性を確認するために自己相関係数を計算してみよう。
 
 # In[22]:
 
@@ -1204,7 +1204,7 @@ for v in var_list:
 # investment_cycle    0.82
 # ```
 # 
-# 数値は殆ど変わらない。persistenceは`rho`の値に大きく依存するためである。
+# 数値は殆ど変わらない。持続性は`rho`の値に大きく依存するためである。
 
 # ## RBCモデルの意義と限界
 

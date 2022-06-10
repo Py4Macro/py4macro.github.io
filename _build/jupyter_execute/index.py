@@ -9,6 +9,10 @@
 # 
 # 神戸大学経済学研究科
 # ```
+# 
+# <div name="html-admonition" style="font-size: 0.8em">
+# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+# </div><br>
 
 # In[1]:
 
@@ -32,16 +36,16 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # 姉妹サイト：[「Pythonで学ぶ入門計量経済学」](https://py4etrics.github.io) <font size="+0">🐍</font>
 # 
 # 
-# ```{margin}
-# <div name="html-admonition">
-# Do you want to read in a differnt language? Start
-# <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-# in English or the language of your choice.
-# </div>
-# ```
+# <!--```{margin}-->
+# <!--<div name="html-admonition">-->
+# <!--Do you want to read in a differnt language? Start-->
+# <!--<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>-->
+# <!--in English or the language of your choice.-->
+# <!--</div>-->
+# <!--```-->
 # ## はじめに
 # 
-# 本サイトの目的は２つある。第一に，学部中級＋レベル（「＋」は中級より少し進んだという意味）のマクロ経済学をとおして`Python`を学び，`Python`をとおしてマクロ経済学を学ぶ（復習する）ことである。大学での経済学教育は主に講義でおこなわれる。モデルの展開と解説，データが紹介されるが，私もそうだったように「そういうものなんだ」と納得はするが，経済学との間になんとなく「距離」を感じる学生が多いのではないだろうか。その距離を縮めるために，演習や数値例を使った宿題があり，その役目はある程度果たしている。その距離を更に縮めようというのが本サイトの目的である。`Python`を使うことにより，異なる政策がもたらす均衡への影響を数値化し，簡単に計算することができる。また複雑なマクロモデルの均衡の動学的な動きを視覚的に確認し，政策などのパラメータにどのように反応するかも一瞬で確認することができる。それもパラメータの値や組み合わせの変更も自由自在である。即ち，マクロ経済学のハンズオン（[hands-on](https://eow.alc.co.jp/search?q=hands-on)）が可能となる。ハンズオンこそが今の授業で足りないものであり，学生のマクロ経済学の理解と興味を深め「距離」を更に縮めることが期待できるのではないだろうか。
+# 本サイトの目的は２つある。第一に，学部中級＋レベル（「＋」は中級より少し進んだという意味）のマクロ経済学をとおして`Python`を学び，`Python`をとおしてマクロ経済学を学ぶ（復習する）ことである。大学での経済学教育は主に講義でおこなわれる。モデルの展開と解説，データが紹介されるが，私もそうだったように「そういうものなんだ」と納得はするが，経済学との間になんとなく「距離」を感じる学生が多いのではないだろうか。その距離を縮めるために，演習や数値例を使った宿題があり，その役目はある程度果たしている。その距離を更に縮めようというのが本サイトの目的である。`Python`を使うことにより，学生自身がデータを操作し，データの特徴を確認できる。回帰分析も簡単におこなうことができる。更に，`Python`はデータだけではなく理論モデルの理解にも大いに役立つ。異なる政策がもたらす均衡への影響を数値化し，簡単に計算することができる。また複雑なマクロモデルの均衡の動学的な動きを視覚的に確認し，政策などのパラメータにどのように反応するかも一瞬で確認することができる。それもパラメータの値や組み合わせの変更も自由自在である。即ち，マクロ経済学のハンズオン（[hands-on](https://eow.alc.co.jp/search?q=hands-on)）が可能となる。ハンズオンこそが今の授業で足りないものであり，学生のマクロ経済学の理解と興味を深め「距離」を更に縮めることが期待できるのではないだろうか。
 # 
 # 第二に，経済学部の学生に今後変わりゆく社会に少しでも対応できるように，[transferable skill](https://www.google.co.jp/search?q=transferable+skills&spell=1&sa=X&ved=2ahUKEwj68fqc7LPwAhWKfd4KHT_xC64QBSgAegQIARA1&biw=1440&bih=767)になり得るプログラミングを身につける機会を提供することである。新聞，雑誌やインターネット上で「AI」や「機械学習」などプログラミングに関するキーワードを頻繁に見聞きする。これは一過性の流行りではなく，社会全体がデジタル化する大きなうねりの「大音」である。実際，政府もプログラミングの重要性を強く認識している。2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され，続いて中高教育でもプログラミングに関する内容・科目が充実される予定である（[文部科学省の参照リンク](https://www.mext.go.jp/a_menu/shotou/zyouhou/detail/1369613.htm)）。このようにプログラミングのスキルの重要性は益々大きくなると思われる。一方，今の経済学部の学生は，デジタル化による社会のうねりとプログラミング教育の盛り上がりの狭間にあり，プログラミングの「プの字」も知らずにデジタル化社会へ飛び込むことになりかねない。学生にとって卒業後の社会は「人生の本番」であり，その準備を少しでも手助けするのが教育の役割ではないだろうか。もちろん，近年一般教養科目としてプログラミング科目が導入されている大学も多くある。しかし専門科目として提供することにより専門性とプログラミングの「いいとこ取り」を提供できる機会を利用しないのは，経済学でいう「非効率的」な教育になってしまう。
 # 
@@ -121,6 +125,79 @@ versions = [python_version(), matplotlib.__version__, numpy.__version__, pandas.
 
 for pack, ver in zip(packages, versions):
     print('{0:14}{1}'.format(pack,ver))
+
+
+# ## おまけ
+# [これを](https://www.google.co.jp/search?q=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&tbm=isch&ved=2ahUKEwjM44mptKL4AhUSdXAKHXW_BKYQ2-cCegQIABAA&oq=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&gs_lcp=CgNpbWcQA1AAWABggwhoAHAAeACAAa0BiAGtAZIBAzAuMZgBAKoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=FPmiYsyJBJLqwQP1_pKwCg&bih=863&biw=1511)`Python`コードで書いてみた。
+
+# In[3]:
+
+
+import japanize_matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 下で使う数値
+h = 0.35
+v = 0.09
+yshift = 0.2
+ymax = 1 + yshift
+ymin = -1 - yshift
+ymax0 = (1-ymin)/(ymax-ymin)
+ymax1 = yshift/(ymax-ymin)
+font_largest=30
+font_large=20
+
+# GDPのプロット
+x = np.arange(0,3.*np.pi,0.1)
+y = np.sin(x)
+fig, ax = plt.subplots(figsize=(11,4))
+ax.plot(x, y, linewidth=7)
+ax.set_ylim(ymin, ymax)
+ax.set_xlim(-1.4, 12.7)
+
+# 点線のプロット
+ax.axhline(0, xmax=0.81, linestyle='--')
+x_coordinates = [np.pi/2, np.pi*3/2, np.pi*5/2]
+y_coordinates = [ymax0, ymax1, ymax0]
+for x, y in zip(x_coordinates, y_coordinates):
+    ax.axvline(x, ymax=y, linestyle=':')
+
+# 矢印のプロット
+for dx in [np.pi/2, -np.pi/2]:
+    ax.arrow(x=np.pi, y=ymin+0.05, dx=dx, dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color='k')
+
+for dx in [np.pi/2, -np.pi/2]:
+    ax.arrow(x=2*np.pi, y=ymin+0.05, dx=dx, dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color='k')
+
+# 注釈の挿入
+ax.annotate('山', xy=(np.pi/2-h,1.15), size=font_largest)
+ax.annotate('山', xy=(np.pi*5/2-h,1.15), size=font_largest)
+ax.annotate('谷', xy=(np.pi*3/2-h,-0.8), size=font_largest)
+ax.annotate('好況', xy=(-1.1,0.5-v), size=font_large, color='green')
+ax.annotate('不況', xy=(-1.1,-0.5-v), size=font_large, color='red')
+ax.annotate('後退', xy=(np.pi-0.5,-1.), size=font_large, color='red')
+ax.annotate('拡張', xy=(2*np.pi-0.5,-1.), size=font_large, color='green')
+ax.annotate('潜在的GDP', xy=(3*np.pi+0.8,-0.09), size=font_large)
+
+# 横軸・縦軸のラベルを追加
+ax.set_ylabel('GDP', size=font_large+5)
+ax.set_xlabel('\n時間', size=font_large+5)
+
+# 縦軸・横軸のラベルと目盛の削除
+ax.set_yticklabels([])
+ax.set_xticklabels([])
+ax.set_xticks([])
+ax.set_yticks([])
+
+# 枠を削除
+for s in ['top', 'right', 'left','bottom']:
+    ax.spines[s].set_visible(False)
+pass
 
 
 # ---

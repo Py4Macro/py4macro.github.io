@@ -55,7 +55,7 @@ import statsmodels.formula.api as sm
 # * $a=-1$の場合
 #     * $b$の値に関わらず，$x_t$は振動する。
 # * $a>1$の場合，$a^{t+1}\rightarrow\infty$となり$x_t$は正の無限大に発散する。
-# * $a<-1$の場合，$a^{t+1}\rightarrow\infty$もしくは$-\infty$となり$x_t$は振動し発散する。
+# * $a<-1$の場合，$x_t$は振動し$a^{t+1}\rightarrow\infty$もしくは$-\infty$となり発散する。
 # * $|a|<1$の場合$x_t$は収束
 #     * $0<a<1$の場合は単調的に収束
 #     * $-1<a<0$の場合は振動し収束
@@ -72,7 +72,7 @@ import statsmodels.formula.api as sm
 #         \end{align*}
 #         $$
 #     
-#     * $t\rightarrow\infty$の$x_t$の値を$x_{*}$としよう。$t\rightarrow\infty$の下では$x_t=x_{t-1}\equiv x_{*}$となるため以下が成立する。
+#     * $t\rightarrow\infty$の場合の$x_t$の値を$x_{*}$としよう。$t\rightarrow\infty$の下では$x_t=x_{t-1}\equiv x_{*}$となるため以下が成立する。
 #     
 #         $$
 #         x_{*}=ax_{*}+b
@@ -82,7 +82,7 @@ import statsmodels.formula.api as sm
 #         x_{*}=\dfrac{b}{1-a}=bS
 #         $$
 # 
-# 均衡を考える上で$x_t$が発散するケースは意味がなく，収束するケースに着目する必要がある。
+# 均衡を考える上で$x_t$が発散するケースは除外し，収束するケースに着目する。
 
 # ### 例１
 
@@ -125,7 +125,7 @@ import statsmodels.formula.api as sm
 
 # #### 方法１
 
-# 計算した$x$の値を一時的に割り当てるアップデート用の変数を使う方法である。またリストを使う。
+# 計算した$x$の値を一時的に割り当てるアップデート用の変数を使う方法を考える。この方法は，下で説明する方法１と２よりも`Python`的（Pythonic）な方法であり，一番オススメの方法である。
 
 # In[2]:
 

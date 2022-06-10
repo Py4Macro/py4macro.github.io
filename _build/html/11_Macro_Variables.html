@@ -200,7 +200,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_RBC.html">
-   実物的景気循環（RBC）モデル
+   実物的景気循環(RBC)モデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -765,7 +765,7 @@ memory usage: 5.0 KB
 <img alt="_images/11_Macro_Variables_14_0.png" src="_images/11_Macro_Variables_14_0.png" />
 </div>
 </div>
-<p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明したpersistence（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
+<p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
@@ -860,7 +860,7 @@ memory usage: 5.0 KB
 </div></div></div>
 </div>
 <p>右上と左下の値が２変数の相関係数であり，値は約<code class="docutils literal notranslate"><span class="pre">-0.64</span></code>は強い逆相関を意味する。</p>
-<p>また上の図からpersistenceが高いことが伺える。自己相関係数を計算してみよう。</p>
+<p>また上の図から持続性が高いことが伺える。自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
@@ -885,7 +885,7 @@ memory usage: 5.0 KB
 </div>
 </div>
 </div>
-<p>両変数ともトレンドからの乖離はpersistenceが非常に高いと言える。</p>
+<p>両変数ともトレンドからの乖離は持続性が非常に高いと言える。</p>
 </section>
 <section id="id6">
 <h3>回帰分析<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
@@ -924,8 +924,8 @@ memory usage: 5.0 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.410
 Model:                            OLS   Adj. R-squared:                  0.407
 Method:                 Least Squares   F-statistic:                     110.0
-Date:                Sat, 04 Jun 2022   Prob (F-statistic):           7.39e-20
-Time:                        10:16:48   Log-Likelihood:                -229.21
+Date:                Fri, 10 Jun 2022   Prob (F-statistic):           7.39e-20
+Time:                        18:36:01   Log-Likelihood:                -229.21
 No. Observations:                 160   AIC:                             462.4
 Df Residuals:                     158   BIC:                             468.6
 Df Model:                           1                                         
@@ -1054,7 +1054,7 @@ Notes:
 <img alt="_images/11_Macro_Variables_51_0.png" src="_images/11_Macro_Variables_51_0.png" />
 </div>
 </div>
-<p>上下しているのが，過去約35年間は非常に安定している。図からpersistenceが強いことがわかるが，実際に計算してみよう。</p>
+<p>上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
@@ -1067,7 +1067,7 @@ Notes:
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">0.949</span></code>は非常に高いpersistenceを意味しており，インフレが増加すると持続傾向にあることがわかる。次にトレンドからの乖離（％ポイント）を計算し，GDPのトレンドからの乖離と重ねて図示してみよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">0.949</span></code>は非常に高い持続性を意味しており，インフレが増加すると持続傾向にあることがわかる。次にトレンドからの乖離（％ポイント）を計算し，GDPのトレンドからの乖離と重ねて図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
@@ -1140,7 +1140,7 @@ Notes:
 </div>
 </div>
 </div>
-<p>トレンドからの乖離も強いpersistenceがあることを示している。</p>
+<p>トレンドからの乖離も強い持続性があることを示している。</p>
 </section>
 <section id="id10">
 <h3>フラット化するフィリップス曲線<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
@@ -1450,122 +1450,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>6.949734</td>
+      <td>4.131386</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>3.605396</td>
+      <td>5.703082</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>3.719647</td>
+      <td>6.053994</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>3.353748</td>
+      <td>5.668906</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>7.198277</td>
+      <td>5.133103</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>5.769777</td>
+      <td>3.797516</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>4.297802</td>
+      <td>4.795732</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>3.649502</td>
+      <td>4.436315</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>5.115155</td>
+      <td>4.681816</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>5.465322</td>
+      <td>5.181581</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>4.304514</td>
+      <td>4.346724</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>4.218706</td>
+      <td>4.730165</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>5.448795</td>
+      <td>5.905968</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>5.191382</td>
+      <td>3.064548</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>3.674493</td>
+      <td>6.145761</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>4.492223</td>
+      <td>6.206717</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>6.016099</td>
+      <td>4.971053</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>4.404197</td>
+      <td>3.646888</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>5.603933</td>
+      <td>5.345687</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>4.123829</td>
+      <td>4.658566</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>5.983570</td>
+      <td>2.268111</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>4.177853</td>
+      <td>5.149844</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>4.839851</td>
+      <td>5.573356</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>6.070589</td>
+      <td>4.158365</td>
     </tr>
   </tbody>
 </table>
@@ -1592,7 +1592,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7f853303ea90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7fcfcbba6bb0&gt;
 </pre></div>
 </div>
 </div>
@@ -1633,42 +1633,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>4.758259</td>
+      <td>5.296154</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>5.440601</td>
+      <td>4.866508</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.354153</td>
+      <td>4.637955</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>4.662847</td>
+      <td>4.752823</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>4.771557</td>
+      <td>5.038759</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>4.970840</td>
+      <td>4.941552</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>5.237111</td>
+      <td>4.090788</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>5.029431</td>
+      <td>4.960522</td>
     </tr>
   </tbody>
 </table>
@@ -1709,12 +1709,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>4.803965</td>
+      <td>4.888360</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>5.002235</td>
+      <td>4.757905</td>
     </tr>
   </tbody>
 </table>
@@ -1802,12 +1802,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.271413</td>
+      <td>0.139490</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.166034</td>
+      <td>0.262991</td>
     </tr>
   </tbody>
 </table>
@@ -2465,7 +2465,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f8532eb7d60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7fcfd90a6b50&gt;
 </pre></div>
 </div>
 </div>
@@ -2480,7 +2480,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7f8532eb78b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fcfe89719a0&gt;
 </pre></div>
 </div>
 </div>

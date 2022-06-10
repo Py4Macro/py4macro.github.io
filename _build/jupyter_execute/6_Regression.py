@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import py4macro
-import statsmodels.formula.api as sm
+import statsmodels.formula.api as smf
 from see import see
 
 
@@ -113,7 +113,7 @@ pass
 # 
 # 回帰式は次のような形で文字列を使って指定する。
 # ```
-# '非説明変数 ~ 定数項以外の説明変数'
+# '被説明変数 ~ 定数項以外の説明変数'
 # ```
 # 定数項は自動的に挿入される。また定数項以外の説明変数が複数がる場合は、`+`でつなげるが，今回は単回帰分析となるので説明変数は１つとなる。また回帰式の中で使う変数名は，データが含まれる`DataFrame`の列ラベルを使う。
 # ```
@@ -134,7 +134,7 @@ formula = 'gdp_pc_relative ~ tfp_relative'
 # In[6]:
 
 
-model = sm.ols(formula, data=df2019)
+model = smf.ols(formula, data=df2019)
 
 
 # `ols()`の第１引数は上で定義した文字列の回帰式であり、第２引数`data`は使用するデータを指定する。
@@ -467,8 +467,8 @@ formula_factors = 'factors_relative_log ~ gdp_pc_relative_log'
 # In[20]:
 
 
-result_tfp = sm.ols(formula_tfp, data=df2019).fit()
-result_factors = sm.ols(formula_factors, data=df2019).fit()
+result_tfp = smf.ols(formula_tfp, data=df2019).fit()
+result_factors = smf.ols(formula_factors, data=df2019).fit()
 
 
 # パラメータの値を表示してみよう。

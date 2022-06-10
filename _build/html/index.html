@@ -199,7 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_RBC.html">
-   実物的景気循環（RBC）モデル
+   実物的景気循環(RBC)モデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -435,6 +435,11 @@ title="Print to PDF"
    本サイトで使うPythonとパッケージのバージョン
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   おまけ
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -464,6 +469,11 @@ title="Print to PDF"
    本サイトで使うPythonとパッケージのバージョン
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   おまけ
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -481,7 +491,9 @@ title="Print to PDF"
 <p><a class="reference external" href="https://t-haruyama.github.io">春山 鉄源</a></p>
 <p>神戸大学経済学研究科</p>
 </div></blockquote>
-<div class="cell docutils container">
+<div name="html-admonition" style="font-size: 0.8em">
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+</div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
@@ -490,7 +502,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Version: 2022年06月04日
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Version: 2022年06月10日
 </pre></div>
 </div>
 </div>
@@ -503,17 +515,16 @@ dt = datetime.datetime.today()
 <p>本サイトに関するコメント等はGitHubの<a class="reference external" href="https://github.com/Py4Macro/py4macro.github.io/discussions">Discussions</a>もしくは<a class="reference external" href="mailto:haruyama&#37;&#52;&#48;econ&#46;kobe-u&#46;ac&#46;jp">mailto:haruyama<span>&#64;</span>econ<span>&#46;</span>kobe-u<span>&#46;</span>ac<span>&#46;</span>jp</a>にご連絡ください。</p>
 <br>
 <p>姉妹サイト：<a class="reference external" href="https://py4etrics.github.io">「Pythonで学ぶ入門計量経済学」</a> <font size="+0">🐍</font></p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div name="html-admonition">
-Do you want to read in a differnt language? Start
-<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>
-in English or the language of your choice.
-</div>
-</aside>
+<!--```{margin}-->
+<!--<div name="html-admonition">-->
+<!--Do you want to read in a differnt language? Start-->
+<!--<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>-->
+<!--in English or the language of your choice.-->
+<!--</div>-->
+<!--```-->
 <section id="id1">
 <h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>本サイトの目的は２つある。第一に，学部中級＋レベル（「＋」は中級より少し進んだという意味）のマクロ経済学をとおして<code class="docutils literal notranslate"><span class="pre">Python</span></code>を学び，<code class="docutils literal notranslate"><span class="pre">Python</span></code>をとおしてマクロ経済学を学ぶ（復習する）ことである。大学での経済学教育は主に講義でおこなわれる。モデルの展開と解説，データが紹介されるが，私もそうだったように「そういうものなんだ」と納得はするが，経済学との間になんとなく「距離」を感じる学生が多いのではないだろうか。その距離を縮めるために，演習や数値例を使った宿題があり，その役目はある程度果たしている。その距離を更に縮めようというのが本サイトの目的である。<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使うことにより，異なる政策がもたらす均衡への影響を数値化し，簡単に計算することができる。また複雑なマクロモデルの均衡の動学的な動きを視覚的に確認し，政策などのパラメータにどのように反応するかも一瞬で確認することができる。それもパラメータの値や組み合わせの変更も自由自在である。即ち，マクロ経済学のハンズオン（<a class="reference external" href="https://eow.alc.co.jp/search?q=hands-on">hands-on</a>）が可能となる。ハンズオンこそが今の授業で足りないものであり，学生のマクロ経済学の理解と興味を深め「距離」を更に縮めることが期待できるのではないだろうか。</p>
+<p>本サイトの目的は２つある。第一に，学部中級＋レベル（「＋」は中級より少し進んだという意味）のマクロ経済学をとおして<code class="docutils literal notranslate"><span class="pre">Python</span></code>を学び，<code class="docutils literal notranslate"><span class="pre">Python</span></code>をとおしてマクロ経済学を学ぶ（復習する）ことである。大学での経済学教育は主に講義でおこなわれる。モデルの展開と解説，データが紹介されるが，私もそうだったように「そういうものなんだ」と納得はするが，経済学との間になんとなく「距離」を感じる学生が多いのではないだろうか。その距離を縮めるために，演習や数値例を使った宿題があり，その役目はある程度果たしている。その距離を更に縮めようというのが本サイトの目的である。<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使うことにより，学生自身がデータを操作し，データの特徴を確認できる。回帰分析も簡単におこなうことができる。更に，<code class="docutils literal notranslate"><span class="pre">Python</span></code>はデータだけではなく理論モデルの理解にも大いに役立つ。異なる政策がもたらす均衡への影響を数値化し，簡単に計算することができる。また複雑なマクロモデルの均衡の動学的な動きを視覚的に確認し，政策などのパラメータにどのように反応するかも一瞬で確認することができる。それもパラメータの値や組み合わせの変更も自由自在である。即ち，マクロ経済学のハンズオン（<a class="reference external" href="https://eow.alc.co.jp/search?q=hands-on">hands-on</a>）が可能となる。ハンズオンこそが今の授業で足りないものであり，学生のマクロ経済学の理解と興味を深め「距離」を更に縮めることが期待できるのではないだろうか。</p>
 <p>第二に，経済学部の学生に今後変わりゆく社会に少しでも対応できるように，<a class="reference external" href="https://www.google.co.jp/search?q=transferable+skills&amp;spell=1&amp;sa=X&amp;ved=2ahUKEwj68fqc7LPwAhWKfd4KHT_xC64QBSgAegQIARA1&amp;biw=1440&amp;bih=767">transferable skill</a>になり得るプログラミングを身につける機会を提供することである。新聞，雑誌やインターネット上で「AI」や「機械学習」などプログラミングに関するキーワードを頻繁に見聞きする。これは一過性の流行りではなく，社会全体がデジタル化する大きなうねりの「大音」である。実際，政府もプログラミングの重要性を強く認識している。2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され，続いて中高教育でもプログラミングに関する内容・科目が充実される予定である（<a class="reference external" href="https://www.mext.go.jp/a_menu/shotou/zyouhou/detail/1369613.htm">文部科学省の参照リンク</a>）。このようにプログラミングのスキルの重要性は益々大きくなると思われる。一方，今の経済学部の学生は，デジタル化による社会のうねりとプログラミング教育の盛り上がりの狭間にあり，プログラミングの「プの字」も知らずにデジタル化社会へ飛び込むことになりかねない。学生にとって卒業後の社会は「人生の本番」であり，その準備を少しでも手助けするのが教育の役割ではないだろうか。もちろん，近年一般教養科目としてプログラミング科目が導入されている大学も多くある。しかし専門科目として提供することにより専門性とプログラミングの「いいとこ取り」を提供できる機会を利用しないのは，経済学でいう「非効率的」な教育になってしまう。</p>
 <p>では，なぜ<code class="docutils literal notranslate"><span class="pre">Python</span></code>なのか？プログラミング言語は無数に存在し，それぞれ様々な特徴があり，お互いに影響し合い進化している。その過程で広く使われ出す言語もあれば廃れていく言語もある。その中で<code class="docutils literal notranslate"><span class="pre">Python</span></code>は，近年注目を集める言語となっている。それを示す一つの参考指標として<a class="reference external" href="https://www.kaggle.com/competitions/kaggle-survey-2021/data">2021 Kaggle Machine Learning &amp; Data Science Survey</a>を紹介する。</p>
 <figure class="align-default" id="popularity">
@@ -601,6 +612,84 @@ statsmodels   0.13.2
 wooldridge    0.4.4
 </pre></div>
 </div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>おまけ<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://www.google.co.jp/search?q=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&amp;tbm=isch&amp;ved=2ahUKEwjM44mptKL4AhUSdXAKHXW_BKYQ2-cCegQIABAA&amp;oq=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&amp;gs_lcp=CgNpbWcQA1AAWABggwhoAHAAeACAAa0BiAGtAZIBAzAuMZgBAKoBC2d3cy13aXotaW1nwAEB&amp;sclient=img&amp;ei=FPmiYsyJBJLqwQP1_pKwCg&amp;bih=863&amp;biw=1511">これを</a><code class="docutils literal notranslate"><span class="pre">Python</span></code>コードで書いてみた。</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 下で使う数値</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mf">0.09</span>
+<span class="n">yshift</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">ymax</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">yshift</span>
+<span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="n">yshift</span>
+<span class="n">ymax0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ymin</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span><span class="p">)</span>
+<span class="n">ymax1</span> <span class="o">=</span> <span class="n">yshift</span><span class="o">/</span><span class="p">(</span><span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span><span class="p">)</span>
+<span class="n">font_largest</span><span class="o">=</span><span class="mi">30</span>
+<span class="n">font_large</span><span class="o">=</span><span class="mi">20</span>
+
+<span class="c1"># GDPのプロット</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">3.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">12.7</span><span class="p">)</span>
+
+<span class="c1"># 点線のプロット</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.81</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">x_coordinates</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">y_coordinates</span> <span class="o">=</span> <span class="p">[</span><span class="n">ymax0</span><span class="p">,</span> <span class="n">ymax1</span><span class="p">,</span> <span class="n">ymax0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_coordinates</span><span class="p">,</span> <span class="n">y_coordinates</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="c1"># 矢印のプロット</span>
+<span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ymin</span><span class="o">+</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+             <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+             <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ymin</span><span class="o">+</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+             <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+             <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="c1"># 注釈の挿入</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;山&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">h</span><span class="p">,</span><span class="mf">1.15</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;山&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">h</span><span class="p">,</span><span class="mf">1.15</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;谷&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">h</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;好況&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">0.5</span><span class="o">-</span><span class="n">v</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;不況&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">-</span><span class="n">v</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;後退&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;拡張&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;潜在的GDP&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="o">-</span><span class="mf">0.09</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">)</span>
+
+<span class="c1"># 横軸・縦軸のラベルを追加</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">時間&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># 縦軸・横軸のラベルと目盛の削除</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+<span class="c1"># 枠を削除</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/index_5_0.png" src="_images/index_5_0.png" />
 </div>
 </div>
 <hr class="docutils" />
