@@ -121,7 +121,7 @@ Google合同会社の子会社である[Kaggle](https://www.kaggle.com)は，デ
 
 ## 本サイトで使うPythonとパッケージのバージョン
 ```{code-cell} python3
-import matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
+import japanize_matplotlib, matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
 from platform import python_version
 
 packages = ['Python', 'matplotlib', 'numpy','pandas', 'py4macro', 'scipy','see', 'statsmodels', 'wooldridge']
@@ -129,6 +129,79 @@ versions = [python_version(), matplotlib.__version__, numpy.__version__, pandas.
 
 for pack, ver in zip(packages, versions):
     print('{0:14}{1}'.format(pack,ver))
+```
+
+## おまけ：景気循環のイメージ
+[これを](https://www.google.co.jp/search?q=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&tbm=isch&ved=2ahUKEwjM44mptKL4AhUSdXAKHXW_BKYQ2-cCegQIABAA&oq=%E6%99%AF%E6%B0%97%E5%BE%AA%E7%92%B0%E3%80%80%E5%B1%B1%E3%80%80%E8%B0%B7%E3%80%80%E6%8B%A1%E5%BC%B5%E3%80%80%E5%BE%8C%E9%80%80&gs_lcp=CgNpbWcQA1AAWABggwhoAHAAeACAAa0BiAGtAZIBAzAuMZgBAKoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=FPmiYsyJBJLqwQP1_pKwCg&bih=863&biw=1511)`Python`コードで書いてみた。
+
+```{code-cell} python3
+:tags: [hide-input]
+
+import japanize_matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 下で使う数値
+h = 0.35
+v = 0.09
+yshift = 0.2
+ymax = 1 + yshift
+ymin = -1 - yshift
+ymax0 = (1-ymin)/(ymax-ymin)
+ymax1 = yshift/(ymax-ymin)
+font_largest=30
+font_large=20
+
+# GDPのプロット
+x = np.arange(0,3.*np.pi,0.1)
+y = np.sin(x)
+fig, ax = plt.subplots(figsize=(11,4))
+ax.plot(x, y, linewidth=7)
+ax.set_ylim(ymin, ymax)
+ax.set_xlim(-1.4, 12.7)
+
+# 点線のプロット
+ax.axhline(0, xmax=0.81, linestyle='--')
+x_coordinates = [np.pi/2, np.pi*3/2, np.pi*5/2]
+y_coordinates = [ymax0, ymax1, ymax0]
+for x, y in zip(x_coordinates, y_coordinates):
+    ax.axvline(x, ymax=y, linestyle=':')
+
+# 矢印のプロット
+for dx in [np.pi/2, -np.pi/2]:
+    ax.arrow(x=np.pi, y=ymin+0.05, dx=dx, dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color='k')
+
+for dx in [np.pi/2, -np.pi/2]:
+    ax.arrow(x=2*np.pi, y=ymin+0.05, dx=dx, dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color='k')
+
+# 注釈の挿入
+ax.annotate('山', xy=(np.pi/2-h,1.15), size=font_largest)
+ax.annotate('山', xy=(np.pi*5/2-h,1.15), size=font_largest)
+ax.annotate('谷', xy=(np.pi*3/2-h,-0.8), size=font_largest)
+ax.annotate('好況', xy=(-1.1,0.5-v), size=font_large, color='green')
+ax.annotate('不況', xy=(-1.1,-0.5-v), size=font_large, color='red')
+ax.annotate('後退', xy=(np.pi-0.5,-1.), size=font_large, color='red')
+ax.annotate('拡張', xy=(2*np.pi-0.5,-1.), size=font_large, color='green')
+ax.annotate('潜在的GDP', xy=(3*np.pi+0.8,-0.09), size=font_large)
+
+# 横軸・縦軸のラベルを追加
+ax.set_ylabel('GDP', size=font_large+5)
+ax.set_xlabel('\n時間', size=font_large+5)
+
+# 縦軸・横軸のラベルと目盛の削除
+ax.set_yticklabels([])
+ax.set_xticklabels([])
+ax.set_xticks([])
+ax.set_yticks([])
+
+# 枠を削除
+for s in ['top', 'right', 'left','bottom']:
+    ax.spines[s].set_visible(False)
+pass
 ```
 
 ---
