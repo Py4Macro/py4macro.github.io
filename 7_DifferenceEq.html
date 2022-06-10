@@ -612,7 +612,7 @@ x_{t+1}
 </ul>
 </li>
 <li><p><span class="math notranslate nohighlight">\(a&gt;1\)</span>の場合，<span class="math notranslate nohighlight">\(a^{t+1}\rightarrow\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は正の無限大に発散する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(a&lt;-1\)</span>の場合，<span class="math notranslate nohighlight">\(a^{t+1}\rightarrow\infty\)</span>もしくは<span class="math notranslate nohighlight">\(-\infty\)</span>となり<span class="math notranslate nohighlight">\(x_t\)</span>は振動し発散する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(a&lt;-1\)</span>の場合，<span class="math notranslate nohighlight">\(x_t\)</span>は振動し<span class="math notranslate nohighlight">\(a^{t+1}\rightarrow\infty\)</span>もしくは<span class="math notranslate nohighlight">\(-\infty\)</span>となり発散する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(|a|&lt;1\)</span>の場合<span class="math notranslate nohighlight">\(x_t\)</span>は収束</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(0&lt;a&lt;1\)</span>の場合は単調的に収束</p></li>
@@ -630,7 +630,7 @@ x_{t+1}
         \end{align*}
         \end{split}\]</div>
 </li>
-<li><p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の<span class="math notranslate nohighlight">\(x_t\)</span>の値を<span class="math notranslate nohighlight">\(x_{*}\)</span>としよう。<span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の下では<span class="math notranslate nohighlight">\(x_t=x_{t-1}\equiv x_{*}\)</span>となるため以下が成立する。</p>
+<li><p><span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の場合の<span class="math notranslate nohighlight">\(x_t\)</span>の値を<span class="math notranslate nohighlight">\(x_{*}\)</span>としよう。<span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>の下では<span class="math notranslate nohighlight">\(x_t=x_{t-1}\equiv x_{*}\)</span>となるため以下が成立する。</p>
 <div class="math notranslate nohighlight">
 \[
         x_{*}=ax_{*}+b
@@ -643,7 +643,7 @@ x_{t+1}
 </ul>
 </li>
 </ul>
-<p>均衡を考える上で<span class="math notranslate nohighlight">\(x_t\)</span>が発散するケースは意味がなく，収束するケースに着目する必要がある。</p>
+<p>均衡を考える上で<span class="math notranslate nohighlight">\(x_t\)</span>が発散するケースは除外し，収束するケースに着目する。</p>
 </section>
 <section id="id5">
 <h3>例１<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
@@ -685,7 +685,7 @@ x_{t+1}=0.4x_{t}+3
 <p>次にコードを書いて<span class="math notranslate nohighlight">\(x_t\)</span>を計算しプロットするが，３つの方法を紹介する。</p>
 <section id="id6">
 <h4>方法１<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
-<p>計算した<span class="math notranslate nohighlight">\(x\)</span>の値を一時的に割り当てるアップデート用の変数を使う方法である。またリストを使う。</p>
+<p>計算した<span class="math notranslate nohighlight">\(x\)</span>の値を一時的に割り当てるアップデート用の変数を使う方法を考える。この方法は，下で説明する方法１と２よりも<code class="docutils literal notranslate"><span class="pre">Python</span></code>的（Pythonic）な方法であり，一番オススメの方法である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>                  <span class="c1"># 1</span>
