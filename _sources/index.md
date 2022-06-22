@@ -121,7 +121,7 @@ Google合同会社の子会社である[Kaggle](https://www.kaggle.com)は，デ
 
 ## 本サイトで使うPythonとパッケージのバージョン
 ```{code-cell} python3
-import japanize_matplotlib, matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
+import matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
 from platform import python_version
 
 packages = ['Python', 'matplotlib', 'numpy','pandas', 'py4macro', 'scipy','see', 'statsmodels', 'wooldridge']
