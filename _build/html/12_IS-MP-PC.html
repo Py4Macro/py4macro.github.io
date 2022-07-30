@@ -922,12 +922,16 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ismppc_model_simple</span><span class="p">(</span><span class="n">pi0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">shock_is</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shock_mp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shock_pc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;引数：</span>
 <span class="sd">            pi0：初期のインフレ率</span>
+<span class="sd">            a：IS曲線のパラメータ（利子率の乖離）</span>
+<span class="sd">            b：フィリップス曲線のパラメータ（GDPギャップ）</span>
 <span class="sd">            shock_is：IS曲線のショック</span>
 <span class="sd">            shock_mp：MP曲線のショック</span>
-<span class="sd">            shock_ph：フィリップス曲線のショック</span>
-<span class="sd">            他は上で説明済み</span>
+<span class="sd">            shock_pc：フィリップス曲線のショック</span>
+<span class="sd">            n：ショック発生後の計算回数</span>
 <span class="sd">       返り値：</span>
-<span class="sd">           インフレ率，名目利子率，産出量，MP・IS・フィリップス曲線へのショックからなるDataFrame&quot;&quot;&quot;</span>
+<span class="sd">           インフレ率，名目利子率，産出量，MP・IS・フィリップス曲線へのショックからなるDataFrame</span>
+<span class="sd">           </span>
+<span class="sd">       * ショックは３期目に発生する&quot;&quot;&quot;</span>
     
     <span class="c1"># ========== 初期の値 ==========</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="n">pi0</span>                  <span class="c1"># 初期のインフレ</span>
@@ -936,7 +940,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
     <span class="n">y_ss</span> <span class="o">=</span> <span class="mi">100</span>                <span class="c1"># 産出量の定常値</span>
     <span class="n">r_ss</span> <span class="o">=</span> <span class="mi">2</span>                  <span class="c1"># 実質利子率の定常値</span>
 
-    <span class="c1"># ========== 空のリスト ==========</span>
+    <span class="c1"># ========== 結果を格納するリストの作成 ==========</span>
     <span class="n">pi_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>          <span class="c1"># インフレ率</span>
     <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_ss</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>         <span class="c1"># 産出量</span>
     <span class="n">i_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi</span><span class="o">+</span><span class="n">r_ss</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>      <span class="c1"># 名目利子率</span>
@@ -1377,12 +1381,16 @@ u_t=v_t=e_t=0
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ismppc_model</span><span class="p">(</span><span class="n">pi0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;引数：</span>
-<span class="sd">            pi0: インフレ率の初期値</span>
-<span class="sd">            y0:  産出の初期値</span>
-<span class="sd">            他の引数は上で説明ずみ</span>
-<span class="sd">       </span>
+<span class="sd">            pi0：インフレ率の初期値</span>
+<span class="sd">            y0：産出の初期値</span>
+<span class="sd">            a：IS曲線のパラメータ（利子率の乖離）</span>
+<span class="sd">            b：フィリップス曲線のパラメータ（GDPギャップ）</span>
+<span class="sd">            c：MP曲線のパラメータ（インフレ率の乖離）</span>
+<span class="sd">            d：MP曲線のパラメータ（GDPギャップ）</span>
+<span class="sd">            n：シミュレーションの回数</span>
 <span class="sd">       返り値：</span>
 <span class="sd">            インフレ率，産出量，名目利子率，実質利子率のDataFrame&quot;&quot;&quot;</span>
+    
     
     <span class="c1"># ========== 定常状態 ==========    </span>
     <span class="n">y_ss</span> <span class="o">=</span> <span class="mi">100</span>       <span class="c1"># y*（産出）</span>
@@ -1396,7 +1404,7 @@ u_t=v_t=e_t=0
     <span class="n">i</span><span class="o">=</span><span class="n">r_ss</span><span class="o">+</span><span class="n">pi</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">pi</span><span class="o">-</span><span class="n">pi_ss</span><span class="p">)</span><span class="o">+</span><span class="n">d</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y_ss</span><span class="p">)</span>  <span class="c1"># MP曲線を使っている</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="n">pi</span>         <span class="c1"># 実質利子率</span>
     
-    <span class="c1"># ========== 空のリスト ==========</span>
+    <span class="c1"># ========== 結果を格納するためのリストの作成 ==========</span>
     <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>     <span class="c1"># 産出</span>
     <span class="n">pi_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi</span><span class="p">]</span>   <span class="c1"># インフレ率</span>
     <span class="n">i_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="c1"># 名目利子率</span>
@@ -1534,20 +1542,26 @@ u_t=v_t=e_t=0
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ismppc_impulse</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">shock_is</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">shock_mp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">shock_pc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;引数：</span>
+<span class="sd">            a：IS曲線のパラメータ（利子率の乖離）</span>
+<span class="sd">            b：フィリップス曲線のパラメータ（GDPギャップ）</span>
+<span class="sd">            c：MP曲線のパラメータ（インフレ率の乖離）</span>
+<span class="sd">            d：MP曲線のパラメータ（GDPギャップ）</span>
 <span class="sd">            shock_is：IS曲線のショック</span>
 <span class="sd">            shock_mp：MP曲線のショック</span>
-<span class="sd">            shock_ph：フィリップス曲線のショック</span>
-<span class="sd">            他は上で説明済み</span>
-<span class="sd">            * piとyの初期値は定常値に設定してある。</span>
+<span class="sd">            shock_pc：フィリップス曲線のショック</span>
+<span class="sd">            n：ショック発生後のシミュレーションの回数</span>
 <span class="sd">       返り値：</span>
-<span class="sd">           インフレ率，産出量，名目利子率，実質利子率からなるDataFrame&quot;&quot;&quot;</span>
+<span class="sd">           インフレ率，産出量，名目利子率，実質利子率からなるDataFrame</span>
+<span class="sd">           </span>
+<span class="sd">       * piとyの初期値は定常値に設定してある。</span>
+<span class="sd">       * ショックは３期目に発生する。&quot;&quot;&quot;</span>
     
     <span class="c1"># ========== 定常状態 ==========    </span>
     <span class="n">y_ss</span> <span class="o">=</span> <span class="mi">100</span>       <span class="c1"># y*</span>
     <span class="n">pi_ss</span> <span class="o">=</span> <span class="mi">2</span>        <span class="c1"># pi*</span>
     <span class="n">r_ss</span> <span class="o">=</span> <span class="mi">2</span>         <span class="c1"># r*</span>
     
-    <span class="c1"># ========== 空のリスト ==========</span>
+    <span class="c1"># ========== 結果を格納するリストの作成 ==========</span>
     <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_ss</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>        <span class="c1"># 最初の３つの要素は定常状態に設定</span>
     <span class="n">pi_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi_ss</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
     <span class="n">i_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi_ss</span><span class="o">+</span><span class="n">r_ss</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>

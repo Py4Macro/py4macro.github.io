@@ -168,7 +168,7 @@ pass
 df['gdp_growth_annual'].max(), df['gdp_growth_annual'].min()
 
 
-# 1990年代のバブル景気には約`8`％増加しているが，リーマン・ショック時には約`9`％下落している。
+# 1980年代後半ののバブル景気には約`7.6`％増加しているが，コロナ禍では約`10`％以上下落している。
 # 
 # 次の点を知っておくのも有用だろう。
 # * 次の式を使うと四半期成長率を年率換算することもできる。
@@ -255,7 +255,7 @@ for r, l in zip(ratio_list,label_list):
 
 # ### 説明
 
-# 上の分析から明らかなことは，マクロ変数は変動するということであり，正しくそれが景気変動を表している。ここでは景気変動について，もう一歩踏み込んで考えてみる。
+# 上の分析から明らかなことは，マクロ変数は変動するということであり，正しくそれが景気循環を表している。ここでは景気循環について，もう一歩踏み込んで考えてみる。
 # 
 # マクロ変数はトレンドと変動（サイクル）に分解することができる。例えば，$Y$をGDPとすると次式のように２つの項で表すことができる。
 # 
@@ -268,90 +268,106 @@ for r, l in zip(ratio_list,label_list):
 # In[14]:
 
 
-import matplotlib.pyplot as plt
+def trend_cycle():
+    
+    import matplotlib.pyplot as plt
+    import matplotlib.lines as mlines
+    
+    # フォントのサイズ
+    font_largest=30
+    font_large=20
 
-# 下で使う数値
-h_shift = 0.28
-yshift_up = 0.2
-yshift_down = 0.7
-ymax = 1 + yshift_up
-ymin = -1 - yshift_down
-ymax0 = (1-ymin)/(ymax-ymin)
-ymax1 = yshift_down/(ymax-ymin)
-xmin = -1
-font_largest=30
-font_large=20
+    # GDPのプロット
+    xlow = 0
+    xhigh = 3*np.pi
+    x = np.arange(xlow, xhigh, 0.1)
 
-# GDPのプロット
-x = np.arange(0, 3*np.pi, 0.1)
-y = np.cos(x+np.pi/2)
-fig, ax = plt.subplots(figsize=(10,5))
-ax.plot(x, y, linewidth=7)
-ax.set_ylim(ymin, ymax)
-ax.set_xlim(xmin=xmin)
+    def yfunc(x):
+        return np.cos(x+np.pi/2)+0.1*x
 
-# 横点線のプロット
-ax.axhline(0, xmin=-1., xmax=5*np.pi, lw=4, color='orange')
+    fig, ax = plt.subplots(figsize=(10,5))
+    ax.plot(x, yfunc(x), linewidth=7, label='GDP')
 
-# 縦点線のプロット
-x_coordinates = [np.pi/2, np.pi*3/2, np.pi*5/2]
-y_coordinates_max = [ymax1, ymax0, ymax1]
-y_coordinates_min = [0, 0.13, 0]
-for x, yn, yx in zip(x_coordinates, y_coordinates_min, y_coordinates_max):
-    ax.axvline(x, ymin=yn, ymax=yx, linestyle=':')
+    # トレンド線のプロット
+    xx = np.linspace(xlow-1., xhigh+1)
 
-# 矢印のプロット（拡張と後退）
-for dx in [np.pi/2, -np.pi/2]:
-    ax.arrow(x=np.pi, y=-1.2, dx=dx, dy=0,
+    def trend_line(x):
+        return ( yfunc(3*np.pi)-yfunc(0) )/(3*np.pi) * (x-0)+yfunc(0)
+
+    ax.plot(xx, trend_line(xx), lw=4, color='orange', label='トレンド')
+
+    # 縦点線のプロット
+    ylow = -1.68
+    
+    tani0 = mlines.Line2D([np.pi/2, np.pi/2], [ylow, yfunc(np.pi/2)],  linestyle='--')
+    yama = mlines.Line2D([np.pi*3/2, np.pi*3/2], [ylow+0.4, yfunc(np.pi*3/2)],  linestyle='--')
+    tani1 = mlines.Line2D([np.pi*5/2, np.pi*5/2], [ylow, yfunc(np.pi*5/2)],  linestyle='--')
+    
+    ax.add_line(tani0)
+    ax.add_line(yama)
+    ax.add_line(tani1)
+
+    # 矢印のプロット（拡張と後退）
+    for dx in [np.pi/2, -np.pi/2]:
+        ax.arrow(x=np.pi, y=-1.2, dx=dx, dy=0,
+                 width=0.01, head_width=0.1,head_length=0.2,
+                 length_includes_head=True,color='k')
+
+    for dx in [np.pi/2, -np.pi/2]:
+        ax.arrow(x=2*np.pi, y=-1.2, dx=dx, dy=0,
+                 width=0.01, head_width=0.1,head_length=0.2,
+                 length_includes_head=True,color='k')
+
+    # 矢印のプロット（全循環）
+    start_arrow_shift = 0.8
+    ax.arrow(x=np.pi*3/2-start_arrow_shift, y=-1.5,
+             dx=-(np.pi-start_arrow_shift), dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color='k')
+    ax.arrow(x=np.pi*3/2+start_arrow_shift, y=-1.5,
+             dx=np.pi-start_arrow_shift, dy=0,
              width=0.01, head_width=0.1,head_length=0.2,
              length_includes_head=True,color='k')
 
-for dx in [np.pi/2, -np.pi/2]:
-    ax.arrow(x=2*np.pi, y=-1.2, dx=dx, dy=0,
-             width=0.01, head_width=0.1,head_length=0.2,
-             length_includes_head=True,color='k')
-    
-# 矢印のプロット（全循環）
-start_arrow_shift = 0.65
-ax.arrow(x=np.pi*3/2-start_arrow_shift, y=-1.5,
-         dx=-(np.pi-start_arrow_shift), dy=0,
-         width=0.01, head_width=0.1,head_length=0.2,
-         length_includes_head=True,color='k')
-ax.arrow(x=np.pi*3/2+start_arrow_shift, y=-1.5,
-         dx=np.pi-start_arrow_shift, dy=0,
-         width=0.01, head_width=0.1,head_length=0.2,
-         length_includes_head=True,color='k')
-    
-# 注釈の挿入
-ax.annotate('谷', xy=(np.pi/2-h_shift,-0.8),size=font_largest)
-ax.annotate('谷', xy=(np.pi*5/2-h_shift,-0.8),size=font_largest)
-ax.annotate('山', xy=(np.pi*3/2-h_shift,1.15), annotation_clip=False, size=font_largest)
-ax.annotate('好況', xy=(xmin,0.4), annotation_clip=False, size=font_large, color='green')
-ax.annotate('不況', xy=(xmin,-0.5), annotation_clip=False, size=font_large, color='red')
-ax.annotate('トレンド', xy=(xmin-1.7,-0.06), annotation_clip=False, size=font_large)
-ax.annotate('拡張', xy=(np.pi-0.2,-1.05), size=font_large, color='green')
-ax.annotate('後退', xy=(2*np.pi-0.5,-1.05), size=font_large, color='red')
-ax.annotate('全循環', xy=(np.pi*3/2-0.535,-1.56), size=font_large)
-ax.annotate('GDP', xy=(3.4,0.4), xytext=(1.,.8),
-            arrowprops=dict(width=1),
-            size=font_largest)
+    # 注釈の挿入
+    x0 = np.pi/2
+    x1 = np.pi*3/2
+    x2 = np.pi*5/2
+    xshift = 0.33
+    yshift = 0.2
 
-# 横軸のラベルを追加
-ax.set_xlabel('\n'+' '*5+'時間', size=font_large+5)
+    ax.annotate('谷', xy=(x0-xshift, yfunc(x0)+yshift),size=font_largest)
+    ax.annotate('山', xy=(x1-xshift, yfunc(x1)+yshift), annotation_clip=False, size=font_largest)
+    ax.annotate('谷', xy=(x2-xshift, yfunc(x2)+yshift),size=font_largest)
 
-# 縦軸・横軸のラベルと目盛の削除
-ax.set_yticklabels([])
-ax.set_xticklabels([])
-ax.set_xticks([])
-ax.set_yticks([])
+#     ax.annotate('好況', xy=(xlow-1.1,0.2), annotation_clip=False, size=font_large, color='green')
+#     ax.annotate('不況', xy=(xlow-1.1,-0.5), annotation_clip=False, size=font_large, color='red')
+#     ax.annotate('好況', xy=(xhigh+0.3,1.25), annotation_clip=False, size=font_large, color='green')
+#     ax.annotate('不況', xy=(xhigh+0.3,0.55), annotation_clip=False, size=font_large, color='red')
 
-# 枠を削除
-for s in ['top', 'right', 'left','bottom']:
-    ax.spines[s].set_visible(False)
-pass
+    ax.annotate('拡張', xy=(np.pi-0.2,-1.05), size=font_large, color='green')
+    ax.annotate('後退', xy=(2*np.pi-0.5,-1.05), size=font_large, color='red')
+    ax.annotate('全循環', xy=(np.pi*3/2-0.65,-1.6), size=font_large)
+
+    # 横軸のラベル，凡例を追加，縦軸の表示範囲の設定
+    ax.set_xlabel('時間', size=font_large)
+    ax.legend(loc='upper left', fontsize=20)
+    ax.set_ylim(ymax=2.3)
+
+    # 縦軸・横軸のラベルと目盛の削除
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # 枠を削除
+    for s in ['top', 'right', 'left','bottom']:
+        ax.spines[s].set_visible(False)
+
+trend_cycle()
 
 
-# この図ではトレンドは一定となっているが，GDPが増加している場合はトレンドは右上がりになる。この図から次のことが言える。好況・不況とは，GDPがトレンドを上回るか・下回るかの状態を表している。一方で，拡張・後退はGDPの変化を捉えている。また，このプロットは`NumPy`のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではなさそうだと想像できるのではないだろうか。実際，内閣府は単にGDPのデータを眺めるだけではなく[景気動向指数](https://www.esri.cao.go.jp/jp/stat/di/menu_di.html)を含め様々なデータに基づき，「谷」と「山」の時期を確定している。
+# この図のトレンドは右上がりとなっているが，一定もしくは右下がりになる場合もありえる。この図から次のことが言える。好況・不況とは，GDPがトレンドを上回るか・下回るかの状態を表している。一方で，拡張・後退はGDPの変化を捉えている。また，このプロットは`NumPy`のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく[景気動向指数](https://www.esri.cao.go.jp/jp/stat/di/menu_di.html)を含め様々なデータに基づき，「谷」と「山」の時期を確定している。
 # 
 # 景気循環を考える上で重要な役割を果たすのがトレンドである。トレンドはどのように計算するのだろうか。実は，決まった計算方法があるわけではなく，いろいろな考え方がある。実際，内閣府と日本銀行は独自の方法でGDPトレンドを算出している。
 # * [内閣府のデータ](https://www5.cao.go.jp/keizai3/getsurei/getsurei-index.html)
@@ -359,7 +375,7 @@ pass
 # * [日本銀行のデータ](https://www.boj.or.jp/research/research_data/gap/index.htm/)
 #     * 「潜在成長率」はトレンドの成長率に対応しており，「需給ギャップ」がトレンドからの％乖離を表している。
 # 
-# いずれにしろ，どのようにトレンドを決めたとしても，景気循環が人々の厚生に大きな影響を及ぼすことには変わりはない。不況になると，失業や様々な社会問題（例えば，犯罪や自殺）につながる。好況でも問題が無いわけではない。例えば，高いインフレが発生し資産価値（例えば，貨幣）が暴落し通常の生活に支障が出ることもある。またバブル景気が示すように「山」は次の「谷」の芽を育む期間となりえる。
+# いずれにしろ，どのようにトレンドを決めたとしても，景気循環が人々の厚生に大きな影響を及ぼすことには変わりはない。不況は失業や様々な社会問題（例えば，犯罪や自殺）につながる。好況でも問題が無いわけではない。例えば，高いインフレが発生し資産価値（例えば，貨幣）が暴落し通常の生活に支障が出ることもある。またバブル景気が示すように「山」は次の「谷」の芽を育む期間となりえる。
 # 
 # 以下では，データを使い景気循環$Y_t^{\text{cycle}}$の特徴を調べるが，まず上の式[](eq:10-decompose)を対数化し次式に書き換える。
 # 
@@ -367,7 +383,7 @@ pass
 # y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
 # $$ (eq:10-decompose_log)
 # 
-# ここで小文字は大文字の変数を対数化した値である（例えば，$y_t\equiv\log(Y_t)$）。$y_t^{\text{cycle}}$をより直感的に解釈するために式[](eq:10-decompose_log)の右辺を次のように近似可能である。
+# ここで小文字は大文字の変数を対数化した値である（例えば，$y_t\equiv\log(Y_t)$）。$y_t^{\text{cycle}}$をより直感的に解釈するために式[](eq:10-decompose_log)の右辺を次のように近似しよう。
 # 
 # $$
 # y_t^{\text{cycle}}\approx\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
@@ -375,7 +391,7 @@ pass
 # 
 # 即ち，$y_t^{\text{cycle}}$は変数$Y_t$のトレンドからの乖離をパーセンテージで表している。
 # 
-# これまでの説明から，景気循環を捉える項は変数の値とトレンドの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決める必要がある。ここでは，内閣府や日本銀行の複雑な手法ではなく，経済学研究でスタンダードな手法となっているHodrick–Prescottフィルターと呼ばれる手法を使う。詳細についての説明は控え，単に`py4macro`に含まれる関数`trend`を使ってトレンド抽出を行うことにする。使い方次のコードで確認できる。
+# ここまでの説明から，景気循環を捉える項$y_t^{\text{cycle}}$は変数の値とトレンドとの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決めるかが重要なポイントとなる。ここでは，内閣府や日本銀行の複雑な手法ではなく，マクロ経済学研究でスタンダードなツールとなっている[Hodrick–Prescottフィルター](https://www.google.co.jp/search?q=Hodrick%E2%80%93Prescott%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC)と呼ばれる手法を使うことにする。詳細についての説明は控え，単に`py4macro`に含まれる関数`trend`を使ってトレンド抽出を行うことにする。使い方は次のコードで確認できる。
 
 # In[15]:
 

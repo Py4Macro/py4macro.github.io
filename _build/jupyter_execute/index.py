@@ -117,7 +117,7 @@ print('Version:',dt.strftime('%Y年%m月%d日'))
 # In[2]:
 
 
-import japanize_matplotlib, matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
+import matplotlib, numpy, pandas, py4macro, scipy, see, statsmodels, wooldridge
 from platform import python_version
 
 packages = ['Python', 'matplotlib', 'numpy','pandas', 'py4macro', 'scipy','see', 'statsmodels', 'wooldridge']
