@@ -396,16 +396,16 @@ py4macro.show(teigi.loc[['hc'],:])
 a=1/3.0
 
 # 労働者一人当たりGDP
-df['gdp_pc'] = df['cgdpo'] / df['emp']
+df['gdppc'] = df['cgdpo'] / df['emp']
 
 # 一人当たり資本
-df['k_pc'] = df['ck'] / df['emp']
+df['kpc'] = df['ck'] / df['emp']
 
 # 蓄積生産要素
-df['factors'] = df['k_pc']**a * ( df['hc']*df['avh'] )**(1-a)
+df['factors'] = df['kpc']**a * ( df['hc']*df['avh'] )**(1-a)
 
 # 全要素生産性
-df['tfp'] = df['gdp_pc'] / df['factors']
+df['tfp'] = df['gdppc'] / df['factors']
 
 
 # ## 2019年
@@ -424,6 +424,8 @@ df2019 = df.query('year == 2019').copy()
 # `df`から2019年だけ抽出後，`DataFrame`のメソッド`copy()`を使いそのコピーを作成し，それを左辺の`df2019`に割り当てている。ある警告が出ないようにするために`copy()`を使っている。さらに`Python`について学習した後に説明する事にする。
 # ```
 
+# ### 一人当たりGDP
+
 # わかりやすくするために，全ての国の一人当たりGDPを米国の一人当たりGDPで割り、米国を１（基準）として議論を進める事にする。先に，米国だけのデータを抽出する。
 
 # In[22]:
@@ -437,13 +439,13 @@ us2019 = df2019.query('country == "United States"')
 # In[23]:
 
 
-df2019['gdp_pc_relative'] = df2019['gdp_pc'] / us2019['gdp_pc'].to_numpy()
+df2019['gdppc_relative'] = df2019['gdppc'] / us2019['gdppc'].to_numpy()
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# `.to_numpy()`は`NumPy`の`array`に変換するメソッドである。`.to_numpy()`を省くと`Series`を`Series`で割る事になりエラーとなる。
+# `.to_numpy()`は`NumPy`の`array`に変換するメソッドである。右辺の分母も分子も`Series`だが，要素数が異なるためエラーとなる。`.to_numpy()`を使うことにより，分母のデータ型は`array`となためエラーは発生しなくなる。
 # ```
 
 # ### 物的資本
@@ -453,7 +455,7 @@ df2019['gdp_pc_relative'] = df2019['gdp_pc'] / us2019['gdp_pc'].to_numpy()
 # In[24]:
 
 
-df2019['k_pc_relative'] = df2019['k_pc'] / us2019['k_pc'].to_numpy()
+df2019['kpc_relative'] = df2019['kpc'] / us2019['kpc'].to_numpy()
 
 
 # データを散布図で確認しよう。
@@ -461,11 +463,11 @@ df2019['k_pc_relative'] = df2019['k_pc'] / us2019['k_pc'].to_numpy()
 # In[25]:
 
 
-df2019.plot(x='k_pc_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='kpc_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
-# 正の関係があることが確認できる。またデータの曲線トレンドは凹関数のようである。`gdp_pc_relative`に対する`k_pc_relative`増加の影響は，`k_pc_relative`が低いと大きく，`k_pc_relative`が高いと小さくなる。即ち，資本の限界生産性の逓減の反映と考えられる。ただ，この効果のみで上の図を解釈するには問題がある。第一に，異なる経済のクロスセクション・データ（横断面データ）であるため，経済間の様々な異質性が反映されている。即ち，全ての観測値は同じ生産関数から生成されている訳ではない。第二に，資本の限界生産性の逓減という概念は，労働や他の投入が一定のもとでの比較静学の結果である。しかし，他の投入は一定に固定されている訳ではない。これらを考慮しつつ図の解釈をするべきではあるが，データの裏には資本の限界生産性の逓減のメカニズムが働いていると考えるのは自然であろう。
+# 正の関係があることが確認できる。またデータの曲線トレンドは凹関数のようである。`gdppc_relative`に対する`k_pc_relative`増加の影響は，`k_pc_relative`が低いと大きく，`k_pc_relative`が高いと小さくなる。即ち，資本の限界生産性の逓減の反映と考えられる。ただ，この効果のみで上の図を解釈するには問題がある。第一に，異なる経済のクロスセクション・データ（横断面データ）であるため，経済間の様々な異質性が反映されている。即ち，全ての観測値は同じ生産関数から生成されている訳ではない。第二に，資本の限界生産性の逓減という概念は，労働や他の投入が一定のもとでの比較静学の結果である。しかし，他の投入は一定に固定されている訳ではない。これらを考慮しつつ図の解釈をするべきではあるが，データの裏には資本の限界生産性の逓減のメカニズムが働いていると考えるのは自然であろう。
 
 # ### 人的資本サービス
 
@@ -483,7 +485,7 @@ df2019['hc_relative'] = df2019['hc'] / us2019['hc'].to_numpy()
 # In[27]:
 
 
-df2019.plot(x='hc_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='hc_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -499,7 +501,7 @@ pass
 # 
 # ここで見えてくるのは人的資本の「外部性」の効果である。典型的な例が，学習効果である。人的資本が増えると，生産量が高くなり学習する機会が増え，更なる人的資本の増加につながる。それが更なる生産量の増加となり，相乗効果として凸関数トレンドとして現れていると解釈できる。また，能力が上がれば，それだけ新しい知識や技術をより簡単に吸収することが可能となるだろう。更には，周りに優れた人に囲まれて仕事や勉強をすれば，それに引っ張られて自分の能力も増してくる事になるのは多くの人が経験していることではないだろうか。労働者はこのような効果を意識して（例えば，他人への効果を考慮して）行動しているわけではない。即ち，外部性が一つの基本メカニズムとして働いているという解釈が成り立つ。
 # 
-# 一方で，違う見方を可能である。閾値効果である。図を見ると，`h_relative`が低いところから増加しても`gdp_pc_relative`は大きく増加しないが，0.7あたりから増加率が増している。0.7付近で接続される２つの直線からなる折れ線グラフのようなトレンドが想定できるのではないだろうか。変数`hc`は，教育年数が一つの決定要因となっており，`hc`が低い経済では初等教育はある程度整っているが，高等教育が十分ではないと考えられる。従って，初等教育よりも高等教育の方が生産により大きな効果をもたらすとも考えられる。
+# 一方で，違う見方を可能である。閾値効果である。図を見ると，`h_relative`が低いところから増加しても`gdppc_relative`は大きく増加しないが，0.7あたりから増加率が増している。0.7付近で接続される２つの直線からなる折れ線グラフのようなトレンドが想定できるのではないだろうか。変数`hc`は，教育年数が一つの決定要因となっており，`hc`が低い経済では初等教育はある程度整っているが，高等教育が十分ではないと考えられる。従って，初等教育よりも高等教育の方が生産により大きな効果をもたらすとも考えられる。
 
 # 人的資本の効果がある程度わかったので，次に人的資本サービスについて考えよう。全ての国の`hav`x`hc`を米国の`hav`x`hc`で割り基準化する。
 
@@ -515,7 +517,7 @@ df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) / \
 # In[29]:
 
 
-df2019.plot(x='human_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='human_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -526,7 +528,7 @@ pass
 
 df2019['avh_relative'] = df2019['avh'] / us2019['avh'].to_numpy()
 
-df2019.plot(x='avh_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='avh_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -544,7 +546,7 @@ pass
 
 df2019['tfp_relative'] = df2019['tfp'] / us2019['tfp'].to_numpy()
 
-df2019.plot(x='tfp_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='tfp_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -584,7 +586,7 @@ pass
 # \left(K_i^\alpha H_i^{1-\alpha}\right)^\mu
 # $$
 # 
-# となり，蓄積生産要素の効果が過小評価されることになる。これにより物的人的資本の効果の一部をTFPの貢献だと間違って判断しTFPの過大評価になっている。では，なぜ規模に関して収穫逓増になり得るのだろうか。それが技術水準や蓄積生産要素の外部性である。技術水準と人的資本の外部性について簡単に説明したが，物的資本ストックも外部性を発生させると考えられる。物的資本ストックが増えると一人当たりGDPを増加させる。それにより，人的資本の学習効果を強める事になる。また研究開発のヒントを与えるようなきっかけにもなるかもしれない。そのような相乗効果により規模に関して収穫逓増になる生産関数を想定することも可能である。しかし多くの研究では規模に関して収穫一定の下で議論が進められており，以下ではそれを踏襲して$\mu=$とする。
+# となり，蓄積生産要素の効果が過小評価されることになる。これにより物的人的資本の効果の一部をTFPの貢献だと間違って判断しTFPの過大評価になっている。では，なぜ規模に関して収穫逓増になり得るのだろうか。それが技術水準や蓄積生産要素の外部性である。技術水準と人的資本の外部性について簡単に説明したが，物的資本ストックも外部性を発生させると考えられる。物的資本ストックが増えると一人当たりGDPを増加させる。それにより，人的資本の学習効果を強める事になる。また研究開発のヒントを与えるようなきっかけにもなるかもしれない。そのような相乗効果により規模に関して収穫逓増になる生産関数を想定することも可能である。しかし多くの研究では規模に関して収穫一定の下で議論が進められており，以下ではそれを踏襲して$\mu=1$とする。
 
 # ### 相関係数
 
@@ -593,26 +595,24 @@ pass
 # In[32]:
 
 
-df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr()
+df2019.loc[:,['gdppc_relative','tfp_relative']].corr()
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# * `.dropna()`は`NaN`がある行を削除するメソッド
-# 
-# *`.corr()`は相関係数を計算するメソッド
+# `.corr()`は相関係数を計算するメソッド
 # ```
 
 # In[33]:
 
 
 from myst_nb import glue
-corr_gdp_pc_relative_tfp_relative = df2019.loc[:,['gdp_pc_relative','tfp_relative']].dropna().corr().loc['gdp_pc_relative','tfp_relative']
-glue("corr_gdp_pc_relative_tfp_relative", round(corr_gdp_pc_relative_tfp_relative,3),display=False)
+corr_gdppc_relative_tfp_relative = df2019.loc[:,['gdppc_relative','tfp_relative']].dropna().corr().loc['gdppc_relative','tfp_relative']
+glue("corr_gdppc_relative_tfp_relative", round(corr_gdppc_relative_tfp_relative,3),display=False)
 
 
-# `GDPpc_relative`と`tfp_relative`の相関係数は約{glue:}`corr_gdp_pc_relative_tfp_relative`であり、非常に高いことがわかる。
+# `GDPpc_relative`と`tfp_relative`の相関係数は約{glue:}`corr_gdppc_relative_tfp_relative`であり、非常に高いことがわかる。
 # 
 # 次に，蓄積生産要素と一人当たりGDPの散布図を作成し，相関係数を計算してみよう図示する。
 
@@ -621,7 +621,7 @@ glue("corr_gdp_pc_relative_tfp_relative", round(corr_gdp_pc_relative_tfp_relativ
 
 df2019['factors_relative'] = df2019['factors'] / us2019['factors'].to_numpy()
 
-df2019.plot(x='factors_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot(x='factors_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -630,7 +630,7 @@ pass
 # In[35]:
 
 
-df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
+df2019.loc[:,['gdppc_relative','factors_relative']].dropna().corr()
 
 
 # TFPより相関係数は低いことが確認できた。
@@ -644,7 +644,7 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 
 # $$
 # R_i^y=R_i^{\text{tfp}}R_i^{\text{factors}}
-# $$
+# $$ (eq:5-relative-production)
 # 
 # ここで
 # 
@@ -659,7 +659,12 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # 1. $R_i^{\text{tfp}}$：米国を基準とした相対全要素生産性
 # 1. $R_i^{\text{factors}}$：米国を基準とした相対蓄積生産要素
 
-# まず両辺に対数を取ると次式となる。
+# これらの変数と`df2019`の列は次のように対応している。
+# * $R_i^y$：`gdppc_relative`
+# * $R_i^{\text{tfp}}$：`tfp_relative`
+# * $R_i^{\text{factors}}$：`factors_relative`
+
+# 次に[式](eq:5-relative-production)の両辺に対数を取ると次式となる。
 # 
 # $$
 # r_i^y =
@@ -740,23 +745,23 @@ df2019.loc[:,['gdp_pc_relative','factors_relative']].dropna().corr()
 # $$
 # 
 # この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は`0`であり蓄積生産要素は`1`である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。
+# 
+# 以下では`df2019`の統計学関連のメソッドを使って計算するために，$r^{\text{tfp}}$などを計算し，新たな列として`df2019`に追加することにする。
 
 # In[36]:
 
 
-# 欠損値であるNaNがある行を削除
-df2019_nonan = df2019.dropna(subset=['gdp_pc_relative','tfp_relative', 'factors_relative'])
+df2019['gdppc_relative_log'] = np.log(df2019['gdppc_relative'])
+df2019['tfp_relative_log']     = np.log(df2019['tfp_relative'])
+df2019['factors_relative_log'] = np.log(df2019['factors_relative'])
 
-# それぞれの変数（対数）を設定
-tfp     = np.log(df2019_nonan['tfp_relative'])
-factors = np.log(df2019_nonan['factors_relative'])
-gdp_pc  = np.log(df2019_nonan['gdp_pc_relative'])
 
-# 分散・共分散の計算
-tfp_var         = tfp.var()
-factors_var     = factors.var()
-gdp_pc_var      = gdp_pc.var()
-tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
+# 分散・共分散を計算する前に欠損値である`NaN`がある行を削除し`df2019`に際割り当てする。
+
+# In[37]:
+
+
+df2019 = df2019.dropna(subset=['gdppc_relative','tfp_relative', 'factors_relative'])
 
 
 # ```{admonition} コードの説明
@@ -765,35 +770,53 @@ tfp_factors_cov = np.cov(tfp.values,factors.values)[0,1]
 # １行目で使った`.dropna()`は，引数なしでそのまま使うと１つでも`NaN`がある行は削除される。引数の`subset=[]`に列を指定すると，その列に`NaN`がある行だけが削除される。
 # ```
 
-# **全要素生産性の寄与度**
-
-# In[37]:
-
-
-(tfp_var + tfp_factors_cov) / gdp_pc_var
-
+# 次に
+# $\text{Var}\left(r_i^{y}\right)$，
+# $\text{Var}\left(r_i^{\text{tfp}}\right)$，
+# $\text{Var}\left(r_i^{\text{factors}}\right)$，
+# $\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)$を計算しよう。
 
 # In[38]:
 
 
-from myst_nb import glue
-contribution_of_tfp = (tfp_var + tfp_factors_cov) / gdp_pc_var
-glue("contribution_of_tfp", int(100*round(contribution_of_tfp,2)),display=False)
+# 分散
+gdppc_relative_log_var   = df2019.loc[:,'gdppc_relative_log'].var()
+tfp_relative_log_var     = df2019.loc[:,'tfp_relative_log'].var()
+factors_relative_log_var = df2019.loc[:,'factors_relative_log'].var()
+# 共分散
+two_vars = ['tfp_relative_log','factors_relative_log']
+tfp_factors_relative_log_cov = df2019.loc[:,two_vars].cov().iloc[0,1]
 
 
-# **蓄積生産要素の寄与度**
+# **全要素生産性の寄与度**
 
 # In[39]:
 
 
-(factors_var + tfp_factors_cov) / gdp_pc_var
+(tfp_relative_log_var + tfp_factors_relative_log_cov) / gdppc_relative_log_var
 
 
 # In[40]:
 
 
 from myst_nb import glue
-contribution_of_factors = (factors_var + tfp_factors_cov) / gdp_pc_var
+contribution_of_tfp = (tfp_relative_log_var + tfp_factors_relative_log_cov) / gdppc_relative_log_var
+glue("contribution_of_tfp", int(100*round(contribution_of_tfp,2)),display=False)
+
+
+# **蓄積生産要素の寄与度**
+
+# In[41]:
+
+
+(factors_relative_log_var + tfp_factors_relative_log_cov) / gdppc_relative_log_var
+
+
+# In[42]:
+
+
+from myst_nb import glue
+contribution_of_factors = (factors_relative_log_var + tfp_factors_relative_log_cov) / gdppc_relative_log_var
 glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),display=False)
 
 
@@ -805,7 +828,7 @@ glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),displa
 
 # 最後に、主要な国のデータを表にまとめてみる。
 
-# In[41]:
+# In[43]:
 
 
 # 1
@@ -816,13 +839,13 @@ country_table = ['Japan', 'United Kingdom','United States', 'Norway',
 cond = df2019['country'].isin(country_table)
 
 # 3
-col = ['country','gdp_pc_relative','tfp_relative','factors_relative']
+col = ['country','gdppc_relative','tfp_relative','factors_relative']
 
 # 4
 table2019 = df2019.loc[cond,col].set_index('country') \
-                  .sort_values('gdp_pc_relative', ascending=False) \
+                  .sort_values('gdppc_relative', ascending=False) \
                   .round(2) \
-                  .rename(columns={'gdp_pc_relative':'一人当たりGDP',
+                  .rename(columns={'gdppc_relative':'一人当たりGDP',
                                    'tfp_relative':'全要素生産性',
                                    'factors_relative':'蓄積生産要素'})
 
@@ -840,14 +863,14 @@ table2019
 # 4. `DataFrame`を作成する。
 #     * `.loc[cond,col]`を使い、`cond`の条件に合った行、そして`col`の列を抽出する。
 #     * `.set_index('country')`は`country`の列を行ラベルに設定するメソッド。
-#     * `.sort_values()`は`DataFrame`を列`gdp_pc_relative`に従って並び替えるメソッドであり、`ascending=False`は降順を指定している。
+#     * `.sort_values()`は`DataFrame`を列`gdppc_relative`に従って並び替えるメソッドであり、`ascending=False`は降順を指定している。
 #     * `.round(2)`は表示する小数点を第二桁までで四捨五入することを指定するメソッド。
 #     * `.rename()`は列ラベルを変更するメソッド。
 #     
 # ＜コメント＞ `print()`関数を使うとテキストとして表示される。
 # ```
 
-# In[42]:
+# In[44]:
 
 
 from myst_nb import glue

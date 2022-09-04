@@ -141,7 +141,7 @@ rng.uniform(5, 30, 10)
 rng.uniform(size=5)
 
 
-# 標準正規分布に従う100,000個のランダムを生成しヒストグラムをカーネル密度制定をプロットしてみよう。
+# $[0,1]$の一様分布に従う100,000個のランダムを生成しヒストグラムをカーネル密度制定をプロットしてみよう。
 
 # In[9]:
 
@@ -166,8 +166,8 @@ pass
 
 # 時系列のランダム変数$\varepsilon_t$，$t=0,1,2,3,\cdots$を考えよう。例えば，レストランの経営者の収入。ビジネスにはリスク（競争相手の出現やコロナ感染症問題）があるため変動すると考えるのが自然である。$\varepsilon_t$は$t$毎にある分布から抽出されると考えることができる。次の３つの性質を満たしたランダム変数をホワイト・ノイズ（White Noise）と呼ぶ。
 # 1. 平均は`0`：$\quad\text{E}\left[\varepsilon_t\right]=0$
-# 1. 分散は一定：$\text{ E}\left[\varepsilon_t^2\right]=\sigma^2$（$\sigma$に$t$の添字はない）
-# 1. 自己共分散は`0`：$\text{ E}\left[\varepsilon_t \varepsilon_{t-s}\right]=0$（全ての$s\ne 0$に対して）。類似する概念に自己相関係数があり，値が$[-1,1]$になるように標準化されている。。
+# 1. 分散は一定：$\text{ E}\left[\varepsilon_t^2\right]=\sigma^2$（$\sigma^2$に$t$の添字はない）
+# 1. 自己共分散は`0`：$\text{ E}\left[\varepsilon_t \varepsilon_{t-s}\right]=0$（全ての$s\ne 0$に対して）。類似する概念に自己相関係数があり，値が$[-1,1]$になるように標準化されている。（ホワイト・ノイズの自己相関係数は`0`となる。）
 # 
 #     $$
 #     \text{自己相関係数}=\frac{\text{ E}\left[\varepsilon_t \varepsilon_{t-s}\right]}
@@ -181,8 +181,11 @@ pass
 #     \varepsilon_t\sim\textit{WN}(0,\sigma^2)
 #     $$
 #     
-# * 毎期毎期平均`0`の正規分布から$\varepsilon_t$が抽出されるのであればホワイト・ノイズとなる（正規分布ではない分布でもホワイト・ノイズになり得る）。
-# * ホワイト・ノイズは独立同分布（Independe and Identically Distributed）の１つである。
+# * ホワイト・ノイズの例：
+#     * 平均`0`，分散$\sigma^2$の正規分布から抽出され$\varepsilon_t$
+#     * 最小値`10`，最大値`100`からから抽出され$\varepsilon_t$
+#     * （正規分布や一様分布ではない分布でもホワイト・ノイズになり得る）
+# * ホワイト・ノイズは独立同分布（Indepent and Identically Distributed）の１つである。
 
 # ### 図示
 
@@ -233,8 +236,8 @@ pass
 # In[13]:
 
 
-current = vals[:-1]
-one_period_ahead = vals[1:]
+current = vals[:-1]   # 最後の要素を除外
+one_period_ahead = vals[1:]   # 0番目の要素を除外
 
 
 # この２つの変数を使って散布図を描いてみる。`Pandas`の`plot()`で横軸・縦軸を指定し，引数`kind`で散布図を指定するだけである。
@@ -307,7 +310,7 @@ df_wn['White_Noise'].autocorr()
 
 # ### ３つの例：持続性の違い
 
-# 直感的にマクロ変数の特徴である持続性とは，前期の値が今期の値にどれだけ影響を持っているかを示す。以下では、同じホワイト・ノイズ$\varepsilon_t$を使い$\rho$の値を変えて持続性の違いを考えてみる。そのための関数を作成しよう。
+# 直感的にマクロ変数の特徴である持続性とは，前期の値が今期の値にどれだけ影響を持っているかを示す。$\rho$の値を変えて持続性の違いを視覚的に確認するための関数を作成しよう。
 
 # In[18]:
 
@@ -334,7 +337,7 @@ def ar1_model(rho, T=100):
     ac = df_ar1.autocorr()          # 9
     
     ax_ = df_ar1.plot(marker='.')   # 10
-    ax_.set_title(fr'$\rho$={rho}       自己相関係数：{ac:.3f}',size=20) # 11
+    ax_.set_title(fr'$\rho$={rho}\t自己相関係数：{ac:.3f}',size=20) # 11
     ax_.axhline(0, c='red')         # 12
 
 
