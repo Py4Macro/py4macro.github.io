@@ -27,30 +27,32 @@ import py4macro
 # In[2]:
 
 
-# データ
-df = py4macro.data('pwt')
+def gdppc_distribution():
+    # データ
+    df = py4macro.data('pwt')
 
-# 一人当たりGDP
-df['GDPpc'] = df['rgdpe']/df['pop']
+    # 一人当たりGDP
+    df['GDPpc'] = df['rgdpe']/df['pop']
 
-# 2019だけを取り出す
-cond = (df['year'] == 2019)
-df2019 = df.loc[cond, ['country','year','GDPpc']]
+    # 2019だけを取り出す
+    cond = (df['year'] == 2019)
+    df = df.loc[cond, ['country','year','GDPpc']]
 
-# 日本の値を抽出
-jp = df2019.query('country=="Japan"')['GDPpc'].to_numpy()
+    # 日本の値を抽出
+    jp = df.query('country=="Japan"')['GDPpc'].to_numpy()
 
-# 日本を100として計算
-df2019['GDPpc_normalized'] = 100*df['GDPpc']/jp
+    # 日本を100として計算
+    df['GDPpc_normalized'] = 100*df['GDPpc']/jp
 
-# プロット
-fig, ax = plt.subplots(figsize=(6,4), tight_layout=True)
-ax.hist(df2019['GDPpc_normalized'], bins=17, edgecolor='black', linewidth=1.2)
-ax.axvline(100, c='red')
-ax.set_ylabel('国の数', size=15)
-ax.set_title(f'日本を100として，2019年, {len(df2019)}の国・地域, PWT10.0', size=16)
-fig.suptitle(f'１人当たり実質GDPの分布', size=22)
-pass
+    # プロット
+    fig, ax = plt.subplots(figsize=(6,4), tight_layout=True)
+    ax.hist(df['GDPpc_normalized'], bins=17, edgecolor='black', linewidth=1.2)
+    ax.axvline(100, c='red')
+    ax.set_ylabel('国の数', size=15)
+    ax.set_title(f'日本を100として，2019年, {len(df)}の国・地域, PWT10.0', size=16)
+    fig.suptitle(f'１人当たり実質GDPの分布', size=22)
+
+gdppc_distribution()
 
 
 # この問いはマクロ経済学の根本的な問いである。この重要な問題を考える上で、経済成長率に関する考察を無視できない。経済成長率とは、一人当たりGDP等の変数がある一定期間（例えば、一年間）にどれだけ変化したかをパーセントで表している。「現在の所得水準は過去に達成した成長率に依存し、またこれからの成長率が将来の所得水準を決定する」という質的な結果は直感的に理解できる。では、成長率と所得水準にはどういった量的な関係があるのだろうか。これを理解するために、{numref}`tab-growth`を見てみよう。
@@ -87,34 +89,39 @@ pass
 # In[3]:
 
 
-# 一人当たりGDP
-df['naGDPpc'] = df['rgdpna']/df['pop']
+def growth_distribution():
+    # データ
+    df = py4macro.data('pwt')
 
-# 1960を閾値とする
-yr = 1960
-df_growth = df.query('year >= @yr').copy()
+    # 一人当たりGDP
+    df['naGDPpc'] = df['rgdpna']/df['pop']
 
-# yr以降で全ての年でGDPのデータある国・地域を抽出
-notna_check = lambda x: x.notna().all()
-cond = df_growth[['country','year','naGDPpc']].groupby('country')['naGDPpc'].transform(notna_check)
-df_growth = df_growth.loc[cond,:]
+    # 1960を閾値とする
+    yr = 1960
+    df_growth = df.query('year >= @yr').copy()
 
-# 成長率の計算
-def fun(col):
-    return 100 * ( (col.iat[-1]/col.iat[0])**(1/len(col))-1 )
-growth = df_growth.groupby('country')[['naGDPpc']].agg(fun)
+    # yr以降で全ての年でGDPのデータある国・地域を抽出
+    notna_check = lambda x: x.notna().all()
+    cond = df_growth[['country','year','naGDPpc']].groupby('country')['naGDPpc'].transform(notna_check)
+    df_growth = df_growth.loc[cond,:]
 
-# # 日本の平均成長率
-jp_growth = growth.loc['Japan',:][0]
+    # 成長率の計算
+    def fun(col):
+        return 100 * ( (col.iat[-1]/col.iat[0])**(1/len(col))-1 )
+    growth = df_growth.groupby('country')[['naGDPpc']].agg(fun)
 
-# # プロット
-fig, ax = plt.subplots(figsize=(6,4), tight_layout=True)
-ax.hist(growth, bins=25, edgecolor='black', linewidth=1.2)
-ax.axvline(jp_growth, c='red')
-ax.set_ylabel('国の数', size=15)
-ax.set_title(f'{yr}-2019年，{len(growth)}の国・地域, PWT10.0', size=16)
-fig.suptitle(f'１人当たり実質GDPの平均成長率(％)の分布', size=20)
-pass
+    # # 日本の平均成長率
+    jp_growth = growth.loc['Japan',:][0]
+
+    # # プロット
+    fig, ax = plt.subplots(figsize=(6,4), tight_layout=True)
+    ax.hist(growth, bins=25, edgecolor='black', linewidth=1.2)
+    ax.axvline(jp_growth, c='red')
+    ax.set_ylabel('国の数', size=15)
+    ax.set_title(f'{yr}-2019年，{len(growth)}の国・地域, PWT10.0', size=16)
+    fig.suptitle(f'１人当たり実質GDPの平均成長率(％)の分布', size=20)
+
+growth_distribution()
 
 
 # 日本の平均成長率は3.1％であり、図では赤い直線で示している。最も高い成長率は台湾の5.61％であり，最も低い成長率はコンゴ民主共和国のマイナス1.62％である。実に、最高と最低成長率の差は7.23％ある。また、マイナスの成長率とは一人当たり所得の減少を意味するが、111の国・地域のうち8（約7.2％）が約60年の間平均して所得が縮小しているのである。
@@ -200,8 +207,8 @@ df.head()
 # In[8]:
 
 
-cond2019 = ( df['year']==2019 )
-df.loc[cond2019,'oecd'].value_counts()
+cond = ( df['year']==2019 )
+df.loc[cond,'oecd'].value_counts()
 
 
 # `oecd`には24カ国あることがわかる。
@@ -211,19 +218,19 @@ df.loc[cond2019,'oecd'].value_counts()
 # In[9]:
 
 
-df.loc[cond2019,'income_group'].value_counts()
+df.loc[cond,'income_group'].value_counts()
 
 
 # In[10]:
 
 
-df.loc[cond2019,'region'].value_counts()
+df.loc[cond,'region'].value_counts()
 
 
 # In[11]:
 
 
-df.loc[cond2019,'continent'].value_counts()
+df.loc[cond,'continent'].value_counts()
 
 
 # `.value_counts()`に引数`normalize=True`を追加すると，頻度（パーセント）として表示できる。
@@ -344,6 +351,9 @@ py4macro.show(teigi.loc[['hc'],:])
 # y_i=A_ik_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}
 # $$ (eq:5-yi)
 # 
+# * $y_i=\dfrac{Y_i}{L_i}$：一人当たりGDP
+# * $k_i=\dfrac{K_i}{L_i}$：一人当たり物的資本
+# 
 # この式を使い経済間の一人当たりGDPの違いを考察する事になる。即ち，$A_i$，$k_i$，$h_i$，$H_i$の違いを使って$y_i$の違いを説明しようという事である。以下では，$h_iH_i$と$k_i$，$h_i$，$H_i$を合わせた項を次のように呼ぶ事にする。
 # 
 # $$
@@ -415,14 +425,9 @@ df['tfp'] = df['gdppc'] / df['factors']
 # In[21]:
 
 
-df2019 = df.query('year == 2019').copy()
+cond = ( df['year']==2019 )
+df = df.loc[cond,:]
 
-
-# ```{admonition} コードの説明
-# :class: dropdown
-# 
-# `df`から2019年だけ抽出後，`DataFrame`のメソッド`copy()`を使いそのコピーを作成し，それを左辺の`df2019`に割り当てている。ある警告が出ないようにするために`copy()`を使っている。さらに`Python`について学習した後に説明する事にする。
-# ```
 
 # ### 一人当たりGDP
 
@@ -431,21 +436,22 @@ df2019 = df.query('year == 2019').copy()
 # In[22]:
 
 
-us2019 = df2019.query('country == "United States"')
+cond = ( df['country']=="United States" )
+us = df.loc[cond,:]
 
 
-# 次に，米国を基準とした相対的な一人当たりGDP作成し，`df2019`に新たな列として代入によう。
+# 次に，米国を基準とした相対的な一人当たりGDP作成し，`df`に新たな列として代入によう。
 
 # In[23]:
 
 
-df2019['gdppc_relative'] = df2019['gdppc'] / us2019['gdppc'].to_numpy()
+df['gdppc_relative'] = df['gdppc'] / us['gdppc'].iloc[0]
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# `.to_numpy()`は`NumPy`の`array`に変換するメソッドである。右辺の分母も分子も`Series`だが，要素数が異なるためエラーとなる。`.to_numpy()`を使うことにより，分母のデータ型は`array`となためエラーは発生しなくなる。
+# 右辺の`df['gdppc']`と`us['gdppc']`は`Series`だが，要素数が異なる。従って，分母の`us['gdppc']`をそのまま使うとエラーが発生する。`iloc[0]`を使うことにより，`us['gdppc']`に一つだけある要素を抽出し，エラーの発生を防いでいる。`iloc[0]`の代わりに`NumPy`の`array`に変換するメソッドである`.to_numpy()`を使うことも可能である。
 # ```
 
 # ### 物的資本
@@ -455,7 +461,7 @@ df2019['gdppc_relative'] = df2019['gdppc'] / us2019['gdppc'].to_numpy()
 # In[24]:
 
 
-df2019['kpc_relative'] = df2019['kpc'] / us2019['kpc'].to_numpy()
+df['kpc_relative'] = df['kpc'] / us['kpc'].to_numpy()
 
 
 # データを散布図で確認しよう。
@@ -463,7 +469,7 @@ df2019['kpc_relative'] = df2019['kpc'] / us2019['kpc'].to_numpy()
 # In[25]:
 
 
-df2019.plot(x='kpc_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='kpc_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -477,7 +483,7 @@ pass
 # In[26]:
 
 
-df2019['hc_relative'] = df2019['hc'] / us2019['hc'].to_numpy()
+df['hc_relative'] = df['hc'] / us['hc'].to_numpy()
 
 
 # 散布図で確認してみよう。
@@ -485,7 +491,7 @@ df2019['hc_relative'] = df2019['hc'] / us2019['hc'].to_numpy()
 # In[27]:
 
 
-df2019.plot(x='hc_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='hc_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -508,8 +514,8 @@ pass
 # In[28]:
 
 
-df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) / \
-                           ( us2019['avh']*us2019['hc'] ).to_numpy()
+df['human_relative'] = ( df['avh']*df['hc'] ) / \
+                       ( us['avh']*us['hc'] ).to_numpy()
 
 
 # 散布図で確認してみよう。
@@ -517,7 +523,7 @@ df2019['human_relative'] = ( df2019['avh']*df2019['hc'] ) / \
 # In[29]:
 
 
-df2019.plot(x='human_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='human_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -526,9 +532,9 @@ pass
 # In[30]:
 
 
-df2019['avh_relative'] = df2019['avh'] / us2019['avh'].to_numpy()
+df['avh_relative'] = df['avh'] / us['avh'].to_numpy()
 
-df2019.plot(x='avh_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='avh_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -544,9 +550,9 @@ pass
 # In[31]:
 
 
-df2019['tfp_relative'] = df2019['tfp'] / us2019['tfp'].to_numpy()
+df['tfp_relative'] = df['tfp'] / us['tfp'].to_numpy()
 
-df2019.plot(x='tfp_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='tfp_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -595,7 +601,7 @@ pass
 # In[32]:
 
 
-df2019.loc[:,['gdppc_relative','tfp_relative']].corr()
+df.loc[:,['gdppc_relative','tfp_relative']].corr()
 
 
 # ```{admonition} コードの説明
@@ -608,7 +614,7 @@ df2019.loc[:,['gdppc_relative','tfp_relative']].corr()
 
 
 from myst_nb import glue
-corr_gdppc_relative_tfp_relative = df2019.loc[:,['gdppc_relative','tfp_relative']].dropna().corr().loc['gdppc_relative','tfp_relative']
+corr_gdppc_relative_tfp_relative = df.loc[:,['gdppc_relative','tfp_relative']].dropna().corr().loc['gdppc_relative','tfp_relative']
 glue("corr_gdppc_relative_tfp_relative", round(corr_gdppc_relative_tfp_relative,3),display=False)
 
 
@@ -619,9 +625,9 @@ glue("corr_gdppc_relative_tfp_relative", round(corr_gdppc_relative_tfp_relative,
 # In[34]:
 
 
-df2019['factors_relative'] = df2019['factors'] / us2019['factors'].to_numpy()
+df['factors_relative'] = df['factors'] / us['factors'].to_numpy()
 
-df2019.plot(x='factors_relative', y='gdppc_relative', kind='scatter')
+df.plot(x='factors_relative', y='gdppc_relative', kind='scatter')
 pass
 
 
@@ -630,7 +636,7 @@ pass
 # In[35]:
 
 
-df2019.loc[:,['gdppc_relative','factors_relative']].dropna().corr()
+df.loc[:,['gdppc_relative','factors_relative']].dropna().corr()
 
 
 # TFPより相関係数は低いことが確認できた。
@@ -659,7 +665,7 @@ df2019.loc[:,['gdppc_relative','factors_relative']].dropna().corr()
 # 1. $R_i^{\text{tfp}}$：米国を基準とした相対全要素生産性
 # 1. $R_i^{\text{factors}}$：米国を基準とした相対蓄積生産要素
 
-# これらの変数と`df2019`の列は次のように対応している。
+# これらの変数と`df`の列は次のように対応している。
 # * $R_i^y$：`gdppc_relative`
 # * $R_i^{\text{tfp}}$：`tfp_relative`
 # * $R_i^{\text{factors}}$：`factors_relative`
@@ -746,22 +752,22 @@ df2019.loc[:,['gdppc_relative','factors_relative']].dropna().corr()
 # 
 # この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は`0`であり蓄積生産要素は`1`である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。
 # 
-# 以下では`df2019`の統計学関連のメソッドを使って計算するために，$r^{\text{tfp}}$などを計算し，新たな列として`df2019`に追加することにする。
+# 以下では`df`の統計学関連のメソッドを使って計算するために，$r^{\text{tfp}}$などを計算し，新たな列として`df`に追加することにする。
 
 # In[36]:
 
 
-df2019['gdppc_relative_log'] = np.log(df2019['gdppc_relative'])
-df2019['tfp_relative_log']     = np.log(df2019['tfp_relative'])
-df2019['factors_relative_log'] = np.log(df2019['factors_relative'])
+df['gdppc_relative_log'] = np.log(df['gdppc_relative'])
+df['tfp_relative_log']     = np.log(df['tfp_relative'])
+df['factors_relative_log'] = np.log(df['factors_relative'])
 
 
-# 分散・共分散を計算する前に欠損値である`NaN`がある行を削除し`df2019`に際割り当てする。
+# 分散・共分散を計算する前に欠損値である`NaN`がある行を削除し`df`に再割り当てする。
 
 # In[37]:
 
 
-df2019 = df2019.dropna(subset=['gdppc_relative','tfp_relative', 'factors_relative'])
+df = df.dropna(subset=['gdppc_relative','tfp_relative', 'factors_relative'])
 
 
 # ```{admonition} コードの説明
@@ -780,12 +786,12 @@ df2019 = df2019.dropna(subset=['gdppc_relative','tfp_relative', 'factors_relativ
 
 
 # 分散
-gdppc_relative_log_var   = df2019.loc[:,'gdppc_relative_log'].var()
-tfp_relative_log_var     = df2019.loc[:,'tfp_relative_log'].var()
-factors_relative_log_var = df2019.loc[:,'factors_relative_log'].var()
+gdppc_relative_log_var   = df.loc[:,'gdppc_relative_log'].var()
+tfp_relative_log_var     = df.loc[:,'tfp_relative_log'].var()
+factors_relative_log_var = df.loc[:,'factors_relative_log'].var()
 # 共分散
 two_vars = ['tfp_relative_log','factors_relative_log']
-tfp_factors_relative_log_cov = df2019.loc[:,two_vars].cov().iloc[0,1]
+tfp_factors_relative_log_cov = df.loc[:,two_vars].cov().iloc[0,1]
 
 
 # **全要素生産性の寄与度**
@@ -831,18 +837,24 @@ glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),displa
 # In[43]:
 
 
+df.columns
+
+
+# In[44]:
+
+
 # 1
 country_table = ['Japan', 'United Kingdom','United States', 'Norway',
                 'Mexico','Peru','India','China','Zimbabwe','Niger']
 
 # 2
-cond = df2019['country'].isin(country_table)
+cond = df['country'].isin(country_table)
 
 # 3
 col = ['country','gdppc_relative','tfp_relative','factors_relative']
 
 # 4
-table2019 = df2019.loc[cond,col].set_index('country') \
+table2019 = df.loc[cond,col].set_index('country') \
                   .sort_values('gdppc_relative', ascending=False) \
                   .round(2) \
                   .rename(columns={'gdppc_relative':'一人当たりGDP',
@@ -870,7 +882,7 @@ table2019
 # ＜コメント＞ `print()`関数を使うとテキストとして表示される。
 # ```
 
-# In[44]:
+# In[45]:
 
 
 from myst_nb import glue

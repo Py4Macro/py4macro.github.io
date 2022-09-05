@@ -151,7 +151,7 @@ print(f'方法１：{houhou1:}\n方法２：{houhou2}')
 
 # ## 平均成長率の計算
 
-# まずPenn World Tableを読み込み，国リスを作成しよう
+# まずPenn World Tableを読み込み，国のリストを作成しよう
 
 # In[4]:
 
