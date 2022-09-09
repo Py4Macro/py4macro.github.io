@@ -877,7 +877,7 @@ memory usage: 17.5 KB
 \qquad\qquad\quad\Downarrow\text{左辺を近似}\;\log(1+g_x)\approx g_x
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-10-log-growth">
-<span class="eqno">(54)<a class="headerlink" href="#equation-eq-10-log-growth" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(55)<a class="headerlink" href="#equation-eq-10-log-growth" title="Permalink to this equation">#</a></span>\[
 g_x\approx\log(x_{t+1})-\log(x_{t})
 \]</div>
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>の成長率である<span class="math notranslate nohighlight">\(g_x\)</span>は，<code class="docutils literal notranslate"><span class="pre">x</span></code>の対数の差分ということになる。即ち，縦軸に<code class="docutils literal notranslate"><span class="pre">x</span></code>の対数，横軸に時間をおけば，プロットの傾きは<code class="docutils literal notranslate"><span class="pre">x</span></code>の成長率と等しいことになる。</p>
@@ -897,7 +897,7 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 </div>
 <p>プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。</p>
 <p>次に，長期的な視点で図を眺めてみよう。1980年から1990年までの間に直線のトレンドを描くことができる。その傾きが平均成長率である。同様に，1990年から2020年までの直線トレンドを描くこともできるが，傾きが緩やかになっていることに気づくのではないだろうか。1991年頃のバブル崩壊の影響により，その後のGDPの伸びが鈍化していることがわかる。「失われた10年」，「失われた20年」と言われていたが，今では「失われた30年」と言われる所以である。</p>
-<p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(54)</a>を使い四半期成長率を計算してみよう。</p>
+<p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(55)</a>を使い四半期成長率を計算してみよう。</p>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
@@ -1038,7 +1038,7 @@ Net Exports 	-1.6
 <p>上の分析から明らかなことは，マクロ変数は変動するということであり，正しくそれが景気循環を表している。ここでは景気循環について，もう一歩踏み込んで考えてみる。</p>
 <p>マクロ変数はトレンドと変動（サイクル）に分解することができる。例えば，<span class="math notranslate nohighlight">\(Y\)</span>をGDPとすると次式のように２つの項で表すことができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose">
-<span class="eqno">(55)<a class="headerlink" href="#equation-eq-10-decompose" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(56)<a class="headerlink" href="#equation-eq-10-decompose" title="Permalink to this equation">#</a></span>\[
 Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 \]</div>
 <p><span class="math notranslate nohighlight">\(Y_t^{\text{trend}}\)</span>は長期的な傾向を表し，GDPであれば経済成長を捉えている。また，トレンドが右上がりでないものありえる。例えば，失業率の場合，自然失業率が一定であればトレンドはないということになる。一方，<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>は短期的な景気循環を捉えている。内閣府は景気循環を「山」と「谷」の２つに分けて<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/hiduke.html">景気基準日付</a>を発表している。トレンドを上回っている期間を「山」，下回っている期間を「谷」と考えて良いだろう。図示すると次のようになる。</p>
@@ -1163,14 +1163,14 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 </li>
 </ul>
 <p>いずれにしろ，どのようにトレンドを決めたとしても，景気循環が人々の厚生に大きな影響を及ぼすことには変わりはない。不況は失業や様々な社会問題（例えば，犯罪や自殺）につながる。好況でも問題が無いわけではない。例えば，高いインフレが発生し資産価値（例えば，貨幣）が暴落し通常の生活に支障が出ることもある。またバブル景気が示すように「山」は次の「谷」の芽を育む期間となりえる。</p>
-<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(55)</a>を対数化し次式に書き換える。</p>
+<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(56)</a>を対数化し次式に書き換える。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log">
-<span class="eqno">(56)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(57)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Permalink to this equation">#</a></span>\[
 y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
 \]</div>
-<p>ここで小文字は大文字の変数を対数化した値である（例えば，<span class="math notranslate nohighlight">\(y_t\equiv\log(Y_t)\)</span>）。<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(56)</a>の右辺を次のように近似しよう。</p>
+<p>ここで小文字は大文字の変数を対数化した値である（例えば，<span class="math notranslate nohighlight">\(y_t\equiv\log(Y_t)\)</span>）。<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(57)</a>の右辺を次のように近似しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log-approx">
-<span class="eqno">(57)<a class="headerlink" href="#equation-eq-10-decompose-log-approx" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(58)<a class="headerlink" href="#equation-eq-10-decompose-log-approx" title="Permalink to this equation">#</a></span>\[
 y_t^{\text{cycle}}\approx\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
 \]</div>
 <p>即ち，<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離をパーセンテージで表している。</p>
@@ -1263,7 +1263,7 @@ trend(s, lamb=1600)
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
 <p>次に景気循環の変数を作成するが，トレンドからの乖離を％で表すために次の関係を利用する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-devaition">
-<span class="eqno">(58)<a class="headerlink" href="#equation-eq-10-devaition" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(59)<a class="headerlink" href="#equation-eq-10-devaition" title="Permalink to this equation">#</a></span>\[
 \log\left(\frac{X}{Z}\right)
 =\log\left(1+\frac{X-Z}{Z}\right)
 \approx\frac{X-Z}{Z}
@@ -1310,7 +1310,7 @@ trend(s, lamb=1600)
 <p>図の景気循環はトレンドからの乖離である。乖離の典型的な特徴として持続性がある。これは同じ方向の乖離が続く傾向があるという意味である。即ち，今期景気が良ければ（悪ければ）来期も景気が良い（悪い）可能性が高いということである。もちろん，いずれは乖離が狭まり「山」から「谷」，そして「山」へと循環して行く。持続性を示す数値として自己相関係数がある。</p>
 <p>説明するために２つの変数<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>を考え次の係数を定義しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-yz">
-<span class="eqno">(59)<a class="headerlink" href="#equation-eq-10-yz" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(60)<a class="headerlink" href="#equation-eq-10-yz" title="Permalink to this equation">#</a></span>\[
 R(Y,Z)=
 \frac{
     \text{YとZの標本共分散}
@@ -1323,13 +1323,13 @@ R(Y,Z)=
 <li><p>分子の標本共分散が符号を決定する。</p></li>
 <li><p>分母は<span class="math notranslate nohighlight">\(R(Y,Z)\)</span>の値が<span class="math notranslate nohighlight">\(-1\leq R(Y,Z)\leq 1\)</span>となるよう標準化している。</p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(t\)</span>期のGDPを<span class="math notranslate nohighlight">\(x_t\)</span>としよう。式<a class="reference internal" href="#equation-eq-10-yz">(59)</a>を使うと，<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>が次の場合に<span class="math notranslate nohighlight">\(x_t\)</span>の自己相関係数となる。</p>
+<p><span class="math notranslate nohighlight">\(t\)</span>期のGDPを<span class="math notranslate nohighlight">\(x_t\)</span>としよう。式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を使うと，<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>が次の場合に<span class="math notranslate nohighlight">\(x_t\)</span>の自己相関係数となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-autocorrelation">
-<span class="eqno">(60)<a class="headerlink" href="#equation-eq-10-autocorrelation" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(61)<a class="headerlink" href="#equation-eq-10-autocorrelation" title="Permalink to this equation">#</a></span>\[
 Y=x_t,\quad Z=x_{t-1}
 \]</div>
 <p>直感的に説明すると，自己相関とは今期の値が前期の値に依存する程度をいう。前期の影響が強ければ，自己相関係数の絶対値は大きくなる。</p>
-<p>式<a class="reference internal" href="#equation-eq-10-autocorrelation">(60)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(59)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>が用意されている。</p>
+<p>式<a class="reference internal" href="#equation-eq-10-autocorrelation">(61)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>が用意されている。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
@@ -1441,13 +1441,13 @@ imports_cycle       0.83
 </section>
 <section id="id10">
 <h4>GDPとの相関度<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
-<p>GDPと他の変数との相関度を確認するために２変数の相関係数を考えよう。式<a class="reference internal" href="#equation-eq-10-yz">(59)</a>を使うと<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>は次のようになる。</p>
+<p>GDPと他の変数との相関度を確認するために２変数の相関係数を考えよう。式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を使うと<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>は次のようになる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-correlation">
-<span class="eqno">(61)<a class="headerlink" href="#equation-eq-10-correlation" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(62)<a class="headerlink" href="#equation-eq-10-correlation" title="Permalink to this equation">#</a></span>\[
 Y=\text{GDP},\quad
 Z=\text{GDPの構成要素の変数}
 \]</div>
-<p>式<a class="reference internal" href="#equation-eq-10-correlation">(61)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(59)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>が用意されている。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
+<p>式<a class="reference internal" href="#equation-eq-10-correlation">(62)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>が用意されている。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">------------------------&#39;</span><span class="p">)</span>

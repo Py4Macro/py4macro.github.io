@@ -76,11 +76,13 @@ np.log(1+0.02)
 # 
 # $$
 #     g_y=g_A+ag_k+(1-a)(g_h+g_H)
-# $$
+# $$ (eq:5-growth-of-y)
 # 
 # となる。
 
-# この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算する訳だが，そのためには変数の平均成長率を計算する必要があるので，その計算方法について説明する。ある変数$x$が毎年$g_x$の率（例えば，`0.02`）で$n$年間成長したとしよう。初期の$x=x_0$に対する$n$年後の比率を考えると，次式が成立する。
+# この式に基づき，成長会計，即ち，どの要素がどれだけ一人当たりGDPの成長率に貢献しているかを計算することになる。
+# 
+# 次に変数の平均成長率の計算方法を説明する。ある変数$x$が毎年$g_x$の率（例えば，`0.02`）で$n$年間成長したとしよう。初期の$x=x_0$に対する$n$年後の比率を考えると，次式が成立する。
 # 
 # $$
 # \frac{x_{n}}{x_{0}}=
@@ -111,7 +113,7 @@ np.log(1+0.02)
 # 
 # この場合，算術平均ではなく**幾何平均**を使うことに注意しよう。また**毎期毎期の成長率が違っても同じ結果[](eq:5-growth_average)が成立する**ことも覚えておこう。
 # 
-# 年間平均成長率を計算する場合，[](eq:5-growth_average-expanded)の両辺を対数化し式[](eq:gx_approx)の近似を使う方法もある。
+# 更に，年間平均成長率を計算する場合，[](eq:5-growth_average-expanded)の両辺を対数化し式[](eq:gx_approx)の近似を使うこともできる。
 # 
 # $$
 # \begin{align*}
@@ -125,7 +127,7 @@ np.log(1+0.02)
 # g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 # $$ (eq:5-growth_average-2)
 # 
-# $g_x$が十分に小さい場合は，[](eq:5-growth_average)と[](eq:5-growth_average-2)のどちらを使っても大きな差は出ない。重要な点は，どちらかの一つの方法を計算の対象全てに一貫して使うことである。
+# $g_x$が十分に小さい場合は，[](eq:5-growth_average)と[](eq:5-growth_average-2)のどちらを使っても大きな差は出ない。重要な点は，どちらかの一つの方法を計算の対象全てに一貫して使うことであり，以下では[式](eq:5-growth-of-y)と[式](eq:5-growth_average-2)を使って計算する。
 # 
 # 例：$x_0=10$，$x_n=30$，$n=50$
 
@@ -173,7 +175,7 @@ country_list = df.loc[:,'country'].unique()
 # * 一人当たり資本：$k_i\equiv\dfrac{K_i}{L_i}=$ `rkna`/`emp`
 # * 労働者一人当たり人的資本サービス：$h_iH_i=$ `avh`x`hc`
 # * 資本の所得シャア：$\alpha=1/3$（仮定）
-# * 蓄積生産要素の寄与：$k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}$
+# * 蓄積生産要素：$k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}$
 # * 全要素生産性：$A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}$
 # 
 # それぞれの変数を計算しよう。
@@ -185,17 +187,17 @@ country_list = df.loc[:,'country'].unique()
 a=1/3.0
 
 # 一人当たりGDP
-df['rgdp_pc'] = df['rgdpna'] / df['emp']
+df['gdppc'] = df['rgdpna'] / df['emp']
 
 # 資本割合
 
-df['k_pc'] = df['rkna'] / df['emp']
+df['kpc'] = df['rkna'] / df['emp']
 
 # 蓄積生産要素
-df['factors'] = df['k_pc']**a * ( df['avh']*df['hc'] )**(1-a)
+df['factors'] = df['kpc']**a * ( df['avh']*df['hc'] )**(1-a)
 
 # 全要素生産性
-df['tfp'] = df['rgdp_pc'] / df['factors']
+df['tfp'] = df['gdppc'] / df['factors']
 
 
 # これらの変数を使い，1999年から2019年の20年間の`rgdp_pc`、`k_pc`、`avh`，`hc`の平均成長率を計算する。次のコードを使うが`for`ループが二重（入れ子）になっている。
@@ -203,32 +205,38 @@ df['tfp'] = df['rgdp_pc'] / df['factors']
 # In[6]:
 
 
-var_list = ['rgdp_pc','k_pc','avh','hc']   # 1
+var_list = ['gdppc','kpc','avh','hc']   #1
 
-growth_dict = {}            # 2
+growth_dict = {}            #2
 
-for v in var_list:          # 3
+for v in var_list:          #3
     
-    growth_list = []        # 4
+    growth_list = []        #4
     
-    for c in country_list:  # 5
-        start = 1999        # 6
-        end = 2019          # 7
-        t = end-start       # 8
+    for country in country_list:  #5
+        start = 1999        #6
+        end = 2019          #7
+        t = end-start       #8
         
-        df_start = df.query('country == @c & year == @start')   # 9
-        df_end = df.query('country == @c & year == @end')       # 10
+        cond1 = ( df.loc[:,'country']==country ) #9
+        cond2 = ( df.loc[:,'year']==start )      #10
+        cond3 = ( df.loc[:,'year']==end )        #11
 
+        cond_start = ( cond1 & cond2 )           #12
+        cond_end = ( cond1 & cond3 )             #13
 
-        g = ( df_end[v].iloc[0] / df_start[v].iloc[0] )**(1/t)-1  # 11
-        growth_list.append(100*g)                               # 12
+        df_start = df.loc[cond_start,:]   #14
+        df_end = df.loc[cond_end,:,]      #15
+
+        g = (1/t)*np.log( df_end[v].iloc[0]/df_start[v].iloc[0] ) #16
+        growth_list.append(100*g)                               #17
             
-    growth_dict[v] = growth_list                                # 13
+    growth_dict[v] = growth_list                                #18
 
 
-df_growth = pd.DataFrame({'country':country_list,               # 14
-                          'rgdp_pc':growth_dict['rgdp_pc'],     # 15
-                          'k_pc':growth_dict['k_pc'],
+df_growth = pd.DataFrame({'country':country_list,           #19
+                          'gdppc':growth_dict['gdppc'],     #20
+                          'kpc':growth_dict['kpc'],
                           'avh':growth_dict['avh'],
                           'hc':growth_dict['hc']})
 
@@ -236,31 +244,36 @@ df_growth = pd.DataFrame({'country':country_list,               # 14
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. 成長率を計算する対象となる変数リスト
-# 2. 空の辞書。次の形になるように(1)の平均成長率のリストを格納する。
-#     * キー：変数名（`rgdp_pc`、`k_pc`、`hc`）
+# * `#1`：成長率を計算する対象となる変数リスト
+# * `#2`：空の辞書。次の形になるように(1)の平均成長率のリストを格納する。
+#     * キー：変数名（`gdppc`、`kpc`、`hc`）
 #     * 値：それぞれの国の成長率からなるリスト
-# 3. `var_list`に対しての`for`ループ。１回目のループでは`rdgp_pc`について計算する。
-# 4. 空リスト（役割は以下で説明）
-# 5. `country_list`に対しての`for`ループ。(3)の１回目の`for`ループで変数`rdgp_pc`に対して`country_list`にある国の成長率を下に続くコードを使って計算する。
-# 6. 最初の年を指定
-# 7. 最後の年を指定
-# 8. 何年間かを計算
-# 9. 最初の年の`DataFrame`を抽出
-# 10. 最後の年の`DataFrame`を抽出
-# 11. 平均成長率を計算する。
+# * `#3`：`var_list`に対しての`for`ループ。１回目のループでは`dgppc`について計算する。
+# * `#4`：空リスト（役割は以下で説明）
+# * `#5`：`country_list`に対しての`for`ループ。(3)の１回目の`for`ループで変数`dgppc`に対して`country_list`にある国の成長率を下に続くコードを使って計算する。
+# * `#6`：最初の年を指定
+# * `#7`：最後の年を指定
+# * `#8`：何年間かを計算
+# * `#9`：国を選択する際の条件であり`#12`と`#13`で使う
+# * `#10`：最初の年を選択する際の条件であり`#12`で使う
+# * `#11`：最後の年を選択する際の条件であり``#13`で使う
+# * `#12`：最初の年と国を選択する際の条件であり`#14`で`df_start`を作成する際に使う
+# * `#13`：最後の年と国を選択する際の条件であり`#15`で`df_end`を作成する際に使う
+# * `#14`：最初の年の`DataFrame`を抽出
+# * `#15`：最後の年の`DataFrame`を抽出
+# * `#16`：平均成長率を計算する。
 #     * `df_end[v]`と`df_start[v]`は列ラベル`v`の列を抽出しており、`Series`として返される。
 #     * `.iat[0]`は`Series`の`0`番目の数値を取り出すメソッド
-# 12. 計算した成長率を(4)のリストに追加する。
-#         * `100`をかけて％表示にする。
-# 13. ループが終わると、(4)のリストを(2)の辞書に追加する。
+# * `#17`：計算した成長率を(4)のリストに追加する。
+#     * `100`をかけて％表示にする。
+# * `#18`：ループが終わると、(4)のリストを(2)の辞書に追加する。
 #     * 辞書に追加する際に変数名`v`を指定することにより、次のペアのデータが追加される
 #         * キー：変数名（`rgdp_pc`、`k_pc`、`hc`）
 #         * 値：それぞれの国の成長率のリスト
 #     * 3.の`for`ループの次の変数に移り、3.以下で説明した作業が繰り返される。
-# 14. `country_list`を`DataFrame`の列に設定
-# 15. `rgdp_pc`の成長率を`DataFrame`の列に設定するが，その際，`growth_dict['キー']`で`growth_dic`の`キー`にあるリストを抽出している。
-#     * 下の３行は`k_pc`，`avh`，`hc`に対して同じ作業を行なっている。
+# * `#19`：`country_list`を`DataFrame`の列に設定
+# * `#20`：`gdppc`の成長率を`DataFrame`の列に設定するが，その際，`growth_dict['キー']`で`growth_dic`の`キー`にあるリストを抽出している。
+#     * 下の３行は`kpc`，`avh`，`hc`に対して同じ作業を行なっている。
 # ```
 
 # In[7]:
@@ -273,22 +286,22 @@ df_growth.head()
 # `DataFrame`にはグループ計算用のメソッド`groupby`が備わっており，それを使うとより短いコードで`df_growth`を作成することができる。
 # ```
 # def calc_growth(x):
-#     return ( x.iloc[-1] / x.iloc[0] )**(1/(len(x)-1))-1
+#     return (1/(len(x)-1))*np.log( x.iloc[-1] / x.iloc[0] )
 # 
 # cond1 = ( 1999 <= df['year'] )
 # cond2 = ( 2019 >= df['year'] )
 # cond = cond1 & cond2
-# df_growth = 100 * df.loc[cond,:].groupby('country')[['rgdp_pc','k_pc','avh','hc']].agg(calc_growth)
+# df_growth = 100 * df.loc[cond,:].groupby('country')[['gdppc','kpc','avh','hc']].agg(calc_growth)
 # ```
 # [ここを参考にしよう。](https://py4basics.github.io/3_Pandas.html#id35)
 # ````
 
-# `rgdp_pc`の成長率のヒストグラムをプロットするが，ここでは`DataFrame`のメソッド`plot()`を使う。まず使用する列を選んでメソッド`plot()`の引数に`kind='hist'`を指定するだけである。`bins=20`は階級（棒）の数を指定する引数（デフォルトは`10`）と理解すれば良いだろう。
+# `gdppc`の成長率のヒストグラムをプロットするが，ここでは`DataFrame`のメソッド`plot()`を使う。まず使用する列を選んでメソッド`plot()`の引数に`kind='hist'`を指定するだけである。`bins=20`は階級（棒）の数を指定する引数（デフォルトは`10`）と理解すれば良いだろう。
 
 # In[8]:
 
 
-df_growth['rgdp_pc'].plot(kind='hist',bins=15)
+df_growth['gdppc'].plot(kind='hist',bins=15)
 pass
 
 
@@ -297,7 +310,8 @@ pass
 # In[9]:
 
 
-len(df_growth.query('rgdp_pc < 0'))
+cond = ( df_growth.loc[:,'gdppc']<0 )
+len(df_growth.loc[cond,:])
 
 
 # 最も平均成長率が低い経済の国名を探してみよう。
@@ -305,7 +319,7 @@ len(df_growth.query('rgdp_pc < 0'))
 # In[10]:
 
 
-df_growth_sorted = df_growth.sort_values('rgdp_pc')
+df_growth_sorted = df_growth.sort_values('gdppc')
 df_growth_sorted.head()
 
 
@@ -347,7 +361,7 @@ len(df_growth)
 # In[14]:
 
 
-df_growth['factors'] = (1/3)*df_growth['k_pc']+(1-1/3)*( df_growth['avh']+df_growth['hc'] )
+df_growth.loc[:,'factors'] = (1/3)*df_growth['kpc']+(1-1/3)*( df_growth['avh']+df_growth['hc'] )
 
 
 # `factors`の成長率のヒストグラムを図示する。
@@ -364,7 +378,8 @@ pass
 # In[16]:
 
 
-len(df_growth.query('factors < 0'))
+cond = ( df_growth.loc[:,'factors']<0 )
+len(df_growth.loc[cond,:])
 
 
 # ## 全要素生産性
@@ -378,7 +393,7 @@ len(df_growth.query('factors < 0'))
 # In[17]:
 
 
-df_growth['tfp'] = df_growth['rgdp_pc'] - df_growth['factors']
+df_growth['tfp'] = df_growth['gdppc'] - df_growth['factors']
 
 
 # `tfp`の成長率のヒストグラムを図示してみよう。
@@ -395,7 +410,8 @@ pass
 # In[19]:
 
 
-len(df_growth.query('tfp < 0'))
+cond = ( df_growth.loc[:,'tfp']<0 )
+len(df_growth.loc[cond,:])
 
 
 # 蓄積要素生産性のマイナス成長率の国数と比べると10倍である。
@@ -432,7 +448,7 @@ pass
 # In[21]:
 
 
-df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
+df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['gdppc']
 
 
 # 全要素生産性の貢献度が`50`％以上の国は何％かを計算する。
@@ -440,7 +456,8 @@ df_growth['tfp_contribution'] = 100 * df_growth['tfp']/df_growth['rgdp_pc']
 # In[22]:
 
 
-100 * len(df_growth.query('50<=tfp_contribution')) / len(df_growth)
+cond = ( df_growth.loc[:,'tfp_contribution']>=50 )
+100 * len(df_growth.loc[cond,:]) / len(df_growth)
 
 
 # In[23]:
@@ -497,23 +514,30 @@ glue("tfp_contribution_more_than_50", tfp_contribution_more_than_50,display=Fals
 
 
 # それぞれの変数を設定
+gdppc_growth   = df_growth['gdppc']
 tfp_growth     = df_growth['tfp']
 factors_growth = df_growth['factors']
-rgdp_pc_growth = df_growth['rgdp_pc']
 
 # 分散・共分散の計算
+gdppc_growth_var       = gdppc_growth.var()
 tfp_growth_var         = tfp_growth.var()
 factors_growth_var     = factors_growth.var()
-rgdp_pc_growth_var     = rgdp_pc_growth.var()
 tfp_factors_growth_cov = np.cov(tfp_growth, factors_growth)[0,1]
 
+
+# ````{hint}
+# `tfp_factors_growth_cov`は次のコードでも計算できる。
+# ```
+# df_growth.loc[:,['tfp','factors']].cov().iloc[0,1]
+# ```
+# ````
 
 # **全要素生産性の寄与度**
 
 # In[25]:
 
 
-(tfp_growth_var + tfp_factors_growth_cov) / rgdp_pc_growth_var
+(tfp_growth_var + tfp_factors_growth_cov) / gdppc_growth_var
 
 
 # **蓄積生産要素の寄与度**
@@ -521,7 +545,7 @@ tfp_factors_growth_cov = np.cov(tfp_growth, factors_growth)[0,1]
 # In[26]:
 
 
-(factors_growth_var+ tfp_factors_growth_cov) / rgdp_pc_growth_var
+(factors_growth_var+ tfp_factors_growth_cov) / gdppc_growth_var
 
 
 # 蓄積生産要素と全要素生産性の寄与度は概ね6対4の割合でであることが確認できる。この結果は両変数の成長率のヒストグラムからも伺える。全要素生産性の方がより幅広く変化しているようである。いずれにしろ，蓄積生産要素と全要素生産性ともに一人当たりGDPの成長に大きく貢献していることが確認できる。
@@ -538,12 +562,12 @@ country_table = ['Japan', 'United Kingdom','United States', 'Norway',
 
 cond = df_growth['country'].isin(country_table)
 
-col = ['country','rgdp_pc','factors','tfp','tfp_contribution']
+col = ['country','gdppc','factors','tfp','tfp_contribution']
 
 df_growth.loc[cond,col].set_index('country') \
-         .sort_values('rgdp_pc', ascending=False) \
+         .sort_values('gdppc', ascending=False) \
          .round(2) \
-         .rename(columns={'rgdp_pc':'一人当たりGDPの成長率',
+         .rename(columns={'gdppc':'一人当たりGDPの成長率',
                           'factors':'蓄積生産要素の成長率',
                           'tfp':'全要素生産性の成長率',
                           'tfp_contribution':'全要素生産性の寄与度(％)'})
@@ -570,14 +594,21 @@ def jp_growth_decomposition(start, end):
                 人的資本
                 全要素生産性（TFP）"""
 
-    var_list = ['rgdp_pc','k_pc','avh','hc']
+    var_list = ['gdppc','kpc','avh','hc']
     
     start = start
     end = end
     n = end-start
     
-    df_start = df.query('country == "Japan" & year == @start')
-    df_end = df.query('country == "Japan" & year == @end')
+    cond1 = ( df.loc[:,'country']=="Japan" )
+    cond2 = ( df.loc[:,'year']==start )
+    cond3 = ( df.loc[:,'year']==end )
+
+    cond_start = ( cond1 & cond2 )
+    cond_end = ( cond1 & cond3 )
+    
+    df_start = df.loc[cond_start,:]
+    df_end = df.loc[cond_end,:,]
     
     g_list = []
     
@@ -585,7 +616,7 @@ def jp_growth_decomposition(start, end):
     # ========== var_listの変数の平均成長率を計算しg_listに追加する ==========
     for v in var_list:
         
-        g = ( df_end[v].iat[0] / df_start[v].iat[0] )**(1/n)-1
+        g = (1/n)*np.log( df_end[v].iat[0] / df_start[v].iat[0] )
         g_list.append(100*g)
 
         
@@ -621,7 +652,7 @@ for yr in yr_list:                                # 3
     dic[yr] = jp_growth_decomposition(start,end)  # 6
 
 
-idx = ['gdp_pc_growth','k_pc_growth',             # 7
+idx = ['gdppc_growth','kpc_growth',             # 7
        'avh_growth','hc_growth','factors_growth',
        'tfp_growth','tfp_contribution']
 
@@ -671,7 +702,7 @@ df_jp
 # In[31]:
 
 
-df_jp['gdp_pc_growth'].plot(kind='bar')
+df_jp['gdppc_growth'].plot(kind='bar')
 pass
 
 

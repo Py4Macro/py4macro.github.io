@@ -461,7 +461,7 @@ df['gdppc_relative'] = df['gdppc'] / us['gdppc'].iloc[0]
 # In[24]:
 
 
-df['kpc_relative'] = df['kpc'] / us['kpc'].to_numpy()
+df['kpc_relative'] = df['kpc'] / us['kpc'].iloc[0]
 
 
 # データを散布図で確認しよう。
@@ -515,7 +515,7 @@ pass
 
 
 df['human_relative'] = ( df['avh']*df['hc'] ) / \
-                       ( us['avh']*us['hc'] ).to_numpy()
+                       ( us['avh']*us['hc'] ).iloc[0]
 
 
 # 散布図で確認してみよう。
@@ -532,7 +532,7 @@ pass
 # In[30]:
 
 
-df['avh_relative'] = df['avh'] / us['avh'].to_numpy()
+df['avh_relative'] = df['avh'] / us['avh'].iloc[0]
 
 df.plot(x='avh_relative', y='gdppc_relative', kind='scatter')
 pass
@@ -550,7 +550,7 @@ pass
 # In[31]:
 
 
-df['tfp_relative'] = df['tfp'] / us['tfp'].to_numpy()
+df['tfp_relative'] = df['tfp'] / us['tfp'].iloc[0]
 
 df.plot(x='tfp_relative', y='gdppc_relative', kind='scatter')
 pass
@@ -625,7 +625,7 @@ glue("corr_gdppc_relative_tfp_relative", round(corr_gdppc_relative_tfp_relative,
 # In[34]:
 
 
-df['factors_relative'] = df['factors'] / us['factors'].to_numpy()
+df['factors_relative'] = df['factors'] / us['factors'].iloc[0]
 
 df.plot(x='factors_relative', y='gdppc_relative', kind='scatter')
 pass
@@ -832,15 +832,9 @@ glue("contribution_of_factors", int(100*round(contribution_of_factors,2)),displa
 
 # ## 表の作成
 
-# 最後に、主要な国のデータを表にまとめてみる。
+# 最後に，全要素生産性と蓄積生産要素の主要な国のデータを表にまとめてみる。
 
 # In[43]:
-
-
-df.columns
-
-
-# In[44]:
 
 
 # 1
@@ -882,7 +876,7 @@ table2019
 # ＜コメント＞ `print()`関数を使うとテキストとして表示される。
 # ```
 
-# In[45]:
+# In[44]:
 
 
 from myst_nb import glue
