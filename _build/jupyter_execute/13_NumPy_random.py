@@ -556,7 +556,7 @@ df['tfp'] = df['gdp']/( df['capital']**a * df['total_hours']**(1-a) )
 # 全要素生産性のトレンドの計算
 df['tfp_trend'] = py4macro.trend(df['tfp'])
 
-# 全要素生産性のトレンドからの乖離の計算
+# 全要素生産性のトレンドからの乖離の計算（％）
 df['tfp_cycle'] = np.log( df['tfp']/df['tfp_trend'] )
 
 # 全要素生産性とトレンドのプロット
@@ -572,7 +572,7 @@ pass
 
 ax_ = df['tfp_cycle'].plot()
 ax_.axhline(0, c='red')
-ax_.set_title('全要素生産性の変動', size=20)
+ax_.set_title('全要素生産性の変動（％）', size=20)
 pass
 
 
@@ -755,8 +755,8 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # 
 # パラメータの値を次を仮定する。
 # * $\rho$と$\sigma$は上で計算した`rho`と`sigma`の値
-# * $g=$ 1980年から2019年までの平均四半期成長率
-# * $s=$ 1980年から2019年までのGDPに占める投資の割合の平均
+# * $g=$ 1980年から最後の年までの平均四半期成長率
+# * $s=$ 1980年から最後の年までのGDPに占める投資の割合の平均
 # * $d=0.025$：年率約10％を想定
 # * $a=0.36$：資本の所得割合
 # 
@@ -772,8 +772,8 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # In[44]:
 
 
-var_list = ['gdp','capital','total_hours'] # 1
-year_list = ['1980','2019']                # 2
+var_list = ['gdp','capital','total_hours']       # 1
+year_list = [df.index[0].year,df.index[-1].year] # 2
 
 gdp_dict = {}  # 3
 K_dict = {}    # 4
@@ -790,7 +790,7 @@ for yr in year_list:        # 6
 # :class: dropdown
 # 
 # 1. ３つの変数のリスト
-# 2. 平均を計算する年のリスト
+# 2. 平均を計算する年のリストであり，`df.index[0].year`と`df.index[-1].year`はインデックスから最初と最後の年を抽出する
 # 3. それぞれの年のGDPの平均を格納する辞書
 # 4. それぞれの年の資本ストックの平均を格納する辞書
 # 5. それぞれの年の総労働時間の平均を格納する辞書
@@ -812,9 +812,9 @@ for yr in year_list:        # 6
 gdp_dict
 
 
-# キー・値の２つの対がある。キー`1980`の値には1980年のGDPの平均が設定されており，同様に，キー`2019`の値には2019年のGDPの平均が設定されている。従って，次のコードで`1980`年の値にアクセスできる。
+# キー・値の２つの対がある。キー`1980`の値には1980年のGDPの平均が設定されており，同様に，キー`2021`の値には2021年のGDPの平均が設定されている。従って，次のコードで`1980`年の値にアクセスできる。
 # ```
-# gdp_dict['1980']
+# gdp_dict[1980]
 # ```
 # 他の辞書も同様である。
 
@@ -888,7 +888,7 @@ s = (df['investment']/df['gdp']).mean()
 s
 
 
-# 約20％が投資に回されている。最後にモジュール`py4macro`に含まれるデータセット`pwt`を使い日本の資本減耗率の平均を計算しよう。
+# 約22％が投資に回されている。
 
 # ### シミュレーション
 
@@ -906,8 +906,8 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
                      s=s,
                      d=0.025,
                      a=a,
-                     H=H_dict['1980'],
-                     K0=K_dict['1980'],
+                     H=H_dict[1980],
+                     K0=K_dict[1980],
                      B0=B0):
     """引数：
             T:     シミュレーションの回数
@@ -1043,6 +1043,12 @@ for v in var_list:
 # In[54]:
 
 
+df.columns
+
+
+# In[55]:
+
+
 data_var_list = ['consumption','investment','capital']
 
 for v in data_var_list:
@@ -1051,13 +1057,13 @@ for v in data_var_list:
 
 # 結果を示すために，`data_var_list`の最初と最後に`gdp`と`tfp`を追加する。
 
-# In[55]:
+# In[56]:
 
 
 data_var_list = ['gdp']+data_var_list+['tfp']
 
 
-# In[56]:
+# In[57]:
 
 
 print('\n--- データ：変動の自己相関係数 ---\n')
@@ -1082,13 +1088,13 @@ for v in data_var_list:
 # 
 # 次に、$Y$との相関係数を計算する。
 
-# In[57]:
+# In[58]:
 
 
 print('\n--- シミュレーション：GDPとの相関係数 ---\n')
 
 for v in var_list[1:]:
-    cov = df_sim[['Yの変動',v]].corr().iloc[0,1]
+    cov = df_sim[['Yの変動',f'{v}の変動']].corr().iloc[0,1]
     print(f'{v}の変動： {cov:.3f}')
 
 
@@ -1097,7 +1103,7 @@ for v in var_list[1:]:
 # 
 # 相関度をデータと比べてみよう。
 
-# In[58]:
+# In[59]:
 
 
 print('\n--- データ：GDPとの相関係数 ---\n')
