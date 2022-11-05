@@ -785,8 +785,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.75924483, 4.58187891, 0.11636594, 1.85512556, 4.83190977,
-       7.1215367 , 5.46536305, 3.70808205, 8.88904244, 9.35075538])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.35531794, 7.06548541, 3.09324997, 2.47741829, 5.66880594,
+       5.57234499, 4.58048239, 3.16000063, 2.69169553, 4.18325872])
 </pre></div>
 </div>
 </div>
@@ -800,7 +800,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.73171999,  0.14976624,  0.50385631, -1.6824014 ,  1.15366236])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.66737138, -1.27293108,  1.39430503,  1.79848872, -0.08146872])
 </pre></div>
 </div>
 </div>
@@ -846,8 +846,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 9.56054459, 24.80433919, 22.77128217, 11.45618778, 24.90415955,
-       15.71990246, 28.50403336, 14.73605247,  7.67943024,  8.93483506])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 8.85782085,  6.78049017, 21.1340816 , 23.3467145 , 13.72592628,
+       21.45253686,  5.6467005 , 12.73644245, 23.59028296, 26.853553  ])
 </pre></div>
 </div>
 </div>
@@ -860,7 +860,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.96245078, 0.48996224, 0.41615839, 0.32666865, 0.33368891])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.28068341, 0.99221021, 0.73247684, 0.82137733, 0.60217877])
 </pre></div>
 </div>
 </div>
@@ -956,7 +956,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.1176405242495915, 1.1901143045052711)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.04204025261608175, 1.1266807297224748)
 </pre></div>
 </div>
 </div>
@@ -1033,8 +1033,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.19592486, 0.25446713],
-       [0.25446713, 1.21353449]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.14875754, -0.00472093],
+       [-0.00472093,  1.13730766]])
 </pre></div>
 </div>
 </div>
@@ -1048,7 +1048,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.211229067212701
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.004130230307083144
 </pre></div>
 </div>
 </div>
@@ -1258,6 +1258,8 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
     | `hours`: 労働者一人当たり月平均労働時間
     | `total_hours`: 月平均総労働時間（`employed`X`hours`）
     | `inflation`: インフレ率
+    | `price`: 消費者物価指数
+    | `deflator`: GDPデフレーター
     |
     | * 四半期データ
     |
@@ -1295,6 +1297,18 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
     |
     | インフレ率
     |   * 景気動向指数（速報、改訂値）（月次）から計算
+    |
+    | 消費者物価指数
+    |   * 2020年基準
+    |   * 「中分類指数（全国）＜時系列表＞【月次】」の四半期平均を計算
+    |
+    | GDPデフレーター
+    |   * 1994年Q1~2019年Q4
+    |       * 2015年（平成27年）基準
+    |       * 季節調整系列
+    |   * 1980年Q1~1993年Q4
+    |       * 2015年（平成27年）基準遡及系列
+    |       * 季節調整系列
 </pre></div>
 </div>
 </div>
@@ -1675,7 +1689,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.435
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.544
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_120_1.png" src="_images/13_NumPy_random_120_1.png" />
@@ -1832,9 +1846,10 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;gdp&#39;, &#39;consumption&#39;, &#39;investment&#39;, &#39;government&#39;, &#39;exports&#39;, &#39;imports&#39;,
        &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
-       &#39;total_hours&#39;, &#39;inflation&#39;, &#39;gdp_cycle&#39;, &#39;hours_trend&#39;, &#39;hours_cycle&#39;,
-       &#39;employed_trend&#39;, &#39;employed_cycle&#39;, &#39;total_hours_trend&#39;,
-       &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;, &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
+       &#39;total_hours&#39;, &#39;inflation&#39;, &#39;price&#39;, &#39;deflator&#39;, &#39;gdp_cycle&#39;,
+       &#39;hours_trend&#39;, &#39;hours_cycle&#39;, &#39;employed_trend&#39;, &#39;employed_cycle&#39;,
+       &#39;total_hours_trend&#39;, &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;,
+       &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -2054,92 +2069,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>272036.578508</td>
       <td>212794.379328</td>
       <td>59242.199180</td>
-      <td>8.504741e+05</td>
-      <td>-0.000495</td>
-      <td>1.002717</td>
-      <td>-0.002713</td>
-      <td>274945.488901</td>
-      <td>-0.010636</td>
-      <td>215069.807820</td>
-      <td>-0.010636</td>
-      <td>59875.681081</td>
-      <td>-0.010636</td>
+      <td>8.516209e+05</td>
+      <td>-0.001842</td>
+      <td>1.004372</td>
+      <td>-0.004363</td>
+      <td>275523.777213</td>
+      <td>-0.012737</td>
+      <td>215522.160599</td>
+      <td>-0.012737</td>
+      <td>60001.616613</td>
+      <td>-0.012737</td>
     </tr>
     <tr>
       <th>1</th>
       <td>8.880445e+05</td>
-      <td>0.992363</td>
+      <td>1.012290</td>
       <td>0.367155</td>
-      <td>274901.102652</td>
-      <td>215035.087694</td>
-      <td>59866.014958</td>
-      <td>8.889942e+05</td>
-      <td>-0.001069</td>
-      <td>1.002483</td>
-      <td>-0.010147</td>
-      <td>279313.544397</td>
-      <td>-0.015924</td>
-      <td>218486.619130</td>
-      <td>-0.015924</td>
-      <td>60826.925267</td>
-      <td>-0.015924</td>
+      <td>280421.201750</td>
+      <td>219353.058711</td>
+      <td>61068.143040</td>
+      <td>8.899827e+05</td>
+      <td>-0.002180</td>
+      <td>1.003644</td>
+      <td>0.008577</td>
+      <td>279726.413721</td>
+      <td>0.002481</td>
+      <td>218809.576697</td>
+      <td>0.002481</td>
+      <td>60916.837024</td>
+      <td>0.002481</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>9.257094e+05</td>
-      <td>0.993949</td>
+      <td>9.269115e+05</td>
+      <td>1.008453</td>
       <td>0.368038</td>
-      <td>280160.939090</td>
-      <td>219149.474209</td>
-      <td>61011.464881</td>
-      <td>9.275141e+05</td>
-      <td>-0.001948</td>
-      <td>1.002248</td>
-      <td>-0.008314</td>
-      <td>283679.781824</td>
-      <td>-0.012482</td>
-      <td>221902.008297</td>
-      <td>-0.012482</td>
-      <td>61777.773527</td>
-      <td>-0.012482</td>
+      <td>284382.020591</td>
+      <td>222451.318479</td>
+      <td>61930.702112</td>
+      <td>9.283434e+05</td>
+      <td>-0.001544</td>
+      <td>1.002913</td>
+      <td>0.005509</td>
+      <td>283926.870731</td>
+      <td>0.001602</td>
+      <td>222095.287932</td>
+      <td>0.001602</td>
+      <td>61831.582799</td>
+      <td>0.001602</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>9.635781e+05</td>
-      <td>1.021182</td>
+      <td>9.656694e+05</td>
+      <td>1.000940</td>
       <td>0.368923</td>
-      <td>292723.867633</td>
-      <td>228976.537160</td>
-      <td>63747.330474</td>
-      <td>9.660328e+05</td>
-      <td>-0.002544</td>
-      <td>1.002002</td>
-      <td>0.018961</td>
-      <td>288039.625337</td>
-      <td>0.016132</td>
-      <td>225312.395971</td>
-      <td>0.016132</td>
-      <td>62727.229366</td>
-      <td>0.016132</td>
+      <td>287145.212444</td>
+      <td>224612.761983</td>
+      <td>62532.450461</td>
+      <td>9.667010e+05</td>
+      <td>-0.001068</td>
+      <td>1.002181</td>
+      <td>-0.001240</td>
+      <td>288123.402985</td>
+      <td>-0.003401</td>
+      <td>225377.929116</td>
+      <td>-0.003401</td>
+      <td>62745.473868</td>
+      <td>-0.003401</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.003236e+06</td>
-      <td>1.001988</td>
+      <td>1.004060e+06</td>
+      <td>0.990391</td>
       <td>0.369810</td>
-      <td>292123.141788</td>
-      <td>228506.633134</td>
-      <td>63616.508654</td>
-      <td>1.004548e+06</td>
-      <td>-0.001307</td>
-      <td>1.001734</td>
-      <td>0.000253</td>
-      <td>292386.299814</td>
-      <td>-0.000900</td>
-      <td>228712.482469</td>
-      <td>-0.000900</td>
-      <td>63673.817345</td>
-      <td>-0.000900</td>
+      <td>288827.690798</td>
+      <td>225928.842119</td>
+      <td>62898.848680</td>
+      <td>1.005052e+06</td>
+      <td>-0.000988</td>
+      <td>1.001456</td>
+      <td>-0.011110</td>
+      <td>292314.549694</td>
+      <td>-0.012000</td>
+      <td>228656.357582</td>
+      <td>-0.012000</td>
+      <td>63658.192112</td>
+      <td>-0.012000</td>
     </tr>
   </tbody>
 </table>
@@ -2192,11 +2207,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.366
-Cの変動： 0.366
-Iの変動： 0.366
-Kの変動： 0.844
-Aの変動： 0.357
+Yの変動： 0.384
+Cの変動： 0.384
+Iの変動： 0.384
+Kの変動： 0.900
+Aの変動： 0.383
 </pre></div>
 </div>
 </div>
@@ -2211,9 +2226,10 @@ Aの変動： 0.357
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;gdp&#39;, &#39;consumption&#39;, &#39;investment&#39;, &#39;government&#39;, &#39;exports&#39;, &#39;imports&#39;,
        &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
-       &#39;total_hours&#39;, &#39;inflation&#39;, &#39;gdp_cycle&#39;, &#39;hours_trend&#39;, &#39;hours_cycle&#39;,
-       &#39;employed_trend&#39;, &#39;employed_cycle&#39;, &#39;total_hours_trend&#39;,
-       &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;, &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
+       &#39;total_hours&#39;, &#39;inflation&#39;, &#39;price&#39;, &#39;deflator&#39;, &#39;gdp_cycle&#39;,
+       &#39;hours_trend&#39;, &#39;hours_cycle&#39;, &#39;employed_trend&#39;, &#39;employed_cycle&#39;,
+       &#39;total_hours_trend&#39;, &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;,
+       &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -2289,8 +2305,8 @@ consumptionの変動： 0.460
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： -0.202
-Aの変動： 0.993
+Kの変動： -0.117
+Aの変動： 0.992
 </pre></div>
 </div>
 </div>
