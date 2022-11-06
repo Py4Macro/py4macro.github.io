@@ -72,7 +72,8 @@ df.info()
 # In[4]:
 
 
-df['unemployment_rate'].plot()
+fig, ax = plt.subplots()
+ax.plot('unemployment_rate', data=df)
 pass
 
 
@@ -102,7 +103,9 @@ df['u_rate_cycle'] = df['unemployment_rate'] - df['u_rate_trend']
 # In[7]:
 
 
-df['gdp_cycle'] = 100*( df['gdp']/py4macro.trend(df['gdp']) - 1 )
+df['gdp_cycle'] = 100*( np.log(df['gdp']) -
+                        py4macro.trend( np.log(df['gdp']) )
+                      )
 
 
 # GDPの乖離と重ねて動きを確認してみる。
@@ -110,9 +113,33 @@ df['gdp_cycle'] = 100*( df['gdp']/py4macro.trend(df['gdp']) - 1 )
 # In[8]:
 
 
-df.loc[:,['u_rate_cycle','gdp_cycle']].plot(secondary_y='u_rate_cycle')
+fig, ax1 = plt.subplots()       #1
+ax2 = ax1.twinx()               #2
+cmap = plt.get_cmap("tab10")    #3
+for i, ax, v in zip(            #4
+                    [0,1],      #5
+                    [ax1, ax2], #6
+                    ['gdp_cycle', 'u_rate_cycle'] #7
+                   ):
+    ax.plot(v, data=df, color=cmap(i)) #8
+    ax.legend()                        #9
+    ax.set_ylabel(v, size=15)          #10
 pass
 
+
+# ```{admonition} コードの説明
+# :class: dropdown
+# * `#1`：「キャンバス」は`fig`に，「軸」は`ax1`に割り当てる。
+# * `#2`：`ax1`のメソッド`.tiwinx()`は２軸プロットをするためのものであり，`ax1`は左の縦軸を,`ax2`は右の縦軸を意味する。
+# * `#3`：`matplotlib`には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。`plt.get_cmap`関数は，その中から`tab10`と呼ばれるものを取り出して`cmap`に割り当てている。[参照リンク](https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative)
+# * `#4`：`zip`関数は`#5`，`#6`，`#7`のそれぞれの要素を順番にタプルとして並べる。
+# * `#5`：`#3`で指定した`tab10`の`0`番目の色と`1`番目色を指定するために使う整数型のリスト
+# * `#6`：`#2`で作成した「軸」のリスト
+# * `#7`：プロットする`df`の列ラベルのリスト
+# * `#8`：引数`color`は`#3`で割り当てたカラーマップ`tab10`から色を番号で指定する。
+# * `#9`：凡例を追加する。
+# * `#10`：縦軸のラベルを指定する。
+# ```
 
 # 概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，`df`のメソッド`corr()`を使い相関係数を計算しよう。
 
@@ -210,15 +237,16 @@ df['fitted_okun'] = result.fittedvalues
 # In[17]:
 
 
-ax_ = df.plot(x='u_rate_cycle',
-              y='gdp_cycle',
-              kind='scatter')
-
-df.plot(x='u_rate_cycle',
-        y='fitted_okun',
-        kind='line',
-        color='red',
-        ax=ax_)
+fig, ax = plt.subplots()
+ax.scatter(x='u_rate_cycle',
+           y='gdp_cycle',
+           data=df)
+ax.plot('u_rate_cycle',
+        'fitted_okun',
+        data=df,
+        color='red')
+ax.legend()
+ax.set(xlabel='u_rate_cycle', ylabel='gdp_cycle')
 pass
 
 
@@ -260,7 +288,9 @@ pass
 # In[18]:
 
 
-df.loc[:,['inflation']].plot()
+fig, ax = plt.subplots()
+ax.plot('inflation', data=df)
+ax.legend()
 pass
 
 
@@ -280,7 +310,11 @@ df.loc[:,'inflation'].autocorr()
 df['inflation_trend'] = py4macro.trend(df['inflation'])
 df['inflation_cycle'] = df['inflation'] - df['inflation_trend']
 
-df[['gdp_cycle','inflation_cycle']].plot()
+cmap = plt.get_cmap('tab10')
+fig, ax = plt.subplots()
+for i, v in enumerate(['gdp_cycle','inflation_cycle']):
+    ax.plot(v, data=df, color=cmap(i))
+    ax.legend()
 pass
 
 
@@ -309,7 +343,10 @@ df['inflation_cycle'].autocorr()
 # In[23]:
 
 
-df.plot(x='unemployment_rate', y='inflation', kind='scatter')
+fig, ax = plt.subplots()
+ax.scatter(x='unemployment_rate', y='inflation', data=df)
+ax.set_xlabel('unemployment_rate', size=15)
+ax.set_ylabel('inflation', size=15)
 pass
 
 
@@ -327,7 +364,7 @@ pass
 
 
 start_list = ['1980 3', '1990 3', '2000 3', '2010 3']  # 1
-end_list =   ['1989 12','1999 12','2009 12','2020 12']  # 2
+end_list =   ['1989 12','1999 12','2009 12','2020 12'] # 2
 
 a_list = []   # 3
 b_list = []   # 4
@@ -336,7 +373,7 @@ for s, e in zip(start_list, end_list):                 # 5
     res = sm.ols('inflation ~ unemployment_rate',
                  data=df.loc[s:e,:]).fit()             # 6
     
-    df[f'{s[:5]}年代データ'] = res.fittedvalues          # 7
+    df[f'{s[:5]}年代データ'] = res.fittedvalues           # 7
     a_list.append(res.params[0])                       # 8
     b_list.append(res.params[1])                       # 9
 
@@ -702,36 +739,16 @@ month.head()
 
 # `for`ループを使ってOLSの計算とプロットを同時におこなおう。
 
-# In[44]:
-
-
-title_list = ['月次データ','四半期データ','年次データ','3年次データ']    # 1
-
-for df, t in zip(df_list,title_list):
-    
-    res = sm.ols('inflation ~ money_growth', data=df).fit()    # 2
-    df['トレンド'] = res.fittedvalues                            # 3
-    
-    ax_ = df.plot('money_growth', 'inflation', kind='scatter') # 4
-    df.sort_values('トレンド').plot('money_growth','トレンド',     # 5
-                                   color='r', ax=ax_)          # 6
-    ax_.set_title(f'{t}\n'                                     # 7
-                  f'スロープ係数：{res.params[1]:.3f}\n'           # 8
-                  f'p値：{res.pvalues[1]:.3f}\n'                # 9
-                  f'調整済み決定係数：{res.rsquared_adj:.3f}',      # 10
-                  size=18, loc='left')                         # 11
-
-
 # ```{admonition} コード説明
 # :class: dropdown
 # 
 # 1. それぞれのプロットのタイトルのリスト。
 # 2. 最小二乗法の結果を変数`res`に割り当てる。
 # 3. `res.fittedvalues`はOLSの予測値であり，新たな列としてそれぞれの`DataFrame`に追加する。その際の列名を`トレンド`とする。
-# 4. 散布図を描き，生成される「軸」を`ax_`に割り当てる。
-# 5. トレンド線を描く。`.sort_values('トレンド')`を使って列`トレンド`を昇順に並び替える。
+# 4. 散布図をプロット。
+# 5. トレンド線をプロット。`.sort_values('トレンド')`を使って列`トレンド`を昇順になるように`df`を並び替える。
 # 6. `color='r'`は色を赤に指定する。
-# 7. `ax=ax_`はトレンド線を描く際，「軸」`ax_`を使うことをしてしている。`f-string`を使ってタイトルを`{t}`に代入している。
+# 7. `f-string`を使ってタイトルを`{t}`に代入している。
 # 8. `f-string`を使ってスロープ係数の推定値を代入している。
 #     * `.pvalues`は推定値を抽出する`res`のメソッドであり，１番目の要素であるスロープ係数を`[1]`で指定している。
 #     * `:.3f`は小数点第三位まで表示することを指定している。
@@ -742,6 +759,29 @@ for df, t in zip(df_list,title_list):
 #     * `'right'`は右寄せ
 #     * `'center'`は中央（デフォルト）
 # ```
+
+# In[44]:
+
+
+title_list = ['月次データ','四半期データ','年次データ','3年次データ']  # 1
+
+for df, t in zip(df_list, title_list):
+    
+    res = sm.ols('inflation ~ money_growth', data=df).fit()  # 2
+    df['トレンド'] = res.fittedvalues                          # 3
+    
+    fig, ax = plt.subplots()
+    ax.scatter('money_growth', 'inflation', data=df)         # 4
+    
+    ax.plot('money_growth','トレンド', 
+            data=df.sort_values('トレンド'),                   # 5
+            color='r')                                       # 6
+    ax.set_title(f'{t}\n'                                    # 7
+                 f'スロープ係数：{res.params[1]:.3f}\n'         # 8
+                 f'p値：{res.pvalues[1]:.3f}\n'               # 9
+                 f'調整済み決定係数：{res.rsquared_adj:.3f}',    # 10
+                 size=18, loc='left')                        # 11
+
 
 # 上の図とOLSの推定結果から次のことが分かる。
 # * 全てのケースで統計的優位性は高い。
@@ -945,7 +985,8 @@ np.log(2)/np.log(1+inflation_cod_day/100)
 # In[60]:
 
 
-world.plot('money_growth','inflation',kind='scatter')
+fig, ax = plt.subplots()
+ax.scatter('money_growth', 'inflation', data=world)
 pass
 
 
@@ -1075,11 +1116,12 @@ world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
 # In[65]:
 
 
-ax_ = world_mean.plot('money_growth_mean','inflation_mean', kind='scatter')
-xpoints = ypoints = ax_.get_ylim()
-ax_.plot(xpoints,ypoints,'r-', label='45度線')
-ax_.set_title('平均インフレ率とマネーストトックの平均成長率', size='15')
-ax_.legend()
+fig, ax = plt.subplots()
+ax.scatter('money_growth_mean','inflation_mean', data=world_mean)
+xpoints = ypoints = ax.get_ylim()
+ax.plot(xpoints,ypoints,'r-', label='45度線')
+ax.set_title('平均インフレ率とマネーストトックの平均成長率', size='15')
+ax.legend()
 pass
 
 

@@ -415,8 +415,9 @@ trend_cycle()
 help(py4macro.trend)
 
 
-# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。ただ次の点に注意する必要がある。
-# * Hodrick–Prescottフィルターは線形トレンドを仮定しているため，対数化した変数を`trend`関数の引数にすること。
+# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。ただ，Hodrick–Prescottフィルターは線形トレンドを仮定しているため次の点に注意する必要がある。
+# * 実質GDPや消費の様に長期的には上昇トレンドを示す変数は対数化し`trend`関数の引数にする。
+# * 失業率やインフレ率の様に長期的なトレンドは一定となる変数はそのまま`trend`関数の引数にする。
 
 # まず次の変数を対数化した後にトレンドを計算し`df`に追加する。
 
@@ -581,27 +582,30 @@ df.columns
 # In[26]:
 
 
-cycle_list = df.columns[-6:]          #1
+cycle_list = df.columns[-6:]              #1
 
-fig, ax = plt.subplots(6, 1,          #2
-                       figsize=(7,8), #3
-                       sharex=True)   #4
+cmap = plt.get_cmap("tab10")              #2
+
+fig, ax = plt.subplots(6, 1,              #3
+                       figsize=(7,8),     #4
+                       sharex=True)       #5
     
-for i, v in enumerate(cycle_list):    #5
-    ax[i].plot(v, data=df)
-    ax[i].legend()
+for i, v in enumerate(cycle_list):        #6
+    ax[i].plot(v, data=df, color=cmap(i)) #7
+    ax[i].legend()                        #8
 
 
 # ```{admonition} コード説明
 # :class: dropdown
 # 
 # * `#1`：`df`の列ラベルの最後の6変数を選択している。
-# * `#2`：１つのキャンバスに「軸」を並べる際，行を`6`に，列を`1`に指定する。
-# * `#3`：キャンバスのサイズの指定（`7`は行の幅，`8`は列の高さ）
-# * `#4`：全ての図で横軸のラベルを共通化する（一番最後の図にだけ横軸の目盛を表示する）。
-# * `#5`：
-# 
-# * `enumerate()`に関しては[このリンク](https://py4basics.github.io/1_Basics_IV.html#for1-enumerate)を参照。
+# * `#2`：`matplotlib`には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。`plt.get_cmap`関数は，その中から`tab10`と呼ばれるものを取り出して`cmap`に割り当てている。[参照リンク](https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative)
+# * `#3`：１つのキャンバスに「軸」を並べる際，行を`6`に，列を`1`に指定する。
+# * `#4`：キャンバスのサイズの指定（`7`は行の幅，`8`は列の高さ）
+# * `#5`：全ての図で横軸のメモりを共通化する（一番最後の図にだけ横軸の目盛を表示する）。ちなみに，`sharey=True`とすると縦軸の目盛が共通になり，変動幅の違いが確認できる。
+# * `#6`：`enumerate()`に関しては[このリンク](https://py4basics.github.io/1_Basics_IV.html#for1-enumerate)を参照。
+# * `#7`：引数`color`は`#2`で割り当てたカラーマップ`tab10`から色を番号で指定する。`0`番目から`5`番目の色を使用している。
+# * `#8`：凡例の表示の設定。
 # ```
 
 # この図に基づいて３つの点について考える。
