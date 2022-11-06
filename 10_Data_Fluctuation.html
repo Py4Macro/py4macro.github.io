@@ -1259,9 +1259,10 @@ trend(s, lamb=1600)
 </div>
 </div>
 </div>
-<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ次の点に注意する必要がある。</p>
+<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，Hodrick–Prescottフィルターは線形トレンドを仮定しているため次の点に注意する必要がある。</p>
 <ul class="simple">
-<li><p>Hodrick–Prescottフィルターは線形トレンドを仮定しているため，対数化した変数を<code class="docutils literal notranslate"><span class="pre">trend</span></code>関数の引数にすること。</p></li>
+<li><p>実質GDPや消費の様に長期的には上昇トレンドを示す変数は対数化し<code class="docutils literal notranslate"><span class="pre">trend</span></code>関数の引数にする。</p></li>
+<li><p>失業率やインフレ率の様に長期的なトレンドは一定となる変数はそのまま<code class="docutils literal notranslate"><span class="pre">trend</span></code>関数の引数にする。</p></li>
 </ul>
 <p>まず次の変数を対数化した後にトレンドを計算し<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加する。</p>
 <div class="cell docutils container">
@@ -1468,15 +1469,17 @@ Y=x_t,\quad Z=x_{t-1}
 <p>列ラベルに<code class="docutils literal notranslate"><span class="pre">_cycle</span></code>がついている変数だけを選ぶために<code class="docutils literal notranslate"><span class="pre">cycle_list</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>          <span class="c1">#1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>              <span class="c1">#1</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>          <span class="c1">#2</span>
-                       <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="c1">#3</span>
-                       <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1">#4</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">)</span>              <span class="c1">#2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>              <span class="c1">#3</span>
+                       <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span>     <span class="c1">#4</span>
+                       <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>       <span class="c1">#5</span>
     
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cycle_list</span><span class="p">):</span>    <span class="c1">#5</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cycle_list</span><span class="p">):</span>        <span class="c1">#6</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="c1">#7</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>                        <span class="c1">#8</span>
 </pre></div>
 </div>
 </div>
@@ -1488,11 +1491,13 @@ Y=x_t,\quad Z=x_{t-1}
 <p class="admonition-title">コード説明</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">df</span></code>の列ラベルの最後の6変数を選択している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：１つのキャンバスに「軸」を並べる際，行を<code class="docutils literal notranslate"><span class="pre">6</span></code>に，列を<code class="docutils literal notranslate"><span class="pre">1</span></code>に指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：キャンバスのサイズの指定（<code class="docutils literal notranslate"><span class="pre">7</span></code>は行の幅，<code class="docutils literal notranslate"><span class="pre">8</span></code>は列の高さ）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：全ての図で横軸のラベルを共通化する（一番最後の図にだけ横軸の目盛を表示する）。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">enumerate()</span></code>に関しては<a class="reference external" href="https://py4basics.github.io/1_Basics_IV.html#for1-enumerate">このリンク</a>を参照。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。<code class="docutils literal notranslate"><span class="pre">plt.get_cmap</span></code>関数は，その中から<code class="docutils literal notranslate"><span class="pre">tab10</span></code>と呼ばれるものを取り出して<code class="docutils literal notranslate"><span class="pre">cmap</span></code>に割り当てている。<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative">参照リンク</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：１つのキャンバスに「軸」を並べる際，行を<code class="docutils literal notranslate"><span class="pre">6</span></code>に，列を<code class="docutils literal notranslate"><span class="pre">1</span></code>に指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：キャンバスのサイズの指定（<code class="docutils literal notranslate"><span class="pre">7</span></code>は行の幅，<code class="docutils literal notranslate"><span class="pre">8</span></code>は列の高さ）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：全ての図で横軸のメモりを共通化する（一番最後の図にだけ横軸の目盛を表示する）。ちなみに，<code class="docutils literal notranslate"><span class="pre">sharey=True</span></code>とすると縦軸の目盛が共通になり，変動幅の違いが確認できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：<code class="docutils literal notranslate"><span class="pre">enumerate()</span></code>に関しては<a class="reference external" href="https://py4basics.github.io/1_Basics_IV.html#for1-enumerate">このリンク</a>を参照。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：引数<code class="docutils literal notranslate"><span class="pre">color</span></code>は<code class="docutils literal notranslate"><span class="pre">#2</span></code>で割り当てたカラーマップ<code class="docutils literal notranslate"><span class="pre">tab10</span></code>から色を番号で指定する。<code class="docutils literal notranslate"><span class="pre">0</span></code>番目から<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の色を使用している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：凡例の表示の設定。</p></li>
 </ul>
 </div>
 <p>この図に基づいて３つの点について考える。</p>
