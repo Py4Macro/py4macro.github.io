@@ -766,6 +766,12 @@ memory usage: 5.0 KB
 <img alt="_images/11_Macro_Variables_14_0.png" src="_images/11_Macro_Variables_14_0.png" />
 </div>
 </div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -824,7 +830,7 @@ memory usage: 5.0 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_22_0.png" src="_images/11_Macro_Variables_22_0.png" />
+<img alt="_images/11_Macro_Variables_23_0.png" src="_images/11_Macro_Variables_23_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -840,6 +846,17 @@ memory usage: 5.0 KB
 <li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：引数<code class="docutils literal notranslate"><span class="pre">color</span></code>は<code class="docutils literal notranslate"><span class="pre">#3</span></code>で割り当てたカラーマップ<code class="docutils literal notranslate"><span class="pre">tab10</span></code>から色を番号で指定する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：凡例を追加する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：縦軸のラベルを指定する。</p></li>
+</ul>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">right_ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>最後の行：<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.right_ax</span></code>を使い右の縦軸にアクセスしている。</p></li>
 </ul>
 </div>
 <p>概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">corr()</span></code>を使い相関係数を計算しよう。</p>
@@ -952,8 +969,8 @@ memory usage: 5.0 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.404
 Model:                            OLS   Adj. R-squared:                  0.401
 Method:                 Least Squares   F-statistic:                     107.3
-Date:                Sun, 06 Nov 2022   Prob (F-statistic):           1.65e-19
-Time:                        22:55:50   Log-Likelihood:                -228.95
+Date:                Mon, 07 Nov 2022   Prob (F-statistic):           1.65e-19
+Time:                        21:03:37   Log-Likelihood:                -228.95
 No. Observations:                 160   AIC:                             461.9
 Df Residuals:                     158   BIC:                             468.1
 Df Model:                           1                                         
@@ -1021,13 +1038,10 @@ Notes:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
-           <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
-           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fitted_okun&#39;</span><span class="p">,</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;fitted_okun&#39;</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -1035,7 +1049,20 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_44_0.png" src="_images/11_Macro_Variables_44_0.png" />
+<img alt="_images/11_Macro_Variables_46_0.png" src="_images/11_Macro_Variables_46_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
+              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
+              <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;fitted_okun&#39;</span><span class="p">,</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <div class="admonition note">
@@ -1082,7 +1109,13 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_52_0.png" src="_images/11_Macro_Variables_52_0.png" />
+<img alt="_images/11_Macro_Variables_55_0.png" src="_images/11_Macro_Variables_55_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をSeriesのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 <p>上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。</p>
@@ -1114,7 +1147,13 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_56_0.png" src="_images/11_Macro_Variables_56_0.png" />
+<img alt="_images/11_Macro_Variables_60_0.png" src="_images/11_Macro_Variables_60_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 <p>同じ方向に動く傾向が確認できる。相関係数を計算してみる。</p>
@@ -1191,7 +1230,13 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_64_0.png" src="_images/11_Macro_Variables_64_0.png" />
+<img alt="_images/11_Macro_Variables_69_0.png" src="_images/11_Macro_Variables_69_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
@@ -1290,7 +1335,7 @@ Notes:
                <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
                <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:],</span>
                <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                    <span class="c1"># 2</span>
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>              <span class="c1"># 3</span>
+               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>              <span class="c1"># 3</span>
                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
@@ -1309,7 +1354,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_72_0.png" src="_images/11_Macro_Variables_72_0.png" />
+<img alt="_images/11_Macro_Variables_78_0.png" src="_images/11_Macro_Variables_78_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1325,6 +1370,27 @@ Notes:
 <li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>は直線の色を指定する引数。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">linewidth</span></code>は直線幅を指定する引数。</p></li>
 </ol>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_list</span><span class="p">,</span> <span class="n">end_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
+                       <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+                       <span class="n">c</span> <span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                       <span class="n">s</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span>
+                       <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+                                                      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
+                                                      <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                                      <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;フラット化するフィリップス曲線&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;失業率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <p>時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。</p>
 <ol class="simple">
@@ -1488,122 +1554,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>3.119182</td>
+      <td>3.869293</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>5.826690</td>
+      <td>5.170119</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>6.504116</td>
+      <td>4.815158</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>3.970124</td>
+      <td>6.611063</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>5.239563</td>
+      <td>4.133250</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>3.984196</td>
+      <td>5.384874</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>4.871073</td>
+      <td>4.882626</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>3.651504</td>
+      <td>4.898909</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>4.762296</td>
+      <td>2.962927</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>3.347109</td>
+      <td>3.669479</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>5.008555</td>
+      <td>7.130919</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>6.283756</td>
+      <td>4.249282</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>5.323643</td>
+      <td>4.965156</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>4.558771</td>
+      <td>2.700361</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>6.094466</td>
+      <td>4.454947</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>5.530455</td>
+      <td>4.990930</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>6.596225</td>
+      <td>4.742372</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>6.326067</td>
+      <td>5.495354</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>4.883238</td>
+      <td>6.346486</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>3.051150</td>
+      <td>4.534297</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>4.544821</td>
+      <td>4.904401</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>5.960313</td>
+      <td>6.457149</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>5.227061</td>
+      <td>6.549099</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>3.879962</td>
+      <td>6.889824</td>
     </tr>
   </tbody>
 </table>
@@ -1630,7 +1696,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7fe8f3335f70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7fcf542e4790&gt;
 </pre></div>
 </div>
 </div>
@@ -1671,42 +1737,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.149996</td>
+      <td>4.618190</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>4.397961</td>
+      <td>5.376396</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.428291</td>
+      <td>4.248154</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>4.879807</td>
+      <td>5.016560</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>5.325627</td>
+      <td>4.040155</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>6.150916</td>
+      <td>5.076219</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>4.159736</td>
+      <td>5.261728</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>5.022445</td>
+      <td>6.632024</td>
     </tr>
   </tbody>
 </table>
@@ -1747,12 +1813,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>4.714014</td>
+      <td>4.814825</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>5.164681</td>
+      <td>5.252531</td>
     </tr>
   </tbody>
 </table>
@@ -1840,12 +1906,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.238663</td>
+      <td>0.246329</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.202289</td>
+      <td>0.224289</td>
     </tr>
   </tbody>
 </table>
@@ -2308,10 +2374,28 @@ memory usage: 18.6 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_125_0.png" src="_images/11_Macro_Variables_125_0.png" />
-<img alt="_images/11_Macro_Variables_125_1.png" src="_images/11_Macro_Variables_125_1.png" />
-<img alt="_images/11_Macro_Variables_125_2.png" src="_images/11_Macro_Variables_125_2.png" />
-<img alt="_images/11_Macro_Variables_125_3.png" src="_images/11_Macro_Variables_125_3.png" />
+<img alt="_images/11_Macro_Variables_132_0.png" src="_images/11_Macro_Variables_132_0.png" />
+<img alt="_images/11_Macro_Variables_132_1.png" src="_images/11_Macro_Variables_132_1.png" />
+<img alt="_images/11_Macro_Variables_132_2.png" src="_images/11_Macro_Variables_132_2.png" />
+<img alt="_images/11_Macro_Variables_132_3.png" src="_images/11_Macro_Variables_132_3.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span><span class="n">title_list</span><span class="p">):</span>
+    
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>
+    
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;トレンド&#39;</span><span class="p">,</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;スロープ係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;p値：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                  <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <p>上の図とOLSの推定結果から次のことが分かる。</p>
@@ -2506,7 +2590,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7fe90145b460&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7fcf20403580&gt;
 </pre></div>
 </div>
 </div>
@@ -2521,7 +2605,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fe90145b3a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fcf20403640&gt;
 </pre></div>
 </div>
 </div>
@@ -3490,12 +3574,18 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_169_0.png" src="_images/11_Macro_Variables_169_0.png" />
+<img alt="_images/11_Macro_Variables_177_0.png" src="_images/11_Macro_Variables_177_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p><code class="docutils literal notranslate"><span class="pre">world</span></code>には<code class="docutils literal notranslate"><span class="pre">inflation</span></code>と<code class="docutils literal notranslate"><span class="pre">money_growth</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>となっている行が含まれるが，上の図では自動的に省かれる。<code class="docutils literal notranslate"><span class="pre">world.dropna().plot()</span></code>としても図は変わらない。</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <p>横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。</p>
 <div class="cell docutils container">
@@ -3761,7 +3851,17 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_182_0.png" src="_images/11_Macro_Variables_182_0.png" />
+<img alt="_images/11_Macro_Variables_191_0.png" src="_images/11_Macro_Variables_191_0.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">xpoints</span> <span class="o">=</span> <span class="n">ypoints</span> <span class="o">=</span> <span class="n">ax_</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xpoints</span><span class="p">,</span><span class="n">ypoints</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;45度線&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;平均インフレ率とマネーストトックの平均成長率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>

@@ -77,6 +77,13 @@ ax.plot('unemployment_rate', data=df)
 pass
 
 
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# df[['unemployment_rate']].plot()
+# ```
+# ````
+
 # 最初に気づく点は，[前章](chap:10-gdp)で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド`.autocorr()`を使い自己相関係数を計算すると非常に高い値が返される。
 
 # In[5]:
@@ -129,6 +136,7 @@ pass
 
 # ```{admonition} コードの説明
 # :class: dropdown
+# 
 # * `#1`：「キャンバス」は`fig`に，「軸」は`ax1`に割り当てる。
 # * `#2`：`ax1`のメソッド`.tiwinx()`は２軸プロットをするためのものであり，`ax1`は左の縦軸を,`ax2`は右の縦軸を意味する。
 # * `#3`：`matplotlib`には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。`plt.get_cmap`関数は，その中から`tab10`と呼ばれるものを取り出して`cmap`に割り当てている。[参照リンク](https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative)
@@ -140,6 +148,17 @@ pass
 # * `#9`：凡例を追加する。
 # * `#10`：縦軸のラベルを指定する。
 # ```
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# 
+# ```
+# ax = df.loc[:,['u_rate_cycle','gdp_cycle']].plot(secondary_y='u_rate_cycle')
+# ax.set_ylabel('gdp_cycle')
+# ax.right_ax.set_ylabel('u_rate_cycle')
+# ```
+# * 最後の行：`ax`のメソッド`.right_ax`を使い右の縦軸にアクセスしている。
+# ````
 
 # 概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，`df`のメソッド`corr()`を使い相関係数を計算しよう。
 
@@ -238,17 +257,28 @@ df['fitted_okun'] = result.fittedvalues
 
 
 fig, ax = plt.subplots()
-ax.scatter(x='u_rate_cycle',
-           y='gdp_cycle',
-           data=df)
-ax.plot('u_rate_cycle',
-        'fitted_okun',
-        data=df,
-        color='red')
+ax.scatter(x='u_rate_cycle', y='gdp_cycle',
+           data=df, label='')
+ax.plot('u_rate_cycle', 'fitted_okun',
+        data=df, color='red')
 ax.legend()
 ax.set(xlabel='u_rate_cycle', ylabel='gdp_cycle')
 pass
 
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# ax = df.plot(x='u_rate_cycle',
+#               y='gdp_cycle',
+#               kind='scatter')
+# df.plot(x='u_rate_cycle',
+#         y='fitted_okun',
+#         kind='line',
+#         color='red',
+#         ax=ax)
+# ```
+# ````
 
 # ````{note}
 # 係数の推定値は、`result`の属性`params`でアクセスできることを説明したが、この値を使い次のコードで`gdp_cycle`の予測値を計算することも可能である。
@@ -294,6 +324,13 @@ ax.legend()
 pass
 
 
+# ````{admonition} 同様の図をSeriesのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# df.loc[:,'inflation'].plot()
+# ```
+# ````
+
 # 上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。
 
 # In[19]:
@@ -317,6 +354,13 @@ for i, v in enumerate(['gdp_cycle','inflation_cycle']):
     ax.legend()
 pass
 
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# df[['gdp_cycle','inflation_cycle']].plot()
+# ```
+# ````
 
 # 同じ方向に動く傾向が確認できる。相関係数を計算してみる。
 
@@ -349,6 +393,13 @@ ax.set_xlabel('unemployment_rate', size=15)
 ax.set_ylabel('inflation', size=15)
 pass
 
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# df.plot(x='unemployment_rate', y='inflation', kind='scatter')
+# ```
+# ````
 
 # 右下がりであり式[](eq:11-phillips)と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。
 # 1. 過去40年間，フィリプス曲線は変化した可能性はないのか。即ち，真のメカニズムが変わりながら生成されたデータが表示されているのではないか，という問題である。
@@ -429,7 +480,7 @@ for s, e, c in zip(start_list,
                'inflation',
                data=df.loc[s:e,:],
                edgecolor=c,                    # 2
-               facecolor='white',              # 3
+               facecolor='none',              # 3
                label='')
 
     ax.plot('unemployment_rate',
@@ -456,6 +507,28 @@ pass
 # 4. `color`は直線の色を指定する引数。
 # 5. `linewidth`は直線幅を指定する引数。
 # ```
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# ax = df.plot('unemployment_rate', 'inflation', kind='scatter', c='none')
+# 
+# for s, e, c in zip(start_list, end_list, color_list):
+#     df.loc[s:e,:].plot('unemployment_rate', 'inflation', kind='scatter',
+#                        edgecolor=c,
+#                        c ='none',
+#                        s = 40,
+#                        ax=ax)
+#     df.loc[s:e,:].sort_values(f'{s[:5]}年代データ').plot('unemployment_rate',
+#                                                       f'{s[:5]}年代データ',
+#                                                       color=c, lw=2,
+#                                                       ax=ax)
+# ax.set_title('フラット化するフィリップス曲線', size=20)
+# ax.set_xlabel('失業率', fontsize=15)
+# ax.set_ylabel('インフレ率', fontsize=15)
+# ax.legend()
+# ```
+# ````
 
 # 時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。
 # 1. 中央銀行の政策決定の透明化や政策のアナウンスメント，フォーワード・ガイダンス（将来の政策についてのガイダンス）などにより，中央銀行の物価安定（インフレ安定）重視のスタンスが民間に十分に浸透したと考えられる。失業が変化しても，インフレ率のの安定化を図る中央銀行の政策スタンスが民間の期待に織り込まれ，インフレ率の変化は小さくなったと思われる。この解釈が正しければ，日銀は素晴らしい仕事をしたということである。
@@ -783,6 +856,25 @@ for df, t in zip(df_list, title_list):
                  size=18, loc='left')                        # 11
 
 
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# for df, t in zip(df_list,title_list):
+#     
+#     res = sm.ols('inflation ~ money_growth', data=df).fit()
+#     df['トレンド'] = res.fittedvalues
+#     
+#     ax_ = df.plot('money_growth', 'inflation', kind='scatter')
+#     df.sort_values('トレンド').plot('money_growth','トレンド',
+#                                    color='r', ax=ax_)
+#     ax_.set_title(f'{t}\n'
+#                   f'スロープ係数：{res.params[1]:.3f}\n'
+#                   f'p値：{res.pvalues[1]:.3f}\n'
+#                   f'調整済み決定係数：{res.rsquared_adj:.3f}',
+#                   size=18, loc='left')
+# ```
+# ````
+
 # 上の図とOLSの推定結果から次のことが分かる。
 # * 全てのケースで統計的優位性は高い。
 # * データの期間が長くなるとともに，スロープ係数の値が増加し，調整済み決定係数も高くなっている。
@@ -996,6 +1088,13 @@ pass
 # `world`には`inflation`と`money_growth`が`NaN`となっている行が含まれるが，上の図では自動的に省かれる。`world.dropna().plot()`としても図は変わらない。
 # ```
 
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# world.plot('money_growth','inflation',kind='scatter')
+# ```
+# ````
+
 # 横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。
 
 # In[61]:
@@ -1124,6 +1223,17 @@ ax.set_title('平均インフレ率とマネーストトックの平均成長率
 ax.legend()
 pass
 
+
+# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
+# :class: dropdown
+# ```
+# ax_ = world_mean.plot('money_growth_mean','inflation_mean', kind='scatter')
+# xpoints = ypoints = ax_.get_ylim()
+# ax_.plot(xpoints,ypoints,'r-', label='45度線')
+# ax_.set_title('平均インフレ率とマネーストトックの平均成長率', size='15')
+# ax_.legend()
+# ```
+# ````
 
 # 綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。
 
