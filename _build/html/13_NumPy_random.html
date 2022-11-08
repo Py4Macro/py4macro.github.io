@@ -731,11 +731,11 @@ title="Print to PDF"
 <span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
 
 <span class="c1"># トレンドからの乖離のデータの作成</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]))</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
 
 <span class="c1"># プロット</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;日本のGDPのトレンドからの乖離&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの乖離（％）&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -785,8 +785,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.8784951 , 7.62872168, 5.26122582, 4.83081732, 3.70101959,
-       3.94831834, 7.20363124, 6.10708426, 3.91115465, 7.26326263])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.62587649, 2.35657959, 6.17844229, 5.24930868, 6.59416401,
+       6.17510492, 4.32675379, 3.12051246, 5.37295116, 6.36227117])
 </pre></div>
 </div>
 </div>
@@ -800,7 +800,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.71979086,  0.0541416 , -0.41307668, -0.21647155,  0.76603115])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.87049909,  0.78004812,  0.30353816, -1.74267942, -0.34687602])
 </pre></div>
 </div>
 </div>
@@ -846,8 +846,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([13.44167179,  6.15020017, 21.07741239, 26.752859  , 17.53202759,
-       15.80493984, 26.33352747, 27.51013824, 27.64449558, 13.83692446])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([16.02798776, 29.82543991, 14.64497752,  5.94400149,  6.66941574,
+       27.93896484,  7.98749101, 14.60301375,  6.81687598,  5.07701787])
 </pre></div>
 </div>
 </div>
@@ -860,7 +860,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.97796762, 0.4347919 , 0.09292887, 0.5713746 , 0.82247722])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.08977666, 0.38436267, 0.32617212, 0.09126939, 0.34118941])
 </pre></div>
 </div>
 </div>
@@ -956,7 +956,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.023684924009860202, 1.137960352500555)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.08541025287888916, 0.9079783655929718)
 </pre></div>
 </div>
 </div>
@@ -1033,8 +1033,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.16040967, 0.07490635],
-       [0.07490635, 1.12296584]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.92441227, 0.07211573],
+       [0.07211573, 0.92214558]])
 </pre></div>
 </div>
 </div>
@@ -1048,7 +1048,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.065619015310139
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.07810834009165264
 </pre></div>
 </div>
 </div>
@@ -1100,7 +1100,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
     <span class="n">ac</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>          <span class="c1"># 9</span>
     
     <span class="n">ax_</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>   <span class="c1"># 10</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\rho$=</span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s1">\t自己相関係数：</span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># 11</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\rho$=</span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s1">　　自己相関係数：</span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># 11</span>
     <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>         <span class="c1"># 12</span>
 </pre></div>
 </div>
@@ -1222,7 +1222,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </section>
 <section id="id15">
 <h3>労働時間と雇用の特徴<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h3>
-<p>平均労働時間<code class="docutils literal notranslate"><span class="pre">hours</span></code>，就業者数<code class="docutils literal notranslate"><span class="pre">employed</span></code>，総労働時間<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>の特徴を考えてみる。まずサイクルを計算し，それぞれの変数を図示しよう。</p>
+<p>平均労働時間<code class="docutils literal notranslate"><span class="pre">hours</span></code>，就業者数<code class="docutils literal notranslate"><span class="pre">employed</span></code>，総労働時間<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>の特徴を考えてみる。まずサイクルを計算し，それぞれの変数を図示しよう。（対数化した就業者数のトレンドを計算するべきかもしれないが，ここでは対数を使わずに計算する。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">])</span>
@@ -1397,9 +1397,9 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPサイクルとの相関係数
 -------------------------
-平均労働時間   	0.643
-就業者数     	0.453
-総労働時間    	0.747
+平均労働時間   	0.657
+就業者数     	0.440
+総労働時間    	0.752
 </pre></div>
 </div>
 </div>
@@ -1418,18 +1418,18 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 全要素生産性の計算</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 全要素生産性（対数）の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
 
-<span class="c1"># 全要素生産性のトレンドの計算</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">])</span>
+<span class="c1"># 全要素生産性のトレンド（対数）の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="c1"># 全要素生産性のトレンドからの乖離の計算（％）</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="c1"># 全要素生産性のトレンドからの乖離率の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span>
 
 <span class="c1"># 全要素生産性とトレンドのプロット</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;tfp&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性とトレンド&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性とトレンド（対数）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1441,9 +1441,9 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>全要素生産性の変動をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性の変動（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性の変動（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1455,12 +1455,12 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>この図から全要素生産性の変動は大きいことが分かる。変動の最小値と最大値を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-4.558373158766421, 1.9303257666063687)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.04552747730849338, 0.01939137098582977)
 </pre></div>
 </div>
 </div>
@@ -1469,8 +1469,8 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>GDPと一緒にプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPとTFPの変動&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPとTFPの変動（％）&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1487,7 +1487,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8837353731027301
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8831388397415569
 </pre></div>
 </div>
 </div>
@@ -1500,7 +1500,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5467923296454527
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5447224566971534
 </pre></div>
 </div>
 </div>
@@ -1513,7 +1513,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7644516243720126
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7617833234773016
 </pre></div>
 </div>
 </div>
@@ -1572,28 +1572,28 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
   <tbody>
     <tr>
       <th>1980-03-31</th>
-      <td>0.006504</td>
+      <td>0.005547</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1980-06-30</th>
-      <td>-0.011544</td>
-      <td>0.006504</td>
+      <td>-0.012357</td>
+      <td>0.005547</td>
     </tr>
     <tr>
       <th>1980-09-30</th>
-      <td>0.000867</td>
-      <td>-0.011544</td>
+      <td>0.000180</td>
+      <td>-0.012357</td>
     </tr>
     <tr>
       <th>1980-12-31</th>
-      <td>0.012880</td>
-      <td>0.000867</td>
+      <td>0.012303</td>
+      <td>0.000180</td>
     </tr>
     <tr>
       <th>1981-03-31</th>
-      <td>0.010449</td>
-      <td>0.012880</td>
+      <td>0.009966</td>
+      <td>0.012303</td>
     </tr>
   </tbody>
 </table>
@@ -1609,7 +1609,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5508112208781349
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5489880982496634
 </pre></div>
 </div>
 </div>
@@ -1621,7 +1621,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>自己相関係数と殆ど変わらない値である。２つの変数の散布図を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1633,13 +1633,13 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">res_tfp</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="n">res_tfp</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 <span class="n">sigma</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.007836966505771637
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.007833251079189809
 </pre></div>
 </div>
 </div>
@@ -1648,7 +1648,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">res_tfp</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.resid</span></code>は残差を返している。</p></li>
-<li><p>引数<code class="docutils literal notranslate"><span class="pre">ddof</span></code>は標本の標準偏差の計算に必要な自由度の設定であり，説明変数が１なので<code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>を設定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.resid</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>であり，その属性<code class="docutils literal notranslate"><span class="pre">std()</span></code>を使い標本標準偏差を計算している（デフォルトでは<code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>)。</p></li>
 </ul>
 </div>
 <p>初期値は0として<code class="docutils literal notranslate"><span class="pre">rho</span></code>と<code class="docutils literal notranslate"><span class="pre">sigma</span></code>を使ってAR(1)の値を計算してプロットしてみよう。</p>
@@ -1673,7 +1673,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.525
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.535
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_120_1.png" src="_images/13_NumPy_random_120_1.png" />
@@ -1707,6 +1707,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
         B_t=B_0(1+g)^t
         \]</div>
 </li>
+<li><p><span class="math notranslate nohighlight">\(H\)</span>は一定と仮定する</p></li>
 </ul>
 </li>
 <li><p>資本の蓄積方程式：<span class="math notranslate nohighlight">\(K_{t+1}=sY_t+(1-d)K_t\)</span></p></li>
@@ -1725,7 +1726,10 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_0=1\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(K_0=\)</span> 1980年の資本ストックの平均</p></li>
-<li><p><span class="math notranslate nohighlight">\(H_0=\)</span> 1980年の総労働時間の平均</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(H\)</span>は次の値として一定とする。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H=\)</span> 1980年の総労働時間の平均</p></li>
 </ul>
 <p>パラメータの値を次を仮定する。</p>
 <ul class="simple">
@@ -1747,42 +1751,75 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <p>まずGDP，資本，総労働時間の1980年と2019年の平均を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;capital&#39;</span><span class="p">,</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span>       <span class="c1"># 1</span>
-<span class="n">year_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">]</span> <span class="c1"># 2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cond = (df.index &gt;= df.inex)</span>
 
-<span class="n">gdp_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 3</span>
-<span class="n">K_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># 4</span>
-<span class="n">H_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># 5</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False,  True,  True,  True,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;capital&#39;</span><span class="p">,</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span>       <span class="c1">#1</span>
+<span class="n">year_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">]</span> <span class="c1">#2</span>
 
-<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>        <span class="c1"># 6</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">yr</span><span class="si">}</span><span class="s1">-03-31&#39;</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">yr</span><span class="si">}</span><span class="s1">-12-31&#39;</span><span class="p">,</span><span class="n">var_list</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># 7</span>
-    <span class="n">gdp_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 8</span>
-    <span class="n">K_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># 9</span>
-    <span class="n">H_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="c1"># 10</span>
+<span class="n">gdp_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">#3</span>
+<span class="n">K_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1">#4</span>
+<span class="n">H_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1">#5</span>
+
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>                     <span class="c1">#6</span>
+    
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">yr</span><span class="p">)</span>        <span class="c1">#7</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="n">var_list</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1">#8</span>
+    <span class="n">gdp_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">#9</span>
+    <span class="n">K_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1">#10</span>
+    <span class="n">H_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="c1">#11</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
-<li><p>３つの変数のリスト</p></li>
-<li><p>平均を計算する年のリストであり，<code class="docutils literal notranslate"><span class="pre">df.index[0].year</span></code>と<code class="docutils literal notranslate"><span class="pre">df.index[-1].year</span></code>はインデックスから最初と最後の年を抽出する</p></li>
-<li><p>それぞれの年のGDPの平均を格納する辞書</p></li>
-<li><p>それぞれの年の資本ストックの平均を格納する辞書</p></li>
-<li><p>それぞれの年の総労働時間の平均を格納する辞書</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">year_list</span></code>に対しての<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ</p></li>
-<li><p>それぞれの年の行，<code class="docutils literal notranslate"><span class="pre">var_list</span></code>にある列を抽出し平均を計算する。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使い<code class="docutils literal notranslate"><span class="pre">{yr}</span></code>に年を代入している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：３つの変数のリスト</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：平均を計算する年のリストであり，<code class="docutils literal notranslate"><span class="pre">df.index[0].year</span></code>と<code class="docutils literal notranslate"><span class="pre">df.index[-1].year</span></code>はインデックスから最初と最後の年を抽出する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：それぞれの年のGDPの平均を格納する辞書</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：それぞれの年の資本ストックの平均を格納する辞書</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：それぞれの年の総労働時間の平均を格納する辞書</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：<code class="docutils literal notranslate"><span class="pre">year_list</span></code>に対しての<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：<code class="docutils literal notranslate"><span class="pre">df.index</span></code>の年が<code class="docutils literal notranslate"><span class="pre">yr</span></code>と同じ場合は<code class="docutils literal notranslate"><span class="pre">True</span></code>を返し，そうでない場合は<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：それぞれの年の行，<code class="docutils literal notranslate"><span class="pre">var_list</span></code>にある列を抽出し平均を計算する。</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">.mean()</span></code>は列の平均を計算する。</p></li>
 <li><p>計算した平均は<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返されるので，それを左辺にある変数<code class="docutils literal notranslate"><span class="pre">mean</span></code>に割り当てる。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>の0番目の要素を<code class="docutils literal notranslate"><span class="pre">gdp_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>の1番目の要素を<code class="docutils literal notranslate"><span class="pre">K_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>の2番目の要素を<code class="docutils literal notranslate"><span class="pre">H_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
-</ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：<code class="docutils literal notranslate"><span class="pre">mean</span></code>の0番目の要素を<code class="docutils literal notranslate"><span class="pre">gdp_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：<code class="docutils literal notranslate"><span class="pre">mean</span></code>の1番目の要素を<code class="docutils literal notranslate"><span class="pre">K_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#11</span></code>：<code class="docutils literal notranslate"><span class="pre">mean</span></code>の2番目の要素を<code class="docutils literal notranslate"><span class="pre">H_dict</span></code>のキー<code class="docutils literal notranslate"><span class="pre">yr</span></code>（年）に対応する値をして設定する。</p></li>
+</ul>
 </div>
 <p>このコードの結果を確認してみよう。例えば，</p>
 <div class="cell docutils container">
@@ -1832,7 +1869,8 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
        &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
        &#39;total_hours&#39;, &#39;inflation&#39;, &#39;gdp_cycle&#39;, &#39;hours_trend&#39;, &#39;hours_cycle&#39;,
        &#39;employed_trend&#39;, &#39;employed_cycle&#39;, &#39;total_hours_trend&#39;,
-       &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;, &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
+       &#39;total_hours_cycle&#39;, &#39;tfp_log&#39;, &#39;tfp_log_trend&#39;, &#39;tfp_cycle&#39;,
+       &#39;tfp_cycle_lag&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -1906,7 +1944,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
                      <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
                      <span class="n">d</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>
                      <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
-                     <span class="n">H</span><span class="o">=</span><span class="n">H_dict</span><span class="p">[</span><span class="mi">1980</span><span class="p">],</span>
+                     <span class="n">H</span><span class="o">=</span><span class="n">H_dict</span><span class="p">[</span><span class="mi">1980</span><span class="p">],</span>  <span class="c1"># 1980年平均に固定</span>
                      <span class="n">K0</span><span class="o">=</span><span class="n">K_dict</span><span class="p">[</span><span class="mi">1980</span><span class="p">],</span>
                      <span class="n">B0</span><span class="o">=</span><span class="n">B0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;引数：</span>
@@ -1936,7 +1974,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
     <span class="c1"># A,B,Kの時系列の計算</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
         <span class="n">K</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="o">*</span> <span class="n">K</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span><span class="n">H</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="n">K</span>  <span class="c1"># 7</span>
-        
         <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>     <span class="c1"># 8</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">**</span><span class="n">rho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>                  <span class="c1"># 9</span>
         <span class="n">B</span> <span class="o">=</span> <span class="n">B0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">g</span><span class="p">)</span><span class="o">**</span><span class="n">t</span>                         <span class="c1"># 10</span>
@@ -1958,9 +1995,9 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
     <span class="c1"># ========== トレンドとサイクルの計算 ==========</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">]:</span>
         <span class="c1"># ---------- レンドの計算 ----------      # 14</span>
-        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">)</span>
         <span class="c1"># ---------- サイクルの計算 ----------    # 15</span>
-        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">/</span><span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_log_trend&#39;</span><span class="p">]</span>
     
     <span class="k">return</span> <span class="n">df_sim</span>
 </pre></div>
@@ -2031,15 +2068,15 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <th>Y</th>
       <th>C</th>
       <th>I</th>
-      <th>K_trend</th>
+      <th>K_log_trend</th>
       <th>Kの変動</th>
-      <th>A_trend</th>
+      <th>A_log_trend</th>
       <th>Aの変動</th>
-      <th>Y_trend</th>
+      <th>Y_log_trend</th>
       <th>Yの変動</th>
-      <th>C_trend</th>
+      <th>C_log_trend</th>
       <th>Cの変動</th>
-      <th>I_trend</th>
+      <th>I_log_trend</th>
       <th>Iの変動</th>
     </tr>
   </thead>
@@ -2052,122 +2089,122 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>259894.572371</td>
       <td>206988.984741</td>
       <td>52905.587630</td>
-      <td>766908.754686</td>
-      <td>0.002205</td>
-      <td>0.996565</td>
-      <td>0.003441</td>
-      <td>260427.434087</td>
-      <td>-0.002048</td>
-      <td>207413.374156</td>
-      <td>-0.002048</td>
-      <td>53014.059931</td>
-      <td>-0.002048</td>
+      <td>13.588066</td>
+      <td>-0.035738</td>
+      <td>-0.005182</td>
+      <td>0.005182</td>
+      <td>12.475715</td>
+      <td>-0.007684</td>
+      <td>12.248105</td>
+      <td>-0.007684</td>
+      <td>10.883948</td>
+      <td>-0.007684</td>
     </tr>
     <tr>
       <th>1</th>
       <td>802292.220755</td>
-      <td>1.005670</td>
+      <td>0.985257</td>
       <td>0.377800</td>
-      <td>266131.407230</td>
-      <td>211956.214736</td>
-      <td>54175.192494</td>
-      <td>801127.463122</td>
-      <td>0.001453</td>
-      <td>0.997043</td>
-      <td>0.008615</td>
-      <td>264862.382071</td>
-      <td>0.004780</td>
-      <td>210945.519412</td>
-      <td>0.004780</td>
-      <td>53916.862660</td>
-      <td>0.004780</td>
+      <td>260729.662438</td>
+      <td>207654.079220</td>
+      <td>53075.583218</td>
+      <td>13.620755</td>
+      <td>-0.025527</td>
+      <td>-0.004619</td>
+      <td>-0.010234</td>
+      <td>12.490663</td>
+      <td>-0.019424</td>
+      <td>12.263052</td>
+      <td>-0.019424</td>
+      <td>10.898896</td>
+      <td>-0.019424</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>836410.107730</td>
-      <td>0.999442</td>
+      <td>835310.498454</td>
+      <td>0.986276</td>
       <td>0.378790</td>
-      <td>269181.935586</td>
-      <td>214385.760539</td>
-      <td>54796.175047</td>
-      <td>835347.229633</td>
-      <td>0.001272</td>
-      <td>0.997523</td>
-      <td>0.001922</td>
-      <td>269296.997017</td>
-      <td>-0.000427</td>
-      <td>214477.399424</td>
-      <td>-0.000427</td>
-      <td>54819.597594</td>
-      <td>-0.000427</td>
+      <td>265510.235821</td>
+      <td>211461.492441</td>
+      <td>54048.743380</td>
+      <td>13.653422</td>
+      <td>-0.017863</td>
+      <td>-0.004053</td>
+      <td>-0.009766</td>
+      <td>12.505606</td>
+      <td>-0.016197</td>
+      <td>12.277995</td>
+      <td>-0.016197</td>
+      <td>10.913839</td>
+      <td>-0.016197</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>870296.030084</td>
-      <td>0.999530</td>
+      <td>868476.479372</td>
+      <td>0.998246</td>
       <td>0.379782</td>
-      <td>273797.847088</td>
-      <td>218062.031369</td>
-      <td>55735.815719</td>
-      <td>869569.840268</td>
-      <td>0.000835</td>
-      <td>0.998012</td>
-      <td>0.001520</td>
-      <td>273731.739027</td>
-      <td>0.000241</td>
-      <td>218009.380633</td>
-      <td>0.000241</td>
-      <td>55722.358393</td>
-      <td>0.000241</td>
+      <td>273239.931352</td>
+      <td>217617.688070</td>
+      <td>55622.243282</td>
+      <td>13.686028</td>
+      <td>-0.011532</td>
+      <td>-0.003486</td>
+      <td>0.001730</td>
+      <td>12.520527</td>
+      <td>-0.002421</td>
+      <td>12.292916</td>
+      <td>-0.002421</td>
+      <td>10.928760</td>
+      <td>-0.002421</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>904274.445050</td>
-      <td>0.985629</td>
+      <td>902386.810670</td>
+      <td>1.001352</td>
       <td>0.380777</td>
-      <td>274455.392863</td>
-      <td>218585.723461</td>
-      <td>55869.669401</td>
-      <td>903797.745374</td>
-      <td>0.000527</td>
-      <td>0.998521</td>
-      <td>-0.012995</td>
-      <td>278166.996289</td>
-      <td>-0.013433</td>
-      <td>221541.772208</td>
-      <td>-0.013433</td>
-      <td>56625.224081</td>
-      <td>-0.013433</td>
+      <td>278623.867841</td>
+      <td>221905.640441</td>
+      <td>56718.227400</td>
+      <td>13.718524</td>
+      <td>-0.005725</td>
+      <td>-0.002929</td>
+      <td>0.004280</td>
+      <td>12.535399</td>
+      <td>0.002219</td>
+      <td>12.307789</td>
+      <td>0.002219</td>
+      <td>10.943632</td>
+      <td>0.002219</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p><span class="math notranslate nohighlight">\(Y\)</span>の水準とトレンドの図示。</p>
+<p><span class="math notranslate nohighlight">\(Y\)</span>の水準とトレンドの図示（対数）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y_trend&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;シミュレーション：Yとトレンド（対数）&#39;</span><span class="p">)</span>
+<span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y_log_trend&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/13_NumPy_random_151_0.png" src="_images/13_NumPy_random_151_0.png" />
+<img alt="_images/13_NumPy_random_152_0.png" src="_images/13_NumPy_random_152_0.png" />
 </div>
 </div>
 <p>トレンドの傾きは成長率を表しているが，徐々に減少していることが分かる。最初は成長率に対する資本蓄積の効果が大きいが，定常状態に近づくにつれて資本蓄積の効果が減少しているためである。</p>
 <p><span class="math notranslate nohighlight">\(Y\)</span>の変動（サイクル）の図示。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Yの変動&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Yの変動&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;シミュレーション：Yの変動（％）&#39;</span><span class="p">)</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/13_NumPy_random_154_0.png" src="_images/13_NumPy_random_154_0.png" />
+<img alt="_images/13_NumPy_random_155_0.png" src="_images/13_NumPy_random_155_0.png" />
 </div>
 </div>
 <p>絶対値で約2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
@@ -2190,11 +2227,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.433
-Cの変動： 0.433
-Iの変動： 0.433
-Kの変動： 0.906
-Aの変動： 0.434
+Yの変動： 0.358
+Cの変動： 0.358
+Iの変動： 0.358
+Kの変動： 0.973
+Aの変動： 0.308
 </pre></div>
 </div>
 </div>
@@ -2211,7 +2248,8 @@ Aの変動： 0.434
        &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
        &#39;total_hours&#39;, &#39;inflation&#39;, &#39;gdp_cycle&#39;, &#39;hours_trend&#39;, &#39;hours_cycle&#39;,
        &#39;employed_trend&#39;, &#39;employed_cycle&#39;, &#39;total_hours_trend&#39;,
-       &#39;total_hours_cycle&#39;, &#39;tfp&#39;, &#39;tfp_trend&#39;, &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;],
+       &#39;total_hours_cycle&#39;, &#39;tfp_log&#39;, &#39;tfp_log_trend&#39;, &#39;tfp_cycle&#39;,
+       &#39;tfp_cycle_lag&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 </div>
@@ -2248,11 +2286,11 @@ Aの変動： 0.434
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- データ：変動の自己相関係数 ---
 
-        gdpの変動： 0.764
+        gdpの変動： 0.762
 consumptionの変動： 0.522
  investmentの変動： 0.838
     capitalの変動： 0.892
-        tfpの変動： 0.547
+        tfpの変動： 0.545
 </pre></div>
 </div>
 </div>
@@ -2287,8 +2325,8 @@ consumptionの変動： 0.522
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： -0.142
-Aの変動： 0.997
+Kの変動： 0.250
+Aの変動： 0.977
 </pre></div>
 </div>
 </div>
@@ -2311,10 +2349,10 @@ Aの変動： 0.997
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- データ：GDPとの相関係数 ---
 
-consumptionの変動：0.706
- investmentの変動：0.816
-    capitalの変動：0.179
-        tfpの変動：0.884
+consumptionの変動：0.701
+ investmentの変動：0.815
+    capitalの変動：0.153
+        tfpの変動：0.883
 </pre></div>
 </div>
 </div>

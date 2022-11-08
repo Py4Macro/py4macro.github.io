@@ -140,10 +140,6 @@ for i in range(20):
         
     x_list.append(x)   # 4
 
-df = pd.DataFrame({'X':x_list})
-df.plot()
-pass
-
 
 # ```{admonition} コードの説明
 # :class: dropdown
@@ -155,6 +151,31 @@ pass
 #     * ２回目以降のループ：右辺では`x`の最新の値を使い計算し，結果を左辺の`x`に割り当てる。この時点，(1)の`x`は(3)の左辺の`x`と同じ変数なので，同じ計算結果が割り当てられアップデートされる。
 # 4. (3)の左辺の`x`を(2)のリストに追加する。
 # ```
+
+# 次に`x_list`をプロットするが，ここでは`DataFrame`のメソッド`.plot()`を使う図示の方法を説明する。非常に簡単であり，`DataFrame`を`df`とすると次の構文となる。
+# ```
+# df.plot()
+# ```
+# これだけでプロットが表示される。
+# 
+# まず`DataFrame`を作成しよう。様々な作成方法があるが，以下では辞書を使う方法を紹介する。辞書のキーが列ラベルになり，値が列の値となる。
+
+# In[3]:
+
+
+df = pd.DataFrame({'X':x_list})
+
+df.head()
+
+
+# では図示してみよう。
+
+# In[4]:
+
+
+df.plot()
+pass
+
 
 # この図の縦軸は$x_t$であり，小数点になっているが横軸はループの回数となる（自動表示なので整数となる場合もある）。強制的に横軸に整数を表示したい場合は`df.plot()`の代わりに次のコードを使えば良いだろう。
 # ```
@@ -173,7 +194,7 @@ pass
 
 # この方法では，値を格納するために使うリストを使うが、その中にある値を直接`for`ループの中で使う。
 
-# In[3]:
+# In[5]:
 
 
 x_list = [1]                     # 1
@@ -184,8 +205,7 @@ for i in range(20):
         
     x_list.append(x)             # 3
 
-df = pd.DataFrame({'X':x_list})
-df.plot()
+pd.DataFrame({'X':x_list}).plot()
 pass
 
 
@@ -201,7 +221,7 @@ pass
 
 # `1`（初期値）と計算する回数分の`Numpy`の`array`を用意し、計算結果をその中に格納する。
 
-# In[4]:
+# In[6]:
 
 
 n = 20                          # 1
@@ -213,8 +233,7 @@ for i in range(n):
     
     arr[i+1] = 0.4*arr[i] + 3   # 4
 
-df = pd.DataFrame({'X':x_list})
-df.plot()
+pd.DataFrame({'X':x_list}).plot()
 pass
 
 
@@ -253,7 +272,7 @@ pass
 # ```
 # 
 
-# In[5]:
+# In[7]:
 
 
 x = 1.1  # 初期値 x0
@@ -266,8 +285,7 @@ for i in range(50):
         
     x_list.append(x)
 
-df = pd.DataFrame({'X':x_list})
-df.plot()
+pd.DataFrame({'X':x_list}).plot()
 pass
 
 
@@ -365,7 +383,7 @@ pass
 # 
 # 次に，実際にコードを書いて$y_t$の動学的な動きを確認してみよう。次の関数を定義する。
 
-# In[6]:
+# In[8]:
 
 
 def model45(y0,a,b,d,f,n=10):
@@ -409,7 +427,7 @@ def model45(y0,a,b,d,f,n=10):
 # 8. `DataFrame`を作成し，関数が実行されるとそれを返す。
 # ```
 
-# In[7]:
+# In[9]:
 
 
 model45(100, a=50, b=0.5, d=50, f=0.2).plot()
@@ -499,7 +517,7 @@ pass
 # 
 # 次にコードを書いて価格と量の動学を確かめるが，45度線モデルと同じように関数を作りプロットする。
 
-# In[8]:
+# In[10]:
 
 
 def cobweb(p0,a,b,c,d,n=10):
@@ -538,7 +556,7 @@ def cobweb(p0,a,b,c,d,n=10):
 
 # まず$\dfrac{d}{b}<1$を仮定し収束するケースを考えよう。
 
-# In[9]:
+# In[11]:
 
 
 cobweb(45,a=100,b=1.1,c=1,d=1,n=50).plot(secondary_y='price')
@@ -553,7 +571,7 @@ pass
 # 
 # $\dfrac{d}{b}>1$を仮定し発散するケースをプロットする。
 
-# In[10]:
+# In[12]:
 
 
 cobweb(45,a=100,b=1,c=1,d=1.1,n=50).plot(secondary_y='price')

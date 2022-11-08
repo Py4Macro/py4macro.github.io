@@ -32,11 +32,11 @@ import statsmodels.formula.api as sm
 df = py4macro.data('jpn-q')
 
 # トレンドからの乖離のデータの作成
-df['gdp_cycle'] = np.log( df['gdp']/py4macro.trend(df['gdp']))
+df['gdp_cycle'] = np.log( df['gdp'] ) - py4macro.trend( np.log(df['gdp']) )
 
 # プロット
-ax_ = df['gdp_cycle'].plot(title='日本のGDPのトレンドからの乖離')
-ax_.axhline(0, c='red')
+ax = ( 100 * df['gdp_cycle'] ).plot(title='GDPのトレンドからの乖離（％）')
+ax.axhline(0, c='red')
 pass
 
 
@@ -337,7 +337,7 @@ def ar1_model(rho, T=100):
     ac = df_ar1.autocorr()          # 9
     
     ax_ = df_ar1.plot(marker='.')   # 10
-    ax_.set_title(fr'$\rho$={rho}\t自己相関係数：{ac:.3f}',size=20) # 11
+    ax_.set_title(fr'$\rho$={rho}　　自己相関係数：{ac:.3f}',size=20) # 11
     ax_.axhline(0, c='red')         # 12
 
 
@@ -435,7 +435,7 @@ ar1_model(0.9)
 
 # ### 労働時間と雇用の特徴
 
-# 平均労働時間`hours`，就業者数`employed`，総労働時間`total_hours`の特徴を考えてみる。まずサイクルを計算し，それぞれの変数を図示しよう。
+# 平均労働時間`hours`，就業者数`employed`，総労働時間`total_hours`の特徴を考えてみる。まずサイクルを計算し，それぞれの変数を図示しよう。（対数化した就業者数のトレンドを計算するべきかもしれないが，ここでは対数を使わずに計算する。）
 
 # In[22]:
 
@@ -550,18 +550,18 @@ a = 0.36
 # In[31]:
 
 
-# 全要素生産性の計算
-df['tfp'] = df['gdp']/( df['capital']**a * df['total_hours']**(1-a) )
+# 全要素生産性（対数）の計算
+df['tfp_log'] = np.log( df['gdp']/( df['capital']**a * df['total_hours']**(1-a) ) )
 
-# 全要素生産性のトレンドの計算
-df['tfp_trend'] = py4macro.trend(df['tfp'])
+# 全要素生産性のトレンド（対数）の計算
+df['tfp_log_trend'] = py4macro.trend( df['tfp_log'] )
 
-# 全要素生産性のトレンドからの乖離の計算（％）
-df['tfp_cycle'] = np.log( df['tfp']/df['tfp_trend'] )
+# 全要素生産性のトレンドからの乖離率の計算
+df['tfp_cycle'] = df['tfp_log'] - df['tfp_log_trend']
 
 # 全要素生産性とトレンドのプロット
-ax_ = df[['tfp','tfp_trend']].plot()
-ax_.set_title('全要素生産性とトレンド', size=20)
+ax = df[['tfp_log','tfp_log_trend']].plot()
+ax.set_title('全要素生産性とトレンド（対数）', size=20)
 pass
 
 
@@ -570,9 +570,9 @@ pass
 # In[32]:
 
 
-ax_ = df['tfp_cycle'].plot()
-ax_.axhline(0, c='red')
-ax_.set_title('全要素生産性の変動（％）', size=20)
+ax = (100 * df['tfp_cycle']).plot()
+ax.axhline(0, c='red')
+ax.set_title('全要素生産性の変動（％）', size=20)
 pass
 
 
@@ -581,7 +581,7 @@ pass
 # In[33]:
 
 
-100*df['tfp_cycle'].min(), 100*df['tfp_cycle'].max()
+df['tfp_cycle'].min(), df['tfp_cycle'].max()
 
 
 # 正の乖離は2％近くあり，負の乖離は4％以上となる。リーマンショック時を除くと正も負も絶対値で概ね2％以内に収まっている。
@@ -591,8 +591,8 @@ pass
 # In[34]:
 
 
-ax_ = df[['gdp_cycle','tfp_cycle']].plot()
-ax_.set_title('GDPとTFPの変動',size=20)
+ax_ = (100 * df[['gdp_cycle','tfp_cycle']]).plot()
+ax_.set_title('GDPとTFPの変動（％）',size=20)
 pass
 
 
@@ -667,7 +667,7 @@ rho
 # In[41]:
 
 
-df.plot(x='tfp_cycle_lag',y='tfp_cycle',kind='scatter')
+df.plot(x='tfp_cycle_lag', y='tfp_cycle', kind='scatter')
 pass
 
 
@@ -676,7 +676,7 @@ pass
 # In[42]:
 
 
-sigma = np.std(res_tfp.resid,ddof=1)
+sigma = res_tfp.resid.std()
 sigma
 
 
@@ -684,7 +684,7 @@ sigma
 # :class: dropdown
 # 
 # * `res_tfp`の属性`.resid`は残差を返している。
-# * 引数`ddof`は標本の標準偏差の計算に必要な自由度の設定であり，説明変数が１なので`ddof=1`を設定している。
+# * `.resid`は`Series`であり，その属性`std()`を使い標本標準偏差を計算している（デフォルトでは`ddof=1`)。
 # ```
 
 # 初期値は0として`rho`と`sigma`を使ってAR(1)の値を計算してプロットしてみよう。
@@ -734,6 +734,7 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 #         $$
 #         B_t=B_0(1+g)^t
 #         $$
+#     * $H$は一定と仮定する
 #     
 # * 資本の蓄積方程式：$K_{t+1}=sY_t+(1-d)K_t$
 # * 消費：$C_t=(1-s)Y_t$
@@ -751,7 +752,9 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # 変数の初期値を次のように仮定する。
 # * $A_0=1$
 # * $K_0=$ 1980年の資本ストックの平均
-# * $H_0=$ 1980年の総労働時間の平均
+# 
+# $H$は次の値として一定とする。
+# * $H=$ 1980年の総労働時間の平均
 # 
 # パラメータの値を次を仮定する。
 # * $\rho$と$\sigma$は上で計算した`rho`と`sigma`の値
@@ -772,41 +775,51 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # In[44]:
 
 
-var_list = ['gdp','capital','total_hours']       # 1
-year_list = [df.index[0].year,df.index[-1].year] # 2
+# cond = (df.index >= df.inex)
 
-gdp_dict = {}  # 3
-K_dict = {}    # 4
-H_dict = {}    # 5
+df.index.year == df.index[-1].year
 
-for yr in year_list:        # 6
-    mean = df.loc[f'{yr}-03-31':f'{yr}-12-31',var_list].mean() # 7
-    gdp_dict[yr] = mean[0]  # 8
-    K_dict[yr] = mean[1]    # 9
-    H_dict[yr] = mean[2]    # 10
+
+# In[45]:
+
+
+var_list = ['gdp','capital','total_hours']       #1
+year_list = [df.index[0].year,df.index[-1].year] #2
+
+gdp_dict = {}  #3
+K_dict = {}    #4
+H_dict = {}    #5
+
+for yr in year_list:                     #6
+    
+    cond = ( df.index.year == yr)        #7
+    mean = df.loc[cond, var_list].mean() #8
+    gdp_dict[yr] = mean[0]  #9
+    K_dict[yr] = mean[1]    #10
+    H_dict[yr] = mean[2]    #11
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. ３つの変数のリスト
-# 2. 平均を計算する年のリストであり，`df.index[0].year`と`df.index[-1].year`はインデックスから最初と最後の年を抽出する
-# 3. それぞれの年のGDPの平均を格納する辞書
-# 4. それぞれの年の資本ストックの平均を格納する辞書
-# 5. それぞれの年の総労働時間の平均を格納する辞書
-# 6. `year_list`に対しての`for`ループ
-# 7. それぞれの年の行，`var_list`にある列を抽出し平均を計算する。
-#     * `f-string`を使い`{yr}`に年を代入している。
+# * `#1`：３つの変数のリスト
+# * `#2`：平均を計算する年のリストであり，`df.index[0].year`と`df.index[-1].year`はインデックスから最初と最後の年を抽出する
+# * `#3`：それぞれの年のGDPの平均を格納する辞書
+# * `#4`：それぞれの年の資本ストックの平均を格納する辞書
+# * `#5`：それぞれの年の総労働時間の平均を格納する辞書
+# * `#6`：`year_list`に対しての`for`ループ
+# * `#7`：`df.index`の年が`yr`と同じ場合は`True`を返し，そうでない場合は`False`を返す`Series`を`cond`に割り当てる。
+# * `#8`：それぞれの年の行，`var_list`にある列を抽出し平均を計算する。
 #     * `.mean()`は列の平均を計算する。
 #     * 計算した平均は`Series`として返されるので，それを左辺にある変数`mean`に割り当てる。
-# 8. `mean`の0番目の要素を`gdp_dict`のキー`yr`（年）に対応する値をして設定する。
-# 9. `mean`の1番目の要素を`K_dict`のキー`yr`（年）に対応する値をして設定する。
-# 10. `mean`の2番目の要素を`H_dict`のキー`yr`（年）に対応する値をして設定する。
+# * `#9`：`mean`の0番目の要素を`gdp_dict`のキー`yr`（年）に対応する値をして設定する。
+# * `#10`：`mean`の1番目の要素を`K_dict`のキー`yr`（年）に対応する値をして設定する。
+# * `#11`：`mean`の2番目の要素を`H_dict`のキー`yr`（年）に対応する値をして設定する。
 # ```
 
 # このコードの結果を確認してみよう。例えば，
 
-# In[45]:
+# In[46]:
 
 
 gdp_dict
@@ -840,7 +853,7 @@ gdp_dict
 
 # 次に全要素生産性の平均四半期成長率を計算するために`df`の列名を確認しよう。
 
-# In[46]:
+# In[47]:
 
 
 df.columns
@@ -848,7 +861,7 @@ df.columns
 
 # `gdp`は0番目，`capital`は6番目，`total_hours`は11番目の列にある。この情報をもとに次のように計算しよう。
 
-# In[47]:
+# In[48]:
 
 
 var_idx = [0,6,11]         # 1
@@ -881,7 +894,7 @@ g
 
 # 次にGDPに対する投資の割合の平均を計算する。
 
-# In[48]:
+# In[49]:
 
 
 s = (df['investment']/df['gdp']).mean()
@@ -896,7 +909,7 @@ s
 
 # シミュレーションのコードを関数としてまとめよう。
 
-# In[49]:
+# In[50]:
 
 
 def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
@@ -906,7 +919,7 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
                      s=s,
                      d=0.025,
                      a=a,
-                     H=H_dict[1980],
+                     H=H_dict[1980],  # 1980年平均に固定
                      K0=K_dict[1980],
                      B0=B0):
     """引数：
@@ -936,7 +949,6 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
     # A,B,Kの時系列の計算
     for t in range(1,T):
         K = s * A*B * K**a *H**(1-a) + (1-d)*K  # 7
-        
         e = np.random.normal(0,scale=sigma)     # 8
         A = A**rho * np.exp(e)                  # 9
         B = B0*(1+g)**t                         # 10
@@ -958,9 +970,9 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
     # ========== トレンドとサイクルの計算 ==========
     for v in ['K','A','Y','C','I']:
         # ---------- レンドの計算 ----------      # 14
-        df_sim[f'{v}_trend'] = py4macro.trend(df_sim[v])
+        df_sim[f'{v}_log_trend'] = py4macro.trend( np.log(df_sim[v]) )
         # ---------- サイクルの計算 ----------    # 15
-        df_sim[f'{v}の変動'] = np.log( df_sim[v]/df_sim[f'{v}_trend'] )
+        df_sim[f'{v}の変動'] = np.log( df_sim[v] ) - df_sim[f'{v}_log_trend']
     
     return df_sim
 
@@ -991,20 +1003,20 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
 
 # デフォルトの値でシミュレーションを行い、最初の5行を表示する。
 
-# In[50]:
+# In[51]:
 
 
 df_sim = stochastic_solow()
 df_sim.head()
 
 
-# $Y$の水準とトレンドの図示。
+# $Y$の水準とトレンドの図示（対数）。
 
-# In[51]:
+# In[52]:
 
 
-np.log(df_sim['Y']).plot()
-np.log(df_sim['Y_trend']).plot()
+np.log(df_sim['Y']).plot(title='シミュレーション：Yとトレンド（対数）')
+df_sim['Y_log_trend'].plot()
 pass
 
 
@@ -1012,10 +1024,10 @@ pass
 
 # $Y$の変動（サイクル）の図示。
 
-# In[52]:
+# In[53]:
 
 
-ax_ = df_sim['Yの変動'].plot(legend=True)
+ax_ = ( 100 * df_sim['Yの変動'] ).plot(title='シミュレーション：Yの変動（％）')
 ax_.axhline(0, c='red')
 pass
 
@@ -1026,7 +1038,7 @@ pass
 
 # それぞれの変数の自己相関係数を計算してみる。
 
-# In[53]:
+# In[54]:
 
 
 var_list = ['Y','C','I','K','A']
@@ -1040,13 +1052,13 @@ for v in var_list:
 
 # まずシミュレーションを行う度にこれらの値は変化することに留意し結果を考えよう。ある程度の自己相関が発生しており，$A$の影響が反映されている。$Y$，$C$，$I$の値は同じなのは，$C$，$I$は$Y$の線形関数であるためであり，これらの３つの変数は$A$の変動と似た動きになっている。また$K$の値が大きいのは、ストック変数であるため変化に時間が掛かるためある。データ`df`に含まれる変数の自己相関係数と比べるために，まず消費，投資，資本の変動を計算する。
 
-# In[54]:
+# In[55]:
 
 
 df.columns
 
 
-# In[55]:
+# In[56]:
 
 
 data_var_list = ['consumption','investment','capital']
@@ -1057,13 +1069,13 @@ for v in data_var_list:
 
 # 結果を示すために，`data_var_list`の最初と最後に`gdp`と`tfp`を追加する。
 
-# In[56]:
+# In[57]:
 
 
 data_var_list = ['gdp']+data_var_list+['tfp']
 
 
-# In[57]:
+# In[58]:
 
 
 print('\n--- データ：変動の自己相関係数 ---\n')
@@ -1088,7 +1100,7 @@ for v in data_var_list:
 # 
 # 次に、$Y$との相関係数を計算する。
 
-# In[58]:
+# In[59]:
 
 
 print('\n--- シミュレーション：GDPとの相関係数 ---\n')
@@ -1103,7 +1115,7 @@ for v in var_list[1:]:
 # 
 # 相関度をデータと比べてみよう。
 
-# In[59]:
+# In[60]:
 
 
 print('\n--- データ：GDPとの相関係数 ---\n')

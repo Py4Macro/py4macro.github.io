@@ -12,7 +12,6 @@
 
 
 import japanize_matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import py4macro
@@ -67,19 +66,9 @@ df.info()
 # In[5]:
 
 
-fix, ax = plt.subplots()
-ax.plot('gdp', data=df)
-ax.set_title('GDP', size=20)
+df['gdp'].plot(title='GDP')
 pass
 
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# ax = df['gdp'].plot()
-# ax.set_title('GDP', size=20)
-# ```
-# ````
 
 # 長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，2008年のリーマン・ショック，そして2020年のコロナ禍の影響でGDPは大きく下落している。
 # 
@@ -130,19 +119,9 @@ IFrame(src='https://fred.stlouisfed.org/graph/graph-landing.php?g=BOLN&width=420
 
 df['gdp_log'] = np.log(df['gdp'])
 
-fig, ax = plt.subplots()
-ax.plot('gdp_log', data=df)
-ax.set_title('GDP（対数）', size=20)
+df['gdp_log'].plot(title='GDP（対数）')
 pass
 
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# ax = df['gdp_log'].plot()
-# ax.set_title('GDP（対数）', size=20)
-# ```
-# ````
 
 # プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。
 # 
@@ -155,26 +134,18 @@ pass
 
 df['gdp_growth_quarter'] = 100*df['gdp_log'].diff()   # 1
 
-fig, ax = plt.subplots()
-ax.plot('gdp_growth_quarter', data=df)
-ax.set_title('GDP四半期成長率（％）', size=20)
-ax.grid()
+# 2
+ax_ = df['gdp_growth_quarter'].plot(title='GDP四半期成長率（％）')
+ax_.grid()   # 3
 pass
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 1. `.diff()`は差分を計算するメソッドであり，引数の数（デフォルトは`1`）は何期前の値と差分を計算するかを指定する。
+# 2. `Pandas`のメソッド`plot`は図を表示し，同時に図の「軸（axis）」を返すが，それを変数`ax_`に割り当てている。
+# 3. 軸の変数`ax_`には様々なメソッドが用意されており，その１つがグリッド線を表示する`.grid()`である。
 # ```
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# ax = df['gdp_growth_quarter'].plot()
-# ax.set_title('GDP四半期成長率（％）', size=20)
-# ax.grid()
-# ```
-# ````
 
 # 新聞などで「前年同期比成長率」という表現をみたことがあると思うが，`diff()`の引数を`4`にすることにより，前年同期比の成長率を計算することができる。それを図示してみよう。
 
@@ -183,21 +154,10 @@ pass
 
 df['gdp_growth_annual'] =  100*df['gdp_log'].diff(4)
 
-fig, ax = plt.subplots()
-ax.plot('gdp_growth_annual', data=df)
-ax.set_title('GDP前年同期比成長率（％）', size=20)
-ax.grid()
+ax_ = df['gdp_growth_annual'].plot(title='GDP前年同期比成長率（％）')
+ax_.grid()
 pass
 
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# ax = df['gdp_growth_annual'].plot()
-# ax.set_title('GDP前年同期比成長率（％）', size=20)
-# ax.grid()
-# ```
-# ````
 
 # 上の図と比べると縦軸の幅の違いに気づくだろう。最高値と最小値を計算してみよう。
 
@@ -251,18 +211,12 @@ net_exp_gdp_ratio = 100 * ( df['exports']-df['imports'] ) / df['gdp']
 ratio_list = [con_gdp_ratio,inv_gdp_ratio,
               gov_gdp_ratio,net_exp_gdp_ratio]
 
-label_list = ['消費','投資','政府支出','純輸出']
+label_list = ['Consumption','Investment','Gov Exp','Net Exports']
 
 for r, l in zip(ratio_list, label_list):
     avr = r.mean()
-    print(f'{l}\t{avr:.1f}%')    
+    print(l, f'\t{avr:.1f}')
 
-
-# ```{admonition} コードの説明
-# :class: dropdown
-# 
-# 最後の行の`print`関数の引数に使われている`\t`はタブを意味する。表示の１行目の消費と`55.6%`の間にタブが入っており，他の行にもタブが入ることにより，数字が揃って表示されている。
-# ```
 
 # 消費はGDPの`60`％近くあり，GDPの約1/4が政府支出となっている。消費とは対照的に，投資は約`20`％であり消費の約３分の１である。（小数点第一位までしか表示していないため合計は100にならない。）
 # 
@@ -271,13 +225,8 @@ for r, l in zip(ratio_list, label_list):
 # In[13]:
 
 
-fig, ax = plt.subplots()
-
-for r, l in zip(ratio_list, label_list):
-    ax.plot(r, data=df, label=l)
-    
-ax.legend(loc=(1., 0.7))
-pass
+for r, l in zip(ratio_list,label_list):
+    r.plot(label=l, legend=True)
 
 
 # ````{admonition} コードの説明
@@ -286,26 +235,17 @@ pass
 # * `zip()`について説明する。`zip()`はループによく使われる便利な関数である。以下の単純な`for`ループ
 #     ```
 #     for r in ratio_list:
-#         ax.plot(r, data=df)
+#         r.plot()
 #     ```
-#     にはループ用の変数が`r`の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには`label_list`も`for`ループの中で同時に使う必要がある。そのような場合に便利な関数が`zip()`である。引数に`ratio_list`と`label_list`を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として`r`と`l`を使っている。`r`と`l`の間に`,`を入れることにより，それぞれ別のリストの要素を割り当てることができる。
+#     にはループ用の変数が`r`の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには`label_list`も`for`ループの中で同時に使う必要がある。そのような場合に便利な関数が`zip()`である。引数に`ratio_list`と`label_list`を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として`r`と`l`を使っている。`r`と`l`の間に`,`を入れることにより，それぞれ別のリストの要素を捉えることができる。
 # * この`for`ループは以下と等しい。
 #     ```
-#     ax.plot(con_gdp_ratio, data=df, label='消費')
-#     ax.plot(inv_gdp_ratio, data=df, label='投資')
-#     ax.plot(gov_gdp_ratio, data=df, label='政府支出')
-#     ax.plot(net_exp_gdp_ratio, data=df, label='純輸出')
+#     con_gdp_ratio.plot(label='Consumption', legend=True)
+#     inv_gdp_ratio.plot(label='Investment', legend=True)
+#     gov_gdp_ratio.plot(label='Gov Exp', legend=True)
+#     net_exp_gdp_ratio.plot(label='Net Exports', legend=True)
 #     ```
-#     もちろんこれでも良いが，コードを書く際は極力同じような行を繰り返すのではなくループを使ってまとめる方が良い。第一の理由は，簡単なエラーの可能性を軽減することができることだ。リピートして書く場合，1行をコピペしその後に1行ずつ修正をするパターンが多いが，最初の１行目が間違っている場合，全ての行を修正する必要がある。その際に修正し忘れることがある。第二の理由は，コードの修正も簡単になるためである。例えば，`linewidth=2`を設定したいとしよう。`for`ループの場合は一箇所に加えるだけで済むことになる。
-# ````
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# for r, l in zip(ratio_list,label_list):
-#     ax = r.plot(label=l)
-# ax.legend(loc=(1., 0.7))
-# ```
+#     もちろんこれでも良いが，コードを書く際は極力同じような行を繰り返すのではなくループを使ってまとめる方が良い。第一の理由は，簡単なエラーの可能性を軽減することができることだ。リピートして書く場合，1行をコピペしその後に1行ずつ修正をするパターンが多いが，最初の１行目が間違っている場合，全ての行を修正する必要が発生する。その際に修正し忘れることがある。第二の理由は，コードの修正も簡単になるためである。例えば，`linewidth=2`を設定したいとしよう。`for`ループの場合は一箇所に加えるだけで済むことになる。
 # ````
 
 # 景気の動向によって上下することがわかる。例えば，リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方，景気悪化に反応し政府支出の割合は上昇している。またバブル景気（1986年から1991年まで）ではその逆が起こっており，順位が逆転する程である。コロナ禍の影響もプロットにハッキリと現れている。
@@ -458,11 +398,9 @@ trend_cycle()
 help(py4macro.trend)
 
 
-# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。ただ，Hodrick–Prescottフィルターは線形トレンドを仮定しているため次の点に注意する必要がある。
-# * 実質GDPや消費の様に長期的には上昇トレンドを示す変数は対数化し`trend`関数の引数にする。
-# * 失業率やインフレ率の様に長期的なトレンドは一定となる変数はそのまま`trend`関数の引数にする。
+# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。
 
-# まず次の変数を対数化した後にトレンドを計算し`df`に追加する。
+# まず次の変数のトレンドを計算し対数化した後に`df`に追加する。
 
 # In[16]:
 
@@ -502,24 +440,14 @@ df.columns
 
 # ### GDP
 
-# 対数化したGDPの変数を作成しトレンドと重ねて図示してみよう。
+# 対数化したGDPの変数を作成しトレンドと重ねて図示してみる。
 
 # In[19]:
 
 
-fig, ax = plt.subplots()
-for c in ['gdp_log','gdp_log_trend']:
-    ax.plot(c, data=df)
-ax.legend()
+df[['gdp_log','gdp_log_trend']].plot()
 pass
 
-
-# ````{admonition} 同じ図をDataFrameのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# df[['gdp_log','gdp_log_trend']].plot()
-# ```
-# ````
 
 # トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。
 # 
@@ -530,10 +458,6 @@ pass
 # \approx\log\left(\frac{X}{Z}\right)
 # =\log(X) - \log(Z)
 # $$ (eq:10-devaition)
-# 
-# ここで
-# * $X=$ データ
-# * $Z=$ データのトレンド
 
 # In[20]:
 
@@ -546,33 +470,23 @@ df['gdp_cycle'] = 100 * ( df['gdp_log'] - df['gdp_log_trend'] )
 # In[21]:
 
 
-fig, ax = plt.subplots()
-ax.plot('gdp_cycle', data=df,
-        linestyle=':',        #1
-        marker='.')           #2
-ax.axhline(0, color='red')    #3
-ax.set_title('GDPのトレンドからの％乖離', size=20)
+ax_ = df['gdp_cycle'].plot(marker='.',    # 1
+                           linestyle=':',
+                           title='GDPのトレンドからの％乖離')
+ax_.axhline(0, color='red')               # 2
 pass
 
 
 # ```{admonition} コード説明
 # :class: dropdown
 # 
-# * `#1`：`linestyle`は線のスタイルを指定する引数であり，`':'`は点線を指定している。
-# * `#2`：`marker`はデータのマーカーを指定する引数であり，`'.'`は小さな点を指定している。
-# * `#3`：`ax`のメソッド`.axhline()`を使うと横線を描くことができる。
+# 1. `Pandas`のメソッド`plot`は図を表示すると共に図の「軸（axis）」を返すが，それを変数`ax`に割り当てている。
+#     * `marker`はデータのマーカーを指定する引数であり，`'.'`は小さな点を指定している。
+#     * `linestyle`は線のスタイルを指定する引数であり，`':'`は点線を指定している。
+# 2. `ax_`のメソッド`.axhline()`を使うと横線を描くことができる。
 #     * 縦軸の値`0`は必須の引数
 #     * `color=red`は色を指定する引数（無くても良い）。
 # ```
-
-# ````{admonition} 同じ図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# ax = df['gdp_cycle'].plot(marker='.', linestyle=':')
-# ax.axhline(0, color='red')
-# ax.set_title('GDPのトレンドからの％乖離', size=20)
-# ```
-# ````
 
 # 図の景気循環はトレンドからの乖離である。乖離の典型的な特徴として持続性がある。これは同じ方向の乖離が続く傾向があるという意味である。即ち，今期景気が良ければ（悪ければ）来期も景気が良い（悪い）可能性が高いということである。もちろん，いずれは乖離が狭まり「山」から「谷」，そして「山」へと循環して行く。持続性を示す数値として自己相関係数がある。
 # 
@@ -618,19 +532,13 @@ df['gdp_cycle'].autocorr()
 # In[23]:
 
 
-var_list
-
-
-# In[24]:
-
-
 for v in var_list[1:]:   # gdp以外の変数    
     df[v+'_cycle'] = 100 * ( np.log(df[v])-py4macro.trend( np.log(df[v]) ) )
 
 
 # 図示する変数のリスを作成するために，列ラベルを確認しよう。
 
-# In[25]:
+# In[24]:
 
 
 df.columns
@@ -638,41 +546,14 @@ df.columns
 
 # 列ラベルに`_cycle`がついている変数だけを選ぶために`cycle_list`を作成する。
 
-# In[26]:
+# In[25]:
 
 
-cycle_list = df.columns[-6:]              #1
+cycle_list = df.columns[-6:]   # 最後の6変数
 
-cmap = plt.get_cmap("tab10")              #2
+df.loc[:,cycle_list].plot(subplots=True, figsize=(8,10))
+pass
 
-fig, ax = plt.subplots(6, 1,              #3
-                       figsize=(7,8),     #4
-                       sharex=True)       #5
-    
-for i, v in enumerate(cycle_list):        #6
-    ax[i].plot(v, data=df, color=cmap(i)) #7
-    ax[i].legend()                        #8
-
-
-# ```{admonition} コード説明
-# :class: dropdown
-# 
-# * `#1`：`df`の列ラベルの最後の6変数を選択している。
-# * `#2`：`matplotlib`には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。`plt.get_cmap`関数は，その中から`tab10`と呼ばれるものを取り出して`cmap`に割り当てている。[参照リンク](https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative)
-# * `#3`：１つのキャンバスに「軸」を並べる際，行を`6`に，列を`1`に指定する。
-# * `#4`：キャンバスのサイズの指定（`7`は行の幅，`8`は列の高さ）
-# * `#5`：全ての図で横軸のメモりを共通化する（一番最後の図にだけ横軸の目盛を表示する）。ちなみに，`sharey=True`とすると縦軸の目盛が共通になり，変動幅の違いが確認できる。
-# * `#6`：`enumerate()`に関しては[このリンク](https://py4basics.github.io/1_Basics_IV.html#for1-enumerate)を参照。
-# * `#7`：引数`color`は`#2`で割り当てたカラーマップ`tab10`から色を番号で指定する。`0`番目から`5`番目の色を使用している。
-# * `#8`：凡例の表示の設定。
-# ```
-
-# ````{admonition} 同様の図をSeriesのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# df.loc[:,cycle_list].plot(subplots=True, figsize=(7,8))
-# ```
-# ````
 
 # この図に基づいて３つの点について考える。
 # 1. 持続性を示す自己相関
@@ -683,7 +564,7 @@ for i, v in enumerate(cycle_list):        #6
 
 # `for`ループを使って自己相関係数を計算しよう。
 
-# In[27]:
+# In[26]:
 
 
 for v in cycle_list:
@@ -702,7 +583,7 @@ for v in cycle_list:
 #         * `>5`と`.2f`の順番を逆にするとエラーが発生する。
 # ```
 
-# 全て`0.46`以上であり，強い持続性が確認できる。
+# 全て`0.45`以上であり，強い持続性が確認できる。
 
 # #### GDPとの相関度
 
@@ -715,7 +596,7 @@ for v in cycle_list:
 # 
 # 式[](eq:10-correlation)として式[](eq:10-YZ)を計算するが，`Series`にはそれを計算するメソッド`.corr()`が用意されている。`for`ループを使って計算しよう。
 
-# In[28]:
+# In[27]:
 
 
 print('GDPの変動との相関係数\n------------------------')
@@ -739,26 +620,16 @@ for v in cycle_list:
 
 # 政府支出以外は全て相関係数は正の値であり，値も大きい。即ち，順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり，正の相関を確認できる。
 
-# In[29]:
+# In[28]:
 
 
-fig, ax = plt.subplots()
-ax.scatter(x='gdp_cycle', y='investment_cycle', data=df)
-ax.set_xlabel('GDPのトレンドからの％乖離', size=15)
-ax.set_ylabel('投資のトレンドからの％乖離', size=15)
+df.plot('gdp_cycle', 'investment_cycle', kind='scatter')
 pass
 
 
-# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# df.plot(x='gdp_cycle', y='investment_cycle', kind='scatter')
-# ```
-# ````
-
 # 一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために，`Series`のメソッド`.shift()`を使って相関係数を再計算してみよう。
 
-# In[30]:
+# In[29]:
 
 
 print('  GDPとの相関係数\n-----------------------')
@@ -782,7 +653,7 @@ for n in range(1,12):
 
 # 次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算する。
 
-# In[31]:
+# In[30]:
 
 
 for v in cycle_list:
@@ -790,23 +661,13 @@ for v in cycle_list:
     print(f'{v:<19}{var:>5.2f}')
 
 
-# 投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。消費に関しては消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。
+# 投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。
 
-# In[32]:
+# In[31]:
 
 
-fig, ax = plt.subplots()
-for v in cycle_list[:3]:
-    ax.plot(v, data=df)
-ax.legend()
+df.loc[:,cycle_list[:3]].plot()
 pass
 
-
-# ````{admonition} 同様の図をDataFrameのメソッド.plotを使って表示
-# :class: dropdown
-# ```
-# df.loc[:,cycle_list[:3]].plot()
-# ```
-# ````
 
 # これらの結果を説明するために，効用最大化に基づく消費者理論があり，利潤最大化に基づく企業行動に関するモデルが使われている。

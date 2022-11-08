@@ -87,7 +87,7 @@ df2019['factors_relative'] = df2019['factors'] / us2019['factors'].to_numpy()
 # In[4]:
 
 
-df2019.plot(x='tfp_relative', y='gdp_pc_relative', kind='scatter')
+df2019.plot('tfp_relative', 'gdp_pc_relative', kind='scatter')
 pass
 
 
@@ -311,8 +311,7 @@ df2019['OLS fitted'] = result.fittedvalues
 ax_ = df2019.plot(x='tfp_relative', y='gdp_pc_relative', kind='scatter')
 df2019.sort_values('OLS fitted').plot(x='tfp_relative',
                                       y='OLS fitted',
-                                      color='r',
-                                      ax=ax_)
+                                      color='r', ax=ax_)
 pass
 
 
@@ -362,7 +361,7 @@ pass
 # $$
 # \text{蓄積生産要素の寄与度}
 # \equiv
-# \equiv\beta_{\text{factors}}=
+# \beta_{\text{factors}}=
 # \dfrac{
 #     \text{Var}\left(r_i^{\text{factors}}\right)
 #     +\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
