@@ -563,7 +563,6 @@ title="Print to PDF"
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
@@ -858,22 +857,13 @@ memory usage: 21.0 KB
 <p>まずGDPを図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fix</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/10_Data_Fluctuation_14_0.png" src="_images/10_Data_Fluctuation_14_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
 </div>
 </div>
 <p>長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，2008年のリーマン・ショック，そして2020年のコロナ禍の影響でGDPは大きく下落している。</p>
@@ -928,22 +918,13 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP（対数）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP（対数）&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_19_0.png" src="_images/10_Data_Fluctuation_19_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP（対数）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_18_0.png" src="_images/10_Data_Fluctuation_18_0.png" />
 </div>
 </div>
 <p>プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。</p>
@@ -953,55 +934,38 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>   <span class="c1"># 1</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="c1"># 2</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>   <span class="c1"># 3</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_22_0.png" src="_images/10_Data_Fluctuation_22_0.png" />
+<img alt="_images/10_Data_Fluctuation_20_0.png" src="_images/10_Data_Fluctuation_20_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.diff()</span></code>は差分を計算するメソッドであり，引数の数（デフォルトは<code class="docutils literal notranslate"><span class="pre">1</span></code>）は何期前の値と差分を計算するかを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>は図を表示し，同時に図の「軸（axis）」を返すが，それを変数<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てている。</p></li>
+<li><p>軸の変数<code class="docutils literal notranslate"><span class="pre">ax_</span></code>には様々なメソッドが用意されており，その１つがグリッド線を表示する<code class="docutils literal notranslate"><span class="pre">.grid()</span></code>である。</p></li>
 </ol>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <p>新聞などで「前年同期比成長率」という表現をみたことがあると思うが，<code class="docutils literal notranslate"><span class="pre">diff()</span></code>の引数を<code class="docutils literal notranslate"><span class="pre">4</span></code>にすることにより，前年同期比の成長率を計算することができる。それを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_26_0.png" src="_images/10_Data_Fluctuation_26_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_23_0.png" src="_images/10_Data_Fluctuation_23_0.png" />
 </div>
 </div>
 <p>上の図と比べると縦軸の幅の違いに気づくだろう。最高値と最小値を計算してみよう。</p>
@@ -1060,43 +1024,34 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span><span class="n">inv_gdp_ratio</span><span class="p">,</span>
               <span class="n">gov_gdp_ratio</span><span class="p">,</span><span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
 
-<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;消費&#39;</span><span class="p">,</span><span class="s1">&#39;投資&#39;</span><span class="p">,</span><span class="s1">&#39;政府支出&#39;</span><span class="p">,</span><span class="s1">&#39;純輸出&#39;</span><span class="p">]</span>
+<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span><span class="s1">&#39;Investment&#39;</span><span class="p">,</span><span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span><span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
     <span class="n">avr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">avr</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">avr</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>消費	55.6%
-投資	21.8%
-政府支出	25.3%
-純輸出	-1.1%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Consumption 	55.6
+Investment 	21.8
+Gov Exp 	25.3
+Net Exports 	-1.1
 </pre></div>
 </div>
 </div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">コードの説明</p>
-<p>最後の行の<code class="docutils literal notranslate"><span class="pre">print</span></code>関数の引数に使われている<code class="docutils literal notranslate"><span class="pre">\t</span></code>はタブを意味する。表示の１行目の消費と<code class="docutils literal notranslate"><span class="pre">55.6%</span></code>の間にタブが入っており，他の行にもタブが入ることにより，数字が揃って表示されている。</p>
 </div>
 <p>消費はGDPの<code class="docutils literal notranslate"><span class="pre">60</span></code>％近くあり，GDPの約1/4が政府支出となっている。消費とは対照的に，投資は約<code class="docutils literal notranslate"><span class="pre">20</span></code>％であり消費の約３分の１である。（小数点第一位までしか表示していないため合計は100にならない。）</p>
 <p>次に推移を確認する。同じように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使うと簡単に表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
-    
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span><span class="n">label_list</span><span class="p">):</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_38_0.png" src="_images/10_Data_Fluctuation_38_0.png" />
+<img alt="_images/10_Data_Fluctuation_33_0.png" src="_images/10_Data_Fluctuation_33_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1104,29 +1059,21 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">zip()</span></code>について説明する。<code class="docutils literal notranslate"><span class="pre">zip()</span></code>はループによく使われる便利な関数である。以下の単純な<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ratio_list</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>にはループ用の変数が<code class="docutils literal notranslate"><span class="pre">r</span></code>の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには<code class="docutils literal notranslate"><span class="pre">label_list</span></code>も<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で同時に使う必要がある。そのような場合に便利な関数が<code class="docutils literal notranslate"><span class="pre">zip()</span></code>である。引数に<code class="docutils literal notranslate"><span class="pre">ratio_list</span></code>と<code class="docutils literal notranslate"><span class="pre">label_list</span></code>を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>を使っている。<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>の間に<code class="docutils literal notranslate"><span class="pre">,</span></code>を入れることにより，それぞれ別のリストの要素を割り当てることができる。</p>
+<p>にはループ用の変数が<code class="docutils literal notranslate"><span class="pre">r</span></code>の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには<code class="docutils literal notranslate"><span class="pre">label_list</span></code>も<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で同時に使う必要がある。そのような場合に便利な関数が<code class="docutils literal notranslate"><span class="pre">zip()</span></code>である。引数に<code class="docutils literal notranslate"><span class="pre">ratio_list</span></code>と<code class="docutils literal notranslate"><span class="pre">label_list</span></code>を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>を使っている。<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>の間に<code class="docutils literal notranslate"><span class="pre">,</span></code>を入れることにより，それぞれ別のリストの要素を捉えることができる。</p>
 </li>
 <li><p>この<code class="docutils literal notranslate"><span class="pre">for</span></code>ループは以下と等しい。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">con_gdp_ratio</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;消費&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">inv_gdp_ratio</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;投資&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gov_gdp_ratio</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;政府支出&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">net_exp_gdp_ratio</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;純輸出&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">con_gdp_ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">inv_gdp_ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Investment&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gov_gdp_ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">net_exp_gdp_ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Net Exports&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>もちろんこれでも良いが，コードを書く際は極力同じような行を繰り返すのではなくループを使ってまとめる方が良い。第一の理由は，簡単なエラーの可能性を軽減することができることだ。リピートして書く場合，1行をコピペしその後に1行ずつ修正をするパターンが多いが，最初の１行目が間違っている場合，全ての行を修正する必要がある。その際に修正し忘れることがある。第二の理由は，コードの修正も簡単になるためである。例えば，<code class="docutils literal notranslate"><span class="pre">linewidth=2</span></code>を設定したいとしよう。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの場合は一箇所に加えるだけで済むことになる。</p>
+<p>もちろんこれでも良いが，コードを書く際は極力同じような行を繰り返すのではなくループを使ってまとめる方が良い。第一の理由は，簡単なエラーの可能性を軽減することができることだ。リピートして書く場合，1行をコピペしその後に1行ずつ修正をするパターンが多いが，最初の１行目が間違っている場合，全ての行を修正する必要が発生する。その際に修正し忘れることがある。第二の理由は，コードの修正も簡単になるためである。例えば，<code class="docutils literal notranslate"><span class="pre">linewidth=2</span></code>を設定したいとしよう。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの場合は一箇所に加えるだけで済むことになる。</p>
 </li>
 </ul>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span><span class="n">label_list</span><span class="p">):</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
-</pre></div>
-</div>
 </div>
 <p>景気の動向によって上下することがわかる。例えば，リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方，景気悪化に反応し政府支出の割合は上昇している。またバブル景気（1986年から1991年まで）ではその逆が起こっており，順位が逆転する程である。コロナ禍の影響もプロットにハッキリと現れている。</p>
 </section>
@@ -1244,7 +1191,7 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_45_0.png" src="_images/10_Data_Fluctuation_45_0.png" />
+<img alt="_images/10_Data_Fluctuation_39_0.png" src="_images/10_Data_Fluctuation_39_0.png" />
 </div>
 </div>
 <p>この図のトレンドは右上がりとなっているが，一定もしくは右下がりになる場合もありえる。この図から次のことが言える。好況・不況とは，GDPがトレンドを上回るか・下回るかの状態を表している。一方で，拡張・後退はGDPの変化を捉えている。また，このプロットは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/menu_di.html">景気動向指数</a>を含め様々なデータに基づき，「谷」と「山」の時期を確定している。</p>
@@ -1297,12 +1244,8 @@ trend(s, lamb=1600)
 </div>
 </div>
 </div>
-<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，Hodrick–Prescottフィルターは線形トレンドを仮定しているため次の点に注意する必要がある。</p>
-<ul class="simple">
-<li><p>実質GDPや消費の様に長期的には上昇トレンドを示す変数は対数化し<code class="docutils literal notranslate"><span class="pre">trend</span></code>関数の引数にする。</p></li>
-<li><p>失業率やインフレ率の様に長期的なトレンドは一定となる変数はそのまま<code class="docutils literal notranslate"><span class="pre">trend</span></code>関数の引数にする。</p></li>
-</ul>
-<p>まず次の変数を対数化した後にトレンドを計算し<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加する。</p>
+<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。</p>
+<p>まず次の変数のトレンドを計算し対数化した後に<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
@@ -1355,25 +1298,16 @@ trend(s, lamb=1600)
 </section>
 <section id="id6">
 <h3>GDP<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
-<p>対数化したGDPの変数を作成しトレンドと重ねて図示してみよう。</p>
+<p>対数化したGDPの変数を作成しトレンドと重ねて図示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_57_0.png" src="_images/10_Data_Fluctuation_57_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をDataFrameのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_51_0.png" src="_images/10_Data_Fluctuation_51_0.png" />
 </div>
 </div>
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
@@ -1384,11 +1318,6 @@ trend(s, lamb=1600)
 \approx\log\left(\frac{X}{Z}\right)
 =\log(X) - \log(Z)
 \]</div>
-<p>ここで</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(X=\)</span> データ</p></li>
-<li><p><span class="math notranslate nohighlight">\(Z=\)</span> データのトレンド</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
@@ -1399,40 +1328,34 @@ trend(s, lamb=1600)
 <p><code class="docutils literal notranslate"><span class="pre">0</span></code>に横線を引いてプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>        <span class="c1">#1</span>
-        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>           <span class="c1">#2</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>    <span class="c1">#3</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>    <span class="c1"># 1</span>
+                           <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>               <span class="c1"># 2</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_62_0.png" src="_images/10_Data_Fluctuation_62_0.png" />
+<img alt="_images/10_Data_Fluctuation_55_0.png" src="_images/10_Data_Fluctuation_55_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コード説明</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>は図を表示すると共に図の「軸（axis）」を返すが，それを変数<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てている。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">linestyle</span></code>は線のスタイルを指定する引数であり，<code class="docutils literal notranslate"><span class="pre">':'</span></code>は点線を指定している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">marker</span></code>はデータのマーカーを指定する引数であり，<code class="docutils literal notranslate"><span class="pre">'.'</span></code>は小さな点を指定している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>を使うと横線を描くことができる。</p>
-<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">marker</span></code>はデータのマーカーを指定する引数であり，<code class="docutils literal notranslate"><span class="pre">'.'</span></code>は小さな点を指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linestyle</span></code>は線のスタイルを指定する引数であり，<code class="docutils literal notranslate"><span class="pre">':'</span></code>は点線を指定している。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax_</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>を使うと横線を描くことができる。</p>
+<ul class="simple">
 <li><p>縦軸の値<code class="docutils literal notranslate"><span class="pre">0</span></code>は必須の引数</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">color=red</span></code>は色を指定する引数（無くても良い）。</p></li>
 </ul>
 </li>
-</ul>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同じ図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
-</div>
+</ol>
 </div>
 <p>図の景気循環はトレンドからの乖離である。乖離の典型的な特徴として持続性がある。これは同じ方向の乖離が続く傾向があるという意味である。即ち，今期景気が良ければ（悪ければ）来期も景気が良い（悪い）可能性が高いということである。もちろん，いずれは乖離が狭まり「山」から「谷」，そして「山」へと循環して行く。持続性を示す数値として自己相関係数がある。</p>
 <p>説明するために２つの変数<span class="math notranslate nohighlight">\(Y\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>を考え次の係数を定義しよう。</p>
@@ -1478,18 +1401,6 @@ Y=x_t,\quad Z=x_{t-1}
 <p>次にGDPの構成要素について考えるが，まずトレンドからの乖離の変数を作成する（単位：％）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;gdp&#39;, &#39;consumption&#39;, &#39;investment&#39;, &#39;government&#39;, &#39;exports&#39;, &#39;imports&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>   <span class="c1"># gdp以外の変数    </span>
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="o">-</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">)</span> <span class="p">)</span>
 </pre></div>
@@ -1521,41 +1432,15 @@ Y=x_t,\quad Z=x_{t-1}
 <p>列ラベルに<code class="docutils literal notranslate"><span class="pre">_cycle</span></code>がついている変数だけを選ぶために<code class="docutils literal notranslate"><span class="pre">cycle_list</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>              <span class="c1">#1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
 
-<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">)</span>              <span class="c1">#2</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>              <span class="c1">#3</span>
-                       <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span>     <span class="c1">#4</span>
-                       <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>       <span class="c1">#5</span>
-    
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cycle_list</span><span class="p">):</span>        <span class="c1">#6</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="c1">#7</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>                        <span class="c1">#8</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_76_0.png" src="_images/10_Data_Fluctuation_76_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">コード説明</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">df</span></code>の列ラベルの最後の6変数を選択している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>には色の順番が決まったパターンが用意されており，それをカラーマップと呼ぶ。<code class="docutils literal notranslate"><span class="pre">plt.get_cmap</span></code>関数は，その中から<code class="docutils literal notranslate"><span class="pre">tab10</span></code>と呼ばれるものを取り出して<code class="docutils literal notranslate"><span class="pre">cmap</span></code>に割り当てている。<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html#qualitative">参照リンク</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：１つのキャンバスに「軸」を並べる際，行を<code class="docutils literal notranslate"><span class="pre">6</span></code>に，列を<code class="docutils literal notranslate"><span class="pre">1</span></code>に指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：キャンバスのサイズの指定（<code class="docutils literal notranslate"><span class="pre">7</span></code>は行の幅，<code class="docutils literal notranslate"><span class="pre">8</span></code>は列の高さ）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：全ての図で横軸のメモりを共通化する（一番最後の図にだけ横軸の目盛を表示する）。ちなみに，<code class="docutils literal notranslate"><span class="pre">sharey=True</span></code>とすると縦軸の目盛が共通になり，変動幅の違いが確認できる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：<code class="docutils literal notranslate"><span class="pre">enumerate()</span></code>に関しては<a class="reference external" href="https://py4basics.github.io/1_Basics_IV.html#for1-enumerate">このリンク</a>を参照。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：引数<code class="docutils literal notranslate"><span class="pre">color</span></code>は<code class="docutils literal notranslate"><span class="pre">#2</span></code>で割り当てたカラーマップ<code class="docutils literal notranslate"><span class="pre">tab10</span></code>から色を番号で指定する。<code class="docutils literal notranslate"><span class="pre">0</span></code>番目から<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の色を使用している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：凡例の表示の設定。</p></li>
-</ul>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同様の図をSeriesのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_67_0.png" src="_images/10_Data_Fluctuation_67_0.png" />
 </div>
 </div>
 <p>この図に基づいて３つの点について考える。</p>
@@ -1604,7 +1489,7 @@ imports_cycle       0.82
 </li>
 </ol>
 </div>
-<p>全て<code class="docutils literal notranslate"><span class="pre">0.46</span></code>以上であり，強い持続性が確認できる。</p>
+<p>全て<code class="docutils literal notranslate"><span class="pre">0.45</span></code>以上であり，強い持続性が確認できる。</p>
 </section>
 <section id="id10">
 <h4>GDPとの相関度<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
@@ -1662,22 +1547,13 @@ imports_cycle       0.66
 <p>政府支出以外は全て相関係数は正の値であり，値も大きい。即ち，順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり，正の相関を確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;投資のトレンドからの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_90_0.png" src="_images/10_Data_Fluctuation_90_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_79_0.png" src="_images/10_Data_Fluctuation_79_0.png" />
 </div>
 </div>
 <p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために，<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
@@ -1741,25 +1617,16 @@ imports_cycle       3.30
 </div>
 </div>
 </div>
-<p>投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。消費に関しては消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
+<p>投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10_Data_Fluctuation_100_0.png" src="_images/10_Data_Fluctuation_100_0.png" />
-</div>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">同様の図をDataFrameのメソッド.plotを使って表示</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
+<img alt="_images/10_Data_Fluctuation_88_0.png" src="_images/10_Data_Fluctuation_88_0.png" />
 </div>
 </div>
 <p>これらの結果を説明するために，効用最大化に基づく消費者理論があり，利潤最大化に基づく企業行動に関するモデルが使われている。</p>
