@@ -924,8 +924,8 @@ memory usage: 5.2 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.404
 Model:                            OLS   Adj. R-squared:                  0.401
 Method:                 Least Squares   F-statistic:                     112.6
-Date:                Tue, 08 Nov 2022   Prob (F-statistic):           2.06e-20
-Time:                        12:06:57   Log-Likelihood:                -259.15
+Date:                Wed, 09 Nov 2022   Prob (F-statistic):           2.06e-20
+Time:                        11:16:56   Log-Likelihood:                -259.15
 No. Observations:                 168   AIC:                             522.3
 Df Residuals:                     166   BIC:                             528.5
 Df Model:                           1                                         
@@ -1162,77 +1162,120 @@ Notes:
 <li><p>式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>には期待インフレ率がり，また供給サイドのショックもあり得る（例えば，コロナ禍）。それらをどう考えるかという問題がある。</p></li>
 </ol>
 <p>第二の問題を扱うことはこのサイトの範囲を超えるので，ここでは扱わず議論を進めることにする。以下では第一の問題を考察してみよう。</p>
-<p>景気循環のマクロ経済学での短期は何ヶ月または何年以下で，長期は何年以上なのだろうか。実は，曖昧で学者・学派によって見解が別れる事になる。ここでは10年間は長期に入ると考えることにする（多くの経済学者は同意するだろう）。この考えに基づくと，10年毎のデータを検討しPC曲線に変化があるかどうかを確かめることができる。</p>
-<p>まず10年毎のデータを使い，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみる。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
+<p>景気循環のマクロ経済学での短期は何ヶ月または何年以下で，長期は何年以上なのだろうか。実は，曖昧で学者・学派によって見解が別れる事になる。ここでは10年間は長期に入ると考えることにする（多くの経済学者は同意するだろう）。この考えに基づき，10年毎のデータを検討しPC曲線に変化があるかどうかを確かめることにする。</p>
+<p>まず10年毎のデータを使うために，次のコードを使い新たな列<code class="docutils literal notranslate"><span class="pre">decade</span></code>を<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1980 3&#39;</span><span class="p">,</span> <span class="s1">&#39;1990 3&#39;</span><span class="p">,</span> <span class="s1">&#39;2000 3&#39;</span><span class="p">,</span> <span class="s1">&#39;2010 3&#39;</span><span class="p">]</span>  <span class="c1"># 1</span>
-<span class="n">end_list</span> <span class="o">=</span>   <span class="p">[</span><span class="s1">&#39;1989 12&#39;</span><span class="p">,</span><span class="s1">&#39;1999 12&#39;</span><span class="p">,</span><span class="s1">&#39;2009 12&#39;</span><span class="p">,</span><span class="s1">&#39;2020 12&#39;</span><span class="p">]</span>  <span class="c1"># 2</span>
-
-<span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 3</span>
-<span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 4</span>
-
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_list</span><span class="p">,</span> <span class="n">end_list</span><span class="p">):</span>                 <span class="c1"># 5</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span>
-                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>             <span class="c1"># 6</span>
-    
-    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1"># 7</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                       <span class="c1"># 8</span>
-    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                       <span class="c1"># 9</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">//</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1980-03-31    1980
+1980-06-30    1980
+1980-09-30    1980
+1980-12-31    1980
+1981-03-31    1980
+              ... 
+2020-12-31    2020
+2021-03-31    2020
+2021-06-30    2020
+2021-09-30    2020
+2021-12-31    2020
+Name: decade, Length: 168, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
-<li><p>10年間の最初の四半期をリストとして<code class="docutils literal notranslate"><span class="pre">start_list</span></code>に割り当てる。要素を<code class="docutils literal notranslate"><span class="pre">1980-03-31</span></code>等としてもOK。</p></li>
-<li><p>10年間の最後の四半期をリストとして<code class="docutils literal notranslate"><span class="pre">end_list</span></code>に割り当てる。要素を<code class="docutils literal notranslate"><span class="pre">1989-12-31</span></code>等としてもOK。</p></li>
-<li><p>定数項の推定値を格納する空のリスト。</p></li>
-<li><p>スロープ係数の推定値を格納する空のリスト。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">zip()</span></code>を使うことにより，一回のループで<code class="docutils literal notranslate"><span class="pre">start_list</span></code>と<code class="docutils literal notranslate"><span class="pre">end_list</span></code>の要素を<code class="docutils literal notranslate"><span class="pre">s</span></code>と<code class="docutils literal notranslate"><span class="pre">e</span></code>に割り当てることができる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>にOLS推定する際に使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を指定するが，<code class="docutils literal notranslate"><span class="pre">.loc[s:e,:]</span></code>を使い10年間だけのデータを抽出している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はOLSの予測値だが，新たな列として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">df.index</span></code>は行ラベルを抽出するが，その属性<code class="docutils literal notranslate"><span class="pre">.year</span></code>は行ラベルから年だけを抽出する。年を切り捨て除算演算子<code class="docutils literal notranslate"><span class="pre">//</span></code>を使い次の様に変換する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1980 →　198
+1981 →　198
+1982 →　198
+...
+</pre></div>
+</div>
+<p>更に，それぞれの数字を<code class="docutils literal notranslate"><span class="pre">*10</span></code>により<code class="docutils literal notranslate"><span class="pre">10</span></code>倍することにより，次のような変換となる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1980 →　1980
+1981 →　1980
+1982 →　1980
+...
+</pre></div>
+</div>
+<p>それを新たな列<code class="docutils literal notranslate"><span class="pre">decade</span></code>に割り当てている。</p>
+</div>
+<p>新たな列と<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decade_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span>       <span class="c1">#1</span>
+
+<span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#2</span>
+<span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#3</span>
+
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">decade_list</span><span class="p">:</span>                             <span class="c1">#4</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>                  <span class="c1">#5</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span> <span class="c1">#6</span>
+                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1">#7</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1">#8</span>
+    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                  <span class="c1">#9</span>
+    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                  <span class="c1">#10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">1980</span></code>，<code class="docutils literal notranslate"><span class="pre">1990</span></code>，<code class="docutils literal notranslate"><span class="pre">2000</span></code>，<code class="docutils literal notranslate"><span class="pre">2010</span></code>の4つの要素からなるリストを<code class="docutils literal notranslate"><span class="pre">decade_list</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：定数項の推定値を格納する空のリスト。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：スロープ係数の推定値を格納する空のリスト。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">decade_list</span></code>を使い<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを開始。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：列<code class="docutils literal notranslate"><span class="pre">decade</span></code>が<code class="docutils literal notranslate"><span class="pre">d</span></code>と等しい行のみが<code class="docutils literal notranslate"><span class="pre">True</span></code>になる条件を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：OLS推定の結果を<code class="docutils literal notranslate"><span class="pre">res</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：OLS推定に使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を指定するが，<code class="docutils literal notranslate"><span class="pre">.loc[cond,:]</span></code>を使い10年間だけのデータを抽出する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はOLSの予測値だが，新たな列として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加している。</p>
+<ul>
 <li><p>列ラベルとして<code class="docutils literal notranslate"><span class="pre">1980年代データ</span></code>のように設定しており，下でプロットする際の凡例に使うためである。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>は<code class="docutils literal notranslate"><span class="pre">start_list</span></code>の要素であり，文字列なので<code class="docutils literal notranslate"><span class="pre">[:5]</span></code>を使って最初の４文字を抽出している。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使うために<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き<code class="docutils literal notranslate"><span class="pre">{}</span></code>の中に文字列を代入している。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">res.params</span></code>はOLS推定値の<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返すので，その0番目の要素（定数項）を<code class="docutils literal notranslate"><span class="pre">a_list</span></code>に追加している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">res.params</span></code>はOLS推定値の<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返すので，その1番目の要素（スロープ係数）を<code class="docutils literal notranslate"><span class="pre">b_list</span></code>に追加している。</p></li>
-</ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：<code class="docutils literal notranslate"><span class="pre">res.params</span></code>はOLS推定値の<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返すので，その0番目の要素（定数項）を<code class="docutils literal notranslate"><span class="pre">a_list</span></code>に追加している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：<code class="docutils literal notranslate"><span class="pre">res.params</span></code>はOLS推定値の<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返すので，その1番目の要素（スロープ係数）を<code class="docutils literal notranslate"><span class="pre">b_list</span></code>に追加している。</p></li>
+</ul>
 </div>
 <p>結果を<code class="docutils literal notranslate"><span class="pre">print</span></code>関数を使い表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- 定数項の推定値 -------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_list</span><span class="p">,</span> <span class="n">a_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">a_list</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     
     
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- スロープ係数の推定値 --------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_list</span><span class="p">,</span> <span class="n">b_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">b_list</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- 定数項の推定値 -------------
 
-1980 年代：18.58
-1990 年代： 4.37
-2000 年代： 4.58
-2010 年代： 1.79
+1980年代：18.58
+1990年代： 4.37
+2000年代： 4.58
+2010年代： 2.11
 
 --- スロープ係数の推定値 --------
 
-1980 年代：-6.43
-1990 年代：-1.04
-2000 年代：-1.03
-2010 年代：-0.41
+1980年代：-6.43
+1990年代：-1.04
+2000年代：-1.03
+2010年代：-0.48
 </pre></div>
 </div>
 </div>
@@ -1244,20 +1287,20 @@ Notes:
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_list</span><span class="p">,</span>
-                   <span class="n">end_list</span><span class="p">,</span>
-                   <span class="n">color_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+    
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>
     
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
                <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
-               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:],</span>
+               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:],</span>
                <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                    <span class="c1"># 2</span>
                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>              <span class="c1"># 3</span>
                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">e</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
+           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
             <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                           <span class="c1"># 4</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>                        <span class="c1"># 5</span>
             <span class="p">)</span>
@@ -1271,7 +1314,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_71_0.png" src="_images/11_Macro_Variables_71_0.png" />
+<img alt="_images/11_Macro_Variables_74_0.png" src="_images/11_Macro_Variables_74_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1287,6 +1330,35 @@ Notes:
 <li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>は直線の色を指定する引数。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">linewidth</span></code>は直線幅を指定する引数。</p></li>
 </ol>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">上の図をDataFrameのメソッド.plot()を使い図示する方法</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+    
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
+               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:],</span>
+               <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>
+            <span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;フラット化するフィリップス曲線&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;失業率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <p>時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。</p>
 <ol class="simple">
@@ -1456,122 +1528,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>5.118914</td>
+      <td>4.921712</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>5.141322</td>
+      <td>5.022093</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>5.686491</td>
+      <td>6.145141</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>4.431173</td>
+      <td>4.664073</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>4.304311</td>
+      <td>5.536130</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>1.879509</td>
+      <td>5.558498</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>3.577761</td>
+      <td>4.141865</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>4.728899</td>
+      <td>5.601920</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>5.028348</td>
+      <td>3.666708</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>4.784295</td>
+      <td>5.254149</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>5.535393</td>
+      <td>4.749079</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>7.460569</td>
+      <td>5.933049</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>4.227368</td>
+      <td>5.910820</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>4.271714</td>
+      <td>5.305377</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>4.179579</td>
+      <td>3.943500</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>5.249770</td>
+      <td>5.014368</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>4.575924</td>
+      <td>5.687051</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>4.483588</td>
+      <td>3.976494</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>5.489979</td>
+      <td>6.290795</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>5.426469</td>
+      <td>6.268158</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>5.055674</td>
+      <td>4.429302</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>5.247970</td>
+      <td>3.524258</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>7.734590</td>
+      <td>3.918028</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>4.267293</td>
+      <td>4.607976</td>
     </tr>
   </tbody>
 </table>
@@ -1598,7 +1670,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x12711ad60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x1283d90d0&gt;
 </pre></div>
 </div>
 </div>
@@ -1639,42 +1711,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.315576</td>
+      <td>5.362982</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>3.538331</td>
+      <td>5.252900</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.445003</td>
+      <td>4.470164</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>5.926752</td>
+      <td>5.312093</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>4.226220</td>
+      <td>5.053232</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>4.769761</td>
+      <td>4.892638</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>5.324040</td>
+      <td>5.662752</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>5.749951</td>
+      <td>4.016754</td>
     </tr>
   </tbody>
 </table>
@@ -1715,12 +1787,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>4.806415</td>
+      <td>5.099535</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>5.017493</td>
+      <td>4.906344</td>
     </tr>
   </tbody>
 </table>
@@ -1808,12 +1880,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.274052</td>
+      <td>0.142218</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.197547</td>
+      <td>0.199660</td>
     </tr>
   </tbody>
 </table>
@@ -2246,10 +2318,10 @@ memory usage: 18.8 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_123_0.png" src="_images/11_Macro_Variables_123_0.png" />
-<img alt="_images/11_Macro_Variables_123_1.png" src="_images/11_Macro_Variables_123_1.png" />
-<img alt="_images/11_Macro_Variables_123_2.png" src="_images/11_Macro_Variables_123_2.png" />
-<img alt="_images/11_Macro_Variables_123_3.png" src="_images/11_Macro_Variables_123_3.png" />
+<img alt="_images/11_Macro_Variables_127_0.png" src="_images/11_Macro_Variables_127_0.png" />
+<img alt="_images/11_Macro_Variables_127_1.png" src="_images/11_Macro_Variables_127_1.png" />
+<img alt="_images/11_Macro_Variables_127_2.png" src="_images/11_Macro_Variables_127_2.png" />
+<img alt="_images/11_Macro_Variables_127_3.png" src="_images/11_Macro_Variables_127_3.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -2473,7 +2545,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x127369df0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x1285c4d30&gt;
 </pre></div>
 </div>
 </div>
@@ -2488,7 +2560,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12716aa30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x128400c40&gt;
 </pre></div>
 </div>
 </div>
@@ -3456,7 +3528,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_168_0.png" src="_images/11_Macro_Variables_168_0.png" />
+<img alt="_images/11_Macro_Variables_172_0.png" src="_images/11_Macro_Variables_172_0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3726,7 +3798,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_181_0.png" src="_images/11_Macro_Variables_181_0.png" />
+<img alt="_images/11_Macro_Variables_185_0.png" src="_images/11_Macro_Variables_185_0.png" />
 </div>
 </div>
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>
