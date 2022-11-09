@@ -790,14 +790,22 @@ memory usage: 5.2 KB
 <p>ここで作成した変数は次の変数を表している。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">unemployment_rate_cycle</span></code>：<span class="math notranslate nohighlight">\(u_t-\bar{u}_t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{u}_t\)</span>：トレンド失業率</p></li>
 </ul>
 <p>次にGDPのトレンドからの乖離率を計算しよう。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>：<span class="math notranslate nohighlight">\(\dfrac{Y_t-\bar{Y}_t}{\bar{Y}_t}=\dfrac{Y_t}{\bar{Y}_t}-1\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>：<span class="math notranslate nohighlight">\(\dfrac{Y_t}{\bar{Y}_t}-1
+              \approx
+              \log\left(\dfrac{Y_t}{\bar{Y}_t}\right)
+              =\log(Y_t) - \log(\bar{Y}_t)
+              \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{Y}_t\)</span>：トレンドGDP</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span> 
+                       <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+                      <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -848,18 +856,18 @@ memory usage: 5.2 KB
     <tr>
       <th>u_rate_cycle</th>
       <td>1.000000</td>
-      <td>-0.635809</td>
+      <td>-0.627466</td>
     </tr>
     <tr>
       <th>gdp_cycle</th>
-      <td>-0.635809</td>
+      <td>-0.627466</td>
       <td>1.000000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>右上と左下の値が２変数の相関係数であり，値は約<code class="docutils literal notranslate"><span class="pre">-0.64</span></code>は強い逆相関を意味する。</p>
+<p>右上と左下の値が２変数の相関係数であり，値は約<code class="docutils literal notranslate"><span class="pre">-0.63</span></code>は強い逆相関を意味する。</p>
 <p>また上の図から持続性が高いことが伺える。自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -868,7 +876,7 @@ memory usage: 5.2 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6907714988966256
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.680888809545929
 </pre></div>
 </div>
 </div>
@@ -921,25 +929,25 @@ memory usage: 5.2 KB
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:              gdp_cycle   R-squared:                       0.404
-Model:                            OLS   Adj. R-squared:                  0.401
-Method:                 Least Squares   F-statistic:                     112.6
-Date:                Wed, 09 Nov 2022   Prob (F-statistic):           2.06e-20
-Time:                        11:16:56   Log-Likelihood:                -259.15
-No. Observations:                 168   AIC:                             522.3
-Df Residuals:                     166   BIC:                             528.5
+Dep. Variable:              gdp_cycle   R-squared:                       0.394
+Model:                            OLS   Adj. R-squared:                  0.390
+Method:                 Least Squares   F-statistic:                     107.8
+Date:                Wed, 09 Nov 2022   Prob (F-statistic):           8.95e-20
+Time:                        11:38:29   Log-Likelihood:                -261.32
+No. Observations:                 168   AIC:                             526.6
+Df Residuals:                     166   BIC:                             532.9
 Df Model:                           1                                         
 Covariance Type:            nonrobust                                         
 ================================================================================
                    coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------
-Intercept       -0.0071      0.088     -0.081      0.935      -0.181       0.166
-u_rate_cycle    -4.0471      0.381    -10.613      0.000      -4.800      -3.294
+Intercept     3.854e-11      0.089   4.33e-10      1.000      -0.176       0.176
+u_rate_cycle    -4.0106      0.386    -10.383      0.000      -4.773      -3.248
 ==============================================================================
-Omnibus:                       96.421   Durbin-Watson:                   1.084
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              813.722
-Skew:                          -1.935   Prob(JB):                    2.01e-177
-Kurtosis:                      13.063   Cond. No.                         4.34
+Omnibus:                      104.252   Durbin-Watson:                   1.095
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              989.767
+Skew:                          -2.099   Prob(JB):                    1.19e-215
+Kurtosis:                      14.125   Cond. No.                         4.34
 ==============================================================================
 
 Notes:
@@ -975,7 +983,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>失業率の乖離が1.0％ポイントの場合のGDPのトレンドからの乖離率は約-4.05です。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>失業率の乖離が1.0％ポイントの場合のGDPのトレンドからの乖離率は約-4.01です。
 </pre></div>
 </div>
 </div>
@@ -1116,11 +1124,11 @@ Notes:
     <tr>
       <th>inflation_cycle</th>
       <td>1.000000</td>
-      <td>0.317491</td>
+      <td>0.308714</td>
     </tr>
     <tr>
       <th>gdp_cycle</th>
-      <td>0.317491</td>
+      <td>0.308714</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1528,122 +1536,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>4.921712</td>
+      <td>5.835642</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>5.022093</td>
+      <td>4.602092</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>6.145141</td>
+      <td>5.914979</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>4.664073</td>
+      <td>4.809326</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>5.536130</td>
+      <td>4.974598</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>5.558498</td>
+      <td>6.071225</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>4.141865</td>
+      <td>4.913604</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>5.601920</td>
+      <td>6.055952</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>3.666708</td>
+      <td>5.891567</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>5.254149</td>
+      <td>6.555063</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>4.749079</td>
+      <td>5.797906</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>5.933049</td>
+      <td>5.741433</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>5.910820</td>
+      <td>5.086320</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>5.305377</td>
+      <td>4.049467</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>3.943500</td>
+      <td>2.362185</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>5.014368</td>
+      <td>3.854134</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>5.687051</td>
+      <td>3.815753</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>3.976494</td>
+      <td>4.380427</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>6.290795</td>
+      <td>5.692038</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>6.268158</td>
+      <td>5.081695</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>4.429302</td>
+      <td>6.017728</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>3.524258</td>
+      <td>3.797711</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>3.918028</td>
+      <td>8.787841</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>4.607976</td>
+      <td>3.569663</td>
     </tr>
   </tbody>
 </table>
@@ -1670,7 +1678,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x1283d90d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x122fe7d30&gt;
 </pre></div>
 </div>
 </div>
@@ -1711,42 +1719,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.362982</td>
+      <td>5.450904</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>5.252900</td>
+      <td>5.285050</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.470164</td>
+      <td>5.620374</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>5.312093</td>
+      <td>6.031467</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>5.053232</td>
+      <td>3.832658</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>4.892638</td>
+      <td>4.016772</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>5.662752</td>
+      <td>5.597154</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>4.016754</td>
+      <td>5.385071</td>
     </tr>
   </tbody>
 </table>
@@ -1787,12 +1795,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>5.099535</td>
+      <td>5.596949</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>4.906344</td>
+      <td>4.707914</td>
     </tr>
   </tbody>
 </table>
@@ -1880,12 +1888,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.142218</td>
+      <td>0.109401</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.199660</td>
+      <td>0.346694</td>
     </tr>
   </tbody>
 </table>
@@ -2545,7 +2553,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x1285c4d30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x122f2cb50&gt;
 </pre></div>
 </div>
 </div>
@@ -2560,7 +2568,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x128400c40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12322b4f0&gt;
 </pre></div>
 </div>
 </div>
