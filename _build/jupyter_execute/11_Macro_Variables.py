@@ -95,14 +95,22 @@ df['u_rate_cycle'] = df['unemployment_rate'] - df['u_rate_trend']
 
 # ここで作成した変数は次の変数を表している。
 # * `unemployment_rate_cycle`：$u_t-\bar{u}_t$
+# * $\bar{u}_t$：トレンド失業率
 # 
 # 次にGDPのトレンドからの乖離率を計算しよう。
-# * `gdp_cycle`：$\dfrac{Y_t-\bar{Y}_t}{\bar{Y}_t}=\dfrac{Y_t}{\bar{Y}_t}-1$
+# * `gdp_cycle`：$\dfrac{Y_t}{\bar{Y}_t}-1
+#                 \approx
+#                 \log\left(\dfrac{Y_t}{\bar{Y}_t}\right)
+#                 =\log(Y_t) - \log(\bar{Y}_t)
+#                 $
+# * $\bar{Y}_t$：トレンドGDP
 
 # In[7]:
 
 
-df['gdp_cycle'] = 100*( df['gdp']/py4macro.trend(df['gdp']) - 1 )
+df['gdp_cycle'] = 100*( 
+                       np.log(df['gdp']) - py4macro.trend( np.log(df['gdp']) )
+                      )
 
 
 # GDPの乖離と重ねて動きを確認してみる。
@@ -122,7 +130,7 @@ pass
 df.loc[:,['u_rate_cycle','gdp_cycle']].corr()
 
 
-# 右上と左下の値が２変数の相関係数であり，値は約`-0.64`は強い逆相関を意味する。
+# 右上と左下の値が２変数の相関係数であり，値は約`-0.63`は強い逆相関を意味する。
 # 
 # また上の図から持続性が高いことが伺える。自己相関係数を計算してみよう。
 
