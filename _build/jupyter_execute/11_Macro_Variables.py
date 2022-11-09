@@ -319,85 +319,113 @@ pass
 # 
 # 第二の問題を扱うことはこのサイトの範囲を超えるので，ここでは扱わず議論を進めることにする。以下では第一の問題を考察してみよう。
 # 
-# 景気循環のマクロ経済学での短期は何ヶ月または何年以下で，長期は何年以上なのだろうか。実は，曖昧で学者・学派によって見解が別れる事になる。ここでは10年間は長期に入ると考えることにする（多くの経済学者は同意するだろう）。この考えに基づくと，10年毎のデータを検討しPC曲線に変化があるかどうかを確かめることができる。
+# 景気循環のマクロ経済学での短期は何ヶ月または何年以下で，長期は何年以上なのだろうか。実は，曖昧で学者・学派によって見解が別れる事になる。ここでは10年間は長期に入ると考えることにする（多くの経済学者は同意するだろう）。この考えに基づき，10年毎のデータを検討しPC曲線に変化があるかどうかを確かめることにする。
 
-# まず10年毎のデータを使い，`for`ループで式[](eq:11-phillips)の係数$a$と$b$を推定してみる。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。
+# まず10年毎のデータを使うために，次のコードを使い新たな列`decade`を`df`に追加しよう。
 
 # In[24]:
 
 
-start_list = ['1980 3', '1990 3', '2000 3', '2010 3']  # 1
-end_list =   ['1989 12','1999 12','2009 12','2020 12']  # 2
+df['decade'] = df.index.year // 10 * 10
+df['decade']
 
-a_list = []   # 3
-b_list = []   # 4
 
-for s, e in zip(start_list, end_list):                 # 5
-    res = sm.ols('inflation ~ unemployment_rate',
-                 data=df.loc[s:e,:]).fit()             # 6
+# ````{admonition} コードの説明
+# :class: dropdown
+# `df.index`は行ラベルを抽出するが，その属性`.year`は行ラベルから年だけを抽出する。年を切り捨て除算演算子`//`を使い次の様に変換する
+# ```
+# 1980 →　198
+# 1981 →　198
+# 1982 →　198
+# ...
+# ```
+# 更に，それぞれの数字を`*10`により`10`倍することにより，次のような変換となる。
+# ```
+# 1980 →　1980
+# 1981 →　1980
+# 1982 →　1980
+# ...
+# ```
+# それを新たな列`decade`に割り当てている。
+# ````
+
+# 新たな列と`for`ループを使い，式[](eq:11-phillips)の係数$a$と$b$を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。
+
+# In[25]:
+
+
+decade_list = list( range(1980, 2011, 10) )       #1
+
+a_list = []   #2
+b_list = []   #3
+
+for d in decade_list:                             #4
+    cond = ( df['decade'] == d )                  #5
+    res = sm.ols('inflation ~ unemployment_rate', #6
+                 data=df.loc[cond,:]).fit()       #7
     
-    df[f'{s[:5]}年代データ'] = res.fittedvalues          # 7
-    a_list.append(res.params[0])                       # 8
-    b_list.append(res.params[1])                       # 9
+    df[f'{d}年代データ'] = res.fittedvalues          #8
+    a_list.append(res.params[0])                  #9
+    b_list.append(res.params[1])                  #10
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. 10年間の最初の四半期をリストとして`start_list`に割り当てる。要素を`1980-03-31`等としてもOK。
-# 2. 10年間の最後の四半期をリストとして`end_list`に割り当てる。要素を`1989-12-31`等としてもOK。
-# 3. 定数項の推定値を格納する空のリスト。
-# 4. スロープ係数の推定値を格納する空のリスト。
-# 5. `zip()`を使うことにより，一回のループで`start_list`と`end_list`の要素を`s`と`e`に割り当てることができる。
-# 6. `data`にOLS推定する際に使用する`DataFrame`を指定するが，`.loc[s:e,:]`を使い10年間だけのデータを抽出している。
-# 7. `res.fittedvalues`はOLSの予測値だが，新たな列として`df`に追加している。
+# * `#1`：`1980`，`1990`，`2000`，`2010`の4つの要素からなるリストを`decade_list`に割り当てる。
+# * `#2`：定数項の推定値を格納する空のリスト。
+# * `#3`：スロープ係数の推定値を格納する空のリスト。
+# * `#4`：`decade_list`を使い`for`ループを開始。
+# * `#5`：列`decade`が`d`と等しい行のみが`True`になる条件を`cond`に割り当てる。
+# * `#6`：OLS推定の結果を`res`に割り当てる。
+# * `#7`：OLS推定に使用する`DataFrame`を指定するが，`.loc[cond,:]`を使い10年間だけのデータを抽出する。
+# * `#8`：`res.fittedvalues`はOLSの予測値だが，新たな列として`df`に追加している。
 #     * 列ラベルとして`1980年代データ`のように設定しており，下でプロットする際の凡例に使うためである。
-#     * `s`は`start_list`の要素であり，文字列なので`[:5]`を使って最初の４文字を抽出している。
 #     * `f-string`を使うために`f`を置き`{}`の中に文字列を代入している。
-# 8. `res.params`はOLS推定値の`Series`を返すので，その0番目の要素（定数項）を`a_list`に追加している。
-# 9. `res.params`はOLS推定値の`Series`を返すので，その1番目の要素（スロープ係数）を`b_list`に追加している。
+# * `#9`：`res.params`はOLS推定値の`Series`を返すので，その0番目の要素（定数項）を`a_list`に追加している。
+# * `#10`：`res.params`はOLS推定値の`Series`を返すので，その1番目の要素（スロープ係数）を`b_list`に追加している。
 # ```
 
 # 結果を`print`関数を使い表示する。
 
-# In[25]:
+# In[26]:
 
 
 print('--- 定数項の推定値 -------------\n')
 
-for s, a in zip(start_list, a_list):
-    print(f'{s[:5]}年代：{a:>5.2f}')
+for d, a in zip(decade_list, a_list):
+    print(f'{d}年代：{a:>5.2f}')
     
     
 print('\n--- スロープ係数の推定値 --------\n')
 
-for s, b in zip(start_list, b_list):
-    print(f'{s[:5]}年代：{b:.2f}')
+for d, b in zip(decade_list, b_list):
+    print(f'{d}年代：{b:.2f}')
 
 
 # 定数項の推定値もスロープ係数の推定値も変化が大きく，特に1980年代の値とそれ以降の値の差が顕著である。傾きが緩やかになっているので，PC曲線のフラット化（需給ギャップに対してのインフレ率の弾性値の低下）と呼ばれている。研究では，日本だけではなく欧米でもPC曲線のフラット化が指摘されている。プロットして確認してみよう。
 
-# In[26]:
+# In[27]:
 
 
 color_list = ['orange','black', 'blue', 'red'] # 1
 
 fig, ax = plt.subplots()
 
-for s, e, c in zip(start_list,
-                   end_list,
-                   color_list):
+for d, c in zip(decade_list, color_list):
+    
+    cond = ( df['decade'] == d )
     
     ax.scatter('unemployment_rate',
                'inflation',
-               data=df.loc[s:e,:],
+               data=df.loc[cond,:],
                edgecolor=c,                    # 2
                facecolor='white',              # 3
                label='')
 
     ax.plot('unemployment_rate',
-           f'{s[:5]}年代データ',
-            data=df.loc[s:e,:].sort_values(f'{s[:5]}年代データ'),
+           f'{d}年代データ',
+            data=df.loc[cond,:].sort_values(f'{d}年代データ'),
             color=c,                           # 4
             linewidth=2                        # 5
             )
@@ -419,6 +447,37 @@ pass
 # 4. `color`は直線の色を指定する引数。
 # 5. `linewidth`は直線幅を指定する引数。
 # ```
+
+# ````{admonition} 上の図をDataFrameのメソッド.plot()を使い図示する方法
+# :class: dropdown
+# 
+# ```
+# ax = df.iloc[0:0,:].plot.scatter('unemployment_rate', 'inflation', label='')
+# 
+# for d, c in zip(decade_list, color_list):
+#     
+#     cond = ( df['decade'] == d )
+#     
+#     ax.scatter('unemployment_rate',
+#                'inflation',
+#                data=df.loc[cond,:],
+#                edgecolor=c,
+#                facecolor='white',
+#                label='')
+# 
+#     ax.plot('unemployment_rate',
+#            f'{d}年代データ',
+#             data=df.loc[cond,:].sort_values(f'{d}年代データ'),
+#             color=c,
+#             linewidth=2
+#             )
+# 
+# ax.set_title('フラット化するフィリップス曲線', size=20)
+# ax.set_xlabel('失業率', fontsize=15)
+# ax.set_ylabel('インフレ率', fontsize=15)
+# ax.legend()
+# ```
+# ````
 
 # 時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。
 # 1. 中央銀行の政策決定の透明化や政策のアナウンスメント，フォーワード・ガイダンス（将来の政策についてのガイダンス）などにより，中央銀行の物価安定（インフレ安定）重視のスタンスが民間に十分に浸透したと考えられる。失業が変化しても，インフレ率のの安定化を図る中央銀行の政策スタンスが民間の期待に織り込まれ，インフレ率の変化は小さくなったと思われる。この解釈が正しければ，日銀は素晴らしい仕事をしたということである。
@@ -490,7 +549,7 @@ pass
 
 # `py4macro`には`jpn-money`というデータ・セットが含まれており，その内容は次のコードで確認できる。
 
-# In[27]:
+# In[28]:
 
 
 py4macro.data('jpn-money', description=1)
@@ -515,7 +574,7 @@ py4macro.data('jpn-money', description=1)
 # 
 # `resample`の使い方を説明するために，次の`DataFrame`（変数名は`df_ex`）を考えよう。
 
-# In[28]:
+# In[29]:
 
 
 date_index = pd.date_range('2020-01-31','2021-12-31', freq='M')
@@ -523,7 +582,7 @@ df_ex = pd.DataFrame({'X':list(range(10,120+1,10))*2,
                       'Y':np.random.normal(5,1,size=12*2)},index=date_index)
 
 
-# In[29]:
+# In[30]:
 
 
 df_ex
@@ -542,7 +601,7 @@ df_ex
 # 
 # `df_ex`を四半期でグループ化するには次のようになる。
 
-# In[30]:
+# In[31]:
 
 
 df_ex.resample('Q')
@@ -553,7 +612,7 @@ df_ex.resample('Q')
 # **ステップ２**：計算内容を指定する。<br>
 # どのような計算をしたいかを指定する。ここではメソッド.mean()を使って指定した期間内の平均を計算してみよう。
 
-# In[31]:
+# In[32]:
 
 
 df_ex.resample('Q').mean()
@@ -563,7 +622,7 @@ df_ex.resample('Q').mean()
 # 
 # 次のコードは年平均を計算している。
 
-# In[32]:
+# In[33]:
 
 
 df_ex.resample('A').mean()
@@ -571,7 +630,7 @@ df_ex.resample('A').mean()
 
 # 平均以外にも様々な計算ができるようになっている。`see()`関数を使って属性を調べてみよう。
 
-# In[33]:
+# In[34]:
 
 
 see(df_ex.resample('A'))
@@ -591,7 +650,7 @@ see(df_ex.resample('A'))
 # 
 # このリストにない計算をしたい場合は，上のリストにある.agg()（aggregate()も同じ）を使い`NumPy`や自作の関数を指定することができる。例えば，変動係数（coefficient of variation）を計算したいとしよう。
 
-# In[34]:
+# In[35]:
 
 
 def cv(x):
@@ -600,7 +659,7 @@ def cv(x):
 
 # この関数の`x`は，時系列グループ計算で取り出された`Series`もしくは`DataFrame`と考えれば良いだろう。使い方は簡単で，`.agg()`の引数として`cv`を指定するだけである。
 
-# In[35]:
+# In[36]:
 
 
 df_ex.resample('A').agg(cv)
@@ -614,7 +673,7 @@ df_ex.resample('A').agg(cv)
 
 # では実際に`jpn-money`のデータを使いデータを整形しよう。まず月次データを読み込み`month`に割り当てる。
 
-# In[36]:
+# In[37]:
 
 
 month = py4macro.data('jpn-money')
@@ -623,7 +682,7 @@ month.tail()
 
 # いつもの通り`.info()`を使ってデータの内容を確認しよう。
 
-# In[37]:
+# In[38]:
 
 
 month.info()
@@ -633,7 +692,7 @@ month.info()
 # 
 # 四半期データに変換して変数`quarter`に割り当てることにする。
 
-# In[38]:
+# In[39]:
 
 
 quarter = month.resample('Q').mean()
@@ -641,7 +700,7 @@ quarter = month.resample('Q').mean()
 
 # これで３ヶ月の値の平均からなる四半期データを作成した事になる。確かめてみよう。
 
-# In[39]:
+# In[40]:
 
 
 quarter.head()
@@ -649,7 +708,7 @@ quarter.head()
 
 # 四半期の最後の日が行ラベルになっていることが分かる。同様に，年次データ作成しよう。
 
-# In[40]:
+# In[41]:
 
 
 annual = month.resample('A').mean()
@@ -658,7 +717,7 @@ annual.head()
 
 # １年の最後の日が行ラベルになっている。次に３年次データを作成しよう。
 
-# In[41]:
+# In[42]:
 
 
 annual3 = month.resample('36M',closed='left',label='right').mean()     # 1
@@ -678,7 +737,7 @@ annual3.head()
 # ```
 # 以下では，デフォルトで`.pct_change()`を使い計算する。
 
-# In[42]:
+# In[43]:
 
 
 df_list = [month, quarter, annual, annual3]
@@ -690,7 +749,7 @@ for df in df_list:
 
 # `month`を確認してみよう。
 
-# In[43]:
+# In[44]:
 
 
 month.head()
@@ -702,7 +761,7 @@ month.head()
 
 # `for`ループを使ってOLSの計算とプロットを同時におこなおう。
 
-# In[44]:
+# In[45]:
 
 
 title_list = ['月次データ','四半期データ','年次データ','3年次データ']    # 1
@@ -763,7 +822,7 @@ for df, t in zip(df_list,title_list):
 
 # `py4macro`に含まれる`world-money`というデータ・セットを使うが，その内容は次のコードで確認できる。
 
-# In[45]:
+# In[46]:
 
 
 py4macro.data('world-money',description=1)
@@ -773,7 +832,7 @@ py4macro.data('world-money',description=1)
 
 # まず変数`world`にデータを割り当てる。
 
-# In[46]:
+# In[47]:
 
 
 world = py4macro.data('world-money')
@@ -782,7 +841,7 @@ world.head()
 
 # いつも通り`.info()`を使って内容を確かめてみよう。
 
-# In[47]:
+# In[48]:
 
 
 world.info()
@@ -803,7 +862,7 @@ world.info()
 # **＜ステップ１＞**<br>
 # グループ化用のオブジェクトの作成するためには`DataFrame`のメソッド`.groupby()`を使い，その引数にグループ化用の列を指定する。ここでは`world`を`iso`でグループ化した変数`world_group`に割り当てる。
 
-# In[48]:
+# In[49]:
 
 
 world_group = world.groupby('iso')
@@ -815,7 +874,7 @@ world_group
 # **＜ステップ２＞**<br>
 # グループ計算したいのは`money`と`deflator`である。同時に指定しても構わないが，ここでは一つずつ指定することにする。例として`money`を考えよう。列を指定するには`[]`を使う。
 
-# In[49]:
+# In[50]:
 
 
 world_group['money']
@@ -826,7 +885,7 @@ world_group['money']
 # **＜ステップ３＞**<br>
 # グループ計算に平均を使いたいので，ステップ２のオブジェクトに`.pct_change()`をつか加えるだけである。
 
-# In[50]:
+# In[51]:
 
 
 world_group['money'].pct_change()
@@ -834,7 +893,7 @@ world_group['money'].pct_change()
 
 # 返されたのは国ごとに計算されたマネーストック増加率である。`Series`として返されているが，行の並びは`world`と同じである。従って，次のコードでマネーストック増加率の列を`world`に追加できる。
 
-# In[51]:
+# In[52]:
 
 
 world['money_growth'] = world_group['money'].pct_change()*100
@@ -845,7 +904,7 @@ world.head()
 # 
 # 次にインフレ率を計算する。次のコードは上で説明した手順を１行で書いている。
 
-# In[52]:
+# In[53]:
 
 
 world['inflation'] = world_group['deflator'].pct_change()*100
@@ -853,7 +912,7 @@ world['inflation'] = world_group['deflator'].pct_change()*100
 
 # 試しに，日本のデータだけを抽出してみよう。
 
-# In[53]:
+# In[54]:
 
 
 world.query('iso=="JPN"')
@@ -865,7 +924,7 @@ world.query('iso=="JPN"')
 
 # ハイパーインフレの確固たる定義はないが，Mankiwの教科書「マクロ経済学」では年率50％以上と定義している。この定義に基づき，ハイパーインフレは観測値の何％を占めるかを計算してみよう。まず`inflation`で`NaN`ではない行の数を数える。
 
-# In[54]:
+# In[55]:
 
 
 notna = world.loc[:,'inflation'].notna().sum()
@@ -880,14 +939,14 @@ notna
 # 
 # `inflation`の値が`NaN`ではない行は6407あることがわかった。次に`inflation`が50％以上の行数を数えてみよう。
 
-# In[55]:
+# In[56]:
 
 
 hyper = len( world.query('inflation >= 50') )
 hyper
 
 
-# In[56]:
+# In[57]:
 
 
 print(f'観測値の{100*hyper/notna:.2f}％でハイパーインフレが発生している。')
@@ -895,7 +954,7 @@ print(f'観測値の{100*hyper/notna:.2f}％でハイパーインフレが発生
 
 # 次に`inflation`の上位5ヵ国を表示してみよう。
 
-# In[57]:
+# In[58]:
 
 
 world.sort_values('inflation',ascending=False).head()
@@ -911,7 +970,7 @@ world.sort_values('inflation',ascending=False).head()
 # 
 # ここで$g_{{年}}$は年率のインフレ率であり，$g_{{日}}$は1日当たりのインフレ率。この式を使い１に当たりの平均インフレ率を計算してみる。
 
-# In[58]:
+# In[59]:
 
 
 inflation_cod = world.query('(iso=="COD") & (year==1994)').loc[:,'inflation']
@@ -930,7 +989,7 @@ inflation_cod_day
 # 
 # この式を使って$t$を計算してみよう。
 
-# In[59]:
+# In[60]:
 
 
 np.log(2)/np.log(1+inflation_cod_day/100)
@@ -942,7 +1001,7 @@ np.log(2)/np.log(1+inflation_cod_day/100)
 
 # 全てのデータを使って散布図をプロットしトレンドを計算してみる。
 
-# In[60]:
+# In[61]:
 
 
 world.plot('money_growth','inflation',kind='scatter')
@@ -957,7 +1016,7 @@ pass
 
 # 横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。
 
-# In[61]:
+# In[62]:
 
 
 res_world = sm.ols('inflation ~ money_growth', data=world).fit()
@@ -973,7 +1032,7 @@ res_world.summary().tables[1]
 # 
 # まず，それぞれの経済の２変数の平均を計算するが，一つ注意点がある。`world`に`inflation`と`money_growth`があるので，`.mean()`を使って平均を計算すれば良いと思うかもしれない。しかし`.mean()`は算術平均であり，計算したいのは増加率の平均なので可能であれば幾何平均を使うべきである。残念ながら，`DataFrame`には幾何平均のメソッドが良いされて良いないので，次のように`for`ループで計算することにする。
 
-# In[62]:
+# In[63]:
 
 
 money_growth_mean_list = []                   # 1
@@ -1044,7 +1103,7 @@ world_mean = pd.DataFrame({'country':country_list,
 # 
 # 平均でハイパーインフレが発生している国は何ヵ国なるのか計算してみよう。
 
-# In[63]:
+# In[64]:
 
 
 hyper = ( world_mean.loc[:,'inflation_mean'] >= 50 ).sum()
@@ -1062,7 +1121,7 @@ print(f'{len(world_mean)}ヵ国中{hyper}ヵ国でハイパーインフレが発
 
 # 短期的なノイズの影響によってある年にハイパーインフレが発生する場合もあるだろう。しかしこの結果は，長期的にハイパーインフレに悩まされる国が存在することを示している。どのような国なのかを確認するために，インフレ率上位10ヵ国を表示してみよう。
 
-# In[64]:
+# In[65]:
 
 
 world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
@@ -1072,7 +1131,7 @@ world_mean.sort_values(by='inflation_mean', ascending=False).head(10)
 # 
 # `world_mean`を使いクロスセクションのデータをプロットしてみよう。
 
-# In[65]:
+# In[66]:
 
 
 ax_ = world_mean.plot('money_growth_mean','inflation_mean', kind='scatter')
@@ -1085,7 +1144,7 @@ pass
 
 # 綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。
 
-# In[66]:
+# In[67]:
 
 
 res_world_mean = sm.ols('inflation_mean ~ money_growth_mean', data=world_mean).fit()
