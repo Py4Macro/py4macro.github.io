@@ -582,7 +582,7 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>ここでjpnはJapan，qはquerterlyを表している。変数の定義を表示するには<code class="docutils literal notranslate"><span class="pre">description=True</span></code>の引数を追加する。</p>
+<p>ここで<code class="docutils literal notranslate"><span class="pre">jpn</span></code>はJapan，<code class="docutils literal notranslate"><span class="pre">q</span></code>はquerterlyを表している。変数の定義を表示するには<code class="docutils literal notranslate"><span class="pre">description=True</span></code>の引数を追加する。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1027,7 +1027,9 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span><span class="s1">&#39;Investment&#39;</span><span class="p">,</span><span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span><span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
+    
     <span class="n">avr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    
     <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">avr</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1046,6 +1048,7 @@ Net Exports 	-1.1
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span><span class="n">label_list</span><span class="p">):</span>
+    
     <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1244,8 +1247,12 @@ trend(s, lamb=1600)
 </div>
 </div>
 </div>
-<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。</p>
-<p>まず次の変数のトレンドを計算し対数化した後に<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加する。</p>
+<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，HPフィルターは線形トレンドが仮定されているため，次の点に注意すること。</p>
+<ul class="simple">
+<li><p>GDPや消費の様に長期的に増加している変数は対数化し，<code class="docutils literal notranslate"><span class="pre">trend()</span></code>関数の引数に使うこと。</p></li>
+<li><p>失業率やインフレ率の様に長期的には「一定」になる変数は，そのまま<code class="docutils literal notranslate"><span class="pre">trend()</span></code>関数の引数に使うこと。</p></li>
+</ul>
+<p>まず次の変数の対数化した変数とそのトレンドを計算し<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
@@ -1402,7 +1409,7 @@ Y=x_t,\quad Z=x_{t-1}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>   <span class="c1"># gdp以外の変数    </span>
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="o">-</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span> 
 </pre></div>
 </div>
 </div>
@@ -1560,11 +1567,16 @@ imports_cycle       0.66
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
+
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">):</span>
-    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span>     <span class="c1"># 1</span>
-    <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;government_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># 2</span>
-    <span class="n">corr</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;government_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>     <span class="c1">#1</span>
+    
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先の政府支出: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span>                                    <span class="c1">#2</span>
 </pre></div>
 </div>
 </div>
@@ -1588,10 +1600,10 @@ imports_cycle       0.66
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">df</span></code>を変更しないように<code class="docutils literal notranslate"><span class="pre">df_temp</span></code>を新しく作成する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.shift()</span></code>の引数は値を先に何期ずらすかを指定する。比べたいのは<span class="math notranslate nohighlight">\(t\)</span>期のGDPと<span class="math notranslate nohighlight">\(t+n\)</span>期の政府支出なので，後にずらす必要があるためマイナス符号を付けて<code class="docutils literal notranslate"><span class="pre">.shift(-t)</span></code>としている。</p></li>
-</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>の引数は値を先に何期ずらすかを指定する。比べたいのは<span class="math notranslate nohighlight">\(t\)</span>期のGDPと<span class="math notranslate nohighlight">\(t+n\)</span>期の政府支出なので，後にずらす必要があるためマイナス符号を付けて<code class="docutils literal notranslate"><span class="pre">.shift(-t)</span></code>としている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：列<code class="docutils literal notranslate"><span class="pre">gov_cycle_shift</span></code>は必要ないので削除する。</p></li>
+</ul>
 </div>
 <p>GDPの乖離は2四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。</p>
 </section>
