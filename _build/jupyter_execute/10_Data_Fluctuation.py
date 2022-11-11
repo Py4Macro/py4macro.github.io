@@ -30,7 +30,7 @@ import py4macro
 # ```
 # py4macro.data('jpn-q')
 # ```
-# ここでjpnはJapan，qはquerterlyを表している。変数の定義を表示するには`description=True`の引数を追加する。
+# ここで`jpn`はJapan，`q`はquerterlyを表している。変数の定義を表示するには`description=True`の引数を追加する。
 
 # In[2]:
 
@@ -214,7 +214,9 @@ ratio_list = [con_gdp_ratio,inv_gdp_ratio,
 label_list = ['Consumption','Investment','Gov Exp','Net Exports']
 
 for r, l in zip(ratio_list, label_list):
+    
     avr = r.mean()
+    
     print(l, f'\t{avr:.1f}')
 
 
@@ -226,6 +228,7 @@ for r, l in zip(ratio_list, label_list):
 
 
 for r, l in zip(ratio_list,label_list):
+    
     r.plot(label=l, legend=True)
 
 
@@ -398,9 +401,11 @@ trend_cycle()
 help(py4macro.trend)
 
 
-# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。
+# 使い方は簡単で，トレンドを計算したい変数の`Series`もしくは１列の`DataFrame`を引数に設定し実行するとトレンドが返される。ただ，HPフィルターは線形トレンドが仮定されているため，次の点に注意すること。
+# * GDPや消費の様に長期的に増加している変数は対数化し，`trend()`関数の引数に使うこと。
+# * 失業率やインフレ率の様に長期的には「一定」になる変数は，そのまま`trend()`関数の引数に使うこと。
 
-# まず次の変数のトレンドを計算し対数化した後に`df`に追加する。
+# まず次の変数の対数化した変数とそのトレンドを計算し`df`に追加しよう。
 
 # In[16]:
 
@@ -533,7 +538,7 @@ df['gdp_cycle'].autocorr()
 
 
 for v in var_list[1:]:   # gdp以外の変数    
-    df[v+'_cycle'] = 100 * ( np.log(df[v])-py4macro.trend( np.log(df[v]) ) )
+    df[v+'_cycle'] = 100 * ( df[v+'_log'] -df[v+'_log_trend'] ) 
 
 
 # 図示する変数のリスを作成するために，列ラベルを確認しよう。
@@ -633,18 +638,23 @@ pass
 
 
 print('  GDPとの相関係数\n-----------------------')
+
 for n in range(1,12):
-    df_temp = df     # 1
-    df_temp['gov_cycle_shift'] = df_temp['government_cycle'].shift(-n)  # 2
-    corr = df_temp[['gdp_cycle', 'gov_cycle_shift']].corr().iloc[0,1]
+    
+    df['gov_cycle_shift'] = df['government_cycle'].shift(-n)     #1
+    
+    corr = df[['gdp_cycle', 'gov_cycle_shift']].corr().iloc[0,1]
+    
     print(f'{n:>3}期先の政府支出: {corr:>6.3f}')
+    
+    del df['gov_cycle_shift']                                    #2
 
 
 # ```{admonition} コードの説明
 # :class: dropdown
 # 
-# 1. `df`を変更しないように`df_temp`を新しく作成する。
-# 2. `.shift()`の引数は値を先に何期ずらすかを指定する。比べたいのは$t$期のGDPと$t+n$期の政府支出なので，後にずらす必要があるためマイナス符号を付けて`.shift(-t)`としている。
+# * `#1`：`.shift()`の引数は値を先に何期ずらすかを指定する。比べたいのは$t$期のGDPと$t+n$期の政府支出なので，後にずらす必要があるためマイナス符号を付けて`.shift(-t)`としている。
+# * `#2`：列`gov_cycle_shift`は必要ないので削除する。
 # ```
 
 # GDPの乖離は2四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。
