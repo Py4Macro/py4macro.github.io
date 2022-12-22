@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
+<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
 <div class="header header-item noprint"></div>
 
     
@@ -682,13 +682,13 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="n">see</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import py4macro
+import statsmodels.formula.api as sm
+from see import see
 </pre></div>
 </div>
 </div>
@@ -724,14 +724,14 @@ title="Print to PDF"
 <p>以前使ったデータを使うが，次の節でインフレ率について扱うので３つの変数<code class="docutils literal notranslate"><span class="pre">gdp</span></code>，<code class="docutils literal notranslate"><span class="pre">unemployment_rate</span></code>，<code class="docutils literal notranslate"><span class="pre">inflation</span></code>を読み込むことにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = py4macro.data(&#39;jpn-q&#39;).loc[:,[&#39;gdp&#39;,&#39;unemployment_rate&#39;,&#39;inflation&#39;]]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.info()
 </pre></div>
 </div>
 </div>
@@ -756,8 +756,8 @@ memory usage: 5.2 KB
 <p>ここでは失業率の特徴を考える。まず図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;unemployment_rate&#39;].plot()
+pass
 </pre></div>
 </div>
 </div>
@@ -768,7 +768,7 @@ memory usage: 5.2 KB
 <p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;unemployment_rate&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -781,8 +781,8 @@ memory usage: 5.2 KB
 <p>次に，GDPのトレンドからの乖離（％）と失業率のトレンドからの乖離（％ポイント）を比べてみる。まず失業に関する変数を作成するが，対数を取らずに差分をトレンドからの乖離とする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_rate_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_rate_trend&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;u_rate_trend&#39;] = py4macro.trend(df[&#39;unemployment_rate&#39;])
+df[&#39;u_rate_cycle&#39;] = df[&#39;unemployment_rate&#39;] - df[&#39;u_rate_trend&#39;]
 </pre></div>
 </div>
 </div>
@@ -803,9 +803,9 @@ memory usage: 5.2 KB
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span> 
-                       <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
-                      <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_cycle&#39;] = 100*( 
+                       np.log(df[&#39;gdp&#39;]) - py4macro.trend( np.log(df[&#39;gdp&#39;]) )
+                      )
 </pre></div>
 </div>
 </div>
@@ -813,8 +813,8 @@ memory usage: 5.2 KB
 <p>GDPの乖離と重ねて動きを確認してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.loc[:,[&#39;u_rate_cycle&#39;,&#39;gdp_cycle&#39;]].plot(secondary_y=&#39;u_rate_cycle&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -825,7 +825,7 @@ memory usage: 5.2 KB
 <p>概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">corr()</span></code>を使い相関係数を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.loc[:,[&#39;u_rate_cycle&#39;,&#39;gdp_cycle&#39;]].corr()
 </pre></div>
 </div>
 </div>
@@ -871,7 +871,7 @@ memory usage: 5.2 KB
 <p>また上の図から持続性が高いことが伺える。自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_cycle&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -883,7 +883,7 @@ memory usage: 5.2 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;u_rate_cycle&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -900,9 +900,9 @@ memory usage: 5.2 KB
 <p>では実際に式<a class="reference internal" href="#equation-eq-11-okun">(63)</a>のスロープ変数<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_cycle ~ u_rate_cycle&#39;</span>   <span class="c1"># 1</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>       <span class="c1"># 2</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>                   <span class="c1"># 3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>formula = &#39;gdp_cycle ~ u_rate_cycle&#39;   # 1
+model = sm.ols(formula, data=df)       # 2
+result = model.fit()                   # 3
 </pre></div>
 </div>
 </div>
@@ -922,7 +922,7 @@ memory usage: 5.2 KB
 <p><code class="docutils literal notranslate"><span class="pre">result</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>を使い結果を表として表示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(result.summary())
 </pre></div>
 </div>
 </div>
@@ -932,8 +932,8 @@ memory usage: 5.2 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.394
 Model:                            OLS   Adj. R-squared:                  0.390
 Method:                 Least Squares   F-statistic:                     107.8
-Date:                Fri, 11 Nov 2022   Prob (F-statistic):           8.95e-20
-Time:                        12:04:55   Log-Likelihood:                -261.32
+Date:                Thu, 22 Dec 2022   Prob (F-statistic):           8.95e-20
+Time:                        03:24:25   Log-Likelihood:                -261.32
 No. Observations:                 168   AIC:                             526.6
 Df Residuals:                     166   BIC:                             532.9
 Df Model:                           1                                         
@@ -968,9 +968,9 @@ Notes:
 <p>回帰分析の結果を踏まえると，失業率の乖離が<code class="docutils literal notranslate"><span class="pre">x</span></code>％ポイントの場合にGDPのトレンドからの乖離率（％）を計算する関数は次のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">growth_deviation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;失業率の乖離が</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％ポイントの場合のGDPのトレンドからの乖離率は約</span><span class="si">{</span><span class="n">g</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def growth_deviation(x):
+    g = result.params[0]+result.params[1]*x
+    print(f&#39;失業率の乖離が{x:.1f}％ポイントの場合のGDPのトレンドからの乖離率は約{g:.2f}です。&#39;)
 </pre></div>
 </div>
 </div>
@@ -978,7 +978,7 @@ Notes:
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>が１％ポイントの場合を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_deviation</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>growth_deviation(1)
 </pre></div>
 </div>
 </div>
@@ -992,7 +992,7 @@ Notes:
 <p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fitted_okun&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fittedvalues</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;fitted_okun&#39;] = result.fittedvalues
 </pre></div>
 </div>
 </div>
@@ -1000,16 +1000,16 @@ Notes:
 <p>図を重ねて表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
-              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
-              <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = df.plot(x=&#39;u_rate_cycle&#39;,
+              y=&#39;gdp_cycle&#39;,
+              kind=&#39;scatter&#39;)
 
-<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;fitted_okun&#39;</span><span class="p">,</span>
-        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-<span class="k">pass</span>
+df.plot(x=&#39;u_rate_cycle&#39;,
+        y=&#39;fitted_okun&#39;,
+        kind=&#39;line&#39;,
+        color=&#39;red&#39;,
+        ax=ax_)
+pass
 </pre></div>
 </div>
 </div>
@@ -1053,8 +1053,8 @@ Notes:
 <p>上で使用した<code class="docutils literal notranslate"><span class="pre">df</span></code>に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が含まれているので図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.loc[:,[&#39;inflation&#39;]].plot()
+pass
 </pre></div>
 </div>
 </div>
@@ -1065,7 +1065,7 @@ Notes:
 <p>上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.loc[:,&#39;inflation&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -1078,11 +1078,11 @@ Notes:
 <p><code class="docutils literal notranslate"><span class="pre">0.949</span></code>は非常に高い持続性を意味しており，インフレが増加すると持続傾向にあることがわかる。次にトレンドからの乖離（％ポイント）を計算し，GDPのトレンドからの乖離と重ねて図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_trend&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;inflation_trend&#39;] = py4macro.trend(df[&#39;inflation&#39;])
+df[&#39;inflation_cycle&#39;] = df[&#39;inflation&#39;] - df[&#39;inflation_trend&#39;]
 
-<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
+df[[&#39;gdp_cycle&#39;,&#39;inflation_cycle&#39;]].plot()
+pass
 </pre></div>
 </div>
 </div>
@@ -1093,7 +1093,7 @@ Notes:
 <p>同じ方向に動く傾向が確認できる。相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;inflation_cycle&#39;,&#39;gdp_cycle&#39;]].corr()
 </pre></div>
 </div>
 </div>
@@ -1138,7 +1138,7 @@ Notes:
 <p>絶対値でみると失業程ではないが，正の相関性があることが確認できる。この結果から，インフレ率と失業率の負の相関が予測される。次に、自己相関係数を確認する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;inflation_cycle&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -1155,8 +1155,8 @@ Notes:
 <p>まずインフレ率と失業率の散布図をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.plot(x=&#39;unemployment_rate&#39;, y=&#39;inflation&#39;, kind=&#39;scatter&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -1174,8 +1174,8 @@ Notes:
 <p>まず10年毎のデータを使うために，次のコードを使い新たな列<code class="docutils literal notranslate"><span class="pre">decade</span></code>を<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">//</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">10</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;decade&#39;] = df.index.year // 10 * 10
+df[&#39;decade&#39;]
 </pre></div>
 </div>
 </div>
@@ -1217,19 +1217,19 @@ Name: decade, Length: 168, dtype: int64
 <p>新たな列と<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decade_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span>       <span class="c1">#1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>decade_list = list( range(1980, 2011, 10) )       #1
 
-<span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#2</span>
-<span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#3</span>
+a_list = []   #2
+b_list = []   #3
 
-<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">decade_list</span><span class="p">:</span>                             <span class="c1">#4</span>
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>                  <span class="c1">#5</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span> <span class="c1">#6</span>
-                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1">#7</span>
+for d in decade_list:                             #4
+    cond = ( df[&#39;decade&#39;] == d )                  #5
+    res = sm.ols(&#39;inflation ~ unemployment_rate&#39;, #6
+                 data=df.loc[cond,:]).fit()       #7
     
-    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1">#8</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                  <span class="c1">#9</span>
-    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                  <span class="c1">#10</span>
+    df[f&#39;{d}年代データ&#39;] = res.fittedvalues          #8
+    a_list.append(res.params[0])                  #9
+    b_list.append(res.params[1])                  #10
 </pre></div>
 </div>
 </div>
@@ -1257,16 +1257,16 @@ Name: decade, Length: 168, dtype: int64
 <p>結果を<code class="docutils literal notranslate"><span class="pre">print</span></code>関数を使い表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- 定数項の推定値 -------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;--- 定数項の推定値 -------------\n&#39;)
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">a_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+for d, a in zip(decade_list, a_list):
+    print(f&#39;{d}年代：{a:&gt;5.2f}&#39;)
     
     
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- スロープ係数の推定値 --------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+print(&#39;\n--- スロープ係数の推定値 --------\n&#39;)
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">b_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+for d, b in zip(decade_list, b_list):
+    print(f&#39;{d}年代：{b:.2f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -1291,33 +1291,33 @@ Name: decade, Length: 168, dtype: int64
 <p>定数項の推定値もスロープ係数の推定値も変化が大きく，特に1980年代の値とそれ以降の値の差が顕著である。傾きが緩やかになっているので，PC曲線のフラット化（需給ギャップに対してのインフレ率の弾性値の低下）と呼ばれている。研究では，日本だけではなく欧米でもPC曲線のフラット化が指摘されている。プロットして確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">color_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span> <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>color_list = [&#39;orange&#39;,&#39;black&#39;, &#39;blue&#39;, &#39;red&#39;] # 1
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+fig, ax = plt.subplots()
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+for d, c in zip(decade_list, color_list):
     
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>
+    cond = ( df[&#39;decade&#39;] == d )
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
-               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:],</span>
-               <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                    <span class="c1"># 2</span>
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>              <span class="c1"># 3</span>
-               <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    ax.scatter(&#39;unemployment_rate&#39;,
+               &#39;inflation&#39;,
+               data=df.loc[cond,:],
+               edgecolor=c,                    # 2
+               facecolor=&#39;white&#39;,              # 3
+               label=&#39;&#39;)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                           <span class="c1"># 4</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>                        <span class="c1"># 5</span>
-            <span class="p">)</span>
+    ax.plot(&#39;unemployment_rate&#39;,
+           f&#39;{d}年代データ&#39;,
+            data=df.loc[cond,:].sort_values(f&#39;{d}年代データ&#39;),
+            color=c,                           # 4
+            linewidth=2                        # 5
+            )
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;フラット化するフィリップス曲線&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;失業率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="k">pass</span>
+ax.set_title(&#39;フラット化するフィリップス曲線&#39;, size=20)
+ax.set_xlabel(&#39;失業率&#39;, fontsize=15)
+ax.set_ylabel(&#39;インフレ率&#39;, fontsize=15)
+ax.legend()
+pass
 </pre></div>
 </div>
 </div>
@@ -1451,7 +1451,7 @@ P_tY_t=M_tV_t
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>には<code class="docutils literal notranslate"><span class="pre">jpn-money</span></code>というデータ・セットが含まれており，その内容は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-money&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>py4macro.data(&#39;jpn-money&#39;, description=1)
 </pre></div>
 </div>
 </div>
@@ -1496,16 +1496,16 @@ P_tY_t=M_tV_t
 <p><code class="docutils literal notranslate"><span class="pre">resample</span></code>の使い方を説明するために，次の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>（変数名は<code class="docutils literal notranslate"><span class="pre">df_ex</span></code>）を考えよう。</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2020-01-31&#39;</span><span class="p">,</span><span class="s1">&#39;2021-12-31&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
-<span class="n">df_ex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">120</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
-                      <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="mi">2</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_index = pd.date_range(&#39;2020-01-31&#39;,&#39;2021-12-31&#39;, freq=&#39;M&#39;)
+df_ex = pd.DataFrame({&#39;X&#39;:list(range(10,120+1,10))*2,
+                      &#39;Y&#39;:np.random.normal(5,1,size=12*2)},index=date_index)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex
 </pre></div>
 </div>
 </div>
@@ -1536,122 +1536,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>2.256845</td>
+      <td>6.365386</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>4.760003</td>
+      <td>6.343298</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>6.296386</td>
+      <td>6.333400</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>5.115157</td>
+      <td>4.747281</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>5.167133</td>
+      <td>5.681808</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>5.931430</td>
+      <td>7.857856</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>4.473801</td>
+      <td>5.723280</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>5.567226</td>
+      <td>5.904182</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>5.678235</td>
+      <td>6.187890</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>4.560579</td>
+      <td>4.817838</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>5.503802</td>
+      <td>5.651004</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>4.418462</td>
+      <td>6.674089</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>4.229899</td>
+      <td>6.332349</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>4.335622</td>
+      <td>4.907803</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>4.386712</td>
+      <td>5.298305</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>4.553663</td>
+      <td>6.630419</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>6.986006</td>
+      <td>3.261859</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>5.087074</td>
+      <td>6.472435</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>6.111743</td>
+      <td>4.440153</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>5.002100</td>
+      <td>3.814830</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>4.166540</td>
+      <td>4.827176</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>4.370629</td>
+      <td>4.396128</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>4.474516</td>
+      <td>5.380812</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>5.253836</td>
+      <td>4.948486</td>
     </tr>
   </tbody>
 </table>
@@ -1673,12 +1673,12 @@ P_tY_t=M_tV_t
 <p><code class="docutils literal notranslate"><span class="pre">df_ex</span></code>を四半期でグループ化するには次のようになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex.resample(&#39;Q&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x121e098b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x128b09ac0&gt;
 </pre></div>
 </div>
 </div>
@@ -1688,7 +1688,7 @@ P_tY_t=M_tV_t
 どのような計算をしたいかを指定する。ここではメソッド.mean()を使って指定した期間内の平均を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex.resample(&#39;Q&#39;).mean()
 </pre></div>
 </div>
 </div>
@@ -1719,42 +1719,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>4.437745</td>
+      <td>6.347361</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>5.404573</td>
+      <td>6.095648</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>5.239754</td>
+      <td>5.938451</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>4.827614</td>
+      <td>5.714310</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>4.317411</td>
+      <td>5.512819</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>5.542248</td>
+      <td>5.454904</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>5.093461</td>
+      <td>4.360719</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>4.699660</td>
+      <td>4.908475</td>
     </tr>
   </tbody>
 </table>
@@ -1764,7 +1764,7 @@ P_tY_t=M_tV_t
 <p>次のコードは年平均を計算している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex.resample(&#39;A&#39;).mean()
 </pre></div>
 </div>
 </div>
@@ -1795,12 +1795,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>4.977421</td>
+      <td>6.023942</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>4.913195</td>
+      <td>5.059230</td>
     </tr>
   </tbody>
 </table>
@@ -1809,7 +1809,7 @@ P_tY_t=M_tV_t
 <p>平均以外にも様々な計算ができるようになっている。<code class="docutils literal notranslate"><span class="pre">see()</span></code>関数を使って属性を調べてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">see</span><span class="p">(</span><span class="n">df_ex</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>see(df_ex.resample(&#39;A&#39;))
 </pre></div>
 </div>
 </div>
@@ -1848,8 +1848,8 @@ P_tY_t=M_tV_t
 <p>このリストにない計算をしたい場合は，上のリストにある.agg()（aggregate()も同じ）を使い<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>や自作の関数を指定することができる。例えば，変動係数（coefficient of variation）を計算したいとしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def cv(x):
+    return x.std() / x.mean()
 </pre></div>
 </div>
 </div>
@@ -1857,7 +1857,7 @@ P_tY_t=M_tV_t
 <p>この関数の<code class="docutils literal notranslate"><span class="pre">x</span></code>は，時系列グループ計算で取り出された<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>と考えれば良いだろう。使い方は簡単で，<code class="docutils literal notranslate"><span class="pre">.agg()</span></code>の引数として<code class="docutils literal notranslate"><span class="pre">cv</span></code>を指定するだけである。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex.resample(&#39;A&#39;).agg(cv)
 </pre></div>
 </div>
 </div>
@@ -1888,12 +1888,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.209924</td>
+      <td>0.137735</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.175070</td>
+      <td>0.205916</td>
     </tr>
   </tbody>
 </table>
@@ -1909,8 +1909,8 @@ P_tY_t=M_tV_t
 <p>では実際に<code class="docutils literal notranslate"><span class="pre">jpn-money</span></code>のデータを使いデータを整形しよう。まず月次データを読み込み<code class="docutils literal notranslate"><span class="pre">month</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">month</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-money&#39;</span><span class="p">)</span>
-<span class="n">month</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month = py4macro.data(&#39;jpn-money&#39;)
+month.tail()
 </pre></div>
 </div>
 </div>
@@ -1975,7 +1975,7 @@ P_tY_t=M_tV_t
 <p>いつもの通り<code class="docutils literal notranslate"><span class="pre">.info()</span></code>を使ってデータの内容を確認しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">month</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month.info()
 </pre></div>
 </div>
 </div>
@@ -1997,7 +1997,7 @@ memory usage: 18.8 KB
 <p>四半期データに変換して変数<code class="docutils literal notranslate"><span class="pre">quarter</span></code>に割り当てることにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quarter</span> <span class="o">=</span> <span class="n">month</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>quarter = month.resample(&#39;Q&#39;).mean()
 </pre></div>
 </div>
 </div>
@@ -2005,7 +2005,7 @@ memory usage: 18.8 KB
 <p>これで３ヶ月の値の平均からなる四半期データを作成した事になる。確かめてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quarter</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>quarter.head()
 </pre></div>
 </div>
 </div>
@@ -2070,8 +2070,8 @@ memory usage: 18.8 KB
 <p>四半期の最後の日が行ラベルになっていることが分かる。同様に，年次データ作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual</span> <span class="o">=</span> <span class="n">month</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">annual</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>annual = month.resample(&#39;A&#39;).mean()
+annual.head()
 </pre></div>
 </div>
 </div>
@@ -2136,9 +2136,9 @@ memory usage: 18.8 KB
 <p>１年の最後の日が行ラベルになっている。次に３年次データを作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual3</span> <span class="o">=</span> <span class="n">month</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;36M&#39;</span><span class="p">,</span><span class="n">closed</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>     <span class="c1"># 1</span>
-<span class="n">annual3</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">annual3</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">tseries</span><span class="o">.</span><span class="n">frequencies</span><span class="o">.</span><span class="n">to_offset</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>  <span class="c1"># 2</span>
-<span class="n">annual3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>annual3 = month.resample(&#39;36M&#39;,closed=&#39;left&#39;,label=&#39;right&#39;).mean()     # 1
+annual3.index = annual3.index - pd.tseries.frequencies.to_offset(&#39;M&#39;)  # 2
+annual3.head()
 </pre></div>
 </div>
 </div>
@@ -2212,11 +2212,11 @@ memory usage: 18.8 KB
 <p>以下では，デフォルトで<code class="docutils literal notranslate"><span class="pre">.pct_change()</span></code>を使い計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">month</span><span class="p">,</span> <span class="n">quarter</span><span class="p">,</span> <span class="n">annual</span><span class="p">,</span> <span class="n">annual3</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_list = [month, quarter, annual, annual3]
 
-<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">:</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;cpi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;money_growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;money&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+for df in df_list:
+    df[&#39;inflation&#39;] = df.loc[:,&#39;cpi&#39;].pct_change()
+    df[&#39;money_growth&#39;] = df.loc[:,&#39;money&#39;].pct_change()
 </pre></div>
 </div>
 </div>
@@ -2224,7 +2224,7 @@ memory usage: 18.8 KB
 <p><code class="docutils literal notranslate"><span class="pre">month</span></code>を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">month</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>month.head()
 </pre></div>
 </div>
 </div>
@@ -2307,21 +2307,21 @@ memory usage: 18.8 KB
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使ってOLSの計算とプロットを同時におこなおう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;月次データ&#39;</span><span class="p">,</span><span class="s1">&#39;四半期データ&#39;</span><span class="p">,</span><span class="s1">&#39;年次データ&#39;</span><span class="p">,</span><span class="s1">&#39;3年次データ&#39;</span><span class="p">]</span>    <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>title_list = [&#39;月次データ&#39;,&#39;四半期データ&#39;,&#39;年次データ&#39;,&#39;3年次データ&#39;]    # 1
 
-<span class="k">for</span> <span class="n">df</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span><span class="n">title_list</span><span class="p">):</span>
+for df, t in zip(df_list,title_list):
     
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>    <span class="c1"># 2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>                            <span class="c1"># 3</span>
+    res = sm.ols(&#39;inflation ~ money_growth&#39;, data=df).fit()    # 2
+    df[&#39;トレンド&#39;] = res.fittedvalues                            # 3
     
-    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span> <span class="c1"># 4</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;トレンド&#39;</span><span class="p">,</span>     <span class="c1"># 5</span>
-                                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>          <span class="c1"># 6</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                                     <span class="c1"># 7</span>
-                  <span class="sa">f</span><span class="s1">&#39;スロープ係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>           <span class="c1"># 8</span>
-                  <span class="sa">f</span><span class="s1">&#39;p値：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                <span class="c1"># 9</span>
-                  <span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>      <span class="c1"># 10</span>
-                  <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>                         <span class="c1"># 11</span>
+    ax_ = df.plot(&#39;money_growth&#39;, &#39;inflation&#39;, kind=&#39;scatter&#39;) # 4
+    df.sort_values(&#39;トレンド&#39;).plot(&#39;money_growth&#39;,&#39;トレンド&#39;,     # 5
+                                   color=&#39;r&#39;, ax=ax_)          # 6
+    ax_.set_title(f&#39;{t}\n&#39;                                     # 7
+                  f&#39;スロープ係数：{res.params[1]:.3f}\n&#39;           # 8
+                  f&#39;p値：{res.pvalues[1]:.3f}\n&#39;                # 9
+                  f&#39;調整済み決定係数：{res.rsquared_adj:.3f}&#39;,      # 10
+                  size=18, loc=&#39;left&#39;)                         # 11
 </pre></div>
 </div>
 </div>
@@ -2380,7 +2380,7 @@ memory usage: 18.8 KB
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる<code class="docutils literal notranslate"><span class="pre">world-money</span></code>というデータ・セットを使うが，その内容は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;world-money&#39;</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>py4macro.data(&#39;world-money&#39;,description=1)
 </pre></div>
 </div>
 </div>
@@ -2414,8 +2414,8 @@ memory usage: 18.8 KB
 <p>まず変数<code class="docutils literal notranslate"><span class="pre">world</span></code>にデータを割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;world-money&#39;</span><span class="p">)</span>
-<span class="n">world</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world = py4macro.data(&#39;world-money&#39;)
+world.head()
 </pre></div>
 </div>
 </div>
@@ -2499,7 +2499,7 @@ memory usage: 18.8 KB
 <p>いつも通り<code class="docutils literal notranslate"><span class="pre">.info()</span></code>を使って内容を確かめてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world.info()
 </pre></div>
 </div>
 </div>
@@ -2547,13 +2547,13 @@ memory usage: 308.8+ KB
 グループ化用のオブジェクトの作成するためには<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使い，その引数にグループ化用の列を指定する。ここでは<code class="docutils literal notranslate"><span class="pre">world</span></code>を<code class="docutils literal notranslate"><span class="pre">iso</span></code>でグループ化した変数<code class="docutils literal notranslate"><span class="pre">world_group</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world_group</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;iso&#39;</span><span class="p">)</span>
-<span class="n">world_group</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world_group = world.groupby(&#39;iso&#39;)
+world_group
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x122052190&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x128dc05e0&gt;
 </pre></div>
 </div>
 </div>
@@ -2563,12 +2563,12 @@ memory usage: 308.8+ KB
 グループ計算したいのは<code class="docutils literal notranslate"><span class="pre">money</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator</span></code>である。同時に指定しても構わないが，ここでは一つずつ指定することにする。例として<code class="docutils literal notranslate"><span class="pre">money</span></code>を考えよう。列を指定するには<code class="docutils literal notranslate"><span class="pre">[]</span></code>を使う。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world_group</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world_group[&#39;money&#39;]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12206ba00&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x128c55e50&gt;
 </pre></div>
 </div>
 </div>
@@ -2578,7 +2578,7 @@ memory usage: 308.8+ KB
 グループ計算に平均を使いたいので，ステップ２のオブジェクトに<code class="docutils literal notranslate"><span class="pre">.pct_change()</span></code>をつか加えるだけである。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world_group</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world_group[&#39;money&#39;].pct_change()
 </pre></div>
 </div>
 </div>
@@ -2602,8 +2602,8 @@ Name: money, Length: 6584, dtype: float64
 <p>返されたのは国ごとに計算されたマネーストック増加率である。<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返されているが，行の並びは<code class="docutils literal notranslate"><span class="pre">world</span></code>と同じである。従って，次のコードでマネーストック増加率の列を<code class="docutils literal notranslate"><span class="pre">world</span></code>に追加できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;money_growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">world_group</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span>
-<span class="n">world</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world[&#39;money_growth&#39;] = world_group[&#39;money&#39;].pct_change()*100
+world.head()
 </pre></div>
 </div>
 </div>
@@ -2694,7 +2694,7 @@ Name: money, Length: 6584, dtype: float64
 <p>次にインフレ率を計算する。次のコードは上で説明した手順を１行で書いている。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">world_group</span><span class="p">[</span><span class="s1">&#39;deflator&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world[&#39;inflation&#39;] = world_group[&#39;deflator&#39;].pct_change()*100
 </pre></div>
 </div>
 </div>
@@ -2702,7 +2702,7 @@ Name: money, Length: 6584, dtype: float64
 <p>試しに，日本のデータだけを抽出してみよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;iso==&quot;JPN&quot;&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world.query(&#39;iso==&quot;JPN&quot;&#39;)
 </pre></div>
 </div>
 </div>
@@ -3341,8 +3341,8 @@ Name: money, Length: 6584, dtype: float64
 <p>ハイパーインフレの確固たる定義はないが，Mankiwの教科書「マクロ経済学」では年率50％以上と定義している。この定義に基づき，ハイパーインフレは観測値の何％を占めるかを計算してみよう。まず<code class="docutils literal notranslate"><span class="pre">inflation</span></code>で<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない行の数を数える。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">notna</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">notna</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>notna = world.loc[:,&#39;inflation&#39;].notna().sum()
+notna
 </pre></div>
 </div>
 </div>
@@ -3359,8 +3359,8 @@ Name: money, Length: 6584, dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">inflation</span></code>の値が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない行は6407あることがわかった。次に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が50％以上の行数を数えてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hyper</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;inflation &gt;= 50&#39;</span><span class="p">)</span> <span class="p">)</span>
-<span class="n">hyper</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hyper = len( world.query(&#39;inflation &gt;= 50&#39;) )
+hyper
 </pre></div>
 </div>
 </div>
@@ -3372,7 +3372,7 @@ Name: money, Length: 6584, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;観測値の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">hyper</span><span class="o">/</span><span class="n">notna</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">％でハイパーインフレが発生している。&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;観測値の{100*hyper/notna:.2f}％でハイパーインフレが発生している。&#39;)
 </pre></div>
 </div>
 </div>
@@ -3385,7 +3385,7 @@ Name: money, Length: 6584, dtype: float64
 <p>次に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>の上位5ヵ国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world.sort_values(&#39;inflation&#39;,ascending=False).head()
 </pre></div>
 </div>
 </div>
@@ -3488,10 +3488,10 @@ g_{{日}}=(1+g_{\text{年}})^{\frac{1}{365}}-1
 <p>ここで<span class="math notranslate nohighlight">\(g_{{年}}\)</span>は年率のインフレ率であり，<span class="math notranslate nohighlight">\(g_{{日}}\)</span>は1日当たりのインフレ率。この式を使い１に当たりの平均インフレ率を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inflation_cod</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;(iso==&quot;COD&quot;) &amp; (year==1994)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>inflation_cod = world.query(&#39;(iso==&quot;COD&quot;) &amp; (year==1994)&#39;).loc[:,&#39;inflation&#39;]
 
-<span class="n">inflation_cod_day</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">inflation_cod</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">365</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
-<span class="n">inflation_cod_day</span>
+inflation_cod_day = 100*( (1+inflation_cod/100)**(1/365)-1 )
+inflation_cod_day
 </pre></div>
 </div>
 </div>
@@ -3512,7 +3512,7 @@ t=\frac{\log(2)}{\log(1+g_{\text{日}})}
 <p>この式を使って<span class="math notranslate nohighlight">\(t\)</span>を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">inflation_cod_day</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.log(2)/np.log(1+inflation_cod_day/100)
 </pre></div>
 </div>
 </div>
@@ -3530,8 +3530,8 @@ Name: inflation, dtype: float64
 <p>全てのデータを使って散布図をプロットしトレンドを計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world.plot(&#39;money_growth&#39;,&#39;inflation&#39;,kind=&#39;scatter&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -3546,10 +3546,10 @@ Name: inflation, dtype: float64
 <p>横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;標本の大きさ：</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">res_world</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res_world</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">res_world</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>res_world = sm.ols(&#39;inflation ~ money_growth&#39;, data=world).fit()
+print(f&#39;標本の大きさ：{int(res_world.nobs)}&#39;)
+print(f&#39;調整済み決定係数：{res_world.rsquared_adj:.3f}&#39;)
+res_world.summary().tables[1]
 </pre></div>
 </div>
 </div>
@@ -3578,38 +3578,38 @@ Name: inflation, dtype: float64
 <p>まず，それぞれの経済の２変数の平均を計算するが，一つ注意点がある。<code class="docutils literal notranslate"><span class="pre">world</span></code>に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>と<code class="docutils literal notranslate"><span class="pre">money_growth</span></code>があるので，<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>を使って平均を計算すれば良いと思うかもしれない。しかし<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>は算術平均であり，計算したいのは増加率の平均なので可能であれば幾何平均を使うべきである。残念ながら，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>には幾何平均のメソッドが良いされて良いないので，次のように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算することにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">money_growth_mean_list</span> <span class="o">=</span> <span class="p">[]</span>                   <span class="c1"># 1</span>
-<span class="n">inflation_mean_list</span> <span class="o">=</span> <span class="p">[]</span>                      <span class="c1"># 2</span>
-<span class="n">iso_list</span> <span class="o">=</span> <span class="p">[]</span>                                 <span class="c1"># 3 </span>
-<span class="n">country_list</span> <span class="o">=</span> <span class="p">[]</span>                             <span class="c1"># 4</span>
-<span class="n">income_group_list</span> <span class="o">=</span> <span class="p">[]</span>                        <span class="c1"># 5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>money_growth_mean_list = []                   # 1
+inflation_mean_list = []                      # 2
+iso_list = []                                 # 3 
+country_list = []                             # 4
+income_group_list = []                        # 5
 
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;iso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>         <span class="c1"># 6</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;iso==@c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="c1"># 7</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>                               <span class="c1"># 9</span>
+for c in world.loc[:,&#39;iso&#39;].unique():         # 6
+    df = world.query(&#39;iso==@c&#39;).reset_index() # 7
+    n = len(df)                               # 9
     
-    <span class="n">money_growth_mean</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span>                 <span class="c1"># 9</span>
-        <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;money&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;money&#39;</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
-    <span class="p">)</span>
-    <span class="n">inflation_mean</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span>                    <span class="c1"># 10</span>
-        <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
-    <span class="p">)</span>
-                                              <span class="c1"># 11</span>
-    <span class="n">money_growth_mean_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">money_growth_mean</span><span class="p">)</span>
-    <span class="n">inflation_mean_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inflation_mean</span><span class="p">)</span>
-    <span class="n">iso_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-                                              <span class="c1"># 12</span>
-    <span class="n">country_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    money_growth_mean = 100*(                 # 9
+        (df.loc[n-1,&#39;money&#39;]/df.loc[0,&#39;money&#39;])**(1/(n-1))-1
+    )
+    inflation_mean = 100*(                    # 10
+        (df.loc[n-1,&#39;deflator&#39;]/df.loc[0,&#39;deflator&#39;])**(1/(n-1))-1
+    )
+                                              # 11
+    money_growth_mean_list.append(money_growth_mean)
+    inflation_mean_list.append(inflation_mean)
+    iso_list.append(c)
+                                              # 12
+    country_list.append(df.loc[:,&#39;country&#39;].unique()[0])
     
-                                              <span class="c1"># 13</span>
-    <span class="n">income_group_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                                              # 13
+    income_group_list.append(df.loc[:,&#39;income_group&#39;].unique()[0])
     
-                                              <span class="c1"># 14</span>
-<span class="n">world_mean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;country&#39;</span><span class="p">:</span><span class="n">country_list</span><span class="p">,</span>
-                           <span class="s1">&#39;income_group&#39;</span><span class="p">:</span><span class="n">income_group_list</span><span class="p">,</span>
-                           <span class="s1">&#39;money_growth_mean&#39;</span><span class="p">:</span><span class="n">money_growth_mean_list</span><span class="p">,</span>
-                           <span class="s1">&#39;inflation_mean&#39;</span><span class="p">:</span><span class="n">inflation_mean_list</span><span class="p">,</span>
-                           <span class="s1">&#39;iso&#39;</span><span class="p">:</span><span class="n">iso_list</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;iso&#39;</span><span class="p">)</span>
+                                              # 14
+world_mean = pd.DataFrame({&#39;country&#39;:country_list,
+                           &#39;income_group&#39;:income_group_list,
+                           &#39;money_growth_mean&#39;:money_growth_mean_list,
+                           &#39;inflation_mean&#39;:inflation_mean_list,
+                           &#39;iso&#39;:iso_list}).set_index(&#39;iso&#39;)
 </pre></div>
 </div>
 </div>
@@ -3658,9 +3658,9 @@ Name: inflation, dtype: float64
 <p>平均でハイパーインフレが発生している国は何ヵ国なるのか計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hyper</span> <span class="o">=</span> <span class="p">(</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hyper = ( world_mean.loc[:,&#39;inflation_mean&#39;] &gt;= 50 ).sum()
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">world_mean</span><span class="p">)</span><span class="si">}</span><span class="s1">ヵ国中</span><span class="si">{</span><span class="n">hyper</span><span class="si">}</span><span class="s1">ヵ国でハイパーインフレが発生している。&#39;</span><span class="p">)</span>
+print(f&#39;{len(world_mean)}ヵ国中{hyper}ヵ国でハイパーインフレが発生している。&#39;)
 </pre></div>
 </div>
 </div>
@@ -3681,7 +3681,7 @@ Name: inflation, dtype: float64
 <p>短期的なノイズの影響によってある年にハイパーインフレが発生する場合もあるだろう。しかしこの結果は，長期的にハイパーインフレに悩まされる国が存在することを示している。どのような国なのかを確認するために，インフレ率上位10ヵ国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>world_mean.sort_values(by=&#39;inflation_mean&#39;, ascending=False).head(10)
 </pre></div>
 </div>
 </div>
@@ -3796,12 +3796,12 @@ Name: inflation, dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">world_mean</span></code>を使いクロスセクションのデータをプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="n">xpoints</span> <span class="o">=</span> <span class="n">ypoints</span> <span class="o">=</span> <span class="n">ax_</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xpoints</span><span class="p">,</span><span class="n">ypoints</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;45度線&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;平均インフレ率とマネーストトックの平均成長率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = world_mean.plot(&#39;money_growth_mean&#39;,&#39;inflation_mean&#39;, kind=&#39;scatter&#39;)
+xpoints = ypoints = ax_.get_ylim()
+ax_.plot(xpoints,ypoints,&#39;r-&#39;, label=&#39;45度線&#39;)
+ax_.set_title(&#39;平均インフレ率とマネーストトックの平均成長率&#39;, size=&#39;15&#39;)
+ax_.legend()
+pass
 </pre></div>
 </div>
 </div>
@@ -3812,10 +3812,10 @@ Name: inflation, dtype: float64
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world_mean</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation_mean ~ money_growth_mean&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world_mean</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;標本の大きさ：</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>res_world_mean = sm.ols(&#39;inflation_mean ~ money_growth_mean&#39;, data=world_mean).fit()
+print(f&#39;標本の大きさ：{int(res_world_mean.nobs)}&#39;)
+print(f&#39;調整済み決定係数：{res_world_mean.rsquared_adj:.3f}&#39;)
+print(res_world_mean.summary().tables[1])
 </pre></div>
 </div>
 </div>

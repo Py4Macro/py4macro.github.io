@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
+<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
 <div class="header header-item noprint"></div>
 
     
@@ -532,13 +532,13 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="n">see</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import py4macro
+import statsmodels.formula.api as smf
+from see import see
 </pre></div>
 </div>
 </div>
@@ -556,9 +556,9 @@ title="Print to PDF"
 <p>まずデータを作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span> \
-                 <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)</span> \
-                 <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df2019 = py4macro.data(&#39;pwt&#39;) \
+                 .query(&#39;year == 2019&#39;) \
+                 .reset_index(drop=True)
 </pre></div>
 </div>
 </div>
@@ -574,32 +574,32 @@ title="Print to PDF"
 <p>発展会計の分析で使った同じ変数を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 資本の所得シャア</span>
-<span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 資本の所得シャア
+a=1/3.0
 
-<span class="c1"># 労働者一人当たりGDP</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+# 労働者一人当たりGDP
+df2019[&#39;gdp_pc&#39;] = df2019[&#39;cgdpo&#39;] / df2019[&#39;emp&#39;]
 
-<span class="c1"># 労働者一人当たり資本</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k_pc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;ck&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+# 労働者一人当たり資本
+df2019[&#39;k_pc&#39;] = df2019[&#39;ck&#39;] / df2019[&#39;emp&#39;]
 
-<span class="c1"># 蓄積生産要素</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k_pc&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;hc&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+# 蓄積生産要素
+df2019[&#39;factors&#39;] = df2019[&#39;k_pc&#39;]**a * ( df2019[&#39;avh&#39;]*df2019[&#39;hc&#39;] )**(1-a)
 
-<span class="c1"># 全要素生産性</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span>
+# 全要素生産性
+df2019[&#39;tfp&#39;] = df2019[&#39;gdp_pc&#39;] / df2019[&#39;factors&#39;]
 
-<span class="c1"># 米国のデータ</span>
-<span class="n">us2019</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;United States&quot;&#39;</span><span class="p">)</span>
+# 米国のデータ
+us2019 = df2019.query(&#39;country == &quot;United States&quot;&#39;)
 
-<span class="c1"># 労働者一人当たりGDPを標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+# 労働者一人当たりGDPを標準化（USA=1）
+df2019[&#39;gdp_pc_relative&#39;] = df2019[&#39;gdp_pc&#39;] / us2019[&#39;gdp_pc&#39;].to_numpy()
 
-<span class="c1"># 全要素生産性の標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+# 全要素生産性の標準化（USA=1）
+df2019[&#39;tfp_relative&#39;] = df2019[&#39;tfp&#39;] / us2019[&#39;tfp&#39;].to_numpy()
 
-<span class="c1"># 蓄積生産要素の標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+# 蓄積生産要素の標準化（USA=1）
+df2019[&#39;factors_relative&#39;] = df2019[&#39;factors&#39;] / us2019[&#39;factors&#39;].to_numpy()
 </pre></div>
 </div>
 </div>
@@ -607,8 +607,8 @@ title="Print to PDF"
 <p>全要素生産性と一人当たりGDPの散布図を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df2019.plot(&#39;tfp_relative&#39;, &#39;gdp_pc_relative&#39;, kind=&#39;scatter&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -645,7 +645,7 @@ y_i = a+bA_i
 <p>以下ではこの回帰式を変数<code class="docutils literal notranslate"><span class="pre">formula</span></code>に割り当てているが，変数は分かりやすいものであれば好きなものを使えば良い。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_pc_relative ~ tfp_relative&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>formula = &#39;gdp_pc_relative ~ tfp_relative&#39;
 </pre></div>
 </div>
 </div>
@@ -654,7 +654,7 @@ y_i = a+bA_i
 <p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使って自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成する。次のコードでは変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = smf.ols(formula, data=df2019)
 </pre></div>
 </div>
 </div>
@@ -664,7 +664,7 @@ y_i = a+bA_i
 <p><code class="docutils literal notranslate"><span class="pre">model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使って自動計算し，計算した結果を変数<code class="docutils literal notranslate"><span class="pre">result</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result = model.fit()
 </pre></div>
 </div>
 </div>
@@ -677,7 +677,7 @@ y_i = a+bA_i
 <p><code class="docutils literal notranslate"><span class="pre">result</span></code>には様々な属性が用意されているが、メソッド<code class="docutils literal notranslate"><span class="pre">.summary()</span></code>を使うと基本的な推定結果を表示することができる。（関数<code class="docutils literal notranslate"><span class="pre">print()</span></code>を使っているが使わなくても同じ情報が表示される。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(result.summary())
 </pre></div>
 </div>
 </div>
@@ -687,8 +687,8 @@ y_i = a+bA_i
 Dep. Variable:        gdp_pc_relative   R-squared:                       0.848
 Model:                            OLS   Adj. R-squared:                  0.846
 Method:                 Least Squares   F-statistic:                     330.2
-Date:                Fri, 11 Nov 2022   Prob (F-statistic):           7.55e-26
-Time:                        12:06:22   Log-Likelihood:                 49.266
+Date:                Thu, 22 Dec 2022   Prob (F-statistic):           7.55e-26
+Time:                        03:25:51   Log-Likelihood:                 49.266
 No. Observations:                  61   AIC:                            -94.53
 Df Residuals:                      59   BIC:                            -90.31
 Df Model:                           1                                         
@@ -790,7 +790,7 @@ Notes:
 <p>係数の推定値に関する中段の表を表示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(result.summary().tables[1])
 </pre></div>
 </div>
 </div>
@@ -820,7 +820,7 @@ tfp_relative     1.2226      0.067     18.172      0.000       1.088       1.357
 <p><code class="docutils literal notranslate"><span class="pre">result</span></code>は推定結果に関する情報が詰まったオブジェクトである。何が備わっているか<code class="docutils literal notranslate"><span class="pre">see</span></code>関数を使って調べてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">see</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>see(result)
 </pre></div>
 </div>
 </div>
@@ -856,7 +856,7 @@ tfp_relative     1.2226      0.067     18.172      0.000       1.088       1.357
 <p>まず係数の推定値は<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">params</span></code>でアクセスできる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">params</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result.params
 </pre></div>
 </div>
 </div>
@@ -871,7 +871,7 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">result.params</span></code>のタイプを調べてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>type(result.params)
 </pre></div>
 </div>
 </div>
@@ -884,9 +884,9 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返されていることが分かる。従って，定数項は<code class="docutils literal notranslate"><span class="pre">result.params[0]</span></code>，スロープ係数は<code class="docutils literal notranslate"><span class="pre">result.params[1]</span></code>で抽出できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ahat</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">bhat</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ahat</span><span class="p">,</span> <span class="n">bhat</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ahat = result.params[0]
+bhat = result.params[1]
+ahat, bhat
 </pre></div>
 </div>
 </div>
@@ -899,9 +899,9 @@ dtype: float64
 <p>このことを念頭に<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>が<code class="docutils literal notranslate"><span class="pre">x</span></code>の場合の<code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>を計算する関数は作ってみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_gdp_pc_relative</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">gdp</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;相対全要素生産性が</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">の場合の相対的一人当たりGDPは約</span><span class="si">{</span><span class="n">gdp</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def calculate_gdp_pc_relative(x):
+    gdp = result.params[0]+result.params[1]*x
+    print(f&#39;相対全要素生産性が{x}の場合の相対的一人当たりGDPは約{gdp:.3f}です。&#39;)
 </pre></div>
 </div>
 </div>
@@ -909,7 +909,7 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>が<code class="docutils literal notranslate"><span class="pre">0.8</span></code>の場合を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_gdp_pc_relative</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>calculate_gdp_pc_relative(0.8)
 </pre></div>
 </div>
 </div>
@@ -930,7 +930,7 @@ dtype: float64
 <p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fittedvalues</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df2019[&#39;OLS fitted&#39;] = result.fittedvalues
 </pre></div>
 </div>
 </div>
@@ -938,11 +938,11 @@ dtype: float64
 <p>図を重ねて表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="n">df2019</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
-                                      <span class="n">y</span><span class="o">=</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">,</span>
-                                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = df2019.plot(x=&#39;tfp_relative&#39;, y=&#39;gdp_pc_relative&#39;, kind=&#39;scatter&#39;)
+df2019.sort_values(&#39;OLS fitted&#39;).plot(x=&#39;tfp_relative&#39;,
+                                      y=&#39;OLS fitted&#39;,
+                                      color=&#39;r&#39;, ax=ax_)
+pass
 </pre></div>
 </div>
 </div>
@@ -1068,14 +1068,14 @@ y_i = a + bx_i+e_i
 <p><code class="docutils literal notranslate"><span class="pre">df2019</span></code>にある変数を使って，計算に使う変数を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 労働者一人当たりGDP（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;gdp_pc_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 労働者一人当たりGDP（USA=1）の対数化
+df2019[&#39;gdp_pc_relative_log&#39;] = np.log( df2019[&#39;gdp_pc_relative&#39;] )
 
-<span class="c1"># 全要素生産性（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+# 全要素生産性（USA=1）の対数化
+df2019[&#39;tfp_relative_log&#39;] = np.log( df2019[&#39;tfp_relative&#39;] )
 
-<span class="c1"># 蓄積生産要素（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+# 蓄積生産要素（USA=1）の対数化
+df2019[&#39;factors_relative_log&#39;] = np.log( df2019[&#39;factors_relative&#39;] )
 </pre></div>
 </div>
 </div>
@@ -1083,8 +1083,8 @@ y_i = a + bx_i+e_i
 <p>次に推定式を定義する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula_tfp</span> <span class="o">=</span> <span class="s1">&#39;tfp_relative_log ~ gdp_pc_relative_log&#39;</span>
-<span class="n">formula_factors</span> <span class="o">=</span> <span class="s1">&#39;factors_relative_log ~ gdp_pc_relative_log&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>formula_tfp = &#39;tfp_relative_log ~ gdp_pc_relative_log&#39;
+formula_factors = &#39;factors_relative_log ~ gdp_pc_relative_log&#39;
 </pre></div>
 </div>
 </div>
@@ -1092,8 +1092,8 @@ y_i = a + bx_i+e_i
 <p>自動計算のための準備をし，実際に計算した結果を変数に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">result_factors</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result_tfp = smf.ols(formula_tfp, data=df2019).fit()
+result_factors = smf.ols(formula_factors, data=df2019).fit()
 </pre></div>
 </div>
 </div>
@@ -1101,8 +1101,8 @@ y_i = a + bx_i+e_i
 <p>パラメータの値を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;全要素生産性の寄与度：</span><span class="si">{</span><span class="n">result_tfp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
-      <span class="sa">f</span><span class="s1">&#39;蓄積生産要素の寄与度：</span><span class="si">{</span><span class="n">result_factors</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;全要素生産性の寄与度：{result_tfp.params[1]}\n&#39;
+      f&#39;蓄積生産要素の寄与度：{result_factors.params[1]}&#39;)
 </pre></div>
 </div>
 </div>

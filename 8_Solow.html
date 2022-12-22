@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
+<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
 <div class="header header-item noprint"></div>
 
     
@@ -632,12 +632,12 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import py4macro
+import statsmodels.formula.api as sm
 </pre></div>
 </div>
 </div>
@@ -749,37 +749,37 @@ y_*=Ak_*^{a}
 <p>差分方程式<a class="reference internal" href="#equation-eq-8-kdot">(32)</a>を使って資本ストックの変化をプロットするが，以前と同じように<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を生成する関数を定義しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solow_model</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;引数</span>
-<span class="sd">            k0: 資本の初期値</span>
-<span class="sd">            A: 生産性</span>
-<span class="sd">            a: 資本の所得比率 (a&lt;1)</span>
-<span class="sd">            s: 貯蓄率 (s&lt;1)</span>
-<span class="sd">            n: 労働人口成長率（％）</span>
-<span class="sd">            d: 資本減耗率 (d&lt;1)</span>
-<span class="sd">            T: ループによる計算回数</span>
-<span class="sd">       戻り値</span>
-<span class="sd">            資本と産出量からなるDataFrame&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def solow_model(k0, A,a,s,n,d,T=20):
+    &quot;&quot;&quot;引数
+            k0: 資本の初期値
+            A: 生産性
+            a: 資本の所得比率 (a&lt;1)
+            s: 貯蓄率 (s&lt;1)
+            n: 労働人口成長率（％）
+            d: 資本減耗率 (d&lt;1)
+            T: ループによる計算回数
+       戻り値
+            資本と産出量からなるDataFrame&quot;&quot;&quot;
     
-    <span class="n">k</span> <span class="o">=</span> <span class="n">k0</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">k0</span><span class="o">**</span><span class="n">a</span>
+    k = k0
+    y = A*k0**a
     
-    <span class="n">k_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    k_list = [k]
+    y_list = [y]
 
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    for t in range(T):
         
-        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="n">k</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">n</span> <span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">a</span>
+        k = ( s*A*k**a+(1-d)*k )/( 1+n )
+        y = A*k**a
 
-        <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        k_list.append(k)
+        y_list.append(y)
 
-    <span class="c1"># DataFrameの作成</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_list</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">}</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
+    # DataFrameの作成
+    dic = {&#39;capital&#39;:k_list, &#39;output&#39;:y_list}
+    df = pd.DataFrame(dic)
     
-    <span class="k">return</span> <span class="n">df</span> 
+    return df 
 </pre></div>
 </div>
 </div>
@@ -787,9 +787,9 @@ y_*=Ak_*^{a}
 <p>引数に使うパラーメータには次の値を使ってプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">solow_model</span><span class="p">(</span><span class="n">k0</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = solow_model(k0=200, A=10, a=0.3, s=0.3, n=0.02, d=0.05, T=100)
+df.plot(subplots=True)
+pass
 </pre></div>
 </div>
 </div>
@@ -800,18 +800,18 @@ y_*=Ak_*^{a}
 <p>異なる初期値を使って資本の変化をプロットしてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>      <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>initial_list = range(100,300,10)      # 1
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>              <span class="c1"># 2</span>
+fig, ax = plt.subplots()              # 2
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">initial_list</span><span class="p">:</span>                <span class="c1"># 3</span>
-    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">solow_model</span><span class="p">(</span><span class="n">k0</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;capital&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">)</span>
+for i in initial_list:                # 3
+    df_temp = solow_model(k0=i, A=10, a=0.3, s=0.3, n=0.02, d=0.05, T=150)
+    ax.plot(&#39;capital&#39;, data=df_temp)
     
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;ソロー・モデルの移行過程&#39;</span><span class="p">,</span>  <span class="c1"># 4</span>
-       <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;ループの回数&#39;</span><span class="p">,</span>
-       <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;一人当たり資本ストック&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+ax.set(title=&#39;ソロー・モデルの移行過程&#39;,  # 4
+       xlabel=&#39;ループの回数&#39;,
+       ylabel=&#39;一人当たり資本ストック&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -855,22 +855,22 @@ y_*=Ak_*^{a}
 <p>次に定常状態での変数の値を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_steady_state</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def calculate_steady_state(A,a,s,n,d):
     
-    <span class="n">k_ss</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>    
-    <span class="n">y_ss</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">k_ss</span><span class="o">**</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>    
+    k_ss = ( s*A/(n+d) )**(1/(1-a))    
+    y_ss = A*k_ss**(a/(1-a))    
     
-    <span class="k">return</span> <span class="n">k_ss</span><span class="p">,</span> <span class="n">y_ss</span>
+    return k_ss, y_ss
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss</span> <span class="o">=</span> <span class="n">calculate_steady_state</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ss = calculate_steady_state(A=10, a=0.3, s=0.3, n=0.02, d=0.05)
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での資本ストック:</span><span class="si">{</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>
-      <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">定常状態での産出量: </span><span class="si">{</span><span class="n">ss</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+print(f&#39;定常状態での資本ストック:{ss[0]:.1f}&#39;
+      f&#39;\n定常状態での産出量: {ss[1]:.1f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -988,41 +988,41 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 <p>次に関数<code class="docutils literal notranslate"><span class="pre">solow_model()</span></code>を修正して線形近似の誤差を確かめてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solow_model_approx</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;引数</span>
-<span class="sd">            k0: 資本の初期値</span>
-<span class="sd">            A: 生産性</span>
-<span class="sd">            a: 資本の所得比率 (a&lt;1)</span>
-<span class="sd">            s: 貯蓄率 (s&lt;1)</span>
-<span class="sd">            n: 労働人口成長率（n&gt;=0）</span>
-<span class="sd">            d: 資本減耗率 (d&lt;1)</span>
-<span class="sd">            T: ループによる計算回数</span>
-<span class="sd">       戻り値</span>
-<span class="sd">            線形近似モデルを使い計算した資本と産出量からなるDataFrame&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def solow_model_approx(k0,A,a,s,n,d,T=20):
+    &quot;&quot;&quot;引数
+            k0: 資本の初期値
+            A: 生産性
+            a: 資本の所得比率 (a&lt;1)
+            s: 貯蓄率 (s&lt;1)
+            n: 労働人口成長率（n&gt;=0）
+            d: 資本減耗率 (d&lt;1)
+            T: ループによる計算回数
+       戻り値
+            線形近似モデルを使い計算した資本と産出量からなるDataFrame&quot;&quot;&quot;
     
-    <span class="n">k</span> <span class="o">=</span> <span class="n">k0</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">k0</span><span class="o">**</span><span class="n">a</span>
+    k = k0
+    y = A*k0**a
     
-    <span class="n">k_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    k_list = [k]
+    y_list = [y]
 
-    <span class="c1"># 定常状態</span>
-    <span class="n">k_ss</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>    
+    # 定常状態
+    k_ss = ( s*A/(n+d) )**(1/(1-a))    
     
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    for t in range(T):
         
-        <span class="n">lamb</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># lambda</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="n">lamb</span><span class="o">*</span><span class="n">k</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">lamb</span><span class="p">)</span><span class="o">*</span><span class="n">k_ss</span>  <span class="c1"># 線形近似</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="n">a</span>
+        lamb = 1-(1-a)*(n+d)/(1+n)  # lambda
+        k = lamb*k+(1-lamb)*k_ss  # 線形近似
+        y = A*k**a
 
-        <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        k_list.append(k)
+        y_list.append(y)
 
-    <span class="c1"># DataFrameの作成</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_list</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">}</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
+    # DataFrameの作成
+    dic = {&#39;capital&#39;:k_list, &#39;output&#39;:y_list}
+    df = pd.DataFrame(dic)
     
-    <span class="k">return</span> <span class="n">df</span> 
+    return df 
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1030,7 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 <p>近似誤差を計算するために，上と同じ数値でシミュレーションをおこなう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_approx</span> <span class="o">=</span> <span class="n">solow_model_approx</span><span class="p">(</span><span class="n">k0</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_approx = solow_model_approx(k0=200, A=10, a=0.3, s=0.3, n=0.02, d=0.05, T=150)
 </pre></div>
 </div>
 </div>
@@ -1038,9 +1038,9 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 <p>非線形のモデル<a class="reference internal" href="#equation-eq-8-kdot">(32)</a>と線形近似のモデル<a class="reference internal" href="#equation-eq-8-kapprox">(37)</a>で計算された資本ストックを重ねて図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_approx</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;線形近似モデル&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;ソロー・モデル&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_approx[&#39;capital&#39;].plot(label=&#39;線形近似モデル&#39;, legend=True)
+df[&#39;capital&#39;].plot(label=&#39;ソロー・モデル&#39;, legend=True)
+pass
 </pre></div>
 </div>
 </div>
@@ -1051,8 +1051,8 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 <p><code class="docutils literal notranslate"><span class="pre">df_approx</span></code>が図示され、その上に<code class="docutils literal notranslate"><span class="pre">df</span></code>が重ねて表示されるが、殆ど同じのように見える。誤差を％で計算し図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">df_approx</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>( 100*( 1-df_approx[&#39;capital&#39;]/df[&#39;capital&#39;] ) ).plot(marker=&#39;.&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -1119,7 +1119,7 @@ y_*=Ak_*^a
 <p>1960年以降のデータを<code class="docutils literal notranslate"><span class="pre">pwt</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt;= 1960&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pwt = py4macro.data(&#39;pwt&#39;).query(&#39;year &gt;= 1960&#39;)
 </pre></div>
 </div>
 </div>
@@ -1130,8 +1130,8 @@ y_*=Ak_*^a
 <p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>は，元の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>から列を選び，その列から新たな<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する便利なメソッドである。実際にコードを実行して説明しよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;csh_i&#39;</span><span class="p">)</span>
-<span class="n">saving</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>saving = pwt.pivot(index=&#39;year&#39;, columns=&#39;country&#39;, values=&#39;csh_i&#39;)
+saving.head()
 </pre></div>
 </div>
 </div>
@@ -1351,8 +1351,8 @@ y_*=Ak_*^a
 <p>1960年以降欠損値がない国だけを使うことにしよう。<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある列を削除する必要があるので<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>を使う。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
-<span class="n">saving</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>saving = saving.dropna(axis=&#39;columns&#39;)
+saving.head()
 </pre></div>
 </div>
 </div>
@@ -1555,7 +1555,7 @@ y_*=Ak_*^a
 <p>AlbaniaやAngolaなどが削除されていることが確認できる。何ヵ国残っているか確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>saving.shape
 </pre></div>
 </div>
 </div>
@@ -1572,8 +1572,8 @@ y_*=Ak_*^a
 <p>111ヵ国含まれていることが確認できた。次に，それぞれの列の平均を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saving</span> <span class="o">=</span> <span class="n">saving</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;saving_rate&#39;</span><span class="p">)</span>   <span class="c1"># 1</span>
-<span class="n">saving</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>saving = saving.mean().to_frame(&#39;saving_rate&#39;)   # 1
+saving.head()
 </pre></div>
 </div>
 </div>
@@ -1648,15 +1648,15 @@ y_*=Ak_*^a
 <p><code class="docutils literal notranslate"><span class="pre">saving</span></code>と同じ方法で資本減耗率の平均からなる<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depreciation</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;delta&#39;</span><span class="p">)</span>
-<span class="n">depreciation</span> <span class="o">=</span> <span class="n">depreciation</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>depreciation = pwt.pivot(index=&#39;year&#39;, columns=&#39;country&#39;, values=&#39;delta&#39;)
+depreciation = depreciation.dropna(axis=&#39;columns&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depreciation</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>depreciation.shape
 </pre></div>
 </div>
 </div>
@@ -1669,7 +1669,7 @@ y_*=Ak_*^a
 <p>110ヵ国含まれている。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depreciation</span> <span class="o">=</span> <span class="n">depreciation</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;depreciation&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>depreciation = depreciation.mean().to_frame(&#39;depreciation&#39;)
 </pre></div>
 </div>
 </div>
@@ -1680,15 +1680,15 @@ y_*=Ak_*^a
 <p>平均成長率を計算するには1960年と2019年の労働人口だけで計算できるが，上と同じ方法で計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;emp&#39;</span><span class="p">)</span>
-<span class="n">emp</span> <span class="o">=</span> <span class="n">emp</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>emp = pwt.pivot(index=&#39;year&#39;, columns=&#39;country&#39;, values=&#39;emp&#39;)
+emp = emp.dropna(axis=&#39;columns&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>emp.shape
 </pre></div>
 </div>
 </div>
@@ -1701,9 +1701,9 @@ y_*=Ak_*^a
 <p>91ヵ国しか含まれていない。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span> <span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2019</span><span class="p">,:]</span><span class="o">/</span><span class="n">emp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1960</span><span class="p">,:]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">emp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span> 
-             <span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;employment_growth&#39;</span><span class="p">)</span>
-<span class="n">emp_growth</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>emp_growth = ( ( emp.loc[2019,:]/emp.loc[1960,:] )**(1/(len(emp)-1))-1 
+             ).to_frame(&#39;employment_growth&#39;)
+emp_growth.head()
 </pre></div>
 </div>
 </div>
@@ -1764,11 +1764,11 @@ y_*=Ak_*^a
 <p>2019年の<code class="docutils literal notranslate"><span class="pre">cgdpo</span></code>と<code class="docutils literal notranslate"><span class="pre">cn</span></code>を使って資本ストック対GDP比を含む<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)</span> \
-              <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">,</span><span class="s1">&#39;cn&#39;</span><span class="p">]]</span> \
-              <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span> \
-              <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">ky_ratio</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio = pwt.query(&#39;year == 2019&#39;) \
+              .loc[:,[&#39;country&#39;,&#39;cgdpo&#39;,&#39;cn&#39;]] \
+              .set_index(&#39;country&#39;) \
+              .dropna()
+ky_ratio.head()
 </pre></div>
 </div>
 </div>
@@ -1837,7 +1837,7 @@ y_*=Ak_*^a
 <p>資本ストック対GDP比の列の作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span><span class="p">[</span><span class="s1">&#39;ky_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">ky_ratio</span><span class="p">[</span><span class="s1">&#39;cn&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">ky_ratio</span><span class="p">[</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">]</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio[&#39;ky_ratio&#39;] = np.log( ky_ratio[&#39;cn&#39;]/ky_ratio[&#39;cgdpo&#39;] )
 </pre></div>
 </div>
 </div>
@@ -1845,7 +1845,7 @@ y_*=Ak_*^a
 <p>含まれる国数を確認する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio.shape
 </pre></div>
 </div>
 </div>
@@ -1890,11 +1890,11 @@ y_*=Ak_*^a
 <p>では実際に上で作成した<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を結合しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">df_right</span> <span class="ow">in</span> <span class="p">[</span><span class="n">saving</span><span class="p">,</span> <span class="n">depreciation</span><span class="p">,</span> <span class="n">emp_growth</span><span class="p">]:</span>  <span class="c1"># 1</span>
-    <span class="n">ky_ratio</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ky_ratio</span><span class="p">,</span> <span class="n">df_right</span><span class="p">,</span>          <span class="c1"># 2</span>
-                        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>             <span class="c1"># 3</span>
-                        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>            <span class="c1"># 4</span>
-                        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>                 <span class="c1"># 5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for df_right in [saving, depreciation, emp_growth]:  # 1
+    ky_ratio = pd.merge(ky_ratio, df_right,          # 2
+                        left_index=True,             # 3
+                        right_index=True,            # 4
+                        how=&#39;outer&#39;)                 # 5
 </pre></div>
 </div>
 </div>
@@ -1912,7 +1912,7 @@ y_*=Ak_*^a
 <p>結合の結果を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio.head()
 </pre></div>
 </div>
 </div>
@@ -2006,7 +2006,7 @@ y_*=Ak_*^a
 <p>結合後の<code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>の情報を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio.info()
 </pre></div>
 </div>
 </div>
@@ -2048,7 +2048,7 @@ memory usage: 9.8+ KB
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使ってこれらを同時に計算・表示する。まず<code class="docutils literal notranslate"><span class="pre">ky_ratio</span></code>の列ラベルをみると，回帰分析の説明変数に使う変数が最後の３つに並んでいる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ky_ratio</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ky_ratio.columns[-3:]
 </pre></div>
 </div>
 </div>
@@ -2061,26 +2061,26 @@ memory usage: 9.8+ KB
 <p>これを使い<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを組んでみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span>              <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for var in ky_ratio.columns[-3:]:              # 1
     
-    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>                  <span class="c1"># 2</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ky_ratio ~ </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>          <span class="c1"># 3</span>
-                 <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>           <span class="c1"># 4</span>
-    <span class="n">bhat</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                       <span class="c1"># 5</span>
-    <span class="n">pval</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                      <span class="c1"># 6</span>
+    df_temp = ky_ratio.copy()                  # 2
+    res = sm.ols(f&#39;ky_ratio ~ {var}&#39;,          # 3
+                 data=df_temp).fit()           # 4
+    bhat = res.params[1]                       # 5
+    pval = res.pvalues[1]                      # 6
     
-    <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;Trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>        <span class="c1"># 7</span>
+    df_temp[&#39;Trend&#39;] = res.fittedvalues        # 7
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 8</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="s1">&#39;ky_ratio&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">)</span>  <span class="c1"># 9</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="s1">&#39;Trend&#39;</span><span class="p">,</span>                      <span class="c1"># 10</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Trend&#39;</span><span class="p">),</span> <span class="c1"># 11</span>
-            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>                             <span class="c1"># 12</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;トレンドの傾き：</span><span class="si">{</span><span class="n">bhat</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>  <span class="c1"># 13</span>
-                 <span class="sa">f</span><span class="s1">&#39;p値：</span><span class="si">{</span><span class="n">pval</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>   <span class="c1"># 14</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;資本ストック対GDP比（対数）&#39;</span><span class="p">,</span>   <span class="c1"># 15</span>
-                  <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>                     <span class="c1"># 16</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>           <span class="c1"># 17</span>
+    fig, ax = plt.subplots(tight_layout=True)  # 8
+    ax.scatter(var, &#39;ky_ratio&#39;, data=df_temp)  # 9
+    ax.plot(var, &#39;Trend&#39;,                      # 10
+            data=df_temp.sort_values(&#39;Trend&#39;), # 11
+            c=&#39;r&#39;)                             # 12
+    ax.set_title(f&#39;トレンドの傾き：{bhat:.2f}\n&#39;  # 13
+                 f&#39;p値：{pval:.3f}&#39;, size=20)   # 14
+    ax.set_ylabel(&#39;資本ストック対GDP比（対数）&#39;,   # 15
+                  size=15)                     # 16
+    ax.set_xlabel(f&#39;{var}&#39;, size=20)           # 17
 </pre></div>
 </div>
 </div>

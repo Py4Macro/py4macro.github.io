@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
+<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
 <div class="header header-item noprint"></div>
 
     
@@ -562,10 +562,10 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">py4macro</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
+import numpy as np
+import pandas as pd
+import py4macro
 </pre></div>
 </div>
 </div>
@@ -585,7 +585,7 @@ title="Print to PDF"
 <p>ここで<code class="docutils literal notranslate"><span class="pre">jpn</span></code>はJapan，<code class="docutils literal notranslate"><span class="pre">q</span></code>はquerterlyを表している。変数の定義を表示するには<code class="docutils literal notranslate"><span class="pre">description=True</span></code>の引数を追加する。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>py4macro.data(&#39;jpn-q&#39;, description=True)
 </pre></div>
 </div>
 </div>
@@ -641,7 +641,7 @@ title="Print to PDF"
     |   * 2020年の平均を100に基準化
     |
     | インフレ率
-    |   * 景気動向指数（速報、改訂値）（月次）から計算
+    |   * 景気動向指数（速報、改訂値）（月次）から四半期平均として計算
     |
     | 消費者物価指数
     |   * 2020年基準
@@ -662,8 +662,8 @@ title="Print to PDF"
 <p>まずデータを読み込んで最初の５行を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = py4macro.data(&#39;jpn-q&#39;)
+df.head()
 </pre></div>
 </div>
 </div>
@@ -819,7 +819,7 @@ title="Print to PDF"
 <p>列には変数が並んでいるのが確認できる。行はインデックスではなくラベルとなっており，年・四半期を示している。例えば，<code class="docutils literal notranslate"><span class="pre">1980-3-31</span></code>は1980年第１四半期であり，その最終日がラベルとして使われている。<code class="docutils literal notranslate"><span class="pre">.info()</span></code>を使って確認してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.info()
 </pre></div>
 </div>
 </div>
@@ -857,8 +857,8 @@ memory usage: 21.0 KB
 <p>まずGDPを図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp&#39;].plot(title=&#39;GDP&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -874,9 +874,9 @@ memory usage: 21.0 KB
 <p>上の図には2022年第1四半期以降のデータは含まれていない。参考に最新のデータを含む図を下にに表示する。</p>
 <div class="cell tag_thebe-init tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
-<span class="n">IFrame</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://fred.stlouisfed.org/graph/graph-landing.php?g=BOLN&amp;width=420&amp;height=320&#39;</span><span class="p">,</span>
-       <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">330</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from IPython.display import IFrame
+IFrame(src=&#39;https://fred.stlouisfed.org/graph/graph-landing.php?g=BOLN&amp;width=420&amp;height=320&#39;,
+       width=450, height=330)
 </pre></div>
 </div>
 </div>
@@ -916,10 +916,10 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>では実際にプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_log&#39;] = np.log(df[&#39;gdp&#39;])
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP（対数）&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+df[&#39;gdp_log&#39;].plot(title=&#39;GDP（対数）&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -932,12 +932,12 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(55)</a>を使い四半期成長率を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>   <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_growth_quarter&#39;] = 100*df[&#39;gdp_log&#39;].diff()   # 1
 
-<span class="c1"># 2</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>   <span class="c1"># 3</span>
-<span class="k">pass</span>
+# 2
+ax_ = df[&#39;gdp_growth_quarter&#39;].plot(title=&#39;GDP四半期成長率（％）&#39;)
+ax_.grid()   # 3
+pass
 </pre></div>
 </div>
 </div>
@@ -956,11 +956,11 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>新聞などで「前年同期比成長率」という表現をみたことがあると思うが，<code class="docutils literal notranslate"><span class="pre">diff()</span></code>の引数を<code class="docutils literal notranslate"><span class="pre">4</span></code>にすることにより，前年同期比の成長率を計算することができる。それを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_growth_annual&#39;] =  100*df[&#39;gdp_log&#39;].diff(4)
 
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="k">pass</span>
+ax_ = df[&#39;gdp_growth_annual&#39;].plot(title=&#39;GDP前年同期比成長率（％）&#39;)
+ax_.grid()
+pass
 </pre></div>
 </div>
 </div>
@@ -971,7 +971,7 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>上の図と比べると縦軸の幅の違いに気づくだろう。最高値と最小値を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_growth_annual&#39;].max(), df[&#39;gdp_growth_annual&#39;].min()
 </pre></div>
 </div>
 </div>
@@ -1003,17 +1003,17 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>GDPに対してそれぞれ構成要素は何％を占め，どのように推移したかを図示する為に，まず変数を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 消費の割合</span>
-<span class="n">con_gdp_ratio</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;consumption&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 消費の割合
+con_gdp_ratio = 100 * df[&#39;consumption&#39;] / df[&#39;gdp&#39;]
 
-<span class="c1"># 投資の割合</span>
-<span class="n">inv_gdp_ratio</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;investment&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
+# 投資の割合
+inv_gdp_ratio = 100 * df[&#39;investment&#39;] / df[&#39;gdp&#39;]
 
-<span class="c1"># 政府支出の割合</span>
-<span class="n">gov_gdp_ratio</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;government&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
+# 政府支出の割合
+gov_gdp_ratio = 100 * df[&#39;government&#39;] / df[&#39;gdp&#39;]
 
-<span class="c1"># 純輸出の割合</span>
-<span class="n">net_exp_gdp_ratio</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;exports&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;imports&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
+# 純輸出の割合
+net_exp_gdp_ratio = 100 * ( df[&#39;exports&#39;]-df[&#39;imports&#39;] ) / df[&#39;gdp&#39;]
 </pre></div>
 </div>
 </div>
@@ -1021,16 +1021,16 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>それぞれの平均を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算し表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span><span class="n">inv_gdp_ratio</span><span class="p">,</span>
-              <span class="n">gov_gdp_ratio</span><span class="p">,</span><span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ratio_list = [con_gdp_ratio,inv_gdp_ratio,
+              gov_gdp_ratio,net_exp_gdp_ratio]
 
-<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span><span class="s1">&#39;Investment&#39;</span><span class="p">,</span><span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span><span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
+label_list = [&#39;Consumption&#39;,&#39;Investment&#39;,&#39;Gov Exp&#39;,&#39;Net Exports&#39;]
 
-<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
+for r, l in zip(ratio_list, label_list):
     
-    <span class="n">avr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    avr = r.mean()
     
-    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">avr</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    print(l, f&#39;\t{avr:.1f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -1047,9 +1047,9 @@ Net Exports 	-1.1
 <p>次に推移を確認する。同じように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使うと簡単に表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span><span class="n">label_list</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for r, l in zip(ratio_list,label_list):
     
-    <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    r.plot(label=l, legend=True)
 </pre></div>
 </div>
 </div>
@@ -1093,103 +1093,103 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 <p><span class="math notranslate nohighlight">\(Y_t^{\text{trend}}\)</span>は長期的な傾向を表し，GDPであれば経済成長を捉えている。また，トレンドが右上がりでないものありえる。例えば，失業率の場合，自然失業率が一定であればトレンドはないということになる。一方，<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>は短期的な景気循環を捉えている。内閣府は景気循環を「山」と「谷」の２つに分けて<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/hiduke.html">景気基準日付</a>を発表している。トレンドを上回っている期間を「山」，下回っている期間を「谷」と考えて良いだろう。図示すると次のようになる。</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trend_cycle</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def trend_cycle():
     
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.lines</span> <span class="k">as</span> <span class="nn">mlines</span>
+    import matplotlib.pyplot as plt
+    import matplotlib.lines as mlines
     
-    <span class="c1"># フォントのサイズ</span>
-    <span class="n">font_largest</span><span class="o">=</span><span class="mi">30</span>
-    <span class="n">font_large</span><span class="o">=</span><span class="mi">20</span>
+    # フォントのサイズ
+    font_largest=30
+    font_large=20
 
-    <span class="c1"># GDPのプロット</span>
-    <span class="n">xlow</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">xhigh</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xlow</span><span class="p">,</span> <span class="n">xhigh</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+    # GDPのプロット
+    xlow = 0
+    xhigh = 3*np.pi
+    x = np.arange(xlow, xhigh, 0.1)
 
-    <span class="k">def</span> <span class="nf">yfunc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mf">0.1</span><span class="o">*</span><span class="n">x</span>
+    def yfunc(x):
+        return np.cos(x+np.pi/2)+0.1*x
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
+    fig, ax = plt.subplots(figsize=(10,5))
+    ax.plot(x, yfunc(x), linewidth=7, label=&#39;GDP&#39;)
 
-    <span class="c1"># トレンド線のプロット</span>
-    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlow</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">xhigh</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    # トレンド線のプロット
+    xx = np.linspace(xlow-1., xhigh+1)
 
-    <span class="k">def</span> <span class="nf">trend_line</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span> <span class="n">yfunc</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">-</span><span class="n">yfunc</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">yfunc</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    def trend_line(x):
+        return ( yfunc(3*np.pi)-yfunc(0) )/(3*np.pi) * (x-0)+yfunc(0)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">trend_line</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span>
+    ax.plot(xx, trend_line(xx), lw=4, color=&#39;orange&#39;, label=&#39;トレンド&#39;)
 
-    <span class="c1"># 縦点線のプロット</span>
-    <span class="n">ylow</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.68</span>
+    # 縦点線のプロット
+    ylow = -1.68
     
-    <span class="n">tani0</span> <span class="o">=</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">ylow</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)],</span>  <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-    <span class="n">yama</span> <span class="o">=</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">ylow</span><span class="o">+</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)],</span>  <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-    <span class="n">tani1</span> <span class="o">=</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">ylow</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">)],</span>  <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    tani0 = mlines.Line2D([np.pi/2, np.pi/2], [ylow, yfunc(np.pi/2)],  linestyle=&#39;--&#39;)
+    yama = mlines.Line2D([np.pi*3/2, np.pi*3/2], [ylow+0.4, yfunc(np.pi*3/2)],  linestyle=&#39;--&#39;)
+    tani1 = mlines.Line2D([np.pi*5/2, np.pi*5/2], [ylow, yfunc(np.pi*5/2)],  linestyle=&#39;--&#39;)
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">tani0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">yama</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">tani1</span><span class="p">)</span>
+    ax.add_line(tani0)
+    ax.add_line(yama)
+    ax.add_line(tani1)
 
-    <span class="c1"># 矢印のプロット（拡張と後退）</span>
-    <span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                 <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                 <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    # 矢印のプロット（拡張と後退）
+    for dx in [np.pi/2, -np.pi/2]:
+        ax.arrow(x=np.pi, y=-1.2, dx=dx, dy=0,
+                 width=0.01, head_width=0.1,head_length=0.2,
+                 length_includes_head=True,color=&#39;k&#39;)
 
-    <span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                 <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                 <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    for dx in [np.pi/2, -np.pi/2]:
+        ax.arrow(x=2*np.pi, y=-1.2, dx=dx, dy=0,
+                 width=0.01, head_width=0.1,head_length=0.2,
+                 length_includes_head=True,color=&#39;k&#39;)
 
-    <span class="c1"># 矢印のプロット（全循環）</span>
-    <span class="n">start_arrow_shift</span> <span class="o">=</span> <span class="mf">0.8</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">start_arrow_shift</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">1.5</span><span class="p">,</span>
-             <span class="n">dx</span><span class="o">=-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">start_arrow_shift</span><span class="p">),</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-             <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-             <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">start_arrow_shift</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">1.5</span><span class="p">,</span>
-             <span class="n">dx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">start_arrow_shift</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-             <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-             <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    # 矢印のプロット（全循環）
+    start_arrow_shift = 0.8
+    ax.arrow(x=np.pi*3/2-start_arrow_shift, y=-1.5,
+             dx=-(np.pi-start_arrow_shift), dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color=&#39;k&#39;)
+    ax.arrow(x=np.pi*3/2+start_arrow_shift, y=-1.5,
+             dx=np.pi-start_arrow_shift, dy=0,
+             width=0.01, head_width=0.1,head_length=0.2,
+             length_includes_head=True,color=&#39;k&#39;)
 
-    <span class="c1"># 注釈の挿入</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">xshift</span> <span class="o">=</span> <span class="mf">0.33</span>
-    <span class="n">yshift</span> <span class="o">=</span> <span class="mf">0.2</span>
+    # 注釈の挿入
+    x0 = np.pi/2
+    x1 = np.pi*3/2
+    x2 = np.pi*5/2
+    xshift = 0.33
+    yshift = 0.2
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;谷&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span><span class="n">yshift</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;山&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="n">yshift</span><span class="p">),</span> <span class="n">annotation_clip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;谷&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yfunc</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span><span class="n">yshift</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">font_largest</span><span class="p">)</span>
+    ax.annotate(&#39;谷&#39;, xy=(x0-xshift, yfunc(x0)+yshift),size=font_largest)
+    ax.annotate(&#39;山&#39;, xy=(x1-xshift, yfunc(x1)+yshift), annotation_clip=False, size=font_largest)
+    ax.annotate(&#39;谷&#39;, xy=(x2-xshift, yfunc(x2)+yshift),size=font_largest)
 
-<span class="c1">#     ax.annotate(&#39;好況&#39;, xy=(xlow-1.1,0.2), annotation_clip=False, size=font_large, color=&#39;green&#39;)</span>
-<span class="c1">#     ax.annotate(&#39;不況&#39;, xy=(xlow-1.1,-0.5), annotation_clip=False, size=font_large, color=&#39;red&#39;)</span>
-<span class="c1">#     ax.annotate(&#39;好況&#39;, xy=(xhigh+0.3,1.25), annotation_clip=False, size=font_large, color=&#39;green&#39;)</span>
-<span class="c1">#     ax.annotate(&#39;不況&#39;, xy=(xhigh+0.3,0.55), annotation_clip=False, size=font_large, color=&#39;red&#39;)</span>
+#     ax.annotate(&#39;好況&#39;, xy=(xlow-1.1,0.2), annotation_clip=False, size=font_large, color=&#39;green&#39;)
+#     ax.annotate(&#39;不況&#39;, xy=(xlow-1.1,-0.5), annotation_clip=False, size=font_large, color=&#39;red&#39;)
+#     ax.annotate(&#39;好況&#39;, xy=(xhigh+0.3,1.25), annotation_clip=False, size=font_large, color=&#39;green&#39;)
+#     ax.annotate(&#39;不況&#39;, xy=(xhigh+0.3,0.55), annotation_clip=False, size=font_large, color=&#39;red&#39;)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;拡張&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="o">-</span><span class="mf">1.05</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;後退&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.05</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;全循環&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.65</span><span class="p">,</span><span class="o">-</span><span class="mf">1.6</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">)</span>
+    ax.annotate(&#39;拡張&#39;, xy=(np.pi-0.2,-1.05), size=font_large, color=&#39;green&#39;)
+    ax.annotate(&#39;後退&#39;, xy=(2*np.pi-0.5,-1.05), size=font_large, color=&#39;red&#39;)
+    ax.annotate(&#39;全循環&#39;, xy=(np.pi*3/2-0.65,-1.6), size=font_large)
 
-    <span class="c1"># 横軸のラベル，凡例を追加，縦軸の表示範囲の設定</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;時間&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">font_large</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="mf">2.3</span><span class="p">)</span>
+    # 横軸のラベル，凡例を追加，縦軸の表示範囲の設定
+    ax.set_xlabel(&#39;時間&#39;, size=font_large)
+    ax.legend(loc=&#39;upper left&#39;, fontsize=20)
+    ax.set_ylim(ymax=2.3)
 
-    <span class="c1"># 縦軸・横軸のラベルと目盛の削除</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    # 縦軸・横軸のラベルと目盛の削除
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.set_xticks([])
+    ax.set_yticks([])
 
-    <span class="c1"># 枠を削除</span>
-    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    # 枠を削除
+    for s in [&#39;top&#39;, &#39;right&#39;, &#39;left&#39;,&#39;bottom&#39;]:
+        ax.spines[s].set_visible(False)
 
-<span class="n">trend_cycle</span><span class="p">()</span>
+trend_cycle()
 </pre></div>
 </div>
 </div>
@@ -1226,7 +1226,7 @@ y_t^{\text{cycle}}\approx\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
 <p>ここまでの説明から，景気循環を捉える項<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数の値とトレンドとの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決めるかが重要なポイントとなる。ここでは，内閣府や日本銀行の複雑な手法ではなく，マクロ経済学研究でスタンダードなツールとなっている<a class="reference external" href="https://www.google.co.jp/search?q=Hodrick%E2%80%93Prescott%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC">Hodrick–Prescottフィルター</a>と呼ばれる手法を使うことにする。詳細についての説明は控え，単に<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる関数<code class="docutils literal notranslate"><span class="pre">trend</span></code>を使ってトレンド抽出を行うことにする。使い方は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(py4macro.trend)
 </pre></div>
 </div>
 </div>
@@ -1255,21 +1255,21 @@ trend(s, lamb=1600)
 <p>まず次の変数の対数化した変数とそのトレンドを計算し<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;consumption&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;investment&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;government&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;exports&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;imports&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_list = [&#39;gdp&#39;,
+            &#39;consumption&#39;,
+            &#39;investment&#39;,
+            &#39;government&#39;,
+            &#39;exports&#39;,
+            &#39;imports&#39;]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#1</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for v in var_list:
+    df[v+&#39;_log&#39;] = np.log( df.loc[:,v] )  #1
+    df[v+&#39;_log_trend&#39;] = py4macro.trend( df.loc[:,v+&#39;_log&#39;] )  #2
 </pre></div>
 </div>
 </div>
@@ -1284,7 +1284,7 @@ trend(s, lamb=1600)
 <p><code class="docutils literal notranslate"><span class="pre">df</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.columns</span></code>を使い，列ラベルを表示して確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.columns
 </pre></div>
 </div>
 </div>
@@ -1308,8 +1308,8 @@ trend(s, lamb=1600)
 <p>対数化したGDPの変数を作成しトレンドと重ねて図示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;gdp_log&#39;,&#39;gdp_log_trend&#39;]].plot()
+pass
 </pre></div>
 </div>
 </div>
@@ -1327,7 +1327,7 @@ trend(s, lamb=1600)
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_cycle&#39;] = 100 * ( df[&#39;gdp_log&#39;] - df[&#39;gdp_log_trend&#39;] )
 </pre></div>
 </div>
 </div>
@@ -1335,11 +1335,11 @@ trend(s, lamb=1600)
 <p><code class="docutils literal notranslate"><span class="pre">0</span></code>に横線を引いてプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>    <span class="c1"># 1</span>
-                           <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>               <span class="c1"># 2</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = df[&#39;gdp_cycle&#39;].plot(marker=&#39;.&#39;,    # 1
+                           linestyle=&#39;:&#39;,
+                           title=&#39;GDPのトレンドからの％乖離&#39;)
+ax_.axhline(0, color=&#39;red&#39;)               # 2
+pass
 </pre></div>
 </div>
 </div>
@@ -1389,7 +1389,7 @@ Y=x_t,\quad Z=x_{t-1}
 <p>式<a class="reference internal" href="#equation-eq-10-autocorrelation">(61)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>が用意されている。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_cycle&#39;].autocorr()
 </pre></div>
 </div>
 </div>
@@ -1408,8 +1408,8 @@ Y=x_t,\quad Z=x_{t-1}
 <p>次にGDPの構成要素について考えるが，まずトレンドからの乖離の変数を作成する（単位：％）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>   <span class="c1"># gdp以外の変数    </span>
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for v in var_list[1:]:   # gdp以外の変数    
+    df[v+&#39;_cycle&#39;] = 100 * ( df[v+&#39;_log&#39;] -df[v+&#39;_log_trend&#39;] ) 
 </pre></div>
 </div>
 </div>
@@ -1417,7 +1417,7 @@ Y=x_t,\quad Z=x_{t-1}
 <p>図示する変数のリスを作成するために，列ラベルを確認しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.columns
 </pre></div>
 </div>
 </div>
@@ -1439,10 +1439,10 @@ Y=x_t,\quad Z=x_{t-1}
 <p>列ラベルに<code class="docutils literal notranslate"><span class="pre">_cycle</span></code>がついている変数だけを選ぶために<code class="docutils literal notranslate"><span class="pre">cycle_list</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cycle_list = df.columns[-6:]   # 最後の6変数
 
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="k">pass</span>
+df.loc[:,cycle_list].plot(subplots=True, figsize=(8,10))
+pass
 </pre></div>
 </div>
 </div>
@@ -1462,9 +1462,9 @@ Y=x_t,\quad Z=x_{t-1}
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って自己相関係数を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
-    <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>           <span class="c1"># (1)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>     <span class="c1"># (2)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for v in cycle_list:
+    autocorr = df[v].autocorr()           # (1)
+    print(f&#39;{v:&lt;19}{autocorr:&gt;5.2f}&#39;)     # (2)
 </pre></div>
 </div>
 </div>
@@ -1509,11 +1509,11 @@ Z=\text{GDPの構成要素の変数}
 <p>式<a class="reference internal" href="#equation-eq-10-correlation">(62)</a>として式<a class="reference internal" href="#equation-eq-10-yz">(60)</a>を計算するが，<code class="docutils literal notranslate"><span class="pre">Series</span></code>にはそれを計算するメソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>が用意されている。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">------------------------&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;GDPの変動との相関係数\n------------------------&#39;)
 
-<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
-    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>                 <span class="c1"># 2</span>
+for v in cycle_list:
+    corr = df[[&#39;gdp_cycle&#39;, v]].corr().iloc[0,1]  # 1
+    print(f&#39;{v:&lt;19}{corr:&gt;5.2f}&#39;)                 # 2
 </pre></div>
 </div>
 </div>
@@ -1554,8 +1554,8 @@ imports_cycle       0.66
 <p>政府支出以外は全て相関係数は正の値であり，値も大きい。即ち，順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり，正の相関を確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.plot(&#39;gdp_cycle&#39;, &#39;investment_cycle&#39;, kind=&#39;scatter&#39;)
+pass
 </pre></div>
 </div>
 </div>
@@ -1566,17 +1566,17 @@ imports_cycle       0.66
 <p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために，<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;  GDPとの相関係数\n-----------------------&#39;)
 
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">):</span>
+for n in range(1,12):
     
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;government_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>     <span class="c1">#1</span>
+    df[&#39;gov_cycle_shift&#39;] = df[&#39;government_cycle&#39;].shift(-n)     #1
     
-    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    corr = df[[&#39;gdp_cycle&#39;, &#39;gov_cycle_shift&#39;]].corr().iloc[0,1]
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先の政府支出: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    print(f&#39;{n:&gt;3}期先の政府支出: {corr:&gt;6.3f}&#39;)
     
-    <span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span>                                    <span class="c1">#2</span>
+    del df[&#39;gov_cycle_shift&#39;]                                    #2
 </pre></div>
 </div>
 </div>
@@ -1612,9 +1612,9 @@ imports_cycle       0.66
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">var</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for v in cycle_list:
+    var = df[v].std() / df[&#39;gdp_cycle&#39;].std()
+    print(f&#39;{v:&lt;19}{var:&gt;5.2f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -1632,8 +1632,8 @@ imports_cycle       3.30
 <p>投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="k">pass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.loc[:,cycle_list[:3]].plot()
+pass
 </pre></div>
 </div>
 </div>
