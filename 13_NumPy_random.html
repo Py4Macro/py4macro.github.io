@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
+<div class="announcement header-item noprint"></div>
 <div class="header header-item noprint"></div>
 
     
@@ -708,11 +708,11 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
-import numpy as np
-import pandas as pd
-import py4macro
-import statsmodels.formula.api as sm
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">py4macro</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 </div>
 </div>
@@ -727,16 +727,16 @@ import statsmodels.formula.api as sm
 <p>では，なぜマクロ経済分析においてランダム変数が重要なツールとなっているのだろうか。この点を説明するために，まず<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>を使いGDPの変動をプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># データの読み込み
-df = py4macro.data(&#39;jpn-q&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># データの読み込み</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
 
-# トレンドからの乖離のデータの作成
-df[&#39;gdp_cycle&#39;] = np.log( df[&#39;gdp&#39;] ) - py4macro.trend( np.log(df[&#39;gdp&#39;]) )
+<span class="c1"># トレンドからの乖離のデータの作成</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
 
-# プロット
-ax = ( 100 * df[&#39;gdp_cycle&#39;] ).plot(title=&#39;GDPのトレンドからの乖離（％）&#39;)
-ax.axhline(0, c=&#39;red&#39;)
-pass
+<span class="c1"># プロット</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの乖離（％）&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -757,7 +757,7 @@ pass
 <p>ランダム変数の生成について説明する。ここでは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使いランダム変数を生成するが，<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールの中でまず最初に使う必要があるのが<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>関数である。以下では続くコードを分かりやすくするために<code class="docutils literal notranslate"><span class="pre">default_rng()</span></code>を変数<code class="docutils literal notranslate"><span class="pre">rng</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rng = np.random.default_rng()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -780,13 +780,13 @@ pass
 <p>ここで、<code class="docutils literal notranslate"><span class="pre">.normal()</span></code>は<code class="docutils literal notranslate"><span class="pre">rng</span></code>のメソッドである。例として、平均<code class="docutils literal notranslate"><span class="pre">5</span></code>，標準偏差<code class="docutils literal notranslate"><span class="pre">2</span></code>の標準正規分布から<code class="docutils literal notranslate"><span class="pre">10</span></code>のランダム変数を生成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rng.normal(5, 2, 10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.57296043, 4.14381407, 4.96803739, 1.32706506, 9.68361228,
-       2.91003069, 5.98380738, 3.4580973 , 5.60632965, 2.73576524])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.39717485, 6.31983083, 2.34819702, 5.32464878, 4.73015697,
+       5.41154903, 2.11016013, 6.19698168, 1.969406  , 6.02247562])
 </pre></div>
 </div>
 </div>
@@ -795,12 +795,12 @@ pass
 <p>標準正規分布から<code class="docutils literal notranslate"><span class="pre">5</span></code>のランダム変数を生成する場合は<code class="docutils literal notranslate"><span class="pre">loc</span></code>と<code class="docutils literal notranslate"><span class="pre">scale</span></code>を省略する。ただし２つ以上のランダム変数を生成する場合はキーワード引数<code class="docutils literal notranslate"><span class="pre">size=</span></code>が必ず必要となる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rng.normal(size=5)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.95172159, -0.04019997,  0.24075209,  0.90683872,  0.07181813])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.94538779,  1.33122112, -1.02600159,  0.05987364,  0.60184885])
 </pre></div>
 </div>
 </div>
@@ -808,18 +808,18 @@ pass
 <p>標準正規分布に従う100,000個のランダムを生成しヒストグラムをカーネル密度制定をプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ランダム変数のDatFrame
-df_norm = pd.DataFrame({&#39;標準正規分布&#39;:rng.normal(size=100_000)})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ランダム変数のDatFrame</span>
+<span class="n">df_norm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;標準正規分布&#39;</span><span class="p">:</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100_000</span><span class="p">)})</span>
 
-# ヒストグラム
-ax_ = df_norm.plot(kind=&#39;hist&#39;, bins=50, density=True)
+<span class="c1"># ヒストグラム</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df_norm</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# カーネル密度関数
-df_norm.plot(kind=&#39;density&#39;,ax=ax_)
+<span class="c1"># カーネル密度関数</span>
+<span class="n">df_norm</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 
-# 横軸の表示幅の設定
-ax_.set_xlim(-4,4)
-pass
+<span class="c1"># 横軸の表示幅の設定</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -841,13 +841,13 @@ pass
 <p><code class="docutils literal notranslate"><span class="pre">.uniform()</span></code>も<code class="docutils literal notranslate"><span class="pre">rng</span></code>のメソッドである。最小値<code class="docutils literal notranslate"><span class="pre">5</span></code>，最大値<code class="docutils literal notranslate"><span class="pre">30</span></code>の一様分布から<code class="docutils literal notranslate"><span class="pre">10</span></code>のランダム変数を生成してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rng.uniform(5, 30, 10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 8.14878488, 26.2168433 , 13.11737092, 16.35336156, 11.94616886,
-       16.14613447,  5.98738606,  7.65274101,  7.73413279,  7.51296735])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([14.21428219,  7.22438772,  7.68378548, 14.66789753, 28.4490696 ,
+        8.08767403,  6.7979853 ,  7.49741613, 13.1859789 , 23.32840843])
 </pre></div>
 </div>
 </div>
@@ -855,12 +855,12 @@ pass
 <p>最小値<code class="docutils literal notranslate"><span class="pre">0</span></code>，最大値<code class="docutils literal notranslate"><span class="pre">1</span></code>の一様分布から<code class="docutils literal notranslate"><span class="pre">5</span></code>のランダム変数を生成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rng.uniform(size=5)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.79691891, 0.64920486, 0.02402034, 0.25347862, 0.56495906])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43303291, 0.33514635, 0.9048912 , 0.84917425, 0.59266133])
 </pre></div>
 </div>
 </div>
@@ -868,18 +868,18 @@ pass
 <p><span class="math notranslate nohighlight">\([0,1]\)</span>の一様分布に従う100,000個のランダムを生成しヒストグラムをカーネル密度制定をプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ランダム変数のDatFrame
-df_uni = pd.DataFrame({&#39;一様分布&#39;:rng.uniform(size=100_000)})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ランダム変数のDatFrame</span>
+<span class="n">df_uni</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;一様分布&#39;</span><span class="p">:</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100_000</span><span class="p">)})</span>
 
-# ヒストグラム
-ax_ = df_uni.plot(kind=&#39;hist&#39;, bins=50, density=True)
+<span class="c1"># ヒストグラム</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df_uni</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# カーネル密度関数
-df_uni.plot(kind=&#39;density&#39;,ax=ax_)
+<span class="c1"># カーネル密度関数</span>
+<span class="n">df_uni</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 
-# 横軸の表示幅の設定
-ax_.set_xlim(-0.2,1.2)
-pass
+<span class="c1"># 横軸の表示幅の設定</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -928,14 +928,14 @@ pass
 <p>標準正規分布からのランダム変数を<code class="docutils literal notranslate"><span class="pre">n</span></code>個抽出しプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>n = 100
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
 
-vals = rng.normal(size=n)
+<span class="n">vals</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 
-df_wn = pd.DataFrame({&#39;White_Noise&#39;:vals})
+<span class="n">df_wn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;White_Noise&#39;</span><span class="p">:</span><span class="n">vals</span><span class="p">})</span>
 
-df_wn.plot(marker=&#39;.&#39;)
-pass
+<span class="n">df_wn</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -951,12 +951,12 @@ pass
 <p>平均と分散を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>vals.mean(), vals.var()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">vals</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.048915320028050616, 0.9175710814796968)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.004971168727036169, 0.9595942770324452)
 </pre></div>
 </div>
 </div>
@@ -965,8 +965,8 @@ pass
 <p>２つの特徴をを確認するために<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使ってヒストグラムを描いてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_wn.plot(kind=&#39;hist&#39;, bins=30)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_wn</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -981,8 +981,8 @@ pass
 <p>次に１期違いの自己共分散<span class="math notranslate nohighlight">\(\text{E}[\varepsilon_t \varepsilon_{t-1}]\)</span>を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>current = vals[:-1]   # 最後の要素を除外
-one_period_ahead = vals[1:]   # 0番目の要素を除外
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">current</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># 最後の要素を除外</span>
+<span class="n">one_period_ahead</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>   <span class="c1"># 0番目の要素を除外</span>
 </pre></div>
 </div>
 </div>
@@ -990,12 +990,12 @@ one_period_ahead = vals[1:]   # 0番目の要素を除外
 <p>この２つの変数を使って散布図を描いてみる。<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">plot()</span></code>で横軸・縦軸を指定し，引数<code class="docutils literal notranslate"><span class="pre">kind</span></code>で散布図を指定するだけである。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># DataFrameの作成
-df_wn2 = pd.DataFrame({&#39;current&#39;:current,&#39;one_period_ahead&#39;:one_period_ahead})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrameの作成</span>
+<span class="n">df_wn2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;current&#39;</span><span class="p">:</span><span class="n">current</span><span class="p">,</span><span class="s1">&#39;one_period_ahead&#39;</span><span class="p">:</span><span class="n">one_period_ahead</span><span class="p">})</span>
 
-# 散布図のプロット
-df_wn2.plot(x=&#39;current&#39;, y=&#39;one_period_ahead&#39;, kind=&#39;scatter&#39;)
-pass
+<span class="c1"># 散布図のプロット</span>
+<span class="n">df_wn2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;one_period_ahead&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1011,8 +1011,8 @@ pass
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.plotting.lag_plot(df_wn)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">lag_plot</span><span class="p">(</span><span class="n">df_wn</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1028,13 +1028,13 @@ pass
 <p>分散・自己共分散を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.cov(current, one_period_ahead)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">one_period_ahead</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.9330963 , 0.10601359],
-       [0.10601359, 0.93607937]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.97485698, -0.03916965],
+       [-0.03916965,  0.96457258]])
 </pre></div>
 </div>
 </div>
@@ -1043,12 +1043,12 @@ pass
 <p>次にメソッド<code class="docutils literal notranslate"><span class="pre">autocorr()</span></code>を使い<strong>自己相関係数</strong>を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_wn[&#39;White_Noise&#39;].autocorr()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_wn</span><span class="p">[</span><span class="s1">&#39;White_Noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11343366280585586
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.0403935283041553
 </pre></div>
 </div>
 </div>
@@ -1078,30 +1078,30 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <p>直感的にマクロ変数の特徴である持続性とは，前期の値が今期の値にどれだけ影響を持っているかを示す。<span class="math notranslate nohighlight">\(\rho\)</span>の値を変えて持続性の違いを視覚的に確認するための関数を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def ar1_model(rho, T=100):
-    &quot;&quot;&quot;引数：
-            rho: AR(1)の持続性を捉えるパラメータ
-            T:   シミュレーションの回数（デフォルト：0）
-       戻り値：
-            matplotlibの図を示す
-            自己相関係数の値を表示する&quot;&quot;&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ar1_model</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数：</span>
+<span class="sd">            rho: AR(1)の持続性を捉えるパラメータ</span>
+<span class="sd">            T:   シミュレーションの回数（デフォルト：0）</span>
+<span class="sd">       戻り値：</span>
+<span class="sd">            matplotlibの図を示す</span>
+<span class="sd">            自己相関係数の値を表示する&quot;&quot;&quot;</span>
     
-    y0 = 0                          # 1
-    y_list = [y0]                   # 2
-    y = y0                          # 3
+    <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>                          <span class="c1"># 1</span>
+    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                   <span class="c1"># 2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                          <span class="c1"># 3</span>
 
-    for t in range(1,T):            # 4
-        e = rng.normal()            # 5
-        y = rho*y + e               # 6
-        y_list.append(y)            # 7
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>            <span class="c1"># 4</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>            <span class="c1"># 5</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">rho</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">e</span>               <span class="c1"># 6</span>
+        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># 7</span>
 
-    df_ar1 = pd.Series(y_list)      # 8
+    <span class="n">df_ar1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_list</span><span class="p">)</span>      <span class="c1"># 8</span>
 
-    ac = df_ar1.autocorr()          # 9
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>          <span class="c1"># 9</span>
     
-    ax_ = df_ar1.plot(marker=&#39;.&#39;)   # 10
-    ax_.set_title(fr&#39;$\rho$={rho}　　自己相関係数：{ac:.3f}&#39;,size=20) # 11
-    ax_.axhline(0, c=&#39;red&#39;)         # 12
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>   <span class="c1"># 10</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\rho$=</span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s1">　　自己相関係数：</span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># 11</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>         <span class="c1"># 12</span>
 </pre></div>
 </div>
 </div>
@@ -1139,7 +1139,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ar1_model(0.1)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1150,7 +1150,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <p>この例では<span class="math notranslate nohighlight">\(\rho\)</span>の値が低いため，<span class="math notranslate nohighlight">\(y\)</span>は定常状態の0に直ぐに戻ろうとする力が強い。従って、前期の値の今期の値に対する影響力が小さいため、持続性が低い。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ar1_model(0.5)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1161,7 +1161,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <p><span class="math notranslate nohighlight">\(\rho\)</span>の値が高くなると、定常状態の<span class="math notranslate nohighlight">\(0\)</span>に戻ろうとする作用が弱くなり、持続性が強くなることがわかる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ar1_model(0.9)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1225,14 +1225,14 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>平均労働時間<code class="docutils literal notranslate"><span class="pre">hours</span></code>，就業者数<code class="docutils literal notranslate"><span class="pre">employed</span></code>，総労働時間<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>の特徴を考えてみる。まずサイクルを計算し，それぞれの変数を図示しよう。（対数化した就業者数のトレンドを計算するべきかもしれないが，ここでは対数を使わずに計算する。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;hours_trend&#39;] = py4macro.trend(df[&#39;hours&#39;])
-df[&#39;hours_cycle&#39;] = np.log( df[&#39;hours&#39;]/df[&#39;hours_trend&#39;] )
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-df[&#39;employed_trend&#39;] = py4macro.trend(df[&#39;employed&#39;])
-df[&#39;employed_cycle&#39;] = np.log( df[&#39;employed&#39;]/df[&#39;employed_trend&#39;] )
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-df[&#39;total_hours_trend&#39;] = py4macro.trend(df[&#39;total_hours&#39;])
-df[&#39;total_hours_cycle&#39;] = np.log( df[&#39;total_hours&#39;]/df[&#39;total_hours_trend&#39;] )
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1240,7 +1240,7 @@ df[&#39;total_hours_cycle&#39;] = np.log( df[&#39;total_hours&#39;]/df[&#39;tota
 <p>最初に，平均労働時間を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>py4macro.data(&#39;jpn-q&#39;,description=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1315,8 +1315,8 @@ df[&#39;total_hours_cycle&#39;] = np.log( df[&#39;total_hours&#39;]/df[&#39;tota
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;hours&#39;,&#39;hours_trend&#39;]].plot()
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;hours&#39;</span><span class="p">,</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1327,8 +1327,8 @@ pass
 <p>平均労働時間は長期的に減少傾向にある。2020年の平均が100に標準化しているので，1980年代には約25％長かったことを示している。次に，就業者数を図示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;employed&#39;,&#39;employed_trend&#39;]].plot()
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;employed&#39;</span><span class="p">,</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1339,8 +1339,8 @@ pass
 <p>一方，雇用者数は増加傾向にある。女性の労働市場参加率の増加や，雇用形態の変化（非正規など）の影響と考えられる。上の２つの変化を反映したのが総労働時間の変化である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;total_hours&#39;,&#39;total_hours_trend&#39;]].plot()
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">,</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1352,9 +1352,9 @@ pass
 <p>雇用と労働時間の変動（トレンドからの乖離率）を比べてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = df[[&#39;hours_cycle&#39;,&#39;employed_cycle&#39;]].plot()
-ax_.axhline(0, c=&#39;red&#39;, lw=0.5)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;hours_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;employed_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1370,14 +1370,14 @@ pass
 <p>自己相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cycle_list = [&#39;hours_cycle&#39;,&#39;employed_cycle&#39;,&#39;total_hours_cycle&#39;]
-var_list = [&#39;平均労働時間&#39;,&#39;就業者数&#39;,&#39;総労働時間&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hours_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;employed_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;total_hours_cycle&#39;</span><span class="p">]</span>
+<span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;平均労働時間&#39;</span><span class="p">,</span><span class="s1">&#39;就業者数&#39;</span><span class="p">,</span><span class="s1">&#39;総労働時間&#39;</span><span class="p">]</span>
 
-print(&#39;     自己相関係数\n----------------------&#39;)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     自己相関係数</span><span class="se">\n</span><span class="s1">----------------------&#39;</span><span class="p">)</span>
 
-for c, v in zip(cycle_list,var_list):
-    ac = df[c].autocorr()
-    print(f&#39;{v:&lt;5}\t{ac:.3f}&#39;)  # 1
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cycle_list</span><span class="p">,</span><span class="n">var_list</span><span class="p">):</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;5</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># 1</span>
 </pre></div>
 </div>
 </div>
@@ -1401,12 +1401,12 @@ for c, v in zip(cycle_list,var_list):
 <p>次に，GDPのトレンドからの乖離との相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;GDPサイクルとの相関係数&#39;)
-print(&#39;-------------------------&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GDPサイクルとの相関係数&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------&#39;</span><span class="p">)</span>
 
-for c, v in zip(cycle_list,var_list):
-    corr = df[[&#39;gdp_cycle&#39;,c]].corr().iloc[0,1]
-    print(f&#39;{v:&lt;9}\t{corr:.3f}&#39;)
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cycle_list</span><span class="p">,</span><span class="n">var_list</span><span class="p">):</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="n">c</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;9</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1427,26 +1427,26 @@ for c, v in zip(cycle_list,var_list):
 <p>TFPの水準，トレンド，変動（サイクル）を計算するが，資本の所得分配率を次のように仮定する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>a = 0.36
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.36</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 全要素生産性（対数）の計算
-df[&#39;tfp_log&#39;] = np.log( df[&#39;gdp&#39;]/( df[&#39;capital&#39;]**a * df[&#39;total_hours&#39;]**(1-a) ) )
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 全要素生産性（対数）の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
 
-# 全要素生産性のトレンド（対数）の計算
-df[&#39;tfp_log_trend&#39;] = py4macro.trend( df[&#39;tfp_log&#39;] )
+<span class="c1"># 全要素生産性のトレンド（対数）の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-# 全要素生産性のトレンドからの乖離率の計算
-df[&#39;tfp_cycle&#39;] = df[&#39;tfp_log&#39;] - df[&#39;tfp_log_trend&#39;]
+<span class="c1"># 全要素生産性のトレンドからの乖離率の計算</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span>
 
-# 全要素生産性とトレンドのプロット
-ax = df[[&#39;tfp_log&#39;,&#39;tfp_log_trend&#39;]].plot()
-ax.set_title(&#39;全要素生産性とトレンド（対数）&#39;, size=20)
-pass
+<span class="c1"># 全要素生産性とトレンドのプロット</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性とトレンド（対数）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1457,10 +1457,10 @@ pass
 <p>全要素生産性の変動をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = (100 * df[&#39;tfp_cycle&#39;]).plot()
-ax.axhline(0, c=&#39;red&#39;)
-ax.set_title(&#39;全要素生産性の変動（％）&#39;, size=20)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性の変動（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1471,7 +1471,7 @@ pass
 <p>この図から全要素生産性の変動は大きいことが分かる。変動の最小値と最大値を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;tfp_cycle&#39;].min(), df[&#39;tfp_cycle&#39;].max()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1485,9 +1485,9 @@ pass
 <p>GDPと一緒にプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = (100 * df[[&#39;gdp_cycle&#39;,&#39;tfp_cycle&#39;]]).plot()
-ax_.set_title(&#39;GDPとTFPの変動（％）&#39;,size=20)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPとTFPの変動（％）&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1498,7 +1498,7 @@ pass
 <p>同じ方向に動いているのが確認できる。GDPの変動との相関係数を計算してみると，非常に高いことがわかる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;gdp_cycle&#39;,&#39;tfp_cycle&#39;]].corr().iloc[0,1]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1511,7 +1511,7 @@ pass
 <p>以前の計算結果を使うと，この数字はGDPのどの構成要素よりも高いことが確認できる。次に，自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;tfp_cycle&#39;].autocorr()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1524,7 +1524,7 @@ pass
 <p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>程ではないが、強い持続性があることが確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;gdp_cycle&#39;].autocorr()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1542,7 +1542,7 @@ pass
 <p>全要素生産性を景気循環の要因として捉えるために，全要素生産性をAR(1)としてモデル化してみようというのがこの節の目的である。そのために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使い回帰分析をしてみよう。まず１期ずらした変数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;tfp_cycle_lag&#39;] = df[&#39;tfp_cycle&#39;].shift()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1553,7 +1553,7 @@ pass
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[[&#39;tfp_cycle&#39;,&#39;tfp_cycle_lag&#39;]].head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1618,9 +1618,9 @@ pass
 <p>列<code class="docutils literal notranslate"><span class="pre">tfp_cycle_lag</span></code>は列<code class="docutils literal notranslate"><span class="pre">tfp_cycle</span></code>を１期ずらしていることが確認できる。次に回帰分析をおこなう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>res_tfp = sm.ols(&#39;tfp_cycle ~ -1 + tfp_cycle_lag&#39;, data=df).fit()
-rho = res_tfp.params[0]
-rho
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_tfp</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;tfp_cycle ~ -1 + tfp_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">res_tfp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rho</span>
 </pre></div>
 </div>
 </div>
@@ -1637,8 +1637,8 @@ rho
 <p>自己相関係数と殆ど変わらない値である。２つの変数の散布図を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.plot(x=&#39;tfp_cycle_lag&#39;, y=&#39;tfp_cycle&#39;, kind=&#39;scatter&#39;)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_cycle_lag&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1649,8 +1649,8 @@ pass
 <p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sigma = res_tfp.resid.std()
-sigma
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="n">res_tfp</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">sigma</span>
 </pre></div>
 </div>
 </div>
@@ -1670,26 +1670,26 @@ sigma
 <p>初期値は0として<code class="docutils literal notranslate"><span class="pre">rho</span></code>と<code class="docutils literal notranslate"><span class="pre">sigma</span></code>を使ってAR(1)の値を計算してプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>T = 100        # 標本の大きさ
-A = 0          # 初期値
-A_list = [A]   # 値を格納するリスト
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">100</span>        <span class="c1"># 標本の大きさ</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>          <span class="c1"># 初期値</span>
+<span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">]</span>   <span class="c1"># 値を格納するリスト</span>
 
-for i in range(T):
-    e = np.random.normal(loc=0,scale=sigma)
-    A = rho*A+e
-    A_list.append(A)
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">rho</span><span class="o">*</span><span class="n">A</span><span class="o">+</span><span class="n">e</span>
+    <span class="n">A_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
-df_A = pd.Series(A_list)            # Seriesの作成
-ax_ = df_A.plot()                   # 図示
-ax_.axhline(0, c=&#39;red&#39;)             # 0の平行線
+<span class="n">df_A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>            <span class="c1"># Seriesの作成</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df_A</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>                   <span class="c1"># 図示</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>             <span class="c1"># 0の平行線</span>
 
-ac_tfp = df_A.autocorr()       # 自己相関係数の計算
-print(f&#39;自己相関係数：{ac_tfp:.3f}&#39;)
+<span class="n">ac_tfp</span> <span class="o">=</span> <span class="n">df_A</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>       <span class="c1"># 自己相関係数の計算</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;自己相関係数：</span><span class="si">{</span><span class="n">ac_tfp</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.532
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.460
 </pre></div>
 </div>
 <img alt="_images/13_NumPy_random_120_1.png" src="_images/13_NumPy_random_120_1.png" />
@@ -1767,9 +1767,9 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <p>まずGDP，資本，総労働時間の1980年と2019年の平均を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># cond = (df.index &gt;= df.inex)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cond = (df.index &gt;= df.inex)</span>
 
-df.index.year == df.index[-1].year
+<span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span>
 </pre></div>
 </div>
 </div>
@@ -1799,20 +1799,20 @@ df.index.year == df.index[-1].year
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_list = [&#39;gdp&#39;,&#39;capital&#39;,&#39;total_hours&#39;]       #1
-year_list = [df.index[0].year,df.index[-1].year] #2
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;capital&#39;</span><span class="p">,</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span>       <span class="c1">#1</span>
+<span class="n">year_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">]</span> <span class="c1">#2</span>
 
-gdp_dict = {}  #3
-K_dict = {}    #4
-H_dict = {}    #5
+<span class="n">gdp_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">#3</span>
+<span class="n">K_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1">#4</span>
+<span class="n">H_dict</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1">#5</span>
 
-for yr in year_list:                     #6
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>                     <span class="c1">#6</span>
     
-    cond = ( df.index.year == yr)        #7
-    mean = df.loc[cond, var_list].mean() #8
-    gdp_dict[yr] = mean[0]  #9
-    K_dict[yr] = mean[1]    #10
-    H_dict[yr] = mean[2]    #11
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">yr</span><span class="p">)</span>        <span class="c1">#7</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="n">var_list</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1">#8</span>
+    <span class="n">gdp_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">#9</span>
+    <span class="n">K_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1">#10</span>
+    <span class="n">H_dict</span><span class="p">[</span><span class="n">yr</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="c1">#11</span>
 </pre></div>
 </div>
 </div>
@@ -1841,7 +1841,7 @@ for yr in year_list:                     #6
 <p>このコードの結果を確認してみよう。例えば，</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdp_dict
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_dict</span>
 </pre></div>
 </div>
 </div>
@@ -1877,7 +1877,7 @@ for yr in year_list:                     #6
 <p>次に全要素生産性の平均四半期成長率を計算するために<code class="docutils literal notranslate"><span class="pre">df</span></code>の列名を確認しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.columns
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
@@ -1896,20 +1896,20 @@ for yr in year_list:                     #6
 <p><code class="docutils literal notranslate"><span class="pre">gdp</span></code>は0番目，<code class="docutils literal notranslate"><span class="pre">capital</span></code>は6番目，<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>は11番目の列にある。この情報をもとに次のように計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_idx = [0,6,11]         # 1
-df0 = df.iloc[0,var_idx]   # 2
-df1 = df.iloc[-1,var_idx]  # 3
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_idx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>         <span class="c1"># 1</span>
+<span class="n">df0</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">var_idx</span><span class="p">]</span>   <span class="c1"># 2</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">var_idx</span><span class="p">]</span>  <span class="c1"># 3</span>
 
-# 4
-B0 = df0[&#39;gdp&#39;]/( df0[&#39;capital&#39;]**a * df0[&#39;total_hours&#39;]**(1-a))
+<span class="c1"># 4</span>
+<span class="n">B0</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">df0</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
 
-# 5
-B1 = df1[&#39;gdp&#39;]/( df1[&#39;capital&#39;]**a * df1[&#39;total_hours&#39;]**(1-a))
+<span class="c1"># 5</span>
+<span class="n">B1</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
 
-no_quarters = len(df)      # 6
+<span class="n">no_quarters</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>      <span class="c1"># 6</span>
 
-g = (B1/B0)**(1/no_quarters)-1  # 7
-g
+<span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">B1</span><span class="o">/</span><span class="n">B0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">no_quarters</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 7</span>
+<span class="n">g</span>
 </pre></div>
 </div>
 </div>
@@ -1934,8 +1934,8 @@ g
 <p>次にGDPに対する投資の割合の平均を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>s = (df[&#39;investment&#39;]/df[&#39;gdp&#39;]).mean()
-s
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;investment&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">s</span>
 </pre></div>
 </div>
 </div>
@@ -1954,69 +1954,69 @@ s
 <p>シミュレーションのコードを関数としてまとめよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
-                     rho=rho,
-                     sigma=sigma,
-                     g=g,
-                     s=s,
-                     d=0.025,
-                     a=a,
-                     H=H_dict[1980],  # 1980年平均に固定
-                     K0=K_dict[1980],
-                     B0=B0):
-    &quot;&quot;&quot;引数：
-            T:     シミュレーションの回数
-            rho:   AR(1)のパラメータ
-            sigma: ホワイト・ノイズ分散
-            g:     TFPの平均四半期成長率
-            s:     貯蓄率
-            d:     資本減耗率
-            a:     生産関数のパラメータ（資本の所得割合）
-            H:     総労働時間
-       返り値
-            次の変数を含むDataFrame
-            GDP，消費，投資，資本ストック，全要素生産性の水準，トレンド，変動&quot;&quot;&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">stochastic_solow</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span>  <span class="c1"># 160=40*4 40年間の四半期の数</span>
+                     <span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span>
+                     <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                     <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span>
+                     <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
+                     <span class="n">d</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>
+                     <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
+                     <span class="n">H</span><span class="o">=</span><span class="n">H_dict</span><span class="p">[</span><span class="mi">1980</span><span class="p">],</span>  <span class="c1"># 1980年平均に固定</span>
+                     <span class="n">K0</span><span class="o">=</span><span class="n">K_dict</span><span class="p">[</span><span class="mi">1980</span><span class="p">],</span>
+                     <span class="n">B0</span><span class="o">=</span><span class="n">B0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数：</span>
+<span class="sd">            T:     シミュレーションの回数</span>
+<span class="sd">            rho:   AR(1)のパラメータ</span>
+<span class="sd">            sigma: ホワイト・ノイズ分散</span>
+<span class="sd">            g:     TFPの平均四半期成長率</span>
+<span class="sd">            s:     貯蓄率</span>
+<span class="sd">            d:     資本減耗率</span>
+<span class="sd">            a:     生産関数のパラメータ（資本の所得割合）</span>
+<span class="sd">            H:     総労働時間</span>
+<span class="sd">       返り値</span>
+<span class="sd">            次の変数を含むDataFrame</span>
+<span class="sd">            GDP，消費，投資，資本ストック，全要素生産性の水準，トレンド，変動&quot;&quot;&quot;</span>
     
-    # ========== A,B,Kの計算 ==========
-    # 計算結果を格納するリスト
-    A_list = [1]    # 1
-    B_list = [B0]   # 2
-    K_list = [K0]   # 3
+    <span class="c1"># ========== A,B,Kの計算 ==========</span>
+    <span class="c1"># 計算結果を格納するリスト</span>
+    <span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># 1</span>
+    <span class="n">B_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">B0</span><span class="p">]</span>   <span class="c1"># 2</span>
+    <span class="n">K_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">K0</span><span class="p">]</span>   <span class="c1"># 3</span>
 
-    # 初期値でありアップデート用変数
-    A = 1           # 4
-    B = B0          # 5
-    K = K0          # 6
+    <span class="c1"># 初期値でありアップデート用変数</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>           <span class="c1"># 4</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B0</span>          <span class="c1"># 5</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">K0</span>          <span class="c1"># 6</span>
 
-    # A,B,Kの時系列の計算
-    for t in range(1,T):
-        K = s * A*B * K**a *H**(1-a) + (1-d)*K  # 7
-        e = np.random.normal(0,scale=sigma)     # 8
-        A = A**rho * np.exp(e)                  # 9
-        B = B0*(1+g)**t                         # 10
+    <span class="c1"># A,B,Kの時系列の計算</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="o">*</span> <span class="n">K</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span><span class="n">H</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="n">K</span>  <span class="c1"># 7</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>     <span class="c1"># 8</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">**</span><span class="n">rho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>                  <span class="c1"># 9</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">B0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">g</span><span class="p">)</span><span class="o">**</span><span class="n">t</span>                         <span class="c1"># 10</span>
         
-        A_list.append(A)                        # 11
-        B_list.append(B)
-        K_list.append(K)
+        <span class="n">A_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>                        <span class="c1"># 11</span>
+        <span class="n">B_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+        <span class="n">K_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
     
-    # ========== DataFrameの作成 ==========
-    df_sim = pd.DataFrame({&#39;K&#39;:K_list,          # 12
-                           &#39;A&#39;:A_list,
-                           &#39;B&#39;:B_list})
+    <span class="c1"># ========== DataFrameの作成 ==========</span>
+    <span class="n">df_sim</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;K&#39;</span><span class="p">:</span><span class="n">K_list</span><span class="p">,</span>          <span class="c1"># 12</span>
+                           <span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="n">A_list</span><span class="p">,</span>
+                           <span class="s1">&#39;B&#39;</span><span class="p">:</span><span class="n">B_list</span><span class="p">})</span>
 
-    # ========== Y,C,Iの計算 ==========          # 13
-    df_sim[&#39;Y&#39;] = df_sim[&#39;A&#39;]*df_sim[&#39;B&#39;]*df_sim[&#39;K&#39;]**a * H**(1-a)
-    df_sim[&#39;C&#39;] = (1-s)*df_sim[&#39;Y&#39;]
-    df_sim[&#39;I&#39;] = s*df_sim[&#39;Y&#39;]
+    <span class="c1"># ========== Y,C,Iの計算 ==========          # 13</span>
+    <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span>
+    <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">*</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span>
     
-    # ========== トレンドとサイクルの計算 ==========
-    for v in [&#39;K&#39;,&#39;A&#39;,&#39;Y&#39;,&#39;C&#39;,&#39;I&#39;]:
-        # ---------- レンドの計算 ----------      # 14
-        df_sim[f&#39;{v}_log_trend&#39;] = py4macro.trend( np.log(df_sim[v]) )
-        # ---------- サイクルの計算 ----------    # 15
-        df_sim[f&#39;{v}の変動&#39;] = np.log( df_sim[v] ) - df_sim[f&#39;{v}_log_trend&#39;]
+    <span class="c1"># ========== トレンドとサイクルの計算 ==========</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">]:</span>
+        <span class="c1"># ---------- レンドの計算 ----------      # 14</span>
+        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">)</span>
+        <span class="c1"># ---------- サイクルの計算 ----------    # 15</span>
+        <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df_sim</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_log_trend&#39;</span><span class="p">]</span>
     
-    return df_sim
+    <span class="k">return</span> <span class="n">df_sim</span>
 </pre></div>
 </div>
 </div>
@@ -2055,8 +2055,8 @@ s
 <p>デフォルトの値でシミュレーションを行い、最初の5行を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_sim = stochastic_solow()
-df_sim.head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sim</span> <span class="o">=</span> <span class="n">stochastic_solow</span><span class="p">()</span>
+<span class="n">df_sim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2106,92 +2106,92 @@ df_sim.head()
       <td>272036.578508</td>
       <td>212794.379328</td>
       <td>59242.199180</td>
-      <td>13.691776</td>
-      <td>-0.038721</td>
-      <td>0.004762</td>
-      <td>-0.004762</td>
-      <td>12.532393</td>
-      <td>-0.018701</td>
-      <td>12.286783</td>
-      <td>-0.018701</td>
-      <td>11.008091</td>
-      <td>-0.018701</td>
+      <td>13.690770</td>
+      <td>-0.037715</td>
+      <td>-0.000141</td>
+      <td>0.000141</td>
+      <td>12.527128</td>
+      <td>-0.013437</td>
+      <td>12.281518</td>
+      <td>-0.013437</td>
+      <td>11.002826</td>
+      <td>-0.013437</td>
     </tr>
     <tr>
       <th>1</th>
       <td>8.880445e+05</td>
-      <td>0.995159</td>
+      <td>0.994360</td>
       <td>0.367155</td>
-      <td>275675.678776</td>
-      <td>215640.982116</td>
-      <td>60034.696660</td>
-      <td>13.725062</td>
-      <td>-0.028285</td>
-      <td>0.004600</td>
-      <td>-0.009453</td>
-      <td>12.546616</td>
-      <td>-0.019635</td>
-      <td>12.301005</td>
-      <td>-0.019635</td>
-      <td>11.022313</td>
-      <td>-0.019635</td>
+      <td>275454.537084</td>
+      <td>215467.999095</td>
+      <td>59986.537989</td>
+      <td>13.724000</td>
+      <td>-0.027223</td>
+      <td>0.000101</td>
+      <td>-0.005757</td>
+      <td>12.541735</td>
+      <td>-0.015557</td>
+      <td>12.296125</td>
+      <td>-0.015557</td>
+      <td>11.017433</td>
+      <td>-0.015557</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>9.258781e+05</td>
-      <td>1.020016</td>
+      <td>9.258299e+05</td>
+      <td>0.982197</td>
       <td>0.368038</td>
-      <td>287527.082490</td>
-      <td>224911.471075</td>
-      <td>62615.611415</td>
-      <td>13.758324</td>
-      <td>-0.019826</td>
-      <td>0.004435</td>
-      <td>0.015383</td>
-      <td>12.560826</td>
-      <td>0.008246</td>
-      <td>12.315216</td>
-      <td>0.008246</td>
-      <td>11.036524</td>
-      <td>0.008246</td>
+      <td>276861.387913</td>
+      <td>216568.475916</td>
+      <td>60292.911997</td>
+      <td>13.757207</td>
+      <td>-0.018762</td>
+      <td>0.000343</td>
+      <td>-0.018307</td>
+      <td>12.556333</td>
+      <td>-0.025061</td>
+      <td>12.310723</td>
+      <td>-0.025061</td>
+      <td>11.032031</td>
+      <td>-0.025061</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>9.653467e+05</td>
-      <td>0.996453</td>
+      <td>9.629771e+05</td>
+      <td>1.001629</td>
       <td>0.368923</td>
-      <td>285823.864503</td>
-      <td>223579.167837</td>
-      <td>62244.696666</td>
-      <td>13.791519</td>
-      <td>-0.011277</td>
-      <td>0.004258</td>
-      <td>-0.007811</td>
-      <td>12.575002</td>
-      <td>-0.011871</td>
-      <td>12.329391</td>
-      <td>-0.011871</td>
-      <td>11.050699</td>
-      <td>-0.011871</td>
+      <td>287054.376558</td>
+      <td>224541.707692</td>
+      <td>62512.668865</td>
+      <td>13.790350</td>
+      <td>-0.012566</td>
+      <td>0.000582</td>
+      <td>0.001046</td>
+      <td>12.570905</td>
+      <td>-0.003478</td>
+      <td>12.325295</td>
+      <td>-0.003478</td>
+      <td>11.046602</td>
+      <td>-0.003478</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.003458e+06</td>
-      <td>0.998538</td>
+      <td>1.001415e+06</td>
+      <td>1.004898</td>
       <td>0.369810</td>
-      <td>291140.433232</td>
-      <td>227737.931887</td>
-      <td>63402.501345</td>
-      <td>13.824594</td>
-      <td>-0.005632</td>
-      <td>0.004070</td>
-      <td>-0.005534</td>
-      <td>12.589122</td>
-      <td>-0.007561</td>
-      <td>12.343512</td>
-      <td>-0.007561</td>
-      <td>11.064820</td>
-      <td>-0.007561</td>
+      <td>292780.203380</td>
+      <td>229020.604507</td>
+      <td>63759.598874</td>
+      <td>13.823377</td>
+      <td>-0.006452</td>
+      <td>0.000803</td>
+      <td>0.004084</td>
+      <td>12.585416</td>
+      <td>0.001761</td>
+      <td>12.339806</td>
+      <td>0.001761</td>
+      <td>11.061114</td>
+      <td>0.001761</td>
     </tr>
   </tbody>
 </table>
@@ -2200,9 +2200,9 @@ df_sim.head()
 <p><span class="math notranslate nohighlight">\(Y\)</span>の水準とトレンドの図示（対数）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.log(df_sim[&#39;Y&#39;]).plot(title=&#39;シミュレーション：Yとトレンド（対数）&#39;)
-df_sim[&#39;Y_log_trend&#39;].plot()
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;シミュレーション：Yとトレンド（対数）&#39;</span><span class="p">)</span>
+<span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Y_log_trend&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -2214,9 +2214,9 @@ pass
 <p><span class="math notranslate nohighlight">\(Y\)</span>の変動（サイクル）の図示。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = ( 100 * df_sim[&#39;Yの変動&#39;] ).plot(title=&#39;シミュレーション：Yの変動（％）&#39;)
-ax_.axhline(0, c=&#39;red&#39;)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df_sim</span><span class="p">[</span><span class="s1">&#39;Yの変動&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;シミュレーション：Yの変動（％）&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -2231,24 +2231,24 @@ pass
 <p>それぞれの変数の自己相関係数を計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_list = [&#39;Y&#39;,&#39;C&#39;,&#39;I&#39;,&#39;K&#39;,&#39;A&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
 
-print(&#39;\n--- シミュレーション：変動の自己相関係数 ---\n&#39;)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- シミュレーション：変動の自己相関係数 ---</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-for v in var_list:
-    ac = df_sim[f&#39;{v}の変動&#39;].autocorr()
-    print(f&#39;{v}の変動： {ac:.3f}&#39;)
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動： </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.452
-Cの変動： 0.452
-Iの変動： 0.452
-Kの変動： 0.972
-Aの変動： 0.421
+Yの変動： 0.404
+Cの変動： 0.404
+Iの変動： 0.404
+Kの変動： 0.973
+Aの変動： 0.355
 </pre></div>
 </div>
 </div>
@@ -2256,7 +2256,7 @@ Aの変動： 0.421
 <p>まずシミュレーションを行う度にこれらの値は変化することに留意し結果を考えよう。ある程度の自己相関が発生しており，<span class="math notranslate nohighlight">\(A\)</span>の影響が反映されている。<span class="math notranslate nohighlight">\(Y\)</span>，<span class="math notranslate nohighlight">\(C\)</span>，<span class="math notranslate nohighlight">\(I\)</span>の値は同じなのは，<span class="math notranslate nohighlight">\(C\)</span>，<span class="math notranslate nohighlight">\(I\)</span>は<span class="math notranslate nohighlight">\(Y\)</span>の線形関数であるためであり，これらの３つの変数は<span class="math notranslate nohighlight">\(A\)</span>の変動と似た動きになっている。また<span class="math notranslate nohighlight">\(K\)</span>の値が大きいのは、ストック変数であるため変化に時間が掛かるためある。データ<code class="docutils literal notranslate"><span class="pre">df</span></code>に含まれる変数の自己相関係数と比べるために，まず消費，投資，資本の変動を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.columns
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
@@ -2274,10 +2274,10 @@ Aの変動： 0.421
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data_var_list = [&#39;consumption&#39;,&#39;investment&#39;,&#39;capital&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;consumption&#39;</span><span class="p">,</span><span class="s1">&#39;investment&#39;</span><span class="p">,</span><span class="s1">&#39;capital&#39;</span><span class="p">]</span>
 
-for v in data_var_list:
-    df[f&#39;{v}_cycle&#39;] = np.log( df[v]/py4macro.trend(df[v]) )
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data_var_list</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2285,18 +2285,18 @@ for v in data_var_list:
 <p>結果を示すために，<code class="docutils literal notranslate"><span class="pre">data_var_list</span></code>の最初と最後に<code class="docutils literal notranslate"><span class="pre">gdp</span></code>と<code class="docutils literal notranslate"><span class="pre">tfp</span></code>を追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data_var_list = [&#39;gdp&#39;]+data_var_list+[&#39;tfp&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">data_var_list</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;\n--- データ：変動の自己相関係数 ---\n&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- データ：変動の自己相関係数 ---</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-for v in data_var_list:
-    ac = df[f&#39;{v}_cycle&#39;].autocorr()
-    print(f&#39;{v:&gt;11}の変動： {ac:&gt;5.3f}&#39;)      # 1
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data_var_list</span><span class="p">:</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&gt;11</span><span class="si">}</span><span class="s1">の変動： </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">&gt;5.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>      <span class="c1"># 1</span>
 </pre></div>
 </div>
 </div>
@@ -2329,11 +2329,11 @@ consumptionの変動： 0.460
 <p>次に、<span class="math notranslate nohighlight">\(Y\)</span>との相関係数を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;\n--- シミュレーション：GDPとの相関係数 ---\n&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- シミュレーション：GDPとの相関係数 ---</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-for v in var_list[1:]:
-    cov = df_sim[[&#39;Yの変動&#39;,f&#39;{v}の変動&#39;]].corr().iloc[0,1]
-    print(f&#39;{v}の変動： {cov:.3f}&#39;)
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">df_sim</span><span class="p">[[</span><span class="s1">&#39;Yの変動&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動： </span><span class="si">{</span><span class="n">cov</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2342,8 +2342,8 @@ for v in var_list[1:]:
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： 0.245
-Aの変動： 0.980
+Kの変動： 0.281
+Aの変動： 0.981
 </pre></div>
 </div>
 </div>
@@ -2355,11 +2355,11 @@ Aの変動： 0.980
 <p>相関度をデータと比べてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;\n--- データ：GDPとの相関係数 ---\n&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- データ：GDPとの相関係数 ---</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-for v in data_var_list[1:]:
-    cor = df[[&#39;gdp_cycle&#39;,f&#39;{v}_cycle&#39;]].corr().iloc[0,1]
-    print(f&#39;{v:&gt;11}の変動：{cor:&gt;5.3f}&#39;)
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data_var_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">cor</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&gt;11</span><span class="si">}</span><span class="s1">の変動：</span><span class="si">{</span><span class="n">cor</span><span class="si">:</span><span class="s1">&gt;5.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

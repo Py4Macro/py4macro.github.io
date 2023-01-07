@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
+<div class="announcement header-item noprint"></div>
 <div class="header header-item noprint"></div>
 
     
@@ -508,12 +508,12 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import japanize_matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import py4macro
-import statsmodels.formula.api as sm
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">py4macro</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 </div>
 </div>
@@ -533,7 +533,7 @@ import statsmodels.formula.api as sm
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれるデータセット<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>を使うが，その中にある<code class="docutils literal notranslate"><span class="pre">gdp</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation</span></code>を使い両変数の関係を考える。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = py4macro.data(&#39;jpn-q&#39;).loc[:,[&#39;gdp&#39;,&#39;inflation&#39;]]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
@@ -545,12 +545,12 @@ import statsmodels.formula.api as sm
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;GDPの変動&#39;] = 100*np.log( df[&#39;gdp&#39;]/py4macro.trend(df[&#39;gdp&#39;]) )
-df[&#39;インフレ率の変動&#39;] = df[&#39;inflation&#39;] - py4macro.trend(df[&#39;inflation&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
 
-ax_ = df[[&#39;GDPの変動&#39;,&#39;インフレ率の変動&#39;]].plot()
-ax_.set_title(&#39;トレンドからの乖離（％）&#39;, size=20)
-pass
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;トレンドからの乖離（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -561,15 +561,15 @@ pass
 <p>この図は次の２つの点を示している。第一に，GDPとインフレ率の変動は循環的である。即ち，同じ方向に動く傾向にある。第二に，GDPの変動に後追いするようにインフレ率が動いている。この点をさらに探るためにGDPとラグがあるインフレ率の相関係数を計算してみよう。次のコードの<code class="docutils literal notranslate"><span class="pre">shift()</span></code>は以前も使ったが，変数を１期ずらすメソッドである。引数に負の整数を設定することにより先の期の変数を指定することができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;      GDPの変動との相関係数\n-------------------------------&#39;)
-for n in range(12):
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">-------------------------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
     
-    df_temp = df.copy()   # 1
+    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>   <span class="c1"># 1</span>
     
-    df_temp[&#39;インフレ率の変動_shift&#39;] = df_temp[&#39;インフレ率の変動&#39;].shift(-n)
-    corr = df_temp[[&#39;GDPの変動&#39;, &#39;インフレ率の変動_shift&#39;]].corr().iloc[0,1]
+    <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[</span><span class="s1">&#39;インフレ率の変動&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[[</span><span class="s1">&#39;GDPの変動&#39;</span><span class="p">,</span> <span class="s1">&#39;インフレ率の変動_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
     
-    print(f&#39;{n:&gt;3}期先のインフレ率の変動: {corr:&gt;6.3f}&#39;)
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先のインフレ率の変動: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -662,8 +662,8 @@ for n in range(12):
 <h3>データ<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex = py4macro.data(&#39;ex&#39;)
-df_ex.head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;ex&#39;</span><span class="p">)</span>
+<span class="n">df_ex</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -749,7 +749,7 @@ df_ex.head()
 <p>内容を確認しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>py4macro.data(&#39;ex&#39;,description=1)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;ex&#39;</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -779,7 +779,7 @@ df_ex.head()
 <p><code class="docutils literal notranslate"><span class="pre">.info()</span></code>を使うと行ラベルが時系列用になっていることが確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_ex.info()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -803,24 +803,24 @@ memory usage: 34.5 KB
 <p><code class="docutils literal notranslate"><span class="pre">real_ex_jpus_%change</span></code>と<code class="docutils literal notranslate"><span class="pre">real_ex_geus_%change</span></code>を使い1986年3月までのデータを並べてプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>col = df_ex.columns          # 1
-end_month = &#39;1986-03-01&#39;     # 2
-float_month = &#39;1973-02-01&#39;   # 3
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">columns</span>          <span class="c1"># 1</span>
+<span class="n">end_month</span> <span class="o">=</span> <span class="s1">&#39;1986-03-01&#39;</span>     <span class="c1"># 2</span>
+<span class="n">float_month</span> <span class="o">=</span> <span class="s1">&#39;1973-02-01&#39;</span>   <span class="c1"># 3</span>
 
-# 4
-ax = df_ex.loc[:end_month,[col[1],col[0]]] \
-          .plot(subplots=True, layout=(1,2),
-                figsize=(10,4),legend=False)
+<span class="c1"># 4</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_month</span><span class="p">,[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span> \
+          <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-# 5
-for i, c in enumerate([&#39;円&#39;,&#39;マルク&#39;]):
+<span class="c1"># 5</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>
     
-    # 6
-    ax[0,i].axvline(float_month, c=&#39;k&#39;, linestyle=&#39;--&#39;)
+    <span class="c1"># 6</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">float_month</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
     
-    # 7
-    ax[0,i].set_title(f&#39;{c}/＄実質為替レート変化率&#39;, size=18)
-pass
+    <span class="c1"># 7</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">/＄実質為替レート変化率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -878,17 +878,17 @@ pass
 <p>図にある黒の点線は固定相場制から変動相場制に移行した1973年2月を示している。点線の右側と左側では明らかに変動に違いがある。どの程度変動の大きさが異なるのかを調べるために、固定相場制（158ヶ月）と変動相場制（158ヶ月）での標準偏差を計算し、その<strong>比率</strong>を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ex_list = [col[1],col[0]]
-country_list = [&#39;Yen/$&#39;,&#39;Mark/$&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">country_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Yen/$&#39;</span><span class="p">,</span><span class="s1">&#39;Mark/$&#39;</span><span class="p">]</span>
 
-print(&#39;\n実質為替レート変動率の標準偏差\n-------------------------&#39;)
-for e, c in zip(ex_list, country_list):
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">実質為替レート変動率の標準偏差</span><span class="se">\n</span><span class="s1">-------------------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ex_list</span><span class="p">,</span> <span class="n">country_list</span><span class="p">):</span>
     
-    ex_before = df_ex.loc[:&#39;1973-01-01&#39;, e].std()
+    <span class="n">ex_before</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="s1">&#39;1973-01-01&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     
-    ex_after = df_ex.loc[&#39;1973-02-01&#39;:end_month, e].std()
+    <span class="n">ex_after</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1973-02-01&#39;</span><span class="p">:</span><span class="n">end_month</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     
-    print(f&#39;{c:&lt;8}{ex_after/ex_before:.2f}&#39;)
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}{</span><span class="n">ex_after</span><span class="o">/</span><span class="n">ex_before</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

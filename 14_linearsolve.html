@@ -87,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
-<div class="announcement header-item noprint"><p><a href='http://www.econ.kobe-u.ac.jp/topics/pdf/221212-2.pdf'>✴️<<font color='white'>特別講演「UCバークレー校における経済学とデータサイエンス教育」(2023年1月6日) ← クリック！✴️</font></a></p></div>
+<div class="announcement header-item noprint"></div>
 <div class="header header-item noprint"></div>
 
     
@@ -764,9 +764,9 @@ title="Print to PDF"
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import linearsolve as ls
-import numpy as np
-import pandas as pd
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">linearsolve</span> <span class="k">as</span> <span class="nn">ls</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -936,9 +936,9 @@ u_{t}\sim\mathcal{N}(0,\sigma^2)
 <p>パラメータは<span class="math notranslate nohighlight">\(\rho\)</span>と<span class="math notranslate nohighlight">\(\sigma\)</span>の２つだけである。パラメータの値を入れた<code class="docutils literal notranslate"><span class="pre">Series</span></code>を変数<code class="docutils literal notranslate"><span class="pre">parameter</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>parameters = pd.Series({&#39;rho&#39;:0.9,
-                        &#39;sigma&#39;:0.0078**2})
-parameters
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.9</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
+<span class="n">parameters</span>
 </pre></div>
 </div>
 </div>
@@ -963,7 +963,7 @@ dtype: float64
 <p>この例では，ショック項があるストック変数<code class="docutils literal notranslate"><span class="pre">A</span></code>のみとなる。また，リストの要素として含める変数名を<code class="docutils literal notranslate"><span class="pre">A</span></code>としても良いが，計算結果では<code class="docutils literal notranslate"><span class="pre">A</span></code>の対数線形近似の変数が返される。それを見越して，ここでは<code class="docutils literal notranslate"><span class="pre">a</span></code>を使うことにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_names = [&#39;a&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -971,7 +971,7 @@ dtype: float64
 <p>次に，外生的ショックを表す変数名のリストを作成するが，<code class="docutils literal notranslate"><span class="pre">var_names</span></code>と同じ順番に並べる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>shock_names = [&#39;u&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1000,16 +1000,16 @@ A_{t+1}=A_t,\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def equilibrium_equations(variables_forward, variables_current, parameters):
-    fwd = variables_forward        #1
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>        <span class="c1">#1</span>
     
-    cur = variables_current        #2
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>        <span class="c1">#2</span>
     
-    p = parameters                 #3
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>                 <span class="c1">#3</span>
 
-    tfp = cur[&#39;a&#39;]**p[&#39;rho&#39;]/fwd[&#39;a&#39;]-1   #4
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>   <span class="c1">#4</span>
     
-    return np.array([tfp])         #5
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">])</span>         <span class="c1">#5</span>
 </pre></div>
 </div>
 </div>
@@ -1068,12 +1068,12 @@ A_{t+1}=A_t,\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model = ls.model(equations = equilibrium_equations,
-                     n_states=1,
-                     n_exo_states=1,
-                     var_names=var_names,
-                     shock_names=shock_names,
-                     parameters = parameters)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                     <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1084,7 +1084,7 @@ A_{t+1}=A_t,\quad u_t=0
 <p>最初に定常状態の値を確認しよう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">compute_ss()</span></code>（<code class="docutils literal notranslate"><span class="pre">ss</span></code>は定常状態を指すsteady stateの略）を使うと自動で計算してくれる。その際，引数に計算の初期値をリストとして与える。<code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>が定常値を「計算する」という意味は，定常値を「探す」ということと等しい。その際，探す出発点となる値が「計算の初期値」である。この例では変数が１つなので<code class="docutils literal notranslate"><span class="pre">[1.1]</span></code>のようにする。複数ある場合は，ステップ２で設定した<code class="docutils literal notranslate"><span class="pre">var_names</span></code>の順番に合わせて初期値を並べる必要がある。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.compute_ss([1.1])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mf">1.1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1092,7 +1092,7 @@ A_{t+1}=A_t,\quad u_t=0
 <p>上のコードを評価すると，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.ss</span></code>という属性が<strong>追加</strong>され，計算結果は属性<code class="docutils literal notranslate"><span class="pre">.ss</span></code>でアクセスすることが可能である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.ss
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">ss</span>
 </pre></div>
 </div>
 </div>
@@ -1110,7 +1110,7 @@ dtype: float64
 <p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve()</span></code>というメソッドが用意されており，それを評価すると<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に対数線形近似の結果が追加される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.approximate_and_solve()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1118,7 +1118,7 @@ dtype: float64
 <p>対数線形近似の結果はメソッド<code class="docutils literal notranslate"><span class="pre">solved()</span></code>で表示することができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(tfp_model.solved())
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1201,7 +1201,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <p>まずメソッド<code class="docutils literal notranslate"><span class="pre">.impulse()</span></code>で計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.impulse(T=50, t0=5, percent=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1209,7 +1209,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <p>次に，属性<code class="docutils literal notranslate"><span class="pre">.irs</span></code>を使って辞書を抽出し，キー<code class="docutils literal notranslate"><span class="pre">u</span></code>を使って<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.irs[&#39;u&#39;].head(9)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1290,8 +1290,8 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <p>この<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>をプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.irs[&#39;u&#39;].plot(lw=3, alpha=0.5, grid=True)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1306,47 +1306,47 @@ pass
 <p>今までの説明では，それぞれのステップ毎にセル内でコードを書き実行した。しかし，一旦コードにエラーがないと確認できた後は，1つのセルにコードをまとめることを勧める。例えば，パラメーターの値を変えて様々なパターンの結果を確認したいとしよう。1つのセルにコードをまとめると１回のコードの実行で結果を表示できる便利さがある。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># パラメーターの値
-parameters = pd.Series({&#39;rho&#39;:0.9,
-                        &#39;sigma&#39;:0.0078**2})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.9</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
 
-# 変数のリスト
-var_names = [&#39;a&#39;]
-shock_names = [&#39;u&#39;]
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
-# 定常状態での均衡の関数
-def equilibrium_equations(variables_forward, variables_current, parameters):
-    fwd = variables_forward    
-    cur = variables_current
-    p = parameters
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>    
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
 
-    tfp = cur[&#39;a&#39;]**p[&#39;rho&#39;]/fwd[&#39;a&#39;]-1
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
     
-    return np.array([tfp])
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">])</span>
 
-# モデルの初期化
-tfp_model = ls.model(equations = equilibrium_equations,
-                     n_states=1,
-                     n_exo_states=1,
-                     var_names=var_names,
-                     shock_names=shock_names,
-                     parameters = parameters)
+<span class="c1"># モデルの初期化</span>
+<span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                     <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
-# 定常状態の計算
-tfp_model.compute_ss([1.1])
-ss = tfp_model.ss
-print(f&#39;定常値\n{ss.index[0]}: {ss[0]:.3f}\n&#39;)
+<span class="c1"># 定常状態の計算</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">ss</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常値</span><span class="se">\n</span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-# 対数線形近似
-tfp_model.approximate_and_solve()
-print(&#39;対数線形近似\n&#39;, tfp_model.solved().split(&#39;\n\n&#39;)[1], sep=&#39;&#39;)
+<span class="c1"># 対数線形近似</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-# インパルス反応の計算
-tfp_model.impulse(T=50, t0=5, percent=True)
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# プロット
-tfp_model.irs[&#39;u&#39;].plot(lw=3, alpha=0.5, grid=True)
-pass
+<span class="c1"># プロット</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1388,9 +1388,9 @@ a[t+1] = 0.9·a[t]+u[t+1]
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.stoch_sim(seed=12345, T=200,
-                    cov_mat=[[parameters[&#39;sigma&#39;]]],
-                    percent=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="n">cov_mat</span><span class="o">=</span><span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]]],</span>
+                    <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1398,7 +1398,7 @@ a[t+1] = 0.9·a[t]+u[t+1]
 <p>結果の一部を表示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.simulated.head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">simulated</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1458,8 +1458,8 @@ a[t+1] = 0.9·a[t]+u[t+1]
 <p>図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tfp_model.simulated.plot()
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">simulated</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1498,12 +1498,12 @@ K_{t+1} = sY_t + (1-d) K_t
 <p>４つパラメータの値を入れた<code class="docutils literal notranslate"><span class="pre">Series</span></code>を変数<code class="docutils literal notranslate"><span class="pre">parameter</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>parameters = pd.Series({&#39;alpha&#39;:0.36,
-                        &#39;s&#39;:0.1,
-                        &#39;d&#39;:0.07,
-                        &#39;rho&#39;:0.551,
-                        &#39;sigma&#39;:0.0078**2})
-parameters
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
+                        <span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.07</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
+<span class="n">parameters</span>
 </pre></div>
 </div>
 </div>
@@ -1531,7 +1531,7 @@ dtype: float64
 <p>また対数線形近似されることを念頭に小文字で変数名を設定することにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_names = [&#39;a&#39;,&#39;k&#39;,&#39;y&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1539,7 +1539,7 @@ dtype: float64
 <p>次に，外生的ショックを表す変数名のリストを作成する。複数ある場合は，<code class="docutils literal notranslate"><span class="pre">var_names</span></code>と同じ順番に並べる。この例では，<code class="docutils literal notranslate"><span class="pre">a</span></code>のみにショック項があるので次のようにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>shock_names = [&#39;u&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1568,22 +1568,22 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def equilibrium_equations(variables_forward, variables_current, parameters):
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     
-    fwd = variables_forward    #1
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>    <span class="c1">#1</span>
     
-    cur = variables_current    #2    
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>    <span class="c1">#2    </span>
     
-    p = parameters             #3
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>             <span class="c1">#3</span>
 
-    tfp = p[&#39;rho&#39;]*np.log(cur[&#39;a&#39;])-np.log(fwd[&#39;a&#39;])   #4
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>   <span class="c1">#4</span>
     
-    production_function = cur[&#39;a&#39;]*cur[&#39;k&#39;]**p[&#39;alpha&#39;] - cur[&#39;y&#39;]   #5
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>   <span class="c1">#5</span>
     
-    capital_change = p[&#39;s&#39;]*cur[&#39;a&#39;]*cur[&#39;k&#39;]**p[&#39;alpha&#39;] + \
-                     (1-p[&#39;d&#39;])*cur[&#39;k&#39;] - fwd[&#39;k&#39;]              #6
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>              <span class="c1">#6</span>
     
-    return np.array([tfp, production_function, capital_change])  #7
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">,</span> <span class="n">production_function</span><span class="p">,</span> <span class="n">capital_change</span><span class="p">])</span>  <span class="c1">#7</span>
 </pre></div>
 </div>
 </div>
@@ -1661,12 +1661,12 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model = ls.model(equations = equilibrium_equations,
-                       n_states=2,
-                       n_exo_states=1,
-                       var_names=var_names,
-                       shock_names=shock_names,
-                       parameters = parameters)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                       <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                       <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                       <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                       <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1677,7 +1677,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <p>最初に定常状態の値を確認しよう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">compute_ss()</span></code>を使うと自動で計算してくれる。その際，引数に計算の初期値をリストとして与える。ステップ２で設定した<code class="docutils literal notranslate"><span class="pre">var_names</span></code>の順番に合わせて初期値を並べる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.compute_ss([1,5,2])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1685,7 +1685,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <p>上のコードを評価すると，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.ss</span></code>という属性が追加され，それを使い計算結果を表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.ss
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span>
 </pre></div>
 </div>
 </div>
@@ -1704,14 +1704,14 @@ dtype: float64
 <p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve()</span></code>というメソッドが用意されており，それを評価すると<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>に対数線形近似の結果が追加される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.approximate_and_solve()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(solow_model.solved())
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1755,7 +1755,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.impulse(T=50, t0=5, percent=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1768,7 +1768,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p>辞書は属性<code class="docutils literal notranslate"><span class="pre">.irs</span></code>でアクセスできるので，キー<code class="docutils literal notranslate"><span class="pre">u</span></code>を使い<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.irs[&#39;u&#39;].head(9)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1869,8 +1869,8 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p>プロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.irs[&#39;u&#39;].plot(subplots=True, figsize=(6,8), grid=True)
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1885,60 +1885,60 @@ pass
 <p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># パラメーターの値
-parameters = pd.Series({&#39;alpha&#39;:0.36,
-                        &#39;s&#39;:0.1,
-                        &#39;d&#39;:0.07,
-                        &#39;rho&#39;:0.551,
-                        &#39;sigma&#39;:0.0078**2})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
+                        <span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.07</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
 
-# 変数のリスト
-var_names = [&#39;a&#39;,&#39;k&#39;,&#39;y&#39;]
-shock_names = [&#39;u&#39;]
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
-# 定常状態での均衡の関数
-def equilibrium_equations(variables_forward, variables_current, parameters):    
-    fwd = variables_forward
-    cur = variables_current
-    p = parameters
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>    
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
     
-    tfp = p[&#39;rho&#39;]*np.log(cur[&#39;a&#39;])-np.log(fwd[&#39;a&#39;])
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
     
-    production_function = cur[&#39;a&#39;]*cur[&#39;k&#39;]**p[&#39;alpha&#39;] - cur[&#39;y&#39;]
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
     
-    capital_change = p[&#39;s&#39;]*cur[&#39;a&#39;]*cur[&#39;k&#39;]**p[&#39;alpha&#39;] + \
-                     (1-p[&#39;d&#39;])*cur[&#39;k&#39;] - fwd[&#39;k&#39;]
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
     
-    return np.array([tfp, production_function, capital_change])
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tfp</span><span class="p">,</span> <span class="n">production_function</span><span class="p">,</span> <span class="n">capital_change</span><span class="p">])</span>
 
-# モデルの初期化
-solow_model = ls.model(equations = equilibrium_equations,
-                       n_states=2,
-                       n_exo_states=1,
-                       var_names=var_names,
-                       shock_names=shock_names,
-                       parameters = parameters)
+<span class="c1"># モデルの初期化</span>
+<span class="n">solow_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                       <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                       <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                       <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                       <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
-# 定常状態の計算
-solow_model.compute_ss([1,5,2])
-print(&#39;定常値&#39;)
-for i in range(len(solow_model.ss)):
-    print(f&#39;{solow_model.ss.index[i]}: {solow_model.ss[i]:.3f}&#39;)
-print(&#39;&#39;)
+<span class="c1"># 定常状態の計算</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-# 対数線形近似
-solow_model.approximate_and_solve()
-print(&#39;対数線形近似&#39;)
-for s in solow_model.solved().split(&#39;\n\n&#39;)[1:]:
-    print(s, sep=&#39;&#39;)
+<span class="c1"># 対数線形近似</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-# インパルス反応の計算
-solow_model.impulse(T=50, t0=5, percent=True)
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# プロット
-solow_model.irs[&#39;u&#39;].plot(subplots=True, layout=[2,2],
-                          figsize=(10,5), grid=True)
-pass
+<span class="c1"># プロット</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                          <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1982,9 +1982,9 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p>ショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>の分散の値は0.0078であり，これは日本のTFPを推定した際の残差の分散である。この値を使ってシミュレーションをおこなおう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.stoch_sim(seed=12345, T=200,
-                      cov_mat=[parameters[&#39;sigma&#39;]],
-                      percent=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                      <span class="n">cov_mat</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]],</span>
+                      <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1992,7 +1992,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p>結果の一部を表示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.simulated.head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2068,13 +2068,13 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax_ = solow_model.simulated[[&#39;a&#39;,&#39;u&#39;]].plot(subplots=True,
-                                            layout=(1,2),
-                                            grid=True,
-                                            figsize=(12,4),
-                                            color=&#39;k&#39;)
-solow_model.simulated[[&#39;k&#39;,&#39;y&#39;]].plot(grid=True, ax=ax_[0,0])
-pass
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                            <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+                                            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -2090,7 +2090,7 @@ pass
 <p>変動の大きさを確認するために標準偏差を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.simulated[[&#39;y&#39;,&#39;k&#39;,&#39;a&#39;]].std()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2106,7 +2106,7 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の値はは殆ど同じである。一方，<code class="docutils literal notranslate"><span class="pre">k</span></code>の標準偏差は小さく，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の半分以下である。この特徴は相関係数からも確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>solow_model.simulated[[&#39;y&#39;,&#39;k&#39;,&#39;a&#39;]].corr()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2161,11 +2161,11 @@ dtype: float64
 <p>次にpersistenceを考えてみよう。<code class="docutils literal notranslate"><span class="pre">k</span></code>の変動幅は小さいががpersistenceが大きいことが図から確認できる。実際に自己相関係数で確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_list = [&#39;y&#39;,&#39;k&#39;,&#39;a&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
 
-for v in var_list:
-    ac = solow_model.simulated[v].autocorr()
-    print(v,f&#39;: {ac:.3f}&#39;)
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;: </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
