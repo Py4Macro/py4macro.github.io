@@ -64,15 +64,13 @@ const thebe_selector_output = ".output, .cell_output"
 
     <!-- Google Analytics -->
     
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
 <script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-165998213-2', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-3FB0WMD39P');
+                </script>
 
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
@@ -180,13 +178,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_IS-MP-PC.html">
-   IS-MP-PCモデル
+  <a class="reference internal" href="18_ADAS.html">
+   景気循環の定量分析：ADASモデル
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13_NumPy_random.html">
-   ランダム変数と全要素生産性
+  <a class="reference internal" href="12_IS-MP-PC.html">
+   IS-MP-PCモデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -650,7 +648,7 @@ title="Print to PDF"
 <p>この政策変更は名目為替レートに関しての政策であり，実質的な要因の変化ではない。純粋に貨幣的な政策変更である。まず，この金融政策変更の効果を思考実験として考えるために，全ての財・サービスの価格は十分に伸縮的であり，瞬時に価格は調整され市場は常に精算する（需要と供給は常に等しい）と<strong>仮定</strong>しよう。この仮定のもとでは，古典派の二分法が成立し実質変数である相対価格と実質為替レートは技術や選好などの「実質的」な要因のみに依存することになり，貨幣的な政策変更の影響は受けないはずである。更に，ブレトンウッズ体制は崩壊の前後では実質的な要因の大きな変化は起きていないため，実質為替レートは大きく変化していないはずである。</p>
 <p>この事を念頭に，実質変数がどのように変化したかを考察する。特に，価格の水準ではなく<strong>変化</strong>に注目するために実質為替レートの変化率を考えることにする。式（RealEx）を時間微分すると次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-16-change-in-rex">
-<span class="eqno">(98)<a class="headerlink" href="#equation-eq-16-change-in-rex" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(121)<a class="headerlink" href="#equation-eq-16-change-in-rex" title="Permalink to this equation">#</a></span>\[
 \frac{\dot{\varepsilon}}{\varepsilon}=
 \frac{\dot{e}}{e}+
 \frac{\dot{P}_{\text{米}}}{P_{\text{米}}}-
@@ -825,7 +823,108 @@ memory usage: 34.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/16_data_on_money_29_0.png" src="_images/16_data_on_money_29_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="c1"># 5</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="c1"># 6</span>
+<span class="ne">---&gt; </span><span class="mi">14</span>     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">float_month</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="c1"># 7</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">/＄実質為替レート変化率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/axes/_axes.py:836,</span> in <span class="ni">Axes.axvline</span><span class="nt">(self, x, ymin, ymax, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">833</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xbound</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">835</span> <span class="c1"># Strip away the units for comparison with non-unitized bounds.</span>
+<span class="ne">--&gt; </span><span class="mi">836</span> <span class="n">xx</span><span class="p">,</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_unit_info</span><span class="p">([(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)],</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">837</span> <span class="n">scalex</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span> <span class="o">&lt;</span> <span class="n">xmin</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">xx</span> <span class="o">&gt;</span> <span class="n">xmax</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">839</span> <span class="n">trans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/axes/_base.py:2551,</span> in <span class="ni">_AxesBase._process_unit_info</span><span class="nt">(self, datasets, kwargs, convert)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2547</span>     <span class="c1"># Update from data if axis is already set but no unit is set yet.</span>
+<span class="g g-Whitespace">   </span><span class="mi">2548</span>     <span class="k">if</span> <span class="p">(</span><span class="n">axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+<span class="g g-Whitespace">   </span><span class="mi">2549</span>             <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+<span class="g g-Whitespace">   </span><span class="mi">2550</span>             <span class="ow">not</span> <span class="n">axis</span><span class="o">.</span><span class="n">_have_units_and_converter</span><span class="p">()):</span>
+<span class="ne">-&gt; </span><span class="mi">2551</span>         <span class="n">axis</span><span class="o">.</span><span class="n">update_units</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2552</span> <span class="k">for</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="n">axis_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">   </span><span class="mi">2553</span>     <span class="c1"># Return if no axis is set.</span>
+<span class="g g-Whitespace">   </span><span class="mi">2554</span>     <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/axis.py:1670,</span> in <span class="ni">Axis.update_units</span><span class="nt">(self, data)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="n">neednew</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="o">!=</span> <span class="n">converter</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="o">=</span> <span class="n">converter</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">default_units</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span> <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/category.py:105,</span> in <span class="ni">StrCategoryConverter.default_units</span><span class="nt">(data, axis)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span> <span class="c1"># the conversion call stack is default_units -&gt; axis_info -&gt; convert</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span> <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">105</span>     <span class="n">axis</span><span class="o">.</span><span class="n">set_units</span><span class="p">(</span><span class="n">UnitData</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">107</span>     <span class="n">axis</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/axis.py:1767,</span> in <span class="ni">Axis.set_units</span><span class="nt">(self, u)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1765</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="n">shared</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1766</span>     <span class="n">axis</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">u</span>
+<span class="ne">-&gt; </span><span class="mi">1767</span>     <span class="n">axis</span><span class="o">.</span><span class="n">_update_axisinfo</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1768</span>     <span class="n">axis</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">&#39;units&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1769</span>     <span class="n">axis</span><span class="o">.</span><span class="n">stale</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/axis.py:1687,</span> in <span class="ni">Axis._update_axisinfo</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1684</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1685</span>     <span class="k">return</span>
+<span class="ne">-&gt; </span><span class="mi">1687</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">axisinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1689</span> <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1690</span>     <span class="k">return</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/dates.py:1847,</span> in <span class="ni">DateConverter.axisinfo</span><span class="nt">(self, unit, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1839</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1840</span><span class="sd"> Return the `~matplotlib.units.AxisInfo` for *unit*.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1841</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1842</span><span class="sd"> *unit* is a `~datetime.tzinfo` instance or None.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1843</span><span class="sd"> The *axis* argument is required but not used.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1844</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1845</span> <span class="n">tz</span> <span class="o">=</span> <span class="n">unit</span>
+<span class="ne">-&gt; </span><span class="mi">1847</span> <span class="n">majloc</span> <span class="o">=</span> <span class="n">AutoDateLocator</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1848</span>                          <span class="n">interval_multiples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interval_multiples</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1849</span> <span class="n">majfmt</span> <span class="o">=</span> <span class="n">AutoDateFormatter</span><span class="p">(</span><span class="n">majloc</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1850</span> <span class="n">datemin</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/dates.py:1337,</span> in <span class="ni">AutoDateLocator.__init__</span><span class="nt">(self, tz, minticks, maxticks, interval_multiples)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1312</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minticks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">maxticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1313</span>              <span class="n">interval_multiples</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1314</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1315</span><span class="sd">     Parameters</span>
+<span class="g g-Whitespace">   </span><span class="mi">1316</span><span class="sd">     ----------</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span><span class="sd">         at 6 hour intervals.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1336</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1337</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_freq</span> <span class="o">=</span> <span class="n">YEARLY</span>
+<span class="g g-Whitespace">   </span><span class="mi">1339</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_freqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">YEARLY</span><span class="p">,</span> <span class="n">MONTHLY</span><span class="p">,</span> <span class="n">DAILY</span><span class="p">,</span> <span class="n">HOURLY</span><span class="p">,</span> <span class="n">MINUTELY</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1340</span>                    <span class="n">SECONDLY</span><span class="p">,</span> <span class="n">MICROSECONDLY</span><span class="p">]</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/dates.py:1136,</span> in <span class="ni">DateLocator.__init__</span><span class="nt">(self, tz)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1129</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1130</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1131</span><span class="sd">     Parameters</span>
+<span class="g g-Whitespace">   </span><span class="mi">1132</span><span class="sd">     ----------</span>
+<span class="g g-Whitespace">   </span><span class="mi">1133</span><span class="sd">     tz : str or `~datetime.tzinfo`, default: :rc:`timezone`</span>
+<span class="g g-Whitespace">   </span><span class="mi">1134</span><span class="sd">         Ticks timezone. If a string, *tz* is passed to `dateutil.tz`.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1135</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1136</span>     <span class="bp">self</span><span class="o">.</span><span class="n">tz</span> <span class="o">=</span> <span class="n">_get_tzinfo</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+
+<span class="nn">File ~/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/matplotlib/dates.py:234,</span> in <span class="ni">_get_tzinfo</span><span class="nt">(tz)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tz</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="k">return</span> <span class="n">tz</span>
+<span class="ne">--&gt; </span><span class="mi">234</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;tz must be string or tzinfo subclass.&quot;</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: tz must be string or tzinfo subclass.
+</pre></div>
+</div>
+<img alt="_images/16_data_on_money_29_1.png" src="_images/16_data_on_money_29_1.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -902,7 +1001,7 @@ Mark/$  3.82
 </div>
 </div>
 <p>実質為替レートの変動は3倍以上になっている。固定相場制から変動相場制への移行は貨幣的な政策変更であるが，実質変数である実質為替レートに大きな影響を与えているのである。従って，実質為替レートに依存する他の実質変数も影響を受けることになる。例えば，輸出入に対してのインパクトがあるだろうし，最終的には実質GDPへの影響につながっていく。古典派の二分法と貨幣の中立性が成立していないことを示唆する結果である。</p>
-<p>では，なぜ実質為替レートの変動は大きくなったのだろう。まず1973年2月までの固定相場制をの場合を考えてみよう。<span class="math notranslate nohighlight">\(\dot{e}=0\)</span>となるため式<a class="reference internal" href="#equation-eq-16-change-in-rex">(98)</a>は次式となる。</p>
+<p>では，なぜ実質為替レートの変動は大きくなったのだろう。まず1973年2月までの固定相場制をの場合を考えてみよう。<span class="math notranslate nohighlight">\(\dot{e}=0\)</span>となるため式<a class="reference internal" href="#equation-eq-16-change-in-rex">(121)</a>は次式となる。</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\dot{\varepsilon}}{\varepsilon}=
@@ -938,7 +1037,7 @@ Mark/$  3.82
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -976,7 +1075,7 @@ Mark/$  3.82
   
     By 春山 鉄源  Tetsugen HARUYAMA<br/>
   
-      &copy; Copyright 2022.<br/>
+      &copy; Copyright 2023.<br/>
 </p>
         </footer>
     </div>

@@ -64,15 +64,13 @@ const thebe_selector_output = ".output, .cell_output"
 
     <!-- Google Analytics -->
     
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
 <script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-165998213-2', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-3FB0WMD39P');
+                </script>
 
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
@@ -180,13 +178,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_IS-MP-PC.html">
-   IS-MP-PCモデル
+  <a class="reference internal" href="18_ADAS.html">
+   景気循環の定量分析：ADASモデル
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13_NumPy_random.html">
-   ランダム変数と全要素生産性
+  <a class="reference internal" href="12_IS-MP-PC.html">
+   IS-MP-PCモデル
   </a>
  </li>
  <li class="toctree-l1">
@@ -633,7 +631,7 @@ title="Print to PDF"
     |
     | 就業者数，失業者数，失業率
     |   * 総務省「労働力調査」
-    |   * 単位：万人
+    |   * 単位：万人，％
     |
     | 労働者一人当たり月平均労働時間
     |   * 厚生労働省「毎月勤労統計調査」
@@ -641,11 +639,12 @@ title="Print to PDF"
     |   * 2020年の平均を100に基準化
     |
     | インフレ率
-    |   * 景気動向指数（速報、改訂値）（月次）から四半期平均として計算
+    |   * 景気動向指数（速報，改訂値，月次，原数値の前年同月比）から四半期平均として計算
     |
     | 消費者物価指数
     |   * 2020年基準
-    |   * 「中分類指数（全国）＜時系列表＞【月次】」の四半期平均を計算
+    |   * 「中分類指数（全国）＜時系列表＞【月次】」の四半期平均として計算
+    |   * 簡便的に移動平均を使い季節調整を施している
     |
     | GDPデフレーター
     |   * 1994年Q1~2019年Q4
@@ -1197,7 +1196,7 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 <img alt="_images/10_Data_Fluctuation_39_0.png" src="_images/10_Data_Fluctuation_39_0.png" />
 </div>
 </div>
-<p>この図のトレンドは右上がりとなっているが，一定もしくは右下がりになる場合もありえる。この図から次のことが言える。好況・不況とは，GDPがトレンドを上回るか・下回るかの状態を表している。一方で，拡張・後退はGDPの変化を捉えている。また，このプロットは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/menu_di.html">景気動向指数</a>を含め様々なデータに基づき，「谷」と「山」の時期を確定している。</p>
+<p>この図のトレンドは右上がりとなっているが，一定もしくは右下がりになる場合もありえる。この図から，拡張・後退はGDPの変化を捉えていることが分かる。また，このプロットは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/menu_di.html">景気動向指数</a>を含め様々なデータに基づき，「谷」と「山」の時期を確定している。</p>
 <p>景気循環を考える上で重要な役割を果たすのがトレンドである。トレンドはどのように計算するのだろうか。実は，決まった計算方法があるわけではなく，いろいろな考え方がある。実際，内閣府と日本銀行は独自の方法でGDPトレンドを算出している。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www5.cao.go.jp/keizai3/getsurei/getsurei-index.html">内閣府のデータ</a></p>
@@ -1659,7 +1658,7 @@ imports_cycle       3.30
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1697,7 +1696,7 @@ imports_cycle       3.30
   
     By 春山 鉄源  Tetsugen HARUYAMA<br/>
   
-      &copy; Copyright 2022.<br/>
+      &copy; Copyright 2023.<br/>
 </p>
         </footer>
     </div>

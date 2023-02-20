@@ -56,23 +56,21 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://py4macro.github.io/12_IS-MP-PC.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ランダム変数と全要素生産性" href="13_NumPy_random.html" />
-    <link rel="prev" title="法則・曲線・増加率" href="11_Macro_Variables.html" />
+    <link rel="next" title="linearsolve" href="14_linearsolve.html" />
+    <link rel="prev" title="景気循環の定量分析：ADASモデル" href="18_ADAS.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
     
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
 <script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-165998213-2', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+                    gtag('config', 'G-3FB0WMD39P');
+                </script>
 
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
@@ -179,14 +177,14 @@ const thebe_selector_output = ".output, .cell_output"
    法則・曲線・増加率
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18_ADAS.html">
+   景気循環の定量分析：ADASモデル
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    IS-MP-PCモデル
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_NumPy_random.html">
-   ランダム変数と全要素生産性
   </a>
  </li>
  <li class="toctree-l1">
@@ -715,8 +713,8 @@ title="Print to PDF"
 </div>
 <section id="id1">
 <h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>この章では，ケインズ的なマクロ経済理論の流れをくむ動学的マクロ経済モデルを考える。ここではIS-MP-PCモデルと呼ぶことにする。中心となるメカニズムは価格粘着性だが，なぜ粘着性が発生するかは所与としてIS-MP-PCモデルの動学的な特徴を中心に議論する。典型的なAD-ASモデルが単純に動学的（時間の概念の明示的な導入）になったのではなく，根本的な違いが存在する。IS-MP-PCモデルの特徴としては次の点を挙げることができる。</p>
-<p>伝統的なIS-LMモデルではIS曲線が財市場の均衡を表し，LM曲線が貨幣市場の均衡を特徴付け、この２つの曲線から総需要曲線が導出される。本章は、この枠組みから離れより現実的なマクロ・モデルを考察することによりマクロ経済の短期的な均衡を考察することになる。LM曲線は中央銀行がマネー・ストックを調整し金融政策を実施すると仮定するが，現実的とは言えない。実際には，中央銀行は利子率を調整しインフレ率をコントロールする。それを捉えたのが，後述するテイラー・ルールであり，モデルの中ではMP曲線として表される。中央銀行によって設定された利子率に基づいて貨幣市場での均衡が成立し，マクロ変数（インフレ率や産出量）が決定されると考える方がより現実的である。</p>
+<p>この章では，ケインズ的なマクロ経済理論の流れをくむ動学的マクロ経済モデルを考える。ここではIS-MP-PCモデルと呼ぶことにする。中心となるメカニズムは価格粘着性だが，なぜ粘着性が発生するかは所与としてIS-MP-PCモデルの動学的な特徴を中心に議論する。<a class="reference internal" href="18_ADAS.html#chap-18-adas"><span class="std std-ref">前章で議論したADASモデル</span></a>とは根本的な違いが存在する。IS-MP-PCモデルの特徴としては次の点を挙げることができる。</p>
+<p>ADASモデルの総需要サイドはIS-LMモデルによってモデル化されている。IS曲線が財市場の均衡を表し，LM曲線が貨幣市場の均衡を特徴付け、この２つの曲線から総需要曲線が導出される。本章は、この枠組みから離れより現実的なマクロ・モデルを考察することによりマクロ経済の短期的な均衡を考察する。LM曲線は中央銀行がマネー・ストックを調整し金融政策を実施すると仮定するが，現実的とは言えない。実際には，中央銀行は利子率を調整しインフレ率をコントロールする。それを捉えたのが，後述するテイラー・ルールであり，モデルの中ではMP曲線として表される。中央銀行によって設定された利子率に基づいて貨幣市場での均衡が成立し，マクロ変数（インフレ率や産出量）が決定されると考える方がより現実的である。</p>
 <p>以下ではIS-MP-PCモデルを使い，政策変更を含む様々なショックの動学的な効果を検討する。あるショックが発生するとマクロ変数は少しずつ調整し，お互いに影響し合いつつ経済は長期均衡へと移行することになるが，その過程をシミュレーションを通して考える。特に，インパルス反応と呼ばれる手法を用いてショックのダイナミックな効果を明らかにする。更に，その効果は中央銀行の政策スタンスによって違ってくることも明らかにする。</p>
 <p>＜<strong>記号リスト</strong>＞</p>
 <ul class="simple">
@@ -742,7 +740,7 @@ title="Print to PDF"
 <p>IS-MP-PCモデルは次の５つの式で構成される。最終的には，２つの内生変数（インフレ率と産出量）が決定される２つの均衡式を導出することになる。</p>
 <p><strong>＜フィッシャー方程式＞</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-12-fisher">
-<span class="eqno">(68)<a class="headerlink" href="#equation-eq-12-fisher" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(92)<a class="headerlink" href="#equation-eq-12-fisher" title="Permalink to this equation">#</a></span>\[
 r_t = i_t-\text{E}_t\pi_{t+1}
 \]</div>
 <ul class="simple">
@@ -762,11 +760,11 @@ r_t = i_t-\text{E}_t\pi_{t+1}
 <li><p><span class="math notranslate nohighlight">\(\pi_{t+1}\)</span>が確定されていないため<span class="math notranslate nohighlight">\(t\)</span>期には分からない。</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(t\)</span>期に利子率<span class="math notranslate nohighlight">\(i_t\)</span>の社債を購入し，<span class="math notranslate nohighlight">\(t+1\)</span>期に<span class="math notranslate nohighlight">\(i_t\)</span>に基づいて利息が支払われるとすると，<span class="math notranslate nohighlight">\(t\)</span>期に評価する実質利子率はフィッシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(68)</a>で与えられる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>期に利子率<span class="math notranslate nohighlight">\(i_t\)</span>の社債を購入し，<span class="math notranslate nohighlight">\(t+1\)</span>期に<span class="math notranslate nohighlight">\(i_t\)</span>に基づいて利息が支払われるとすると，<span class="math notranslate nohighlight">\(t\)</span>期に評価する実質利子率はフィッシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(92)</a>で与えられる。</p></li>
 </ul>
 <p><strong>＜IS曲線＞</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-12-is">
-<span class="eqno">(69)<a class="headerlink" href="#equation-eq-12-is" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(93)<a class="headerlink" href="#equation-eq-12-is" title="Permalink to this equation">#</a></span>\[
 y_t=y^*-a(r_t-r^*)+u_t
 \]</div>
 <ul class="simple">
@@ -790,7 +788,7 @@ y_t=y^*-a(r_t-r^*)+u_t
 </ul>
 <p><strong>＜金融政策（MP）曲線＞</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-12-mp-simple">
-<span class="eqno">(70)<a class="headerlink" href="#equation-eq-12-mp-simple" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(94)<a class="headerlink" href="#equation-eq-12-mp-simple" title="Permalink to this equation">#</a></span>\[
 i_t=r^*+\pi_t+v_t
 \]</div>
 <ul class="simple">
@@ -806,7 +804,7 @@ i_t=r^*+\pi_t+v_t
 </ul>
 <p><strong>＜フィリップス曲線＞</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-12-pc">
-<span class="eqno">(71)<a class="headerlink" href="#equation-eq-12-pc" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(95)<a class="headerlink" href="#equation-eq-12-pc" title="Permalink to this equation">#</a></span>\[
 \pi_t=\text{E}_{t-1}\pi_t+b(y_t-y^*)+e_t
 \]</div>
 <ul class="simple">
@@ -826,7 +824,7 @@ i_t=r^*+\pi_t+v_t
 </ul>
 <p><strong>＜適応的期待＞</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-12-ae">
-<span class="eqno">(72)<a class="headerlink" href="#equation-eq-12-ae" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(96)<a class="headerlink" href="#equation-eq-12-ae" title="Permalink to this equation">#</a></span>\[
 \text{E}_t\pi_{t+1}=\pi_{t}
 \]</div>
 <ul class="simple">
@@ -836,41 +834,41 @@ i_t=r^*+\pi_t+v_t
 </section>
 <section id="id4">
 <h3>モデルの解<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
-<p>式<a class="reference internal" href="#equation-eq-12-fisher">(68)</a>、<a class="reference internal" href="#equation-eq-12-is">(69)</a>、<a class="reference internal" href="#equation-eq-12-mp-simple">(70)</a>、<a class="reference internal" href="#equation-eq-12-ae">(72)</a>を使うと次の式を導出できる。</p>
+<p>式<a class="reference internal" href="#equation-eq-12-fisher">(92)</a>、<a class="reference internal" href="#equation-eq-12-is">(93)</a>、<a class="reference internal" href="#equation-eq-12-mp-simple">(94)</a>、<a class="reference internal" href="#equation-eq-12-ae">(96)</a>を使うと次の式を導出できる。</p>
 <div class="math notranslate nohighlight">
 \[
 y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 \]</div>
-<p>名前から分かるように，IS曲線とMP曲線が重要なメカニズムとなる均衡式である。財・サービスの需要サイドの均衡を捉えているので，その役割を動学的総需要曲線（Dynamic Aggregate Demand curve）と理解して良いだろう。<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>とすると<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 9</span></a>の中で垂直となる。直感的には，実質利子率は自然利子率と等しくなり，ショック項が0であるかぎり産出が自然産出水準から乖離する要因がないためであり，総需要はインフレ率から独立になる。</p>
-<p>次に式<a class="reference internal" href="#equation-eq-12-ae">(72)</a>と<a class="reference internal" href="#equation-eq-12-pc">(71)</a>を使うと次式を得る。</p>
+<p>名前から分かるように，IS曲線とMP曲線が重要なメカニズムとなる均衡式である。財・サービスの需要サイドの均衡を捉えているので，その役割を動学的総需要曲線（Dynamic Aggregate Demand curve）と理解して良いだろう。<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>とすると<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>の中で垂直となる。直感的には，実質利子率は自然利子率と等しくなり，ショック項が0であるかぎり産出が自然産出水準から乖離する要因がないためであり，総需要はインフレ率から独立になる。</p>
+<p>次に式<a class="reference internal" href="#equation-eq-12-ae">(96)</a>と<a class="reference internal" href="#equation-eq-12-pc">(95)</a>を使うと次式を得る。</p>
 <div class="math notranslate nohighlight">
 \[
 \pi_t=\pi_{t-1}+b(y_t-y^*)+e_t\quad\text{(PC)}
 \]</div>
-<p>適応的期待が組み込まれたフィリップス曲線であり，この均衡式をPC曲線と呼ぶ（混乱を避けるために以下では式<a class="reference internal" href="#equation-eq-12-pc">(71)</a>は番号もしくはカタカナで「フィリップス曲線」と呼ぶことにする）。財・サービスの供給サイドの均衡を捉えているので，動学的供給曲線（Dynamic Aggregate Supply curve）と理解すれば良いだろう。<span class="math notranslate nohighlight">\(e_t=0\)</span>とし<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与（は一定）とすると<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 9</span></a>の中で右上がりなる。直感的には，PC曲線の影響であり，産出が自然水準を上回るとインフレ率が上昇するためである。</p>
-<p>通常のAD-ASモデルでは縦軸に一般物価水準がくる。一方で<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 9</span></a>から分かるように，IS-MP-PCモデルではインフレ率が縦軸にあることに注意しよう。</p>
+<p>適応的期待が組み込まれたフィリップス曲線であり，この均衡式をPC曲線と呼ぶ（混乱を避けるために以下では式<a class="reference internal" href="#equation-eq-12-pc">(95)</a>は番号もしくはカタカナで「フィリップス曲線」と呼ぶことにする）。財・サービスの供給サイドの均衡を捉えているので，動学的供給曲線（Dynamic Aggregate Supply curve）と理解すれば良いだろう。<span class="math notranslate nohighlight">\(e_t=0\)</span>とし<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与（は一定）とすると<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>の中で右上がりなる。直感的には，PC曲線の影響であり，産出が自然水準を上回るとインフレ率が上昇するためである。</p>
+<p>通常のAD-ASモデルでは縦軸に一般物価水準がくる。一方で<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>から分かるように，IS-MP-PCモデルではインフレ率が縦軸にあることに注意しよう。</p>
 <p>均衡では，<span class="math notranslate nohighlight">\(u_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(v_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(e_t\ne 0\)</span>であったとしても，<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与としてこの２式で<span class="math notranslate nohighlight">\((y_t,\pi_t)\)</span>が決定されることになる。更に<span class="math notranslate nohighlight">\(t+1\)</span>期では，<span class="math notranslate nohighlight">\(u_{t+1}\)</span>，<span class="math notranslate nohighlight">\(v_{t+1}\)</span>，<span class="math notranslate nohighlight">\(e_{t+1}\)</span>はそれぞれの<span class="math notranslate nohighlight">\(t\)</span>期とは異なる値をとるかもしれないが，それらと一緒に<span class="math notranslate nohighlight">\(t\)</span>期に決定された<span class="math notranslate nohighlight">\(\pi_{t}\)</span>を所与として<span class="math notranslate nohighlight">\((y_{t+1},\pi_{t+1})\)</span>が決定されることになる。このように内生変数の値が逐次的に決まることになるが，まさにこのような逐次的関係を捉えるのが<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">「差分方程式と経済分析」</span></a>の章で説明した差分方程式である。</p>
 <figure class="align-default" id="fig-12-ismppc-simple">
 <a class="reference internal image-reference" href="_images/ismppc_simple.jpeg"><img alt="_images/ismppc_simple.jpeg" src="_images/ismppc_simple.jpeg" style="width: 403.8px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">IS-MP-PCモデルの単純なケース</span><a class="headerlink" href="#fig-12-ismppc-simple" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">IS-MP-PCモデルの単純なケース</span><a class="headerlink" href="#fig-12-ismppc-simple" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>均衡を差分方程式で表すために，式(ISMP)を式(PC)に代入し１期進めよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-12-pi-deqn-simple">
-<span class="eqno">(73)<a class="headerlink" href="#equation-eq-12-pi-deqn-simple" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(97)<a class="headerlink" href="#equation-eq-12-pi-deqn-simple" title="Permalink to this equation">#</a></span>\[
 \pi_{t+1}
 =\pi_{t}
 +b(u_{t+1}-av_{t+1})+e_{t+1}
 \]</div>
 <p>この式を理解するために，<span class="math notranslate nohighlight">\(u_t=v_t=e_t=0\)</span>と置いてみると次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-12-pi-deqn-simple-no-shock">
-<span class="eqno">(74)<a class="headerlink" href="#equation-eq-12-pi-deqn-simple-no-shock" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(98)<a class="headerlink" href="#equation-eq-12-pi-deqn-simple-no-shock" title="Permalink to this equation">#</a></span>\[
 \pi_{t+1}=\pi_{t}
 \]</div>
 <p><span class="math notranslate nohighlight">\(t+1\)</span>期のインフレ率は<span class="math notranslate nohighlight">\(t\)</span>期のインフレ率と等しいことを示しており，今期のインフレ率は変わらず来期にも続くことを示している。換言すると，
 初期時点からショックが無い場合，初期のインフレ率<span class="math notranslate nohighlight">\(\pi_0\)</span>が持続するという意味である。これはインフレ率のデータの特徴であるpersistenceを捉えていると解釈できる。</p>
-<p>まとめると，<span class="math notranslate nohighlight">\(u_t=v_t=e_t=0\)</span>の場合，式(ISMP)と式<a class="reference internal" href="#equation-eq-12-pi-deqn-simple-no-shock">(74)</a>から</p>
+<p>まとめると，<span class="math notranslate nohighlight">\(u_t=v_t=e_t=0\)</span>の場合，式(ISMP)と式<a class="reference internal" href="#equation-eq-12-pi-deqn-simple-no-shock">(98)</a>から</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(y_t=y^*\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\pi_t=\pi_0=\pi^*\)</span></p></li>
@@ -1008,7 +1006,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <img alt="_images/12_IS-MP-PC_25_0.png" src="_images/12_IS-MP-PC_25_0.png" />
 </div>
 </div>
-<p>右３つの図からフィリップス曲線のショックが１単位上昇（例えば，オイルショックや生産費用を増加させるショック）し，他のショックは動いていないことが分かる。左３つの図にある内生変数の動きを考えるために，ISMP曲線とPC曲線を<a class="reference internal" href="#fig-12-pc-shock-simple"><span class="std std-numref">Fig. 10</span></a>に図示してみよう。</p>
+<p>右３つの図からフィリップス曲線のショックが１単位上昇（例えば，オイルショックや生産費用を増加させるショック）し，他のショックは動いていないことが分かる。左３つの図にある内生変数の動きを考えるために，ISMP曲線とPC曲線を<a class="reference internal" href="#fig-12-pc-shock-simple"><span class="std std-numref">Fig. 19</span></a>に図示してみよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期まで：</p>
 <ul>
@@ -1030,7 +1028,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <figure class="align-default" id="fig-12-pc-shock-simple">
 <a class="reference internal image-reference" href="_images/pc_shock_simple.jpeg"><img alt="_images/pc_shock_simple.jpeg" src="_images/pc_shock_simple.jpeg" style="width: 423.0px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">単純なケース：PC曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock-simple" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">単純なケース：PC曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock-simple" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1049,7 +1047,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <img alt="_images/12_IS-MP-PC_30_0.png" src="_images/12_IS-MP-PC_30_0.png" />
 </div>
 </div>
-<p>右３つの図からIS曲線だけにショックが発生していることが分かる。ISショックは符号は正であり，引き起こす要因の例として政府支出の増加や減税，将来を楽観視する投資家の増加などがあげられる。<a class="reference internal" href="#fig-12-is-shock-simple"><span class="std std-numref">Fig. 11</span></a>を使い内生変数の動きを考えてみよう。初期時点の均衡は点Aであり，ここからスタートする。</p>
+<p>右３つの図からIS曲線だけにショックが発生していることが分かる。ISショックの符号は正であり，引き起こす要因の例として政府支出の増加や減税，将来を楽観視する投資家の増加などがあげられる。<a class="reference internal" href="#fig-12-is-shock-simple"><span class="std std-numref">Fig. 20</span></a>を使い内生変数の動きを考えてみよう。初期時点の均衡は点Aであり，ここからスタートする。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期まで：</p>
 <ul>
@@ -1075,7 +1073,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <figure class="align-default" id="fig-12-is-shock-simple">
 <a class="reference internal image-reference" href="_images/is_shock_simple.jpeg"><img alt="_images/is_shock_simple.jpeg" src="_images/is_shock_simple.jpeg" style="width: 433.8px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">単純なケース：IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock-simple" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">単純なケース：IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock-simple" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1126,7 +1124,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <figure class="align-default" id="fig-12-mp-shock-simple">
 <a class="reference internal image-reference" href="_images/mp_shock_simple.jpeg"><img alt="_images/mp_shock_simple.jpeg" src="_images/mp_shock_simple.jpeg" style="width: 396.9px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">単純なケース：MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock-simple" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">単純なケース：MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock-simple" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1140,7 +1138,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <li><p>フィッシャー方程式，IS曲線，フィリップス曲線は同じ。</p></li>
 <li><p>MP曲線（Monetary Policy Rule）は中央銀行が名目利子率を決めるルールだが，より現実的な仮定を導入する。中央銀行は，目標とするインフレ率があり，産出量にもターゲット水準がある。ターゲット・インフレ率は<span class="math notranslate nohighlight">\(\pi^*\)</span>とし，産出量の目標は自然水準<span class="math notranslate nohighlight">\(y^*\)</span>とする。中央銀行は２つの目的を達成するために唯一の「武器」である名目利子率を調整する。具体的には次のMP曲線を仮定する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-12-mp">
-<span class="eqno">(75)<a class="headerlink" href="#equation-eq-12-mp" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(99)<a class="headerlink" href="#equation-eq-12-mp" title="Permalink to this equation">#</a></span>\[
     i_t=r^*+\pi_t+c(\pi_t-\pi^*)+d(y_t-y^*)+v_t
     \]</div>
 <ul class="simple">
@@ -1158,7 +1156,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </section>
 <section id="id9">
 <h3>安定性<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
-<p>まず安定性から考えることにする。フィッシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(68)</a>，IS曲線<a class="reference internal" href="#equation-eq-12-is">(69)</a>，MP曲線<a class="reference internal" href="#equation-eq-12-mp">(75)</a>を使うと次の動学的需要曲線が導出できる。</p>
+<p>まず安定性から考えることにする。フィッシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(92)</a>，IS曲線<a class="reference internal" href="#equation-eq-12-is">(93)</a>，MP曲線<a class="reference internal" href="#equation-eq-12-mp">(99)</a>を使うと次の動学的需要曲線が導出できる。</p>
 <div class="math notranslate nohighlight">
 \[
 y_{t}=y^* +
@@ -1174,16 +1172,16 @@ y_{t}=y^* +
 \[
 \pi_t=\pi_{t-1}+b(y_t-y^*)+e_t\qquad\text{(PC)}
 \]</div>
-<p>これにより、<span class="math notranslate nohighlight">\((\pi_{t-1},u_t,v_t,e_t)\)</span>を所与として<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(\pi_t\)</span>はISMP曲線とPC曲線によって決定される。<a class="reference internal" href="#fig-12-ismppc"><span class="std std-numref">Fig. 13</span></a>ではDAD曲線は右下がりとなり，より現実的な総需要曲線となっている。</p>
+<p>これにより、<span class="math notranslate nohighlight">\((\pi_{t-1},u_t,v_t,e_t)\)</span>を所与として<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(\pi_t\)</span>はISMP曲線とPC曲線によって決定される。<a class="reference internal" href="#fig-12-ismppc"><span class="std std-numref">Fig. 22</span></a>ではDAD曲線は右下がりとなり，より現実的な総需要曲線となっている。</p>
 <figure class="align-default" id="fig-12-ismppc">
 <a class="reference internal image-reference" href="_images/ismppc.jpeg"><img alt="_images/ismppc.jpeg" src="_images/ismppc.jpeg" style="width: 411.59999999999997px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">IS-MP-PCモデル</span><a class="headerlink" href="#fig-12-ismppc" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">IS-MP-PCモデル</span><a class="headerlink" href="#fig-12-ismppc" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>更にこの連立方程式を解くと次式を示すことができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-12-pi-deqn">
-<span class="eqno">(76)<a class="headerlink" href="#equation-eq-12-pi-deqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(100)<a class="headerlink" href="#equation-eq-12-pi-deqn" title="Permalink to this equation">#</a></span>\[
 \pi_{t+1} =
 \phi_0\pi^* + \phi_1\pi_{t} + \eta_{t+1}
 \]</div>
@@ -1198,7 +1196,7 @@ y_{t}=y^* +
 \qquad
 \eta_{t+1}\equiv \frac{b(u_{t+1}-av_{t+1})+(1+ad)e_{t+1}}{1+a(bc+d)}
 \]</div>
-<p>式<a class="reference internal" href="#equation-eq-12-pi-deqn">(76)</a>はインフレ率のダイナミックを示す差分方程式である。式<a class="reference internal" href="#equation-eq-12-pi-deqn">(76)</a>から次の結果は明らかである。</p>
+<p>式<a class="reference internal" href="#equation-eq-12-pi-deqn">(100)</a>はインフレ率のダイナミックを示す差分方程式である。式<a class="reference internal" href="#equation-eq-12-pi-deqn">(100)</a>から次の結果は明らかである。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\phi_1&lt;1\)</span>：収束（安定的）</p></li>
 <li><p><span class="math notranslate nohighlight">\(\phi_1=1\)</span>：収束・発散もせず「同じ」値にとどまる</p></li>
@@ -1222,7 +1220,7 @@ y_{t}=y^* +
 </tr>
 </tbody>
 </table>
-<p>この表から<span class="math notranslate nohighlight">\(c&gt;0\)</span>は<span class="math notranslate nohighlight">\(\phi_1&lt;1\)</span>の必要条件であり，<span class="math notranslate nohighlight">\(c=0\)</span>の場合は必ず<span class="math notranslate nohighlight">\(\phi_1=1\)</span>になることが分かる。即ち、インフレ率をコントロールするためには<span class="math notranslate nohighlight">\(c&gt;0\)</span>は必須である。この含意について考えるためにMP曲線<a class="reference internal" href="#equation-eq-12-mp">(75)</a>を<span class="math notranslate nohighlight">\(\pi_t\)</span>で微分してみよう。</p>
+<p>この表から<span class="math notranslate nohighlight">\(c&gt;0\)</span>は<span class="math notranslate nohighlight">\(\phi_1&lt;1\)</span>の必要条件であり，<span class="math notranslate nohighlight">\(c=0\)</span>の場合は必ず<span class="math notranslate nohighlight">\(\phi_1=1\)</span>になることが分かる。即ち、インフレ率をコントロールするためには<span class="math notranslate nohighlight">\(c&gt;0\)</span>は必須である。この含意について考えるためにMP曲線<a class="reference internal" href="#equation-eq-12-mp">(99)</a>を<span class="math notranslate nohighlight">\(\pi_t\)</span>で微分してみよう。</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial i_t}{\partial\pi_t}=1+c
@@ -1485,11 +1483,11 @@ u_t=v_t=e_t=0
 <li><p>インフレ率減少に伴って，中央銀行は名目利子率を下げている。</p></li>
 <li><p>その結果，実質利子率も減少しており，それが投資を刺激し産出量は増加している。</p></li>
 </ul>
-<p><a class="reference internal" href="#fig-12-ismppc-simulation"><span class="std std-numref">Fig. 14</span></a>が示すように，この過程でISMP曲線とPC曲線は点Bから徐々に点Aに向かって移動することになる。</p>
+<p><a class="reference internal" href="#fig-12-ismppc-simulation"><span class="std std-numref">Fig. 23</span></a>が示すように，この過程でISMP曲線とPC曲線は点Bから徐々に点Aに向かって移動することになる。</p>
 <figure class="align-default" id="fig-12-ismppc-simulation">
 <a class="reference internal image-reference" href="_images/ismppc-simulation.jpeg"><img alt="_images/ismppc-simulation.jpeg" src="_images/ismppc-simulation.jpeg" style="width: 432.95px; height: 350.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">IS-MP-PCモデルの移行過程</span><a class="headerlink" href="#fig-12-ismppc-simulation" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">IS-MP-PCモデルの移行過程</span><a class="headerlink" href="#fig-12-ismppc-simulation" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1525,7 +1523,7 @@ u_t=v_t=e_t=0
 <li><p>インフレ率上昇に伴って，中央銀行は名目利子率を上げている。</p></li>
 <li><p>その結果，実質利子率も上昇しており，それが投資需要を抑え産出量は減少している。</p></li>
 </ul>
-<p><a class="reference internal" href="#fig-12-ismppc-simulation"><span class="std std-numref">Fig. 14</span></a>では，この過程でISMP曲線とPC曲線は点Cから徐々に点Aに向かって移動することになる。</p>
+<p><a class="reference internal" href="#fig-12-ismppc-simulation"><span class="std std-numref">Fig. 23</span></a>では，この過程でISMP曲線とPC曲線は点Cから徐々に点Aに向かって移動することになる。</p>
 <p>＜練習問題＞</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(c\)</span>の値を変えて移行過程の違いを検討しなさい。その要因は何かを考えよう。</p></li>
@@ -1663,7 +1661,7 @@ u_t=v_t=e_t=0
 <img alt="_images/12_IS-MP-PC_73_0.png" src="_images/12_IS-MP-PC_73_0.png" />
 </div>
 </div>
-<p><a class="reference internal" href="#fig-12-pc-shock"><span class="std std-numref">Fig. 15</span></a>を使って説明しよう。</p>
+<p><a class="reference internal" href="#fig-12-pc-shock"><span class="std std-numref">Fig. 24</span></a>を使って説明しよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期以前は定常状態である点Aに経済は位置する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(t=3\)</span>期にフィリップス曲線への予期しないショックが発生し，PC曲線が上方シフトする（①）。経済は点Bにジャンプする。</p>
@@ -1683,7 +1681,7 @@ u_t=v_t=e_t=0
 <figure class="align-default" id="fig-12-pc-shock">
 <a class="reference internal image-reference" href="_images/pc_shock.jpeg"><img alt="_images/pc_shock.jpeg" src="_images/pc_shock.jpeg" style="width: 414.59999999999997px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">フィリップス曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">フィリップス曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1719,7 +1717,7 @@ u_t=v_t=e_t=0
 <img alt="_images/12_IS-MP-PC_78_0.png" src="_images/12_IS-MP-PC_78_0.png" />
 </div>
 </div>
-<p><a class="reference internal" href="#fig-12-is-shock"><span class="std std-numref">Fig. 16</span></a>を使って説明しよう。</p>
+<p><a class="reference internal" href="#fig-12-is-shock"><span class="std std-numref">Fig. 25</span></a>を使って説明しよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期以前は定常状態である点Aに経済は位置する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(t=3\)</span>期にIS曲線への予期しないショックが発生し，ISMP曲線が右シフトする（①）。経済は点Bにジャンプする。</p>
@@ -1739,7 +1737,7 @@ u_t=v_t=e_t=0
 <figure class="align-default" id="fig-12-is-shock">
 <a class="reference internal image-reference" href="_images/is_shock.jpeg"><img alt="_images/is_shock.jpeg" src="_images/is_shock.jpeg" style="width: 368.09999999999997px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1774,7 +1772,7 @@ u_t=v_t=e_t=0
 <img alt="_images/12_IS-MP-PC_83_0.png" src="_images/12_IS-MP-PC_83_0.png" />
 </div>
 </div>
-<p><a class="reference internal" href="#fig-12-mp-shock"><span class="std std-numref">Fig. 17</span></a>を使って説明しよう。</p>
+<p><a class="reference internal" href="#fig-12-mp-shock"><span class="std std-numref">Fig. 26</span></a>を使って説明しよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期以前は定常状態である点Aに経済は位置する。</p></li>
 <li><p><span class="math notranslate nohighlight">\(t=3\)</span>期にMP曲線への予期しないショックが発生し，ISMP曲線が左シフトする（①）。経済は点Bにジャンプする。</p>
@@ -1794,7 +1792,7 @@ u_t=v_t=e_t=0
 <figure class="align-default" id="fig-12-mp-shock">
 <a class="reference internal image-reference" href="_images/mp_shock.jpeg"><img alt="_images/mp_shock.jpeg" src="_images/mp_shock.jpeg" style="width: 381.59999999999997px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1815,14 +1813,14 @@ u_t=v_t=e_t=0
 -5&amp;\text{(ケース２)}
 \end{cases}
 \end{split}\]</div>
-<p>この２つのケースの違いを考えるために，PC曲線へのショックを考えよう。<a class="reference internal" href="#fig-12-two-cases"><span class="std std-numref">Fig. 18</span></a>からショックが発生した期のインパクト効果の違いが確認できる。</p>
+<p>この２つのケースの違いを考えるために，PC曲線へのショックを考えよう。<a class="reference internal" href="#fig-12-two-cases"><span class="std std-numref">Fig. 27</span></a>からショックが発生した期のインパクト効果の違いが確認できる。</p>
 <figure class="align-default" id="fig-12-two-cases">
 <a class="reference internal image-reference" href="_images/two_cases.jpeg"><img alt="_images/two_cases.jpeg" src="_images/two_cases.jpeg" style="width: 476.09999999999997px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">中央銀行の政策スタンスの違い</span><a class="headerlink" href="#fig-12-two-cases" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">中央銀行の政策スタンスの違い</span><a class="headerlink" href="#fig-12-two-cases" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>しかし<a class="reference internal" href="#fig-12-two-cases"><span class="std std-numref">Fig. 18</span></a>からは，インパクト後の変数の推移はどのように異なるかは明確ではない。シミュレーションで確認しよう。まず２つのケースを計算する。</p>
+<p>しかし<a class="reference internal" href="#fig-12-two-cases"><span class="std std-numref">Fig. 27</span></a>からは，インパクト後の変数の推移はどのように異なるかは明確ではない。シミュレーションで確認しよう。まず２つのケースを計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_res_1</span> <span class="o">=</span> <span class="n">ismppc_impulse</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">shock_pc</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
@@ -1925,7 +1923,7 @@ u_t=v_t=e_t=0
 </section>
 <section id="is-mp-ps">
 <h2>IS-MP-PSモデルの問題点<a class="headerlink" href="#is-mp-ps" title="Permalink to this headline">#</a></h2>
-<p>第一に，フィシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(68)</a>には<span class="math notranslate nohighlight">\(\text{E}_t\pi_{t+1}\)</span>があり一見フォーワード・ルッキング（将来を見据えた行動）に見えるが，モデルの解はバックワード・ルッキング（後ろ向き）な行動に基づいたモデルとなっている。モデルの解として次の式を導出した（再掲）。</p>
+<p>第一に，フィシャー方程式<a class="reference internal" href="#equation-eq-12-fisher">(92)</a>には<span class="math notranslate nohighlight">\(\text{E}_t\pi_{t+1}\)</span>があり一見フォーワード・ルッキング（将来を見据えた行動）に見えるが，モデルの解はバックワード・ルッキング（後ろ向き）な行動に基づいたモデルとなっている。モデルの解として次の式を導出した（再掲）。</p>
 <div class="math notranslate nohighlight">
 \[
 y_{t+1}=y^* +
@@ -1957,7 +1955,7 @@ y_{t+1}=y^* +
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1972,17 +1970,17 @@ y_{t+1}=y^* +
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="11_Macro_Variables.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="18_ADAS.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">法則・曲線・増加率</p>
+            <p class="prev-next-title">景気循環の定量分析：ADASモデル</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="13_NumPy_random.html" title="next page">
+    <a class='right-next' id="next-link" href="14_linearsolve.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ランダム変数と全要素生産性</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -1995,7 +1993,7 @@ y_{t+1}=y^* +
   
     By 春山 鉄源  Tetsugen HARUYAMA<br/>
   
-      &copy; Copyright 2022.<br/>
+      &copy; Copyright 2023.<br/>
 </p>
         </footer>
     </div>
