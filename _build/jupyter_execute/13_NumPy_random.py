@@ -775,14 +775,6 @@ print(f'自己相関係数：{ac_tfp:.3f}')
 # In[44]:
 
 
-# cond = (df.index >= df.inex)
-
-df.index.year == df.index[-1].year
-
-
-# In[45]:
-
-
 var_list = ['gdp','capital','total_hours']       #1
 year_list = [df.index[0].year,df.index[-1].year] #2
 
@@ -819,7 +811,7 @@ for yr in year_list:                     #6
 
 # このコードの結果を確認してみよう。例えば，
 
-# In[46]:
+# In[45]:
 
 
 gdp_dict
@@ -853,7 +845,7 @@ gdp_dict
 
 # 次に全要素生産性の平均四半期成長率を計算するために`df`の列名を確認しよう。
 
-# In[47]:
+# In[46]:
 
 
 df.columns
@@ -861,7 +853,7 @@ df.columns
 
 # `gdp`は0番目，`capital`は6番目，`total_hours`は11番目の列にある。この情報をもとに次のように計算しよう。
 
-# In[48]:
+# In[47]:
 
 
 var_idx = [0,6,11]         # 1
@@ -894,7 +886,7 @@ g
 
 # 次にGDPに対する投資の割合の平均を計算する。
 
-# In[49]:
+# In[48]:
 
 
 s = (df['investment']/df['gdp']).mean()
@@ -909,7 +901,7 @@ s
 
 # シミュレーションのコードを関数としてまとめよう。
 
-# In[50]:
+# In[49]:
 
 
 def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
@@ -1003,7 +995,7 @@ def stochastic_solow(T=160,  # 160=40*4 40年間の四半期の数
 
 # デフォルトの値でシミュレーションを行い、最初の5行を表示する。
 
-# In[51]:
+# In[50]:
 
 
 df_sim = stochastic_solow()
@@ -1012,7 +1004,7 @@ df_sim.head()
 
 # $Y$の水準とトレンドの図示（対数）。
 
-# In[52]:
+# In[51]:
 
 
 np.log(df_sim['Y']).plot(title='シミュレーション：Yとトレンド（対数）')
@@ -1024,7 +1016,7 @@ pass
 
 # $Y$の変動（サイクル）の図示。
 
-# In[53]:
+# In[52]:
 
 
 ax_ = ( 100 * df_sim['Yの変動'] ).plot(title='シミュレーション：Yの変動（％）')
@@ -1038,7 +1030,7 @@ pass
 
 # それぞれの変数の自己相関係数を計算してみる。
 
-# In[54]:
+# In[53]:
 
 
 var_list = ['Y','C','I','K','A']
@@ -1052,13 +1044,13 @@ for v in var_list:
 
 # まずシミュレーションを行う度にこれらの値は変化することに留意し結果を考えよう。ある程度の自己相関が発生しており，$A$の影響が反映されている。$Y$，$C$，$I$の値は同じなのは，$C$，$I$は$Y$の線形関数であるためであり，これらの３つの変数は$A$の変動と似た動きになっている。また$K$の値が大きいのは、ストック変数であるため変化に時間が掛かるためある。データ`df`に含まれる変数の自己相関係数と比べるために，まず消費，投資，資本の変動を計算する。
 
-# In[55]:
+# In[54]:
 
 
 df.columns
 
 
-# In[56]:
+# In[55]:
 
 
 data_var_list = ['consumption','investment','capital']
@@ -1069,13 +1061,13 @@ for v in data_var_list:
 
 # 結果を示すために，`data_var_list`の最初と最後に`gdp`と`tfp`を追加する。
 
-# In[57]:
+# In[56]:
 
 
 data_var_list = ['gdp']+data_var_list+['tfp']
 
 
-# In[58]:
+# In[57]:
 
 
 print('\n--- データ：変動の自己相関係数 ---\n')
@@ -1100,7 +1092,7 @@ for v in data_var_list:
 # 
 # 次に、$Y$との相関係数を計算する。
 
-# In[59]:
+# In[58]:
 
 
 print('\n--- シミュレーション：GDPとの相関係数 ---\n')
@@ -1115,7 +1107,7 @@ for v in var_list[1:]:
 # 
 # 相関度をデータと比べてみよう。
 
-# In[60]:
+# In[59]:
 
 
 print('\n--- データ：GDPとの相関係数 ---\n')
