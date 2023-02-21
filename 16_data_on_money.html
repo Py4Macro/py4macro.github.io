@@ -511,7 +511,6 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 </div>
 </div>
@@ -870,22 +869,22 @@ memory usage: 34.5 KB
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 <span class="n">country_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Yen/$&#39;</span><span class="p">,</span><span class="s1">&#39;Mark/$&#39;</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">実質為替レート変動率の標準偏差</span><span class="se">\n</span><span class="s1">-------------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">実質為替レート変動率の標準偏差の比較（変動相場制以降後/移行前）</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">47</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ex_list</span><span class="p">,</span> <span class="n">country_list</span><span class="p">):</span>
     
     <span class="n">ex_before</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="s1">&#39;1973-01-01&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     
     <span class="n">ex_after</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1973-02-01&#39;</span><span class="p">:</span><span class="n">end_month</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}{</span><span class="n">ex_after</span><span class="o">/</span><span class="n">ex_before</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}{</span><span class="n">ex_after</span><span class="o">/</span><span class="n">ex_before</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">倍&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>実質為替レート変動率の標準偏差
--------------------------
-Yen/$   3.58
-Mark/$  3.82
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>実質為替レート変動率の標準偏差の比較（変動相場制以降後/移行前）
+-----------------------------------------------
+Yen/$   3.58倍
+Mark/$  3.82倍
 </pre></div>
 </div>
 </div>
@@ -910,7 +909,7 @@ Mark/$  3.82
 <span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>は<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>にキャンセルされ，変動相場制の下でも<span class="math notranslate nohighlight">\(\dfrac{\dot{\varepsilon}}{\varepsilon}\)</span>は固定相場制と変わらない動きになるはずである。上の図はそうなっていないことを示している。</p>
 <p>どのような解釈が成り立つか考えてみよう。まず，為替制度の変更が価格調整スピードを瞬時に大きく変えるとは考えにくい。1973年2月の前後で日米の経済構造が大きく変わっとは考えられないからである。ブレトンウッズ体制崩壊前後での価格調整スピードは変わらないと考えるのが自然であり，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>に大きな変化はなかったと想定できる。このように考えると，名目変数<span class="math notranslate nohighlight">\(e\)</span>の変動が実質変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の変化として姿を変えて現れたと解釈できる。</p>
 <p>では，なぜ<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>は小さな値だったのだろうか。理由は，<strong>価格の粘着性</strong>と考えられる。価格調整に時間がかかるため，<span class="math notranslate nohighlight">\(P_{\text{米}}\)</span>と<span class="math notranslate nohighlight">\(P_{\text{日}}\)</span>は大きく動かない。従って，<span class="math notranslate nohighlight">\(\dfrac{\dot{P}_{\text{米}}}{P_{\text{米}}}-\dfrac{\dot{P}_{\text{日}}}{P_{\text{日}}}\)</span>は小さな値となり，<span class="math notranslate nohighlight">\(\dfrac{\dot{e}}{e}\)</span>をキャンセルする程大きくなかったという解釈である。</p>
-<p>ブレトンウッズ体制の崩壊という歴史的な「実験」は，金融政策は実質変数に影響を与えることを示唆している。一方，前章のRBCモデルは貨幣の中立性が成立（仮定）されており，マクロ経済の短期的な動きを十分に捉えているとは言い難い。その点を克服する理論が次章で考察するニューケインジアン・モデルである。</p>
+<p>ブレトンウッズ体制の崩壊という歴史的な「実験」は，金融政策は実質変数に影響を与えることを示唆している。一方，前章のRBCモデルは貨幣の中立性が成立（仮定）しており，マクロ経済の短期的な動きを十分に捉えているとは言い難い。その点を克服する理論が次章で考察するニューケインジアン・モデルである。</p>
 </section>
 </section>
 </section>
