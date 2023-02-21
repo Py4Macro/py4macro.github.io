@@ -172,9 +172,15 @@ df_ex.info()
 # In[8]:
 
 
+type(df_ex.index[0])
+
+
+# In[9]:
+
+
 col = df_ex.columns          # 1
 end_month = '1986-03-01'     # 2
-float_month = pd.to_datetime('1973-02-01')   # 3
+float_month = pd.Timestamp('1973-02-01')  # 3
 
 # 4
 ax = df_ex.loc[:end_month,[col[1],col[0]]] \
@@ -197,7 +203,7 @@ pass
 # 
 # 1. 列名を変数`col`に割り当てる。
 # 2. 文字列`'1986-03-01'`を変数`end_month`に割り当てる。
-# 3. 文字列`'1973-02-01'`を変数`float_month`に割り当てる。
+# 3. 文字列`'1973-02-01'`を`pd.Timestamp()`関数を使いプロットの横軸に使われる変数の単位に変換し変数`float_month`に割り当てる（代わりに`pd.to_datetime()`関数を使ってもOK）。
 # 4. 引数として`subplots=(1,2)`を使っているので２つの「軸」があり，`Numpy`の`array`として次のように格納されている。
 #     ```
 #     array([[軸１,軸２]])
@@ -212,29 +218,22 @@ pass
 #     * `linestyle='--'`：点線に指定
 # 7. `.set_title()`は「軸」にタイトルを付けている。
 # 
-# 次のコード同じ図（色は異なる）をプロットすることができる。
+# 次のコード同じ図（色は異なる）をプロットすることもできる。
 # ```
 # fig, ax = plt.subplots(1,2, figsize=(10,4))
 # 
 # ax[0].plot('real_ex_jpus_%change', data=df_ex.loc[:end_month,:])
-# ax[1].plot('real_ex_geus_%change', data=df_ex.loc[:end_month,:])
+# ax[1].plot('real_ex_geus_%change', data=df_ex.loc[:end_month,:], color='orange')
 # 
-# ax[0].axvline(pd.to_datetime(float_month),  # 1
-#               c='red', linestyle='--')
-# ax[1].axvline(pd.to_datetime(float_month),  # 2
-#               c='red', linestyle='--')
-# 
-# ax[0].set_title('円/＄実質為替レート変化率',size=18)
-# ax[1].set_title('マルク/＄実質為替レート変化率',size=18)
+# for i, c in enumerate(['円','マルク']):
+#     ax[i].axvline(float_month, c='k', linestyle='--')
+#     ax[i].set_title(f'{c}/＄実質為替レート変化率', size=18)
 # ```
-# この場合は次の点に要注意
-# 1. `df_ex`の行ラベルが`DatetimeIndex`と呼ばれる時系列用になっており，図の横軸に使われている。それにより`.axvline()`の引数に`'1973-02-01'`とするとエラーとなる。文字列`'1973-02-01'`を時系列用に変換するために関数`pd.to_datetime()`を使う必要がある。
-# 2. 同上。
 # ````
 
 # 図にある黒の点線は固定相場制から変動相場制に移行した1973年2月を示している。点線の右側と左側では明らかに変動に違いがある。どの程度変動の大きさが異なるのかを調べるために、固定相場制（158ヶ月）と変動相場制（158ヶ月）での標準偏差を計算し、その**比率**を計算してみよう。
 
-# In[9]:
+# In[10]:
 
 
 ex_list = [col[1],col[0]]
