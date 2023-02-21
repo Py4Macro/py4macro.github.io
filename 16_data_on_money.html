@@ -803,7 +803,7 @@ memory usage: 34.5 KB
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">columns</span>          <span class="c1"># 1</span>
 <span class="n">end_month</span> <span class="o">=</span> <span class="s1">&#39;1986-03-01&#39;</span>     <span class="c1"># 2</span>
-<span class="n">float_month</span> <span class="o">=</span> <span class="s1">&#39;1973-02-01&#39;</span>   <span class="c1"># 3</span>
+<span class="n">float_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;1973-02-01&#39;</span><span class="p">)</span>   <span class="c1"># 3</span>
 
 <span class="c1"># 4</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">df_ex</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_month</span><span class="p">,[</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span> \
@@ -814,7 +814,7 @@ memory usage: 34.5 KB
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;円&#39;</span><span class="p">,</span><span class="s1">&#39;マルク&#39;</span><span class="p">]):</span>
     
     <span class="c1"># 6</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">float_month</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">float_month</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
     
     <span class="c1"># 7</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">/＄実質為替レート変化率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
