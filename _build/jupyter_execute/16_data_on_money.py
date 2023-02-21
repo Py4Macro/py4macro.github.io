@@ -174,7 +174,7 @@ df_ex.info()
 
 col = df_ex.columns          # 1
 end_month = '1986-03-01'     # 2
-float_month = '1973-02-01'   # 3
+float_month = pd.to_datetime('1973-02-01')   # 3
 
 # 4
 ax = df_ex.loc[:end_month,[col[1],col[0]]] \
