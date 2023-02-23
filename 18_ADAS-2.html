@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>景気循環の定量分析：ADASモデル &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+    <title>定量的マクロ経済分析：Part 2 &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -38,7 +38,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -53,11 +53,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="canonical" href="https://py4macro.github.io/18_ADAS.html" />
+    <link rel="canonical" href="https://py4macro.github.io/18_ADAS-2.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="IS-MP-PCモデル" href="12_IS-MP-PC.html" />
-    <link rel="prev" title="法則・曲線・増加率" href="11_Macro_Variables.html" />
+    <link rel="prev" title="定量的マクロ経済分析：Part 1" href="18_ADAS-1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -177,9 +177,14 @@ const thebe_selector_output = ".output, .cell_output"
    法則・曲線・増加率
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18_ADAS-1.html">
+   定量的マクロ経済分析：Part 1
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   景気循環の定量分析：ADASモデル
+   定量的マクロ経済分析：Part 2
   </a>
  </li>
  <li class="toctree-l1">
@@ -299,7 +304,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/18_ADAS.ipynb"
+        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/18_ADAS-2.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -317,7 +322,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/18_ADAS.ipynb"
+        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/18_ADAS-2.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -360,7 +365,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="_sources/18_ADAS.ipynb"
+        <a href="_sources/18_ADAS-2.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -426,201 +431,41 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   ADASモデル
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     モデルの構造
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#as">
-       短期総供給曲線（AS曲線）
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ad">
-       総需要曲線（AD曲線）
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
-       適応的期待
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id5">
-       総需要・総供給ショック
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
-       長期均衡
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       図示
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     均衡式
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
-       AS曲線
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       AD曲線
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       長期均衡
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
-       図示
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
-   景気循環のデータ
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     データの特徴１
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
-     データの特徴２
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id16">
-   カリブレーション
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
-     はじめに
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
-     カリブレーションとは
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
-     均衡式の整理
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#h">
-     準備：
-     <span class="math notranslate nohighlight">
-      \(h\)
-     </span>
-     の推定値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#c">
-     最初のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(c\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a">
-     ２つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(a\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sigma-v">
-     ３つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(\sigma_v\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sigma-u">
-     ４つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(\sigma_u\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id20">
-     パラメーターの値：再掲
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id21">
    コードの基本形
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id22">
+  <a class="reference internal nav-link" href="#adas">
    ADASモデルの安定性
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id23">
+  <a class="reference internal nav-link" href="#id3">
    インパルス反応関数
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id24">
+    <a class="reference internal nav-link" href="#id4">
      コード
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id25">
+    <a class="reference internal nav-link" href="#id5">
      プロット
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id26">
+      <a class="reference internal nav-link" href="#id6">
        総供給ショック
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id27">
+      <a class="reference internal nav-link" href="#id7">
        総需要ショック
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id28">
+      <a class="reference internal nav-link" href="#id8">
        総供給・総需要ショックの同時発生
       </a>
      </li>
@@ -629,17 +474,17 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id29">
+  <a class="reference internal nav-link" href="#id9">
    確率的シミュレーション
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id30">
+    <a class="reference internal nav-link" href="#id10">
      コード
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id31">
+    <a class="reference internal nav-link" href="#id11">
      プロット
     </a>
    </li>
@@ -649,7 +494,7 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id32">
+    <a class="reference internal nav-link" href="#id12">
      自己相関係数
     </a>
    </li>
@@ -670,66 +515,66 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id33">
+    <a class="reference internal nav-link" href="#id13">
      結果のまとめと拡張
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id34">
+    <a class="reference internal nav-link" href="#id14">
      ADASモデルの評価
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id35">
+  <a class="reference internal nav-link" href="#id15">
    定量的な問い
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id36">
+    <a class="reference internal nav-link" href="#id16">
      予測誤差
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id37">
+    <a class="reference internal nav-link" href="#id17">
      GDPの％乖離
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id38">
+      <a class="reference internal nav-link" href="#id18">
        計算方法
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id39">
+      <a class="reference internal nav-link" href="#id19">
        結果
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id40">
+      <a class="reference internal nav-link" href="#id20">
        解釈
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id41">
+    <a class="reference internal nav-link" href="#id21">
      価格水準の％乖離
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id42">
+      <a class="reference internal nav-link" href="#id22">
        計算方法
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id43">
+      <a class="reference internal nav-link" href="#id23">
        結果
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id44">
+      <a class="reference internal nav-link" href="#id24">
        解釈
       </a>
      </li>
@@ -738,12 +583,12 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id45">
+  <a class="reference internal nav-link" href="#id25">
    まとめ
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id46">
+  <a class="reference internal nav-link" href="#id26">
    付録：分散と共分散の性質
   </a>
  </li>
@@ -756,7 +601,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>景気循環の定量分析：ADASモデル</h1>
+                <h1>定量的マクロ経済分析：Part 2</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -773,201 +618,41 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   ADASモデル
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     モデルの構造
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#as">
-       短期総供給曲線（AS曲線）
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ad">
-       総需要曲線（AD曲線）
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
-       適応的期待
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id5">
-       総需要・総供給ショック
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
-       長期均衡
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       図示
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     均衡式
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
-       AS曲線
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       AD曲線
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       長期均衡
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
-       図示
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
-   景気循環のデータ
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     データの特徴１
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
-     データの特徴２
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id16">
-   カリブレーション
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
-     はじめに
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
-     カリブレーションとは
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
-     均衡式の整理
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#h">
-     準備：
-     <span class="math notranslate nohighlight">
-      \(h\)
-     </span>
-     の推定値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#c">
-     最初のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(c\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a">
-     ２つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(a\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sigma-v">
-     ３つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(\sigma_v\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sigma-u">
-     ４つ目のスイッチ：
-     <span class="math notranslate nohighlight">
-      \(\sigma_u\)
-     </span>
-     の値
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id20">
-     パラメーターの値：再掲
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id21">
    コードの基本形
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id22">
+  <a class="reference internal nav-link" href="#adas">
    ADASモデルの安定性
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id23">
+  <a class="reference internal nav-link" href="#id3">
    インパルス反応関数
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id24">
+    <a class="reference internal nav-link" href="#id4">
      コード
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id25">
+    <a class="reference internal nav-link" href="#id5">
      プロット
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id26">
+      <a class="reference internal nav-link" href="#id6">
        総供給ショック
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id27">
+      <a class="reference internal nav-link" href="#id7">
        総需要ショック
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id28">
+      <a class="reference internal nav-link" href="#id8">
        総供給・総需要ショックの同時発生
       </a>
      </li>
@@ -976,17 +661,17 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id29">
+  <a class="reference internal nav-link" href="#id9">
    確率的シミュレーション
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id30">
+    <a class="reference internal nav-link" href="#id10">
      コード
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id31">
+    <a class="reference internal nav-link" href="#id11">
      プロット
     </a>
    </li>
@@ -996,7 +681,7 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id32">
+    <a class="reference internal nav-link" href="#id12">
      自己相関係数
     </a>
    </li>
@@ -1017,66 +702,66 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id33">
+    <a class="reference internal nav-link" href="#id13">
      結果のまとめと拡張
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id34">
+    <a class="reference internal nav-link" href="#id14">
      ADASモデルの評価
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id35">
+  <a class="reference internal nav-link" href="#id15">
    定量的な問い
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id36">
+    <a class="reference internal nav-link" href="#id16">
      予測誤差
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id37">
+    <a class="reference internal nav-link" href="#id17">
      GDPの％乖離
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id38">
+      <a class="reference internal nav-link" href="#id18">
        計算方法
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id39">
+      <a class="reference internal nav-link" href="#id19">
        結果
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id40">
+      <a class="reference internal nav-link" href="#id20">
        解釈
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id41">
+    <a class="reference internal nav-link" href="#id21">
      価格水準の％乖離
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id42">
+      <a class="reference internal nav-link" href="#id22">
        計算方法
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id43">
+      <a class="reference internal nav-link" href="#id23">
        結果
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id44">
+      <a class="reference internal nav-link" href="#id24">
        解釈
       </a>
      </li>
@@ -1085,12 +770,12 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id45">
+  <a class="reference internal nav-link" href="#id25">
    まとめ
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id46">
+  <a class="reference internal nav-link" href="#id26">
    付録：分散と共分散の性質
   </a>
  </li>
@@ -1104,8 +789,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="adas">
-<span id="chap-18-adas"></span><h1>景気循環の定量分析：ADASモデル<a class="headerlink" href="#adas" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="part-2">
+<span id="chap-18-adas-2"></span><h1>定量的マクロ経済分析：Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">#</a></h1>
 <div name="html-admonition" style="font-size: 0.8em">
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
@@ -1118,851 +803,40 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;frozen importlib._bootstrap&gt;:228: RuntimeWarning: scipy._lib.messagestream.MessageStream size changed, may indicate binary incompatibility. Expected 56 from C header, got 64 from PyObject
-</pre></div>
-</div>
-</div>
 </div>
 <section id="id1">
 <h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>本章の目的は，回帰分析，差分方程式，ランダム変数を駆使し，景気循環データに基づき定量（数量）マクロ経済分析をおこなうことである。使うモデルは，中級レベルのマクロ経済学ではお馴染みの総需要・総供給モデル（ADASモデル）である。また，ここでの定量分析とは，ADASモデルの数量的な特徴を確認し，次の問いを検討することである。</p>
-<blockquote>
-<div><p>GDPと価格水準の長期トレンドからの乖離（％）の変動は，何パーセントが需要ショックにより引き起こされ，何パーセントが供給ショックに起因するのか？</p>
-</div></blockquote>
-<p>通常の教科書でのADASモデルを使う分析では，パラメータの符号（正か負）のみを仮定し，比較静学に基づきモデルの定性的な特徴や予測を考察する。例えば，政府支出の増加を考えてみよう。利子率は上昇し，短期的にはGDPも増加することになるが，「GDPの増加」は定性的な結果（予測）である。このような分析は経済を理解する上で有用な方法であるが，例えば，「GDPがどれだけ増加するのか」について答えることはできない。GDPの増加分がどれ程になるのかは，定量的な問題（予測）であり，総需要曲線と総供給曲線の傾き等の値を設定してこそ答えることができる問いである。</p>
-<p>一方で，パラメータにランダムな値を使っても意味がある分析にはならない。そこで有用な手法がカリブレーションと呼ばれる分析方法である。詳細は以下で説明するが，簡単に言うと，カリブレーションではマクロ・データの特徴に基づきパラメータの値を決定することになる。一旦，パラメータの値が決まると定量的な分析が可能となる。以下では次の分析をおこなう。</p>
-<p>第一に，ADASモデルの安定性を検討する。ADASモデルの定性的分析をとおして長期的な均衡は安定的だと直感的に理解できるが，以下では，差分方程式を使い結果をプロットし均衡の安定性を確認する。これにより，均衡への収束の速さを視覚的に確認することも可能となる。第二に，インパルス反応関数を使い，需要ショックもしくは供給ショックが発生した際，産出量と物価水準（トレンドからの％乖離）がどのように変化するかを示す時系列的なプロットに基づき検討する。このような定量的な分析は，ADASモデルの定性的な理解を補完することになる。第三に，確率的シミュレーションをおこない，ADASモデルが景気循環データを再現できるかを検討する。確率的シミュレーションでは，毎期毎期，需要・供給ショックが絶え間なく発生する状況を考え，生成されるデータと実際の景気循環データの特徴を比較することにより，ADASモデルのデータ再現力を評価することができる。第四に，確率的シミュレーションの結果を踏まえて，上述の定量的な問いを検討する。</p>
-</section>
-<section id="id2">
-<h2>ADASモデル<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
-<p>ここでは総需要・総供給モデル（ADASモデル，Aggregate Demand and Aggregate Supply Model）の記号を整理し，景気循環データと整合性が保たれるように内生変数を解釈し直すことにより，定量分析の準備をおこなう。</p>
-<section id="id3">
-<h3>モデルの構造<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
-<section id="as">
-<h4>短期総供給曲線（AS曲線）<a class="headerlink" href="#as" title="Permalink to this headline">#</a></h4>
-<div class="math notranslate nohighlight" id="equation-eq-18-as">
-<span class="eqno">(68)<a class="headerlink" href="#equation-eq-18-as" title="Permalink to this equation">#</a></span>\[
-P_t=P_{t}^e+a(Y_t-Y_{*})+v_t,\qquad a&gt;0
-\]</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(Y_t=\)</span> 産出量の対数</p></li>
-<li><p><span class="math notranslate nohighlight">\(Y_{*}=\)</span> 自然産出量の対数</p>
-<ul>
-<li><p>資本蓄積や技術進歩などにより決定される。</p></li>
-<li><p>トレンドに対応する。</p></li>
-<li><p>ADASモデルでは一定と仮定する。下で仮定する需要ショックは一時的なものであり，トレンドには影響しないと仮定する。</p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\(P_t=\)</span> 物価水準の対数</p></li>
-<li><p><span class="math notranslate nohighlight">\(P_{*}=\)</span> 物価水準の対数</p>
-<ul>
-<li><p>トレンドに対応する。</p></li>
-<li><p>ここでは一定と仮定する。下で仮定する供給ショックは一時的なものであり，トレンドには影響しないと仮定する。</p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\(v_t=\)</span> 供給ショック</p></li>
-</ul>
-<p>式<a class="reference internal" href="#equation-eq-18-as">(68)</a>自体はAS曲線の典型的な式となっている。一方で，定量分析のために次の点に関して解釈し直している。</p>
-<ul class="simple">
-<li><p>変数の定義：</p>
-<ul>
-<li><p>内生変数である<span class="math notranslate nohighlight">\(Y_t\)</span>と<span class="math notranslate nohighlight">\(P_t\)</span>は産出量と物価水準の対数としている。同様に，<span class="math notranslate nohighlight">\(Y_{*}\)</span>，<span class="math notranslate nohighlight">\(P_{*}\)</span>，<span class="math notranslate nohighlight">\(P_t^{e}\)</span>も対数としている。対数として解釈することにより，ADASモデルを使ってデータを捉えやすくする利点があるためである。</p></li>
-</ul>
-</li>
-<li><p>産出量の長期的水準：</p>
-<ul>
-<li><p>長期均衡での産出量は自然産出量<span class="math notranslate nohighlight">\(Y_{*}\)</span>で与えられるが，これはGDPのトレンドと解釈する。以下の分析では，PHフィルターで計算した値を使うことになる。</p></li>
-<li><p>通常のADASモデルの仮定に沿って，総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>は<span class="math notranslate nohighlight">\(Y_{*}\)</span>に影響を与えないとする。即ち，ここでの総供給ショックは，産出量と物価水準がトレンドから乖離する要因となるものであり，その効果は長期的な効果はないと仮定する。言い換えると，トレンドに影響を及ぼす供給ショックもあり得る訳だが，それらは対象とはなっていないことになる。</p></li>
-</ul>
-</li>
-<li><p>物価水準の長期的水準：</p>
-<ul>
-<li><p>ADASモデルでの長期的な物価水準とは<span class="math notranslate nohighlight">\(Y_t=Y_{*}\)</span>が満たされる<span class="math notranslate nohighlight">\(P_t\)</span>であり，基本的にはどのような値をとっても構わない。例えば，総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>が<code class="docutils literal notranslate"><span class="pre">0</span></code>から<code class="docutils literal notranslate"><span class="pre">0.5</span></code>に増加（不利な総供給ショック）し，<code class="docutils literal notranslate"><span class="pre">0.5</span></code>が永続的に続く場合，長期的な物価水準は永続的に高くなる。しかし，ここで考える総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>は一過性のショックと仮定する。即ち，ある時は<code class="docutils literal notranslate"><span class="pre">0.3</span></code>や<code class="docutils literal notranslate"><span class="pre">-0.1</span></code>などの値を取るが，それは短期的な現象であり，長期的には<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻ると仮定する。この仮定により，長期的な物価水準<span class="math notranslate nohighlight">\(P_{*}\)</span>が存在することになり，それを物価水準のトレンドだと解釈する。産出量と同様に，HPフィルターを使って物価水準の長期的なトレンドを算出することになる。</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="ad">
-<h4>総需要曲線（AD曲線）<a class="headerlink" href="#ad" title="Permalink to this headline">#</a></h4>
-<div class="math notranslate nohighlight" id="equation-eq-18-ad">
-<span class="eqno">(69)<a class="headerlink" href="#equation-eq-18-ad" title="Permalink to this equation">#</a></span>\[
-Y_t=b-c P_t + u_t, \qquad b,c&gt;0
-\]</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(u_t=\)</span> 総需要ショック</p></li>
-</ul>
-<p>AD曲線はIS-LMモデルから導出することができるが，その場合，政府支出やマネーストックなど様々な変数に依存した複雑な式となる。式<a class="reference internal" href="#equation-eq-18-ad">(69)</a>は対数線形の簡単な式となっているが，その裏にあるのが次の考え方である。</p>
-<ul class="simple">
-<li><p>政府支出や租税，マネーストック，更には，消費や投資水準はパラメータである<span class="math notranslate nohighlight">\(b\)</span>と<span class="math notranslate nohighlight">\(c\)</span>に含まれていると考える。また，それらの変化は全て総需要ショック<span class="math notranslate nohighlight">\(u_t\)</span>が捉えていると仮定する。</p></li>
-<li><p>総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>と同様に，総需要ショック<span class="math notranslate nohighlight">\(u_t\)</span>は長期的な産出量水準には影響は与えないと仮定を置くとともに，ショック自体も永続的に維持されるのではなく，時間とともにフェードアウトする短期的ショックと仮定する。</p></li>
-</ul>
-<p>このように簡略化することにより，景気循環データをADASモデルの枠組みの中で扱いやすくなる利点がある。</p>
-</section>
-<section id="id4">
-<h4>適応的期待<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
-<div class="math notranslate nohighlight" id="equation-eq-18-pe">
-<span class="eqno">(70)<a class="headerlink" href="#equation-eq-18-pe" title="Permalink to this equation">#</a></span>\[
-P_t^e= P_{t-1}
-\]</div>
-<p>適応的期待は「後ろ向き」の期待形成を仮定することになり，批判の的にもなり易い。しかし，最前線の研究でも取り上げられる場合があり，データの特徴を捉えた仮定と言えるだろう。</p>
-</section>
-<section id="id5">
-<h4>総需要・総供給ショック<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
-<p>既に触れたが，ショック項<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>は次の2点を満たすと仮定する。</p>
-<ul class="simple">
-<li><p>自然産出量<span class="math notranslate nohighlight">\(Y_{*}\)</span>に影響を及ぼさない。</p></li>
-<li><p>短期的なショックであり，永続的に正または負の一定の値を取り続けない。</p></li>
-</ul>
-<p>この２つの仮定は，<span class="math notranslate nohighlight">\(u_t\)</span>または<span class="math notranslate nohighlight">\(v_t\)</span>が<code class="docutils literal notranslate"><span class="pre">0</span></code>以外の値を取った場合，<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻せば満たされることになる。</p>
-<p>一方で，確率的シミュレーションを行う際は，毎期毎期において総需要ショックと総供給ショックが発生する状況を考える。その場合，次の２つの仮定の内の一つを採用することになる。</p>
-<ol class="simple">
-<li><p>ホワイト・ノイズ</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-u_t&amp;\sim\text{N}(0,\sigma_u^2)\\
-v_t&amp;\sim\text{N}(0,\sigma_v^2)
-\end{align*}
-\end{split}\]</div>
-<ol class="simple">
-<li><p>AR(1)自己回帰モデル</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-u_t&amp;=\rho_u u_{t-1}+e_{ut},\qquad u_t\sim\text{N}(0,\sigma_{eu}^2)\\
-v_t&amp;=\rho_v v_{t-1}+e_{vt},\qquad v_t\sim\text{N}(0,\sigma_{ev}^2)
-\end{align*}
-\end{split}\]</div>
-<p>この章でおこなう確率的シミュレーションではホワイト・ノイズを仮定するが，AR(1)を使う場合は付録で扱うことにする。</p>
-</section>
-<section id="id6">
-<h4>長期均衡<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
-<p>長期均衡または定常状態（steady state）では次の条件が満たされることになる。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(u_{t}=v_t=0\)</span>：ショックはない</p></li>
-<li><p><span class="math notranslate nohighlight">\(P_t=P_*\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(Y_t=Y_*\)</span></p></li>
-</ul>
-</section>
-<section id="id7">
-<h4>図示<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h4>
-<p>ADASモデルを図示すると<a class="reference internal" href="#fig-18-adas0"><span class="std std-numref">Fig. 9</span></a>のようになる。長期均衡においてAD曲線とAS曲線は<span class="math notranslate nohighlight">\(P_*\)</span>と<span class="math notranslate nohighlight">\(Y_*\)</span>で交差することになる。短期均衡を考えるために，総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>が１期間だけ正の値を取り，その後は<code class="docutils literal notranslate"><span class="pre">0</span></code>になるとしよう。ショックが発生するとAS曲線は上方シフトし，産出量は減少し物価水準は上昇する。適応的期待により，ショックがなくなってもAS曲線は直ぐには長期均衡に戻らず，徐々に下方シフトすることになり，最終的には長期均衡に経済は戻ることになる。</p>
-<p>このような分析は，教科書で解説される典型的な例である。長期均衡は安定的であり，産出量と物価水準は少しずつ動くという結果は直感的であり，わかり易い。しかし，このような定性的な分析からは，ショック発生後に経済はどれだけの時間をかけて長期均衡に戻るかについては何もわからない。また，長期均衡に戻るスピードが何に依存しているのかも分からない。AD曲線とAS曲線の傾きが影響を及ぼしそうだと想像できるが，傾きが急だと戻るスピードが早いのだろうか，遅いのだろうか。このような問は，定量分析をおこなうことにより簡単に確認することが可能となる。</p>
-<figure class="align-default" id="fig-18-adas0">
-<a class="reference internal image-reference" href="_images/adas0.jpg"><img alt="_images/adas0.jpg" src="_images/adas0.jpg" style="width: 421.8px; height: 300.0px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">産出量と物価水準で表したADASモデル</span><a class="headerlink" href="#fig-18-adas0" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-</section>
-<section id="id8">
-<h3>均衡式<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
-<p>ADASモデルとデータと整合性があるようにするために次の変数を定義しよう。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p_t=P_t-P_*\)</span>：価格水準のトレンドからの％乖離</p></li>
-<li><p><span class="math notranslate nohighlight">\(y_t=Y_t-Y_*\)</span>：産出量のトレンドからの％乖離</p></li>
-</ul>
-<p><span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>を使ってAS曲線とAD曲線を書き換えることにする。</p>
-<section id="id9">
-<h4>AS曲線<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h4>
-<p>式<a class="reference internal" href="#equation-eq-18-as">(68)</a>に式<a class="reference internal" href="#equation-eq-18-pe">(70)</a>を使い次の１行目となる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-P_{t}&amp;=P_{t-1}+a(Y_{t}-Y_{*})+v_t \\
-&amp;\Downarrow\quad\text{両辺から$P_{*}$を引く}\\
-P_{t}-P_{*}&amp;=(P_{t-1}-P_{*})+a(Y_{t}-Y_{*})+v_t
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-18-as-small">
-<span class="eqno">(71)<a class="headerlink" href="#equation-eq-18-as-small" title="Permalink to this equation">#</a></span>\[\begin{split}
-\begin{align*}
-&amp;\Downarrow\quad\text{上の定義を使う}\\
-p_t &amp;= p_{t-1}+ay_t +v_t
-\end{align*}
-\end{split}\]</div>
-<p>この式はAS曲線を産出量と物価水準のトレンドからの％乖離で表している。また，この式から次のことが言える。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p_{t-1}\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>を所与とすると，総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>の１単位は物価水準のトレンドからの乖離を１％発生させる。</p></li>
-</ul>
-</section>
-<section id="id10">
-<h4>AD曲線<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
-<p>まず長期均衡でのAD曲線を考えてみよう。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-adss">
-<span class="eqno">(72)<a class="headerlink" href="#equation-eq-18-adss" title="Permalink to this equation">#</a></span>\[
-Y_{*}=b-c P_{*} 
-\]</div>
-<p><span class="math notranslate nohighlight">\(u_t=0\)</span>となるため，上の式が成立することになる。</p>
-<p>次に，式<a class="reference internal" href="#equation-eq-18-ad">(69)</a>の両辺から<span class="math notranslate nohighlight">\(Y_{*}\)</span>を引くと次式となる。</p>
-<div class="math notranslate nohighlight">
-\[Y_t-Y_*=b-Y_*-c P_t + u_t\]</div>
-<p>また左辺の<span class="math notranslate nohighlight">\(b-Y_{*}\)</span>を削除するために式<a class="reference internal" href="#equation-eq-18-adss">(72)</a>を使うと</p>
-<div class="math notranslate nohighlight">
-\[
-Y_t-Y_*=cP_*-c P_t + u_t
-\]</div>
-<p>となり，上の定義を使い次式を導出できる。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-ad-small">
-<span class="eqno">(73)<a class="headerlink" href="#equation-eq-18-ad-small" title="Permalink to this equation">#</a></span>\[
-y_t=-cp_t + u_t
-\]</div>
-<p>この式はAD曲線を産出量と物価水準のトレンドからの％乖離で表している。また，この式から次のことが言える。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p_{t}\)</span>を所与とすると，総需要ショック<span class="math notranslate nohighlight">\(u_t\)</span>の１単位はGDPのトレンドからの乖離を１％発生させる。</p></li>
-</ul>
-</section>
-<section id="id11">
-<h4>長期均衡<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h4>
-<p>長期均衡または定常状態（steady state）では次の条件が満たされることになる。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(u_{t}=v_t=0\)</span>：ショックはない</p></li>
-<li><p><span class="math notranslate nohighlight">\(p_* =0\)</span>：トレンドからの％乖離はゼロ</p></li>
-<li><p><span class="math notranslate nohighlight">\(y_* =0\)</span>：トレンドからの％乖離はゼロ</p></li>
-</ul>
-</section>
-<section id="id12">
-<h4>図示<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h4>
-<p>ADASモデルを％乖離の変数<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>で表した図が<a class="reference internal" href="#fig-18-adas1"><span class="std std-numref">Fig. 10</span></a>である。原点が長期均衡となる。<a class="reference internal" href="#fig-18-adas0"><span class="std std-numref">Fig. 9</span></a>と同じように，総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>が１期間だけ正の値を取り，その後は<code class="docutils literal notranslate"><span class="pre">0</span></code>になる場合を考えてみよう。ショックが発生するとAS曲線は上方シフトし，産出量の％乖離は負の値となるが，物価水準の％乖離は正の値を取ることになる。ショックが<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻った後，AS曲線は徐々に下方シフトし，最終的には長期均衡（原点）に経済は戻ることになる。以下の分析では，％乖離の変数である<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>を使うが，<a class="reference internal" href="#fig-18-adas1"><span class="std std-numref">Fig. 10</span></a>を念頭に置き結果を解釈するとわかり易いだろう。</p>
-<figure class="align-default" id="fig-18-adas1">
-<a class="reference internal image-reference" href="_images/adas1.jpg"><img alt="_images/adas1.jpg" src="_images/adas1.jpg" style="width: 393.0px; height: 300.0px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">産出量と物価水準のトレンドからの％乖離で表したADASモデル</span><a class="headerlink" href="#fig-18-adas1" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-</section>
-</section>
-<section id="id13">
-<h2>景気循環のデータ<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h2>
-<p>この章では式<a class="reference internal" href="#equation-eq-18-as-small">(71)</a>と式<a class="reference internal" href="#equation-eq-18-ad-small">(73)</a>を使い定量分析をおこなうが，まず，それらの式と整合性があるデータの特徴を考える。<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(p_t\)</span>はトレンドからの％乖離となるため，<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>の<code class="docutils literal notranslate"><span class="pre">trend()</span></code>関数を使い，対応する変数を作成することにする。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;gdp&#39;, &#39;consumption&#39;, &#39;investment&#39;, &#39;government&#39;, &#39;exports&#39;, &#39;imports&#39;,
-       &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
-       &#39;total_hours&#39;, &#39;inflation&#39;],
-      dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(Y_t\)</span>には<code class="docutils literal notranslate"><span class="pre">gdp</span></code>を使い，<span class="math notranslate nohighlight">\(P_t\)</span>には<code class="docutils literal notranslate"><span class="pre">deflator</span></code>を使うことにする。</p>
-<p>次のコードで作成する<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>は，<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に上下する系列となる。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">]:</span>
-    
-    <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">)</span>
-    
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~/opt/anaconda3/envs/jb/lib/python3.9/site-packages/pandas/core/indexes/base.py:3621,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key, method, tolerance)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3620</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3621</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3622</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-
-<span class="nn">File ~/opt/anaconda3/envs/jb/lib/python3.9/site-packages/pandas/_libs/index.pyx:136,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File ~/opt/anaconda3/envs/jb/lib/python3.9/site-packages/pandas/_libs/index.pyx:163,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:5198,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:5206,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;deflator&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">]:</span>
-<span class="ne">----&gt; </span><span class="mi">3</span>     <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="nn">File ~/opt/anaconda3/envs/jb/lib/python3.9/site-packages/pandas/core/frame.py:3505,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3503</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3504</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3505</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3506</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3507</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~/opt/anaconda3/envs/jb/lib/python3.9/site-packages/pandas/core/indexes/base.py:3623,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key, method, tolerance)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3621</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3622</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3623</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3624</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3625</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3626</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3627</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3628</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;deflator&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>をプロットし，データのイメージを掴んでおこう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/18_ADAS_47_0.png" src="_images/18_ADAS_47_0.png" />
-</div>
-</div>
-<p>以下では，<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>の３つの特徴に焦点を当て議論を進めることにする。</p>
-<section id="id14">
-<h3>データの特徴１<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_std</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">p_std</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPのトレンドからの％乖離の標準偏差：</span><span class="si">{</span><span class="n">y_std</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;デフレータのトレンドからの％乖離の標準偏差：</span><span class="si">{</span><span class="n">p_std</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># 不偏分散の平方根</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPのトレンドからの％乖離の標準偏差：0.014765
-デフレータのトレンドからの％乖離の標準偏差：0.006958
-</pre></div>
-</div>
-</div>
-</div>
-<p>２つの数値を比べると，GDPの％乖離の標準偏差はデフレーターの約2倍あることが分かる。これは上のプロットで<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>の変動幅が大きいことを反映している。</p>
-</section>
-<section id="id15">
-<h3>データの特徴２<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
-<span class="n">p_autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPのトレンドからの％乖離の自己相関係数：</span><span class="si">{</span><span class="n">y_autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;デフレータのトレンドからの％乖離の自己相関係数：</span><span class="si">{</span><span class="n">p_autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPのトレンドからの％乖離の自己相関係数：0.681
-デフレータのトレンドからの％乖離の自己相関係数：0.829
-</pre></div>
-</div>
-</div>
-</div>
-<p>デフレータの方がより高い持続性（persistence; 慣性とも訳される）があることを意味する。</p>
-<p><strong>データの特徴３</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yp_corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPとデフレータの％乖離の相関係数：</span><span class="si">{</span><span class="n">yp_corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPとデフレータの％乖離の相関係数：-0.234
-</pre></div>
-</div>
-</div>
-</div>
-<p>この値は同じ期の相関係数であり，絶対値は小さく弱い関係にある。しかし，直感的には<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>の正の相関をイメージするのではないだろうか。正のGDPの％乖離は景気が良いことを示しているため，物価水準であるデフレーターもトレンドから正の方向に乖離するのではないか，という考えである。そのような考え方は基本的には正しいと言えるだろう。ただ，データを見る限り時間のズレがあるようだ。プロットを見ると，正の方向にGDPの％乖離が発生した後にデフレーターの正の乖離が発生しているように見える。次のプロットは，<span class="math notranslate nohighlight">\(t\)</span>期の<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<span class="math notranslate nohighlight">\(t+6\)</span>期の<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>を重ねて図示している。同じ方向に動いていることを示しているとともに，相関係数も約<code class="docutils literal notranslate"><span class="pre">0.46</span></code>となっており，正の相関を数値でも確認できる。一つの可能性として次の解釈が成り立つ。デフレーターの変化には時間がかかり，それは価格の粘着性の反映かもしれない。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_shift</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">t_shift</span><span class="p">)</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">yp_corr_shift</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPと</span><span class="si">{</span><span class="n">t_shift</span><span class="si">}</span><span class="s1">期先のデフレータの％乖離の相関係数：</span><span class="si">{</span><span class="n">yp_corr_shift</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPと6期先のデフレータの％乖離の相関係数：0.460
-</pre></div>
-</div>
-<img alt="_images/18_ADAS_58_1.png" src="_images/18_ADAS_58_1.png" />
-</div>
-</div>
-<p>これらのデータの特徴１〜３をどこまで<strong>再現</strong>できるかに基づいてADASモデルを評価することになる。</p>
-</section>
-</section>
-<section id="id16">
-<h2>カリブレーション<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h2>
-<section id="id17">
-<h3>はじめに<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h3>
-<p>定量分析を進めるためには，ADASモデルのパラメータに値を設定する必要がある。
-ここでは景気循環のデータに基づき，次の4つのパラメーターの値を決めていく</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(c\)</span>，<span class="math notranslate nohighlight">\(\sigma_u\)</span>，<span class="math notranslate nohighlight">\(\sigma_v\)</span> （標準偏差）</p></li>
-</ul>
-<p>パラメーターの値の決め方には主に次の２つある。</p>
-<ol class="simple">
-<li><p>データに基づいて計量経済学的な手法などを用いて推定した結果を使う。</p></li>
-<li><p>既存の実証研究で報告され推定値を使う。</p></li>
-</ol>
-<p>多くの研究の場合，これらの方法を駆使して値を決めることになる。
-また，必ずしも対象の経済モデルに基づいた推定結果でなくとも構わない。
-以下では１番目の方法を使い議論を進めることにする。</p>
-</section>
-<section id="id18">
-<h3>カリブレーションとは<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h3>
-<p>２つの体重計があるとしよう。
-一つは，市販の正確な体重計で誤差はない。
-もう一つは自作の体重計で，作ったばかりなので精度に欠ける。
-自作体重計にはスイッチが取り付けられており，それを調整することにより誤差を小さくし精度を高めることができる。
-そのスイッチの使い方は次のようになる。
-まず市販の体重計で自分の体重を測る。
-次に自作体重計で測り同じ数値が出るようにスイッチを調整する。
-このように，基準となる機器に基づいて測定器の誤差をなくすための調整をおこなうことを<strong>カリブレーション</strong>と呼ぶ。
-自分の体重を使ってカリブレーションをおこない，親族や友達が使っても体重を正確に測れる場合は，手作り体重計の成功ということである。
-一方で，自分以外の体重を測ると誤差が残る場合は，手作り体重計は100％成功とは言えないだろう。
-60kg以上の体重は誤差が大きいが，60kg未満であればある程度の精度が確保できている場合はどうだろうか。
-「60kg未満の体重を測る」が目的である場合，手作り体重計の成功と考えることもできるだろう。</p>
-<p>このカリブレーションという手法は，最近のマクロ経済学の研究で広く使われており，その分野を定量的（数量的）マクロ経済学と呼ぶ。
-ここではAD-ASモデルに応用しようというのが目的である。
-体重計の例を使うと，AD-ASモデルと実際経済の関係は次のようになる。</p>
-<ul class="simple">
-<li><p>市販の正確な体重計　→　日本経済</p></li>
-<li><p>手作り体重計　→　ADASモデル</p></li>
-<li><p>手作り体重計のスイッチ　→　ADASモデルのパラメーター（外生変数）</p></li>
-<li><p>スイッチの調整　→　パラメーターの値の設定</p></li>
-<li><p>カリブレーションで使うデータ</p>
-<ul>
-<li><p>自分の体重　→　景気循環に関する特徴</p></li>
-</ul>
-</li>
-<li><p>評価方法</p>
-<ul>
-<li><p>他の人の体重を測り手作り体重計の誤差を確認　→　ADASモデルのパラメーターの設定に使われていないデータをどれだけ説明できるかの確認</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="id19">
-<h3>均衡式の整理<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h3>
-<p>式<a class="reference internal" href="#equation-eq-18-as-small">(71)</a>と<a class="reference internal" href="#equation-eq-18-ad-small">(73)</a>を再掲する。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-as-small2">
-<span class="eqno">(74)<a class="headerlink" href="#equation-eq-18-as-small2" title="Permalink to this equation">#</a></span>\[
-p_{t}=p_{t-1}+ay_{t}+v_{t}
-\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-18-ad-small2">
-<span class="eqno">(75)<a class="headerlink" href="#equation-eq-18-ad-small2" title="Permalink to this equation">#</a></span>\[
-y_t=-c p_t + u_t
-\]</div>
-<p>式<a class="reference internal" href="#equation-eq-18-ad-small">(73)</a>を式<a class="reference internal" href="#equation-eq-18-as-small">(71)</a>に代入することにより，次のように整理することができる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align*}
-p_{t}
-&amp;=p_{t-1}+a(-c p_{t} + u_{t})+v_{t} \\
-(1+a c)p_{t}&amp;=p_{t-1} +a u_{t}+v_{t} \\
-p_{t}&amp;=h p_{t-1}+h\left(a u_{t}+v_{t}\right)
-\end{align*}\end{split}\]</div>
-<p>ここで</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-h">
-<span class="eqno">(76)<a class="headerlink" href="#equation-eq-18-h" title="Permalink to this equation">#</a></span>\[
-h\equiv\frac{1}{1+a c}&lt;1
-\]</div>
-<p>この結果を利用して，以下ではADASモデルを次の２つの式で表すことにする。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-eq-p">
-<span class="eqno">(77)<a class="headerlink" href="#equation-eq-18-eq-p" title="Permalink to this equation">#</a></span>\[
+<p>前章で展開したADASモデルは次の２つの均衡式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-p-2">
+<span class="eqno">(84)<a class="headerlink" href="#equation-eq-18-eq-p-2" title="Permalink to this equation">#</a></span>\[
 p_{t}=hp_{t-1}+h\left(a u_{t}+v_{t}\right)
 \]</div>
-<div class="math notranslate nohighlight" id="equation-eq-18-eq-y">
-<span class="eqno">(78)<a class="headerlink" href="#equation-eq-18-eq-y" title="Permalink to this equation">#</a></span>\[
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-y-2">
+<span class="eqno">(85)<a class="headerlink" href="#equation-eq-18-eq-y-2" title="Permalink to this equation">#</a></span>\[
 y_t=-cp_t + u_t
 \]</div>
-<p>この均衡式の特徴：</p>
-<ul class="simple">
-<li><p>式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>のみで<span class="math notranslate nohighlight">\(p_t\)</span>が決定され，<span class="math notranslate nohighlight">\(p_t\)</span>が与えられると式<a class="reference internal" href="#equation-eq-18-eq-y">(78)</a>で<span class="math notranslate nohighlight">\(y_t\)</span>の値が決まる構造となっている。</p></li>
-<li><p>式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>は差分方程式だが，式<a class="reference internal" href="#equation-eq-18-eq-y">(78)</a>は差分方程式ではない。従って，長期均衡の安定性は式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>のみによって決定されることになる。</p></li>
-</ul>
-</section>
-<section id="h">
-<h3>準備：<span class="math notranslate nohighlight">\(h\)</span>の推定値<a class="headerlink" href="#h" title="Permalink to this headline">#</a></h3>
-<p>均衡式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>は<span class="math notranslate nohighlight">\(p_t\)</span>の差分方程式となっており，次のような自己回帰モデルとなっている。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-regression-h">
-<span class="eqno">(79)<a class="headerlink" href="#equation-eq-18-regression-h" title="Permalink to this equation">#</a></span>\[
-p_{t}=hp_{t-1} + e_{pt}
+<p>ここで</p>
+<div class="math notranslate nohighlight" id="equation-eq-18-h-2">
+<span class="eqno">(86)<a class="headerlink" href="#equation-eq-18-h-2" title="Permalink to this equation">#</a></span>\[
+h\equiv\frac{1}{1+a c}&lt;1
 \]</div>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(e_{pt}\equiv h\left(a u_{t}+v_{t}\right)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_t\)</span>：価格水準のトレンドからの％乖離</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span>：産出量のトレンドからの％乖離</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_t\sim N\left(0,\sigma_v^2\right)\)</span>：総供給ショック</p></li>
+<li><p><span class="math notranslate nohighlight">\(u_t\sim N\left(0,\sigma_u^2\right)\)</span>：総需要ショック</p></li>
 </ul>
-<p>式<a class="reference internal" href="#equation-eq-18-regression-h">(79)</a>を回帰式と捉えて<span class="math notranslate nohighlight">\(h\)</span>を推定する。
-説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_t\)</span>とは期間がズレているため相関していないことが分かる。</p>
-<p>まず，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>を１期ずらした列を<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
-<div class="cell docutils container">
+<p>またカリブレーションの手法を使い，次の値を設定した。</p>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
-<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>price</th>
-      <th>deflator</th>
-      <th>gdp_cycle</th>
-      <th>deflator_cycle</th>
-      <th>deflator_cycle_lag</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1980-03-31</th>
-      <td>71.015699</td>
-      <td>91.2</td>
-      <td>0.003269</td>
-      <td>-0.025798</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1980-06-30</th>
-      <td>72.907806</td>
-      <td>93.4</td>
-      <td>-0.010845</td>
-      <td>-0.006555</td>
-      <td>-0.025798</td>
-    </tr>
-    <tr>
-      <th>1980-09-30</th>
-      <td>73.898630</td>
-      <td>94.4</td>
-      <td>0.000457</td>
-      <td>-0.000482</td>
-      <td>-0.006555</td>
-    </tr>
-    <tr>
-      <th>1980-12-31</th>
-      <td>74.771830</td>
-      <td>95.4</td>
-      <td>0.010468</td>
-      <td>0.005515</td>
-      <td>-0.000482</td>
-    </tr>
-    <tr>
-      <th>1981-03-31</th>
-      <td>75.694271</td>
-      <td>95.6</td>
-      <td>0.009441</td>
-      <td>0.003126</td>
-      <td>0.005515</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>には１期前の<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>の値が並んでいるのが確認できる。</p>
-<p>まず回帰分析をおこない，その結果を表示する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_h</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;deflator_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">res_h</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:         deflator_cycle   R-squared:                       0.688
-Model:                            OLS   Adj. R-squared:                  0.686
-Method:                 Least Squares   F-statistic:                     363.5
-Date:                Mon, 20 Feb 2023   Prob (F-statistic):           1.46e-43
-Time:                        20:16:33   Log-Likelihood:                 697.08
-No. Observations:                 167   AIC:                            -1390.
-Df Residuals:                     165   BIC:                            -1384.
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-======================================================================================
-                         coef    std err          t      P&gt;|t|      [0.025      0.975]
---------------------------------------------------------------------------------------
-Intercept              0.0001      0.000      0.353      0.725      -0.000       0.001
-deflator_cycle_lag     0.8002      0.042     19.066      0.000       0.717       0.883
-==============================================================================
-Omnibus:                       45.658   Durbin-Watson:                   1.686
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              105.125
-Skew:                           1.183   Prob(JB):                     1.49e-23
-Kurtosis:                       6.084   Cond. No.                         145.
-==============================================================================
-
-Notes:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ahat</span> <span class="o">=</span> <span class="mf">0.3674839411519716</span>
+<span class="n">chat</span> <span class="o">=</span> <span class="mf">0.679419826388461</span>
+<span class="n">v_std</span> <span class="o">=</span> <span class="mf">0.006610407413428777</span>
+<span class="n">u_std</span> <span class="o">=</span> <span class="mf">0.014412515882360838</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><strong>＜推定結果について＞</strong></p>
-<ul class="simple">
-<li><p>AR(1)は弱従属的となるため，<span class="math notranslate nohighlight">\(h\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{h}\)</span>は不偏性は満たさないが一致性を満たす。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>は<code class="docutils literal notranslate"><span class="pre">1.686</span></code>であり残差の系列相関は排除できる。</p></li>
-<li><p>残差の均一分散</p>
-<ul>
-<li><p>ブルーシュペーガン検定とホワイト検定を使うと，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
-<li><p>不均一分散頑健推定（<code class="docutils literal notranslate"><span class="pre">HC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
-</ul>
-</li>
-<li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
-</ul>
-<p>式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>は<code class="docutils literal notranslate"><span class="pre">AR(1)</span></code>であるため，<span class="math notranslate nohighlight">\(\hat{h}\)</span>は<span class="math notranslate nohighlight">\(p_t\)</span>の自己相関係数でもあり，非常に高い持続性が特徴となっている。</p>
-<p>以下に続く分析のために，次の変数を作成しておこう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hhat</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># hの推定値</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">resid</span>        <span class="c1"># 推定式(3)の残差</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="c">
-<h3>最初のスイッチ：<span class="math notranslate nohighlight">\(c\)</span>の値<a class="headerlink" href="#c" title="Permalink to this headline">#</a></h3>
-<p>ここでは<code class="docutils literal notranslate"><span class="pre">hhat</span></code>を利用して<code class="docutils literal notranslate"><span class="pre">c</span></code>の推定値を計算する。
-均衡式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>を<a class="reference internal" href="#equation-eq-18-eq-y">(78)</a>に代入しよう</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-regression-d">
-<span class="eqno">(80)<a class="headerlink" href="#equation-eq-18-regression-d" title="Permalink to this equation">#</a></span>\[
-y_t = dp_{t-1} + e_{yt}
-\]</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(d\equiv -ch\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(e_{yt}\equiv (1-ach)u_t-chv_t=\left(1-\dfrac{ac}{1+ac}\right)u_t-chv_t=hu_t-chv_t\)</span></p></li>
-</ul>
-<p>式<a class="reference internal" href="#equation-eq-18-regression-d">(80)</a>を推定式として<span class="math notranslate nohighlight">\(d\)</span>の推定値を計算する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_d</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">res_d</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:              gdp_cycle   R-squared:                       0.065
-Model:                            OLS   Adj. R-squared:                  0.059
-Method:                 Least Squares   F-statistic:                     11.41
-Date:                Mon, 20 Feb 2023   Prob (F-statistic):           0.000910
-Time:                        20:16:34   Log-Likelihood:                 472.63
-No. Observations:                 167   AIC:                            -941.3
-Df Residuals:                     165   BIC:                            -935.0
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-======================================================================================
-                         coef    std err          t      P&gt;|t|      [0.025      0.975]
---------------------------------------------------------------------------------------
-Intercept           1.594e-05      0.001      0.014      0.989      -0.002       0.002
-deflator_cycle_lag    -0.5437      0.161     -3.378      0.001      -0.861      -0.226
-==============================================================================
-Omnibus:                       46.569   Durbin-Watson:                   0.696
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              154.973
-Skew:                          -1.048   Prob(JB):                     2.23e-34
-Kurtosis:                       7.228   Cond. No.                         145.
-==============================================================================
-
-Notes:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>＜推定結果について＞</strong></p>
-<ul class="simple">
-<li><p>説明変数<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>と相関しておらず，定常過程であるため，<span class="math notranslate nohighlight">\(d\)</span>の推定値は一致性を満たすことになる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<code class="docutils literal notranslate"><span class="pre">0.696</span></code>であり残差の正の系列相関が疑われる。</p></li>
-<li><p>残差の均一分散</p>
-<ul>
-<li><p>ブルーシュペーガン検定とホワイト検定を使うと，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
-</ul>
-</li>
-<li><p>不均一系列相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">d</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
-<li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
-</ul>
-<p><span class="math notranslate nohighlight">\(d\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{d}\)</span>は負であり，モデルに沿った結果である。
-推定値を<code class="docutils literal notranslate"><span class="pre">dhat</span></code>に割り当てることにする。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dhat</span> <span class="o">=</span> <span class="n">res_d</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>ここで重要なのは，<span class="math notranslate nohighlight">\(-d\equiv ch\)</span>となり，<span class="math notranslate nohighlight">\(c\)</span>の推定値を次式で計算することができる。</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{c} = -\frac{\hat{d}}{\hat{h}}
-\]</div>
-<p>この値を<code class="docutils literal notranslate"><span class="pre">chat</span></code>に割り当てよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chat</span> <span class="o">=</span> <span class="o">-</span><span class="n">dhat</span> <span class="o">/</span> <span class="n">hhat</span>
-<span class="n">chat</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.679419826388461
-</pre></div>
-</div>
-</div>
-</div>
-<p>これが「最初のスイッチの調整」である。また後に続く計算のために推定結果の残差を割りてて次の変数も作成しておく。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ey</span> <span class="o">=</span> <span class="n">res_d</span><span class="o">.</span><span class="n">resid</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="a">
-<h3>２つ目のスイッチ：<span class="math notranslate nohighlight">\(a\)</span>の値<a class="headerlink" href="#a" title="Permalink to this headline">#</a></h3>
-<p>式<a class="reference internal" href="#equation-eq-18-h">(76)</a>では，<span class="math notranslate nohighlight">\(h\)</span>は<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(c\)</span>の関数となっている。
-すでに<span class="math notranslate nohighlight">\(h\)</span>と<span class="math notranslate nohighlight">\(c\)</span>の推定値を計算しているため，この式を使うことにより簡単に<span class="math notranslate nohighlight">\(a\)</span>の推定値を計算することができる。
-式<a class="reference internal" href="#equation-eq-18-h">(76)</a>を整理すると次式となる。</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{a} = \left(\dfrac{1}{\hat{h}}-1\right)\frac{1}{\hat{c}}
-\]</div>
-<p>計算結果を<code class="docutils literal notranslate"><span class="pre">ahat</span></code>に割り当てよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ahat</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hhat</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">chat</span>
-<span class="n">ahat</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3674839411519716
-</pre></div>
-</div>
-</div>
-</div>
-<p>これが「2つ目のスイッチの調整」である。</p>
-</section>
-<section id="sigma-v">
-<h3>３つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_v\)</span>の値<a class="headerlink" href="#sigma-v" title="Permalink to this headline">#</a></h3>
-<p><span class="math notranslate nohighlight">\(\sigma_v^2\)</span>の値も回帰式の結果を使い設定する。
-式<a class="reference internal" href="#equation-eq-18-regression-h">(79)</a>の誤差項<span class="math notranslate nohighlight">\(e_{pt}\)</span>は<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の線形関数となっており，同様に，式<a class="reference internal" href="#equation-eq-18-regression-d">(80)</a>の誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>も<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の線形関数となっている。
-以下に再掲する。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-ept-eyp">
-<span class="eqno">(81)<a class="headerlink" href="#equation-eq-18-ept-eyp" title="Permalink to this equation">#</a></span>\[\begin{split}
-\begin{align*}
-e_{pt}&amp;=h(a u_{t}+v_{t})\\
-e_{yt}&amp;=h(u_t-cv_t)
-\end{align*}
-\end{split}\]</div>
-<p>これはAD-ASモデルを前提とした理論上の関係であり，全てが観測不可能である。
-しかし，<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(h\)</span>にはその推定値<span class="math notranslate nohighlight">\(\hat{a}\)</span>と<span class="math notranslate nohighlight">\(\hat{h}\)</span>を使い，<span class="math notranslate nohighlight">\(e_{pt}\)</span>と<span class="math notranslate nohighlight">\(e_{yt}\)</span>については残差<span class="math notranslate nohighlight">\(\hat{e}_{pt}\)</span>と<span class="math notranslate nohighlight">\(e_{yt}\)</span>を用いることにより，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>を求めることが可能である。
-式<a class="reference internal" href="#equation-eq-18-ept-eyp">(81)</a>は<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の線形連立方程式となっているため，簡単に次のように書き直すことができる。</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-vt">
-<span class="eqno">(82)<a class="headerlink" href="#equation-eq-18-vt" title="Permalink to this equation">#</a></span>\[
-\hat{v}_t=\hat{e}_{pt}-\hat{a}\hat{e}_{yt}
-\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-18-ut">
-<span class="eqno">(83)<a class="headerlink" href="#equation-eq-18-ut" title="Permalink to this equation">#</a></span>\[
-\hat{u}_t=\hat{c}\hat{e}_{pt}+\hat{e}_{yt}
-\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(\hat{e}_{pt}\)</span>と<span class="math notranslate nohighlight">\(\hat{e}_{yt}\)</span>は残差を，<span class="math notranslate nohighlight">\(\hat{a}\)</span>と<span class="math notranslate nohighlight">\(\hat{c}\)</span>は推定値を表しており，これらを使って計算した需要・供給ショックを<span class="math notranslate nohighlight">\(\hat{v}_t\)</span>と<span class="math notranslate nohighlight">\(\hat{u}_t\)</span>として表している。
-まず式<a class="reference internal" href="#equation-eq-18-vt">(82)</a>を使い，結果を<code class="docutils literal notranslate"><span class="pre">vt</span></code>に割り当てよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vt</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">-</span> <span class="n">ahat</span><span class="o">*</span><span class="n">ey</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">vt</span></code>のデータ型は<code class="docutils literal notranslate"><span class="pre">Series</span></code>であり，メソッド<code class="docutils literal notranslate"><span class="pre">.std()</span></code>を使うと簡単に<code class="docutils literal notranslate"><span class="pre">vt</span></code>の標準偏差を計算することができる。
-結果を<code class="docutils literal notranslate"><span class="pre">v_std</span></code>に割り当てよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_std</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">v_std</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006610407413428777
-</pre></div>
-</div>
-</div>
-</div>
-<p>この値を<span class="math notranslate nohighlight">\(\sigma_v\)</span>に使うことにする。これが「3つ目のスイッチの調整」である。</p>
-</section>
-<section id="sigma-u">
-<h3>４つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_u\)</span>の値<a class="headerlink" href="#sigma-u" title="Permalink to this headline">#</a></h3>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-ut">(83)</a>を使うと，<span class="math notranslate nohighlight">\(\hat{u}_t\)</span>の標準偏差を計算することができる。
-<code class="docutils literal notranslate"><span class="pre">u_std</span></code>に割り当てる。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ut</span> <span class="o">=</span> <span class="n">ey</span> <span class="o">+</span> <span class="n">chat</span><span class="o">*</span><span class="n">ep</span>
-<span class="n">u_std</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">u_std</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014412515882360838
-</pre></div>
-</div>
-</div>
-</div>
-<p>この値を<span class="math notranslate nohighlight">\(\sigma_u\)</span>に使うが，これが「最後のスイッチの調整」となる。</p>
-<p><code class="docutils literal notranslate"><span class="pre">v_std</span></code>と<code class="docutils literal notranslate"><span class="pre">u_std</span></code>を比べると，後者の値がより大きい。
-ADASモデルの枠組みで考えると，需要ショックの変動幅が大きいことを示している。</p>
-</section>
-<section id="id20">
-<h3>パラメーターの値：再掲<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;aの値：</span><span class="si">{</span><span class="n">ahat</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1981,11 +855,13 @@ vの標準偏差：0.006610
 </div>
 </div>
 </div>
-<p>需要ショック（<span class="math notranslate nohighlight">\(u_t\)</span>）の標準偏差が比較的に大きく，供給ショック（<span class="math notranslate nohighlight">\(v_t\)</span>）の2倍以上となっている。この結果は，以下で考察する定量的な問に関する結果を理解する鍵となる。</p>
+<p>これらの値を使い，次の定量的マクロ分析をおこなう。第一に，ADASモデルの安定性を検討する。ADASモデルの定性的分析をとおして長期的な均衡は安定的だと直感的に理解できるが，以下では，差分方程式を使い結果をプロットし均衡の安定性を確認する。これにより，均衡への収束の速さを視覚的に確認することも可能となる。第二に，インパルス反応関数を使い，需要ショックもしくは供給ショックが発生した際，産出量と物価水準（トレンドからの％乖離）がどのように変化するかを示す時系列的なプロットに基づき検討する。このような定量分析は，ADASモデルの定性的な理解を補完することになる。第三に，確率的シミュレーションをおこない，ADASモデルが景気循環データをどの程度再現できるかが焦点となる。確率的シミュレーションでは，毎期毎期，総需要・総供給ショックが絶え間なく発生する状況を考え，生成されるデータと実際の景気循環データの特徴を比較することにより，ADASモデルのデータ再現力を評価することができる。第四に，確率的シミュレーションの結果を踏まえて，次の定量的な問いを検討する。</p>
+<blockquote>
+<div><p>GDPと価格水準の長期トレンドからの乖離（％）の変動は，何パーセントが需要ショックにより引き起こされ，何パーセントが供給ショックに起因するのか？</p>
+</div></blockquote>
 </section>
-</section>
-<section id="id21">
-<h2>コードの基本形<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h2>
+<section id="id2">
+<h2>コードの基本形<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p>以下ではシミュレーションをおこなうが，コードは関数にまとめて書くことにする。
 コードは次のようなパターンになっている。</p>
 <p>関数の中身</p>
@@ -2004,7 +880,7 @@ x_t = x_{t-1} + a
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_func</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    引数：</span>
 <span class="sd">        x0: 初期値</span>
 <span class="sd">        a: 差分方程式のパラメーター</span>
@@ -2085,23 +961,23 @@ x_t = x_{t-1} + a
 </table>
 </div></div></div>
 </div>
-<p>次のセクションのコードは少し長くなるが，コードのパターンとしては上の例と同じになるので，それほど複雑には感じないだろう。</p>
+<p>本章のコードは少し長くなるが，コードのパターンとしては上の例と同じになるので，コードの理解に不安な場合は上のコードで復習してはどうだろうか。</p>
 </section>
-<section id="id22">
-<h2>ADASモデルの安定性<a class="headerlink" href="#id22" title="Permalink to this headline">#</a></h2>
+<section id="adas">
+<h2>ADASモデルの安定性<a class="headerlink" href="#adas" title="Permalink to this headline">#</a></h2>
 <p>まずADASモデルの安定性を考える。すなわち，任意の初期値（<span class="math notranslate nohighlight">\(p_0\)</span>と<span class="math notranslate nohighlight">\(y_0\)</span>）にある経済が長期均衡に戻るかどうかを確認する。
 そのために，ここでは総需要・総供給ショックがない経済を考える。即ち，<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>，<span class="math notranslate nohighlight">\(t=0,1,2,\cdots\)</span>とする。
-従って，均衡式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>と<a class="reference internal" href="#equation-eq-18-eq-y">(78)</a>は</p>
+従って，均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-p">(77)</a>と<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-y">(78)</a>は</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-p-v0">
-<span class="eqno">(84)<a class="headerlink" href="#equation-eq-18-eq-p-v0" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(87)<a class="headerlink" href="#equation-eq-18-eq-p-v0" title="Permalink to this equation">#</a></span>\[
 p_{t}=hp_{t-1}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-y-u0">
-<span class="eqno">(85)<a class="headerlink" href="#equation-eq-18-eq-y-u0" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(88)<a class="headerlink" href="#equation-eq-18-eq-y-u0" title="Permalink to this equation">#</a></span>\[
 y_t=-cp_t 
 \]</div>
 <p>となる。</p>
-<p>上でも説明したが，次の特徴がある。<span class="math notranslate nohighlight">\(p_t\)</span>の値は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>のみで決定され，その<span class="math notranslate nohighlight">\(p_t\)</span>に基づいて<span class="math notranslate nohighlight">\(y_t\)</span>が式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(85)</a>で決まる。この点を説明するために次の表を見てみよう。</p>
+<p>上でも説明したが，次の特徴がある。<span class="math notranslate nohighlight">\(p_t\)</span>の値は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>のみで決定され，その<span class="math notranslate nohighlight">\(p_t\)</span>に基づいて<span class="math notranslate nohighlight">\(y_t\)</span>が式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(88)</a>で決まる。この点を説明するために次の表を見てみよう。</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -2130,21 +1006,21 @@ y_t=-cp_t
 </tbody>
 </table>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(t=0\)</span>期：初期値<span class="math notranslate nohighlight">\(p_0\)</span>が与えられると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(85)</a>によって初期値<span class="math notranslate nohighlight">\(y_0\)</span>が<strong>決定される</strong>。</p></li>
-<li><p><span class="math notranslate nohighlight">\(t=1\)</span>期：<span class="math notranslate nohighlight">\(p_0\)</span>に基づいて式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>に従って<span class="math notranslate nohighlight">\(p_1\)</span>が決まる。また<span class="math notranslate nohighlight">\(p_1\)</span>が決まると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(85)</a>によって<span class="math notranslate nohighlight">\(y_1\)</span>が定まる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(t=0\)</span>期：初期値<span class="math notranslate nohighlight">\(p_0\)</span>が与えられると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(88)</a>によって初期値<span class="math notranslate nohighlight">\(y_0\)</span>が<strong>決定される</strong>。</p></li>
+<li><p><span class="math notranslate nohighlight">\(t=1\)</span>期：<span class="math notranslate nohighlight">\(p_0\)</span>に基づいて式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>に従って<span class="math notranslate nohighlight">\(p_1\)</span>が決まる。また<span class="math notranslate nohighlight">\(p_1\)</span>が決まると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(88)</a>によって<span class="math notranslate nohighlight">\(y_1\)</span>が定まる。</p></li>
 <li><p><span class="math notranslate nohighlight">\(t=2\)</span>期以降：同様のプロセスで<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が決定される。</p></li>
 </ul>
 <p>ここから次の２つの特徴が浮かび上がる。</p>
 <ol class="simple">
 <li><p>初期値には<span class="math notranslate nohighlight">\(p_0\)</span>のみが必要であり，<span class="math notranslate nohighlight">\(y_0\)</span>を別に設定する必要はない。</p></li>
-<li><p>安定性は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>のみに依存する。</p></li>
+<li><p>安定性は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>のみに依存する。</p></li>
 </ol>
 <p>また，特徴2から次のことも導き出せる。
-式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>の<span class="math notranslate nohighlight">\(h\)</span>の値は正であり絶対値は1よりも小さい。従って，差分方程式である式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>は安定的であり，ADASモデル自体が安定的だということが確認できる。以下では，シミュレーションを使いこの結果を確認しよう。そのための関数を作成する。</p>
+式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>の<span class="math notranslate nohighlight">\(h\)</span>の値は正であり絶対値は1よりも小さい。従って，差分方程式である式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>は安定的であり，ADASモデル自体が安定的だということが確認できる。以下では，シミュレーションを使いこの結果を確認しよう。そのための関数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adas_model</span><span class="p">(</span><span class="n">p0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">ahat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">chat</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;引数</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数</span>
 <span class="sd">        p0: pの初期値（デフォルト：0）</span>
 <span class="sd">        n: ループの回数（デフォルト：20）</span>
 <span class="sd">        a: aの値（デフォルト：ahat）</span>
@@ -2192,15 +1068,15 @@ y_t=-cp_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_116_0.png" src="_images/18_ADAS_116_0.png" />
+<img alt="_images/18_ADAS-2_17_0.png" src="_images/18_ADAS-2_17_0.png" />
 </div>
 </div>
-<p>このプロットの横軸には返された<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の行インデックスが使われているが，時系列的なプロットと考えれば良いだろう。<span class="math notranslate nohighlight">\(p_t\)</span>は初期値である１から始まっており，<span class="math notranslate nohighlight">\(y_t\)</span>の初期値は式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(85)</a>で計算した値である。このプロットから次のことが確認できる。</p>
+<p>このプロットの横軸には返された<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の行インデックスが使われているが，時系列的なプロットと考えれば良いだろう。<span class="math notranslate nohighlight">\(p_t\)</span>は初期値である１から始まっており，<span class="math notranslate nohighlight">\(y_t\)</span>の初期値は式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(88)</a>で計算した値である。このプロットから次のことが確認できる。</p>
 <ul class="simple">
 <li><p>定常状態である0に両変数は近づいている。即ち，長期均衡が安定的だということである。</p></li>
 <li><p>長期均衡に近づく速度は，最初は速いが，そのスピードが時間と共に落ちているのが伺える。</p></li>
 </ul>
-<p>下のプロットは，横軸に<span class="math notranslate nohighlight">\(y_t\)</span>，縦軸に<span class="math notranslate nohighlight">\(p_t\)</span>を置いた図となる。点はAD曲線とAS曲線の交点を表している。右下がりの直線はAD曲線と等しく，AD曲線に沿ってAS曲線が下方シフトしていることになる。そういう意味では，<a class="reference internal" href="#fig-18-adas1"><span class="std std-numref">Fig. 10</span></a>で描かれている状況と同じである。</p>
+<p>下のプロットは，横軸に<span class="math notranslate nohighlight">\(y_t\)</span>，縦軸に<span class="math notranslate nohighlight">\(p_t\)</span>を置いた図となる。点はAD曲線とAS曲線の交点を表している。右下がりの直線はAD曲線と等しく，AD曲線に沿ってAS曲線が下方シフトしていることになる。そういう意味では，<a class="reference internal" href="18_ADAS-1.html#fig-18-adas1"><span class="std std-numref">Fig. 10</span></a>で描かれている状況と同じである。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adas_model</span><span class="p">(</span><span class="n">p0</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -2209,10 +1085,10 @@ y_t=-cp_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_118_0.png" src="_images/18_ADAS_118_0.png" />
+<img alt="_images/18_ADAS-2_19_0.png" src="_images/18_ADAS-2_19_0.png" />
 </div>
 </div>
-<p>また，このプロットから長期均衡<span class="math notranslate nohighlight">\((0,0)\)</span>に近づくにつれて，経済の動きが小刻みになっているのも確認できる。<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化が小さくなり，動くスピードが遅くなっている。実は，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>を使うと，<span class="math notranslate nohighlight">\(p_t\)</span>が０に近づく変化率を簡単に計算することができる。式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>を次のように書き直そう。</p>
+<p>また，このプロットから長期均衡<span class="math notranslate nohighlight">\((0,0)\)</span>に近づくにつれて，経済の動きが小刻みになっているのも確認できる。<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化が小さくなり，動くスピードが遅くなっている。実は，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>を使うと，<span class="math notranslate nohighlight">\(p_t\)</span>が０に近づく変化率を簡単に計算することができる。式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>を次のように書き直そう。</p>
 <div class="math notranslate nohighlight">
 \[
 p_t\text{の変化率}=
@@ -2223,7 +1099,7 @@ p_t\text{の変化率}=
 <li><p>AS曲線の傾きが急になると，長期均衡への収束速度が速くなる。</p></li>
 <li><p>AD曲線の傾きが急になると，長期均衡への収束速度が遅くなる。</p></li>
 </ul>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(84)</a>と<a class="reference internal" href="#equation-eq-18-eq-y-u0">(85)</a>を使うと次の結果を導出できる。</p>
+<p>同様に，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(87)</a>と<a class="reference internal" href="#equation-eq-18-eq-y-u0">(88)</a>を使うと次の結果を導出できる。</p>
 <div class="math notranslate nohighlight">
 \[
 y_t\text{の変化率}=
@@ -2242,7 +1118,7 @@ p_t\text{の変化率}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_122_0.png" src="_images/18_ADAS_122_0.png" />
+<img alt="_images/18_ADAS-2_23_0.png" src="_images/18_ADAS-2_23_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2253,16 +1129,16 @@ p_t\text{の変化率}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_123_0.png" src="_images/18_ADAS_123_0.png" />
+<img alt="_images/18_ADAS-2_24_0.png" src="_images/18_ADAS-2_24_0.png" />
 </div>
 </div>
 </section>
-<section id="id23">
-<h2>インパルス反応関数<a class="headerlink" href="#id23" title="Permalink to this headline">#</a></h2>
+<section id="id3">
+<h2>インパルス反応関数<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>インパルス反応関数とは，ある特定のショック（<span class="math notranslate nohighlight">\(u_t\)</span>もしくは<span class="math notranslate nohighlight">\(v_t\)</span>）が発生した場合，<code class="docutils literal notranslate"><span class="pre">y_t</span></code>と<code class="docutils literal notranslate"><span class="pre">p_t</span></code>がどのように変化するかを示す時系列のグラフをである。インパルス反応関数により，ショックの波及効果を可視化できる。また，後で考察する確率的シミュレーションの結果を理解する上でも有用な情報となる。</p>
-<section id="id24">
-<h3>コード<a class="headerlink" href="#id24" title="Permalink to this headline">#</a></h3>
-<p>均衡式<a class="reference internal" href="#equation-eq-18-as-small">(71)</a>と式<a class="reference internal" href="#equation-eq-18-ad-small">(73)</a>を再掲する。</p>
+<section id="id4">
+<h3>コード<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p>均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-as-small">(71)</a>と式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ad-small">(73)</a>を再掲する。</p>
 <div class="math notranslate nohighlight">
 \[
 p_{t}=hp_{t-1}+h\left(a u_{t}+v_{t}\right)
@@ -2277,7 +1153,7 @@ y_t=-cp_t + u_t
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_period_impulse</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_after</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">ahat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">chat</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;引数</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数</span>
 <span class="sd">        u: AD曲線へのショックの大きさ（デフォルト：0）</span>
 <span class="sd">        v: AS曲線へのショックの大きさ（デフォルト：0）</span>
 <span class="sd">        n_after: ショック発生後0に戻った後の計算回数（デフォルト：20）</span>
@@ -2336,10 +1212,10 @@ y_t=-cp_t + u_t
 </div>
 </div>
 </section>
-<section id="id25">
-<h3>プロット<a class="headerlink" href="#id25" title="Permalink to this headline">#</a></h3>
-<section id="id26">
-<h4>総供給ショック<a class="headerlink" href="#id26" title="Permalink to this headline">#</a></h4>
+<section id="id5">
+<h3>プロット<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<section id="id6">
+<h4>総供給ショック<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
 <p>0から数えて3期目に<span class="math notranslate nohighlight">\(p_t\)</span>の１％乖離を引き起こす供給ショック（<span class="math notranslate nohighlight">\(v_t=1\)</span>）を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2349,7 +1225,7 @@ y_t=-cp_t + u_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_134_0.png" src="_images/18_ADAS_134_0.png" />
+<img alt="_images/18_ADAS-2_35_0.png" src="_images/18_ADAS-2_35_0.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-as-shock"><span class="std std-numref">Fig. 11</span></a>を使って説明しよう。</p>
@@ -2374,8 +1250,8 @@ y_t=-cp_t + u_t
 </figcaption>
 </figure>
 </section>
-<section id="id27">
-<h4>総需要ショック<a class="headerlink" href="#id27" title="Permalink to this headline">#</a></h4>
+<section id="id7">
+<h4>総需要ショック<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_period_impulse</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -2384,7 +1260,7 @@ y_t=-cp_t + u_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_138_0.png" src="_images/18_ADAS_138_0.png" />
+<img alt="_images/18_ADAS-2_39_0.png" src="_images/18_ADAS-2_39_0.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-ad-shock"><span class="std std-numref">Fig. 12</span></a>を使って説明しよう。</p>
@@ -2409,8 +1285,8 @@ y_t=-cp_t + u_t
 </figcaption>
 </figure>
 </section>
-<section id="id28">
-<h4>総供給・総需要ショックの同時発生<a class="headerlink" href="#id28" title="Permalink to this headline">#</a></h4>
+<section id="id8">
+<h4>総供給・総需要ショックの同時発生<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_period_impulse</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -2419,7 +1295,7 @@ y_t=-cp_t + u_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_142_0.png" src="_images/18_ADAS_142_0.png" />
+<img alt="_images/18_ADAS-2_43_0.png" src="_images/18_ADAS-2_43_0.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-adas-shock"><span class="std std-numref">Fig. 13</span></a>を使って説明しよう。</p>
@@ -2450,8 +1326,8 @@ y_t=-cp_t + u_t
 </section>
 </section>
 </section>
-<section id="id29">
-<h2>確率的シミュレーション<a class="headerlink" href="#id29" title="Permalink to this headline">#</a></h2>
+<section id="id9">
+<h2>確率的シミュレーション<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
 <p>インパルス反応関数の分析では，ショックが１期間のみ発生した場合を考え<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の動きを考察した。
 ADASモデルの特徴を理解する上では非常に有用な分析方法である。
 一方で，現実経済では大小の総需要・総供給ショックが毎期毎期連続的に発生していると考えることができるとともに，その結果としてデータに景気循環という形で現れていると解釈できる。
@@ -2470,13 +1346,13 @@ v_t\sim N(0,\sigma_v^2)
 <li><p>ショックの幅は標準偏差である<span class="math notranslate nohighlight">\(\sigma_u\)</span>と<span class="math notranslate nohighlight">\(\sigma_v\)</span>で捉えることができる。</p></li>
 <li><p>平均を0とすることにより，<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の長期的な値も0に設定することができる。</p></li>
 </ul>
-<section id="id30">
-<h3>コード<a class="headerlink" href="#id30" title="Permalink to this headline">#</a></h3>
+<section id="id10">
+<h3>コード<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p><span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(c\)</span>，<span class="math notranslate nohighlight">\(\sigma_u\)</span>，<span class="math notranslate nohighlight">\(\sigma_v\)</span>には，カリブレーションで得た値を使うこととする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">stochastic_sim</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">ahat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">chat</span><span class="p">,</span> <span class="n">ustd</span><span class="o">=</span><span class="n">u_std</span><span class="p">,</span> <span class="n">vstd</span><span class="o">=</span><span class="n">v_std</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    引数：</span>
 <span class="sd">        n: シミュレーションの回数（デフォルト：100）</span>
 <span class="sd">        a: aの値（デフォルト：ahat）</span>
@@ -2529,13 +1405,13 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 </div>
-<p>```{caution}統計学では変数<span class="math notranslate nohighlight">\(x\)</span>が正規分布に従う場合，<span class="math notranslate nohighlight">\(x\sim N(\mu,\sigma^2)\)</span>と表す。<span class="math notranslate nohighlight">\(\mu\)</span>は平均であり，<span class="math notranslate nohighlight">\(\sigma^2\)</span>は分散を指す。一方で，上のコードの中の正規分布のランダム変数を生成するコードでは，例えば，<code class="docutils literal notranslate"><span class="pre">v=rng.normal(0,</span> <span class="pre">vstd)</span></code>となっており，<code class="docutils literal notranslate"><span class="pre">0</span></code>は平均であり，<code class="docutils literal notranslate"><span class="pre">vstd</span></code>は標準偏差が引数となっている。分散と標準偏差は似て異なる概念なので注意して使い分けするように。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>統計学では変数<span class="math notranslate nohighlight">\(x\)</span>が正規分布に従う場合，<span class="math notranslate nohighlight">\(x\sim N(\mu,\sigma^2)\)</span>と表す。<span class="math notranslate nohighlight">\(\mu\)</span>は平均であり，<span class="math notranslate nohighlight">\(\sigma^2\)</span>は分散を指す。一方で，上のコードの中の正規分布のランダム変数を生成するコードでは，例えば，<code class="docutils literal notranslate"><span class="pre">v=rng.normal(0,</span> <span class="pre">vstd)</span></code>となっており，<code class="docutils literal notranslate"><span class="pre">0</span></code>は平均であり，<code class="docutils literal notranslate"><span class="pre">vstd</span></code>は標準偏差が引数となっている。分散と標準偏差は似て異なる概念なので注意して使い分けするように。</p>
 </div>
 </section>
-<section id="id31">
-<h3>プロット<a class="headerlink" href="#id31" title="Permalink to this headline">#</a></h3>
+<section id="id11">
+<h3>プロット<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h3>
 <p>まずループ計算を100回おこなうシミュレーションの結果をプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2546,7 +1422,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_153_0.png" src="_images/18_ADAS_153_0.png" />
+<img alt="_images/18_ADAS-2_54_0.png" src="_images/18_ADAS-2_54_0.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -2565,7 +1441,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_155_0.png" src="_images/18_ADAS_155_0.png" />
+<img alt="_images/18_ADAS-2_56_0.png" src="_images/18_ADAS-2_56_0.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -2579,6 +1455,17 @@ v_t\sim N(0,\sigma_v^2)
 <section id="gdp">
 <h3>GDPと価格水準の％乖離の標準偏差<a class="headerlink" href="#gdp" title="Permalink to this headline">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">)</span>
+<span class="n">y_std</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">p_std</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPのトレンドからの％乖離の標準偏差：</span><span class="si">{</span><span class="n">y_std</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -2602,8 +1489,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01352
-pの標準偏差:0.01123
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01355
+pの標準偏差:0.01129
 </pre></div>
 </div>
 </div>
@@ -2613,9 +1500,17 @@ pの標準偏差:0.01123
 <li><p>価格水準の標準偏差は大きすぎる結果となている。</p></li>
 </ul>
 </section>
-<section id="id32">
-<h3>自己相関係数<a class="headerlink" href="#id32" title="Permalink to this headline">#</a></h3>
+<section id="id12">
+<h3>自己相関係数<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<span class="n">p_autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPのトレンドからの％乖離の自己相関係数：</span><span class="si">{</span><span class="n">y_autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -2639,8 +1534,8 @@ pの標準偏差:0.01123
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.078
-p:0.798
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.076
+p:0.802
 </pre></div>
 </div>
 </div>
@@ -2653,14 +1548,21 @@ p:0.798
 <section id="py">
 <h3><code class="docutils literal notranslate"><span class="pre">p</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の％乖離の相関係数：同時期<a class="headerlink" href="#py" title="Permalink to this headline">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yp_corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPとデフレータの％乖離の相関係数：</span><span class="si">{</span><span class="n">yp_corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.23397833650523714
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPとデフレータの％乖離の相関係数：-0.234
 </pre></div>
 </div>
 </div>
@@ -2673,7 +1575,7 @@ p:0.798
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.1667770174273752
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.16836540262399421
 </pre></div>
 </div>
 </div>
@@ -2682,8 +1584,8 @@ p:0.798
 <li><p>符号は合っており，数値も的外れな値ではない。</p></li>
 </ul>
 </section>
-<section id="id33">
-<h3>結果のまとめと拡張<a class="headerlink" href="#id33" title="Permalink to this headline">#</a></h3>
+<section id="id13">
+<h3>結果のまとめと拡張<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h3>
 <p>データと<code class="docutils literal notranslate"><span class="pre">100,000</span></code>回のシミュレーション結果</p>
 <table class="colwidths-auto table">
 <thead>
@@ -2732,17 +1634,17 @@ p:0.798
 <p>次に，モデルの簡単な拡張に触れる。ホワイト・ノイズは前期のショックと今期のショックは何の関係もない独立を意味する。総需要ショックと総供給ショックは，そうなのだろうか。例えば，政府支出を考えてみよう。政府は，増税を実施すると，１四半期後に減税するような行動は取らない。少なくともある期間，政策を一貫して実施することになる。投資はどうだろうか。１四半期毎に企業は投資をコロコロと変えるような行動はしない。消費者の嗜好の変化も需要ショックとして現れるが，ファッションで今季は赤が流行り，１四半期後には青が流行るということではない。すなわち，ショックはホワイト・ノイズではなく，ある程度の<strong>持続性</strong>が存在すると想定できる。総供給ショックも同じように考えることができる。</p>
 <p>この特徴を捉えるために，総需要ショックと総供給ショックに次の自己回帰モデルを想定することができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-v-ar1">
-<span class="eqno">(86)<a class="headerlink" href="#equation-eq-18-v-ar1" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(89)<a class="headerlink" href="#equation-eq-18-v-ar1" title="Permalink to this equation">#</a></span>\[
 v_t=\rho_v v_{t-1}+e^v_t,\qquad e^v_t\sim\text{WN}(0,\sigma_{ev}^2)
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-18-u-ar1">
-<span class="eqno">(87)<a class="headerlink" href="#equation-eq-18-u-ar1" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(90)<a class="headerlink" href="#equation-eq-18-u-ar1" title="Permalink to this equation">#</a></span>\[
 u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 \]</div>
 <p>新たなパラメーターとして<span class="math notranslate nohighlight">\(\rho_u\)</span>，<span class="math notranslate nohighlight">\(\rho_v\)</span>，<span class="math notranslate nohighlight">\(\sigma_{eu}^2\)</span>，<span class="math notranslate nohighlight">\(\sigma_{ev}^2\)</span>の４つがあるが，これらもデータを使って次のように推定することが可能である。</p>
 <ol class="simple">
-<li><p>式<a class="reference internal" href="#equation-eq-18-vt">(82)</a>の<span class="math notranslate nohighlight">\(\hat{v}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-v-ar1">(86)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_v\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{ev}\)</span>とする。</p></li>
-<li><p>式<a class="reference internal" href="#equation-eq-18-ut">(83)</a>の<span class="math notranslate nohighlight">\(\hat{u}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-u-ar1">(87)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_u\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{eu}\)</span>とする。</p></li>
+<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-vt">(82)</a>の<span class="math notranslate nohighlight">\(\hat{v}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-v-ar1">(89)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_v\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{ev}\)</span>とする。</p></li>
+<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ut">(83)</a>の<span class="math notranslate nohighlight">\(\hat{u}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-u-ar1">(90)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_u\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{eu}\)</span>とする。</p></li>
 </ol>
 <p>このように計算すると次の値となる。</p>
 <ul class="simple">
@@ -2761,8 +1663,8 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 </ul>
 <p>ホワイト・ノイズの場合と比べると，AR(1)のケースが若干ではあるが再現性が向上したようにも見える。例えば，GDPの自己相関係数は格段にデータの値に近づいた。一方で，デフレーターの標準偏差の再現性はホワイト・ノイズの場合よりも悪くなっている。AR(1)のショックを導入しても再現性の著しい向上とは言えないだろう。</p>
 </section>
-<section id="id34">
-<h3>ADASモデルの評価<a class="headerlink" href="#id34" title="Permalink to this headline">#</a></h3>
+<section id="id14">
+<h3>ADASモデルの評価<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h3>
 <p>ADASモデルは，経済を理解する上では非常に有用だが，データの一部の特徴の説明力に欠ける。
 どう評価すれば良いだろうか。</p>
 <p>経済学研究で用いる推論方法を考えてみよう。
@@ -2801,15 +1703,15 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 <p>このような演繹的推論に基づき，再現性の精度には多少欠けることも念頭に，次のセクションではADASモデルを「装置」として使い<strong>定量的</strong>な問を検討する。</p>
 </section>
 </section>
-<section id="id35">
-<h2>定量的な問い<a class="headerlink" href="#id35" title="Permalink to this headline">#</a></h2>
+<section id="id15">
+<h2>定量的な問い<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h2>
 <blockquote>
 <div><p>GDPと価格水準の長期トレンドからの乖離（％）の変動は，何パーセントが需要ショックにより引き起こされ，何パーセントが供給ショックに起因するのか？</p>
 </div></blockquote>
 <p>この問を検討するには，定性的な比較静学では不可能であり，定量的なアプローチが要求される。では，この問にどのように答えれば良いかどうか。ここでは，ベクトル自己回帰モデルで使われる次のような手法を採用する。</p>
-<section id="id36">
-<h3>予測誤差<a class="headerlink" href="#id36" title="Permalink to this headline">#</a></h3>
-<p>カリブレーションをおこなった際の推定式<a class="reference internal" href="#equation-eq-18-regression-h">(79)</a>と<a class="reference internal" href="#equation-eq-18-regression-d">(80)</a>を再掲する。</p>
+<section id="id16">
+<h3>予測誤差<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
+<p>カリブレーションをおこなった際の推定式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-regression-h">(79)</a>と<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-regression-d">(80)</a>を再掲する。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -2884,10 +1786,10 @@ x_t=y_t,p_t
 \end{split}\]</div>
 <p>以下では，それぞれの項を計算し量的な問いを考察する。</p>
 </section>
-<section id="id37">
-<h3>GDPの％乖離<a class="headerlink" href="#id37" title="Permalink to this headline">#</a></h3>
-<section id="id38">
-<h4>計算方法<a class="headerlink" href="#id38" title="Permalink to this headline">#</a></h4>
+<section id="id17">
+<h3>GDPの％乖離<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h3>
+<section id="id18">
+<h4>計算方法<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h4>
 <p>予測誤差<span class="math notranslate nohighlight">\(e_{yt}\)</span>は次式で与えられる。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -2920,13 +1822,13 @@ e_{yt}=h(u_t-cv_t)
 </ul>
 <p>であり，</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-var-eyu">
-<span class="eqno">(88)<a class="headerlink" href="#equation-eq-18-var-eyu" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(91)<a class="headerlink" href="#equation-eq-18-var-eyu" title="Permalink to this equation">#</a></span>\[
 \text{Var}(e_{yt}|u_t)
 =h^2\left(\sigma_u^2-c\sigma_{uv}\right)
 \]</div>
 <p>は需要ショックによる<span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散であり，</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-var-eyv">
-<span class="eqno">(89)<a class="headerlink" href="#equation-eq-18-var-eyv" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(92)<a class="headerlink" href="#equation-eq-18-var-eyv" title="Permalink to this equation">#</a></span>\[
 \text{Var}(e_{yt}|v_t)
 =h^2\left(c^2\sigma_v^2-c\sigma_{uv}\right)
 \]</div>
@@ -2968,9 +1870,25 @@ e_{yt}=h(u_t-cv_t)
 \end{split}\]</div>
 <p>計算結果を見て気付くのは，総需要曲線の傾きである <span class="math notranslate nohighlight">\(c\)</span> が重要な役割を果たしている。一方，総供給曲線の傾きである <span class="math notranslate nohighlight">\(a\)</span> は，変動の大きさ（即ち，分散の大きさ）に影響を及ぼすが（<span class="math notranslate nohighlight">\(h=1/(1+ac)\)</span>を思い出そう），変動の割合は <span class="math notranslate nohighlight">\(a\)</span> から独立であることがわかる。</p>
 </section>
-<section id="id39">
-<h4>結果<a class="headerlink" href="#id39" title="Permalink to this headline">#</a></h4>
+<section id="id19">
+<h4>結果<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h4>
 <p>それぞれの変数の推定値を使い実際に計算してみよう。</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
+
+<span class="n">res_d</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">ey</span> <span class="o">=</span> <span class="n">res_d</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="n">res_h</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;deflator_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">ep</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="n">vt</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">-</span> <span class="n">ahat</span><span class="o">*</span><span class="n">ey</span>
+<span class="n">ut</span> <span class="o">=</span> <span class="n">ey</span> <span class="o">+</span> <span class="n">chat</span><span class="o">*</span><span class="n">ep</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 式(*y)の分子</span>
@@ -3003,9 +1921,9 @@ e_{yt}=h(u_t-cv_t)
 </div>
 <p>GDPの％乖離に対しては総需要ショックが相対的に大きな影響を及ぼしていることがわかる。</p>
 </section>
-<section id="id40">
-<h4>解釈<a class="headerlink" href="#id40" title="Permalink to this headline">#</a></h4>
-<p>まず，式<a class="reference internal" href="#equation-eq-18-var-eyu">(88)</a>の需要ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動の大きさ（割合ではない）を考えてみよう。式を展開すると</p>
+<section id="id20">
+<h4>解釈<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h4>
+<p>まず，式<a class="reference internal" href="#equation-eq-18-var-eyu">(91)</a>の需要ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動の大きさ（割合ではない）を考えてみよう。式を展開すると</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(e_{yt}|u_t)
@@ -3013,7 +1931,7 @@ e_{yt}=h(u_t-cv_t)
 \]</div>
 <p>となる。右辺の第１項は，総供給曲線を所与として需要ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動を捉えている。
 第２項 <span class="math notranslate nohighlight">\(-ch^2\sigma_{uv}&gt;0\)</span> は，需要ショックと供給ショックが同時に変動する影響を捉えている。計算すると正の値になることは簡単に確認できる。即ち，正の需要ショック（<span class="math notranslate nohighlight">\(u_t&gt;0\)</span>）は負の供給ショック（<span class="math notranslate nohighlight">\(v_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(y_t\)</span>に対する需要ショックの効果は，伴う供給ショックによって増幅されることを意味する。</p>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-eyv">(89)</a>の供給ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動を考えてみよう。</p>
+<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-eyv">(92)</a>の供給ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動を考えてみよう。</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(e_{yt}|v_t)
@@ -3047,10 +1965,10 @@ e_{yt}=h(u_t-cv_t)
 </figure>
 </section>
 </section>
-<section id="id41">
-<h3>価格水準の％乖離<a class="headerlink" href="#id41" title="Permalink to this headline">#</a></h3>
-<section id="id42">
-<h4>計算方法<a class="headerlink" href="#id42" title="Permalink to this headline">#</a></h4>
+<section id="id21">
+<h3>価格水準の％乖離<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h3>
+<section id="id22">
+<h4>計算方法<a class="headerlink" href="#id22" title="Permalink to this headline">#</a></h4>
 <p><span class="math notranslate nohighlight">\(e_{pt}\)</span>は次式で与えられる。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -3077,13 +1995,13 @@ e_{pt}=ahu_t+hcv_t
 \end{split}\]</div>
 <p>ここで</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-var-epu">
-<span class="eqno">(90)<a class="headerlink" href="#equation-eq-18-var-epu" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(93)<a class="headerlink" href="#equation-eq-18-var-epu" title="Permalink to this equation">#</a></span>\[
 \text{Var}(e_{pt}|u_t)
 =h^2\left(a^2\sigma_u^2+a\sigma_{uv}\right)
 \]</div>
 <p>は需要ショックによる<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散であり，</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-var-epv">
-<span class="eqno">(91)<a class="headerlink" href="#equation-eq-18-var-epv" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(94)<a class="headerlink" href="#equation-eq-18-var-epv" title="Permalink to this equation">#</a></span>\[
 \text{Var}(e_{pt}|v_t)
 =h^2\left(\sigma_v^2+a\sigma_{uv}\right)
 \]</div>
@@ -3125,8 +2043,8 @@ e_{pt}=ahu_t+hcv_t
 \end{split}\]</div>
 <p>計算結果を見て気付くのは，総供給曲線の傾きである <span class="math notranslate nohighlight">\(a\)</span> が重要な役割を果たしている。一方，総需要曲線の傾きである <span class="math notranslate nohighlight">\(c\)</span> は，変動の大きさ（即ち，分散の大きさ）に影響を及ぼすが（<span class="math notranslate nohighlight">\(h=1/(1+ac)\)</span>を思い出そう），変動の割合は<code class="docutils literal notranslate"><span class="pre">c</span></code>から独立であることがわかる。</p>
 </section>
-<section id="id43">
-<h4>結果<a class="headerlink" href="#id43" title="Permalink to this headline">#</a></h4>
+<section id="id23">
+<h4>結果<a class="headerlink" href="#id23" title="Permalink to this headline">#</a></h4>
 <p>それぞれの変数の推定値を使い実際に計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3160,9 +2078,9 @@ e_{pt}=ahu_t+hcv_t
 </div>
 <p>価格水準の％乖離に対しては総供給ショックが相対的に大きな影響を及ぼしていることがわかる。</p>
 </section>
-<section id="id44">
-<h4>解釈<a class="headerlink" href="#id44" title="Permalink to this headline">#</a></h4>
-<p>まず，式<a class="reference internal" href="#equation-eq-18-var-epu">(90)</a>の需要ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動（割合ではない）を考えてみよう。
+<section id="id24">
+<h4>解釈<a class="headerlink" href="#id24" title="Permalink to this headline">#</a></h4>
+<p>まず，式<a class="reference internal" href="#equation-eq-18-var-epu">(93)</a>の需要ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動（割合ではない）を考えてみよう。
 式を展開すると</p>
 <div class="math notranslate nohighlight">
 \[
@@ -3171,7 +2089,7 @@ e_{pt}=ahu_t+hcv_t
 \]</div>
 <p>となる。右辺の第１項は，供給曲線を所与として需要ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動を捉えている。
 第２項 <span class="math notranslate nohighlight">\(ah^2\sigma_{uv}&lt;0\)</span> は，需要ショックと供給ショックが同時に変動する影響を捉えている。計算すると負の値になることは簡単に確認できる。即ち，正の需要ショック（<span class="math notranslate nohighlight">\(u_t&gt;0\)</span>）は負の供給ショック（<span class="math notranslate nohighlight">\(v_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(p_t\)</span>に対する需要ショックの効果は，伴う供給ショックによって減衰されることを意味する。</p>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-epv">(91)</a>の供給ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動を考えてみよう。</p>
+<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-epv">(94)</a>の供給ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動を考えてみよう。</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(e_{pt}|v_t)
@@ -3196,8 +2114,8 @@ e_{pt}=ahu_t+hcv_t
 </section>
 </section>
 </section>
-<section id="id45">
-<h2>まとめ<a class="headerlink" href="#id45" title="Permalink to this headline">#</a></h2>
+<section id="id25">
+<h2>まとめ<a class="headerlink" href="#id25" title="Permalink to this headline">#</a></h2>
 <p>GDPと価格水準のトレンドからの％乖離のプロットを再掲する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3208,7 +2126,7 @@ e_{pt}=ahu_t+hcv_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18_ADAS_229_0.png" src="_images/18_ADAS_229_0.png" />
+<img alt="_images/18_ADAS-2_134_0.png" src="_images/18_ADAS-2_134_0.png" />
 </div>
 </div>
 <p>このプロットを眺めることにより，総需要ショックと総供給ショックがどれだけ景気循環に影響を及ぼしているかが分かるだろうか。もちろん否である。ADASモデルを「装置」として用いて，「スイッチ」を調整することにより，結果が数字として現れてくることになる。
@@ -3221,8 +2139,8 @@ Aさんの体重計は単純な装置だが，一方，Bさんの技術は高く
 AD-ASモデルは，研究や政策議論で使われるモデルと比べると単純なモデルであり，それが故に定量的な問に対しての答えも精度が低いものとならざるを得ない。
 大学院で学ぶDSGEモデルや構造VARモデルなどはより洗練された「装置」であり，AD-ASモデルよりも精度が高い結果を返すことになるだろう。</p>
 </section>
-<section id="id46">
-<h2>付録：分散と共分散の性質<a class="headerlink" href="#id46" title="Permalink to this headline">#</a></h2>
+<section id="id26">
+<h2>付録：分散と共分散の性質<a class="headerlink" href="#id26" title="Permalink to this headline">#</a></h2>
 <p><span class="math notranslate nohighlight">\(X\)</span>，<span class="math notranslate nohighlight">\(Y\)</span>，<span class="math notranslate nohighlight">\(Z\)</span>，<span class="math notranslate nohighlight">\(W\)</span>をランダム変数，<span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(b\)</span>，<span class="math notranslate nohighlight">\(c\)</span>，<span class="math notranslate nohighlight">\(d\)</span>を定数とする。
 分散に関して次の結果が成立する。</p>
 <div class="math notranslate nohighlight">
@@ -3260,7 +2178,7 @@ AD-ASモデルは，研究や政策議論で使われるモデルと比べると
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -3275,11 +2193,11 @@ AD-ASモデルは，研究や政策議論で使われるモデルと比べると
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="11_Macro_Variables.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="18_ADAS-1.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">法則・曲線・増加率</p>
+            <p class="prev-next-title">定量的マクロ経済分析：Part 1</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="12_IS-MP-PC.html" title="next page">

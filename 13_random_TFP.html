@@ -178,8 +178,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="18_ADAS.html">
-   景気循環の定量分析：ADASモデル
+  <a class="reference internal" href="18_ADAS-1.html">
+   定量的マクロ経済分析：Part 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18_ADAS-2.html">
+   定量的マクロ経済分析：Part 2
   </a>
  </li>
  <li class="toctree-l1">
@@ -821,7 +826,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.05183422894821898, 0.9906223440075363)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.09761926018304333, 1.0574760345449725)
 </pre></div>
 </div>
 </div>
@@ -898,8 +903,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.00273365, -0.07416686],
-       [-0.07416686,  1.0101872 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.07903819, 0.14511982],
+       [0.14511982, 1.07894549]])
 </pre></div>
 </div>
 </div>
@@ -913,7 +918,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.07369129331366214
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13449574940226655
 </pre></div>
 </div>
 </div>
@@ -927,7 +932,7 @@ title="Print to PDF"
 <h4>説明<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h4>
 <p>次に確率過程として自己回帰モデルを考えよう。英語で<strong>A</strong>ugo<strong>r</strong>egressive Modelと呼ばれ，AR(1)と表記されるモデルは次式で表される。（AR(1)の<code class="docutils literal notranslate"><span class="pre">(1)</span></code>は右辺と左辺の変数は１期しか違わないことを表している。）</p>
 <div class="math notranslate nohighlight" id="equation-eq-13-ar1">
-<span class="eqno">(101)<a class="headerlink" href="#equation-eq-13-ar1" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(104)<a class="headerlink" href="#equation-eq-13-ar1" title="Permalink to this equation">#</a></span>\[
 y_t=\rho y_{t-1}+\varepsilon_t
 \]</div>
 <p>ここで</p>
@@ -936,7 +941,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 <li><p><span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\varepsilon_t\sim WN(0,\sigma^2)\)</span>（ホワイト・ノイズ）</p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>を所与とすると<span class="math notranslate nohighlight">\(y_t\)</span>の差分方程式となっている。<span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span>となっているため，安定的な過程であることがわかる。即ち，<span class="math notranslate nohighlight">\(\varepsilon_t=0\)</span>であれば、<span class="math notranslate nohighlight">\(y_t=\)</span>は定常状態である<span class="math notranslate nohighlight">\(0\)</span>に近づいて行くことになる。しかしホワイト・ノイズである<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>により、毎期確率的なショックが発生し<span class="math notranslate nohighlight">\(y_t\)</span>を定常状態から乖離させることになる。また式<a class="reference internal" href="#equation-eq-13-ar1">(101)</a>からわかるように，今期の値<span class="math notranslate nohighlight">\(y_t\)</span>は前期の値<span class="math notranslate nohighlight">\(y_{t-1}\)</span>に依存しており，その依存度はパラメータ<span class="math notranslate nohighlight">\(\rho\)</span>によって決定される。この<span class="math notranslate nohighlight">\(\rho\)</span>こそが<span class="math notranslate nohighlight">\(y_t\)</span>の持続性の強さを決定することになり，自己回帰モデル<a class="reference internal" href="#equation-eq-13-ar1">(101)</a>の自己相関係数は<span class="math notranslate nohighlight">\(\rho\)</span>と等しくなる。</p>
+<p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>を所与とすると<span class="math notranslate nohighlight">\(y_t\)</span>の差分方程式となっている。<span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span>となっているため，安定的な過程であることがわかる。即ち，<span class="math notranslate nohighlight">\(\varepsilon_t=0\)</span>であれば、<span class="math notranslate nohighlight">\(y_t=\)</span>は定常状態である<span class="math notranslate nohighlight">\(0\)</span>に近づいて行くことになる。しかしホワイト・ノイズである<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>により、毎期確率的なショックが発生し<span class="math notranslate nohighlight">\(y_t\)</span>を定常状態から乖離させることになる。また式<a class="reference internal" href="#equation-eq-13-ar1">(104)</a>からわかるように，今期の値<span class="math notranslate nohighlight">\(y_t\)</span>は前期の値<span class="math notranslate nohighlight">\(y_{t-1}\)</span>に依存しており，その依存度はパラメータ<span class="math notranslate nohighlight">\(\rho\)</span>によって決定される。この<span class="math notranslate nohighlight">\(\rho\)</span>こそが<span class="math notranslate nohighlight">\(y_t\)</span>の持続性の強さを決定することになり，自己回帰モデル<a class="reference internal" href="#equation-eq-13-ar1">(104)</a>の自己相関係数は<span class="math notranslate nohighlight">\(\rho\)</span>と等しくなる。</p>
 </section>
 <section id="id9">
 <h4>３つの例：持続性の違い<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h4>
@@ -1556,7 +1561,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.412
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>自己相関係数：0.472
 </pre></div>
 </div>
 <img alt="_images/13_random_TFP_104_1.png" src="_images/13_random_TFP_104_1.png" />
@@ -1941,92 +1946,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>272036.578508</td>
       <td>212794.379328</td>
       <td>59242.199180</td>
-      <td>13.691570</td>
-      <td>-0.038515</td>
-      <td>-0.001016</td>
-      <td>0.001016</td>
-      <td>12.526542</td>
-      <td>-0.012850</td>
-      <td>12.280932</td>
-      <td>-0.012850</td>
-      <td>11.002239</td>
-      <td>-0.012850</td>
+      <td>13.691901</td>
+      <td>-0.038847</td>
+      <td>-0.004942</td>
+      <td>0.004942</td>
+      <td>12.522734</td>
+      <td>-0.009042</td>
+      <td>12.277124</td>
+      <td>-0.009042</td>
+      <td>10.998432</td>
+      <td>-0.009042</td>
     </tr>
     <tr>
       <th>1</th>
       <td>8.880445e+05</td>
-      <td>1.002527</td>
+      <td>0.997941</td>
       <td>0.367155</td>
-      <td>277716.730086</td>
-      <td>217237.547729</td>
-      <td>60479.182357</td>
-      <td>13.724550</td>
-      <td>-0.027773</td>
-      <td>-0.001332</td>
-      <td>0.003856</td>
-      <td>12.540499</td>
-      <td>-0.006143</td>
-      <td>12.294889</td>
-      <td>-0.006143</td>
-      <td>11.016197</td>
-      <td>-0.006143</td>
+      <td>276446.408306</td>
+      <td>216243.867629</td>
+      <td>60202.540678</td>
+      <td>13.724600</td>
+      <td>-0.027823</td>
+      <td>-0.005545</td>
+      <td>0.003484</td>
+      <td>12.536304</td>
+      <td>-0.006532</td>
+      <td>12.290694</td>
+      <td>-0.006532</td>
+      <td>11.012002</td>
+      <td>-0.006532</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>9.263226e+05</td>
-      <td>0.996748</td>
+      <td>9.260459e+05</td>
+      <td>1.008206</td>
       <td>0.368038</td>
-      <td>281016.683674</td>
-      <td>219818.860799</td>
-      <td>61197.822875</td>
-      <td>13.757506</td>
-      <td>-0.018528</td>
-      <td>-0.001648</td>
-      <td>-0.001610</td>
-      <td>12.554449</td>
-      <td>-0.008280</td>
-      <td>12.308839</td>
-      <td>-0.008280</td>
-      <td>11.030147</td>
-      <td>-0.008280</td>
+      <td>284216.604483</td>
+      <td>222321.925520</td>
+      <td>61894.678963</td>
+      <td>13.757274</td>
+      <td>-0.018595</td>
+      <td>-0.006145</td>
+      <td>0.014317</td>
+      <td>12.549869</td>
+      <td>0.007623</td>
+      <td>12.304259</td>
+      <td>0.007623</td>
+      <td>11.025566</td>
+      <td>0.007623</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>9.643623e+05</td>
-      <td>0.989954</td>
+      <td>9.647894e+05</td>
+      <td>0.999564</td>
       <td>0.368923</td>
-      <td>283855.191168</td>
-      <td>222039.218236</td>
-      <td>61815.972932</td>
-      <td>13.790396</td>
-      <td>-0.011174</td>
-      <td>-0.001960</td>
-      <td>-0.008137</td>
-      <td>12.568379</td>
-      <td>-0.012159</td>
-      <td>12.322769</td>
-      <td>-0.012159</td>
-      <td>11.044077</td>
-      <td>-0.012159</td>
+      <td>286656.602331</td>
+      <td>224230.557919</td>
+      <td>62426.044412</td>
+      <td>13.789883</td>
+      <td>-0.010218</td>
+      <td>-0.006736</td>
+      <td>0.006301</td>
+      <td>12.563418</td>
+      <td>0.002622</td>
+      <td>12.317808</td>
+      <td>0.002622</td>
+      <td>11.039116</td>
+      <td>0.002622</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.002069e+06</td>
-      <td>0.989896</td>
+      <td>1.003096e+06</td>
+      <td>0.988179</td>
       <td>0.369810</td>
-      <td>288476.862861</td>
-      <td>225654.415005</td>
-      <td>62822.447857</td>
-      <td>13.823168</td>
-      <td>-0.005591</td>
-      <td>-0.002267</td>
-      <td>-0.007889</td>
-      <td>12.582272</td>
-      <td>-0.009902</td>
-      <td>12.336662</td>
-      <td>-0.009902</td>
-      <td>11.057969</td>
-      <td>-0.009902</td>
+      <td>288082.677701</td>
+      <td>225346.072696</td>
+      <td>62736.605005</td>
+      <td>13.822372</td>
+      <td>-0.003771</td>
+      <td>-0.007305</td>
+      <td>-0.004586</td>
+      <td>12.576947</td>
+      <td>-0.005944</td>
+      <td>12.331337</td>
+      <td>-0.005944</td>
+      <td>11.052644</td>
+      <td>-0.005944</td>
     </tr>
   </tbody>
 </table>
@@ -2079,11 +2084,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.451
-Cの変動： 0.451
-Iの変動： 0.451
-Kの変動： 0.971
-Aの変動： 0.427
+Yの変動： 0.399
+Cの変動： 0.399
+Iの変動： 0.399
+Kの変動： 0.969
+Aの変動： 0.403
 </pre></div>
 </div>
 </div>
@@ -2177,8 +2182,8 @@ consumptionの変動： 0.460
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： 0.193
-Aの変動： 0.983
+Kの変動： 0.062
+Aの変動： 0.979
 </pre></div>
 </div>
 </div>
