@@ -1,50 +1,68 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>法則・曲線・増加率 &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/my_style.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -53,646 +71,360 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '11_Macro_Variables';</script>
     <link rel="canonical" href="https://py4macro.github.io/11_Macro_Variables.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="定量的マクロ経済分析：Part 1" href="18_ADAS-1.html" />
     <link rel="prev" title="GDPと構成要素" href="10_Data_Fluctuation.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
-<script>
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){ dataLayer.push(arguments); }
-                    gtag('js', new Date());
-                    gtag('config', 'G-3FB0WMD39P');
-                </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Pythonで学ぶマクロ経済学 (中級＋レベル)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Pythonの学習
- </span>
-</p>
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pythonで学ぶマクロ経済学 (中級＋レベル)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://py4basics.github.io">
-   経済学のためのPython入門
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io">経済学のためのPython入門</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  長期分析
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">長期分析</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="5a_Development_Accounting.html">
-   発展会計
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="5b_Growth_Accounting.html">
-   成長会計
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_Regression.html">
-   回帰分析
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_DifferenceEq.html">
-   差分方程式と経済分析
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="8_Solow.html">
-   ソロー・モデル
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_Convergence.html">
-   所得分布と所得収斂
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="5a_Development_Accounting.html">発展会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5b_Growth_Accounting.html">成長会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_Regression.html">回帰分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_DifferenceEq.html">差分方程式と経済分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_Solow.html">ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_Convergence.html">所得分布と所得収斂</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  短期分析I
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期分析I</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="10_Data_Fluctuation.html">
-   GDPと構成要素
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   法則・曲線・増加率
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_ADAS-1.html">
-   定量的マクロ経済分析：Part 1
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_ADAS-2.html">
-   定量的マクロ経済分析：Part 2
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_IS-MP-PC.html">
-   IS-MP-PCモデル
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">GDPと構成要素</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">法則・曲線・増加率</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-1.html">定量的マクロ経済分析：Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-2.html">定量的マクロ経済分析：Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  短期分析II
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期分析II</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="13_random_TFP.html">
-   ランダム変数と全要素生産性
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_linearsolve.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     linearsolve
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_RBC.html">
-   実物的景気循環(RBC)モデル
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_data_on_money.html">
-   古典派の二分法と金融政策
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Plan.html">
-   今後の計画
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="13_random_TFP.html">ランダム変数と全要素生産性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_data_on_money.html">古典派の二分法と金融政策</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plan.html">今後の計画</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  参考
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">参考</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://py4basics.github.io/Gapminder.html">
-   Gapminder
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://py4etrics.github.io">
-   Pythonで学ぶ入門計量経済学
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io/Gapminder.html">Gapminder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://py4etrics.github.io">Pythonで学ぶ入門計量経済学</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-             <a  href="https://github.com/Py4Macro/py4macro.github.io">&#128200;&#127891;&#128202;</a> <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/11_Macro_Variables.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/11_Macro_Variables.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/11_Macro_Variables.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/11_Macro_Variables.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/11_Macro_Variables.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/11_Macro_Variables.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   はじめに
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   オークンの法則
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sec-11-unemployment">
-     失業率の特徴
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     回帰分析
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   フィリップス曲線
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     インフレ率の特徴
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     フラット化するフィリップス曲線
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
-   インフレ率とマネーストックの増加率
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     日本の時系列データ
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id14">
-       説明
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#resample">
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         resample()
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id15">
-       データの作成
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id16">
-       散布図とトレンド線
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
-     世界経済のパネルデータ
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id18">
-       説明
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id19">
-       変化率の計算
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id20">
-       ハイパーインフレ
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id21">
-       プロット
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>法則・曲線・増加率</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   はじめに
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   オークンの法則
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sec-11-unemployment">
-     失業率の特徴
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     回帰分析
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   フィリップス曲線
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     インフレ率の特徴
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     フラット化するフィリップス曲線
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
-   インフレ率とマネーストックの増加率
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     説明
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     日本の時系列データ
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id14">
-       説明
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#resample">
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         resample()
-        </span>
-       </code>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id15">
-       データの作成
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id16">
-       散布図とトレンド線
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
-     世界経済のパネルデータ
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id18">
-       説明
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id19">
-       変化率の計算
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id20">
-       ハイパーインフレ
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id21">
-       プロット
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>法則・曲線・増加率</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">オークンの法則</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-11-unemployment">失業率の特徴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">回帰分析</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">フィリップス曲線</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">インフレ率の特徴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">フラット化するフィリップス曲線</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">インフレ率とマネーストックの増加率</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">日本の時系列データ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resample"><code class="docutils literal notranslate"><span class="pre">resample()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データの作成</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">散布図とトレンド線</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">世界経済のパネルデータ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変化率の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ハイパーインフレ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">プロット</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>法則・曲線・増加率<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+<h1>法則・曲線・増加率<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <div name="html-admonition" style="font-size: 0.8em">
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
@@ -709,7 +441,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="id2">
-<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<h2>はじめに<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>前章では経済のデータを人の「言動」に例えて説明したが，その比喩をもう少し考えてみよう。「言動」にはパターンがあり，その人の心を映し出しているとも考えられる。例えば，心の優しい人は電車やバスで重い荷物を持つ老人や小さな子を持つ女性に席を譲る回数が多いかも知れない。「あの子が好きだ！」とは決して口に出さない男の子でも，その思いを示唆するような発言や行動があるかも知れない。同じように，経済の「真のメカニズム」の反映としてデータには何らかのパターンが現れる。そのパターンを見つけることに経済学者は時間を割いてきたし，見出したパターンの中には経済を理解する上で非常に重要なヒント隠されている場合がある。ここでは代表的な次のデータのパターンを考える。</p>
 <ul class="simple">
 <li><p>オークンの法則</p></li>
@@ -720,9 +452,9 @@ title="Print to PDF"
 <p>一方で「真のメカニズム」は不変ではないかも知れない。経済は人が営む活動であり，人が変われば「真のメカニズム」も影響を受けると考えられる。技術進歩（例えば，ビットコイン）や価値観の変化（例えば，「昭和の価値観」から「平成・令和の価値観」への移り変わり），政府・日銀の政策やコロナ禍などの大きなショックは人の行動の変化に影響すると考えるのが自然である。例えば，2020年代の「真のメカニズム」は1970年代のそれとは異なる可能性を拭えない。データを見る際は，そのような変化がないかを注意深く見ることも重要になるだろう。</p>
 </section>
 <section id="id3">
-<h2>オークンの法則<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<h2>オークンの法則<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <section id="id4">
-<h3>説明<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<h3>説明<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>この節で使用する記号：</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(Y_t\)</span>：GDP</p></li>
@@ -767,7 +499,7 @@ memory usage: 5.2 KB
 </div>
 </section>
 <section id="sec-11-unemployment">
-<span id="id5"></span><h3>失業率の特徴<a class="headerlink" href="#sec-11-unemployment" title="Permalink to this headline">#</a></h3>
+<span id="id5"></span><h3>失業率の特徴<a class="headerlink" href="#sec-11-unemployment" title="Permalink to this heading">#</a></h3>
 <p>ここでは失業率の特徴を考える。まず図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -777,7 +509,7 @@ memory usage: 5.2 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_14_0.png" src="_images/11_Macro_Variables_14_0.png" />
+<img alt="_images/2b6ccdf17af2d97871f98360d1db25ec36e8a9b7a9106c5525878b1bf37034ec.png" src="_images/2b6ccdf17af2d97871f98360d1db25ec36e8a9b7a9106c5525878b1bf37034ec.png" />
 </div>
 </div>
 <p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
@@ -834,7 +566,7 @@ memory usage: 5.2 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_22_0.png" src="_images/11_Macro_Variables_22_0.png" />
+<img alt="_images/6ac5b500df8ffde88230459fa607ee77cde52acb379a41bb6ffd205a70afbad6.png" src="_images/6ac5b500df8ffde88230459fa607ee77cde52acb379a41bb6ffd205a70afbad6.png" />
 </div>
 </div>
 <p>概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">corr()</span></code>を使い相関係数を計算しよう。</p>
@@ -911,7 +643,7 @@ memory usage: 5.2 KB
 <p>両変数ともトレンドからの乖離は持続性が非常に高いと言える。</p>
 </section>
 <section id="id6">
-<h3>回帰分析<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<h3>回帰分析<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>では実際に式<a class="reference internal" href="#equation-eq-11-okun">(63)</a>のスロープ変数<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -924,7 +656,7 @@ memory usage: 5.2 KB
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>回帰式を文字列で作成し変数<code class="docutils literal notranslate"><span class="pre">formula</span></code>に割り当てる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の関数<code class="docutils literal notranslate"><span class="pre">.ols</span></code>を使い最小二乗法の準備をし，変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <ul class="simple">
@@ -947,8 +679,8 @@ memory usage: 5.2 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.394
 Model:                            OLS   Adj. R-squared:                  0.390
 Method:                 Least Squares   F-statistic:                     107.8
-Date:                Thu, 23 Feb 2023   Prob (F-statistic):           8.95e-20
-Time:                        11:18:23   Log-Likelihood:                -261.32
+Date:                Wed, 08 Mar 2023   Prob (F-statistic):           8.95e-20
+Time:                        13:17:10   Log-Likelihood:                -261.32
 No. Observations:                 168   AIC:                             526.6
 Df Residuals:                     166   BIC:                             532.9
 Df Model:                           1                                         
@@ -1029,7 +761,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_43_0.png" src="_images/11_Macro_Variables_43_0.png" />
+<img alt="_images/716f5f542da7b4b0c32ec5d0dc907642dfda197fef6ebd7a49acc0b6ce5ae78a.png" src="_images/716f5f542da7b4b0c32ec5d0dc907642dfda197fef6ebd7a49acc0b6ce5ae78a.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -1045,9 +777,9 @@ Notes:
 </section>
 </section>
 <section id="id7">
-<h2>フィリップス曲線<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
+<h2>フィリップス曲線<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <section id="id8">
-<h3>説明<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<h3>説明<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>マクロ経済学を学んだ人にとって最も馴染み深い関係の一つがフィリップス曲線（PC曲線）ではないだろうか。失業率とインフレ率の関係を示すが，典型的なPC曲線は次式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-phillips">
 <span class="eqno">(64)<a class="headerlink" href="#equation-eq-11-phillips" title="Permalink to this equation">#</a></span>\[
@@ -1064,7 +796,7 @@ Notes:
 <p>失業率の特徴については<a class="reference internal" href="#sec-11-unemployment"><span class="std std-ref">「失業率の特徴」</span></a>の節で議論したので，以下では式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>の左辺にあるインフレ率について考えることにする。</p>
 </section>
 <section id="id9">
-<h3>インフレ率の特徴<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
+<h3>インフレ率の特徴<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>上で使用した<code class="docutils literal notranslate"><span class="pre">df</span></code>に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が含まれているので図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1074,7 +806,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_51_0.png" src="_images/11_Macro_Variables_51_0.png" />
+<img alt="_images/53aa937c3051751a833006bb47e59509739f5c616692ba2df544658805a7d4ae.png" src="_images/53aa937c3051751a833006bb47e59509739f5c616692ba2df544658805a7d4ae.png" />
 </div>
 </div>
 <p>上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。</p>
@@ -1102,7 +834,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_55_0.png" src="_images/11_Macro_Variables_55_0.png" />
+<img alt="_images/d09532f3eb233d1b662438783dc4f69f06c24c3f2a450102cb649d31d43f73f2.png" src="_images/d09532f3eb233d1b662438783dc4f69f06c24c3f2a450102cb649d31d43f73f2.png" />
 </div>
 </div>
 <p>同じ方向に動く傾向が確認できる。相関係数を計算してみる。</p>
@@ -1166,7 +898,7 @@ Notes:
 <p>トレンドからの乖離も強い持続性があることを示している。</p>
 </section>
 <section id="id10">
-<h3>フラット化するフィリップス曲線<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
+<h3>フラット化するフィリップス曲線<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>まずインフレ率と失業率の散布図をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1176,11 +908,11 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_63_0.png" src="_images/11_Macro_Variables_63_0.png" />
+<img alt="_images/b66dd7ffb35892d4faba0522a628b7687c0fbf04a08c799bca31ec599c0216cc.png" src="_images/b66dd7ffb35892d4faba0522a628b7687c0fbf04a08c799bca31ec599c0216cc.png" />
 </div>
 </div>
 <p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>過去40年間，フィリプス曲線は変化した可能性はないのか。即ち，真のメカニズムが変わりながら生成されたデータが表示されているのではないか，という問題である。</p></li>
 <li><p>式<a class="reference internal" href="#equation-eq-11-phillips">(64)</a>には期待インフレ率がり，また供給サイドのショックもあり得る（例えば，コロナ禍）。それらをどう考えるかという問題がある。</p></li>
 </ol>
@@ -1337,12 +1069,12 @@ Name: decade, Length: 168, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_74_0.png" src="_images/11_Macro_Variables_74_0.png" />
+<img alt="_images/c0c78ddd6d0bee6de826a29fcfd62daf8b6f3ec0fb49011cd8f664a444c5cc17.png" src="_images/c0c78ddd6d0bee6de826a29fcfd62daf8b6f3ec0fb49011cd8f664a444c5cc17.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>色のリスト</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">['orange','k',</span> <span class="pre">'b',</span> <span class="pre">'r']</span></code>としてもOK。</p></li>
@@ -1384,7 +1116,7 @@ Name: decade, Length: 168, dtype: int64
 </div>
 </div>
 <p>時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>中央銀行の政策決定の透明化や政策のアナウンスメント，フォーワード・ガイダンス（将来の政策についてのガイダンス）などにより，中央銀行の物価安定（インフレ安定）重視のスタンスが民間に十分に浸透したと考えられる。失業が変化しても，インフレ率のの安定化を図る中央銀行の政策スタンスが民間の期待に織り込まれ，インフレ率の変化は小さくなったと思われる。この解釈が正しければ，日銀は素晴らしい仕事をしたということである。</p></li>
 <li><p>グローバル化や規制改革により競争環境が変化し（例えば，需要曲線の変化や寡占化），その結果，企業の価格設定行動がも変化したためである。</p></li>
 <li><p>1980年代のPC曲線の傾きは，データ上では大きく見えるが，真のPC曲線はフラットだったという解釈である。上の散布図は観測されたデータを単純にプロットしただけであり，データだけを見てもその裏にあるデータ生成メカニズムは分からない。更には，1980年代にインフレ率が急に減少しているが，インフレ率の下落はPC曲線の下方シフトとして発生したと考えられ，それがデータ上ではPC曲線の急な傾きとして観測されているに過ぎない。</p></li>
@@ -1405,9 +1137,9 @@ Name: decade, Length: 168, dtype: int64
 </section>
 </section>
 <section id="id11">
-<h2>インフレ率とマネーストックの増加率<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
+<h2>インフレ率とマネーストックの増加率<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <section id="id12">
-<h3>説明<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h3>
+<h3>説明<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>貨幣数量説は次式で表される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-qtm">
 <span class="eqno">(65)<a class="headerlink" href="#equation-eq-11-qtm" title="Permalink to this equation">#</a></span>\[
@@ -1460,9 +1192,9 @@ P_tY_t=M_tV_t
 <p>手法としては散布図と回帰直線の傾きに基づいて正の相関があるかを考える。</p>
 </section>
 <section id="id13">
-<h3>日本の時系列データ<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h3>
+<h3>日本の時系列データ<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <section id="id14">
-<h4>説明<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h4>
+<h4>説明<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>には<code class="docutils literal notranslate"><span class="pre">jpn-money</span></code>というデータ・セットが含まれており，その内容は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1490,7 +1222,7 @@ P_tY_t=M_tV_t
 </div>
 <p>1955年1月から2021年4月までの月次データであり，消費者物価指数とマネーストックの２つの変数が含まれている。マネーストックにはM1が使われており，現金通貨と要求払預金(預入期間の設定がなく自由に出し入れができる預金のことであり，普通預金が典型的な例)で構成される。詳しくは<a class="reference external" href="https://www.boj.or.jp/statistics/outline/exp/data/exms01.pdf">マネーストック統計の解説</a>を参考にしてほしい。M1を使う大きな理由は長い時系列データが存在することであり，長期的な関係である式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(67)</a>を考えるには適しているためである。</p>
 <p>一方で長い時系列データであれば長期的な関係を捉えることができるという訳ではない。ここでの長期的な関係とは，ある作用が発生した後，その効果が現れるのに時間が掛かるという意味である。例えば，今日マネーストックの増加率が上昇したとしても，明日すぐにインフレ率の上昇につながるという訳ではなく，その効果が浸透しデータの数字に現れるまで数ヶ月掛かる事になる。この点を示すために次のステップで進めることにする。</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>月次データを変換して次のデータを作成する。</p>
 <ul class="simple">
 <li><p>四半期データ</p></li>
@@ -1502,7 +1234,7 @@ P_tY_t=M_tV_t
 </ol>
 </section>
 <section id="resample">
-<h4><code class="docutils literal notranslate"><span class="pre">resample()</span></code><a class="headerlink" href="#resample" title="Permalink to this headline">#</a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">resample()</span></code><a class="headerlink" href="#resample" title="Permalink to this heading">#</a></h4>
 <p>まず四半期データへの変換を考えよう。１四半期には３ヶ月の値があり，その平均を１四半期の値とする。同様に，年次データおよび3年次データに変換する場合は，12ヶ月間もしくは36ヶ月間の値を使い平均を計算することになる。このような計算は「連続的な時系列のグループ計算」として捉えることができる。グループ計算のメソッドに<code class="docutils literal notranslate"><span class="pre">groupby</span></code>があるが，カテゴリー変数に基づいてグループ分けするので，この問題に使うことはできない。その代わりに，時系列用グループ計算メソッドとして<code class="docutils literal notranslate"><span class="pre">resample</span></code>が用意されている。ここでは<code class="docutils literal notranslate"><span class="pre">resample</span></code>の使い方を紹介するが，異なる方法として移動平均を使うことも可能であり，興味がある人は<a class="reference external" href="https://py4basics.github.io/Moving_Average.html">こちらを参照してみよう</a>。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1510,6 +1242,11 @@ P_tY_t=M_tV_t
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">resample</span></code>の使い方を説明するために，次の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>（変数名は<code class="docutils literal notranslate"><span class="pre">df_ex</span></code>）を考えよう。</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2020-01-31&#39;</span><span class="p">,</span><span class="s1">&#39;2021-12-31&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
 <span class="n">df_ex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">120</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
@@ -1517,6 +1254,7 @@ P_tY_t=M_tV_t
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
@@ -1551,122 +1289,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>4.539543</td>
+      <td>4.821665</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>5.234793</td>
+      <td>4.053658</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>6.210262</td>
+      <td>5.746175</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>5.694844</td>
+      <td>6.815351</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>4.942900</td>
+      <td>3.904710</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>6.147251</td>
+      <td>4.027800</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>5.272528</td>
+      <td>6.537550</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>3.448634</td>
+      <td>4.892312</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>4.728529</td>
+      <td>4.917323</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>5.818996</td>
+      <td>7.493124</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>5.448247</td>
+      <td>5.912806</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>5.553502</td>
+      <td>4.681071</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>5.690901</td>
+      <td>4.154732</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>6.361683</td>
+      <td>3.397561</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>4.980193</td>
+      <td>3.928492</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>5.077567</td>
+      <td>5.329477</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>6.973890</td>
+      <td>5.582700</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>5.153159</td>
+      <td>5.099343</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>2.584555</td>
+      <td>5.445908</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>5.382940</td>
+      <td>4.894612</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>3.731332</td>
+      <td>7.347294</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>5.812318</td>
+      <td>6.099445</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>4.238848</td>
+      <td>3.218090</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>4.859673</td>
+      <td>5.450853</td>
     </tr>
   </tbody>
 </table>
@@ -1693,7 +1431,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x122ca4430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x12f234fa0&gt;
 </pre></div>
 </div>
 </div>
@@ -1734,42 +1472,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.328199</td>
+      <td>4.873833</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>5.594998</td>
+      <td>4.915954</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.483230</td>
+      <td>5.449062</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>5.606915</td>
+      <td>6.029000</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>5.677592</td>
+      <td>3.826928</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>5.734872</td>
+      <td>5.337173</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>3.899609</td>
+      <td>5.895938</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>4.970280</td>
+      <td>4.922796</td>
     </tr>
   </tbody>
 </table>
@@ -1810,12 +1548,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>5.253336</td>
+      <td>5.316962</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>5.070588</td>
+      <td>4.995709</td>
     </tr>
   </tbody>
 </table>
@@ -1903,12 +1641,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.146291</td>
+      <td>0.221464</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.230661</td>
+      <td>0.235266</td>
     </tr>
   </tbody>
 </table>
@@ -1920,7 +1658,7 @@ P_tY_t=M_tV_t
 </div>
 </section>
 <section id="id15">
-<h4>データの作成<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h4>
+<h4>データの作成<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h4>
 <p>では実際に<code class="docutils literal notranslate"><span class="pre">jpn-money</span></code>のデータを使いデータを整形しよう。まず月次データを読み込み<code class="docutils literal notranslate"><span class="pre">month</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2318,7 +2056,7 @@ memory usage: 18.8 KB
 <p>行<code class="docutils literal notranslate"><span class="pre">1955-01-01</span></code>の<code class="docutils literal notranslate"><span class="pre">inflation</span></code>と<code class="docutils literal notranslate"><span class="pre">money_growth</span></code>の値は<code class="docutils literal notranslate"><span class="pre">NaN</span></code>となっている。これは前期の値がないためである。</p>
 </section>
 <section id="id16">
-<h4>散布図とトレンド線<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h4>
+<h4>散布図とトレンド線<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使ってOLSの計算とプロットを同時におこなおう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2341,15 +2079,15 @@ memory usage: 18.8 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_127_0.png" src="_images/11_Macro_Variables_127_0.png" />
-<img alt="_images/11_Macro_Variables_127_1.png" src="_images/11_Macro_Variables_127_1.png" />
-<img alt="_images/11_Macro_Variables_127_2.png" src="_images/11_Macro_Variables_127_2.png" />
-<img alt="_images/11_Macro_Variables_127_3.png" src="_images/11_Macro_Variables_127_3.png" />
+<img alt="_images/cc02feb232f5050591c28f722dd759cdc05478024876c985779150d39bcbc53a.png" src="_images/cc02feb232f5050591c28f722dd759cdc05478024876c985779150d39bcbc53a.png" />
+<img alt="_images/642a770eadc88eec6e35169f5f4e00fad7bcd53615da4ce5e933b93197287fe9.png" src="_images/642a770eadc88eec6e35169f5f4e00fad7bcd53615da4ce5e933b93197287fe9.png" />
+<img alt="_images/5dd7102255802b707f7a91d71deae3ea44587ca67d2e8e74e16d22c99db2f6d3.png" src="_images/5dd7102255802b707f7a91d71deae3ea44587ca67d2e8e74e16d22c99db2f6d3.png" />
+<img alt="_images/99a544c5d6bfc2521003e55e91d2d600bef1d3ce1b7b50b0081c29d8abe37a0e.png" src="_images/99a544c5d6bfc2521003e55e91d2d600bef1d3ce1b7b50b0081c29d8abe37a0e.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コード説明</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>それぞれのプロットのタイトルのリスト。</p></li>
 <li><p>最小二乗法の結果を変数<code class="docutils literal notranslate"><span class="pre">res</span></code>に割り当てる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はOLSの予測値であり，新たな列としてそれぞれの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>に追加する。その際の列名を<code class="docutils literal notranslate"><span class="pre">トレンド</span></code>とする。</p></li>
@@ -2388,9 +2126,9 @@ memory usage: 18.8 KB
 </section>
 </section>
 <section id="id17">
-<h3>世界経済のパネルデータ<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h3>
+<h3>世界経済のパネルデータ<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
 <section id="id18">
-<h4>説明<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h4>
+<h4>説明<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h4>
 <p>前節では日本のデータを使い，インフレ率に対するマネーストック増加率の影響が現れるには時間が掛かることを示した。一方でトレンド線の傾き（回帰分析のスロープ）は１よりも小さいが，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(67)</a>は線形であり，<span class="math notranslate nohighlight">\(m_t\)</span>の計数は１である。即ち，マネーストックの増加率が1％上昇するとインフレ率も1％増加するという予測である。データと理論予測の齟齬をどう考えれば良いだろうか。一つの問題はノイズである。年次データであっても3年次データであってもその期間に短期的なありとあらゆるランダムな要素（ノイズ）が含まれている。ノイズは正や負の両方の影響があると考えられ，その分変化が激しいと思われる。長期的な関係は，正と負の影響が相殺し，その結果残った関係と考えることができる。この考えをデータで捉えるためにデータ全体の平均を計算すれば良いことになる。しかし前節で使用した日本の1955年から2020年のデータを使い，インフレ率とマネーストトック増加率の平均を計算すると，標本の大きさは<code class="docutils literal notranslate"><span class="pre">１</span></code>となってしまう。これではどうしようもないので，国数を増やし，観測値を増やす必要がある。従って，ここでは世界経済のパネルデータを使い２変数の関係を探ることにする。</p>
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる<code class="docutils literal notranslate"><span class="pre">world-money</span></code>というデータ・セットを使うが，その内容は次のコードで確認できる。</p>
 <div class="cell docutils container">
@@ -2539,9 +2277,9 @@ memory usage: 308.8+ KB
 <p>欠損値はないことが確認できる。</p>
 </section>
 <section id="id19">
-<h4>変化率の計算<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h4>
+<h4>変化率の計算<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">world</span></code>には経済ごとに10年以上に渡ってインフレ率とマネーストック増加率が含まれている。国ごとの変数の変化率を計算するには，以前紹介した<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使うことも可能だが，少し回りくどい計算になっている。ここでは異なる方法として<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を紹介する。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>はグループ内で何らかの計算をする際に非常に便利なメソッドである。次のステップに従って説明する。</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">DataFram</span></code>をどの変数でグループ化するかを指定し，グループ化計算用のオブジェクトを用意する。</p>
 <ul class="simple">
 <li><p>ここでは経済ごとの平均を計算したいので，国<code class="docutils literal notranslate"><span class="pre">iso</span></code>（もしくは<code class="docutils literal notranslate"><span class="pre">country</span></code>）でグループ化する。</p></li>
@@ -2568,7 +2306,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x122bd7970&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x12f263550&gt;
 </pre></div>
 </div>
 </div>
@@ -2583,7 +2321,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x122da6170&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12f263e80&gt;
 </pre></div>
 </div>
 </div>
@@ -3352,7 +3090,7 @@ Name: money, Length: 6584, dtype: float64
 <p>上で説明したように，列<code class="docutils literal notranslate"><span class="pre">money_growth</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation</span></code>の0番目の行の要素は<code class="docutils literal notranslate"><span class="pre">NaN</span></code>となっている。</p>
 </section>
 <section id="id20">
-<h4>ハイパーインフレ<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h4>
+<h4>ハイパーインフレ<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h4>
 <p>ハイパーインフレの確固たる定義はないが，Mankiwの教科書「マクロ経済学」では年率50％以上と定義している。この定義に基づき，ハイパーインフレは観測値の何％を占めるかを計算してみよう。まず<code class="docutils literal notranslate"><span class="pre">inflation</span></code>で<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない行の数を数える。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3541,7 +3279,7 @@ Name: inflation, dtype: float64
 <p>約45日間で物価は２倍になることが分かる。</p>
 </section>
 <section id="id21">
-<h4>プロット<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h4>
+<h4>プロット<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h4>
 <p>全てのデータを使って散布図をプロットしトレンドを計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3551,7 +3289,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_172_0.png" src="_images/11_Macro_Variables_172_0.png" />
+<img alt="_images/5bcc2b74b162005ae855ff0abeb2e7020982b6a12f6d3ebfeed4822ec8213feb.png" src="_images/5bcc2b74b162005ae855ff0abeb2e7020982b6a12f6d3ebfeed4822ec8213feb.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3631,7 +3369,7 @@ Name: inflation, dtype: float64
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>マネーストックの平均増加率を格納する空のリスト。</p></li>
 <li><p>平均インフレ率を格納する空のリスト。</p></li>
 <li><p>国のisoを格納する空のリスト。</p></li>
@@ -3821,7 +3559,7 @@ Name: inflation, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11_Macro_Variables_185_0.png" src="_images/11_Macro_Variables_185_0.png" />
+<img alt="_images/39a103030fd25d244778614af53046f77f843ece5f7a39fb1508c31091158185.png" src="_images/39a103030fd25d244778614af53046f77f843ece5f7a39fb1508c31091158185.png" />
 </div>
 </div>
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>
@@ -3873,50 +3611,129 @@ money_growth_mean     0.9847      0.018     54.876      0.000       0.949       
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="10_Data_Fluctuation.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">GDPと構成要素</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_Data_Fluctuation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GDPと構成要素</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="18_ADAS-1.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="18_ADAS-1.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">定量的マクロ経済分析：Part 1</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">オークンの法則</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-11-unemployment">失業率の特徴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">回帰分析</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">フィリップス曲線</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">インフレ率の特徴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">フラット化するフィリップス曲線</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">インフレ率とマネーストックの増加率</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">日本の時系列データ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resample"><code class="docutils literal notranslate"><span class="pre">resample()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データの作成</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">散布図とトレンド線</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">世界経済のパネルデータ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変化率の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">ハイパーインフレ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">プロット</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By 春山 鉄源  Tetsugen HARUYAMA<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By 春山 鉄源  Tetsugen HARUYAMA
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
