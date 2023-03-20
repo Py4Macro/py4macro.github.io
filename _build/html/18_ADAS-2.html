@@ -1076,7 +1076,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/13a7dc27f906ad94904e2ae7df4d983ed723485334d240d782fc18fb55df6ce6.png" src="_images/13a7dc27f906ad94904e2ae7df4d983ed723485334d240d782fc18fb55df6ce6.png" />
+<img alt="_images/be0b65613dd4e234c34b860c7d863bd3125548b7f852c8a5cf2f684efd0f3531.png" src="_images/be0b65613dd4e234c34b860c7d863bd3125548b7f852c8a5cf2f684efd0f3531.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1095,7 +1095,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9dbe4d93f2fdaacdeb4f454c654d5f1db57d28c2650db62c74cef121d35d6c1a.png" src="_images/9dbe4d93f2fdaacdeb4f454c654d5f1db57d28c2650db62c74cef121d35d6c1a.png" />
+<img alt="_images/e3e343abc313d3bb282881fe4666cedf5c239617e723ea77bdc503b8a0e56123.png" src="_images/e3e343abc313d3bb282881fe4666cedf5c239617e723ea77bdc503b8a0e56123.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1149,8 +1149,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01352
-pの標準偏差:0.01129
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01357
+pの標準偏差:0.01137
 </pre></div>
 </div>
 </div>
@@ -1200,8 +1200,8 @@ pの標準偏差:0.01129
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.082
-p:0.800
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.075
+p:0.802
 </pre></div>
 </div>
 </div>
@@ -1247,7 +1247,7 @@ p:0.800
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.16766896228693404
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.1703985994812315
 </pre></div>
 </div>
 </div>
@@ -1395,29 +1395,36 @@ p_{t}&amp;=hp_{t-1} + e_{pt}
 <li><p><span class="math notranslate nohighlight">\(e_{yt}\equiv h(u_{t}-cv_{t})\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(e_{pt}\equiv h\left(a u_{t}+v_{t}\right)\)</span></p></li>
 </ul>
-<p>今期が<span class="math notranslate nohighlight">\(t-1\)</span>期とし，<span class="math notranslate nohighlight">\(x_{t-1}\)</span>は既に実現したと考えてみよう。一方，<span class="math notranslate nohighlight">\(t\)</span>期の変数は実現前の将来の変数としよう。ここで，実現値<span class="math notranslate nohighlight">\(x_{t-1}\)</span>を所与として<code class="docutils literal notranslate"><span class="pre">t</span></code>期の変数を予測するとしよう。予測値は次式で表現できる。</p>
+<p>今期が<span class="math notranslate nohighlight">\(t-1\)</span>期とし，<span class="math notranslate nohighlight">\(x_{t-1}\)</span>は既に実現したと考えてみよう。一方，<span class="math notranslate nohighlight">\(t\)</span>期の変数は実現前の将来の変数としよう。ここで，実現値<span class="math notranslate nohighlight">\(x_{t-1}\)</span>を所与として<code class="docutils literal notranslate"><span class="pre">t</span></code>期の変数を予測するとしよう。<span class="math notranslate nohighlight">\(y_{t}\)</span>の予測値は次式で表現できる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-\text{E}_{t-1}(y_{t}) &amp;= -chp_{t-1}\\
-\text{E}_{t-1}(p_{t})&amp;=hp_{t-1}
+\text{E}_{t-1}\left(y_{t}\right) 
+&amp;=\text{E}_{t-1}\left(-chp_{t-1} + e_{yt}\right)\\
+&amp;=\text{E}_{t-1}\left(-chp_{t-1}\right)+\text{E}_{t-1}\left(e_{yt}\right)\\
+&amp;=-chp_{t-1}
 \end{align*}
 \end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(\text{E}_{t-1}\)</span>は<span class="math notranslate nohighlight">\(t-1\)</span>時点での情報に基づき期待値を計算していることを表す。また，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の期待値（平均）はゼロと仮定しているため，<span class="math notranslate nohighlight">\(\text{E}_{t-1}(u_t)=\text{E}_{t-1}(v_t)=0\)</span>となり，<span class="math notranslate nohighlight">\(\text{E}_{t-1}(e_{yt})=\text{E}_{t-1}(e_{pt})=0\)</span>も成立することになり，上の予測値の結果となる。</p>
-<p>更に，上の２つの式を使うと，予測誤差を次のように表すことができる。</p>
+<p>１行目は単に上の一つ目の式の両辺に<span class="math notranslate nohighlight">\(\text{E}_{t-1}\)</span>を使い<span class="math notranslate nohighlight">\(t-1\)</span>時点での情報に基づき期待値を計算していることを表す。右辺が線形になっているので，その特徴を利用すると２行目となる。３行目では，<span class="math notranslate nohighlight">\(-chp_{t-1}\)</span>は既に実現している値なので<span class="math notranslate nohighlight">\(\text{E}_{t-1}\)</span>は外すことができる。更に，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の期待値（平均）はゼロと仮定しているため，<span class="math notranslate nohighlight">\(\text{E}_{t-1}(e_{yt})=0\)</span>となる。同様に，上の２つ目の式を使い<span class="math notranslate nohighlight">\(p_{t}\)</span>の予測値を求めることができる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
-y_{t} - \text{E}_{t-1}(y_{t})&amp;= e_{yt}\\
-p_{t}- \text{E}_{t-1}(p_{t})&amp;= e_{pt}
+\text{E}_{t-1}\left(p_{t}\right)
+&amp;=\text{E}_{t-1}\left(hp_{t-1} + e_{pt}\right)\\
+&amp;=\text{E}_{t-1}\left(hp_{t-1}\right) + \text{E}_{t-1}\left(e_{pt}\right)\\
+&amp;=hp_{t-1}
 \end{align*}
 \end{split}\]</div>
-<p>この結果は，次のことを意味する。</p>
-<ul class="simple">
-<li><p>予測誤差は<span class="math notranslate nohighlight">\(e_{yt}\)</span>と<span class="math notranslate nohighlight">\(e_{pt}\)</span>に集約される。</p></li>
-<li><p>予測誤差は総需要ショックと総供給ショックによって発生した<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(p_t\)</span>の変動を捉えており，両方の影響が混在する。</p></li>
-</ul>
-<p>次に，予測誤差に基づいて総需要・総供給ショックの影響を抽出する計算方法ついて下で説明するが，その前に，その考え方について簡単に説明する。確率的シミュレーションが示すように，ショックが連続して発生することにより，<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(p_t\)</span>はトレンド（<span class="math notranslate nohighlight">\(y_*=p_*=0\)</span>）には戻らず，％乖離は正や負の値を取ることになる。そのような変動の大きさは分散で捉えることができる。同様に，予測誤差の変動もその分散で捉えることができ，更には，総需要ショックと総供給ショックの分散に依存することになる。即ち，次のように分散分解することができる。</p>
+<p>更に，これらの予測値を使うと予測<strong>誤差</strong>を次のように表すことができる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+e_{yt}&amp;=y_{t} - \text{E}_{t-1}(y_{t})\\
+e_{pt}&amp;=p_{t}- \text{E}_{t-1}(p_{t})
+\end{align*}
+\end{split}\]</div>
+<p>この結果は次のことを意味する。予測誤差<span class="math notranslate nohighlight">\(e_{yt}\)</span>と<span class="math notranslate nohighlight">\(e_{pt}\)</span>は，総需要ショック<span class="math notranslate nohighlight">\(u_t\)</span>と総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>が発生することにより生じており，予測誤差から総需要ショックと総供給ショックの相対的な影響力を調べることができる。しかし，それらを分解する必要があり，その方法が予測誤差の分散分解である。</p>
+<p>まず総需要・総供給ショックが全くない場合を考えてみよう。<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>となるので<span class="math notranslate nohighlight">\(e_{yt}=e_{pt}=0\)</span>となるのは自明であろう。ショックがなければ予測誤差はゼロとなる。小さなショックを導入すると，予測誤差は正や負の値を取り，小さく変動することになる。ショックを大きくすると予測誤差の絶対値が増加し，変動が大きくなることは直感的にも理解できるだろう。ここでは，予測誤差の変動の大きさを分散で捉えようということである。更に，分散の特徴により，予測誤差の分散は総需要ショックと総供給ショックのそれぞれに起因する分散の和として表すことが可能となり，次のように分散分解することができる。</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(e_{xt})=\text{Var}(e_{xt}|u_t)+\text{Var}(e_{xt}|v_t)
@@ -1814,8 +1821,8 @@ e_{pt}=ahu_t+hcv_t
 Aさんの体重計は単純な装置だが，一方，Bさんの技術は高く，設計図は洗練され使う材料もより質が高いとしてみよう。
 その差は精度の違いとして現れることになるだろう。
 マクロ経済モデルも同じである。
-AD-ASモデルは，研究や政策議論で使われるモデルと比べると単純なモデルであり，それが故に定量的な問に対しての答えも精度が低いものとならざるを得ない。
-大学院で学ぶDSGEモデルや構造VARモデルなどはより洗練された「装置」であり，AD-ASモデルよりも精度が高い結果を返すことになるだろう。</p>
+ADASモデルは，研究や政策議論で使われるモデルと比べると単純なモデルであり，それが故に定量的な問に対しての答えも精度が低いものとならざるを得ない。
+大学院で学ぶDSGEモデルや構造VARモデルなどはより洗練された「装置」であり，ADASモデルよりも精度が高い結果を返すことになるだろう。</p>
 </section>
 <section id="id26">
 <h2>付録：分散と共分散の性質<a class="headerlink" href="#id26" title="Permalink to this headline">#</a></h2>

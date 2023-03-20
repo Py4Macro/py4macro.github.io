@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Pythonで学ぶマクロ経済学 (中級＋レベル) &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="canonical" href="https://py4macro.github.io/index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="発展会計" href="5a_Development_Accounting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pythonで学ぶマクロ経済学 (中級＋レベル)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io">経済学のためのPython入門</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">長期分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5a_Development_Accounting.html">発展会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5b_Growth_Accounting.html">成長会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_Regression.html">回帰分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_DifferenceEq.html">差分方程式と経済分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_Solow.html">ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_Convergence.html">所得分布と所得収斂</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期分析I</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">GDPと構成要素</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Macro_Variables.html">法則・曲線・増加率</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-1.html">定量的マクロ経済分析：Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-2.html">定量的マクロ経済分析：Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期分析II</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="13_random_TFP.html">ランダム変数と全要素生産性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_data_on_money.html">古典派の二分法と金融政策</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plan.html">今後の計画</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io/Gapminder.html">Gapminder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://py4etrics.github.io">Pythonで学ぶ入門計量経済学</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/index.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/index.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="ノートブックファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pythonで学ぶマクロ経済学 (中級＋レベル)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">学生のコメント</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">本サイトで使うPythonとパッケージのバージョン</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python">
+<h1>Pythonで学ぶマクロ経済学 (中級＋レベル)<a class="headerlink" href="#python" title="Permalink to this headline">#</a></h1>
+<blockquote class="epigraph">
+<div><p><strong>Python for Intermediate+ Macroeconomics</strong></p>
+<p><a class="reference external" href="https://t-haruyama.github.io">春山 鉄源</a></p>
+<p>神戸大学経済学研究科</p>
+</div></blockquote>
+<div name="html-admonition" style="font-size: 0.8em">
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+</div><br><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Version:&#39;</span><span class="p">,</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y年%m月</span><span class="si">%d</span><span class="s1">日&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Version: 2023年03月10日
+</pre></div>
+</div>
+</div>
+</div>
+<!---
+%H:%M:%S
+dt = datetime.datetime.now()
+dt = datetime.datetime.today()
+-->
+<p>本サイトに関するコメント等はGitHubの<a class="reference external" href="https://github.com/Py4Macro/py4macro.github.io/discussions">Discussions</a>もしくは<a class="reference external" href="mailto:haruyama&#37;&#52;&#48;econ&#46;kobe-u&#46;ac&#46;jp">haruyama<span>&#64;</span>econ<span>&#46;</span>kobe-u<span>&#46;</span>ac<span>&#46;</span>jp</a>にご連絡ください。</p>
+<br>
+<p>姉妹サイト：<a class="reference external" href="https://py4etrics.github.io">「Pythonで学ぶ入門計量経済学」</a> <font size="+0">🐍</font></p>
+<!--```{margin}-->
+<!--<div name="html-admonition">-->
+<!--Do you want to read in a differnt language? Start-->
+<!--<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/><input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="translation" style="color:#ffffff;background-color:#008080;" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/>-->
+<!--in English or the language of your choice.-->
+<!--</div>-->
+<!--```-->
+<section id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>本サイトの目的は２つある。第一に，学部中級＋レベル（「＋」は中級より少し進んだという意味）のマクロ経済学をとおして<code class="docutils literal notranslate"><span class="pre">Python</span></code>を学び，<code class="docutils literal notranslate"><span class="pre">Python</span></code>をとおしてマクロ経済学を学ぶ（復習する）ことである。大学での経済学教育は主に講義でおこなわれる。モデルの展開と解説，データが紹介されるが，私もそうだったように「そういうものなんだ」と納得はするが，経済学との間になんとなく「距離」を感じる学生が多いのではないだろうか。その距離を縮めるために，演習や数値例を使った宿題があり，その役目はある程度果たしている。その距離を更に縮めようというのが本サイトの目的である。<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使うことにより，学生自身がデータを操作し，データの特徴を確認できる。回帰分析も簡単におこなうことができる。更に，<code class="docutils literal notranslate"><span class="pre">Python</span></code>はデータだけではなく理論モデルの理解にも大いに役立つ。異なる政策がもたらす均衡への影響を数値化し，簡単に計算することができる。また複雑なマクロモデルの均衡の動学的な動きを視覚的に確認し，政策などのパラメータにどのように反応するかも一瞬で確認することができる。それもパラメータの値や組み合わせの変更も自由自在である。即ち，マクロ経済学のハンズオン（<a class="reference external" href="https://eow.alc.co.jp/search?q=hands-on">hands-on</a>）が可能となる。ハンズオンこそが今の授業で足りないものであり，学生のマクロ経済学の理解と興味を深め「距離」を更に縮めることが期待できるのではないだろうか。</p>
+<p>第二に，経済学部の学生に今後変わりゆく社会に少しでも対応できるように，<a class="reference external" href="https://www.google.co.jp/search?q=transferable+skills&amp;spell=1&amp;sa=X&amp;ved=2ahUKEwj68fqc7LPwAhWKfd4KHT_xC64QBSgAegQIARA1&amp;biw=1440&amp;bih=767">transferable skill</a>になり得るプログラミングを身につける機会を提供することである。新聞，雑誌やインターネット上で「AI」や「機械学習」などプログラミングに関するキーワードを頻繁に見聞きする。これは一過性の流行りではなく，社会全体がデジタル化する大きなうねりの「大音」である。実際，政府もプログラミングの重要性を強く認識している。2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され，続いて中高教育でもプログラミングに関する内容・科目が充実される予定である（<a class="reference external" href="https://www.mext.go.jp/a_menu/shotou/zyouhou/detail/1369613.htm">文部科学省の参照リンク</a>）。このようにプログラミングのスキルの重要性は益々大きくなると思われる。一方，今の経済学部の学生は，デジタル化による社会のうねりとプログラミング教育の盛り上がりの狭間にあり，プログラミングの「プの字」も知らずにデジタル化社会へ飛び込むことになりかねない。学生にとって卒業後の社会は「人生の本番」であり，その準備を少しでも手助けするのが教育の役割ではないだろうか。もちろん，近年一般教養科目としてプログラミング科目が導入されている大学も多くある。しかし専門科目として提供することにより専門性とプログラミングの「いいとこ取り」を提供できる機会を利用しないのは，経済学でいう「非効率的」な教育になってしまう。</p>
+<p>では，なぜ<code class="docutils literal notranslate"><span class="pre">Python</span></code>なのか？プログラミング言語は無数に存在し，それぞれ様々な特徴があり，お互いに影響し合い進化している。その過程で広く使われ出す言語もあれば廃れていく言語もある。その中で<code class="docutils literal notranslate"><span class="pre">Python</span></code>は，近年注目を集める言語となっている。それを示す一つの参考指標として<a class="reference external" href="https://www.kaggle.com/competitions/kaggle-survey-2021/data">2021 Kaggle Machine Learning &amp; Data Science Survey</a>を紹介する。</p>
+<figure class="align-default" id="popularity">
+<a class="reference internal image-reference" href="_images/popularity.jpeg"><img alt="_images/popularity.jpeg" src="_images/popularity.jpeg" style="width: 333.03000000000003px; height: 461.38000000000005px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">2021年Kaggleアンケート結果（重複回答含む）</span><a class="headerlink" href="#popularity" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="dropdown admonition">
+<p class="admonition-title">棒グラフのコード</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># load .csv</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;kaggle_survey_2021_responses.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dytype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+<span class="c1"># 関連する列を抽出し，それぞれの言語の回数を計算</span>
+<span class="n">lang</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">lang</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">,</span><span class="s1">&#39;no&#39;</span><span class="p">]</span>
+<span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;language != &quot;None&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lang</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Other&#39;</span><span class="p">,</span><span class="s1">&#39;その他&#39;</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">lang</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;回答回数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;データサイエンティストを目指し</span><span class="se">\n</span><span class="s1">初めてプログラミングを学ぶ人に</span><span class="se">\n</span><span class="s1">どの言語を薦めますか？</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+
+<span class="c1"># 上と右の枠を削除</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 棒の先に数字を追加</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">+</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span>
+             <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">get_width</span><span class="p">()),</span> <span class="mi">2</span><span class="p">)),</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="c1"># 縦軸のラベルのサイズ</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># 縦横軸とラベルの間隔の調整</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Google合同会社の子会社である<a class="reference external" href="https://www.kaggle.com">Kaggle</a>は，データサイエンスや機械学習などに関連する課題を解決するためのコンテストがおこなわれる有名なオンライン・コミュニティであり，課題には賞金が設定され世界中からの参加者が切磋琢磨して競争する。2021年におこなわれたKaggle参加者へのアンケートの中に「データサイエンティストを目指し，初めてプログラミングを学ぶ人にどの言語を薦めますか？」の質問があり，その回答結果が<a class="reference internal" href="#popularity"><span class="std std-numref">Fig. 1</span></a>である。24,829の回答中（重複回答含む）81.4％が<code class="docutils literal notranslate"><span class="pre">Python</span></code>を選んでおり，<code class="docutils literal notranslate"><span class="pre">Python</span></code>のひとり勝ち状態である（2020年のアンケート結果では80.3%）。もう一つの人気指標として<a class="reference external" href="https://stackoverflow.com/">Stack Overflow</a>（プログラミングに関する質問をすると参加者が回答する定評あるサイト）が集計するデータがある。それによると2012年頃からPythonの人気は急上昇している（<a class="reference external" href="https://py4etrics.github.io/index.html#stackoverflow">図はこちらを参照</a>）。次にプログラミング言語のランキングで世界的に有名な<a class="reference external" href="https://www.tiobe.com/tiobe-index/">TIOBE programming community index</a>を紹介しよう。2021年10月に更新されたサイトは次の文章から始まっている。</p>
+<blockquote>
+<div><p>For the first time in more than 20 years we have a new leader of the pack: the <code class="docutils literal notranslate"><span class="pre">Python</span></code> programming language. The long-standing hegemony of <code class="docutils literal notranslate"><span class="pre">Java</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> is over.</p>
+</div></blockquote>
+<blockquote>
+<div><p>（訳）20数年ぶりに群れのニュー・リーダーが現れた。<code class="docutils literal notranslate"><span class="pre">Python</span></code>プログラミング言語である。長く続いた<code class="docutils literal notranslate"><span class="pre">Java</span></code>と<code class="docutils literal notranslate"><span class="pre">C</span></code>の覇権は終わった。</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">Python</span></code>の人気はどこにあるのだろうか？まず最初の理由は無料ということだろう。経済学研究でよく使われる数十万円するソフトと比べると，その人気の理由は理解できる。しかし計量経済学で広く使われる<code class="docutils literal notranslate"><span class="pre">R</span></code>を含めて他の多くの言語も無料であり，それだけが理由ではない。人気の第２の理由は汎用性である。<code class="docutils literal notranslate"><span class="pre">Python</span></code>はデータ分析や科学技術計算だけではなく，ゲーム（ゲーム理論ではない），画像処理や顔認識にも使われている。また多くの人が使うYouTubeやDropBoxにも<code class="docutils literal notranslate"><span class="pre">Python</span></code>が使われているのは有名である（DropBoxのコードは100万行以上あると言われている）。第３の理由は，学習コストが比較的に低いことである。<code class="docutils literal notranslate"><span class="pre">Python</span></code>のコードは英語を読む・書く感覚と近いため，他の言語と比べて可読性の高さが大きな特徴である（日本語に近い点もある）。これらの理由が上で紹介した結果に反映されていると考えられる。もちろん，<code class="docutils literal notranslate"><span class="pre">Python</span></code>の文法や基本的な関数を覚える必要があるが，相対的に最も初心者に易しい言語と言われており，スタートアップ企業にも人気がある。他にも理由はあるが，<code class="docutils literal notranslate"><span class="pre">Python</span></code>はIT産業だけではなく金融・コンサルティング・保険・医療などの幅広い分野で使われており，データ分析の重要性が増すごとにより多くの産業で使われると思われる。経済学部の大多数の卒業生は幅広い産業で働くことを考えると，社会全体で注目され今後より多くの産業で使われることが予想される言語を学ぶことは有意義ではないだろうか。</p>
+<p>本サイトは４部構成となっている。第１部では，経済学の例をまじえて<code class="docutils literal notranslate"><span class="pre">Python</span></code>の基礎について解説する。第２〜４部が本サイトの核心であり，<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使い学部中級＋レベルのマクロ経済学について解説するとともに，<code class="docutils literal notranslate"><span class="pre">Python</span></code>コード自体の説明も適宜おこなっている。マクロ経済学の内容としては，第２部が経済成長や所得分布などを扱う長期的な分析となっており，第３部は景気循環に焦点を当てた短期分析であり，学部中級レベルの内容を少し発展させた内容となっている。第４部は，更に踏み込んで大学院レベルの短期分析のトピックを熱心な学部生にも理解できるように解説することを心掛けた。より具体的には，<code class="docutils literal notranslate"><span class="pre">Python</span></code>の特性を生かしマクロ・データを使った回帰分析や動学的なモデルを展開する。ソロー・モデルや学部レベルの標準的なモデルになりつつあるIS-MP-PCモデルはもちろん，ADASモデルを使ったカリブレーション，実物的景気循環モデルやニューケインジアン・モデルについても学部生目線で解説する予定である。（従って，大学院生には物足りない内容となるが，直感的に理解するには有用であろう。）第５部では，参考になるトピックを集める計画である。</p>
+</section>
+<section id="id2">
+<h2>学生のコメント<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>本サイトは神戸大学経済学部2022度後期の「プログラミングと経済分析」（履修登録者243名）の教科書として使用した（もう一つの教科書は<a class="reference external" href="https://py4basics.github.io">「経済学のためのPython入門」</a>）。その際の自由記述アンケートの内容を一部紹介する。</p>
+<blockquote>
+<div><p>経済分析を行う際にどのようにプログラミングを活用すれば良いかを丁寧に教えて頂け，今後卒業論文を執筆する際にも是非参考にしたいと思います。</p>
+</div></blockquote>
+<blockquote>
+<div><p>プログラミングで完結することなく，それを経済分析に応用するという点で大変勉強になる授業でした。</p>
+</div></blockquote>
+<blockquote>
+<div><p>（他の）授業でどのようなデータを用いているのかが直感的に分かり良かった。</p>
+</div></blockquote>
+<blockquote>
+<div><p>プログラミングを自主的に学ぼうと思えるきっかけになりました。</p>
+</div></blockquote>
+<blockquote>
+<div><p>初めてプログラミングを学んで難しさと面白さの両方を経験できました。今後も必要なスキルとして機会を見つけて学びたいと思います。</p>
+</div></blockquote>
+<blockquote>
+<div><p>これまでプログラミング学習にハードルを感じていましたが，授業として取り組むことで習慣的に取り組む時間ができ，少し理解ができるようになりハードルが下がりました。</p>
+</div></blockquote>
+<blockquote>
+<div><p>プログラミングにとても関心があったのでこの講義を楽しく受けることができました。</p>
+</div></blockquote>
+<blockquote>
+<div><p>プログラミングに触れたのは，本講義で初めてだったのだが，非常に分かり易く丁寧だったのでよても良かった。</p>
+</div></blockquote>
+<blockquote>
+<div><p>ゼミでデータ分析を行なっているので今後もつづけていきたい。</p>
+</div></blockquote>
+<blockquote>
+<div><p>Pythonというプログラミングの中でもよく使うものの学習ができてよかった。</p>
+</div></blockquote>
+<blockquote>
+<div><p>説明はとても分かりやすかったので理解することができました。４ヶ月間ありがとうございました。</p>
+</div></blockquote>
+<blockquote>
+<div><p>資料や練習問題，動画などを全て公開していただいたので，勉強しやすいなと感じました。</p>
+</div></blockquote>
+</section>
+<section id="id3">
+<h2>本サイトで使うPythonとパッケージのバージョン<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">py4macro</span><span class="o">,</span> <span class="nn">scipy</span><span class="o">,</span> <span class="nn">see</span><span class="o">,</span> <span class="nn">statsmodels</span><span class="o">,</span> <span class="nn">wooldridge</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;numpy&#39;</span><span class="p">,</span><span class="s1">&#39;pandas&#39;</span><span class="p">,</span> <span class="s1">&#39;py4macro&#39;</span><span class="p">,</span> <span class="s1">&#39;scipy&#39;</span><span class="p">,</span><span class="s1">&#39;see&#39;</span><span class="p">,</span> <span class="s1">&#39;statsmodels&#39;</span><span class="p">,</span> <span class="s1">&#39;wooldridge&#39;</span><span class="p">]</span>
+<span class="n">versions</span> <span class="o">=</span> <span class="p">[</span><span class="n">python_version</span><span class="p">(),</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">see</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">statsmodels</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">wooldridge</span><span class="o">.</span><span class="n">__version__</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">pack</span><span class="p">,</span> <span class="n">ver</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">versions</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:14}{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span><span class="n">ver</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python        3.9.0
+matplotlib    3.5.2
+numpy         1.21.6
+pandas        1.4.2
+py4macro      0.8.4
+scipy         1.8.1
+see           1.4.1
+statsmodels   0.13.2
+wooldridge    0.4.4
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<p><a class="reference external" href="http://inesad.edu.bo/developmentroast/2012/10/21-reasons-why-you-should-never-date-an-economist/">Economists（経済学を勉強する人も含めて(?)）と付き合わない方が良い２１＋<span class="math notranslate nohighlight">\(\alpha\)</span>の理由</a></p>
+<hr class="docutils" />
+<p><a class="reference external" href="https://mybinder.org/v2/gh/Haruyama-KobeU/for_binder/main?filepath=for_binder.ipynb"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a> for an interactive Jupyter Notebook session with empty code cells<a class="reference download internal" download="" href="_downloads/ab193cf2bb8b3369501ed4b698f7ebd7/Pareto2023.pdf"><code class="xref download docutils literal notranslate"><span class="pre">.</span></code></a></p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="right-next"
+       href="5a_Development_Accounting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">発展会計</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">学生のコメント</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">本サイトで使うPythonとパッケージのバージョン</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 春山 鉄源  Tetsugen HARUYAMA
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
