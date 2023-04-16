@@ -453,18 +453,18 @@ document.write(`
 <p>本章と次章の目的は，回帰分析，差分方程式，ランダム変数を駆使し，定量（数量）的マクロ経済分析をおこなうことである。使うモデルは，中級レベルのマクロ経済学ではお馴染みの総需要・総供給モデル（ADASモデル）である。より具体的には，次の２ステップに分けて定量分析をおこなう。</p>
 <ol class="arabic">
 <li><p>景気循環に関するデータに基づきADASモデルのパラメーターの値を設定するカリブレーションと呼ばれる作業をおこなう。</p></li>
-<li><p>ADASモデルの数量的な特徴を確認し，次の問いを検討することである。</p>
+<li><p>ADASモデルの数量的な特徴を確認し，次の問いを検討する。</p>
 <blockquote>
 <div><p>GDPと価格水準の長期トレンドからの乖離（％）の変動は，何パーセントが需要ショックにより引き起こされ，何パーセントが供給ショックに起因するのか？</p>
 </div></blockquote>
 </li>
 </ol>
 <p>本章では１について解説をおこない，次章で２について議論を展開する。</p>
-<p>通常の教科書でのADASモデルを使う分析では，パラメータの符号（正か負）のみを仮定し，比較静学に基づきモデルの定性的な特徴や予測を考察する。例えば，政府支出の増加を考えてみよう。利子率は上昇し，短期的にはGDPも増加することになるが，「GDPの増加」は定性的な結果（予測）である。このような分析は経済を理解する上で有用な方法であるが，例えば，「GDPがどれだけ増加するのか」について答えることはできない。GDPの増加分がどの程になるのかは，定量的な問題（予測）であり，総需要曲線と総供給曲線の傾き等の値を設定してこそ答えることができる問いである。</p>
+<p>通常の教科書でのADASモデルを使う分析では，パラメータの符号（正か負）のみを仮定し，比較静学に基づきモデルの定性的な特徴や予測を考察する。例えば，政府支出の増加を考えてみよう。利子率は上昇し，短期的にはGDPも増加することになるが，「GDPの増加」は定性的な結果（予測）である。このような分析は経済を理解する上で有用な方法であるが，例えば，「GDPがどれだけ増加するのか」について答えることはできない。GDPの増分がどの程になるのかは，定量的な問題（予測）であり，総需要曲線と総供給曲線の傾き等の値を設定してこそ答えることができる問いである。</p>
 <p>一方で，パラメータにランダムな値を使っても意味がある分析にはならない。そこで有用な手法がカリブレーションと呼ばれる分析方法である。詳細は以下で説明するが，簡単に言うと，カリブレーションではマクロ・データの特徴と整合的にパラメータの値を決定することになる。本章では，カリブレーションの考え方と中級＋レベルで使えるツールを利用した方法を解説する。一旦，パラメータの値が決まるとより興味深い定量分析が可能となるが，次章で扱うことにする。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ADASモデルの総需要曲線はISLMモデルから導出できる。即ち，ADASモデルの裏ではISLMモデルが動いているため，ADAS-ISLMと表現することもできる。一方で，殆どの大学院のマクロ経済学の授業ではADAS-ISLMモデルは学ばないのではないだろうか。その大きな理由は，合理的期待に基づく消費者・企業の最適化行動が明示的に反映されていないことである。その反動かもしれないが，ADAS-ISLMモデルは「初学者用」と思われる傾向がある。しかし実際には，政策を検討する際にADAS-ISLMモデルは参考にされている。内閣府は「経済環境の変化や財政金融政策が経済に与える影響を定量的に評価するため」に<a class="reference external" href="https://www.esri.cao.go.jp/jp/esri/prj/current_research/short_macro/index.html">短期日本経済マクロ計量モデル</a>を研究テーマとして挙げており，そこで展開されるのはADAS-ISLMモデルの開放経済版（マンデル＝フレミング・モデル）である。もちろん，変数や式の数は比べものにならない程大掛かりなモデルとなっているが，基本的にはADAS-ISLMモデルである。</p>
+<p>ADASモデルの総需要曲線はISLMモデル（もしくは開放経済版であるマンデル＝フレミング・モデル）から導出できる。即ち，ADASモデルの裏ではISLMモデルが動いているため，ADAS-ISLMと表現することもできる。一方で，殆どの大学院のマクロ経済学の授業ではADAS-ISLMモデルは学ばないのではないだろうか。その大きな理由は，合理的期待に基づく消費者・企業の最適化行動が明示的に反映されていないことである。その反動かもしれないが，ADAS-ISLMモデルは「初学者用」と思われる傾向がある。しかし実際には，政策を検討する際にADAS-ISLMモデルは参考にされている。内閣府は「経済環境の変化や財政金融政策が経済に与える影響を定量的に評価するため」に<a class="reference external" href="https://www.esri.cao.go.jp/jp/esri/prj/current_research/short_macro/index.html">短期日本経済マクロ計量モデル</a>を研究テーマとして挙げており，そこで展開されるのはADAS-ISLMモデルの開放経済版（マンデル＝フレミング・モデル）である。もちろん，変数や式の数は比べものにならない程大掛かりなモデルとなっているが，基本的にはADAS-ISLMモデルである。</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -574,6 +574,18 @@ v_t&amp;=\rho_v v_{t-1}+e_{vt},\qquad v_t\sim\text{N}(0,\sigma_{ev}^2)
 \end{align*}
 \end{split}\]</div>
 <p>この章でおこなう確率的シミュレーションではホワイト・ノイズを仮定するが，AR(1)を使う場合は付録で扱うことにする。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>マクロ計量経済学の分野にベクトル自己回帰モデル（VAR, Vector Autoregression）と呼ばれる手法がある。その文献における「構造ショック」と<span class="math notranslate nohighlight">\(u_t\)</span>及び<span class="math notranslate nohighlight">\(v_t\)</span>がどう異なるかを考えてみよう。</p>
+<p>VARモデルには構造型VARモデルと誘導型VARモデルの２つがあるが，ここで考えるのは前者である。その考え方を簡単に説明するために，例としてGDPと失業率の２変数のVARモデルを考えてみよう。構造型VARでは，<span class="math notranslate nohighlight">\(t\)</span>期のGDPは（i）<span class="math notranslate nohighlight">\(t\)</span>期の失業率，（ii）２変数の過去の値，（iii）<span class="math notranslate nohighlight">\(t\)</span>期のGDPショックの３つに依存すると考える。同様に，<span class="math notranslate nohighlight">\(t\)</span>期の失業率は同期のGDP，２変数の過去の値，そして失業率ショックに依存する。ここで重要になるのが次の点である。（ii）で使用する変数が十分に過去を遡った値（例えば，四半期データで<span class="math notranslate nohighlight">\(t-1\)</span>期から<span class="math notranslate nohighlight">\(t-3\)</span>期もしくは更に遡った値）であれば，（iii）のショックが次の３つの特徴を満たすということである。</p>
+<ol class="arabic simple">
+<li><p>均一分散</p></li>
+<li><p>自己相関はない</p></li>
+<li><p>GDPショックと失業率ショックは無相関</p></li>
+</ol>
+<p>このようなショックを「構造ショック」と呼ぶ。なぜそう呼ばれるかを直感的に考えてみよう。経済メカニズムにより発生する変数の動きは，時間的なラグが存在したり（例えば，雇用の調整にはコストが掛かるが，それが非常に高い失業率の持続性の一つの要因と考えられる），他の変数の過去の値から影響を受けたりする（例えば，失業している間に労働者のスキルは失われ，それが将来のGDPに負の影響を及ぼす可能性がある）。このような経済メカニズムに起因する効果を捉えたのが（ii）の過去の変数である。２変数の時間的なラグが十分に長くなれば，殆どの経済メカニズムの効果は捉えることができるため，残っているのは（iii）にある経済メカニズムと無関係な純粋にランダムはショックということになる。それを「構造ショック」としてGDPショック，失業率ショックと呼んでいる。</p>
+<p>ADASモデルの<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>はどうかというと，ADASモデルには十分な変数のラグが無いため上の「構造ショック」の３つの特徴を必ずしも満たすとは限らない。むしろ，<span class="math notranslate nohighlight">\(u_t\)</span>には<span class="math notranslate nohighlight">\(p_t\)</span>で捉えられていない政府，中央銀行，企業や消費者の<span class="math notranslate nohighlight">\(y_t\)</span>（<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離）に対する影響を全て反映しており，ここではそれを総需要ショックと呼んでいる。同様に，<span class="math notranslate nohighlight">\(v_t\)</span>は適応的期待と<span class="math notranslate nohighlight">\(y_t\)</span>で捉えられていない，企業などの<span class="math notranslate nohighlight">\(p_t\)</span>（<span class="math notranslate nohighlight">\(P_t\)</span>のトレンドからの乖離）に対する影響を総需要ショックと呼んでいる。即ち，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>には経済メカニズムにより発生するショックを含んでいると考えることができる。従って，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>は，VARモデルでいう構造ショックとは異なることになる。</p>
+</div>
 </section>
 <section id="id5">
 <h4>長期均衡<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
@@ -1171,8 +1183,8 @@ p_{t}=hp_{t-1} + e_{pt}
 Dep. Variable:         deflator_cycle   R-squared:                       0.688
 Model:                            OLS   Adj. R-squared:                  0.686
 Method:                 Least Squares   F-statistic:                     363.5
-Date:                Mon, 20 Mar 2023   Prob (F-statistic):           1.46e-43
-Time:                        09:30:35   Log-Likelihood:                 697.08
+Date:                Sun, 16 Apr 2023   Prob (F-statistic):           1.46e-43
+Time:                        13:06:23   Log-Likelihood:                 697.08
 No. Observations:                 167   AIC:                            -1390.
 Df Residuals:                     165   BIC:                            -1384.
 Df Model:                           1                                         
@@ -1205,7 +1217,7 @@ Notes:
 <li><p>不均一分散頑健推定（<code class="docutils literal notranslate"><span class="pre">HC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
 </ul>
 </li>
-<li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
+<li><p>定数項なしで推定しても結果は殆ど変わらない。（試してみよう！）</p></li>
 </ul>
 <p>式<a class="reference internal" href="#equation-eq-18-eq-p">(77)</a>は<code class="docutils literal notranslate"><span class="pre">AR(1)</span></code>であるため，<span class="math notranslate nohighlight">\(\hat{h}\)</span>は<span class="math notranslate nohighlight">\(p_t\)</span>の自己相関係数でもあり，非常に高い持続性が特徴となっている。</p>
 <p>以下に続く分析のために，次の変数を作成しておこう。</p>
@@ -1244,8 +1256,8 @@ y_t = dp_{t-1} + e_{yt}
 Dep. Variable:              gdp_cycle   R-squared:                       0.065
 Model:                            OLS   Adj. R-squared:                  0.059
 Method:                 Least Squares   F-statistic:                     11.41
-Date:                Mon, 20 Mar 2023   Prob (F-statistic):           0.000910
-Time:                        09:30:35   Log-Likelihood:                 472.63
+Date:                Sun, 16 Apr 2023   Prob (F-statistic):           0.000910
+Time:                        13:06:23   Log-Likelihood:                 472.63
 No. Observations:                 167   AIC:                            -941.3
 Df Residuals:                     165   BIC:                            -935.0
 Df Model:                           1                                         
