@@ -404,18 +404,19 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">景気循環のデータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">データの特徴１</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データの特徴２</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データの特徴３</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">カリブレーション</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">はじめに</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">カリブレーションとは</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">均衡式の整理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">カリブレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">はじめに</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">カリブレーションとは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">均衡式の整理</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h">準備：<span class="math notranslate nohighlight">\(h\)</span>の推定値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">最初のスイッチ：<span class="math notranslate nohighlight">\(c\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a">２つ目のスイッチ：<span class="math notranslate nohighlight">\(a\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-v">３つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_v\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-u">４つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_u\)</span>の値</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">パラメーターの値：再掲</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">パラメーターの値：再掲</a></li>
 </ul>
 </li>
 </ul>
@@ -937,7 +938,9 @@ y_t=-cp_t + u_t
 </div>
 </div>
 <p>デフレータの方がより高い持続性（persistence; 慣性とも訳される）があることを意味する。</p>
-<p><strong>データの特徴３</strong></p>
+</section>
+<section id="id15">
+<h3>データの特徴３<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yp_corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -974,10 +977,10 @@ y_t=-cp_t + u_t
 <p>これらのデータの特徴１〜３をどこまで<strong>再現</strong>できるかに基づいてADASモデルを評価することになる。</p>
 </section>
 </section>
-<section id="id15">
-<h2>カリブレーション<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
 <section id="id16">
-<h3>はじめに<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<h2>カリブレーション<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<section id="id17">
+<h3>はじめに<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
 <p>定量分析を進めるためには，ADASモデルのパラメータに値を設定する必要がある。
 ここでは景気循環のデータに基づき，次の4つのパラメーターの値を決めていく</p>
 <ul class="simple">
@@ -992,8 +995,8 @@ y_t=-cp_t + u_t
 また，必ずしも対象の経済モデルに基づいた推定結果でなくとも構わない。
 以下では１番目の方法を使い議論を進めることにする。</p>
 </section>
-<section id="id17">
-<h3>カリブレーションとは<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<section id="id18">
+<h3>カリブレーションとは<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
 <p>２つの体重計があるとしよう。
 一つは，市販の正確な体重計で誤差はない。
 もう一つは自作の体重計で，作ったばかりなので精度に欠ける。
@@ -1026,8 +1029,8 @@ y_t=-cp_t + u_t
 </li>
 </ul>
 </section>
-<section id="id18">
-<h3>均衡式の整理<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<section id="id19">
+<h3>均衡式の整理<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
 <p>式<a class="reference internal" href="#equation-eq-18-as-small">(71)</a>と<a class="reference internal" href="#equation-eq-18-ad-small">(73)</a>を再掲する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-as-small2">
 <span class="eqno">(74)<a class="headerlink" href="#equation-eq-18-as-small2" title="Permalink to this equation">#</a></span>\[
@@ -1179,8 +1182,8 @@ p_{t}=hp_{t-1} + e_{pt}
 Dep. Variable:         deflator_cycle   R-squared:                       0.688
 Model:                            OLS   Adj. R-squared:                  0.686
 Method:                 Least Squares   F-statistic:                     363.5
-Date:                Sat, 20 May 2023   Prob (F-statistic):           1.46e-43
-Time:                        08:34:56   Log-Likelihood:                 697.08
+Date:                Thu, 22 Jun 2023   Prob (F-statistic):           1.46e-43
+Time:                        11:59:32   Log-Likelihood:                 697.08
 No. Observations:                 167   AIC:                            -1390.
 Df Residuals:                     165   BIC:                            -1384.
 Df Model:                           1                                         
@@ -1210,7 +1213,7 @@ Notes:
 <li><p>残差の均一分散</p>
 <ul>
 <li><p>ブルーシュペーガン検定とホワイト検定を使うと，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
-<li><p>不均一分散頑健推定（<code class="docutils literal notranslate"><span class="pre">HC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
 </ul>
 </li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。（試してみよう！）</p></li>
@@ -1252,8 +1255,8 @@ y_t = dp_{t-1} + e_{yt}
 Dep. Variable:              gdp_cycle   R-squared:                       0.065
 Model:                            OLS   Adj. R-squared:                  0.059
 Method:                 Least Squares   F-statistic:                     11.41
-Date:                Sat, 20 May 2023   Prob (F-statistic):           0.000910
-Time:                        08:34:56   Log-Likelihood:                 472.63
+Date:                Thu, 22 Jun 2023   Prob (F-statistic):           0.000910
+Time:                        11:59:33   Log-Likelihood:                 472.63
 No. Observations:                 167   AIC:                            -941.3
 Df Residuals:                     165   BIC:                            -935.0
 Df Model:                           1                                         
@@ -1421,8 +1424,8 @@ e_{yt}&amp;=h(u_t-cv_t)
 <p><code class="docutils literal notranslate"><span class="pre">v_std</span></code>と<code class="docutils literal notranslate"><span class="pre">u_std</span></code>を比べると，後者の値がより大きい。
 ADASモデルの枠組みで考えると，需要ショックの変動幅が大きいことを示している。</p>
 </section>
-<section id="id19">
-<h3>パラメーターの値：再掲<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<section id="id20">
+<h3>パラメーターの値：再掲<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;aの値：</span><span class="si">{</span><span class="n">ahat</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1537,18 +1540,19 @@ vの標準偏差：0.006610
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">景気循環のデータ</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">データの特徴１</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データの特徴２</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データの特徴３</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">カリブレーション</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">はじめに</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">カリブレーションとは</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">均衡式の整理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">カリブレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">はじめに</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">カリブレーションとは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">均衡式の整理</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h">準備：<span class="math notranslate nohighlight">\(h\)</span>の推定値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">最初のスイッチ：<span class="math notranslate nohighlight">\(c\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a">２つ目のスイッチ：<span class="math notranslate nohighlight">\(a\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-v">３つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_v\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-u">４つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_u\)</span>の値</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">パラメーターの値：再掲</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">パラメーターの値：再掲</a></li>
 </ul>
 </li>
 </ul>
