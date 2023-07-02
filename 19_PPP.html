@@ -479,8 +479,10 @@ document.write(`
 \pi=0\quad\Rightarrow\quad
 p_B=p_A
 \]</div>
-<p>このように，一物一価は非常に直感的な概念である。では，データではどのようになっているのだろうか。</p>
-<p>ここでは<a class="reference external" href="https://www.stat.go.jp/data/kouri/doukou/index.html">小売物価統計調査（動向編）</a>のデータを用いる。使うデータはチョコレート，アイスクリーム，ガソリンの2022年平均価格であり，<code class="docutils literal notranslate"><span class="pre">pandas</span></code>を使って<a class="reference external" href="https://www.e-stat.go.jp/">e-Stat（政府統計の総合窓口）</a>から直接ダウンロードする。手動でダウンロードする場合は，次の順番でリンクを辿っていけば良いだろう。</p>
+<p>このように，一物一価は非常に直感的な概念である。では，データではどのようになっているのだろうか。以下では<a class="reference external" href="https://www.stat.go.jp/data/kouri/doukou/index.html">小売物価統計調査（動向編）</a>のデータを用いる。使うデータはチョコレート，アイスクリーム，ガソリンの2022年平均価格であり，<code class="docutils literal notranslate"><span class="pre">pandas</span></code>を使って<a class="reference external" href="https://www.e-stat.go.jp/">e-Stat（政府統計の総合窓口）</a>から直接ダウンロードする。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>手動でダウンロードする場合は，次の順番でリンクを辿っていけば良いだろう。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.stat.go.jp/data/kouri/doukou/index.html">小売物価統計調査（動向編）</a> → <code class="docutils literal notranslate"><span class="pre">調査の結果</span></code>をクリック → <code class="docutils literal notranslate"><span class="pre">全品目：平成13年(2001年)～2022年</span></code>をクリック → <code class="docutils literal notranslate"><span class="pre">2022年報</span></code>をクリック → <code class="docutils literal notranslate"><span class="pre">統計表</span></code>をクリック → <code class="docutils literal notranslate"><span class="pre">2022年</span></code>をクリック</p>
 <ul>
@@ -489,6 +491,7 @@ p_B=p_A
 </ul>
 </li>
 </ul>
+</div>
 </section>
 <section id="id5">
 <h3>チョコレート<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
@@ -516,6 +519,7 @@ p_B=p_A
 <li><p><code class="docutils literal notranslate"><span class="pre">usecols</span></code>：何番目の列を読み込むかを指定する引数</p></li>
 </ul>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.read_excel()</span></code>を使うにはモジュール<code class="docutils literal notranslate"><span class="pre">openpyxl</span></code>が事前にインストールされている必要がある。<a class="reference external" href="https://pypi.org/project/openpyxl/">参照リンク</a>。</p></li>
 </ul>
 </div>
 <p>最初の５行を表示してみよう。</p>
@@ -2148,7 +2152,7 @@ Name: price_yen, dtype: float64
 <img alt="_images/c9be9caa4af55c15f4e4fc549503d9cec51cd40512f6e783cd1908200d93e09d.png" src="_images/c9be9caa4af55c15f4e4fc549503d9cec51cd40512f6e783cd1908200d93e09d.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p>１行目の<code class="docutils literal notranslate"><span class="pre">logx=True</span></code>は，横軸の変数<code class="docutils literal notranslate"><span class="pre">gdppc_yen</span></code>を対数化することを指定している。もし縦軸も対数化したければ<code class="docutils literal notranslate"><span class="pre">logy=True</span></code>を使うと良いだろう。これらの引数を使うことにより，対数化した変数を<code class="docutils literal notranslate"><span class="pre">bigmac</span></code>に追加することなく図示できる。便利なので覚えておこう！</p>
 </div>
@@ -2189,7 +2193,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 <li><p>右辺の単位は<span class="math notranslate nohighlight">\(i\)</span>国の通貨/ドルとなり，<span class="math notranslate nohighlight">\(e_i^{\text{BM}}\)</span>と同じ単位である。実際，<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>は為替レートの一種であり，市場為替レートと異なるため特別な呼称「購買力平価レート」が付いている。</p></li>
 <li><p>上の式は<span class="math notranslate nohighlight">\(P_i/\varepsilon_i=P_{\text{US}}\)</span>と書くことができる。この式の右辺は米国のバスケット財の価格，即ち，一般物価水準であり，左辺は<span class="math notranslate nohighlight">\(i\)</span>国のバスケット財，即ち，一般物価水準を米ドルに換算した価格である。等号は，それらが等しいことを意味しており，その意味では，バスケット財の一物一価が成立する場合の為替レートということになる。まとめると，PPPレートは次のように解釈することができる。</p>
 <blockquote>
-<div><p>購買力平価レート<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>は，バスケット財の一物一価が成立する（一般物価水準が同じになる）ために必要な為替レートである。（注意：バスケット財に含まれる個々の財・サービスの価格が全て等しいとは限らない。）</p>
+<div><p>購買力平価レート<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>は，バスケット財の一物一価が成立する（一般物価水準が同じになる）ために必要な為替レート（注意：バスケット財に含まれる個々の財・サービスの価格が全て等しいとは限らない。）</p>
 </div></blockquote>
 </li>
 <li><p>次の変数を考えよう。</p>
@@ -2216,7 +2220,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
     \qquad\Rightarrow\qquad
     \frac{M_i}{M_{\text{US}}}=\frac{P_i}{P_{\text{US}}}
     \]</div>
-<p>となる。右の式の左辺（単位は<span class="math notranslate nohighlight">\(i\)</span>国通貨/１米ドル）は，１米ドルと<span class="math notranslate nohighlight">\(i\)</span>国通貨の交換レートを表している。それを<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>と置き換えるとPPPレート</p>
+<p>となる。右の式の左辺は，１米ドルと<span class="math notranslate nohighlight">\(i\)</span>国通貨の交換レート（単位は<span class="math notranslate nohighlight">\(i\)</span>国通貨/１米ドル）を表している。それを<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>と置き換えるとPPPレート</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-ppp3">
 <span class="eqno">(71)<a class="headerlink" href="#equation-eq-19-ppp3" title="Permalink to this equation">#</a></span>\[
     \varepsilon_i=\frac{P_i}{P_{\text{US}}}
@@ -2243,7 +2247,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>PPPレートは次のようにも解釈できる。式<a class="reference internal" href="#equation-eq-19-20">(67)</a>を次式に書き換える。</p>
+<p>PPPレートは次のようにも解釈できる。式<a class="reference internal" href="#equation-eq-19-rexr">(72)</a>と<a class="reference internal" href="#equation-eq-19-rexr">(72)</a>から，PPPの下では次式が成立する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-21">
 <span class="eqno">(74)<a class="headerlink" href="#equation-eq-19-21" title="Permalink to this equation">#</a></span>\[
 1=\frac{P_i/\varepsilon_i}{P_{\text{US}}}
@@ -2253,7 +2257,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 <span class="eqno">(75)<a class="headerlink" href="#equation-eq-19-22" title="Permalink to this equation">#</a></span>\[
 1=\frac{1万ドル/P_{\text{US}}}{1万ドル/(P_i/\varepsilon_i)}
 \]</div>
-<p>分子は1万ドルで米国のバスケット財をいくつ購入できるかを表しており，それが米ドルの購買力である。同様に，分母は1万ドルで購入できる<span class="math notranslate nohighlight">\(i\)</span>国のバスケット財の数量を表し，<span class="math notranslate nohighlight">\(i\)</span>国のバスケット財で測った米ドルの購買力となる。即ち，右辺は1万ドルの米国での購買力と<span class="math notranslate nohighlight">\(i\)</span>国での購買力の割合となる。右辺が<code class="docutils literal notranslate"><span class="pre">1</span></code>より大きい（小さい）場合，1万ドルの米国での購買力はより高く（低く），より多くの（少ない）米国のバスケットを買うことができる（しかできない）。そして右辺が<code class="docutils literal notranslate"><span class="pre">1</span></code>と等しい場合，1万ドルの米国での購買力と<span class="math notranslate nohighlight">\(i\)</span>国での購買力は同じだということである。</p>
+<p>分子は1万ドルで米国のバスケット財をいくつ購入できるかを表しており，それが米ドルの購買力である。同様に，分母は1万ドルで購入できる<span class="math notranslate nohighlight">\(i\)</span>国のバスケット財の数量を表し，<span class="math notranslate nohighlight">\(i\)</span>国のバスケット財で測った米ドルの購買力となる。即ち，右辺は1万ドルの米国での購買力と<span class="math notranslate nohighlight">\(i\)</span>国での購買力の割合となる。右辺が<code class="docutils literal notranslate"><span class="pre">1</span></code>と等しいということは，1万ドルの米国での購買力と<span class="math notranslate nohighlight">\(i\)</span>国での購買力は同じだということを意味する。</p>
 </div>
 <p>以上の説明から，一物一価の法則と購買力平価が密接に関係していることは直感的に理解できるだろう。以下では，バスケット財の価格は経済間で大きく異なり，購買力平価は成立していないことを示す。更には，その原因と含意についても考察することにする。</p>
 </section>
@@ -2680,7 +2684,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 \text{列 pl_gdpo}
 &amp;=
 \frac{P_i/e_i}{P_{\text{US}}}=
-\frac{i国のバスケット財のドル価格}{米国のバスケット財のドル価格（2017年）}\\
+\frac{i\text{国のバスケット財のドル価格}}{\text{米国のバスケット財のドル価格（2017年）}}\\
 &amp;=\text{米国（2017年）を基準とした}i\text{国のバスケット財の相対価格（一般物価水準の比率）}
 \end{align*}
 \end{split}\]</div>
@@ -3376,7 +3380,7 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 <div><p>市場為替レートを使いGDPを評価すると，貧しい国の貧しさは誇張される。</p>
 </div></blockquote>
 <p>これは<strong>ペン効果</strong>と呼ばれる。英語ではPenn Effectと呼ばれ，Pennは本章で使ったデータセットPenn World TableのPennから来ている。</p>
-<p>ペン効果を簡単な数値例で説明するために，所得以外の影響は<strong>存在せず</strong>，Big Macだけを生産する２国を考えてみよう。A国は豊かな経済であり，B国は貧しい経済としよう。A国は年間<span class="math notranslate nohighlight">\(Y_A=10\)</span>個のBig Mac，B国は<span class="math notranslate nohighlight">\(Y_B=5\)</span>個のBig Macを生産している。A国の貨幣単位は<span class="math notranslate nohighlight">\(\$_A\)</span>であり，B国の貨幣は<span class="math notranslate nohighlight">\(\$_B\)</span>とし，価格は<span class="math notranslate nohighlight">\(P_A=10\$_A\)</span>，<span class="math notranslate nohighlight">\(P_B=10\$_B\)</span>としよう。それぞれの自国通貨で評価すると，A国のGDPは<span class="math notranslate nohighlight">\(10\times10\$_A=100\$_A\)</span>であり，A国のGDPは<span class="math notranslate nohighlight">\(5\times10\$_B=50\$_B\)</span>である。</p>
+<p>ペン効果を簡単な数値例で説明するために，所得以外の影響は存在せず，Big Macだけを生産する２国を考えてみよう。A国は豊かな経済であり，B国は貧しい経済としよう。A国は年間<span class="math notranslate nohighlight">\(Y_A=10\)</span>個のBig Mac，B国は<span class="math notranslate nohighlight">\(Y_B=5\)</span>個のBig Macを生産している。A国の貨幣単位は<span class="math notranslate nohighlight">\(\$_A\)</span>であり，B国の貨幣は<span class="math notranslate nohighlight">\(\$_B\)</span>とし，価格は<span class="math notranslate nohighlight">\(P_A=10\$_A\)</span>，<span class="math notranslate nohighlight">\(P_B=10\$_B\)</span>としよう。それぞれの自国通貨で評価すると，A国のGDPは<span class="math notranslate nohighlight">\(10\times10\$_A=100\$_A\)</span>であり，A国のGDPは<span class="math notranslate nohighlight">\(5\times10\$_B=50\$_B\)</span>である。</p>
 <p>この場合，PPPレートは</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-b00">
 <span class="eqno">(92)<a class="headerlink" href="#equation-eq-19-b00" title="Permalink to this equation">#</a></span>\[
