@@ -499,11 +499,24 @@ p_B=p_A
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url_choco</span> <span class="o">=</span> <span class="s1">&#39;https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040047298&amp;fileKind=0&#39;</span>
-<span class="n">choco</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">url_choco</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;1761チョコレート&#39;</span><span class="p">,</span> 
+<span class="n">choco</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">url_choco</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;1761チョコレート&#39;</span><span class="p">,</span>
                       <span class="n">skiprows</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.read_excel()</span></code>はExcelファイルを読み込む関数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">url_choco</span></code>：その上のURLを文字列としてファイルを指定する引数（URLでなくてもファイル名でも良い）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sheet_name</span></code>：Excelのシート名を指定する引数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skiprows</span></code>：最初の何行を飛ばして読み込むかを指定する引数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usecols</span></code>：何番目の列を読み込むかを指定する引数</p></li>
+</ul>
+</li>
+</ul>
 </div>
 <p>最初の５行を表示してみよう。</p>
 <div class="cell docutils container">
@@ -757,7 +770,7 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 <p>試しに変動係数を直接計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">choco</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">choco</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1435,7 +1448,7 @@ Name: price, dtype: float64
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p><a class="reference external" href="https://py4basics.github.io/things_to_note.html#pandas">ここで説明</a>している問題を避けるために，メソッド<code class="docutils literal notranslate"><span class="pre">.copy()</span></code>を使っている。ここで使わなくても問題はないが，使わなければ警告が表示されることになる。</p>
 </div>
@@ -1558,13 +1571,13 @@ i\text{国のBig Macのドル価格：}\;\dfrac{P_i}{e_i}
 <p>単位を確認することで為替レートが入る数式を簡単に理解できる。例えは，<span class="math notranslate nohighlight">\(c_i\)</span>を<span class="math notranslate nohighlight">\(i\)</span>国の通貨単位として，<a class="reference internal" href="#equation-eq-19-5">(61)</a>の右辺を単位で表してみよう。</p>
 <div class="math notranslate nohighlight">
 \[\dfrac{c_i}{c_i/\$}=\$\]</div>
-<p>となり，単位が米ドルになっているのが分かる。次に，実質為替レート<a class="reference internal" href="#equation-eq-19-rexr">(72)</a>の右辺を単位で表してみよう。</p>
-<div class="math notranslate nohighlight">
-\[\dfrac{\dfrac{c_i}{\$}$}{c_i}\]</div>
-<p>となり，貨幣単位がキャンセルされて無くなってしまう。実質為替レートは，実質変数であり貨幣単位から独立しているためである。次に，式<a class="reference internal" href="#equation-eq-19-8">(63)</a>の右辺を考えてみよう。</p>
+<p>となり，単位が米ドルになっているのが分かる。また，式<a class="reference internal" href="#equation-eq-19-8">(63)</a>の右辺を考えてみよう。</p>
 <div class="math notranslate nohighlight">
 \[e_{i\text{JP}}=\dfrac{c_i/\$}{¥/\$}=\frac{c_i}{¥}\]</div>
-<p>１円に対する<span class="math notranslate nohighlight">\(i\)</span>国の貨幣単位になっている。</p>
+<p>１円に対する<span class="math notranslate nohighlight">\(i\)</span>国の貨幣単位になっている。次に，実質為替レート<a class="reference internal" href="#equation-eq-19-rexr">(72)</a>の右辺を単位で表してみよう。</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{\dfrac{c_i}{\$}$}{c_i}\]</div>
+<p>となり，貨幣単位がキャンセルされて無くなってしまう。実質為替レートは，実質変数であり貨幣単位から独立しているためである。</p>
 </div>
 <p>このまま<span class="math notranslate nohighlight">\(i\)</span>国と米国を考えて議論を進めることもできるが，以下では円を基準に置いて分析を進めよう。その場合，<span class="math notranslate nohighlight">\(i\)</span>国のBig Macの円表示価格は次式で計算できる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-6a">
@@ -2007,7 +2020,7 @@ Name: price_yen, dtype: float64
 </table>
 </div></div></div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p>丸括弧<code class="docutils literal notranslate"><span class="pre">()</span></code>の中にコードを書く場合，任意の箇所で改行してもエラーにはならない。1行で長いコードを書く場合に便利なので覚えておこう！</p>
 </div>
@@ -2203,7 +2216,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
     \qquad\Rightarrow\qquad
     \frac{M_i}{M_{\text{US}}}=\frac{P_i}{P_{\text{US}}}
     \]</div>
-<p>となる。右の式の左辺（単位は<span class="math notranslate nohighlight">\(i\)</span>国通貨/１米ドル）を<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>と置き換えるとPPPレート</p>
+<p>となる。右の式の左辺（単位は<span class="math notranslate nohighlight">\(i\)</span>国通貨/１米ドル）は，１米ドルと<span class="math notranslate nohighlight">\(i\)</span>国通貨の交換レートを表している。それを<span class="math notranslate nohighlight">\(\varepsilon_i\)</span>と置き換えるとPPPレート</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-ppp3">
 <span class="eqno">(71)<a class="headerlink" href="#equation-eq-19-ppp3" title="Permalink to this equation">#</a></span>\[
     \varepsilon_i=\frac{P_i}{P_{\text{US}}}
@@ -2709,9 +2722,9 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 <p>次のような解釈となる。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>：米国の2017年の物価水準と同じ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>の場合：米国の2017年の物価水準と同じ</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>を超える場合：米国の2017年の物価水準を上回る</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>未満：米国の2017年の物価水準を下回る</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>未満の場合：米国の2017年の物価水準を下回る</p></li>
 </ul>
 <p>その内訳を確認してみよう。</p>
 <div class="cell docutils container">
@@ -2729,7 +2742,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p>最後の行に<code class="docutils literal notranslate"><span class="pre">~cond</span></code>となっているが，<code class="docutils literal notranslate"><span class="pre">~</span></code>はビット演算子の一つである。<code class="docutils literal notranslate"><span class="pre">cond</span></code>は<code class="docutils literal notranslate"><span class="pre">True</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">False</span></code>が要素となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>であるが，<code class="docutils literal notranslate"><span class="pre">~</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>の前に付けると全ての真偽値を反転（<code class="docutils literal notranslate"><span class="pre">True</span></code>は<code class="docutils literal notranslate"><span class="pre">False</span></code>に，<code class="docutils literal notranslate"><span class="pre">False</span></code>は<code class="docutils literal notranslate"><span class="pre">True</span></code>に）させる。ビット演算子には他に<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>，<code class="docutils literal notranslate"><span class="pre">|</span></code>，<code class="docutils literal notranslate"><span class="pre">^</span></code>，などがある。</p>
 </div>
@@ -2854,22 +2867,38 @@ Name: pl_gdpo, dtype: float64
 <section id="id19">
 <h3>所得の影響<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
 <p>相対物価水準のヒストグラムをプロットしたが，どのような国がどのような順番並んでいるか表示してみよう。表示するリストを見やすくするために，183カ国全てを表示せずに，行<code class="docutils literal notranslate"><span class="pre">avh</span></code>（人的資本ストック）に欠損値がない国だけを表示しよう。このルールに特別な意味はないが，国の数を減らすには丁度良いだろう。</p>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">.dropna(subset=['avh</span></code>])<code class="docutils literal notranslate"><span class="pre">を使い列</span></code>avh<code class="docutils literal notranslate"><span class="pre">に欠損値がある行のみを削除し，</span></code>.sort_values(‘pl_gdpo_log’)<code class="docutils literal notranslate"><span class="pre">によって</span></code>pl_gdpo_log<code class="docutils literal notranslate"><span class="pre">の昇順に並び替えた</span></code>DataFrame<code class="docutils literal notranslate"><span class="pre">を</span></code>pwt19_dropped`に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">.stem()</span></code>はステムプロットを表示するメソッドであり，横軸に列<code class="docutils literal notranslate"><span class="pre">country</span></code>，縦軸に<code class="docutils literal notranslate"><span class="pre">pl_gdpo_log</span></code>を指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">orientation</span></code>はステムプロットの向きを横向きに指定する引数。この引数により，縦軸・横軸が逆になる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">bottom</span></code>は値の基準を指定する引数。ここでは<code class="docutils literal notranslate"><span class="pre">0</span></code>に赤い線が引かれる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：<code class="docutils literal notranslate"><span class="pre">data</span></code>は使用するデータを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：横軸の値範囲を指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>は横線を表示するメソッド。<code class="docutils literal notranslate"><span class="pre">Japan</span></code>は縦軸の<code class="docutils literal notranslate"><span class="pre">Japan</span></code>で横線を引くことを指定し，<code class="docutils literal notranslate"><span class="pre">linestyle=':'</span></code>は点線を
+指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：<code class="docutils literal notranslate"><span class="pre">pwt19_dropped.shape[0]</span></code>で<code class="docutils literal notranslate"><span class="pre">pwt19_dropped</span></code>の行数を抽出し，<code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使い`結果を表示している。</p></li>
+</ul>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt19_droped</span> <span class="o">=</span> <span class="n">pwt19</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;pl_gdpo_log&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#1</span>
+<span class="n">pwt19_dropped</span> <span class="o">=</span> <span class="n">pwt19</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;pl_gdpo_log&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;pl_gdpo_log&#39;</span><span class="p">,</span>
-        <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
-        <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">pwt19_droped</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;pl_gdpo_log&#39;</span><span class="p">,</span>      <span class="c1">#2</span>
+        <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>      <span class="c1">#3</span>
+        <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>                      <span class="c1">#4</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">pwt19_dropped</span><span class="p">)</span>            <span class="c1">#5</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>                  <span class="c1">#6</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;米国の2017年の物価水準と比較して</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>
              <span class="sa">r</span><span class="s1">&#39;低い $\longleftarrow\quad$2019年の物価水準$\quad\longrightarrow$ 高い&#39;</span><span class="p">,</span>
              <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="s1">&#39;Japan&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="s1">&#39;Japan&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>     <span class="c1">#7</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;このプロットには</span><span class="si">{</span><span class="n">pwt19_droped</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">カ国が含まれる。&#39;</span><span class="p">)</span>
+<span class="c1">#8</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;このプロットには</span><span class="si">{</span><span class="n">pwt19_dropped</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">カ国が含まれる。&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3018,7 +3047,27 @@ D_i^{\text{その他}}=e^{a+u_i}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;pl_gdpo_log ~ cgdpo_pc_ratio_log + cgdpo_pc_ratio_log_2&#39;</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pwt19</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="c1"># print(res.summary(slim=True))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">slim</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            pl_gdpo_log   R-squared:                       0.390
+Model:                            OLS   Adj. R-squared:                  0.384
+No. Observations:                 182   F-statistic:                     57.32
+Covariance Type:            nonrobust   Prob (F-statistic):           5.76e-20
+========================================================================================
+                           coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+Intercept               -0.1121      0.059     -1.889      0.060      -0.229       0.005
+cgdpo_pc_ratio_log       0.5386      0.073      7.346      0.000       0.394       0.683
+cgdpo_pc_ratio_log_2     0.0838      0.019      4.362      0.000       0.046       0.122
+========================================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 </pre></div>
 </div>
 </div>
@@ -3066,7 +3115,7 @@ D_i^{\text{その他}}=e^{a+u_i}
 <img alt="_images/73dc63e344984c718e9cd0a7a94a6a377dc15d61e23abc49df6205ff65f8f317.png" src="_images/73dc63e344984c718e9cd0a7a94a6a377dc15d61e23abc49df6205ff65f8f317.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <p><code class="docutils literal notranslate"><span class="pre">#1</span></code>の<code class="docutils literal notranslate"><span class="pre">pwt19.sort_values('cgdpo_pc_ratio_log'))</span></code>は，列<code class="docutils literal notranslate"><span class="pre">cgdpo_pc_ratio_log</span></code>の値に従って<code class="docutils literal notranslate"><span class="pre">pwt19</span></code>を昇順に並び替えている。これによりスムーズな回帰曲線を表示できるようになる。並び替えないとどうなるか試してみよう。</p>
 </div>
@@ -3411,14 +3460,14 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 <img alt="_images/dddca9e8c2a47627791bf6e7d5c1644da7fe2cf9d8b017e11709d2815db2cfc7.png" src="_images/dddca9e8c2a47627791bf6e7d5c1644da7fe2cf9d8b017e11709d2815db2cfc7.png" />
 </div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">.axline()</span></code>は直線を表示するメソッドであり，引数で指定された座標２つを通過する直線がプロットされる。<code class="docutils literal notranslate"><span class="pre">(9,9)</span></code>は横軸<code class="docutils literal notranslate"><span class="pre">9</span></code>と縦軸<code class="docutils literal notranslate"><span class="pre">9</span></code>の座標であり，<code class="docutils literal notranslate"><span class="pre">(10,10)</span></code>は横軸<code class="docutils literal notranslate"><span class="pre">10</span></code>と縦軸<code class="docutils literal notranslate"><span class="pre">10</span></code>の座標となる。</p></li>
 </ul>
 </div>
 <p>横軸はPPPレートで計算した一人当たりGDPであり，縦軸には市場為替レートに基づく一人当たりGDPとなっている。それぞれのレートで計算した一人当たりGDPが等しければ45度線（赤線）上に観測値は並んでいるはずである。しかし，観測値は45度線よりも下に位置する傾向があり，特に所得が低い経済においては顕著である。即ち，市場為替レートを使い計算した一人当たりGDPは低く算出される傾向にあり，所得が低い経済においてその傾向は強い。</p>
-<p>一人当たりGDPの分布を図示するためにカーネル密度推定をプロットしよう。</p>
+<p>一人当たりGDPの分布を図示するためにカーネル密度推定をプロットしよう。（直感的には，カーネル密度推定とはヒストグラムの情報を使い，そのサンプルを生成した連続的な分布を推定する方法と考えれば良いだろう。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">pwt19</span><span class="p">[[</span><span class="s1">&#39;cgdpo_pc_log&#39;</span><span class="p">,</span><span class="s1">&#39;cgdpo_pc_xr_log&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">)</span>
@@ -3512,7 +3561,7 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </table>
 </div></div></div>
 </div>
-<div class="admonition- admonition">
+<div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">.describe()</span></code>は記述統計を<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返すメソッド。<code class="docutils literal notranslate"><span class="pre">to_frame('PPPレートGDP')</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>に変換するメソッドであり，引数’PPPレートGDP’を列ラベルに使う。</p></li>
@@ -3551,7 +3600,7 @@ PPPレート：   0.120
 </div>
 </div>
 </div>
-<p>市場為替レートに含まれる所得の影響がペン効果として現れている。</p>
+<p>市場為替レートに含まれる所得の影響がペン効果として現れていることが確認できる。</p>
 </section>
 </section>
 <section id="id27">
