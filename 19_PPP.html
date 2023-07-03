@@ -841,7 +841,7 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url_ice</span> <span class="o">=</span> <span class="s1">&#39;https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040047298&amp;fileKind=0&#39;</span>
 <span class="n">ice</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">url_ice</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;1782アイスクリーム&#39;</span><span class="p">,</span> 
-                      <span class="n">skiprows</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+                    <span class="n">skiprows</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -2668,6 +2668,10 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <p>この図は，上の図の情報を実質為替レート（円/ドル）としてまとめている。実質為替レートでも，縦軸での円安・円高の方向は同じとなることに注意しよう。1980年代半ばまで円高に動いていること（増価）が分かる。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(国際通貨研究所では円（対米ドル）の購買力平価)[<a class="reference external" href="https://www.iima.or.jp/research/ppp.html">https://www.iima.or.jp/research/ppp.html</a>]を公表しているが，<code class="docutils literal notranslate"><span class="pre">pwt</span></code>のデータとは大きく異なる。理由は，それぞれの目的とアプローチが違うためである。Penn World Tableで使うPPPは，共通の財・サービスの分類に基づいた(国際比較プログラム)[<a class="reference external" href="https://www.worldbank.org/en/programs/icp">https://www.worldbank.org/en/programs/icp</a>]（International Comparison Programme：省略ICP）により計算された情報を使っており，参加国（2017年には176カ国）のGDPや支出項目が比較可能になるPPPの算出を目的としている。従って，大掛かりな作業が必要であり，毎年ではなく数年に一度公表される（1967年, 1970年, 1973年, 1975年, 1980年, 1985, 1993年, 2005年, 2011年, 2017年）。Penn World Tableのデータでは，それ以外の年は内挿（interpolate）もしくは外挿（extrapolate）することによりPPPを計算している。一方，国際通貨研究所で公表しているPPPは，1973年を基準としてシンプルに日米の消費者物価指数などを使って算出されており，指数の計算に使われる財・サービスは厳密に共通化されている訳ではない。後者は円ドル市場為替相場の予測や日本経済の国際競争力を知る上では有用な情報となるだろう。</p>
+</div>
 </section>
 </section>
 <section id="id17">
@@ -3277,13 +3281,13 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 <li><p>財・サービスの貿易（国際収支における貿易・サービス収支に該当）</p>
 <ul>
 <li><p>国境をまたぐ国際貿易での輸送費用は非常に大きく，一物一価の大きな妨げとなっている。</p></li>
-<li><p>Big Macのように非貿易財も存在する。輸送費用は著しく大きいため，貿易されない財と考えることができる。</p></li>
+<li><p>Big Macのように非貿易財（例えば，教育，建設，不動産，政府サービス）も存在する。輸送費用は著しく大きいため，貿易されない財と考えることができる。非貿易財の存在は経済間の一物一価の妨げとなっている。</p></li>
 <li><p>一般物価水準を説明する上でバスケット財という合成財を考えた。しかし，全ての国で全く同じ財がある訳ではない。また，一般物価水準を計算する上で，各国の支出データを使いウェイトを算出し加重平均を計算することになるが，経済によって支出割合は異なるためウェイトも異なることになる。</p></li>
 </ul>
 </li>
 <li><p>経済間の金融取引（国際収支における金融収支などに該当）</p>
 <ul>
-<li><p>経済間では財・サービスだけではなく金融資本の取引がおこなわれる。例えば，直接投資，証券投資，金融派生商品などである。中には長期的な投資も含まれるが短期的に高額な資金が瞬時に動くことになり市場為替レートが大きな影響を受けることになる。</p></li>
+<li><p>経済間では財・サービスだけではなく金融資本の取引がおこなわれる。例えば，直接投資，証券投資，金融派生商品などである。長期的な投資だけではなく，短期的な投資や投機も含まれるため，資金が瞬時に動くことになり市場為替レートが大きな影響を受けることになる。</p></li>
 </ul>
 </li>
 </ul>
