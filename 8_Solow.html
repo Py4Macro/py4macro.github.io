@@ -279,6 +279,21 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<a href="https://github.com/Py4Macro/py4macro.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
 
 
 
@@ -481,7 +496,7 @@ K_{t+1}-K_{t}=I_t-dK_t
 <p>ここで左辺は資本ストックの変化であり，右辺は純投資である。<span class="math notranslate nohighlight">\(I_t\)</span>は粗投資，<span class="math notranslate nohighlight">\(dK_t\)</span>は減耗した資本である。式<a class="reference internal" href="#equation-eq-8-syi">(29)</a>，<a class="reference internal" href="#equation-eq-8-kk">(30)</a>，<a class="reference internal" href="#equation-eq-8-production">(28)</a>を使うと資本の蓄積方程式が導出できる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-8-kkdot">
 <span class="eqno">(31)<a class="headerlink" href="#equation-eq-8-kkdot" title="Permalink to this equation">#</a></span>\[
-K_{t+1} = sAK_t^a + (1-d)K_t
+K_{t+1} = sAK_t^aL^{1-a} + (1-d)K_t
 \]</div>
 <p>両辺を<span class="math notranslate nohighlight">\(L_t\)</span>で割ることで一人当たりの変数で表すことができる。右辺は単純に一人当たりの変数に直し，左辺は次のように書き換えることに注意しよう。</p>
 <div class="math notranslate nohighlight">
@@ -584,7 +599,7 @@ y_*=Ak_*^{a}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9a3debf62cdc0dfe06f8febee176ef0de5a4b5fb269440197f8be8448c2e00ec.png" src="_images/9a3debf62cdc0dfe06f8febee176ef0de5a4b5fb269440197f8be8448c2e00ec.png" />
+<img alt="_images/c69130c38fa1d643b3039c7d9bb62748d6d6f3384c22208c61137c39feceebba.png" src="_images/c69130c38fa1d643b3039c7d9bb62748d6d6f3384c22208c61137c39feceebba.png" />
 </div>
 </div>
 <p>異なる初期値を使って資本の変化をプロットしてみる。</p>
@@ -606,7 +621,7 @@ y_*=Ak_*^{a}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/67fba57e0ba5c5463bfe5878f8467b7417b9c6b58eadf0a61efa876b56c1ea3a.png" src="_images/67fba57e0ba5c5463bfe5878f8467b7417b9c6b58eadf0a61efa876b56c1ea3a.png" />
+<img alt="_images/b4dcfd8f998ae754b9c1c49abdf933e74e3157e690cdfe602c0a36ff4990b042.png" src="_images/b4dcfd8f998ae754b9c1c49abdf933e74e3157e690cdfe602c0a36ff4990b042.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -835,7 +850,7 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/85d3e0d5a7349929846c7dffc5f704cfe2bc10e9e643e5c9352d014f87d95483.png" src="_images/85d3e0d5a7349929846c7dffc5f704cfe2bc10e9e643e5c9352d014f87d95483.png" />
+<img alt="_images/01a8f15dffa0040adba261f952f60e94855ee00e96bcad13ce4fc64e1a42bd58.png" src="_images/01a8f15dffa0040adba261f952f60e94855ee00e96bcad13ce4fc64e1a42bd58.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">df_approx</span></code>が図示され、その上に<code class="docutils literal notranslate"><span class="pre">df</span></code>が重ねて表示されるが、殆ど同じのように見える。誤差を％で計算し図示してみよう。</p>
@@ -847,7 +862,7 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/543da41967927605faa2bf6d7ecafc8a1a2ca35b3b5f7393412f291e06253cb4.png" src="_images/543da41967927605faa2bf6d7ecafc8a1a2ca35b3b5f7393412f291e06253cb4.png" />
+<img alt="_images/7016ccccd4232704f88c00c7ba950352f679efdb2275f530e17c0f48acfe7532.png" src="_images/7016ccccd4232704f88c00c7ba950352f679efdb2275f530e17c0f48acfe7532.png" />
 </div>
 </div>
 <p>初期の資本ストック<span class="math notranslate nohighlight">\(k_0\)</span>は同じなので誤差はゼロであり，<span class="math notranslate nohighlight">\(t=1\)</span>から線形近似の誤差が現れることになる。誤差は単調ではない。<a class="reference internal" href="#fig-8-solow"><span class="std std-numref">Fig. 7</span></a>の図が示しているように，階段のような形で増加していくためであり，その階段お大きさや進み具合が異なるためである。線形近似の値は大き過ぎるため負の値になっているが、誤差は大きくても約0.02％であり、定常状態に近づくにつれて誤差はゼロに近づいている。もちろん，誤差の値は初期値が定常値から離れればそれだけ大きくなっていく。</p>
@@ -1875,9 +1890,9 @@ memory usage: 9.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/51217f8e98811d315dfd0d745a2dc73eeb3c8079f943a2263e9f5854bea89cba.png" src="_images/51217f8e98811d315dfd0d745a2dc73eeb3c8079f943a2263e9f5854bea89cba.png" />
-<img alt="_images/6dab660642c4a4eab578366d8f4e471858ca3ff173bfbcc4178a20809d6b2455.png" src="_images/6dab660642c4a4eab578366d8f4e471858ca3ff173bfbcc4178a20809d6b2455.png" />
-<img alt="_images/7d93755fcde2b6167b40a199285914d0e86cd2f7e4bbfd73d3b41bdf6e84ff0a.png" src="_images/7d93755fcde2b6167b40a199285914d0e86cd2f7e4bbfd73d3b41bdf6e84ff0a.png" />
+<img alt="_images/84335714d43c7c7687527bbfbc04ca100112c9cb81a943553ffd666aaab2de4c.png" src="_images/84335714d43c7c7687527bbfbc04ca100112c9cb81a943553ffd666aaab2de4c.png" />
+<img alt="_images/096bfae35012d09daf40ff4fbc9fe64b34330ce7301ace2f27db5533ef5e70dc.png" src="_images/096bfae35012d09daf40ff4fbc9fe64b34330ce7301ace2f27db5533ef5e70dc.png" />
+<img alt="_images/b68d4dae47bf6271c65ae5df3ab8e6bd0c6a210e8b4eb05e04f38c287b05a4c9.png" src="_images/b68d4dae47bf6271c65ae5df3ab8e6bd0c6a210e8b4eb05e04f38c287b05a4c9.png" />
 </div>
 </div>
 <div class="dropdown admonition">
