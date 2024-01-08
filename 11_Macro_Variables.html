@@ -473,6 +473,10 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="c1"># 警告メッセージを非表示</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -717,7 +721,7 @@ Dep. Variable:              gdp_cycle   R-squared:                       0.394
 Model:                            OLS   Adj. R-squared:                  0.390
 Method:                 Least Squares   F-statistic:                     107.8
 Date:                Mon, 08 Jan 2024   Prob (F-statistic):           8.95e-20
-Time:                        10:40:14   Log-Likelihood:                -261.32
+Time:                        12:54:07   Log-Likelihood:                -261.32
 No. Observations:                 168   AIC:                             526.6
 Df Residuals:                     166   BIC:                             532.9
 Df Model:                           1                                         
@@ -768,10 +772,6 @@ Notes:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>失業率の乖離が1.0％ポイントの場合のGDPのトレンドからの乖離率は約-4.01です。
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2404244272.py:2: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  g = result.params[0]+result.params[1]*x
 </pre></div>
 </div>
 </div>
@@ -1018,26 +1018,6 @@ Name: decade, Length: 168, dtype: int32
     <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1">#8</span>
     <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                  <span class="c1">#9</span>
     <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                  <span class="c1">#10</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  a_list.append(res.params[0])                  #9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  b_list.append(res.params[1])                  #10
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  a_list.append(res.params[0])                  #9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  b_list.append(res.params[1])                  #10
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  a_list.append(res.params[0])                  #9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  b_list.append(res.params[1])                  #10
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  a_list.append(res.params[0])                  #9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/1079246092.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  b_list.append(res.params[1])                  #10
 </pre></div>
 </div>
 </div>
@@ -1350,122 +1330,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-01-31</th>
       <td>10</td>
-      <td>5.772793</td>
+      <td>4.415111</td>
     </tr>
     <tr>
       <th>2020-02-29</th>
       <td>20</td>
-      <td>6.397050</td>
+      <td>5.424689</td>
     </tr>
     <tr>
       <th>2020-03-31</th>
       <td>30</td>
-      <td>4.851253</td>
+      <td>4.161809</td>
     </tr>
     <tr>
       <th>2020-04-30</th>
       <td>40</td>
-      <td>2.648244</td>
+      <td>4.463327</td>
     </tr>
     <tr>
       <th>2020-05-31</th>
       <td>50</td>
-      <td>6.255417</td>
+      <td>5.715577</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>60</td>
-      <td>3.747801</td>
+      <td>4.663766</td>
     </tr>
     <tr>
       <th>2020-07-31</th>
       <td>70</td>
-      <td>4.196191</td>
+      <td>4.436560</td>
     </tr>
     <tr>
       <th>2020-08-31</th>
       <td>80</td>
-      <td>6.140432</td>
+      <td>4.793839</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>90</td>
-      <td>3.741947</td>
+      <td>6.661990</td>
     </tr>
     <tr>
       <th>2020-10-31</th>
       <td>100</td>
-      <td>7.093854</td>
+      <td>4.870679</td>
     </tr>
     <tr>
       <th>2020-11-30</th>
       <td>110</td>
-      <td>4.557767</td>
+      <td>6.125586</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>120</td>
-      <td>5.467028</td>
+      <td>5.363675</td>
     </tr>
     <tr>
       <th>2021-01-31</th>
       <td>10</td>
-      <td>4.652744</td>
+      <td>4.655345</td>
     </tr>
     <tr>
       <th>2021-02-28</th>
       <td>20</td>
-      <td>5.511672</td>
+      <td>4.909446</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>30</td>
-      <td>3.368484</td>
+      <td>5.945170</td>
     </tr>
     <tr>
       <th>2021-04-30</th>
       <td>40</td>
-      <td>3.814935</td>
+      <td>5.811521</td>
     </tr>
     <tr>
       <th>2021-05-31</th>
       <td>50</td>
-      <td>4.567787</td>
+      <td>5.446662</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>60</td>
-      <td>6.175497</td>
+      <td>4.565184</td>
     </tr>
     <tr>
       <th>2021-07-31</th>
       <td>70</td>
-      <td>3.452241</td>
+      <td>4.680853</td>
     </tr>
     <tr>
       <th>2021-08-31</th>
       <td>80</td>
-      <td>5.387600</td>
+      <td>4.375498</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>90</td>
-      <td>4.871446</td>
+      <td>5.656982</td>
     </tr>
     <tr>
       <th>2021-10-31</th>
       <td>100</td>
-      <td>5.278105</td>
+      <td>4.703018</td>
     </tr>
     <tr>
       <th>2021-11-30</th>
       <td>110</td>
-      <td>5.782910</td>
+      <td>5.027539</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>120</td>
-      <td>5.334119</td>
+      <td>5.962912</td>
     </tr>
   </tbody>
 </table>
@@ -1492,7 +1472,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x12cc1bc70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x1318b6bc0&gt;
 </pre></div>
 </div>
 </div>
@@ -1533,42 +1513,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-03-31</th>
       <td>20.0</td>
-      <td>5.673699</td>
+      <td>4.667203</td>
     </tr>
     <tr>
       <th>2020-06-30</th>
       <td>50.0</td>
-      <td>4.217154</td>
+      <td>4.947557</td>
     </tr>
     <tr>
       <th>2020-09-30</th>
       <td>80.0</td>
-      <td>4.692857</td>
+      <td>5.297463</td>
     </tr>
     <tr>
       <th>2020-12-31</th>
       <td>110.0</td>
-      <td>5.706216</td>
+      <td>5.453313</td>
     </tr>
     <tr>
       <th>2021-03-31</th>
       <td>20.0</td>
-      <td>4.510967</td>
+      <td>5.169987</td>
     </tr>
     <tr>
       <th>2021-06-30</th>
       <td>50.0</td>
-      <td>4.852740</td>
+      <td>5.274456</td>
     </tr>
     <tr>
       <th>2021-09-30</th>
       <td>80.0</td>
-      <td>4.570429</td>
+      <td>4.904444</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>110.0</td>
-      <td>5.465045</td>
+      <td>5.231156</td>
     </tr>
   </tbody>
 </table>
@@ -1609,12 +1589,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>65.0</td>
-      <td>5.072481</td>
+      <td>5.091384</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>65.0</td>
-      <td>4.849795</td>
+      <td>5.145011</td>
     </tr>
   </tbody>
 </table>
@@ -1698,12 +1678,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2020-12-31</th>
       <td>0.5547</td>
-      <td>0.262551</td>
+      <td>0.151862</td>
     </tr>
     <tr>
       <th>2021-12-31</th>
       <td>0.5547</td>
-      <td>0.187654</td>
+      <td>0.113556</td>
     </tr>
   </tbody>
 </table>
@@ -2136,24 +2116,6 @@ memory usage: 18.8 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;スロープ係数：{res.params[1]:.3f}\n&#39;           # 8
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;p値：{res.pvalues[1]:.3f}\n&#39;                # 9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;スロープ係数：{res.params[1]:.3f}\n&#39;           # 8
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;p値：{res.pvalues[1]:.3f}\n&#39;                # 9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;スロープ係数：{res.params[1]:.3f}\n&#39;           # 8
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;p値：{res.pvalues[1]:.3f}\n&#39;                # 9
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:12: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;スロープ係数：{res.params[1]:.3f}\n&#39;           # 8
-/var/folders/qv/pdh5wsgn0lq3dp77zj602b5c0000gn/T/ipykernel_4673/2171931648.py:13: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  f&#39;p値：{res.pvalues[1]:.3f}\n&#39;                # 9
-</pre></div>
-</div>
 <img alt="_images/1240a61e9dd025690df23a53a36eba507b014aef5df5ae5609a9c05885857d45.png" src="_images/1240a61e9dd025690df23a53a36eba507b014aef5df5ae5609a9c05885857d45.png" />
 <img alt="_images/a56e315763bf9a72cf66f652d98e2569b52da20a6da2d692cae3e34ef1fbb765.png" src="_images/a56e315763bf9a72cf66f652d98e2569b52da20a6da2d692cae3e34ef1fbb765.png" />
 <img alt="_images/c786163f8c9b0f5e59c207a96d1ae16d3e00ae5c10847a95012a15a885d06176.png" src="_images/c786163f8c9b0f5e59c207a96d1ae16d3e00ae5c10847a95012a15a885d06176.png" />
@@ -2381,7 +2343,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x12cad90c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x131796f50&gt;
 </pre></div>
 </div>
 </div>
@@ -2396,7 +2358,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12cbc93c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x131797fd0&gt;
 </pre></div>
 </div>
 </div>
