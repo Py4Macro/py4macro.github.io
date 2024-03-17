@@ -633,7 +633,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </ul>
 </li>
 </ul>
-<p>次の図は，これらの変数がどのように影響し合っているかを示している。</p>
+<p>次の図は，これらの変数がどのように影響し合っているかをまとめている。</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -668,6 +668,15 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
     <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">nodelabs</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>
             <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;orange&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;lightblue&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    
+    <span class="c1"># Draw edge labels</span>
+    <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span><span class="s1">&#39;ISMP&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]}</span> <span class="o">|</span> \
+                  <span class="p">{(</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span><span class="s1">&#39;PC&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]}</span> <span class="o">|</span> \
+                  <span class="p">{(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span><span class="s1">&#39;PC&#39;</span><span class="p">}</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span>
+                                 <span class="n">font_family</span><span class="o">=</span><span class="s1">&#39;IPAexGothic&#39;</span><span class="p">,</span>
+                                 <span class="n">font_size</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+
 
 <span class="n">my_draw</span><span class="p">()</span>
 </pre></div>
@@ -675,14 +684,15 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/47f0f76bdb1d4636dbfd77568f6383b5dd229ae260a746f906e7a434c969332d.png" src="_images/47f0f76bdb1d4636dbfd77568f6383b5dd229ae260a746f906e7a434c969332d.png" />
+<img alt="_images/48fd8547250aa157f91fbb6a32e8a94bff1ee601050b401a0e805f40d76afeba.png" src="_images/48fd8547250aa157f91fbb6a32e8a94bff1ee601050b401a0e805f40d76afeba.png" />
 </div>
 </div>
-<p>オレンジ色の変数は内生変数，水色の変数は外生変数であり，矢印の方向は変数が影響する方向を示している。次の特徴がある。</p>
+<p>オレンジ色の変数は内生変数，水色の変数は外生変数であり，矢印の方向は変数が影響する方向を示している。また，矢印にある<code class="docutils literal notranslate"><span class="pre">ISMP</span></code>と<code class="docutils literal notranslate"><span class="pre">PC</span></code>は均衡条件を表している。次の特徴がある。</p>
 <ul class="simple">
 <li><p>外生変数（水色）は，内生変数に影響を与えるため，矢印の出発点となる。しかし，外生変数は所与として扱われるため矢印の終点とはならない。</p></li>
 <li><p>内生変数（オレンジ色）は，影響を受ける変数であり，矢印が向かう先にある。また，他の内生変数にも影響を与える場合もあるので，矢印の出発点にもなりえる。例えば，<span class="math notranslate nohighlight">\(y_t\)</span>は<span class="math notranslate nohighlight">\(\pi_t\)</span>に影響を与えるが，その逆は発生しない。</p></li>
 </ul>
+<p>この図を念頭に，ショックや外生変数の変化の効果を解釈すれば分かりやすいのではないだろうか。</p>
 <p>PC曲線を考えてみよう。<span class="math notranslate nohighlight">\(e_t=0\)</span>とし<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与（は一定）とすると，<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>の中で右上がりなる。直感的には，産出が自然水準を上回るとインフレ率が上昇するためである。</p>
 <p>通常のAD-ASモデルでは縦軸に一般物価水準を使うが，<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>から分かるように，IS-MP-PCモデルではインフレ率が縦軸にあることに注意しよう。</p>
 <p>均衡では，<span class="math notranslate nohighlight">\(u_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(v_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(e_t\ne 0\)</span>であったとしても，<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与としてこの２式で<span class="math notranslate nohighlight">\((y_t,\pi_t)\)</span>が決定されることになる。更に<span class="math notranslate nohighlight">\(t+1\)</span>期では，<span class="math notranslate nohighlight">\(u_{t+1}\)</span>，<span class="math notranslate nohighlight">\(v_{t+1}\)</span>，<span class="math notranslate nohighlight">\(e_{t+1}\)</span>はそれぞれの<span class="math notranslate nohighlight">\(t\)</span>期とは異なる値をとるかもしれないが，それらと一緒に<span class="math notranslate nohighlight">\(t\)</span>期に決定された<span class="math notranslate nohighlight">\(\pi_{t}\)</span>を所与として<span class="math notranslate nohighlight">\((y_{t+1},\pi_{t+1})\)</span>が決定されることになる。このように内生変数の値が逐次的に決まることになるが，まさにこのような逐次的関係を捉えるのが<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">「差分方程式と経済分析」</span></a>の章で説明した差分方程式である。</p>
