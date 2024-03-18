@@ -647,11 +647,11 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
     <span class="c1"># variables</span>
     <span class="n">y</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$y_t$&#39;</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\pi_t$&#39;</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$v$&#39;</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$u$&#39;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$v_t$&#39;</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$u_t$&#39;</span>
     <span class="n">ystar</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$y^{*}$&#39;</span>
     <span class="n">pi_1</span> <span class="o">=</span> <span class="s1">&#39;$\pi_{t-1}$&#39;</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$e$&#39;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$e_t$&#39;</span>
     
     <span class="c1"># graph object</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
@@ -695,20 +695,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/219bce00d7fa5262acf2b105f3a1fce4f992411934727d88adc5275828d014e9.png" src="_images/219bce00d7fa5262acf2b105f3a1fce4f992411934727d88adc5275828d014e9.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
-<span class="n">tmp</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_values([1, 2])
-</pre></div>
-</div>
+<img alt="_images/131ab6b3436593a1cec38a8ee1c0ccaf74d5143c062d61390651321e8b60a458.png" src="_images/131ab6b3436593a1cec38a8ee1c0ccaf74d5143c062d61390651321e8b60a458.png" />
 </div>
 </div>
 <p>オレンジ色の変数は内生変数，水色の変数は外生変数であり，矢印の方向は変数が影響する方向を示している。また，矢印にある<code class="docutils literal notranslate"><span class="pre">ISMP</span></code>と<code class="docutils literal notranslate"><span class="pre">PC</span></code>は均衡条件を表している。次の特徴がある。</p>
@@ -716,7 +703,13 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <li><p>外生変数（水色）は，内生変数に影響を与えるため，矢印の出発点となる。しかし，外生変数は所与として扱われるため矢印の終点とはならない。</p></li>
 <li><p>内生変数（オレンジ色）は，影響を受ける変数であり，矢印が向かう先にある。また，他の内生変数にも影響を与える場合もあるので，矢印の出発点にもなりえる。例えば，<span class="math notranslate nohighlight">\(y_t\)</span>は<span class="math notranslate nohighlight">\(\pi_t\)</span>に影響を与えるが，その逆は発生しない。</p></li>
 </ul>
-<p>この図を念頭に，ショックや外生変数の変化の効果を解釈すれば分かりやすいのではないだろうか。</p>
+<p>また，これらから次の事が分かる。</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(\pi_t\)</span>の両方に<strong>直接的</strong>に影響を与える外生変数は<span class="math notranslate nohighlight">\(y^{*}\)</span>のみである。そういう意味では，<span class="math notranslate nohighlight">\(y^{*}\)</span>は需要と供給サイドの両方にインパクトがある変数だと言える。</p></li>
+<li><p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>は<span class="math notranslate nohighlight">\(y_t\)</span>に<strong>直接的</strong>な影響を与えるが，<span class="math notranslate nohighlight">\(\pi_t\)</span>に対しては<span class="math notranslate nohighlight">\(y_t\)</span>を介して<strong>間接的</strong>に変化をもたらす。これは需要ショックの特徴と言える。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>と<span class="math notranslate nohighlight">\(e_t\)</span>は<strong>直接的</strong>に<span class="math notranslate nohighlight">\(\pi_t\)</span>に影響する一方，<span class="math notranslate nohighlight">\(y_t\)</span>には影響を及ぼさない。これは<span class="math notranslate nohighlight">\(\pi_t\)</span>が始点となる矢印が存在しない事から確認できる。この特徴は，特に，供給ショックである<span class="math notranslate nohighlight">\(e_t\)</span>は需要に影響しないという仮定を捉えている。もちろん，供給ショックも間接的には需要に影響すると考えるのがより現実的かも知れない。例えば，AIによる生産性の向上は（正の）供給ショックになるが，新たな技術は企業の投資を促すかも知れないし，消費者が使うデバイスやサービスの需要を掘り起こすことにつながるかも知れない。しかし，このモデルではその様なメカニズムは考慮されていない。</p></li>
+</ol>
+<p>以下では，この図を念頭に，ショックや外生変数の変化の効果を解釈すれば分かりやすいのではないだろうか。</p>
 <p>PC曲線を考えてみよう。<span class="math notranslate nohighlight">\(e_t=0\)</span>とし<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与（は一定）とすると，<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>の中で右上がりなる。直感的には，産出が自然水準を上回るとインフレ率が上昇するためである。</p>
 <p>通常のAD-ASモデルでは縦軸に一般物価水準を使うが，<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>から分かるように，IS-MP-PCモデルではインフレ率が縦軸にあることに注意しよう。</p>
 <p>均衡では，<span class="math notranslate nohighlight">\(u_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(v_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(e_t\ne 0\)</span>であったとしても，<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与としてこの２式で<span class="math notranslate nohighlight">\((y_t,\pi_t)\)</span>が決定されることになる。更に<span class="math notranslate nohighlight">\(t+1\)</span>期では，<span class="math notranslate nohighlight">\(u_{t+1}\)</span>，<span class="math notranslate nohighlight">\(v_{t+1}\)</span>，<span class="math notranslate nohighlight">\(e_{t+1}\)</span>はそれぞれの<span class="math notranslate nohighlight">\(t\)</span>期とは異なる値をとるかもしれないが，それらと一緒に<span class="math notranslate nohighlight">\(t\)</span>期に決定された<span class="math notranslate nohighlight">\(\pi_{t}\)</span>を所与として<span class="math notranslate nohighlight">\((y_{t+1},\pi_{t+1})\)</span>が決定されることになる。このように内生変数の値が逐次的に決まることになるが，まさにこのような逐次的関係を捉えるのが<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">「差分方程式と経済分析」</span></a>の章で説明した差分方程式である。</p>
