@@ -623,16 +623,17 @@ data(dataset=None, description=0)
     |
     | 引数：
     |     dataset: (文字列)
-    |         &#39;pwt&#39;: Penn World Table 10.01
-    |         &#39;weo&#39;: IMF World Economic Outlook 2021
-    |         &#39;mad&#39;: country data of Maddison Project Database 2020
-    |         &#39;mad-regions&#39;: regional data of Maddison Project Database 2020
-    |         &#39;jpn-q&#39;: 日本の四半期データ（GDPなど）
-    |         &#39;jpn-money&#39;: 日本の四半期データ（マネーストックなど）
-    |         &#39;world-money&#39;: 177ヵ国のマネーストックなど
-    |         &#39;ex&#39;: 円/ドル為替レートなど
-    |         &#39;dates&#39;: 景気循環日付と拡張・後退期間
     |         &#39;bigmac&#39;: Big Macインデックス
+    |         &#39;debts&#39;：Historical Debts Data (Public Finances in Modern History)
+    |         &#39;dates&#39;: 景気循環日付と拡張・後退期間
+    |         &#39;ex&#39;: 円/ドル為替レートなど
+    |         &#39;jpn-money&#39;: 日本の四半期データ（マネーストックなど）
+    |         &#39;jpn-q&#39;: 日本の四半期データ（GDPなど）
+    |         &#39;mad&#39;: country data of Maddison Project Database 2020
+    |         &#39;mad-region&#39;: regional data of Maddison Project Database 2020
+    |         &#39;pwt&#39;: Penn World Table 10.01
+    |         &#39;weo&#39;: IMF World Economic Outlook 2024
+    |         &#39;world-money&#39;: 177ヵ国のマネーストックなど
     |
     |     description (デフォルト：0, 整数型):
     |         0: データのDataFrameを返す
@@ -640,11 +641,7 @@ data(dataset=None, description=0)
     |         1: 変数の定義を全て表示する
     |            * 全てのデータセット
     |         2: 変数の定義のDataFrameを返す
-    |            * `&#39;pwt&#39;`，`&#39;weo&#39;``&#39;mad&#39;`のみ
-    |        -1: 何年以降から予測値なのかを全て示す
-    |            * `&#39;weo&#39;`のみ
-    |        -2: 何年以降から予測値なのかを示すDataFrameを返す
-    |            * `&#39;weo&#39;`のみ
+    |            * `&#39;pwt&#39;`，`&#39;weo&#39;`のみ
     |
     | 返り値：
     |     DataFrame もしくは DataFrameの表示
@@ -657,12 +654,6 @@ data(dataset=None, description=0)
     |
     | 例３：py4macro.data(&#39;weo&#39;, description=2)
     |         -&gt; IMF World Economic Outlookの変数定義のDataFrameを返す。
-    |
-    | 例４：py4macro.data(&#39;weo&#39;, description=-1)
-    |         -&gt; IMF World Economic Outlookの変数の推定値の開始年を全て表示する。
-    |
-    | 例５：py4macro.data(&#39;weo&#39;, description=-2)
-    |         -&gt; IMF World Economic Outlookの変数の推定値の開始年のDataFrameを返す。
     |
     |
     | ----- Penn World Tableについて -------------------------------------------
