@@ -1029,7 +1029,9 @@ y_t=-cp_t + u_t
 <img alt="_images/47a38d9ce24dd048039979052956952f78006e46196a94b81993ee2955135186.png" src="_images/47a38d9ce24dd048039979052956952f78006e46196a94b81993ee2955135186.png" />
 </div>
 </div>
-<p>これらのデータの特徴１〜３をどこまで<strong>再現</strong>できるかに基づいてADASモデルを評価することになる。</p>
+<blockquote>
+<div><p>これらのデータの特徴１〜３をどこまで<strong>再現</strong>できるかに基づいてADASモデルを評価することになる。</p>
+</div></blockquote>
 </section>
 </section>
 <section id="id17">
@@ -1097,12 +1099,12 @@ y_t=-c p_t + u_t
 \]</div>
 <p>式<a class="reference internal" href="#equation-eq-18-ad-small">(117)</a>を式<a class="reference internal" href="#equation-eq-18-as-small">(115)</a>に代入することにより，次のように整理することができる。</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{align*}
+\[\begin{split}\begin{aligned}
 p_{t}
 &amp;=p_{t-1}+a(-c p_{t} + u_{t})+v_{t} \\
 (1+a c)p_{t}&amp;=p_{t-1} +a u_{t}+v_{t} \\
 p_{t}&amp;=h p_{t-1}+h\left(a u_{t}+v_{t}\right)
-\end{align*}\end{split}\]</div>
+\end{aligned}\end{split}\]</div>
 <p>ここで</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-h">
 <span class="eqno">(120)<a class="headerlink" href="#equation-eq-18-h" title="Link to this equation">#</a></span>\[
@@ -1238,7 +1240,7 @@ Dep. Variable:         deflator_cycle   R-squared:                       0.689
 Model:                            OLS   Adj. R-squared:                  0.688
 Method:                 Least Squares   F-statistic:                     384.1
 Date:                Sat, 06 Jul 2024   Prob (F-statistic):           8.56e-46
-Time:                        00:41:22   Log-Likelihood:                 716.66
+Time:                        02:19:08   Log-Likelihood:                 716.66
 No. Observations:                 175   AIC:                            -1429.
 Df Residuals:                     173   BIC:                            -1423.
 Df Model:                           1                                         
@@ -1264,11 +1266,11 @@ Notes:
 <p><strong>＜推定結果について＞</strong></p>
 <ul class="simple">
 <li><p>AR(1)は弱従属的となるため，<span class="math notranslate nohighlight">\(h\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{h}\)</span>は不偏性は満たさないが一致性を満たす。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>は<code class="docutils literal notranslate"><span class="pre">1.686</span></code>であり残差の系列相関は排除できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>は<span class="output text_plain">1.616</span>であり残差の系列相関は排除できる。</p></li>
 <li><p>残差の均一分散</p>
 <ul>
-<li><p>ブルーシュペーガン検定とホワイト検定を使うと，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
-<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.00021</span>であり、とホワイト検定の値は<span class="output text_plain">1e-07</span>となり，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
 </ul>
 </li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。（試してみよう！）</p></li>
@@ -1311,7 +1313,7 @@ Dep. Variable:              gdp_cycle   R-squared:                       0.041
 Model:                            OLS   Adj. R-squared:                  0.035
 Method:                 Least Squares   F-statistic:                     7.398
 Date:                Sat, 06 Jul 2024   Prob (F-statistic):            0.00719
-Time:                        00:41:22   Log-Likelihood:                 492.28
+Time:                        02:19:08   Log-Likelihood:                 492.28
 No. Observations:                 175   AIC:                            -980.6
 Df Residuals:                     173   BIC:                            -974.2
 Df Model:                           1                                         
@@ -1337,13 +1339,13 @@ Notes:
 <p><strong>＜推定結果について＞</strong></p>
 <ul class="simple">
 <li><p>説明変数<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>と相関しておらず，定常過程であるため，<span class="math notranslate nohighlight">\(d\)</span>の推定値は一致性を満たすことになる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<code class="docutils literal notranslate"><span class="pre">0.696</span></code>であり残差の正の系列相関が疑われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<span class="output text_plain">0.633</span>であり残差の正の系列相関が疑われる。</p></li>
 <li><p>残差の均一分散</p>
 <ul>
-<li><p>ブルーシュペーガン検定とホワイト検定を使うと，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
+<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.03149</span>であり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却される。一方、ホワイト検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0569847</span>となり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却できないが、<code class="docutils literal notranslate"><span class="pre">10</span></code>％では棄却される。</p></li>
 </ul>
 </li>
-<li><p>不均一系列相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">d</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0156083705</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
 </ul>
 <p><span class="math notranslate nohighlight">\(d\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{d}\)</span>は負であり，モデルに沿った結果である。
