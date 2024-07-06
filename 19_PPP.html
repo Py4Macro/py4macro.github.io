@@ -1530,58 +1530,6 @@ memory usage: 4.5+ KB
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">gdppc_local</span></code>に一つ欠損値があるだけである。どの国か調べてみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;gdppc_local&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
-<span class="n">bigmac</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>country</th>
-      <th>iso</th>
-      <th>currency_code</th>
-      <th>price_local</th>
-      <th>exr</th>
-      <th>gdppc_local</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>に欠損値がある。</p>
 </section>
 <section id="id11">
 <h3>一物一価<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
@@ -1652,7 +1600,7 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>142.08
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(142.08)
 </pre></div>
 </div>
 </div>
@@ -1766,8 +1714,8 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count      72.000000
-mean      647.528212
-std       170.350146
+mean      647.093073
+std       169.651670
 min       339.076894
 25%       505.350594
 50%       666.820588
@@ -1801,7 +1749,7 @@ Name: price_yen, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/120a39b04970b62359ffb79633a7420ede9aeae7e83dbc2f4e69b3d119e4b2c5.png" src="_images/120a39b04970b62359ffb79633a7420ede9aeae7e83dbc2f4e69b3d119e4b2c5.png" />
+<img alt="_images/f6cd52fc32426a44eba1d3f9369d9bc1250ad1a449fae4cfe6aa0c944e523375.png" src="_images/f6cd52fc32426a44eba1d3f9369d9bc1250ad1a449fae4cfe6aa0c944e523375.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>が日本となる。一番高い国を調べてみよう。</p>
@@ -1853,7 +1801,7 @@ Name: price_yen, dtype: float64
 </table>
 </div></div></div>
 </div>
-<p><span class="pasted-text">Switzerland</span>の価格は約<span class="pasted-text">1098</span>円となっている。次に，価格が最も低い国を表示してみよう。</p>
+<p><span class="pasted-text">Switzerland</span>の価格は約円となっている。次に，価格が最も低い国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="p">)</span>
@@ -1902,7 +1850,7 @@ Name: price_yen, dtype: float64
 </table>
 </div></div></div>
 </div>
-<p><span class="pasted-text">Taiwan</span>が一番安く，日本より約<span class="pasted-text">24.6</span>％も安価である。</p>
+<p><span class="pasted-text">Taiwan</span>が一番安く，日本より約％も安価である。</p>
 <p>明らかにBig Macの一物一価は成立していない。</p>
 <p>価格のばらつき具合を確認し，上で確認した国内財の価格と比較するために，変動係数（平均からの乖離の標準偏差と同じ）を計算しよう。</p>
 <div class="cell docutils container">
@@ -1912,7 +1860,7 @@ Name: price_yen, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2630775659462129
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.26217506693057535)
 </pre></div>
 </div>
 </div>
@@ -1987,16 +1935,16 @@ Name: price_yen, dtype: float64
       <td>1.165363</td>
     </tr>
     <tr>
-      <th>1180</th>
-      <td>Finland</td>
-      <td>932.067608</td>
-      <td>1.071261</td>
-    </tr>
-    <tr>
       <th>1193</th>
       <td>Italy</td>
       <td>908.570106</td>
       <td>1.019045</td>
+    </tr>
+    <tr>
+      <th>1180</th>
+      <td>Finland</td>
+      <td>900.737605</td>
+      <td>1.001639</td>
     </tr>
     <tr>
       <th>1160</th>
@@ -2187,7 +2135,7 @@ Name: price_yen, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7be7c4d5a2aea3b13a80be5c54bf37ecae1492eda4f757c2428f6702ebb5e039.png" src="_images/7be7c4d5a2aea3b13a80be5c54bf37ecae1492eda4f757c2428f6702ebb5e039.png" />
+<img alt="_images/65d781bb2cc2969166b7ca6b58e0bbd75d405f533e1fc33b2b540c230a483bc3.png" src="_images/65d781bb2cc2969166b7ca6b58e0bbd75d405f533e1fc33b2b540c230a483bc3.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -2638,7 +2586,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/eba5205f365c8645c2f22afd70c37df39fd0f158bfc0264149064f5e76c3dbab.png" src="_images/eba5205f365c8645c2f22afd70c37df39fd0f158bfc0264149064f5e76c3dbab.png" />
+<img alt="_images/56399ac1ecf13739675891536c2cbf21e36a1ea86f6e50f1e5b26b8db5baaa2e.png" src="_images/56399ac1ecf13739675891536c2cbf21e36a1ea86f6e50f1e5b26b8db5baaa2e.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -2702,7 +2650,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c5d9b11b6b51c5b7064eb9618f3c0e67cd87161721c08ba6f8d9c6a3f13d8b28.png" src="_images/c5d9b11b6b51c5b7064eb9618f3c0e67cd87161721c08ba6f8d9c6a3f13d8b28.png" />
+<img alt="_images/753faa30e0be0337d3d5b3c4db49bd6edb047300788c4d9074c086f4e9447486.png" src="_images/753faa30e0be0337d3d5b3c4db49bd6edb047300788c4d9074c086f4e9447486.png" />
 </div>
 </div>
 <p>この図は，上の図の情報を実質為替レート（円/ドル）としてまとめている。実質為替レートでも，縦軸での円安・円高の方向は同じとなることに注意しよう。1980年代半ばまで円高に動いていること（増価）が分かる。</p>
@@ -2747,7 +2695,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>183
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(183)
 </pre></div>
 </div>
 </div>
@@ -2763,7 +2711,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/48e1885b1574ae3883dddd57264c112dde25ec4a784f7ef3a165687dbdd6076b.png" src="_images/48e1885b1574ae3883dddd57264c112dde25ec4a784f7ef3a165687dbdd6076b.png" />
+<img alt="_images/0ff7e609c82e212718e3426614bb605ef2a554b0ac2068c7118db726f048b797.png" src="_images/0ff7e609c82e212718e3426614bb605ef2a554b0ac2068c7118db726f048b797.png" />
 </div>
 </div>
 <p>次のような解釈となる。</p>
@@ -2813,7 +2761,7 @@ Name: pl_gdpo, dtype: float64
 </div>
 </div>
 </div>
-<p>価格水準が最も低い国は米国（2017年）の物価水準の約<span class="pasted-text">13.9</span>％しかなく，最も高い国は米国（2017年）の約<span class="pasted-text">18.8</span>倍も高い。上位5カ国を表示してみよう。</p>
+<p>価格水準が最も低い国は米国（2017年）の物価水準の約％しかなく，最も高い国は米国（2017年）の約倍も高い。上位5カ国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt19</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;pl_gdpo&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;pl_gdpo&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -2890,12 +2838,12 @@ Name: pl_gdpo, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5361108623656162
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.536110862365616)
 </pre></div>
 </div>
 </div>
 </div>
-<p>この値をBig Macの値と比べてみよう。Big Macの変動係数は<span class="pasted-text">0.263</span>であり，<code class="docutils literal notranslate"><span class="pre">0.3</span></code>にも満たない。バスケット財に含まれる財・サービスはBig Mac程規格が統一されていないことを考えると一般物価水準の変動係数が大きいことは理解できるのではないだろうか。</p>
+<p>この値をBig Macの値と比べてみよう。Big Macの変動係数はであり，<code class="docutils literal notranslate"><span class="pre">0.3</span></code>にも満たない。バスケット財に含まれる財・サービスはBig Mac程規格が統一されていないことを考えると一般物価水準の変動係数が大きいことは理解できるのではないだろうか。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>上で計算したBig Mac価格の変動係数は，相対価格ではなくBig Mac価格（円表示）の変動係数である。米国のBig Mac価格に対する相対価格の変動係数を次のコードで計算することができるが，同じ値を返すことになる。</p>
@@ -2952,7 +2900,7 @@ Name: pl_gdpo, dtype: float64
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>このプロットには66カ国が含まれる。
 </pre></div>
 </div>
-<img alt="_images/c7cca14c95c6a74a9e738fbfcfd94092826d3adeecf09160504adda71e78aadb.png" src="_images/c7cca14c95c6a74a9e738fbfcfd94092826d3adeecf09160504adda71e78aadb.png" />
+<img alt="_images/b7f53e1de4f1b9f6451a6dcf9b19360cdad80277ea32601f5d0addfebfccb0a6.png" src="_images/b7f53e1de4f1b9f6451a6dcf9b19360cdad80277ea32601f5d0addfebfccb0a6.png" />
 </div>
 </div>
 <p>リストの上には所得が高い国が列挙されており，所得が低い国はリストの下の方にある。この傾向はBig Macの場合と同じである。</p>
@@ -2984,7 +2932,7 @@ Name: pl_gdpo, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/19bd63cced6c3732db575e758d458d9b59be6deb59e8d228480fe58b46489d16.png" src="_images/19bd63cced6c3732db575e758d458d9b59be6deb59e8d228480fe58b46489d16.png" />
+<img alt="_images/c0830ae3aff66449102f6726bb31a7ccc31d2098baba2d288c245d5a1eb309bf.png" src="_images/c0830ae3aff66449102f6726bb31a7ccc31d2098baba2d288c245d5a1eb309bf.png" />
 </div>
 </div>
 <p>直線トレンドを想像してみよう。明らかに右上がりであり，所得が高い経済ほど物価水準が高いことが確認できる。これは<strong>バラッサ・サミュエルソン効果</strong>と呼ばれる。直感的には，所得が高い経済の生産性と価格は高く，多くが貿易財である。一方，所得が低い国の非貿易財（例えば，不動産）やサービス（例えば，散髪）は比較的に安い。右上がりの直線トレンドはそれらの反映と考えられる。</p>
@@ -3098,8 +3046,7 @@ D_i^{\text{その他}}=e^{a+u_i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
-                            OLS Regression Results                            
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:            pl_gdpo_log   R-squared:                       0.390
 Model:                            OLS   Adj. R-squared:                  0.384
@@ -3159,7 +3106,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/74f92fc5cec002d1d877ee58bf3fca282955399c1feb7c947f4eb85c39693678.png" src="_images/74f92fc5cec002d1d877ee58bf3fca282955399c1feb7c947f4eb85c39693678.png" />
+<img alt="_images/be9256f44ec2f26bc9977c6218cddbb965aa315972ca2db58807da01f3b338c3.png" src="_images/be9256f44ec2f26bc9977c6218cddbb965aa315972ca2db58807da01f3b338c3.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3204,7 +3151,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e2b3539f467d92ce4abe8f55452ec1efc4cd208e4e3c8ac311e6b16a5e6c18c4.png" src="_images/e2b3539f467d92ce4abe8f55452ec1efc4cd208e4e3c8ac311e6b16a5e6c18c4.png" />
+<img alt="_images/40494c6f11285687b05810a6cba2abe102f006c05aee7fd15c1c70cab7586f1a.png" src="_images/40494c6f11285687b05810a6cba2abe102f006c05aee7fd15c1c70cab7586f1a.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>（縦の点線）で<span class="math notranslate nohighlight">\(\dfrac{P_i/e_i}{P_{\text{US}}}=1\)</span>となることに注意しよう。次のことが言える。</p>
@@ -3296,11 +3243,7 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
-Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.39041607482876517
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.3904160748287651)
 </pre></div>
 </div>
 </div>
@@ -3314,16 +3257,12 @@ Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) S
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
-Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6095839251712347
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.6095839251712349)
 </pre></div>
 </div>
 </div>
 </div>
-<p>分散の割合で考えた場合，所得効果は全体の約<span class="pasted-text">39</span>％を占めている。一般物価水準の一物一価が成立しない大きな理由が所得の差ということが明らかになった。一方で，所得以外の要因も大きな影響を及ぼしている。「その他」の要因は大きく２つに分けることができる。</p>
+<p>分散の割合で考えた場合，所得効果は全体の約％を占めている。一般物価水準の一物一価が成立しない大きな理由が所得の差ということが明らかになった。一方で，所得以外の要因も大きな影響を及ぼしている。「その他」の要因は大きく２つに分けることができる。</p>
 <ul class="simple">
 <li><p>財・サービスの貿易（国際収支における貿易・サービス収支に該当）</p>
 <ul>
@@ -3512,7 +3451,7 @@ Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) S
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d42e32c8acd081076fa06ef111460aecfa58789c3232799dd01dace596e3b27c.png" src="_images/d42e32c8acd081076fa06ef111460aecfa58789c3232799dd01dace596e3b27c.png" />
+<img alt="_images/0cf0570faf8f6fa4d7816f3cfe96a6ae2c5934d1b6af80759b8a19075fcdcefe.png" src="_images/0cf0570faf8f6fa4d7816f3cfe96a6ae2c5934d1b6af80759b8a19075fcdcefe.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3533,7 +3472,7 @@ Intel MKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) S
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bb475dea1e49be01052ceff8a4e5d158905aacb7d6411d6f6bdc1e51d887ffd7.png" src="_images/bb475dea1e49be01052ceff8a4e5d158905aacb7d6411d6f6bdc1e51d887ffd7.png" />
+<img alt="_images/a029f987cf0917e5394599a17dc6f8dd639eb9850846de98cfd91e27f8738d21.png" src="_images/a029f987cf0917e5394599a17dc6f8dd639eb9850846de98cfd91e27f8738d21.png" />
 </div>
 </div>
 <p>PPPレートGDPと比べて市場為替レートGDPは全体的に左（小さい値）にシフトしている。所得が中程度の国が減少し，所得が低い国が増加している。</p>
