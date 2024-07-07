@@ -1126,7 +1126,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cf9e392ca55e9aa27b1a785a5bc714e1247225e49da96ca1ee652e5a637a982a.png" src="_images/cf9e392ca55e9aa27b1a785a5bc714e1247225e49da96ca1ee652e5a637a982a.png" />
+<img alt="_images/8081836ed75fefce6a76adcd7a3522586294ca6e94e969c9022673b1edbaeb72.png" src="_images/8081836ed75fefce6a76adcd7a3522586294ca6e94e969c9022673b1edbaeb72.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1145,7 +1145,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9565d7b504cbf8aeaa882f12b6c0a25b2e1f83255b2e9c15fb6e936b2ab493a6.png" src="_images/9565d7b504cbf8aeaa882f12b6c0a25b2e1f83255b2e9c15fb6e936b2ab493a6.png" />
+<img alt="_images/3d0c8a64ea455989debc7837bdafaa0b5ac2fd1361b1ab3fa00a66029eeeffff.png" src="_images/3d0c8a64ea455989debc7837bdafaa0b5ac2fd1361b1ab3fa00a66029eeeffff.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1190,6 +1190,23 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">myst_nb</span> <span class="kn">import</span> <span class="n">glue</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;y_std_data_glued&quot;</span><span class="p">,</span> <span class="n">y_std</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;p_std_data_glued&quot;</span><span class="p">,</span> <span class="n">p_std</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014833020105293105
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.007490182102300599
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>シミュレーションの結果</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1199,8 +1216,26 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01373
-pの標準偏差:0.01424
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01367
+pの標準偏差:0.01417
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_std_sim</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">p_std_sim</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;y_std_sim_glued&quot;</span><span class="p">,</span> <span class="n">y_std_sim</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;p_std_sim_glued&quot;</span><span class="p">,</span> <span class="n">p_std_sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.013669836183214015
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01417230394146855
 </pre></div>
 </div>
 </div>
@@ -1241,6 +1276,22 @@ pの標準偏差:0.01424
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glue</span><span class="p">(</span><span class="s2">&quot;y_autocorr_data_glued&quot;</span><span class="p">,</span> <span class="n">y_autocorr</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;p_autocorr_data_glued&quot;</span><span class="p">,</span> <span class="n">p_autocorr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755597
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8303258249324096
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>シミュレーションの結果</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1250,8 +1301,26 @@ pの標準偏差:0.01424
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.046
-p:0.821
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.050
+p:0.819
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_autocorr_sim</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<span class="n">p_autocorr_sim</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;y_autocorr_sim_glued&quot;</span><span class="p">,</span> <span class="n">y_autocorr_sim</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;p_autocorr_sim_glued&quot;</span><span class="p">,</span> <span class="n">p_autocorr_sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.049526059885238644
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8194563887978079
 </pre></div>
 </div>
 </div>
@@ -1289,7 +1358,32 @@ p:0.821
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glue</span><span class="p">(</span><span class="s2">&quot;yp_corr_data_glued&quot;</span><span class="p">,</span> <span class="n">yp_corr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.15298375929989513
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>シミュレーションの結果</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yp_corr_sim</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;yp_corr_sim_glued&quot;</span><span class="p">,</span> <span class="n">yp_corr_sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11276397121673422
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -1297,7 +1391,7 @@ p:0.821
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11050493245690193
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11276397121673422
 </pre></div>
 </div>
 </div>
@@ -1321,18 +1415,18 @@ p:0.821
 </thead>
 <tbody>
 <tr class="row-even"><td><p>データ</p></td>
-<td><p>0.01477</p></td>
-<td><p>0.00696</p></td>
-<td><p>0.681</p></td>
-<td><p>0.829</p></td>
-<td><p>-0.234</p></td>
+<td><p><span class="pasted-text">0.01483</span></p></td>
+<td><p><span class="pasted-text">0.00749</span></p></td>
+<td><p><span class="pasted-text">0.69745</span></p></td>
+<td><p><span class="pasted-text">0.83033</span></p></td>
+<td><p><span class="pasted-text">-0.15298</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>WNショック</p></td>
-<td><p>0.01356</p></td>
-<td><p>0.01128</p></td>
-<td><p>0.075</p></td>
-<td><p>0.800</p></td>
-<td><p>-0.166</p></td>
+<td><p><span class="pasted-text">0.01367</span></p></td>
+<td><p><span class="pasted-text">0.01417</span></p></td>
+<td><p><span class="pasted-text">0.04953</span></p></td>
+<td><p><span class="pasted-text">0.81946</span></p></td>
+<td><p><span class="pasted-text">-0.11276</span></p></td>
 </tr>
 <tr class="row-even"><td><p>AR(1)ショック</p></td>
 <td><p>0.01252</p></td>
