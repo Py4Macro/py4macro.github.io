@@ -770,12 +770,12 @@ memory usage: 22.0 KB
 <p>表示の上から２行目に<code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>とあるが，行ラベルのことを表しており，時系列データ用となっている。具体的な説明は割愛するが，時系列データが扱いやすくなりプロットする際にも便利である。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>に含まれる実質GDPと各需要項目は「連鎖価格」となっている。詳細な説明は<a class="reference external" href="https://www.esri.cao.go.jp/jp/sna/data/data_list/sokuhou/files/old_keisu/pdf/shiryou_rensa.pdf">内閣府の資料</a>を参考にするとして、この実質化の手法により「加法整合性の不成立」と呼ばれる問題が発生する。GDPは３面等価の原則が成立し、生産側、分配側、支出側で測ったGDPは等しい。<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>には支出側GDPのデータが含まれているが、次の問題が内在している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>に含まれる実質GDPと各需要項目は「連鎖価格」となっている。詳細な説明は<a class="reference external" href="https://www.esri.cao.go.jp/jp/sna/data/data_list/sokuhou/files/old_keisu/pdf/shiryou_rensa.pdf">内閣府の資料</a>を参考にするとして、この実質化の手法により「加法整合性の不成立」と呼ばれる問題が発生する。GDPは３面等価の原則により生産側、分配側、支出側で測ったGDPは等しいが、<code class="docutils literal notranslate"><span class="pre">jpn-q</span></code>には支出側GDPのデータが含まれており、参照年とその翌年以外は、次の問題が内在している。</p>
 <div class="math notranslate nohighlight">
 \[
-\text{GDP}\;\neq\;\text{消費＋投資＋政府支出＋輸出ー輸入}
+\text{支出側GDP}\;\neq\;\text{消費＋投資＋政府支出＋輸出ー輸入}
 \]</div>
-<p>左辺と右辺（需要項目の合計）は等しくないという意味で「加法整合性の不成立」が発生している。その差は「開差」という項目で内閣府のデータに含まれており、連鎖価格の実質GDPは水準よりも変化率の分析に適していると言われている。では、どれ程の差があるのだろうか。開差の絶対値の平均は公式系列の1994Q1〜2023年Q4のデータでは平均で約<code class="docutils literal notranslate"><span class="pre">0.6</span></code>％、参考系列の1980〜1993年で約<code class="docutils literal notranslate"><span class="pre">3.2</span></code>％となっている。驚く程の大きさではないかも知れないが、以下ではこの問題を念頭に置きつつ需要項目の割合などの議論を進めることにする。</p>
+<p>左辺と右辺（需要項目の合計）は等しくないという意味で「加法整合性の不成立」が発生している。その差は「開差」という項目で内閣府のデータに含まれており、連鎖価格の実質GDPは水準よりも変化率の分析に適していると言われている。では、どれ程の差があるのだろうか。開差の絶対値の平均は公式系列の1994Q1〜2023年Q4のデータでは平均で約<code class="docutils literal notranslate"><span class="pre">0.6</span></code>％（対GDP比）、参考系列の1980〜1993年で約<code class="docutils literal notranslate"><span class="pre">3.2</span></code>％（対GDP比）となっている。驚く程の大きさではないかも知れないが、以下ではこの問題を念頭に置きつつ需要項目の割合などの議論を進めることにする。</p>
 </div>
 </section>
 <section id="id2">
