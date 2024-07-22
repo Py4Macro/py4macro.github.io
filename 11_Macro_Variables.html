@@ -481,7 +481,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
@@ -700,7 +700,7 @@ memory usage: 5.5 KB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_cycle ~ u_rate_cycle&#39;</span>   <span class="c1"># 1</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>       <span class="c1"># 2</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>       <span class="c1"># 2</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>                   <span class="c1"># 3</span>
 </pre></div>
 </div>
@@ -710,9 +710,9 @@ memory usage: 5.5 KB
 <p class="admonition-title">コードの説明</p>
 <ol class="arabic simple">
 <li><p>回帰式を文字列で作成し変数<code class="docutils literal notranslate"><span class="pre">formula</span></code>に割り当てる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sm</span></code>の関数<code class="docutils literal notranslate"><span class="pre">.ols</span></code>を使い最小二乗法の準備をし，変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">smf</span></code>の関数<code class="docutils literal notranslate"><span class="pre">.ols</span></code>を使い最小二乗法の準備をし，変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <ul class="simple">
-<li><p>引数は(1)の<code class="docutils literal notranslate"><span class="pre">formula</span></code>と<code class="docutils literal notranslate"><span class="pre">data</span></code>に使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>（ここでは<code class="docutils literal notranslate"><span class="pre">df_okun</span></code>）を指定する。</p></li>
+<li><p>引数は(1)の<code class="docutils literal notranslate"><span class="pre">formula</span></code>と<code class="docutils literal notranslate"><span class="pre">data</span></code>に使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>（ここでは<code class="docutils literal notranslate"><span class="pre">df</span></code>）を指定する。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.fit()</span></code>を使い自動計算し，その結果を<code class="docutils literal notranslate"><span class="pre">result</span></code>に割り当てる。</p></li>
@@ -731,8 +731,8 @@ memory usage: 5.5 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.391
 Model:                            OLS   Adj. R-squared:                  0.387
 Method:                 Least Squares   F-statistic:                     111.5
-Date:                Wed, 17 Jul 2024   Prob (F-statistic):           1.84e-20
-Time:                        04:57:37   Log-Likelihood:                -275.03
+Date:                Mon, 22 Jul 2024   Prob (F-statistic):           1.84e-20
+Time:                        11:23:46   Log-Likelihood:                -275.03
 No. Observations:                 176   AIC:                             554.1
 Df Residuals:                     174   BIC:                             560.4
 Df Model:                           1                                         
@@ -768,7 +768,7 @@ Notes:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">growth_deviation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;失業率の乖離が</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％ポイントの場合のGDPのトレンドからの乖離率は約</span><span class="si">{</span><span class="n">g</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1023,12 +1023,12 @@ Name: decade, Length: 176, dtype: int32
 
 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">decade_list</span><span class="p">:</span>                             <span class="c1">#4</span>
     <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>                  <span class="c1">#5</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span> <span class="c1">#6</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span> <span class="c1">#6</span>
                  <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1">#7</span>
     
-    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1">#8</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                  <span class="c1">#9</span>
-    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                  <span class="c1">#10</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>         <span class="c1">#8</span>
+    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>           <span class="c1">#9</span>
+    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>           <span class="c1">#10</span>
 </pre></div>
 </div>
 </div>
@@ -1300,8 +1300,9 @@ P_tY_t=M_tV_t
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span><span class="s1">&#39;2020-12-01&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
-<span class="n">df_ex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">120</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
-                      <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="mi">2</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
+<span class="n">df_ex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">120</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+                     <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1340,122 +1341,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>10</td>
-      <td>5.231118</td>
+      <td>5.407209</td>
     </tr>
     <tr>
       <th>2019-02-01</th>
       <td>20</td>
-      <td>4.982494</td>
+      <td>6.546541</td>
     </tr>
     <tr>
       <th>2019-03-01</th>
       <td>30</td>
-      <td>4.919065</td>
+      <td>4.632455</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>40</td>
-      <td>2.903038</td>
+      <td>2.810708</td>
     </tr>
     <tr>
       <th>2019-05-01</th>
       <td>50</td>
-      <td>5.402260</td>
+      <td>6.145347</td>
     </tr>
     <tr>
       <th>2019-06-01</th>
       <td>60</td>
-      <td>5.644094</td>
+      <td>6.744099</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>70</td>
-      <td>6.064527</td>
+      <td>6.188605</td>
     </tr>
     <tr>
       <th>2019-08-01</th>
       <td>80</td>
-      <td>4.623744</td>
+      <td>4.314105</td>
     </tr>
     <tr>
       <th>2019-09-01</th>
       <td>90</td>
-      <td>5.205044</td>
+      <td>4.221537</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>100</td>
-      <td>4.265945</td>
+      <td>4.319105</td>
     </tr>
     <tr>
       <th>2019-11-01</th>
       <td>110</td>
-      <td>4.070680</td>
+      <td>4.811531</td>
     </tr>
     <tr>
       <th>2019-12-01</th>
       <td>120</td>
-      <td>4.839883</td>
+      <td>3.575893</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>10</td>
-      <td>5.285149</td>
+      <td>3.503146</td>
     </tr>
     <tr>
       <th>2020-02-01</th>
       <td>20</td>
-      <td>5.639534</td>
+      <td>6.960759</td>
     </tr>
     <tr>
       <th>2020-03-01</th>
       <td>30</td>
-      <td>4.053044</td>
+      <td>4.720422</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>40</td>
-      <td>5.845021</td>
+      <td>5.590994</td>
     </tr>
     <tr>
       <th>2020-05-01</th>
       <td>50</td>
-      <td>3.500655</td>
+      <td>4.651062</td>
     </tr>
     <tr>
       <th>2020-06-01</th>
       <td>60</td>
-      <td>4.887202</td>
+      <td>4.732924</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>70</td>
-      <td>2.652983</td>
+      <td>6.336644</td>
     </tr>
     <tr>
       <th>2020-08-01</th>
       <td>80</td>
-      <td>3.853284</td>
+      <td>6.718280</td>
     </tr>
     <tr>
       <th>2020-09-01</th>
       <td>90</td>
-      <td>7.833833</td>
+      <td>5.547350</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>100</td>
-      <td>5.557687</td>
+      <td>3.866724</td>
     </tr>
     <tr>
       <th>2020-11-01</th>
       <td>110</td>
-      <td>3.925408</td>
+      <td>3.197846</td>
     </tr>
     <tr>
       <th>2020-12-01</th>
       <td>120</td>
-      <td>4.429313</td>
+      <td>5.157886</td>
     </tr>
   </tbody>
 </table>
@@ -1483,7 +1484,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x12dd28470&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x1258639e0&gt;
 </pre></div>
 </div>
 </div>
@@ -1524,42 +1525,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>20.0</td>
-      <td>5.044226</td>
+      <td>5.528735</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>50.0</td>
-      <td>4.649797</td>
+      <td>5.233385</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>80.0</td>
-      <td>5.297772</td>
+      <td>4.908082</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>110.0</td>
-      <td>4.392169</td>
+      <td>4.235510</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>20.0</td>
-      <td>4.992575</td>
+      <td>5.061442</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>50.0</td>
-      <td>4.744292</td>
+      <td>4.991660</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>80.0</td>
-      <td>4.780033</td>
+      <td>6.200758</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>110.0</td>
-      <td>4.637470</td>
+      <td>4.074152</td>
     </tr>
   </tbody>
 </table>
@@ -1600,12 +1601,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>65.0</td>
-      <td>4.845991</td>
+      <td>4.976428</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>65.0</td>
-      <td>4.788593</td>
+      <td>5.082003</td>
     </tr>
   </tbody>
 </table>
@@ -1689,12 +1690,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>0.5547</td>
-      <td>0.170331</td>
+      <td>0.248700</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>0.5547</td>
-      <td>0.284882</td>
+      <td>0.238948</td>
     </tr>
   </tbody>
 </table>
@@ -2111,7 +2112,7 @@ memory usage: 18.6 KB
 
 <span class="k">for</span> <span class="n">df</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span><span class="n">title_list</span><span class="p">):</span>
     
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>    <span class="c1"># 2</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>    <span class="c1"># 2</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>                            <span class="c1"># 3</span>
     
     <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span> <span class="c1"># 4</span>
@@ -2353,7 +2354,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x12dc4bd70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x125925760&gt;
 </pre></div>
 </div>
 </div>
@@ -2368,7 +2369,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12de17830&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x123cf0080&gt;
 </pre></div>
 </div>
 </div>
@@ -3380,7 +3381,7 @@ Name: inflation, dtype: float64
 <p>横軸と縦軸の値（％）を確認してみると分かるが非常に大きい。ノイズの影響により変化が非常に激しいためである。トレンドのスロープを計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;標本の大きさ：</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">res_world</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res_world</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">res_world</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -3646,7 +3647,7 @@ Name: inflation, dtype: float64
 <p>綺麗に45度線上に並んでいる。国ごとに平均を計算することによって短期的なノイズが相殺され長期的な関係が浮かび上がっている。トレンド線の傾きを計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world_mean</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation_mean ~ money_growth_mean&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world_mean</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_world_mean</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation_mean ~ money_growth_mean&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">world_mean</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;標本の大きさ：</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">nobs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">res_world_mean</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
