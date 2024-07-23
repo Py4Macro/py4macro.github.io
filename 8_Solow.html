@@ -473,7 +473,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">py4macro</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
@@ -1906,7 +1906,7 @@ memory usage: 9.8+ KB
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span>              <span class="c1"># 1</span>
     
     <span class="n">df_temp</span> <span class="o">=</span> <span class="n">ky_ratio</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>                  <span class="c1"># 2</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ky_ratio ~ </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>          <span class="c1"># 3</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ky_ratio ~ </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>          <span class="c1"># 3</span>
                  <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>           <span class="c1"># 4</span>
     <span class="n">bhat</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                  <span class="c1"># 5</span>
     <span class="n">pval</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                 <span class="c1"># 6</span>
