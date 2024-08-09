@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -466,7 +466,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">py4macro</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="c1"># np.set_printoptions(legacy=&#39;1.25&#39;)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -783,13 +783,13 @@ memory usage: 22.0 KB
 <p>まずGDPを図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;国内総生産&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d10c5d1a77a4abf085c59093460f27d2a391f84d1b7c6e51f07b157ec41a420e.png" src="_images/d10c5d1a77a4abf085c59093460f27d2a391f84d1b7c6e51f07b157ec41a420e.png" />
+<img alt="_images/fd5cb58b6ee9064d51f24ef1a143eefa8ea3cae5831966a507dbb6d96371ea48.png" src="_images/fd5cb58b6ee9064d51f24ef1a143eefa8ea3cae5831966a507dbb6d96371ea48.png" />
 </div>
 </div>
 <p>長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，2008年のリーマン・ショック，そして2020年のコロナ禍の影響でGDPは大きく下落している。</p>
@@ -848,15 +848,15 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>では実際にプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP（対数）&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;国内総生産（対数）&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/064a58d8c46d44ea1d0a29cfe405f6eb9a3c9023c6da4ccbda27e456b29b4156.png" src="_images/064a58d8c46d44ea1d0a29cfe405f6eb9a3c9023c6da4ccbda27e456b29b4156.png" />
+<img alt="_images/b4939a8f18e9105c3d5f682d0e986fd2696734e6aac7b2ce75a3dc518dc83295.png" src="_images/b4939a8f18e9105c3d5f682d0e986fd2696734e6aac7b2ce75a3dc518dc83295.png" />
 </div>
 </div>
 <p>プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。</p>
@@ -864,43 +864,57 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(99)</a>を使い四半期成長率を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>   <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>   <span class="c1"># 1</span>
 
-<span class="c1"># 2</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>   <span class="c1"># 3</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">,</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># 2</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/75caedee12d711333fc1e21aeb56ee722ee7197bfafac433463560c9e97393ad.png" src="_images/75caedee12d711333fc1e21aeb56ee722ee7197bfafac433463560c9e97393ad.png" />
+<img alt="_images/d112cd21dcbf57d7e76fc3dc3c425e7112f1ecb534e9af31b62ad49305d62be8.png" src="_images/d112cd21dcbf57d7e76fc3dc3c425e7112f1ecb534e9af31b62ad49305d62be8.png" />
 </div>
 </div>
 <div class="code-explanation dropdown admonition">
 <p class="admonition-title">コードの説明 🐍</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.diff()</span></code>は差分を計算するメソッドであり，引数の数（デフォルトは<code class="docutils literal notranslate"><span class="pre">1</span></code>）は何期前の値と差分を計算するかを指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>は図を表示し，同時に図の「軸（axis）」を返すが，それを変数<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てている。</p></li>
-<li><p>軸の変数<code class="docutils literal notranslate"><span class="pre">ax_</span></code>には様々なメソッドが用意されており，その１つがグリッド線を表示する<code class="docutils literal notranslate"><span class="pre">.grid()</span></code>である。</p></li>
+<li><p>引数<code class="docutils literal notranslate"><span class="pre">grid=True</span></code>はグリッド線を表示する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>は図を表示し，同時に図の「軸（axis）」を返すが，次のコードのように、そのメソッド<code class="docutils literal notranslate"><span class="pre">.grid()</span></code>を使っても同じ表示となる。</p></li>
+</ul>
+</li>
 </ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP四半期成長率（％）&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <p>新聞などで「前年同期比成長率」という表現をみたことがあると思うが，<code class="docutils literal notranslate"><span class="pre">diff()</span></code>の引数を<code class="docutils literal notranslate"><span class="pre">4</span></code>にすることにより，前年同期比の成長率を計算することができる。それを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">)</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP前年同期比成長率（％）&#39;</span><span class="p">,</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b20a5e696cc3b2300291c0ad1dfe2dcc3eb23c405cf46fe67e614ba347602118.png" src="_images/b20a5e696cc3b2300291c0ad1dfe2dcc3eb23c405cf46fe67e614ba347602118.png" />
+<img alt="_images/0624b1d7ea911aa358ae21357de416ddf941741814774b3dcae8e4f5a5f6f28a.png" src="_images/0624b1d7ea911aa358ae21357de416ddf941741814774b3dcae8e4f5a5f6f28a.png" />
 </div>
 </div>
-<p>上の図と比べると縦軸の幅の違いに気づくだろう。最高値と最小値を計算してみよう。</p>
+<p>上の図と比べると次の特徴がある。</p>
+<ul class="simple">
+<li><p>縦軸の幅が違う。１四半期と４四半期（１年）の成長率の違いが反映されている。</p></li>
+<li><p>四半期データの変動は短期的な変化を追うには適している。しかし，変動が激しいため、長期的な成長率の予測には不向きだろう。一方、前年同期比のデータは，景気の基調を捉えるのに適していると言われている。</p></li>
+<li><p>データには季節性があり，前年同期比成長率は季節調整されていないデータに使われることが多い。（ちなみに，<code class="docutils literal notranslate"><span class="pre">df</span></code>に含まれる<code class="docutils literal notranslate"><span class="pre">gdp</span></code>のデータは季節調整済みである。）</p></li>
+</ul>
+<p>最高値と最小値を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_annual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
@@ -908,12 +922,14 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7.84950729916023, -10.174721491547523)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(7.84950729916023), np.float64(-10.174721491547523))
 </pre></div>
 </div>
 </div>
 </div>
 <p>1980年代後半ののバブル景気には約<code class="docutils literal notranslate"><span class="pre">7.8</span></code>％増加しているが，コロナ禍では約<code class="docutils literal notranslate"><span class="pre">10</span></code>％以上下落している。</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
 <p>次の点を知っておくのも有用だろう。</p>
 <ul>
 <li><p>次の式を使うと四半期成長率を年率換算することもできる。</p>
@@ -921,10 +937,11 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 \[
     g_{\text{年率換算成長率}}=\left(1+g_{\text{四半期成長率}}\right)^4-1
     \]</div>
-<p><span class="math notranslate nohighlight">\(g_{\text{四半期成長率}}\)</span>が４期続くことを想定した成長率である。</p>
+<p><span class="math notranslate nohighlight">\(g_{\text{四半期成長率}}\)</span>は４期続くことを想定した成長率である。</p>
 </li>
 <li><p>年次データを使うとGDPの値は均されるので変化率は低めに出る。</p></li>
 </ul>
+</div>
 </section>
 <section id="id3">
 <h2>GDPの構成要素<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -953,10 +970,10 @@ g_x\approx\log(x_{t+1})-\log(x_{t})
 <p>それぞれの平均を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算し表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span><span class="n">inv_gdp_ratio</span><span class="p">,</span>
-              <span class="n">gov_gdp_ratio</span><span class="p">,</span><span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span> <span class="n">inv_gdp_ratio</span><span class="p">,</span>
+              <span class="n">gov_gdp_ratio</span><span class="p">,</span> <span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
 
-<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span><span class="s1">&#39;Investment&#39;</span><span class="p">,</span><span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span><span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
+<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s1">&#39;Investment&#39;</span><span class="p">,</span> <span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span> <span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
     
@@ -986,7 +1003,7 @@ Net Exports 	-1.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f0b43ab751604a964f0f76ada8634b1637149f39fa54ec9e3ed96e82fad81854.png" src="_images/f0b43ab751604a964f0f76ada8634b1637149f39fa54ec9e3ed96e82fad81854.png" />
+<img alt="_images/8ecc39087613306c11e36959b92a4542808d3a9ba6350fe42492d23359dd5998.png" src="_images/8ecc39087613306c11e36959b92a4542808d3a9ba6350fe42492d23359dd5998.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1132,7 +1149,7 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/6aa11dce65a42387aa8e997849bbb5f932d64a358acd27b732c462caec92a9e1.png" src="_images/6aa11dce65a42387aa8e997849bbb5f932d64a358acd27b732c462caec92a9e1.png" />
+<img alt="_images/a01c62aeaa704417284f520da3f02775b5fd28cacf7af12a2591ff2402c2f218.png" src="_images/a01c62aeaa704417284f520da3f02775b5fd28cacf7af12a2591ff2402c2f218.png" />
 </div>
 </div>
 <p>この図のトレンドは右上がりとなっているが，一定もしくは右下がりになる場合もありえる。この図から，拡張・後退はGDPの変化を捉えていることが分かる。また，このプロットは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/menu_di.html">景気動向指数</a>を含め様々なデータに基づき，「谷」と「山」の時期を確定している。</p>
@@ -1155,12 +1172,26 @@ Y=Y_t^{\text{trend}}Y_t^{\text{cycle}}
 <span class="eqno">(101)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Link to this equation">#</a></span>\[
 y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
 \]</div>
-<p>ここで小文字は大文字の変数を対数化した値である（例えば，<span class="math notranslate nohighlight">\(y_t\equiv\log(Y_t)\)</span>）。<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(101)</a>の右辺を次のように近似しよう。</p>
+<p>ここで小文字は大文字の変数を対数化した値である</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y_t\equiv\log(Y_t)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\equiv\log(Y_t^{\text{cycle}})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_t^{\text{trend}}\equiv\log(Y_t^{\text{trend}})\)</span></p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(101)</a>の右辺を次のように近似しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log-approx">
 <span class="eqno">(102)<a class="headerlink" href="#equation-eq-10-decompose-log-approx" title="Link to this equation">#</a></span>\[
-y_t^{\text{cycle}}\approx\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
+y_t^{\text{cycle}}
+=\log\left(\frac{Y_t}{Y_t^{\text{trend}}}\right)
+    \approx
+    \dfrac{Y_t}{Y_t^{\text{trend}}}-1
+    =\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
 \]</div>
-<p>即ち，<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離をパーセンテージで表している。</p>
+<p>この式から次のことが言える。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離の割合を表している。</p></li>
+<li><p><span class="math notranslate nohighlight">\(100\times y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの％乖離を表している。</p></li>
+</ul>
 <p>ここまでの説明から，景気循環を捉える項<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数の値とトレンドとの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決めるかが重要なポイントとなる。ここでは，内閣府や日本銀行の複雑な手法ではなく，マクロ経済学研究でスタンダードなツールとなっている<a class="reference external" href="https://www.google.co.jp/search?q=Hodrick%E2%80%93Prescott%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC">Hodrick–Prescottフィルター</a>と呼ばれる手法を使うことにする。詳細についての説明は控え，単に<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる関数<code class="docutils literal notranslate"><span class="pre">trend</span></code>を使ってトレンド抽出を行うことにする。使い方は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1206,6 +1237,7 @@ trend(s, lamb=1600)
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#1</span>
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#2</span>
 </pre></div>
@@ -1246,22 +1278,22 @@ trend(s, lamb=1600)
 <p>対数化したGDPの変数を作成しトレンドと重ねて図示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a2a18b8eec4c6d4397c8428750552d4ce95a00333f82875e306401d43042565c.png" src="_images/a2a18b8eec4c6d4397c8428750552d4ce95a00333f82875e306401d43042565c.png" />
+<img alt="_images/32644df8995d65113bdb0b76ce12e1e27765566e2cc5caf44fd23e1c11a6cd14.png" src="_images/32644df8995d65113bdb0b76ce12e1e27765566e2cc5caf44fd23e1c11a6cd14.png" />
 </div>
 </div>
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
-<p>次に景気循環の変数を作成するが，トレンドからの乖離を％で表すために次の関係を利用する。</p>
+<p>次に景気循環の変数を作成するが，トレンドからの乖離を割合で表すために，上でも使った次の関係を利用する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-devaition">
 <span class="eqno">(103)<a class="headerlink" href="#equation-eq-10-devaition" title="Link to this equation">#</a></span>\[
-\frac{X-Z}{Z}
-\approx\log\left(\frac{X}{Z}\right)
-=\log(X) - \log(Z)
+\dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
+\approx\log\left(\frac{Y_t}{Y_t^{\text{trend}}}\right)
+=\log(Y_t) - \log(Y_t^{\text{trend}})
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1273,16 +1305,17 @@ trend(s, lamb=1600)
 <p><code class="docutils literal notranslate"><span class="pre">0</span></code>に横線を引いてプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>    <span class="c1"># 1</span>
-                           <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
+              <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>    <span class="c1"># 1</span>
+              <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの％乖離&#39;</span><span class="p">)</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>               <span class="c1"># 2</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9796cef27a8d3b062bf6f6655ba10fa8675aecae5ed8ef7d9ab4c5a42408def8.png" src="_images/9796cef27a8d3b062bf6f6655ba10fa8675aecae5ed8ef7d9ab4c5a42408def8.png" />
+<img alt="_images/3d51f858d698ccf6cf11fd0b02a83558d2def75694a83e50f5590df05801856b.png" src="_images/3d51f858d698ccf6cf11fd0b02a83558d2def75694a83e50f5590df05801856b.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1332,7 +1365,7 @@ Y=x_t,\quad Z=x_{t-1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.6974503788755598)
 </pre></div>
 </div>
 </div>
@@ -1378,15 +1411,14 @@ Y=x_t,\quad Z=x_{t-1}
 <p>列ラベルに<code class="docutils literal notranslate"><span class="pre">_cycle</span></code>がついている変数だけを選ぶために<code class="docutils literal notranslate"><span class="pre">cycle_list</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_lst</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_lst</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0ca9f17105f5a681fe4e28ac62e072ffbe6b54508b51661f59545af09dfa0e01.png" src="_images/0ca9f17105f5a681fe4e28ac62e072ffbe6b54508b51661f59545af09dfa0e01.png" />
+<img alt="_images/311f63a414459196d0bc08a2382f22d8caedb7b7b9903a12f2b9360ce722c5d2.png" src="_images/311f63a414459196d0bc08a2382f22d8caedb7b7b9903a12f2b9360ce722c5d2.png" />
 </div>
 </div>
 <p>この図に基づいて３つの点について考える。</p>
@@ -1401,7 +1433,7 @@ Y=x_t,\quad Z=x_{t-1}
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って自己相関係数を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
     
     <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>           <span class="c1"># (1)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">&gt;5.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>     <span class="c1"># (2)</span>
@@ -1451,7 +1483,7 @@ Z=\text{GDPの構成要素の変数}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">------------------------&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
     <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 1</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>                 <span class="c1"># 2</span>
 </pre></div>
@@ -1494,13 +1526,13 @@ imports_cycle       0.65
 <p>政府支出以外は全て相関係数は正の値であり，値も大きい。即ち，順循環的である（裏にあるメカニズムを考えてみよう）。下の図はGDPと投資の散布図であり，正の相関を確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;investment_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1927b8091d5589eb07fcf31a3e9dcaa406418ebd5090178367fa2fe6d71c2455.png" src="_images/1927b8091d5589eb07fcf31a3e9dcaa406418ebd5090178367fa2fe6d71c2455.png" />
+<img alt="_images/274fc9864c92d1e5106c2949a067eab88c66be50d27eb86710b42013eb9432f2.png" src="_images/274fc9864c92d1e5106c2949a067eab88c66be50d27eb86710b42013eb9432f2.png" />
 </div>
 </div>
 <p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために，<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
@@ -1552,7 +1584,8 @@ imports_cycle       0.65
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_list</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
+    
     <span class="n">var</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">var</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1572,13 +1605,13 @@ imports_cycle       3.26
 <p>投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cycle_list</span><span class="p">[:</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_lst</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6d214c5075b9abd7f63a87603ee3c6557b2a7dca8db52db24fd7e819cc90a8f6.png" src="_images/6d214c5075b9abd7f63a87603ee3c6557b2a7dca8db52db24fd7e819cc90a8f6.png" />
+<img alt="_images/3361720d36deb183394703d90b71d5db9356548851ccc58b53f39743250893d3.png" src="_images/3361720d36deb183394703d90b71d5db9356548851ccc58b53f39743250893d3.png" />
 </div>
 </div>
 <p>これらの結果を説明するために，効用最大化に基づく消費者理論があり，利潤最大化に基づく企業行動に関するモデルが使われている。</p>
