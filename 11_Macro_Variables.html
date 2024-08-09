@@ -484,7 +484,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -555,13 +555,13 @@ memory usage: 5.5 KB
 <p>ここでは失業率の特徴を考える。まず図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5c2019a8fce6f5285277767d533b3f654bf4173e395879d4e25d9810a02193b2.png" src="_images/5c2019a8fce6f5285277767d533b3f654bf4173e395879d4e25d9810a02193b2.png" />
+<img alt="_images/7ad774aff03cadde40aea4e242029427e975ec90ecf20592ad037392e11814cc.png" src="_images/7ad774aff03cadde40aea4e242029427e975ec90ecf20592ad037392e11814cc.png" />
 </div>
 </div>
 <p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
@@ -700,7 +700,7 @@ memory usage: 5.5 KB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_cycle ~ u_rate_cycle&#39;</span>   <span class="c1"># 1</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>       <span class="c1"># 2</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>      <span class="c1"># 2</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>                   <span class="c1"># 3</span>
 </pre></div>
 </div>
@@ -732,7 +732,7 @@ Dep. Variable:              gdp_cycle   R-squared:                       0.391
 Model:                            OLS   Adj. R-squared:                  0.387
 Method:                 Least Squares   F-statistic:                     111.5
 Date:                Fri, 09 Aug 2024   Prob (F-statistic):           1.84e-20
-Time:                        02:39:40   Log-Likelihood:                -275.03
+Time:                        11:45:59   Log-Likelihood:                -275.03
 No. Observations:                 176   AIC:                             554.1
 Df Residuals:                     174   BIC:                             560.4
 Df Model:                           1                                         
@@ -768,6 +768,7 @@ Notes:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">growth_deviation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    
     <span class="n">g</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;失業率の乖離が</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％ポイントの場合のGDPのトレンドからの乖離率は約</span><span class="si">{</span><span class="n">g</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
 </pre></div>
@@ -852,7 +853,7 @@ Notes:
 <p>上で使用した<code class="docutils literal notranslate"><span class="pre">df</span></code>に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が含まれているので図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -880,7 +881,7 @@ Notes:
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">])</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_trend&#39;</span><span class="p">]</span>
 
-<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1016,19 +1017,19 @@ Name: decade, Length: 176, dtype: int32
 <p>新たな列と<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，式<a class="reference internal" href="#equation-eq-11-phillips">(108)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decade_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span>       <span class="c1">#1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decade_lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span>         <span class="c1">#1</span>
 
-<span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#2</span>
-<span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#3</span>
+<span class="n">a_lst</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#2</span>
+<span class="n">b_lst</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1">#3</span>
 
-<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">decade_list</span><span class="p">:</span>                             <span class="c1">#4</span>
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>                  <span class="c1">#5</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">decade_lst</span><span class="p">:</span>                               <span class="c1">#4</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>                   <span class="c1">#5</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ unemployment_rate&#39;</span><span class="p">,</span> <span class="c1">#6</span>
-                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1">#7</span>
+                 <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>        <span class="c1">#7</span>
     
-    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>         <span class="c1">#8</span>
-    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>           <span class="c1">#9</span>
-    <span class="n">b_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>           <span class="c1">#10</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>          <span class="c1">#8</span>
+    <span class="n">a_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>            <span class="c1">#9</span>
+    <span class="n">b_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>            <span class="c1">#10</span>
 </pre></div>
 </div>
 </div>
@@ -1058,13 +1059,13 @@ Name: decade, Length: 176, dtype: int32
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- 定数項の推定値 -------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">a_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_lst</span><span class="p">,</span> <span class="n">a_lst</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     
     
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- スロープ係数の推定値 --------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">b_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_lst</span><span class="p">,</span> <span class="n">b_lst</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代：</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1090,82 +1091,57 @@ Name: decade, Length: 176, dtype: int32
 <p>定数項の推定値もスロープ係数の推定値も変化が大きく，特に1980年代の値とそれ以降の値の差が顕著である。傾きが緩やかになっているので，PC曲線のフラット化（需給ギャップに対してのインフレ率の弾性値の低下）と呼ばれている。研究では，日本だけではなく欧米でもPC曲線のフラット化が指摘されている。プロットして確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">color_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span> <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">color_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>    <span class="c1">#1</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#2</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_lst</span><span class="p">,</span> <span class="n">color_lst</span><span class="p">):</span>
     
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">d</span> <span class="p">)</span>
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
-               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:],</span>
-               <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                    <span class="c1"># 2</span>
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>              <span class="c1"># 3</span>
-               <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+                        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
+                        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
+                        <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>      <span class="c1">#3</span>
+                        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>    <span class="c1">#4</span>
+                        <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>                           <span class="c1"># 4</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>                        <span class="c1"># 5</span>
-            <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+                        <span class="n">y</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>  
+                        <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>          <span class="c1">#5</span>
+                        <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>      <span class="c1">#6</span>
+                        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                        <span class="p">)</span>
 
+<span class="c1"># 軸の飾り付け</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;フラット化するフィリップス曲線&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;失業率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b88d65995905888e240941f87e8557a32efdb403d80b7e3a16272692392fb80b.png" src="_images/b88d65995905888e240941f87e8557a32efdb403d80b7e3a16272692392fb80b.png" />
+<img alt="_images/896fb863cfc06b5e528a139622a7a418a208b0aaf2a825f406892978cd0d3a07.png" src="_images/896fb863cfc06b5e528a139622a7a418a208b0aaf2a825f406892978cd0d3a07.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="arabic simple">
-<li><p>色のリスト</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：色のリスト</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">['orange','k',</span> <span class="pre">'b',</span> <span class="pre">'r']</span></code>としてもOK。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>は散布図の円形マーカーの縁の色を指定する引数。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">facecolor</span></code>は散布図の円形マーカーの内側の色を指定する引数。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>は直線の色を指定する引数。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">linewidth</span></code>は直線幅を指定する引数。</p></li>
-</ol>
-</div>
-<div class="dropdown admonition">
-<p class="admonition-title">上の図をDataFrameのメソッド.plot()を使い図示する方法</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">decade_list</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
-    
-    <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span> <span class="p">)</span>
-    
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
-               <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:],</span>
-               <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
-               <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">),</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>
-            <span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;フラット化するフィリップス曲線&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;失業率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：空の軸を作成し，変数<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てる。続く<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，<code class="docutils literal notranslate"><span class="pre">ax</span></code>にプロットする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>は散布図の円形マーカーの縁の色を指定する引数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">color</span></code>は散布図の円形マーカー色を指定する引数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：<code class="docutils literal notranslate"><span class="pre">color</span></code>は直線の色を指定する引数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：<code class="docutils literal notranslate"><span class="pre">linewidth</span></code>は直線幅を指定する引数。</p></li>
+</ul>
 </div>
 <p>時間が経つにつれてPC曲線は右に横滑りしていることが確認できる。失業率に対してのインフレ率の反応が鈍くなっていることを示しているが，フラット化の原因は定かではなく，活発な研究がおこなわれている。原因として次の点が指摘されている。</p>
 <ol class="arabic simple">
@@ -1341,122 +1317,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>10</td>
-      <td>5.665093</td>
+      <td>5.074176</td>
     </tr>
     <tr>
       <th>2019-02-01</th>
       <td>20</td>
-      <td>4.016142</td>
+      <td>4.861953</td>
     </tr>
     <tr>
       <th>2019-03-01</th>
       <td>30</td>
-      <td>4.624162</td>
+      <td>5.143525</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>40</td>
-      <td>5.620443</td>
+      <td>4.516521</td>
     </tr>
     <tr>
       <th>2019-05-01</th>
       <td>50</td>
-      <td>5.471804</td>
+      <td>4.881597</td>
     </tr>
     <tr>
       <th>2019-06-01</th>
       <td>60</td>
-      <td>4.872488</td>
+      <td>5.647741</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>70</td>
-      <td>4.400157</td>
+      <td>5.318201</td>
     </tr>
     <tr>
       <th>2019-08-01</th>
       <td>80</td>
-      <td>3.159480</td>
+      <td>5.357071</td>
     </tr>
     <tr>
       <th>2019-09-01</th>
       <td>90</td>
-      <td>5.891952</td>
+      <td>5.078082</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>100</td>
-      <td>4.163431</td>
+      <td>4.363170</td>
     </tr>
     <tr>
       <th>2019-11-01</th>
       <td>110</td>
-      <td>2.850931</td>
+      <td>4.344748</td>
     </tr>
     <tr>
       <th>2019-12-01</th>
       <td>120</td>
-      <td>7.916304</td>
+      <td>4.380641</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>10</td>
-      <td>5.145181</td>
+      <td>4.958843</td>
     </tr>
     <tr>
       <th>2020-02-01</th>
       <td>20</td>
-      <td>5.671793</td>
+      <td>4.239413</td>
     </tr>
     <tr>
       <th>2020-03-01</th>
       <td>30</td>
-      <td>3.851255</td>
+      <td>5.039118</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>40</td>
-      <td>4.594246</td>
+      <td>6.144888</td>
     </tr>
     <tr>
       <th>2020-05-01</th>
       <td>50</td>
-      <td>5.391991</td>
+      <td>6.463647</td>
     </tr>
     <tr>
       <th>2020-06-01</th>
       <td>60</td>
-      <td>3.343603</td>
+      <td>6.157399</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>70</td>
-      <td>6.217152</td>
+      <td>5.354065</td>
     </tr>
     <tr>
       <th>2020-08-01</th>
       <td>80</td>
-      <td>4.603704</td>
+      <td>6.319444</td>
     </tr>
     <tr>
       <th>2020-09-01</th>
       <td>90</td>
-      <td>7.323675</td>
+      <td>5.242068</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>100</td>
-      <td>5.459282</td>
+      <td>3.890004</td>
     </tr>
     <tr>
       <th>2020-11-01</th>
       <td>110</td>
-      <td>6.355928</td>
+      <td>6.436630</td>
     </tr>
     <tr>
       <th>2020-12-01</th>
       <td>120</td>
-      <td>5.802348</td>
+      <td>4.755616</td>
     </tr>
   </tbody>
 </table>
@@ -1484,7 +1460,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x10542b6e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x1140791f0&gt;
 </pre></div>
 </div>
 </div>
@@ -1525,42 +1501,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>20.0</td>
-      <td>4.768466</td>
+      <td>5.026552</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>50.0</td>
-      <td>5.321578</td>
+      <td>5.015286</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>80.0</td>
-      <td>4.483863</td>
+      <td>5.251118</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>110.0</td>
-      <td>4.976889</td>
+      <td>4.362853</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>20.0</td>
-      <td>4.889409</td>
+      <td>4.745791</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>50.0</td>
-      <td>4.443280</td>
+      <td>6.255311</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>80.0</td>
-      <td>6.048177</td>
+      <td>5.638526</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>110.0</td>
-      <td>5.872519</td>
+      <td>5.027416</td>
     </tr>
   </tbody>
 </table>
@@ -1601,12 +1577,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>65.0</td>
-      <td>4.887699</td>
+      <td>4.913952</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>65.0</td>
-      <td>5.313346</td>
+      <td>5.416761</td>
     </tr>
   </tbody>
 </table>
@@ -1651,6 +1627,7 @@ P_tY_t=M_tV_t
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1690,12 +1667,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>0.5547</td>
-      <td>0.278554</td>
+      <td>0.088428</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>0.5547</td>
-      <td>0.207778</td>
+      <td>0.162956</td>
     </tr>
   </tbody>
 </table>
@@ -2013,9 +1990,10 @@ memory usage: 18.6 KB
 <p>以下では，デフォルトで<code class="docutils literal notranslate"><span class="pre">.pct_change()</span></code>を使い計算する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">month</span><span class="p">,</span> <span class="n">quarter</span><span class="p">,</span> <span class="n">annual</span><span class="p">,</span> <span class="n">annual3</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">month</span><span class="p">,</span> <span class="n">quarter</span><span class="p">,</span> <span class="n">annual</span><span class="p">,</span> <span class="n">annual3</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">df_lst</span><span class="p">:</span>
+    
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;cpi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;money_growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;money&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
 </pre></div>
@@ -2108,21 +2086,21 @@ memory usage: 18.6 KB
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使ってOLSの計算とプロットを同時におこなおう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;月次データ&#39;</span><span class="p">,</span><span class="s1">&#39;四半期データ&#39;</span><span class="p">,</span><span class="s1">&#39;年次データ&#39;</span><span class="p">,</span><span class="s1">&#39;3年次データ&#39;</span><span class="p">]</span>    <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;月次データ&#39;</span><span class="p">,</span><span class="s1">&#39;四半期データ&#39;</span><span class="p">,</span><span class="s1">&#39;年次データ&#39;</span><span class="p">,</span><span class="s1">&#39;3年次データ&#39;</span><span class="p">]</span>       <span class="c1">#1</span>
 
-<span class="k">for</span> <span class="n">df</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span><span class="n">title_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">df</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_lst</span><span class="p">,</span><span class="n">title_lst</span><span class="p">):</span>
     
-    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>    <span class="c1"># 2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>                            <span class="c1"># 3</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>        <span class="c1">#2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>                                <span class="c1">#3</span>
     
-    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span> <span class="c1"># 4</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;トレンド&#39;</span><span class="p">,</span>     <span class="c1"># 5</span>
-                                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>          <span class="c1"># 6</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                                     <span class="c1"># 7</span>
-                  <span class="sa">f</span><span class="s1">&#39;スロープ係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>           <span class="c1"># 8</span>
-                  <span class="sa">f</span><span class="s1">&#39;p値：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                <span class="c1"># 9</span>
-                  <span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>      <span class="c1"># 10</span>
-                  <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>                         <span class="c1"># 11</span>
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>  <span class="c1">#4</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;トレンド&#39;</span><span class="p">,</span>    <span class="c1">#5</span>
+                                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>               <span class="c1">#6</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                                          <span class="c1">#7</span>
+                  <span class="sa">f</span><span class="s1">&#39;スロープ係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>               <span class="c1">#8</span>
+                  <span class="sa">f</span><span class="s1">&#39;p値：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                     <span class="c1">#9</span>
+                  <span class="sa">f</span><span class="s1">&#39;調整済み決定係数：</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>         <span class="c1">#10</span>
+                  <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>                              <span class="c1">#11</span>
 </pre></div>
 </div>
 </div>
@@ -2354,7 +2332,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x10f23c200&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x1141e93d0&gt;
 </pre></div>
 </div>
 </div>
@@ -2369,7 +2347,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x10f3b0fe0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x114198e60&gt;
 </pre></div>
 </div>
 </div>
@@ -3157,7 +3135,7 @@ Name: money, Length: 6584, dtype: float64
 <p class="admonition-title">コードの説明</p>
 <p>欠損値である<code class="docutils literal notranslate"><span class="pre">NaN</span></code>は<code class="docutils literal notranslate"><span class="pre">na</span></code>（not available）とも呼ばれる。メソッド<code class="docutils literal notranslate"><span class="pre">.notna()</span></code>は文字通り<code class="docutils literal notranslate"><span class="pre">na</span></code>ではない要素には<code class="docutils literal notranslate"><span class="pre">True</span></code>を<code class="docutils literal notranslate"><span class="pre">na</span></code>である要素には<code class="docutils literal notranslate"><span class="pre">False</span></code>を返す。<code class="docutils literal notranslate"><span class="pre">.sum()</span></code>は<code class="docutils literal notranslate"><span class="pre">True</span></code>の数を合計している。</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">inflation</span></code>の値が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない行は6407あることがわかった。次に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が50％以上の行数を数えてみよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">inflation</span></code>の値が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない行数を確認した。次に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>が50％以上の行数を数えてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hyper</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;inflation &gt;= 50&#39;</span><span class="p">)</span> <span class="p">)</span>
@@ -3186,7 +3164,7 @@ Name: money, Length: 6584, dtype: float64
 <p>次に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>の上位5ヵ国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3365,7 +3343,7 @@ Name: inflation, dtype: float64
 <p>全てのデータを使って散布図をプロットしトレンドを計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -3413,11 +3391,11 @@ Name: inflation, dtype: float64
 <p>まず，それぞれの経済の２変数の平均を計算するが，一つ注意点がある。<code class="docutils literal notranslate"><span class="pre">world</span></code>に<code class="docutils literal notranslate"><span class="pre">inflation</span></code>と<code class="docutils literal notranslate"><span class="pre">money_growth</span></code>があるので，<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>を使って平均を計算すれば良いと思うかもしれない。しかし<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>は算術平均であり，計算したいのは増加率の平均なので可能であれば幾何平均を使うべきである。残念ながら，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>には幾何平均のメソッドが良いされて良いないので，次のように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算することにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">money_growth_mean_list</span> <span class="o">=</span> <span class="p">[]</span>                   <span class="c1"># 1</span>
-<span class="n">inflation_mean_list</span> <span class="o">=</span> <span class="p">[]</span>                      <span class="c1"># 2</span>
-<span class="n">iso_list</span> <span class="o">=</span> <span class="p">[]</span>                                 <span class="c1"># 3 </span>
-<span class="n">country_list</span> <span class="o">=</span> <span class="p">[]</span>                             <span class="c1"># 4</span>
-<span class="n">income_group_list</span> <span class="o">=</span> <span class="p">[]</span>                        <span class="c1"># 5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">money_growth_mean_lst</span> <span class="o">=</span> <span class="p">[]</span>                   <span class="c1"># 1</span>
+<span class="n">inflation_mean_lst</span> <span class="o">=</span> <span class="p">[]</span>                      <span class="c1"># 2</span>
+<span class="n">iso_lst</span> <span class="o">=</span> <span class="p">[]</span>                                 <span class="c1"># 3 </span>
+<span class="n">country_lst</span> <span class="o">=</span> <span class="p">[]</span>                             <span class="c1"># 4</span>
+<span class="n">income_group_lst</span> <span class="o">=</span> <span class="p">[]</span>                        <span class="c1"># 5</span>
 
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;iso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>         <span class="c1"># 6</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;iso==@c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="c1"># 7</span>
@@ -3430,21 +3408,21 @@ Name: inflation, dtype: float64
         <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;deflator&#39;</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
     <span class="p">)</span>
                                               <span class="c1"># 11</span>
-    <span class="n">money_growth_mean_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">money_growth_mean</span><span class="p">)</span>
-    <span class="n">inflation_mean_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inflation_mean</span><span class="p">)</span>
-    <span class="n">iso_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">money_growth_mean_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">money_growth_mean</span><span class="p">)</span>
+    <span class="n">inflation_mean_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inflation_mean</span><span class="p">)</span>
+    <span class="n">iso_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
                                               <span class="c1"># 12</span>
-    <span class="n">country_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">country_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     
                                               <span class="c1"># 13</span>
-    <span class="n">income_group_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">income_group_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;income_group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     
                                               <span class="c1"># 14</span>
-<span class="n">world_mean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;country&#39;</span><span class="p">:</span><span class="n">country_list</span><span class="p">,</span>
-                           <span class="s1">&#39;income_group&#39;</span><span class="p">:</span><span class="n">income_group_list</span><span class="p">,</span>
-                           <span class="s1">&#39;money_growth_mean&#39;</span><span class="p">:</span><span class="n">money_growth_mean_list</span><span class="p">,</span>
-                           <span class="s1">&#39;inflation_mean&#39;</span><span class="p">:</span><span class="n">inflation_mean_list</span><span class="p">,</span>
-                           <span class="s1">&#39;iso&#39;</span><span class="p">:</span><span class="n">iso_list</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;iso&#39;</span><span class="p">)</span>
+<span class="n">world_mean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;country&#39;</span><span class="p">:</span><span class="n">country_lst</span><span class="p">,</span>
+                           <span class="s1">&#39;income_group&#39;</span><span class="p">:</span><span class="n">income_group_lst</span><span class="p">,</span>
+                           <span class="s1">&#39;money_growth_mean&#39;</span><span class="p">:</span><span class="n">money_growth_mean_lst</span><span class="p">,</span>
+                           <span class="s1">&#39;inflation_mean&#39;</span><span class="p">:</span><span class="n">inflation_mean_lst</span><span class="p">,</span>
+                           <span class="s1">&#39;iso&#39;</span><span class="p">:</span><span class="n">iso_lst</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;iso&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3631,7 +3609,7 @@ Name: inflation, dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">world_mean</span></code>を使いクロスセクションのデータをプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="n">xpoints</span> <span class="o">=</span> <span class="n">ypoints</span> <span class="o">=</span> <span class="n">ax_</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xpoints</span><span class="p">,</span><span class="n">ypoints</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;45度線&#39;</span><span class="p">)</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;平均インフレ率とマネーストトックの平均成長率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
