@@ -491,7 +491,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -942,7 +942,7 @@ y_t=-cp_t + u_t
 <p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>をプロットし，データのイメージを掴んでおこう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">])</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
@@ -1017,7 +1017,7 @@ y_t=-cp_t + u_t
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_shift</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="n">tmp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">t_shift</span><span class="p">)</span>
-<span class="n">ax_</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">])</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="n">yp_corr_shift</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPと</span><span class="si">{</span><span class="n">t_shift</span><span class="si">}</span><span class="s1">期先のデフレータの％乖離の相関係数：</span><span class="si">{</span><span class="n">yp_corr_shift</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1241,8 +1241,8 @@ p_{t}=hp_{t-1} + e_{pt}
 Dep. Variable:         deflator_cycle   R-squared:                       0.689
 Model:                            OLS   Adj. R-squared:                  0.688
 Method:                 Least Squares   F-statistic:                     384.1
-Date:                Fri, 09 Aug 2024   Prob (F-statistic):           8.56e-46
-Time:                        11:46:22   Log-Likelihood:                 716.66
+Date:                Sat, 10 Aug 2024   Prob (F-statistic):           8.56e-46
+Time:                        02:07:42   Log-Likelihood:                 716.66
 No. Observations:                 175   AIC:                            -1429.
 Df Residuals:                     173   BIC:                            -1423.
 Df Model:                           1                                         
@@ -1314,8 +1314,8 @@ y_t = dp_{t-1} + e_{yt}
 Dep. Variable:              gdp_cycle   R-squared:                       0.041
 Model:                            OLS   Adj. R-squared:                  0.035
 Method:                 Least Squares   F-statistic:                     7.398
-Date:                Fri, 09 Aug 2024   Prob (F-statistic):            0.00719
-Time:                        11:46:22   Log-Likelihood:                 492.28
+Date:                Sat, 10 Aug 2024   Prob (F-statistic):            0.00719
+Time:                        02:07:42   Log-Likelihood:                 492.28
 No. Observations:                 175   AIC:                            -980.6
 Df Residuals:                     173   BIC:                            -974.2
 Df Model:                           1                                         

@@ -486,7 +486,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eigvals</span><span class="p">,</span> <span class="n">inv</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1703,31 +1703,29 @@ u_t=v_t=e_t=0
 <p>次にプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>                 <span class="c1"># 1</span>
-                       <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span>        <span class="c1"># 2</span>
-               
-                       <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># 3</span>
-
-                                             <span class="c1"># 4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df_res_1</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1">#1</span>
+                           <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>     <span class="c1">#2</span>
+                           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>    <span class="c1">#3          </span>
+                                             <span class="c1">#4</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;インフレ率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-                                             <span class="c1"># 5</span>
+                                             <span class="c1">#5</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;産出量&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;産出量&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;産出量&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-                                             <span class="c1"># 6</span>
+                                             <span class="c1">#6</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;名目利子率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;名目利子率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;名目利子率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-                                             <span class="c1"># 7</span>
+                                             <span class="c1">#7</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;実質利子率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;実質利子率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;実質利子率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;ケース１&#39;</span><span class="p">,</span><span class="s1">&#39;ケース２&#39;</span><span class="p">],</span>             <span class="c1"># 8</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>                      <span class="c1"># 9</span>
-           <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>                           <span class="c1"># 10</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;ケース１&#39;</span><span class="p">,</span><span class="s1">&#39;ケース２&#39;</span><span class="p">],</span>             <span class="c1">#8</span>
+           <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>                      <span class="c1">#9</span>
+           <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>                           <span class="c1">#10</span>
            <span class="n">loc</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 <span class="c1">#            bbox_to_anchor=(0.7, 1.1))        # 11</span>
 <span class="k">pass</span>
@@ -1735,12 +1733,28 @@ u_t=v_t=e_t=0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/81a231f86188814eaeac496c3948d25c3c74624cf300eae4e55b7c90a999b4cf.png" src="_images/81a231f86188814eaeac496c3948d25c3c74624cf300eae4e55b7c90a999b4cf.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;実質利子率&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_res_2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;実質利子率&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;ケース１&#39;</span><span class="p">,</span><span class="s1">&#39;ケース２&#39;</span><span class="p">],</span>             <span class="c1">#8</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>            <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>                      <span class="c1">#9</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>            <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>                           <span class="c1">#10</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>            <span class="n">loc</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="c1">#            bbox_to_anchor=(0.7, 1.1))        # 11</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">pass</span>
+
+<span class="ne">NameError</span>: name &#39;fig&#39; is not defined
+</pre></div>
+</div>
+<img alt="_images/3b5484820feab2b5286b5bea7143aae30c575db058c06491a9bed8e649e9e5fd.png" src="_images/3b5484820feab2b5286b5bea7143aae30c575db058c06491a9bed8e649e9e5fd.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">.head(0)</span></code>は列ラベルだけの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返すが，それを利用して空の軸を作成する。</p></li>
 <li><p>引数として<code class="docutils literal notranslate"><span class="pre">2</span></code>，<code class="docutils literal notranslate"><span class="pre">2</span></code>を使っているので（最初の<code class="docutils literal notranslate"><span class="pre">2</span></code>は行数，次の<code class="docutils literal notranslate"><span class="pre">2</span></code>は列数），4つの「軸」があり<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>として次のように格納される。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span><span class="n">軸１</span><span class="p">,</span><span class="n">軸２</span><span class="p">],</span>
        <span class="p">[</span><span class="n">軸３</span><span class="p">,</span><span class="n">軸４</span><span class="p">]])</span>
@@ -1749,7 +1763,6 @@ u_t=v_t=e_t=0
 <p>この<code class="docutils literal notranslate"><span class="pre">array</span></code>が<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられている。軸１にアクセスするには<code class="docutils literal notranslate"><span class="pre">ax[0,0]</span></code>，軸２には<code class="docutils literal notranslate"><span class="pre">ax[0,1]</span></code>，軸３には<code class="docutils literal notranslate"><span class="pre">ax[1,0]</span></code>，軸４には<code class="docutils literal notranslate"><span class="pre">ax[1,1]</span></code>とする。この方法で(4)-(7)では<code class="docutils literal notranslate"><span class="pre">ax</span></code>の「軸」にアクセスしている</p>
 </li>
 <li><p>キャンバスの大きさを設定している。</p></li>
-<li><p>「軸」間の感覚の調整（ない場合どうなるか試してみよう）。</p></li>
 <li><p>左上の図</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ax[0,0]</span></code>で「軸１」にアクセスして，メソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>でプロットする。</p>
