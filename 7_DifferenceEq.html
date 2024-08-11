@@ -466,7 +466,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -598,7 +598,7 @@ x_{t+1}=0.4x_{t}+3
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
     
-    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>      <span class="c1"># 3</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>    <span class="c1"># 3</span>
         
     <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># 4</span>
 </pre></div>
@@ -714,7 +714,7 @@ x_{t+1}=0.4x_{t}+3
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
     
-    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">x_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>        <span class="c1"># 2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">x_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>      <span class="c1"># 2</span>
         
     <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>             <span class="c1"># 3</span>
 
@@ -741,14 +741,14 @@ x_{t+1}=0.4x_{t}+3
 <p><code class="docutils literal notranslate"><span class="pre">1</span></code>（初期値）と計算する回数分の<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>を用意し、計算結果をその中に格納する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>                          <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>                           <span class="c1"># 1</span>
 
-<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n</span><span class="p">)</span>             <span class="c1"># 2</span>
-<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                      <span class="c1"># 3</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n</span><span class="p">)</span>              <span class="c1"># 2</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                       <span class="c1"># 3</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     
-    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>   <span class="c1"># 4</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span>  <span class="c1"># 4</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x_list</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="k">pass</span>
@@ -802,7 +802,7 @@ x_{t+1}=1.2x_{t}-0.2
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
     
-    <span class="n">x</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">0.2</span>
         
     <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
@@ -912,7 +912,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model45</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数                             # 1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数                                 #1</span>
 <span class="sd">            y0: GDPの初期値</span>
 <span class="sd">            a: 所得に依存しない消費</span>
 <span class="sd">            b: 限界消費性向</span>
@@ -922,18 +922,18 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <span class="sd">        戻り値</span>
 <span class="sd">            yの値からなるDataFrame&quot;&quot;&quot;</span>
     
-    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                              <span class="c1"># 2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                                <span class="c1">#2</span>
     
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                       <span class="c1"># 3</span>
+    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>                         <span class="c1">#3</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         
-        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">f</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>     <span class="c1"># 4</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                <span class="c1"># 5</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">f</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="c1"># 4</span>
+        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                  <span class="c1"># 5</span>
 
-    <span class="n">yss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">f</span><span class="p">)</span>                 <span class="c1"># 6</span>
+    <span class="n">yss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">f</span><span class="p">)</span>                 <span class="c1"># 6</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での産出量:</span><span class="si">{</span><span class="n">yss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># 7</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での産出量:</span><span class="si">{</span><span class="n">yss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>   <span class="c1"># 7</span>
     
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">})</span>  <span class="c1"># 8</span>
 </pre></div>
@@ -1073,15 +1073,15 @@ q_t=q_{*}=a-bp_{*}
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         
-        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">p</span>
-        <span class="n">q</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">p</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">p</span>
 
         <span class="n">q_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
         <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
     <span class="c1"># 定常状態</span>
-    <span class="n">pss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
-    <span class="n">qss</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">pss</span>
+    <span class="n">pss</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">qss</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">pss</span>
     
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常状態での価格:</span><span class="si">{</span><span class="n">pss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="se">\n</span><span class="s1">定常状態での量:　</span><span class="si">{</span><span class="n">qss</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     
@@ -1094,7 +1094,7 @@ q_t=q_{*}=a-bp_{*}
 <p>まず<span class="math notranslate nohighlight">\(\dfrac{d}{b}&lt;1\)</span>を仮定し収束するケースを考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1114,7 +1114,7 @@ q_t=q_{*}=a-bp_{*}
 <p><span class="math notranslate nohighlight">\(\dfrac{d}{b}&gt;1\)</span>を仮定し発散するケースをプロットする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobweb</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>

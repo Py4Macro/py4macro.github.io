@@ -478,7 +478,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.25&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -583,10 +583,10 @@ Name: gdp_pc_log, dtype: float64
                                       <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># 2 密度関数</span>
-<span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+<span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 
 <span class="c1"># 3 日本</span>
-<span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">y_jp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">y_jp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 
 <span class="c1"># 4 横軸の表示範囲</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
@@ -1081,8 +1081,10 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>         <span class="c1"># 1</span>
+    
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>  <span class="c1"># 2</span>
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># 3</span>
+        
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># 4</span>
 </pre></div>
@@ -1123,10 +1125,13 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_growth_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    
     <span class="n">t</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
         <span class="n">x_growth</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>  <span class="c1"># 1</span>
         <span class="k">return</span> <span class="n">x_growth</span>
+        
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 </pre></div>
@@ -1312,53 +1317,47 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <p>平均成長率のヒストグラムを図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_average</span> <span class="o">=</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">growth_avr</span> <span class="o">=</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1">#1</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_convergence</span><span class="p">,</span>            <span class="c1"># 2 </span>
-                         <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>         <span class="c1"># 3</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">growth_average</span> <span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                     <span class="c1"># 4</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;赤い線は平均&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>                      <span class="c1"># 5</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_convergence</span><span class="p">)</span><span class="si">}</span><span class="s1">ヵ国の平均成長率 (%)&#39;</span><span class="p">,</span>  <span class="c1"># 6</span>
-             <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span>   <span class="c1">#2</span>
+                         <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>           <span class="c1">#3</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">growth_avr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                        <span class="c1">#4</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>                            <span class="c1">#5</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_convergence</span><span class="p">)</span><span class="si">}</span><span class="s1">ヵ国の平均成長率</span><span class="se">\n</span><span class="s1">赤い線は平均&#39;</span><span class="p">,</span>     <span class="c1">#6</span>
+    <span class="n">size</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>                                               <span class="c1">#7</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a772e4039212e12bc34136dad648c2f74cf4c69443e7bceba120057848edcd78.png" src="_images/a772e4039212e12bc34136dad648c2f74cf4c69443e7bceba120057848edcd78.png" />
+<img alt="_images/88fdb9c9be64d6e081ddf6c819cafbe6be0884e3b3c2d4be1847cf493d6be76c.png" src="_images/88fdb9c9be64d6e081ddf6c819cafbe6be0884e3b3c2d4be1847cf493d6be76c.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
-<ol class="arabic simple">
-<li><p>平均成長率の平均を計算し，結果を変数<code class="docutils literal notranslate"><span class="pre">growth_average</span></code>に割り当てている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.hist</span></code>はヒストグラムをプロットする<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド。</p>
 <ul class="simple">
-<li><p>第一引数はプロットしたい列ラベル（ここでは<code class="docutils literal notranslate"><span class="pre">gdp_pc_growth</span></code>）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>は使用する<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を指定する（ここでは<code class="docutils literal notranslate"><span class="pre">df_convergence</span></code>）</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bins</span></code>は階級の数を指定する引数（ここでは<code class="docutils literal notranslate"><span class="pre">25</span></code>）。<code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>はヒストグラムの棒の枠線の色を指定する引数で，<code class="docutils literal notranslate"><span class="pre">k</span></code>は黒を示す。<code class="docutils literal notranslate"><span class="pre">black</span></code>としても構わない。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は縦の線を引く<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド</p>
-<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：平均成長率の平均を計算し，結果を変数<code class="docutils literal notranslate"><span class="pre">growth_avr</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">df_convergence</span></code>を使い<code class="docutils literal notranslate"><span class="pre">gdp_pc_growth</span></code>のヒストグラムをプロットし、軸を<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">bins</span></code>は階級の数を指定する引数（ここでは<code class="docutils literal notranslate"><span class="pre">25</span></code>）。<code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>はヒストグラムの棒の枠線の色を指定する引数で，<code class="docutils literal notranslate"><span class="pre">k</span></code>は黒を示す。<code class="docutils literal notranslate"><span class="pre">black</span></code>としても構わない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">axvline()</span></code>は縦の線を引く<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッド</p>
+<ul>
 <li><p>第一引数は横軸の値</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>は色を指定する引数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>は色を指定する引数</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「軸」が<code class="docutils literal notranslate"><span class="pre">ax</span></code>に割り当てられるが，「軸」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.set_title()</span></code>。</p>
-<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：軸のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">ax</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.set_title()</span></code>。</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>によって「キャンバス」が<code class="docutils literal notranslate"><span class="pre">fig</span></code>に割り当てられるが，「キャンバス」のタイトルを設定する<code class="docutils literal notranslate"><span class="pre">fig</span></code>のメソッドが<code class="docutils literal notranslate"><span class="pre">.suptitle()</span></code>。</p>
-<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：軸のタイトルを設定する。</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使って<code class="docutils literal notranslate"><span class="pre">{}</span></code>の中に<code class="docutils literal notranslate"><span class="pre">len(df_reg)</span></code>を代入している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p></li>
 </ul>
 </li>
-</ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：<code class="docutils literal notranslate"><span class="pre">size</span></code>はフォントの大きさを指定する。</p></li>
+</ul>
 <p>上のヒストグラムは<a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の章の「はじめに」で表示したヒストグラムと次の点で異なる。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">df_convergence</span></code>は1970年以降のデータを使っている，「はじめに」のヒストグラムは1960年以降のデータを使っている。</p></li>
@@ -1369,7 +1368,7 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <p>何％の国で平均を下回るか確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">growth_average</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_convergence</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">growth_avr</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_convergence</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1510,10 +1509,10 @@ gdp_pc_init_log    -0.0064      0.001     -5.297      0.000      -0.009      -0.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remaining_percent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">speed1970</span><span class="p">):</span>
     
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">gdp_pc_us</span><span class="o">-</span><span class="n">gdp_pc_mean</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">s</span> <span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x0</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">gdp_pc_us</span> <span class="o">-</span> <span class="n">gdp_pc_mean</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">s</span> <span class="p">)</span><span class="o">**</span><span class="n">n</span> <span class="o">*</span> <span class="n">x0</span>
     
-    <span class="k">return</span> <span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="n">x0</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">x0</span>
 </pre></div>
 </div>
 </div>
