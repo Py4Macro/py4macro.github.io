@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>GDPと失業及びトレンド &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+    <title>マクロ変数とトレンド &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
   
   
   
@@ -198,7 +198,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期分析I</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">GDPと失業及びトレンド</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">マクロ変数とトレンド</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11_Macro_Variables.html">法則・曲線・増加率</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_ADAS-1.html">定量的マクロ経済分析：Part 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_ADAS-2.html">定量的マクロ経済分析：Part 2</a></li>
@@ -418,7 +418,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>GDPと失業及びトレンド</h1>
+    <h1>マクロ変数とトレンド</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -428,22 +428,29 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">GDPとその変化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">GDPとその変化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">GDPの構成要素</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率とインフレ率</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">トレンドと変動</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">説明</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">GDPのトレンドからの乖離率</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">GDPとの相関度</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関度</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">自己共分散（自己相関）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">自己共分散（自己相関）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの場合</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
 </ul>
 </li>
 </ul>
@@ -457,8 +464,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="gdp">
-<span id="chap-10-gdp"></span><h1>GDPと失業及びトレンド<a class="headerlink" href="#gdp" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chap-10-gdp">
+<span id="id1"></span><h1>マクロ変数とトレンド<a class="headerlink" href="#chap-10-gdp" title="Link to this heading">#</a></h1>
 <div name="html-admonition" style="font-size: 0.8em">
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
@@ -482,8 +489,8 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="id1">
-<h2>はじめに<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>人の心の中を知ることはできない。友人，同僚，パートナー，親族もそうである。また何十年も連れ添った夫婦でさえも完全にお互いの心の中を分かっているとは言い難いだろう。しかし話し言葉やその内容，行動から心の中を推測することは可能である。実際，我々は日常そうしており，人間関係を豊かにする為には必須でる。経済も同じである。経済の動きの裏にある「真のメカニズム」は完全に把握されていない。アダム・スミスの時代に比べると，「熟練夫婦」に匹敵するほど知見は蓄積されたかも知れないが，今でも「真のメカニズム」が100％解明されたとは言い難い。経済学者にとってできることは，経済の「言動」であるデータを観察し「真のメカニズム」について想像を巡らすことである。人の言動に注意を払わずに人の心の中を想像するのは「妄想」となり，データを無視して経済を考えるのは「空想」となってしまう危険性がある。</p>
 <blockquote>
 <div><p>人の心の中　<span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span>　経済の真のメカニズム</p>
@@ -781,8 +788,8 @@ memory usage: 22.0 KB
 <p>左辺と右辺（需要項目の合計）は等しくないという意味で「加法整合性の不成立」が発生している。その差は「開差」という項目で内閣府のデータに含まれており、連鎖価格の実質GDPは水準よりも変化率の分析に適していると言われている。では、どれ程の差があるのだろうか。開差の絶対値の平均は公式系列の1994Q1〜2023年Q4のデータでは平均で約<code class="docutils literal notranslate"><span class="pre">0.6</span></code>％（対GDP比）、参考系列の1980〜1993年で約<code class="docutils literal notranslate"><span class="pre">3.2</span></code>％（対GDP比）となっている。驚く程の大きさではないかも知れないが、以下ではこの問題を念頭に置きつつ需要項目の割合などの議論を進めることにする。</p>
 </div>
 </section>
-<section id="id2">
-<h2>GDPとその変化<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="gdp">
+<h2>GDPとその変化<a class="headerlink" href="#gdp" title="Link to this heading">#</a></h2>
 <p>まずGDPを図示しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -835,19 +842,30 @@ memory usage: 22.0 KB
 1+g_x=\frac{x_{t+1}}{x_{t}}
 \]</div>
 <p>ここで<span class="math notranslate nohighlight">\(g_x\)</span>の値は，例えば<code class="docutils literal notranslate"><span class="pre">0.02</span></code>（<code class="docutils literal notranslate"><span class="pre">2％</span></code>）のような値となる。この式の両辺に対数を取り，近似を使うと次のように書き直すことができる。</p>
-<div class="math notranslate nohighlight">
-\[
-\log(1+g_x)=\log(x_{t+1})-\log(x_{t})
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\qquad\qquad\quad\Downarrow\text{左辺を近似}\;\log(1+g_x)\approx g_x
-\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-10-log-growth">
-<span class="eqno">(99)<a class="headerlink" href="#equation-eq-10-log-growth" title="Link to this equation">#</a></span>\[
-g_x\approx\log(x_{t+1})-\log(x_{t})
-\]</div>
+<span class="eqno">(99)<a class="headerlink" href="#equation-eq-10-log-growth" title="Link to this equation">#</a></span>\[\begin{split}
+\begin{aligned}
+\log(1+g_x)&amp;=\log(x_{t+1})-\log(x_{t})\\
+&amp;\Downarrow\text{左辺を近似}\;\log(1+g_x)\approx g_x\\
+g_x&amp;\approx\log(x_{t+1})-\log(x_{t})
+\end{aligned}
+\end{split}\]</div>
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>の成長率である<span class="math notranslate nohighlight">\(g_x\)</span>は，<code class="docutils literal notranslate"><span class="pre">x</span></code>の対数の差分ということになる。即ち，縦軸に<code class="docutils literal notranslate"><span class="pre">x</span></code>の対数，横軸に時間をおけば，プロットの傾きは<code class="docutils literal notranslate"><span class="pre">x</span></code>の成長率と等しいことになる。</p>
+<p>この特徴は、<code class="docutils literal notranslate"><span class="pre">1</span></code>期（ここでは<code class="docutils literal notranslate"><span class="pre">1</span></code>四半期）のみに有効なことではなく、<code class="docutils literal notranslate"><span class="pre">2</span></code>期以上を考える場合も有効である。<code class="docutils literal notranslate"><span class="pre">n</span></code>期間における平均成長率を<span class="math notranslate nohighlight">\(g_x\)</span>と置くと次式が成立する。</p>
+<div class="math notranslate nohighlight">
+\[
+(1+g_x)^n=\frac{x_{t+n}}{x_{t}}
+\]</div>
+<p>両辺に対数を取り，近似を使うと次のように書き直すことができる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+n\log(1+g_x)&amp;=\log(x_{t+n})-\log(x_{t})\\
+&amp;\Downarrow\\
+g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
+\end{aligned}
+\end{split}\]</div>
+<p>右辺は<code class="docutils literal notranslate"><span class="pre">n</span></code>期間の平均成長率となる。従って、縦軸に<code class="docutils literal notranslate"><span class="pre">x</span></code>の対数がある場合、複数期間にまたがって直線を書いた場合、その傾きが平均成長率と等しい事になる。</p>
 <p>では実際にプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1033,22 +1051,22 @@ Net Exports 	-1.1
 <p>景気の動向によって上下することがわかる。例えば，リマン・ショック後には投資が大きく下落し少しずつしか上昇しない。一方，景気悪化に反応し政府支出の割合は上昇している。またバブル景気（1986年から1991年まで）ではその逆が起こっており，順位が逆転する程である。コロナ禍の影響もプロットにハッキリと現れている。</p>
 </section>
 <section id="id4">
-<h2>失業率<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>次に失業のデータをプロットしてみよう。</p>
+<h2>失業率とインフレ率<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>次に失業率とインフレ率のデータをプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;失業率（％）&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;失業率（％）&#39;}&gt;
-</pre></div>
-</div>
-<img alt="_images/3c241b80e1b70da931e269d5915234740a8355e3d62e4381ab6102fd8557d03f.png" src="_images/3c241b80e1b70da931e269d5915234740a8355e3d62e4381ab6102fd8557d03f.png" />
+<img alt="_images/ab3ccfc6ea2d33b80e11982693d79e16b50525bf29b5ad0d842902c1fa7135ae.png" src="_images/ab3ccfc6ea2d33b80e11982693d79e16b50525bf29b5ad0d842902c1fa7135ae.png" />
 </div>
 </div>
-<p>1995年頃から2015年頃の約<code class="docutils literal notranslate"><span class="pre">20</span></code>年間は、その前後と比較して高い値になっている。
+<p>インフレ率（年率）は，バブル崩壊後は<code class="docutils literal notranslate"><span class="pre">4</span></code>％以下の低い率をキープし、デフレに陥った期間も長く続いた。</p>
+<p>失業率に関して述べると、1995年頃から2015年頃の約<code class="docutils literal notranslate"><span class="pre">20</span></code>年間は、その前後と比較して高い値になっている。
 2002年第3四半期の一つ目のピークは<code class="docutils literal notranslate"><span class="pre">5.43</span></code>％であり、バブル崩壊の影響によるものである。就職氷河期と呼ばれる期間である。
 2009年第3四半期の二つ目のピークはリーマンショックによる影響であり、同じ<code class="docutils literal notranslate"><span class="pre">5.43</span></code>％である。
 2020年第4四半期にも<code class="docutils literal notranslate"><span class="pre">3.07</span></code>％のピークがあるが、コロナ感染症に端を発している。
@@ -1681,12 +1699,13 @@ trend(s, lamb=1600)
 <li><p>変動の大きさの比較</p></li>
 </ol>
 </section>
+</section>
 <section id="id10">
-<h3>GDPとの相関度<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<h2>変動の相関度<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
 <section id="id11">
-<h4>復習<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
+<h3>復習<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を考えよう。
-<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の不偏分散は次のように定義される。</p>
+<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の<strong>不偏分散</strong>は次のように定義される。</p>
 <div class="math notranslate nohighlight">
 \[
 \sigma_{X}^2=\frac{1}{n-1}\sum_{i=1}^{n}
@@ -1695,10 +1714,17 @@ trend(s, lamb=1600)
 \sigma_{Y}^2=\frac{1}{n-1}\sum_{i=1}^{n}
 \left(Y_i-\overline{Y}\right)^2
 \]</div>
-<p>ここで<span class="math notranslate nohighlight">\(\overline{X}\)</span>と<span class="math notranslate nohighlight">\(\overline{Y}\)</span>は平均を表し、それぞれの標準偏差は<span class="math notranslate nohighlight">\(\sigma_{X}\)</span>と<span class="math notranslate nohighlight">\(\sigma_{Y}\)</span>となる。</p>
-<p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
+<p>ここで<span class="math notranslate nohighlight">\(\overline{X}\)</span>と<span class="math notranslate nohighlight">\(\overline{Y}\)</span>は平均を表し、それぞれの<strong>標準偏差</strong>は</p>
 <div class="math notranslate nohighlight">
 \[
+\sigma_{X},
+\quad
+\sigma_{Y}
+\]</div>
+<p>となる。</p>
+<p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
+<div class="math notranslate nohighlight" id="equation-eq-10-covariance">
+<span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
 \sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
 \left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
 \]</div>
@@ -1715,11 +1741,11 @@ trend(s, lamb=1600)
 \qquad
 \sigma_{YY}=\sigma_{Y}^2,
 \]</div>
-<p>別々の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数を使うことにより共分散を計算することができるが、その<code class="docutils literal notranslate"><span class="pre">2</span></code>変数が同じな場合（<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数もしくは<code class="docutils literal notranslate"><span class="pre">Y</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数）は分散となる。</p>
+<p>別々の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数を使うことにより共分散を計算することができるが、その<code class="docutils literal notranslate"><span class="pre">2</span></code>変数が同じ変数となる場合（<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数もしくは<code class="docutils literal notranslate"><span class="pre">Y</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数）は分散となる。</p>
 <p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することになり、単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
 その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-10-covariance-coef">
+<span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
 \rho_{XY}=
 \frac{\sigma_{XY}}{\sigma_X\sigma_Y}
 \]</div>
@@ -1739,7 +1765,7 @@ trend(s, lamb=1600)
 <p>分母は<code class="docutils literal notranslate"><span class="pre">X</span></code>の分散と等しく，分母も<code class="docutils literal notranslate"><span class="pre">X</span></code>の分散と等しくなり、<code class="docutils literal notranslate"><span class="pre">1</span></code>となる。即ち、<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>は完璧に相関しているため相関係数は<code class="docutils literal notranslate"><span class="pre">1</span></code>となる。また，<span class="math notranslate nohighlight">\(X\)</span>と<span class="math notranslate nohighlight">\(-X\)</span>の相関係数は<span class="math notranslate nohighlight">\(\rho_{X-X}=-1\)</span>となり，完璧な負の相関となる。一般的には，<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>の絶対値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも小さな値となる。相関係数の重要な特徴は単位には依存しないため，単位が異なる変数の相関度を比較するには有用な指標となる。</p>
 </section>
 <section id="cov-corr">
-<h4><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code><a class="headerlink" href="#cov-corr" title="Link to this heading">#</a></h4>
+<h3><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code><a class="headerlink" href="#cov-corr" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>には分散と共分散を計算するメソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>が用意されている。例として、<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">consumption_cycle</span></code>を抽出して<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使ってみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1850,7 +1876,7 @@ trend(s, lamb=1600)
 <p>左下もしくは右上の値が相関係数であり、上の「手計算」と等しい。</p>
 </section>
 <section id="id12">
-<h4>GDPと構成要素との相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
+<h3>GDPと構成要素との相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>GDPと構成要素との相関係数を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1953,8 +1979,357 @@ imports_cycle       0.65
 <p>GDPの乖離は<code class="docutils literal notranslate"><span class="pre">3</span></code>四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。</p>
 </section>
 </section>
-<section id="id13">
-<h3>変動の大きさ<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<section id="sec-10-autocovariance">
+<span id="id13"></span><h2>自己共分散（自己相関）<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
+</section>
+<section id="id14">
+<h2>自己共分散（自己相関）<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<section id="id15">
+<h3>復習<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>次に自己共分散について考えるために，既出のランダム変数<code class="docutils literal notranslate"><span class="pre">X_i</span></code>と<code class="docutils literal notranslate"><span class="pre">Y_i</span></code>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使う。
+<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(105)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式[] (eq:10-covariance_coef)で与えられる。</p>
+<p>ここで時系列のランダム変数を<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>として、次の置き換えてみよう。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_i\;\Rightarrow\;\varepsilon_{t-s},\quad s=1,2,3,\cdots\)</span></p></li>
+</ul>
+<p>これにより分散は次のように置き換えることができる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\sigma_X^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_t}^2\\
+\sigma_Y^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_{t-s}}^2
+\end{aligned}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>のそれぞれの分散は，<code class="docutils literal notranslate"><span class="pre">s</span></code>期ずれているだけの同じランダム変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>に置き換わっている。
+更に，共分散は次のように置き換わる事になる。</p>
+<div class="math notranslate nohighlight">
+\[
+X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
+\quad\Rightarrow\quad
+\sigma_{\varepsilon_t,\varepsilon_{t-s}}
+=s\text{期間離れた}\varepsilon\text{の自己共分散}
+\]</div>
+<p>即ち，自己共分散はランダム変数とその変数の<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値との<strong>自己相関</strong>の度合を示す指標ということになる。</p>
+<p>これらの結果を使うと，<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>の相関係数は</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{\varepsilon}(s)\equiv\rho_{\varepsilon_t,\varepsilon_{t-s}}
+=\frac{
+    \sigma_{\varepsilon_t,\varepsilon_{t-s}}
+    }{
+    \sigma_{\varepsilon_t}
+    \sigma_{\varepsilon_{t-s}}
+    }
+\]</div>
+<p>で与えられる。一般的には<strong>自己相関関数</strong>と呼ばれる。「関数」と呼ばれる理由は，<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t,\varepsilon_{t-s}}\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>の関数として考えることができるためだ。呼称よりも重要なのが数値の解釈である。このサイトでは，<code class="docutils literal notranslate"><span class="pre">s=1</span></code>の場合は自己相関係数と呼ぶ事にする。解釈は次のようになる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)=0,\;s=1,2,3,\cdots\)</span>：何期離れたとしても自己相関はなしという意味である。過去の影響は皆無の状況を指している。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&gt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は正の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>も大きい（小さい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。経済学では<code class="docutils literal notranslate"><span class="pre">s=1</span></code>を考える場合が多く，この性質を<strong>持続性</strong>（persisitence）と呼ぶ。持続性は多くのマクロ変数の重要な特徴となっている。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&lt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は負の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>は小さい（大きい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。</p></li>
+</ul>
+</section>
+<section id="id16">
+<h3>GDPの場合<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>まずGDPの変動を考えるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>から<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として抽出し，変数<code class="docutils literal notranslate"><span class="pre">g</span></code>に割り当てよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に，<code class="docutils literal notranslate"><span class="pre">1</span></code>期違いの自己共分散<span class="math notranslate nohighlight">\(\sigma_{g_tg_{t-1}}\)</span>を計算するために，<code class="docutils literal notranslate"><span class="pre">g</span></code>の列<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を<code class="docutils literal notranslate"><span class="pre">1</span></code>期シフトさせた新たな列<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;gdp_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdp_cycle</th>
+      <th>gdp_cycle_lag</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1980-01-01</th>
+      <td>0.326920</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1980-04-01</th>
+      <td>-1.084502</td>
+      <td>0.326920</td>
+    </tr>
+    <tr>
+      <th>1980-07-01</th>
+      <td>0.045698</td>
+      <td>-1.084502</td>
+    </tr>
+    <tr>
+      <th>1980-10-01</th>
+      <td>1.046795</td>
+      <td>0.045698</td>
+    </tr>
+    <tr>
+      <th>1981-01-01</th>
+      <td>0.944113</td>
+      <td>1.046795</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>の値は<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>の値が<code class="docutils literal notranslate"><span class="pre">1</span></code>期シフトしていることが分かる。
+<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の行の<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>が初期値であり、同じ値が<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の行の<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>に入っている。
+即ち、<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の行を見ると<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>には<code class="docutils literal notranslate"><span class="pre">1</span></code>期の値、<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>には初期（<code class="docutils literal notranslate"><span class="pre">0</span></code>期）の値がある。
+同様に、各行の<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>には<code class="docutils literal notranslate"><span class="pre">t</span></code>期の値、<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>には<code class="docutils literal notranslate"><span class="pre">t-1</span></code>期の値が入っている。</p>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使って分散・自己共分散を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdp_cycle</th>
+      <th>gdp_cycle_lag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>gdp_cycle</th>
+      <td>2.200185</td>
+      <td>1.542588</td>
+    </tr>
+    <tr>
+      <th>gdp_cycle_lag</th>
+      <td>1.542588</td>
+      <td>2.211296</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>左上と右下の対角線上にあるのは、<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>の不偏分散である。近い値だが、<code class="docutils literal notranslate"><span class="pre">gdp_cycle_lag</span></code>には欠損値があるため異なる値となっている。一方、右上と左下の値（同じ値となる）が<strong>自己共分散</strong>である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">g.cov()</span></code>を使って自己相関係数を計算することができるが、一点注意する必要がある。<code class="docutils literal notranslate"><span class="pre">g</span></code>の<code class="docutils literal notranslate"><span class="pre">0</span></code>行目には欠損値があるため、自己共分散を計算する際にその行は使われていない。同様に、自己相関係数を計算する際は欠損値がある行を使わずに計算する必要がある。この点に注意し、次のコードで計算することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">varcov</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+<span class="n">varcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="n">varcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">varcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+</pre></div>
+</div>
+</div>
+</div>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>を使っても同じ結果を得ることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdp_cycle</th>
+      <th>gdp_cycle_lag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>gdp_cycle</th>
+      <td>1.00000</td>
+      <td>0.69745</td>
+    </tr>
+    <tr>
+      <th>gdp_cycle_lag</th>
+      <td>0.69745</td>
+      <td>1.00000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>また、<code class="docutils literal notranslate"><span class="pre">g['gdp_cycle']</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い、直接<strong>自己相関係数</strong>を計算することも可能である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+</pre></div>
+</div>
+</div>
+</div>
+<p>この数値は持続性を意味し，今期のGDPのトレンドからの乖離が正（負）であれば、来季もそれが続く傾向にあることを意味する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">g</span></code>を使って散布図を描いてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;gdp_cycle_lag&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/68fdf83908773d1de5fe0168214674d6ff872a4cb7a9f9d38d3fcbedf686f698.png" src="_images/68fdf83908773d1de5fe0168214674d6ff872a4cb7a9f9d38d3fcbedf686f698.png" />
+</div>
+</div>
+<p>はっきりと正の相関を確認できるが，例外的な動きをしている観測値もある。</p>
+</section>
+<section id="id17">
+<h3>GDPの構成要素<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>まずGDPの構成要素のトレンドからの乖離率の持続性を考察するが，<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を含めて次の変数を考えよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_lst</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;gdp_cycle&#39;, &#39;consumption_cycle&#39;, &#39;investment_cycle&#39;,
+       &#39;government_cycle&#39;, &#39;exports_cycle&#39;, &#39;imports_cycle&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い、自己相関係数を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
+    
+    <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>       <span class="c1">#1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>   <span class="c1">#2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdp_cycle          0.697
+consumption_cycle  0.489
+investment_cycle   0.836
+government_cycle   0.641
+exports_cycle      0.749
+imports_cycle      0.821
+</pre></div>
+</div>
+</div>
+</div>
+<p>消費を除いて全て0.5以上であり，全ての変数で持続性が確認できる。
+特に、投資と輸入の持続性は高いことが分かる。</p>
+</section>
+<section id="id18">
+<h3>インフレ率と失業率<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>次に、失業率とインフレ率の持続性を確認する。</p>
+<p>各変数の乖離を計算するが、注意する点がある。GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはない。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>を使い、対数化せずに計算する必要がる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infunemp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infunemp</span><span class="p">:</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まず両変数の乖離をプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_infunemp</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infunemp</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_infunemp</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" src="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" />
+</div>
+</div>
+<p>やはり持続性が高いように見える。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_infunemp</span><span class="p">:</span>
+    
+    <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;25</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inflation_cycle          0.790
+unemployment_rate_cycle  0.875
+</pre></div>
+</div>
+</div>
+</div>
+<p>数字でも強い持続性が確認できる。</p>
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2061,22 +2436,29 @@ imports_cycle       3.26
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">GDPとその変化</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">GDPとその変化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">GDPの構成要素</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率とインフレ率</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">トレンドと変動</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">説明</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">GDPのトレンドからの乖離率</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">GDPとの相関度</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関度</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">自己共分散（自己相関）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">自己共分散（自己相関）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの場合</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
 </ul>
 </li>
 </ul>
