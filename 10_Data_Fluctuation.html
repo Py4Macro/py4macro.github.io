@@ -439,13 +439,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関度</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">自己共分散（自己相関）</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの場合</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの構成要素</a></li>
@@ -1701,7 +1701,9 @@ trend(s, lamb=1600)
 </section>
 </section>
 <section id="id10">
-<h2>変動の相関度<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<h2>変動の相関<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>ここでは変数の変動間の相関について考察する。
+相関とは，異なる変数が同時にどの方向（正か負）にどの程度動く傾向にあるかを示す。</p>
 <section id="id11">
 <h3>復習<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を考えよう。
@@ -1722,18 +1724,19 @@ trend(s, lamb=1600)
 \sigma_{Y}
 \]</div>
 <p>となる。</p>
-<p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
+<p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance">
 <span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
 \sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
 \left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
 \]</div>
-<p>次の解釈となる。</p>
+<p>符号の解釈：</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\sigma_{XY}=0\)</span>：無相関</p></li>
 <li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&gt;0\)</span>：正の相関</p></li>
 <li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&lt;0\)</span>：負の相関</p></li>
 </ul>
+<p>共分散の絶対値が大きければ大きい（小さい）程，相関度が高い（低い）ことを意味する。</p>
 <p>また上の定義から次が成立することが簡単に理解できる。</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1742,7 +1745,7 @@ trend(s, lamb=1600)
 \sigma_{YY}=\sigma_{Y}^2,
 \]</div>
 <p>別々の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数を使うことにより共分散を計算することができるが、その<code class="docutils literal notranslate"><span class="pre">2</span></code>変数が同じ変数となる場合（<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数もしくは<code class="docutils literal notranslate"><span class="pre">Y</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数）は分散となる。</p>
-<p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することになり、単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
+<p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することであり、それにより単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
 その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance-coef">
 <span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
@@ -1980,17 +1983,20 @@ imports_cycle       0.65
 </section>
 </section>
 <section id="sec-10-autocovariance">
-<span id="id13"></span><h2>自己共分散（自己相関）<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
+<span id="id13"></span><h2>変動の自己相関<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
+<p>次に，変数の変動の自己相関について考える。
+自己相関とは，ある変数が，その過去の値によってどの方向（正か負）にどの程度影響を受けるかを示す。</p>
 <section id="id14">
 <h3>復習<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p>次に自己共分散について考えるために，既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使う。
+<p>既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使い，自己相関について説明する。。
 <code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(105)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(106)</a>で与えられる。</p>
 <p>ここで時系列のランダム変数を<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>として、次の置き換えてみよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(Y_i\;\Rightarrow\;\varepsilon_{t-s},\quad s=1,2,3,\cdots\)</span></p></li>
 </ul>
-<p>これにより分散は次のように置き換えることができる。</p>
+<p><span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>期遡る過去の値である。
+これにより分散は次のように置き換えることができる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -1998,8 +2004,8 @@ imports_cycle       0.65
 \sigma_Y^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_{t-s}}^2
 \end{aligned}
 \end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>のそれぞれの分散は，<code class="docutils literal notranslate"><span class="pre">s</span></code>期ずれているだけの同じランダム変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>に置き換わっている。
-更に，共分散は次のように置き換わる事になる。</p>
+<p><span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の分散は，<code class="docutils literal notranslate"><span class="pre">s</span></code>期ずれているだけの同じランダム変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の分散に置き換わっている。
+更に，共分散は次のように置き換える事ができる。</p>
 <div class="math notranslate nohighlight">
 \[
 X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
@@ -2011,7 +2017,9 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 <p>これらの結果を使うと，<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>の相関係数は</p>
 <div class="math notranslate nohighlight">
 \[
-\rho_{\varepsilon}(s)\equiv\rho_{\varepsilon_t,\varepsilon_{t-s}}
+\rho_{\varepsilon}(s)
+\equiv
+\rho_{\varepsilon_t,\varepsilon_{t-s}}
 =\frac{
     \sigma_{\varepsilon_t,\varepsilon_{t-s}}
     }{
@@ -2019,7 +2027,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
     \sigma_{\varepsilon_{t-s}}
     }
 \]</div>
-<p>で与えられる。一般的には<strong>自己相関関数</strong>と呼ばれる。「関数」と呼ばれる理由は，<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t,\varepsilon_{t-s}}\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>の関数として考えることができるためだ。呼称よりも重要なのが数値の解釈である。このサイトでは，<code class="docutils literal notranslate"><span class="pre">s=1</span></code>の場合は自己相関係数と呼ぶ事にする。解釈は次のようになる。</p>
+<p>で与えられ，一般的には<strong>自己相関関数</strong>と呼ばれる。「関数」と呼ばれる理由は，<span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>の関数として考えることができるためだ。このサイトでは，<code class="docutils literal notranslate"><span class="pre">s=1</span></code>の場合は自己相関係数と呼ぶ事にする。呼称よりも重要なのが解釈である。解釈は次のようになる。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)=0,\;s=1,2,3,\cdots\)</span>：何期離れたとしても自己相関はなしという意味である。過去の影響は皆無の状況を指している。</p></li>
 <li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&gt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は正の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>も大きい（小さい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。経済学では<code class="docutils literal notranslate"><span class="pre">s=1</span></code>を考える場合が多く，この性質を<strong>持続性</strong>（persisitence）と呼ぶ。持続性は多くのマクロ変数の重要な特徴となっている。</p></li>
@@ -2447,13 +2455,13 @@ imports_cycle       3.26
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関度</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">自己共分散（自己相関）</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの場合</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの構成要素</a></li>
