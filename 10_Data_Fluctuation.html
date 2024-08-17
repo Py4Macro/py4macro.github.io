@@ -447,12 +447,12 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">インフレ率と失業率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
 </ul>
             </nav>
         </div>
@@ -2034,8 +2034,8 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 <li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&lt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は負の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>は小さい（大きい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。</p></li>
 </ul>
 </section>
-<section id="id15">
-<h3>GDPの場合<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<section id="cov-corr-autocorr-gdp">
+<h3><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合<a class="headerlink" href="#cov-corr-autocorr-gdp" title="Link to this heading">#</a></h3>
 <p>まずGDPの変動を考えるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>から<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として抽出し，変数<code class="docutils literal notranslate"><span class="pre">g</span></code>に割り当てよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2247,8 +2247,8 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 <p>はっきりと正の相関を確認できるが，例外的な動きをしている観測値もある。</p>
 </section>
-<section id="id16">
-<h3>GDPの構成要素<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h3>GDPの構成要素<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>まずGDPの構成要素のトレンドからの乖離率の持続性を考察するが，<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を含めて次の変数を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2288,8 +2288,8 @@ imports_cycle      0.821
 <p>消費を除いて全て0.5以上であり，全ての変数で持続性が確認できる。
 特に、投資と輸入の持続性は高いことが分かる。</p>
 </section>
-<section id="id17">
-<h3>インフレ率と失業率<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3>インフレ率と失業率<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>次に、失業率とインフレ率の持続性を確認する。</p>
 <p>各変数の乖離を計算するが、注意する点がある。GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはない。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>を使い、対数化せずに計算する必要がる。</p>
 <div class="cell docutils container">
@@ -2337,8 +2337,8 @@ unemployment_rate_cycle  0.875
 <p>数字でも強い持続性が確認できる。</p>
 </section>
 </section>
-<section id="id18">
-<h2>変動の大きさ<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h2>変動の大きさ<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2463,12 +2463,12 @@ imports_cycle       3.26
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">インフレ率と失業率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
 </ul>
   </nav></div>
 
