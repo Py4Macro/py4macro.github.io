@@ -434,25 +434,27 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率とインフレ率</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">トレンドと変動</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">説明</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">GDPのトレンドからの乖離率</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">インフレ率と失業率のトレンドからの乖離</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">変動の相関</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">GDPとインフレ率・失業率との相関係数</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変動の大きさ</a></li>
 </ul>
             </nav>
         </div>
@@ -991,12 +993,12 @@ g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
 <p>それぞれの平均を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで計算し表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span> <span class="n">inv_gdp_ratio</span><span class="p">,</span>
-              <span class="n">gov_gdp_ratio</span><span class="p">,</span> <span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratio_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">con_gdp_ratio</span><span class="p">,</span> <span class="n">inv_gdp_ratio</span><span class="p">,</span>
+             <span class="n">gov_gdp_ratio</span><span class="p">,</span> <span class="n">net_exp_gdp_ratio</span><span class="p">]</span>
 
-<span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s1">&#39;Investment&#39;</span><span class="p">,</span> <span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span> <span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
+<span class="n">label_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s1">&#39;Investment&#39;</span><span class="p">,</span> <span class="s1">&#39;Gov Exp&#39;</span><span class="p">,</span> <span class="s1">&#39;Net Exports&#39;</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_lst</span><span class="p">,</span> <span class="n">label_lst</span><span class="p">):</span>
     
     <span class="n">avr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     
@@ -1017,7 +1019,7 @@ Net Exports 	-1.1
 <p>次に推移を確認する。同じように<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使うと簡単に表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_list</span><span class="p">,</span><span class="n">label_list</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratio_lst</span><span class="p">,</span><span class="n">label_lst</span><span class="p">):</span>
     
     <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -1031,11 +1033,11 @@ Net Exports 	-1.1
 <p class="admonition-title">コードの説明</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">zip()</span></code>について説明する。<code class="docutils literal notranslate"><span class="pre">zip()</span></code>はループによく使われる便利な関数である。以下の単純な<code class="docutils literal notranslate"><span class="pre">for</span></code>ループ</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ratio_list</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ratio_lst</span><span class="p">:</span>
     <span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>にはループ用の変数が<code class="docutils literal notranslate"><span class="pre">r</span></code>の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには<code class="docutils literal notranslate"><span class="pre">label_list</span></code>も<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で同時に使う必要がある。そのような場合に便利な関数が<code class="docutils literal notranslate"><span class="pre">zip()</span></code>である。引数に<code class="docutils literal notranslate"><span class="pre">ratio_list</span></code>と<code class="docutils literal notranslate"><span class="pre">label_list</span></code>を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>を使っている。<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>の間に<code class="docutils literal notranslate"><span class="pre">,</span></code>を入れることにより，それぞれ別のリストの要素を捉えることができる。</p>
+<p>にはループ用の変数が<code class="docutils literal notranslate"><span class="pre">r</span></code>の１種類しかない。これでも図示することは可能である。しかし凡例を追加するためには<code class="docutils literal notranslate"><span class="pre">label_lst</span></code>も<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの中で同時に使う必要がある。そのような場合に便利な関数が<code class="docutils literal notranslate"><span class="pre">zip()</span></code>である。引数に<code class="docutils literal notranslate"><span class="pre">ratio_lst</span></code>と<code class="docutils literal notranslate"><span class="pre">label_lst</span></code>を入れると，同時に順番に要素にアクセスできる。それぞれの要素を割り当てる変数として<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>を使っている。<code class="docutils literal notranslate"><span class="pre">r</span></code>と<code class="docutils literal notranslate"><span class="pre">l</span></code>の間に<code class="docutils literal notranslate"><span class="pre">,</span></code>を入れることにより，それぞれ別のリストの要素を捉えることができる。</p>
 </li>
 <li><p>この<code class="docutils literal notranslate"><span class="pre">for</span></code>ループは以下と等しい。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">con_gdp_ratio</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1055,8 +1057,9 @@ Net Exports 	-1.1
 <p>次に失業率とインフレ率のデータをプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infu_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">infu_lst</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1262,24 +1265,20 @@ Name: 1980-01-01 00:00:00, dtype: float64
 ここでは景気循環について，もう一歩踏み込んで考えてみる。</p>
 <p>マクロ変数はトレンドと変動（サイクル）に分解することができる。その方法は２つあり、マクロ変数の性質によって次のように使い分ける。</p>
 <ul>
-<li><p>GDPのように長期的なトレンドが右上がりの変数の場合、<span class="math notranslate nohighlight">\(Y\)</span>をGDPとすると、次式のように２つの項の掛け算で表すことができる。</p>
+<li><p>GDPのように長期的なトレンドが右上がりの変数の場合、次式のように２つの項の掛け算で表す。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose">
 <span class="eqno">(100)<a class="headerlink" href="#equation-eq-10-decompose" title="Link to this equation">#</a></span>\[
     Y_t=Y_t^{\text{trend}}\times Y_t^{\text{cycle}}
     \]</div>
 </li>
-<li><p>失業率のように右上がりのトレンドがない場合（自然失業率が一定であればトレンドはないことになる）、<span class="math notranslate nohighlight">\(u\)</span>を失業率とすると、<span class="math notranslate nohighlight">\(u\)</span>を次式のように２つの項の足し算で表すことができる。</p>
+<li><p>失業率のように右上がりのトレンドがない場合（自然失業率が一定であればトレンドはないことになる）、次式のように２つの項の足し算で表す。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-plus">
 <span class="eqno">(101)<a class="headerlink" href="#equation-eq-10-decompose-plus" title="Link to this equation">#</a></span>\[
     u_t=u_t^{\text{trend}}+u_t^{\text{cycle}}
     \]</div>
 </li>
 </ul>
-<p>ここで<span class="math notranslate nohighlight">\(Y_t^{\text{trend}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{trend}}\)</span>は各変数の長期的な傾向や値を表す。
-一方，<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>は短期的な景気循環を捉えている。</p>
-</section>
-<section id="id7">
-<h3>トレンドの計算<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>ここで<span class="math notranslate nohighlight">\(Y_t^{\text{trend}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{trend}}\)</span>は各変数の長期的な傾向や値を表し、<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>は短期的な変動を捉えている。</p>
 <p>内閣府は景気循環を「山」と「谷」の２つに分けて<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/hiduke.html">景気基準日付</a>を発表している。イメージ的には、GDPがトレンドを上回っている期間を「山」，下回っている期間を「谷」と考えて良いだろう。図示すると次のようになる。</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1408,7 +1407,10 @@ Name: 1980-01-01 00:00:00, dtype: float64
 </li>
 </ul>
 <p>いずれにしろ，どのようにトレンドを決めたとしても，景気循環が人々の厚生に大きな影響を及ぼすことには変わりはない。不況は失業や様々な社会問題（例えば，犯罪や自殺）につながる。好況でも問題が無いわけではない。例えば，高いインフレが発生し資産価値（例えば，貨幣）が暴落し通常の生活に支障が出ることもある。またバブル景気が示すように「山」は次の「谷」の芽を育む期間となりえる。</p>
-<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(100)</a>を対数化し次式に書き換える。</p>
+</section>
+<section id="id7">
+<h3>トレンドの計算方法<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(100)</a>を考えてみよう。この場合、対数化し次式に書き換える。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log">
 <span class="eqno">(102)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Link to this equation">#</a></span>\[
 y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
@@ -1433,7 +1435,16 @@ y_t^{\text{cycle}}
 <li><p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離の割合を表している。</p></li>
 <li><p><span class="math notranslate nohighlight">\(100\times y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの％乖離を表している。</p></li>
 </ul>
-<p>ここまでの説明から，景気循環を捉える項<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数の値とトレンドとの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決めるかが重要なポイントとなる。ここでは，内閣府や日本銀行の複雑な手法ではなく，マクロ経済学研究でスタンダードなツールとなっている<a class="reference external" href="https://www.google.co.jp/search?q=Hodrick%E2%80%93Prescott%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC">Hodrick–Prescottフィルター</a>と呼ばれる手法を使うことにする。詳細についての説明は控え，単に<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる関数<code class="docutils literal notranslate"><span class="pre">trend</span></code>を使ってトレンド抽出を行うことにする。使い方は次のコードで確認できる。</p>
+<p>次に、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>を考えるが、<span class="math notranslate nohighlight">\(u_t\)</span>の変動は次式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-10-decompose-plus-a">
+<span class="eqno">(104)<a class="headerlink" href="#equation-eq-10-decompose-plus-a" title="Link to this equation">#</a></span>\[
+u_t^{\text{cycle}}=u_t-u_t^{\text{trend}}
+\]</div>
+<p>そのまま解釈すれば良いが、呼称に注意する必要がある。</p>
+<ul class="simple">
+<li><p>トレンドからの乖離<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>の単位は％だが、％が単位となる変数の<strong>差</strong>として計算されているため「％ポイント」と呼ぶ。<span class="math notranslate nohighlight">\(100\times\left(\dfrac{u_t}{u_t^{\text{trend}}}-1\right)\)</span>として計算された％と区別するための呼称である。</p></li>
+</ul>
+<p>ここまでの説明から，景気循環を捉える項<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>は変数の値とトレンドとの残差によって決まることがわかる。換言すると，景気循環の特徴はトレンドをどのように考えるかに依存しており，トレンドの算出方法をどうするか決めるかが重要なポイントとなる。ここでは，内閣府や日本銀行の複雑な手法ではなく，マクロ経済学研究でスタンダードなツールとなっている<a class="reference external" href="https://www.google.co.jp/search?q=Hodrick%E2%80%93Prescott%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC">Hodrick–Prescottフィルター</a>と呼ばれる手法を使うことにする。詳細についての説明は控え，単に<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる関数<code class="docutils literal notranslate"><span class="pre">trend</span></code>を使ってトレンド抽出を行うことにする。使い方は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">)</span>
@@ -1457,25 +1468,28 @@ trend(s, lamb=1600)
 </div>
 </div>
 </div>
-<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，HPフィルターは線形トレンドが仮定されているため，次の点に注意すること。</p>
+<p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，上でも説明した通り、HPフィルターは線形トレンドが仮定されているため，次の点に注意すること。</p>
 <ul>
-<li><p>GDPや消費の様に長期的に増加している変数は対数化し，<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。そうすることにより、式<a class="reference internal" href="#equation-eq-10-decompose-log">(102)</a>を使い<span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>を計算することができる。</p>
+<li><p>GDPや消費の様に長期的に増加している変数は対数化し，<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-log">(102)</a>の再掲。</p>
 <div class="math notranslate nohighlight">
 \[
     y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
     \]</div>
 </li>
-<li><p>失業率やインフレ率の様に長期的にはトレンドがない変数は，そのまま<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。それにより、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>に従って、次式を計算することができる。</p>
+<li><p>失業率やインフレ率の様に長期的にはトレンドがない変数は，そのまま<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(104)</a>の再掲。</p>
 <div class="math notranslate nohighlight">
 \[
     u_t^{\text{cycle}}=u_t-u_t^{\text{trend}}
     \]</div>
 </li>
 </ul>
+</section>
+<section id="id8">
+<h3>GDPのトレンドからの乖離率<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>まずGDPとその構成要素を対数化した変数とそのトレンドを計算し<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
            <span class="s1">&#39;consumption&#39;</span><span class="p">,</span>
            <span class="s1">&#39;investment&#39;</span><span class="p">,</span>
            <span class="s1">&#39;government&#39;</span><span class="p">,</span>
@@ -1487,7 +1501,7 @@ trend(s, lamb=1600)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_lst</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gdp_lst</span><span class="p">:</span>
     
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#1</span>
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="p">)</span>  <span class="c1">#2</span>
@@ -1523,13 +1537,10 @@ trend(s, lamb=1600)
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">_log</span></code>と<code class="docutils literal notranslate"><span class="pre">_log_trend</span></code>が追加された変数が新たに作られていることが確認できる。</p>
-</section>
-<section id="id8">
-<h3>GDPのトレンドからの乖離率<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>対数化したGDPの変数を作成しトレンドと重ねて図示してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span><span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">,</span> <span class="s1">&#39;gdp_log_trend&#39;</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1541,8 +1552,9 @@ trend(s, lamb=1600)
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
 <p>次に景気循環の変数を作成するが，トレンドからの乖離を割合で表すために，上でも使った次の関係を利用する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-devaition">
-<span class="eqno">(104)<a class="headerlink" href="#equation-eq-10-devaition" title="Link to this equation">#</a></span>\[
+<span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-devaition" title="Link to this equation">#</a></span>\[
 \dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
+=\dfrac{Y_t}{Y_t^{\text{trend}}}-1
 \approx\log\left(\frac{Y_t}{Y_t^{\text{trend}}}\right)
 =\log(Y_t) - \log(Y_t^{\text{trend}})
 \]</div>
@@ -1651,7 +1663,7 @@ trend(s, lamb=1600)
 <p>次にGDPの構成要素について考えるが，まずトレンドからの乖離の変数を作成する（単位：％）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>   <span class="c1"># gdp以外の変数    </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gdp_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>   <span class="c1"># gdp以外の変数    </span>
     
     <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span> 
 </pre></div>
@@ -1683,8 +1695,8 @@ trend(s, lamb=1600)
 <p>列ラベルに<code class="docutils literal notranslate"><span class="pre">_cycle</span></code>がついている変数だけを選ぶために<code class="docutils literal notranslate"><span class="pre">cycle_lst</span></code>を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_lst</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
-<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_lst</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle_lst</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>   <span class="c1"># 最後の6変数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">gdp_cycle_lst</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1696,16 +1708,46 @@ trend(s, lamb=1600)
 <p>この図に基づいて次の点について考える。</p>
 <ol class="arabic simple">
 <li><p>GDPと順循環的（pro-cyclical）か反循環的（counter- cyclical）かどうか</p></li>
+<li><p>持続性</p></li>
 <li><p>変動の大きさの比較</p></li>
 </ol>
 </section>
-</section>
 <section id="id10">
-<h2>変動の相関<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<h3>インフレ率と失業率のトレンドからの乖離<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>次に、失業率とインフレ率の乖離を確認するが、GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはないと考えることができる。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(104)</a>を使い、対数化せずに計算する必要がる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infu_lst</span><span class="p">:</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まず両変数の乖離をプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infu_cycle_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infu_lst</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">infu_cycle_lst</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" src="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" />
+</div>
+</div>
+<p>以下で考察するが、逆に動いているのが特徴的である。</p>
+</section>
+</section>
+<section id="id11">
+<h2>変動の相関<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
 <p>ここでは変数の変動間の相関について考察する。
 相関とは，異なる変数が同時にどの方向（正か負）にどの程度動く傾向にあるかを示す。</p>
-<section id="id11">
-<h3>復習<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<section id="id12">
+<h3>復習<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を考えよう。
 <code class="docutils literal notranslate"><span class="pre">2</span></code>変数の<strong>不偏分散</strong>は次のように定義される。</p>
 <div class="math notranslate nohighlight">
@@ -1726,7 +1768,7 @@ trend(s, lamb=1600)
 <p>となる。</p>
 <p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance">
-<span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
+<span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
 \sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
 \left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
 \]</div>
@@ -1748,7 +1790,7 @@ trend(s, lamb=1600)
 <p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することであり、それにより単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
 その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance-coef">
-<span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
+<span class="eqno">(107)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
 \rho_{XY}=
 \frac{\sigma_{XY}}{\sigma_X\sigma_Y}
 \]</div>
@@ -1878,14 +1920,14 @@ trend(s, lamb=1600)
 </div>
 <p>左下もしくは右上の値が相関係数であり、上の「手計算」と等しい。</p>
 </section>
-<section id="id12">
-<h3>GDPと構成要素との相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<section id="id13">
+<h3>GDPと構成要素との相関係数<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>GDPと構成要素との相関係数を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GDPの変動との相関係数</span><span class="se">\n</span><span class="s1">------------------------&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gdp_cycle_lst</span><span class="p">:</span>
     <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 1</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>                 <span class="c1"># 2</span>
 </pre></div>
@@ -1937,12 +1979,13 @@ imports_cycle       0.65
 <img alt="_images/fb16cbf84463c4b8bc71bbac5cb7431afe65e6f074c3d27027245a46f91d440f.png" src="_images/fb16cbf84463c4b8bc71bbac5cb7431afe65e6f074c3d27027245a46f91d440f.png" />
 </div>
 </div>
-<p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。時間的なラグを捉えるために，<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
+<p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。GDPのトレンドからの乖離が負の場合、景気対策として政府支出を増やし傾向にある。また、GDPの乖離が正であれば、経済のオーバーヒート（インフレの発生）することを避けるために政府支出を減少させると理解できる。</p>
+<p>一方、値が小さいのは，時間的なラグがあるためだと思われる。景気に関するデータを集計するには数ヶ月かかり，国会審議や支出の実行にも時間を取られることになる。この点を確認するために，<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って相関係数を再計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
     
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gov_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;government_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>     <span class="c1">#1</span>
     
@@ -1957,6 +2000,7 @@ imports_cycle       0.65
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  GDPとの相関係数
 -----------------------
+  0期先の政府支出: -0.171
   1期先の政府支出: -0.318
   2期先の政府支出: -0.392
   3期先の政府支出: -0.396
@@ -1981,15 +2025,167 @@ imports_cycle       0.65
 </div>
 <p>GDPの乖離は<code class="docutils literal notranslate"><span class="pre">3</span></code>四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応には長いの時間が掛かることを示す結果となっている。</p>
 </section>
+<section id="id14">
+<h3>GDPとインフレ率・失業率との相関係数<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>GDP、インフレ率、失業率の3つの変数間の相関係数を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">infu_cycle_lst</span>
+<span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdp_cycle</th>
+      <th>inflation_cycle</th>
+      <th>unemployment_rate_cycle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>gdp_cycle</th>
+      <td>1.000000</td>
+      <td>0.347499</td>
+      <td>-0.625012</td>
+    </tr>
+    <tr>
+      <th>inflation_cycle</th>
+      <td>0.347499</td>
+      <td>1.000000</td>
+      <td>-0.550002</td>
+    </tr>
+    <tr>
+      <th>unemployment_rate_cycle</th>
+      <td>-0.625012</td>
+      <td>-0.550002</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>右上数値と左下の数値は同じであり、次の読み方となる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">inflation_cycle</span></code>の相関係数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>行目・<code class="docutils literal notranslate"><span class="pre">1</span></code>列目の値もしくは<code class="docutils literal notranslate"><span class="pre">1</span></code>行目・<code class="docutils literal notranslate"><span class="pre">0</span></code>列目の値</p></li>
+<li><p>正の値：「景気が良くなるとインフレが発生する」という直観に沿った結果</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">unemployment_rate_cycle</span></code>の相関係数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>行目・<code class="docutils literal notranslate"><span class="pre">2</span></code>列目の値もしくは<code class="docutils literal notranslate"><span class="pre">2</span></code>行目・<code class="docutils literal notranslate"><span class="pre">0</span></code>列目の値</p></li>
+<li><p>負の値：「景気が良くなると失業率は減少する」という直観に沿った結果</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inflation_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">unemployment_rate_cycle</span></code>の相関係数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>行目・<code class="docutils literal notranslate"><span class="pre">2</span></code>列目の値もしくは<code class="docutils literal notranslate"><span class="pre">2</span></code>行目・<code class="docutils literal notranslate"><span class="pre">1</span></code>列目の値</p></li>
+<li><p>負の値：フィリップス曲線を反映</p></li>
+</ul>
+</li>
+</ul>
+<p>GDPの乖離に反応する政府支出は時間的なラグが発生していた。
+インフレ率はどうだろうか。
+景気が良くなるとインフレ率は高くなることは確認できたが、景気の影響は直ぐに価格上昇に反映されるのだろうか。例えば、企業間の競争や顧客への影響を考え、企業の反応には時間的なラグがあるかも知れない。
+失業率はどうだろうか。景気が良くなっても雇用を増やすのにはコスト（従業員募集の宣伝にかかる時間や費用）がかかり、雇用は直ぐに反応できないかも知れない。また、景気が悪くなったとしても、企業は簡単に労働者を解雇することができない場合も多く、雇用調整には時間が掛かるかも知れない。</p>
+<p>このような時間的なラグを捉えるために，<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い時間をずらして相関係数を再計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;inflation_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先のインフレ率: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle_shift&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  GDPとの相関係数
+-----------------------
+  0期先のインフレ率:  0.347
+  1期先のインフレ率:  0.455
+  2期先のインフレ率:  0.515
+  3期先のインフレ率:  0.480
+  4期先のインフレ率:  0.439
+  5期先のインフレ率:  0.285
+  6期先のインフレ率:  0.153
+  7期先のインフレ率:  0.038
+  8期先のインフレ率: -0.115
+  9期先のインフレ率: -0.211
+</pre></div>
+</div>
+</div>
+</div>
+<p>GDPとインフレ率の相関係数は<code class="docutils literal notranslate"><span class="pre">2</span></code>期先で最高になり、影響は<code class="docutils literal notranslate"><span class="pre">7</span></code>期先で<code class="docutils literal notranslate"><span class="pre">0</span></code>に近づいている。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  GDPとの相関係数</span><span class="se">\n</span><span class="s1">-----------------------&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate_cycle_shift&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate_cycle_shift&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">&gt;3</span><span class="si">}</span><span class="s1">期先の失業率: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;6.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate_cycle_shift&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  GDPとの相関係数
+-----------------------
+  0期先の失業率: -0.625
+  1期先の失業率: -0.756
+  2期先の失業率: -0.761
+  3期先の失業率: -0.638
+  4期先の失業率: -0.496
+  5期先の失業率: -0.305
+  6期先の失業率: -0.158
+  7期先の失業率: -0.031
+  8期先の失業率:  0.109
+  9期先の失業率:  0.225
+</pre></div>
+</div>
+</div>
+</div>
+<p>インフレ率と同様に、インパクトには時間的なラグがあり、<code class="docutils literal notranslate"><span class="pre">2</span></code>期先で最高になっている。また、符号が変わるのは<code class="docutils literal notranslate"><span class="pre">8</span></code>期先であり、影響は長く続くことがわかる。</p>
+</section>
 </section>
 <section id="sec-10-autocovariance">
-<span id="id13"></span><h2>変動の自己相関<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
+<span id="id15"></span><h2>変動の自己相関<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
 <p>次に，変数の変動の自己相関について考える。
 自己相関とは，ある変数が，その過去の値によってどの方向（正か負）にどの程度影響を受けるかを示す。</p>
-<section id="id14">
-<h3>復習<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3>復習<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使い，自己相関について説明する。。
-<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(105)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(106)</a>で与えられる。</p>
+<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(106)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(107)</a>で与えられる。</p>
 <p>ここで時系列のランダム変数を<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>として、次の置き換えてみよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
@@ -2247,12 +2443,12 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 <p>はっきりと正の相関を確認できるが，例外的な動きをしている観測値もある。</p>
 </section>
-<section id="id15">
-<h3>GDPの構成要素<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<section id="id17">
+<h3>GDPの構成要素<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
 <p>まずGDPの構成要素のトレンドからの乖離率の持続性を考察するが，<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を含めて次の変数を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_lst</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle_lst</span>
 </pre></div>
 </div>
 </div>
@@ -2267,7 +2463,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い、自己相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gdp_cycle_lst</span><span class="p">:</span>
     
     <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>       <span class="c1">#1</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>   <span class="c1">#2</span>
@@ -2288,39 +2484,12 @@ imports_cycle      0.821
 <p>消費を除いて全て0.5以上であり，全ての変数で持続性が確認できる。
 特に、投資と輸入の持続性は高いことが分かる。</p>
 </section>
-<section id="id16">
-<h3>インフレ率と失業率<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<section id="id18">
+<h3>インフレ率と失業率<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
 <p>次に、失業率とインフレ率の持続性を確認する。</p>
-<p>各変数の乖離を計算するが、注意する点がある。GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはない。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>を使い、対数化せずに計算する必要がる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infunemp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="s1">&#39;unemployment_rate&#39;</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infunemp</span><span class="p">:</span>
-
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_trend&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>まず両変数の乖離をプロットしてみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_infunemp</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">+</span><span class="s1">&#39;_cycle&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infunemp</span><span class="p">]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_infunemp</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" src="_images/9955e2dc6b4f7b30fce45b3fc26e72fc5ef337f47bd5a7061e755cee50fa6888.png" />
-</div>
-</div>
-<p>やはり持続性が高いように見える。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_infunemp</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infu_cycle_lst</span><span class="p">:</span>
     
     <span class="n">autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;25</span><span class="si">}{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -2334,15 +2503,15 @@ unemployment_rate_cycle  0.875
 </div>
 </div>
 </div>
-<p>数字でも強い持続性が確認できる。</p>
+<p>非常に強い持続性が確認できる。一旦、インフレ率と失業率が長期的なトレンドから乖離すると、元に戻るには時間が掛かることを意味している。更には、財政政策と金融政策によるマクロ経済政策の効果が現れてくるには時間が掛かることを示唆しているおり、経済安定化政策の難しさを示唆する数値となっている。</p>
 </section>
 </section>
-<section id="id17">
-<h2>変動の大きさ<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h2>変動の大きさ<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cycle_lst</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gdp_cycle_lst</span><span class="p">:</span>
     
     <span class="n">var</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&lt;19</span><span class="si">}{</span><span class="n">var</span><span class="si">:</span><span class="s1">&gt;5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -2363,7 +2532,7 @@ imports_cycle       3.26
 <p>投資，輸出，輸入の値はGDPの3倍以上であり，政府支出の値はGDPより低く，消費の変動は更に小さい。これは消費者の不確実性を嫌う姿勢が反映されていると解釈できる。GDPの構成要素を対GDP比率で検討した際，消費は投資よりも比率が大きかったことを思い出そう。変動に関しては，順位が逆転し投資が大きく上回っている。この点を図示して視覚的に確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cycle_lst</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">gdp_cycle_lst</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -2377,6 +2546,33 @@ imports_cycle       3.26
 <p class="admonition-title">Note</p>
 <p>変動の大きさを比べるために、変動係数を使うこともできるが、分母に使う平均が<code class="docutils literal notranslate"><span class="pre">0</span></code>に近い値となるため、意味がない比較となってします。</p>
 </div>
+<p>次に、インフレ率と失業率の変動の大きさをプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inflation_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;unemployment_rate_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.66957649372247
+</pre></div>
+</div>
+</div>
+</div>
+<p>インフレ率の変動の標準偏差は、失業率のそれの<code class="docutils literal notranslate"><span class="pre">3</span></code>倍以上であり、非常に大きいことがわかる。
+プロットして確かめてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">infu_cycle_lst</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1f03c46f260ed42f25b8fc6506a5daec40a7ec56c29247c9aadc51438402ef38.png" src="_images/1f03c46f260ed42f25b8fc6506a5daec40a7ec56c29247c9aadc51438402ef38.png" />
+</div>
+</div>
+<p>大きな差を視覚的に確認できる。</p>
 </section>
 </section>
 
@@ -2450,25 +2646,27 @@ imports_cycle       3.26
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">失業率とインフレ率</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">トレンドと変動</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">説明</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トレンドの計算方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">GDPのトレンドからの乖離率</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">構成要素のトレンドからの乖離率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">インフレ率と失業率のトレンドからの乖離</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">変動の相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復習</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">変動の相関</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">GDPとインフレ率・失業率との相関係数</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">復習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">復習</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変動の大きさ</a></li>
 </ul>
   </nav></div>
 
