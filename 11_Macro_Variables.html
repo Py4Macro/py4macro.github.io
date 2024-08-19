@@ -732,7 +732,7 @@ Dep. Variable:              gdp_cycle   R-squared:                       0.391
 Model:                            OLS   Adj. R-squared:                  0.387
 Method:                 Least Squares   F-statistic:                     111.5
 Date:                Mon, 19 Aug 2024   Prob (F-statistic):           1.84e-20
-Time:                        13:35:48   Log-Likelihood:                -275.03
+Time:                        14:16:11   Log-Likelihood:                -275.03
 No. Observations:                 176   AIC:                             554.1
 Df Residuals:                     174   BIC:                             560.4
 Df Model:                           1                                         
@@ -800,13 +800,11 @@ Notes:
 <p>図を重ねて表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
-              <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span>
-              <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
+                      <span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;u_rate_cycle&#39;</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="s1">&#39;fitted_okun&#39;</span><span class="p">,</span>
-        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -955,7 +953,7 @@ Notes:
 <p>まずインフレ率と失業率の散布図をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -1100,13 +1098,12 @@ Name: decade, Length: 176, dtype: int32
     
     <span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">d</span> <span class="p">)</span>
     
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
-                        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
-                        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
-                        <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>      <span class="c1">#3</span>
-                        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>    <span class="c1">#4</span>
-                        <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
+                                <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span>
+                                <span class="n">edgecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>      <span class="c1">#3</span>
+                                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>    <span class="c1">#4</span>
+                                <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">年代データ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                         <span class="n">x</span><span class="o">=</span><span class="s1">&#39;unemployment_rate&#39;</span><span class="p">,</span>
@@ -1317,122 +1314,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>10</td>
-      <td>5.149070</td>
+      <td>4.754891</td>
     </tr>
     <tr>
       <th>2019-02-01</th>
       <td>20</td>
-      <td>5.550302</td>
+      <td>5.672886</td>
     </tr>
     <tr>
       <th>2019-03-01</th>
       <td>30</td>
-      <td>6.725487</td>
+      <td>4.207352</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>40</td>
-      <td>5.372653</td>
+      <td>5.250099</td>
     </tr>
     <tr>
       <th>2019-05-01</th>
       <td>50</td>
-      <td>5.926656</td>
+      <td>3.659216</td>
     </tr>
     <tr>
       <th>2019-06-01</th>
       <td>60</td>
-      <td>5.505172</td>
+      <td>4.643711</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>70</td>
-      <td>6.203945</td>
+      <td>5.666014</td>
     </tr>
     <tr>
       <th>2019-08-01</th>
       <td>80</td>
-      <td>5.711288</td>
+      <td>4.256911</td>
     </tr>
     <tr>
       <th>2019-09-01</th>
       <td>90</td>
-      <td>5.379884</td>
+      <td>4.530882</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>100</td>
-      <td>6.534109</td>
+      <td>5.814762</td>
     </tr>
     <tr>
       <th>2019-11-01</th>
       <td>110</td>
-      <td>4.353815</td>
+      <td>4.793796</td>
     </tr>
     <tr>
       <th>2019-12-01</th>
       <td>120</td>
-      <td>5.652002</td>
+      <td>6.224066</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>10</td>
-      <td>5.014328</td>
+      <td>4.130194</td>
     </tr>
     <tr>
       <th>2020-02-01</th>
       <td>20</td>
-      <td>5.446390</td>
+      <td>4.222379</td>
     </tr>
     <tr>
       <th>2020-03-01</th>
       <td>30</td>
-      <td>5.482502</td>
+      <td>5.419300</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>40</td>
-      <td>5.974428</td>
+      <td>5.467295</td>
     </tr>
     <tr>
       <th>2020-05-01</th>
       <td>50</td>
-      <td>5.588717</td>
+      <td>3.265727</td>
     </tr>
     <tr>
       <th>2020-06-01</th>
       <td>60</td>
-      <td>6.740515</td>
+      <td>4.242285</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>70</td>
-      <td>4.109778</td>
+      <td>5.755433</td>
     </tr>
     <tr>
       <th>2020-08-01</th>
       <td>80</td>
-      <td>4.633040</td>
+      <td>4.856103</td>
     </tr>
     <tr>
       <th>2020-09-01</th>
       <td>90</td>
-      <td>3.497334</td>
+      <td>4.475028</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>100</td>
-      <td>3.386107</td>
+      <td>4.393704</td>
     </tr>
     <tr>
       <th>2020-11-01</th>
       <td>110</td>
-      <td>3.846458</td>
+      <td>4.713635</td>
     </tr>
     <tr>
       <th>2020-12-01</th>
       <td>120</td>
-      <td>4.900249</td>
+      <td>5.247142</td>
     </tr>
   </tbody>
 </table>
@@ -1460,7 +1457,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x10fae6810&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x122648ef0&gt;
 </pre></div>
 </div>
 </div>
@@ -1501,42 +1498,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>20.0</td>
-      <td>5.808287</td>
+      <td>4.878376</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>50.0</td>
-      <td>5.601494</td>
+      <td>4.517675</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>80.0</td>
-      <td>5.765039</td>
+      <td>4.817935</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>110.0</td>
-      <td>5.513309</td>
+      <td>5.610875</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>20.0</td>
-      <td>5.314407</td>
+      <td>4.590624</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>50.0</td>
-      <td>6.101220</td>
+      <td>4.325102</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>80.0</td>
-      <td>4.080051</td>
+      <td>5.028855</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>110.0</td>
-      <td>4.044271</td>
+      <td>4.784827</td>
     </tr>
   </tbody>
 </table>
@@ -1577,12 +1574,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>65.0</td>
-      <td>5.672032</td>
+      <td>4.956216</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>65.0</td>
-      <td>4.884987</td>
+      <td>4.682352</td>
     </tr>
   </tbody>
 </table>
@@ -1667,12 +1664,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>0.5547</td>
-      <td>0.111902</td>
+      <td>0.155408</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>0.5547</td>
-      <td>0.211387</td>
+      <td>0.151072</td>
     </tr>
   </tbody>
 </table>
@@ -2093,7 +2090,7 @@ memory usage: 18.6 KB
     <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;inflation ~ money_growth&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>        <span class="c1">#2</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;トレンド&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span>                                <span class="c1">#3</span>
     
-    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>  <span class="c1">#4</span>
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">)</span>          <span class="c1">#4</span>
     <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;トレンド&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;トレンド&#39;</span><span class="p">,</span>    <span class="c1">#5</span>
                                    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>               <span class="c1">#6</span>
     <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>                                          <span class="c1">#7</span>
@@ -2332,7 +2329,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x10fb6e210&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x12249d310&gt;
 </pre></div>
 </div>
 </div>
@@ -2347,7 +2344,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x10fc75c40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12288da60&gt;
 </pre></div>
 </div>
 </div>
@@ -3343,7 +3340,7 @@ Name: inflation, dtype: float64
 <p>全てのデータを使って散布図をプロットしトレンドを計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
@@ -3609,7 +3606,7 @@ Name: inflation, dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">world_mean</span></code>を使いクロスセクションのデータをプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">world_mean</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;money_growth_mean&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inflation_mean&#39;</span><span class="p">)</span>
 <span class="n">xpoints</span> <span class="o">=</span> <span class="n">ypoints</span> <span class="o">=</span> <span class="n">ax_</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xpoints</span><span class="p">,</span><span class="n">ypoints</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;45度線&#39;</span><span class="p">)</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;平均インフレ率とマネーストトックの平均成長率&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
