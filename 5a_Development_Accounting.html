@@ -1733,6 +1733,32 @@ A_i=\dfrac{y_i}{k_i^{\alpha}\left(h_iH_i\right)^{1-\alpha}}
 <p class="admonition-title">コードの説明</p>
 <p>右辺の<code class="docutils literal notranslate"><span class="pre">df['gdppc']</span></code>と<code class="docutils literal notranslate"><span class="pre">us['gdppc']</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>だが，要素数が異なる。従って，分母の<code class="docutils literal notranslate"><span class="pre">us['gdppc']</span></code>をそのまま使うとエラーが発生する。<code class="docutils literal notranslate"><span class="pre">iloc[0]</span></code>を使うことにより，<code class="docutils literal notranslate"><span class="pre">us['gdppc']</span></code>に一つだけある要素を抽出し，エラーの発生を防いでいる。<code class="docutils literal notranslate"><span class="pre">iloc[0]</span></code>の代わりに<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>に変換するメソッドである<code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code>を使うことも可能である。</p>
 </div>
+<p>ヒストグラムをプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b9b3c6b85a3297d7da65761e711fcb7510bc0276aa6a9e27961ac0031e0c27f0.png" src="_images/b9b3c6b85a3297d7da65761e711fcb7510bc0276aa6a9e27961ac0031e0c27f0.png" />
+</div>
+</div>
+<p>最小値と最大値を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.004714293864357248, 1.6902545334284609)
+</pre></div>
+</div>
+</div>
+</div>
+<p>最貧国は米国の一人当たりGDPの約<code class="docutils literal notranslate"><span class="pre">0.5</span></code>％に満たない。一方、米国の約<code class="docutils literal notranslate"><span class="pre">1.7</span></code>倍の国もある。</p>
 </section>
 <section id="id6">
 <h3>物的資本<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -2034,26 +2060,58 @@ r_i^y\equiv \log\left(R_i^y\right),\quad
 r_i^{\text{tfp}}\equiv\log\left(R_i^{\text{tfp}}\right),\quad
 r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 \]</div>
-<p>次に式<a class="reference internal" href="#equation-eq-riy-decomposition">(5)</a>の両辺の分散を計算するが，次の関係が成立することを思い出そう。</p>
+<p>実際に変数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>視覚的に<code class="docutils literal notranslate"><span class="pre">gdppc_relative_log</span></code>の分布を確認するためにヒストグラムをプロットしてみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdppc_relative_log&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fe7ab53926e1042ba5657a28d8f892d023640e282d3b06fe1f50871d2a95a2f9.png" src="_images/fe7ab53926e1042ba5657a28d8f892d023640e282d3b06fe1f50871d2a95a2f9.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>が米国となる。対数を使うと，貧しい国の分布がより明確になるのではないだろうか。
+対数を使っても使わなくても，相対的一人当たりGDPの分布の広がりは大きいことは既に確認したことだが，その広がり幅は分散で測ることができる。
+問題は，その分散が何に依存しているか，ということである。
+その問いに答えるために，式<a class="reference internal" href="#equation-eq-riy-decomposition">(5)</a>の分散を考えてみよう。</p>
+<div class="math notranslate nohighlight" id="equation-eq-riy-decomposition-log">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-riy-decomposition-log" title="Link to this equation">#</a></span>\[
+\text{Var}\left(r_i^y\right) =
+\text{Var}\left(r_i^{\text{tfp}} +
+r_i^{\text{factors}}\right)
+\]</div>
+<p>この式は，<span class="math notranslate nohighlight">\(r_i^y\)</span>の分散は<span class="math notranslate nohighlight">\(\left(r_i^{\text{tfp}}+r_i^{\text{factors}}\right)\)</span>の分散によって決定されることを意味てしており，右辺を計算すれば良いということである。ここで次の関係が成立することを思いだそう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-var-a-b">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-var-a-b" title="Link to this equation">#</a></span>\[
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-var-a-b" title="Link to this equation">#</a></span>\[
 \text{Var}(a+b)= \text{Var}(a)+ \text{Var}(b)+2\text{Cov}(a,b)
 \]</div>
-<p>式<a class="reference internal" href="#equation-eq-var-a-b">(6)</a>を使うと<a class="reference internal" href="#equation-eq-riy-decomposition">(5)</a>は次のように書き換えることができる。</p>
+<p>式<a class="reference internal" href="#equation-eq-var-a-b">(7)</a>を使うと<a class="reference internal" href="#equation-eq-riy-decomposition-log">(6)</a>は次のように書き換えることができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-varriy-decomposition">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-varriy-decomposition" title="Link to this equation">#</a></span>\[
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-varriy-decomposition" title="Link to this equation">#</a></span>\[
 \text{Var}\left(r_i^y\right) =
 \text{Var}\left(r_i^{\text{tfp}}\right) +
 \text{Var}\left(r_i^{\text{factors}}\right) +
 2\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)
 \]</div>
-<p>式<a class="reference internal" href="#equation-eq-varriy-decomposition">(7)</a>は左辺の相対所得の変動は右辺の３つの項に分解することができることを示している。</p>
+<p>式<a class="reference internal" href="#equation-eq-varriy-decomposition">(8)</a>は左辺の相対所得の変動は右辺の３つの項に分解することができることを示している。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{tfp}}\right)\)</span>：全要素生産性（対数; 米国＝１）の変動</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{factors}}\right)\)</span>：蓄積生産要素（対数; 米国＝１）の変動</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span>：全要素生産性と相対蓄積生産要素の共分散（それぞれ対数; 米国＝１）</p></li>
 </ul>
-<p>更に，<a class="reference internal" href="#equation-eq-varriy-decomposition">(7)</a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(r_i^y)\)</span>で割ると，次のように書くことができる。</p>
+<p>更に，<a class="reference internal" href="#equation-eq-varriy-decomposition">(8)</a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(r_i^y)\)</span>で割ると，次のように書くことができる。</p>
 <div class="math notranslate nohighlight">
 \[
 1= \text{全要素生産性の寄与度}
@@ -2061,7 +2119,7 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 \]</div>
 <p>ここで</p>
 <div class="math notranslate nohighlight" id="equation-eq-tfp-contribution">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-tfp-contribution" title="Link to this equation">#</a></span>\[
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-tfp-contribution" title="Link to this equation">#</a></span>\[
 \text{全要素生産性の寄与度}=
 \dfrac{
     \text{Var}\left(r_i^{\text{tfp}}\right)
@@ -2071,7 +2129,7 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
     }
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-factor-contribution">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-factor-contribution" title="Link to this equation">#</a></span>\[
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-factor-contribution" title="Link to this equation">#</a></span>\[
 \text{蓄積生産要素の寄与度}=
 \dfrac{
     \text{Var}\left(r_i^{\text{factors}}\right)
@@ -2082,7 +2140,7 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 \]</div>
 <p>と定義する。<span class="math notranslate nohighlight">\(2\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span> は等分されている。</p>
 <p>（考え方）</p>
-<p>式<a class="reference internal" href="#equation-eq-tfp-contribution">(8)</a>と<a class="reference internal" href="#equation-eq-factor-contribution">(9)</a>の分母は<span class="math notranslate nohighlight">\(\log(R_i^y)\)</span>の分散であり，それに対して分子はどれだけ変動しているかで寄与度を計算しようということである。分母に対して分子の変動が大きければ大きい程，説明力が高いと判断するわけである。極端な例として、全ての経済の全要素生産性が同じで蓄積生産要素だけが異なる場合を考えてみよう。即ち，</p>
+<p>式<a class="reference internal" href="#equation-eq-tfp-contribution">(9)</a>と<a class="reference internal" href="#equation-eq-factor-contribution">(10)</a>の分母は<span class="math notranslate nohighlight">\(\log(R_i^y)\)</span>の分散であり，それに対して分子はどれだけ変動しているかで寄与度を計算しようということである。分母に対して分子の変動が大きければ大きい程，説明力が高いと判断するわけである。極端な例として、全ての経済の全要素生産性が同じで蓄積生産要素だけが異なる場合を考えてみよう。即ち，</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}\left(r_i^{\text{tfp}}\right)=0\quad\Rightarrow\quad
@@ -2090,20 +2148,10 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 =0
 \]</div>
 <p>この場合、蓄積生産要素だけで一人当たりGDPの違いを説明できることになるため、全要素生産性の寄与度は<code class="docutils literal notranslate"><span class="pre">0</span></code>であり蓄積生産要素は<code class="docutils literal notranslate"><span class="pre">1</span></code>である。即ち、全要素生産性は変化しないため一人当たりGDP（対数）の分散を説明できないが，一方，蓄積生産要素の変動のみで一人当たりGDPの変動を説明している事になる。</p>
-<p>以下では<code class="docutils literal notranslate"><span class="pre">df</span></code>の統計学関連のメソッドを使って計算するために，<span class="math notranslate nohighlight">\(r^{\text{tfp}}\)</span>などを計算し，新たな列として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加することにする。</p>
+<p>以下では分散・共分散を計算するが，その前に欠損値である<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行を削除し<code class="docutils literal notranslate"><span class="pre">df</span></code>に再割り当てする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>分散・共分散を計算する前に欠損値である<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行を削除し<code class="docutils literal notranslate"><span class="pre">df</span></code>に再割り当てする。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="s1">&#39;factors_relative&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdppc_relative&#39;</span><span class="p">,</span> <span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="s1">&#39;factors_relative&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -2112,25 +2160,30 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 <p class="admonition-title">コードの説明</p>
 <p>１行目で使った<code class="docutils literal notranslate"><span class="pre">.dropna()</span></code>は，引数なしでそのまま使うと１つでも<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は削除される。引数の<code class="docutils literal notranslate"><span class="pre">subset=[]</span></code>に列を指定すると，その列に<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行だけが削除される。</p>
 </div>
-<p>次に
+<p>これで
 <span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{y}\right)\)</span>，
 <span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{tfp}}\right)\)</span>，
 <span class="math notranslate nohighlight">\(\text{Var}\left(r_i^{\text{factors}}\right)\)</span>，
-<span class="math notranslate nohighlight">\(\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span>を計算しよう。</p>
+<span class="math notranslate nohighlight">\(\text{Cov}\left(r_i^{\text{tfp}},r_i^{\text{factors}}\right)\)</span>を計算する準備が整った。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 分散</span>
 <span class="n">gdppc_relative_log_var</span>   <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdppc_relative_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
 <span class="n">tfp_relative_log_var</span>     <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
 <span class="n">factors_relative_log_var</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
 <span class="c1"># 共分散</span>
 <span class="n">two_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">,</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span>
+
 <span class="n">tfp_factors_relative_log_cov</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">two_vars</span><span class="p">]</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>全要素生産性の寄与度</strong></p>
+<p>式<a class="reference internal" href="#equation-eq-tfp-contribution">(9)</a>に従って，全要素生産性の寄与度を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">tfp_relative_log_var</span> <span class="o">+</span> <span class="n">tfp_factors_relative_log_cov</span><span class="p">)</span> <span class="o">/</span> <span class="n">gdppc_relative_log_var</span>
@@ -2144,6 +2197,7 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 </div>
 </div>
 <p><strong>蓄積生産要素の寄与度</strong></p>
+<p>次に式<a class="reference internal" href="#equation-eq-factor-contribution">(10)</a>を使い，蓄積生産要素の寄与度を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">factors_relative_log_var</span> <span class="o">+</span> <span class="n">tfp_factors_relative_log_cov</span><span class="p">)</span> <span class="o">/</span> <span class="n">gdppc_relative_log_var</span>
@@ -2157,7 +2211,7 @@ r_i^{\text{factors}}\equiv\log\left(R_i^{\text{factors}}\right)
 </div>
 </div>
 <p><strong>結果</strong></p>
-<p>2019年の一人当たりGDPの変動の約<span class="output text_plain">55</span>%は全要素生産性によって説明され，残りの<span class="output text_plain">45</span>%は蓄積生産要素によって説明される。即ち，一人当たりGDPの決定要因としての全要素生産性は蓄積生産要素は重要性は同等もしくはそれ以上である。</p>
+<p>2019年の相対的一人当たりGDPの約<span class="output text_plain">55</span>%は全要素生産性によって説明され，残りの<span class="output text_plain">45</span>%は蓄積生産要素によって説明される。即ち，一人当たりGDPの決定要因としての全要素生産性の重要性は，蓄積生産要素と同等もしくはそれ以上である。</p>
 </section>
 <section id="id11">
 <h2>表の作成<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>

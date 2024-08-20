@@ -845,7 +845,7 @@ memory usage: 22.0 KB
 \]</div>
 <p>ここで<span class="math notranslate nohighlight">\(g_x\)</span>の値は，例えば<code class="docutils literal notranslate"><span class="pre">0.02</span></code>（<code class="docutils literal notranslate"><span class="pre">2％</span></code>）のような値となる。この式の両辺に対数を取り，近似を使うと次のように書き直すことができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-log-growth">
-<span class="eqno">(99)<a class="headerlink" href="#equation-eq-10-log-growth" title="Link to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(100)<a class="headerlink" href="#equation-eq-10-log-growth" title="Link to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
 \log(1+g_x)&amp;=\log(x_{t+1})-\log(x_{t})\\
 &amp;\Downarrow\text{左辺を近似}\;\log(1+g_x)\approx g_x\\
@@ -884,7 +884,7 @@ g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
 </div>
 <p>プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。</p>
 <p>次に，長期的な視点で図を眺めてみよう。1980年から1990年までの間に直線のトレンドを描くことができる。その傾きが平均成長率である。同様に，1990年から2020年までの直線トレンドを描くこともできるが，傾きが緩やかになっていることに気づくのではないだろうか。1991年頃のバブル崩壊の影響により，その後のGDPの伸びが鈍化していることがわかる。「失われた10年」，「失われた20年」と言われていたが，今では「失われた30年」と言われる所以である。</p>
-<p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(99)</a>を使い四半期成長率を計算してみよう。</p>
+<p>次に<a class="reference internal" href="#equation-eq-10-log-growth">(100)</a>を使い四半期成長率を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_growth_quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>   <span class="c1"># 1</span>
@@ -1267,13 +1267,13 @@ Name: 1980-01-01 00:00:00, dtype: float64
 <ul>
 <li><p>GDPのように長期的なトレンドが右上がりの変数の場合、次式のように２つの項の掛け算で表す。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose">
-<span class="eqno">(100)<a class="headerlink" href="#equation-eq-10-decompose" title="Link to this equation">#</a></span>\[
+<span class="eqno">(101)<a class="headerlink" href="#equation-eq-10-decompose" title="Link to this equation">#</a></span>\[
     Y_t=Y_t^{\text{trend}}\times Y_t^{\text{cycle}}
     \]</div>
 </li>
 <li><p>失業率のように右上がりのトレンドがない場合（自然失業率が一定であればトレンドはないことになる）、次式のように２つの項の足し算で表す。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-plus">
-<span class="eqno">(101)<a class="headerlink" href="#equation-eq-10-decompose-plus" title="Link to this equation">#</a></span>\[
+<span class="eqno">(102)<a class="headerlink" href="#equation-eq-10-decompose-plus" title="Link to this equation">#</a></span>\[
     u_t=u_t^{\text{trend}}+u_t^{\text{cycle}}
     \]</div>
 </li>
@@ -1410,9 +1410,9 @@ Name: 1980-01-01 00:00:00, dtype: float64
 </section>
 <section id="id7">
 <h3>トレンドの計算方法<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(100)</a>を考えてみよう。この場合、対数化し次式に書き換える。</p>
+<p>以下では，データを使い景気循環<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>の特徴を調べるが，まず上の式<a class="reference internal" href="#equation-eq-10-decompose">(101)</a>を考えてみよう。この場合、対数化し次式に書き換える。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log">
-<span class="eqno">(102)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Link to this equation">#</a></span>\[
+<span class="eqno">(103)<a class="headerlink" href="#equation-eq-10-decompose-log" title="Link to this equation">#</a></span>\[
 y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
 \]</div>
 <p>ここで小文字は大文字の変数を対数化した値である</p>
@@ -1421,9 +1421,9 @@ y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
 <li><p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\equiv\log(Y_t^{\text{cycle}})\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(y_t^{\text{trend}}\equiv\log(Y_t^{\text{trend}})\)</span></p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(102)</a>の右辺を次のように近似しよう。</p>
+<p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>をより直感的に解釈するために式<a class="reference internal" href="#equation-eq-10-decompose-log">(103)</a>の右辺を次のように近似しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-log-approx">
-<span class="eqno">(103)<a class="headerlink" href="#equation-eq-10-decompose-log-approx" title="Link to this equation">#</a></span>\[
+<span class="eqno">(104)<a class="headerlink" href="#equation-eq-10-decompose-log-approx" title="Link to this equation">#</a></span>\[
 y_t^{\text{cycle}}
 =\log\left(\frac{Y_t}{Y_t^{\text{trend}}}\right)
     \approx
@@ -1435,9 +1435,9 @@ y_t^{\text{cycle}}
 <li><p><span class="math notranslate nohighlight">\(y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの乖離の割合を表している。</p></li>
 <li><p><span class="math notranslate nohighlight">\(100\times y_t^{\text{cycle}}\)</span>は変数<span class="math notranslate nohighlight">\(Y_t\)</span>のトレンドからの％乖離を表している。</p></li>
 </ul>
-<p>次に、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(101)</a>を考えるが、<span class="math notranslate nohighlight">\(u_t\)</span>の変動は次式で与えられる。</p>
+<p>次に、式<a class="reference internal" href="#equation-eq-10-decompose-plus">(102)</a>を考えるが、<span class="math notranslate nohighlight">\(u_t\)</span>の変動は次式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-decompose-plus-a">
-<span class="eqno">(104)<a class="headerlink" href="#equation-eq-10-decompose-plus-a" title="Link to this equation">#</a></span>\[
+<span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-decompose-plus-a" title="Link to this equation">#</a></span>\[
 u_t^{\text{cycle}}=u_t-u_t^{\text{trend}}
 \]</div>
 <p>そのまま解釈すれば良いが、呼称に注意する必要がある。</p>
@@ -1470,13 +1470,13 @@ trend(s, lamb=1600)
 </div>
 <p>使い方は簡単で，トレンドを計算したい変数の<code class="docutils literal notranslate"><span class="pre">Series</span></code>もしくは１列の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を引数に設定し実行するとトレンドが返される。ただ，上でも説明した通り、HPフィルターは線形トレンドが仮定されているため，次の点に注意すること。</p>
 <ul>
-<li><p>GDPや消費の様に長期的に増加している変数は対数化し，<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-log">(102)</a>の再掲。</p>
+<li><p>GDPや消費の様に長期的に増加している変数は対数化し，<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-log">(103)</a>の再掲。</p>
 <div class="math notranslate nohighlight">
 \[
     y_t^{\text{cycle}}=y_t-y_t^{\text{trend}}
     \]</div>
 </li>
-<li><p>失業率やインフレ率の様に長期的にはトレンドがない変数は，そのまま<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(104)</a>の再掲。</p>
+<li><p>失業率やインフレ率の様に長期的にはトレンドがない変数は，そのまま<code class="docutils literal notranslate"><span class="pre">.trend()</span></code>関数の引数に使うこと。次式は式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(105)</a>の再掲。</p>
 <div class="math notranslate nohighlight">
 \[
     u_t^{\text{cycle}}=u_t-u_t^{\text{trend}}
@@ -1552,7 +1552,7 @@ trend(s, lamb=1600)
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
 <p>次に景気循環の変数を作成するが，トレンドからの乖離を割合で表すために，上でも使った次の関係を利用する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-devaition">
-<span class="eqno">(105)<a class="headerlink" href="#equation-eq-10-devaition" title="Link to this equation">#</a></span>\[
+<span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-devaition" title="Link to this equation">#</a></span>\[
 \dfrac{Y_t-Y_t^{\text{trend}}}{Y_t^{\text{trend}}}
 =\dfrac{Y_t}{Y_t^{\text{trend}}}-1
 \approx\log\left(\frac{Y_t}{Y_t^{\text{trend}}}\right)
@@ -1714,7 +1714,7 @@ trend(s, lamb=1600)
 </section>
 <section id="id10">
 <h3>インフレ率と失業率のトレンドからの乖離<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>次に、失業率とインフレ率の乖離を確認するが、GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはないと考えることができる。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(104)</a>を使い、対数化せずに計算する必要がる。</p>
+<p>次に、失業率とインフレ率の乖離を確認するが、GDPなどの変数と違い、インフレ率と失業率は長期的なトレンドはないと考えることができる。従って、式<a class="reference internal" href="#equation-eq-10-decompose-plus-a">(105)</a>を使い、対数化せずに計算する必要がる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">infu_lst</span><span class="p">:</span>
@@ -1768,7 +1768,7 @@ trend(s, lamb=1600)
 <p>となる。</p>
 <p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance">
-<span class="eqno">(106)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
+<span class="eqno">(107)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
 \sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
 \left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
 \]</div>
@@ -1790,7 +1790,7 @@ trend(s, lamb=1600)
 <p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することであり、それにより単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
 その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-10-covariance-coef">
-<span class="eqno">(107)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
+<span class="eqno">(108)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
 \rho_{XY}=
 \frac{\sigma_{XY}}{\sigma_X\sigma_Y}
 \]</div>
@@ -2185,7 +2185,7 @@ imports_cycle       0.65
 <section id="id16">
 <h3>復習<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使い，自己相関について説明する。。
-<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(106)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(107)</a>で与えられる。</p>
+<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(107)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(108)</a>で与えられる。</p>
 <p>ここで時系列のランダム変数を<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>として、次の置き換えてみよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
