@@ -606,19 +606,19 @@ y_*=Ak_*^{a}
     <span class="n">k</span> <span class="o">=</span> <span class="n">k0</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">k0</span><span class="o">**</span><span class="n">a</span>
     
-    <span class="n">k_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    <span class="n">k_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
         
         <span class="n">k</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">n</span> <span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="n">a</span>
 
-        <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">k_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
     <span class="c1"># DataFrameの作成</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_list</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">}</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_lst</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_lst</span><span class="p">}</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">df</span> 
@@ -642,12 +642,12 @@ y_*=Ak_*^{a}
 <p>異なる初期値を使って資本の変化をプロットしてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>      <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_lst</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>      <span class="c1"># 1</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;capital&#39;</span><span class="p">:[],</span>
                    <span class="s1">&#39;output&#39;</span><span class="p">:[]})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 2</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">initial_list</span><span class="p">:</span>                <span class="c1"># 3</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">initial_lst</span><span class="p">:</span>                 <span class="c1"># 3</span>
     
     <span class="n">solow_model</span><span class="p">(</span><span class="n">k0</span><span class="o">=</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;capital&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
     
@@ -845,11 +845,11 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
     <span class="n">k</span> <span class="o">=</span> <span class="n">k0</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">k0</span><span class="o">**</span><span class="n">a</span>
     
-    <span class="n">k_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    <span class="n">k_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
 
     <span class="c1"># 定常状態</span>
-    <span class="n">k_ss</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>    
+    <span class="n">k_ss</span> <span class="o">=</span> <span class="p">(</span> <span class="n">s</span><span class="o">*</span><span class="n">A</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>    
     
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
         
@@ -857,11 +857,11 @@ y_*-y_{t+1}=(1-\lambda)(y_*-y_t)
         <span class="n">k</span> <span class="o">=</span> <span class="n">lamb</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">lamb</span><span class="p">)</span> <span class="o">*</span> <span class="n">k_ss</span>  <span class="c1"># 線形近似</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="n">a</span>
 
-        <span class="n">k_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">k_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
     <span class="c1"># DataFrameの作成</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_list</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">}</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital&#39;</span><span class="p">:</span><span class="n">k_lst</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span><span class="n">y_lst</span><span class="p">}</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">df</span>
