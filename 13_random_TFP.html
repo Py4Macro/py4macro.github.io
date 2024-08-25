@@ -515,17 +515,19 @@ document.write(`
 <span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
 
 <span class="c1"># トレンドからの％乖離のデータの作成</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="p">)</span>
 
 <span class="c1"># プロット</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの乖離（％）&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDPのトレンドからの乖離（％）&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/950daa5633fddbd1988451ec34638db4ec8d95c0089cbef8adde184e89fa7176.png" src="_images/950daa5633fddbd1988451ec34638db4ec8d95c0089cbef8adde184e89fa7176.png" />
+<img alt="_images/2f4eb64f37d4a92c8646b8075a54e1dfa31077e371626ccaa1eb856f340311a1.png" src="_images/2f4eb64f37d4a92c8646b8075a54e1dfa31077e371626ccaa1eb856f340311a1.png" />
 </div>
 </div>
 <p>このようなGDPの変動を説明する方法として２つある。</p>
@@ -594,8 +596,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.5058405 , 5.65178323, 2.20707067, 2.5016593 , 3.15839942,
-       4.87866111, 3.94741778, 4.28170863, 6.08763983, 4.5620733 ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.6373064 , 4.96387119, 3.50261742, 3.18217849, 9.33658567,
+       5.30384936, 3.78663774, 3.88065161, 6.09407257, 2.49217214])
 </pre></div>
 </div>
 </div>
@@ -619,7 +621,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/48d885113af15cf959f95dd0b3b60ea2bda6da2949bc31bedc825f8b975cf157.png" src="_images/48d885113af15cf959f95dd0b3b60ea2bda6da2949bc31bedc825f8b975cf157.png" />
+<img alt="_images/af030c4205ab73b21f98de09b9d9a4d7a98e63d4a34a43038af38791a51aaacf.png" src="_images/af030c4205ab73b21f98de09b9d9a4d7a98e63d4a34a43038af38791a51aaacf.png" />
 </div>
 </div>
 <p>２つの特徴がある。</p>
@@ -635,7 +637,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.028587976394273813, 1.1797280365145726)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.09876667624060134, 0.8281540484629357)
 </pre></div>
 </div>
 </div>
@@ -650,7 +652,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7150fdbb62763398b68d7691a7d215915509431e9bc1f2b5e634f2074d810b61.png" src="_images/7150fdbb62763398b68d7691a7d215915509431e9bc1f2b5e634f2074d810b61.png" />
+<img alt="_images/e6848055841e3ca4ac196216b2546033070f27ee93fe258419384ca36e615558.png" src="_images/e6848055841e3ca4ac196216b2546033070f27ee93fe258419384ca36e615558.png" />
 </div>
 </div>
 <p>概ね<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に左右対象に動いている。即ち，平均<code class="docutils literal notranslate"><span class="pre">0</span></code>を反映している。また，<code class="docutils literal notranslate"><span class="pre">0</span></code>から離れている観測値が少ないことが分かる。これは<code class="docutils literal notranslate"><span class="pre">0</span></code>方向に戻ることを示しており，分散が一定となるためである。この性質は<code class="docutils literal notranslate"><span class="pre">n</span></code>を<code class="docutils literal notranslate"><span class="pre">500</span></code>や<code class="docutils literal notranslate"><span class="pre">1000</span></code>などの大きな数字に設定するより一層分かりやすいだろう。</p>
@@ -691,28 +693,28 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.090531</td>
+      <td>-0.441325</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.531310</td>
-      <td>-1.090531</td>
+      <td>-0.673766</td>
+      <td>-0.441325</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1.548847</td>
-      <td>0.531310</td>
+      <td>-1.578449</td>
+      <td>-0.673766</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.050137</td>
-      <td>1.548847</td>
+      <td>-0.759346</td>
+      <td>-1.578449</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.060882</td>
-      <td>1.050137</td>
+      <td>-0.594575</td>
+      <td>-0.759346</td>
     </tr>
   </tbody>
 </table>
@@ -731,7 +733,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0109db7af95b012b9febeb1a27693fb333a0e5457336ca7ec39c5b815ca9a9b2.png" src="_images/0109db7af95b012b9febeb1a27693fb333a0e5457336ca7ec39c5b815ca9a9b2.png" />
+<img alt="_images/46237e045e464b7aa306fc94a0fb77e9adcad812c0a9802b7f7a5aaec2c8d960.png" src="_images/46237e045e464b7aa306fc94a0fb77e9adcad812c0a9802b7f7a5aaec2c8d960.png" />
 </div>
 </div>
 <p>自己共分散がゼロであれば，ランダムに散らばっているはずであり，何らかのパターンも確認できないはずである。</p>
@@ -748,7 +750,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/32bc860c1f50ef3560b0897d37932a852817a9a582a125703b574efa65befbae.png" src="_images/32bc860c1f50ef3560b0897d37932a852817a9a582a125703b574efa65befbae.png" />
+<img alt="_images/d5a2c9ae3040342d11a1ed3eefca164a48c3e1c8f3397b87fb1f3513ce72b4c6.png" src="_images/d5a2c9ae3040342d11a1ed3eefca164a48c3e1c8f3397b87fb1f3513ce72b4c6.png" />
 </div>
 </div>
 <ul class="simple">
@@ -789,13 +791,13 @@ document.write(`
   <tbody>
     <tr>
       <th>WN</th>
-      <td>1.179728</td>
-      <td>0.108401</td>
+      <td>0.828154</td>
+      <td>0.037787</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>0.108401</td>
-      <td>1.145033</td>
+      <td>0.037787</td>
+      <td>0.790947</td>
     </tr>
   </tbody>
 </table>
@@ -811,7 +813,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.09325197326032182
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.04653588503751394
 </pre></div>
 </div>
 </div>
@@ -850,11 +852,11 @@ document.write(`
     <tr>
       <th>WN</th>
       <td>1.000000</td>
-      <td>0.093252</td>
+      <td>0.046536</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>0.093252</td>
+      <td>0.046536</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -869,7 +871,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.09325197326032182
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.04653588503751394
 </pre></div>
 </div>
 </div>
@@ -982,7 +984,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8910e9d437374a33c3d22b054ba03e4b0d39bb70a5dd50016004441c5fd74cd5.png" src="_images/8910e9d437374a33c3d22b054ba03e4b0d39bb70a5dd50016004441c5fd74cd5.png" />
+<img alt="_images/349786cbee1991abde186436d61329d1fddfc838936e0d28b3b1235f0fe3adb8.png" src="_images/349786cbee1991abde186436d61329d1fddfc838936e0d28b3b1235f0fe3adb8.png" />
 </div>
 </div>
 <p>この例では<span class="math notranslate nohighlight">\(\rho\)</span>の値が低いため，<span class="math notranslate nohighlight">\(y\)</span>は定常状態の0に直ぐに戻ろうとする力が強い。従って、前期の値の今期の値に対する影響力が小さいため、持続性が低い。</p>
@@ -993,7 +995,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d3b5364975f9ddc054a74f9e6889ae58efd0a85bb060cb8ea94aad4d84499bd9.png" src="_images/d3b5364975f9ddc054a74f9e6889ae58efd0a85bb060cb8ea94aad4d84499bd9.png" />
+<img alt="_images/1fface59e6e0c8857c25503b9092bee5581865062d8948c59057b2b133a2d6d2.png" src="_images/1fface59e6e0c8857c25503b9092bee5581865062d8948c59057b2b133a2d6d2.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>の値が高くなると、定常状態の<span class="math notranslate nohighlight">\(0\)</span>に戻ろうとする作用が弱くなり、持続性が強くなることがわかる。</p>
@@ -1004,7 +1006,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/109ab034a994156a409b81e58163a8614a61c1f13995723b90d52a0eec8e59fc.png" src="_images/109ab034a994156a409b81e58163a8614a61c1f13995723b90d52a0eec8e59fc.png" />
+<img alt="_images/af99c4e6d511e3ff2eac95e8a32e8c503e56395f1c7a500764a0238802219afa.png" src="_images/af99c4e6d511e3ff2eac95e8a32e8c503e56395f1c7a500764a0238802219afa.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>が非常に高いため、持続性も非常に強くなっている。即ち、今期の値は前期の値に対する依存度が大きい。</p>
@@ -1064,13 +1066,13 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;employed_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">])</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_hours_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1198,7 +1200,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e7b142d8de4bb8205430fc667e2aa212bee9839467d6f9ce5f10c0a5219236ee.png" src="_images/e7b142d8de4bb8205430fc667e2aa212bee9839467d6f9ce5f10c0a5219236ee.png" />
+<img alt="_images/4b9fe7355154759b9791666c406500db59e3baef2fc017b0454a2850da236cd4.png" src="_images/4b9fe7355154759b9791666c406500db59e3baef2fc017b0454a2850da236cd4.png" />
 </div>
 </div>
 <p>次の２つの点を指摘できる。</p>
@@ -1280,7 +1282,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="c1"># 全要素生産性のトレンドからの乖離率の計算</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="c1"># 全要素生産性とトレンドのプロット</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tfp_log&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_log_trend&#39;</span><span class="p">])</span>
@@ -1296,7 +1298,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <p>全要素生産性の変動をプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;全要素生産性の変動（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -1304,7 +1306,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d2d5bc8a660b7ac380939eb63df7a59216c063060d03309eed731bed3d347df0.png" src="_images/d2d5bc8a660b7ac380939eb63df7a59216c063060d03309eed731bed3d347df0.png" />
+<img alt="_images/0e67d320f367247d5ba4144162058b0b14118a735ffad83f428cb13e23b577ba.png" src="_images/0e67d320f367247d5ba4144162058b0b14118a735ffad83f428cb13e23b577ba.png" />
 </div>
 </div>
 <p>この図から全要素生産性の変動は大きいことが分かる。変動の最小値と最大値を確認してみよう。</p>
@@ -1315,7 +1317,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.04557980672516948, 0.01929019912113139)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-4.557980672516948, 1.929019912113139)
 </pre></div>
 </div>
 </div>
@@ -1329,8 +1331,8 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdp_cycle    0.029345
-tfp_cycle    0.019290
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdp_cycle    2.934479
+tfp_cycle    1.929020
 dtype: float64
 </pre></div>
 </div>
@@ -1338,7 +1340,7 @@ dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="s1">&#39;tfp_cycle&#39;</span><span class="p">])</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPとTFPの変動（％）&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
@@ -1356,7 +1358,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9002234343906028
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9002234343906037
 </pre></div>
 </div>
 </div>
@@ -1369,7 +1371,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5408752554096141
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5408752554096142
 </pre></div>
 </div>
 </div>
@@ -1382,7 +1384,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755597
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
 </pre></div>
 </div>
 </div>
@@ -1403,7 +1405,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bc53eb1bbea1308e873b9068a43779a0e1fd6bd73f9616098109adfd504920d6.png" src="_images/bc53eb1bbea1308e873b9068a43779a0e1fd6bd73f9616098109adfd504920d6.png" />
+<img alt="_images/89d0aafd89cbd1d7adfd3d9a13d8f8585e785bbda3d4e8857b53a6c7011adc0f.png" src="_images/89d0aafd89cbd1d7adfd3d9a13d8f8585e785bbda3d4e8857b53a6c7011adc0f.png" />
 </div>
 </div>
 <p>正のトレンドがある。相関係数を計算してみよう。</p>
@@ -1415,7 +1417,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5027968352564304
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5027968352564302
 </pre></div>
 </div>
 </div>
@@ -1484,28 +1486,28 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
   <tbody>
     <tr>
       <th>1980-01-01</th>
-      <td>0.003565</td>
+      <td>0.356479</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1980-04-01</th>
-      <td>-0.011609</td>
-      <td>0.003565</td>
+      <td>-1.160933</td>
+      <td>0.356479</td>
     </tr>
     <tr>
       <th>1980-07-01</th>
-      <td>0.000210</td>
-      <td>-0.011609</td>
+      <td>0.021039</td>
+      <td>-1.160933</td>
     </tr>
     <tr>
       <th>1980-10-01</th>
-      <td>0.011241</td>
-      <td>0.000210</td>
+      <td>1.124116</td>
+      <td>0.021039</td>
     </tr>
     <tr>
       <th>1981-01-01</th>
-      <td>0.011100</td>
-      <td>0.011241</td>
+      <td>1.110044</td>
+      <td>1.124116</td>
     </tr>
   </tbody>
 </table>
@@ -1521,7 +1523,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5407568914745805
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5407568914745804
 </pre></div>
 </div>
 </div>
@@ -1539,7 +1541,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8429a713b231fcd3e14570bef7b783c8ee32426a6bc7e0ee0a14b2aef6c87338.png" src="_images/8429a713b231fcd3e14570bef7b783c8ee32426a6bc7e0ee0a14b2aef6c87338.png" />
+<img alt="_images/23eae37d880dad74baecd18dbd183003657f5126f6dedd9efcaf5053816f7065.png" src="_images/23eae37d880dad74baecd18dbd183003657f5126f6dedd9efcaf5053816f7065.png" />
 </div>
 </div>
 <p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。</p>
@@ -1551,7 +1553,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.008258256662360828
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8258256662360828
 </pre></div>
 </div>
 </div>
@@ -1585,10 +1587,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.535
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.417
 </pre></div>
 </div>
-<img alt="_images/ed38a7be743544da0f41364f5772af0b9c05e89f078c5671b52e3e92504a0aa4.png" src="_images/ed38a7be743544da0f41364f5772af0b9c05e89f078c5671b52e3e92504a0aa4.png" />
+<img alt="_images/461f882e2806c91895a397d40d4027da16c64aeb4c14aaff6a3a254abd4c65c8.png" src="_images/461f882e2806c91895a397d40d4027da16c64aeb4c14aaff6a3a254abd4c65c8.png" />
 </div>
 </div>
 <p>シミュレーションを行う度に図と自己相関係数は異なることになる。</p>
@@ -1629,7 +1631,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/93d2f3ca5f18b799b336f6dabcd198a0f70e8074559679ad5978ddcb8df43e65.png" src="_images/93d2f3ca5f18b799b336f6dabcd198a0f70e8074559679ad5978ddcb8df43e65.png" />
+<img alt="_images/0df257c11ec492d30692b071b00fa28e232a2656322f007646e9afa77f2d675e.png" src="_images/0df257c11ec492d30692b071b00fa28e232a2656322f007646e9afa77f2d675e.png" />
 </div>
 </div>
 <p>正の相関が確認できる。</p>
@@ -1754,13 +1756,8 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1980: 273013.55, 2023: 560278.625}
-</pre></div>
 </div>
-</div>
-</div>
-<p>キー・値の２つのペアがある。キー<span class="output text_plain">1980</span>の値には<span class="output text_plain">1980</span>年のGDPの平均が設定されており，同様に，もう一つのキー<span class="output text_plain">2023</span>の値には<span class="output text_plain">2023</span>年のGDPの平均が設定されている。従って，次のコードで<span class="output text_plain">1980</span>年の値にアクセスできる。</p>
+<p>キー・値の２つのペアがある。キーの値には年のGDPの平均が設定されており，同様に，もう一つのキーの値には年のGDPの平均が設定されている。従って，次のコードで年の値にアクセスできる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_dic</span><span class="p">[</span><span class="mi">1980</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1790,17 +1787,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;gdp&#39;, &#39;consumption&#39;, &#39;investment&#39;, &#39;government&#39;, &#39;exports&#39;, &#39;imports&#39;,
-       &#39;capital&#39;, &#39;employed&#39;, &#39;unemployed&#39;, &#39;unemployment_rate&#39;, &#39;hours&#39;,
-       &#39;total_hours&#39;, &#39;inflation&#39;, &#39;price&#39;, &#39;deflator&#39;, &#39;gdp_cycle&#39;,
-       &#39;hours_trend&#39;, &#39;hours_cycle&#39;, &#39;employed_trend&#39;, &#39;employed_cycle&#39;,
-       &#39;total_hours_trend&#39;, &#39;total_hours_cycle&#39;, &#39;tfp_log&#39;, &#39;tfp_log_trend&#39;,
-       &#39;tfp_cycle&#39;, &#39;tfp_cycle_lag&#39;, &#39;total_hours_cycle_lag&#39;],
-      dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gdp</span></code>は<code class="docutils literal notranslate"><span class="pre">0</span></code>番目，<code class="docutils literal notranslate"><span class="pre">capital</span></code>は<code class="docutils literal notranslate"><span class="pre">6</span></code>番目，<code class="docutils literal notranslate"><span class="pre">total_hours</span></code>は<code class="docutils literal notranslate"><span class="pre">11</span></code>番目の列にある。この情報をもとに次のように計算しよう。</p>
 <div class="cell docutils container">
@@ -1822,11 +1808,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0024213114000530833
-</pre></div>
-</div>
-</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -1845,11 +1826,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;investment&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">s</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.21716704443145593
 </pre></div>
 </div>
 </div>
@@ -1972,142 +1948,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>K</th>
-      <th>A</th>
-      <th>B</th>
-      <th>Y</th>
-      <th>C</th>
-      <th>I</th>
-      <th>K_log_trend</th>
-      <th>Kの変動</th>
-      <th>A_log_trend</th>
-      <th>Aの変動</th>
-      <th>Y_log_trend</th>
-      <th>Yの変動</th>
-      <th>C_log_trend</th>
-      <th>Cの変動</th>
-      <th>I_log_trend</th>
-      <th>Iの変動</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>8.500536e+05</td>
-      <td>1.000000</td>
-      <td>0.366275</td>
-      <td>272071.676745</td>
-      <td>212986.674833</td>
-      <td>59085.001912</td>
-      <td>13.691362</td>
-      <td>-3.830711</td>
-      <td>0.004436</td>
-      <td>-0.443629</td>
-      <td>12.532048</td>
-      <td>-1.822685</td>
-      <td>12.287212</td>
-      <td>-1.822685</td>
-      <td>11.004959</td>
-      <td>-1.822685</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>8.878873e+05</td>
-      <td>1.004740</td>
-      <td>0.367161</td>
-      <td>278352.839810</td>
-      <td>217903.776279</td>
-      <td>60449.063531</td>
-      <td>13.724590</td>
-      <td>-2.798946</td>
-      <td>0.004436</td>
-      <td>0.029326</td>
-      <td>12.546428</td>
-      <td>-0.978294</td>
-      <td>12.301592</td>
-      <td>-0.978294</td>
-      <td>11.019339</td>
-      <td>-0.978294</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>9.261392e+05</td>
-      <td>1.007902</td>
-      <td>0.368050</td>
-      <td>284187.398146</td>
-      <td>222471.260826</td>
-      <td>61716.137320</td>
-      <td>13.757793</td>
-      <td>-1.901354</td>
-      <td>0.004433</td>
-      <td>0.343762</td>
-      <td>12.560796</td>
-      <td>-0.340725</td>
-      <td>12.315960</td>
-      <td>-0.340725</td>
-      <td>11.033708</td>
-      <td>-0.340725</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9.647018e+05</td>
-      <td>0.994153</td>
-      <td>0.368942</td>
-      <td>285146.712074</td>
-      <td>223222.243383</td>
-      <td>61924.468690</td>
-      <td>13.790932</td>
-      <td>-1.135739</td>
-      <td>0.004424</td>
-      <td>-1.028841</td>
-      <td>12.575136</td>
-      <td>-1.437707</td>
-      <td>12.330300</td>
-      <td>-1.437707</td>
-      <td>11.048048</td>
-      <td>-1.437707</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1.002509e+06</td>
-      <td>1.005927</td>
-      <td>0.369835</td>
-      <td>293252.788081</td>
-      <td>229567.946822</td>
-      <td>63684.841259</td>
-      <td>13.823951</td>
-      <td>-0.593527</td>
-      <td>0.004410</td>
-      <td>0.149956</td>
-      <td>12.589427</td>
-      <td>-0.063713</td>
-      <td>12.344591</td>
-      <td>-0.063713</td>
-      <td>11.062339</td>
-      <td>-0.063713</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><span class="math notranslate nohighlight">\(Y\)</span>の水準とトレンドの図示（対数）。</p>
 <div class="cell docutils container">
@@ -2117,9 +1957,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/1305c00bb04d22ba042ea58bea8fb62d2693b1263d8fb284b4fc97db85a276fa.png" src="_images/1305c00bb04d22ba042ea58bea8fb62d2693b1263d8fb284b4fc97db85a276fa.png" />
 </div>
 </div>
 <p>トレンドの傾きは成長率を表しているが，徐々に減少していることが分かる。最初は成長率に対する資本蓄積の効果が大きいが，定常状態に近づくにつれて資本蓄積の効果が減少しているためである。</p>
@@ -2131,9 +1968,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/8c891fbb9524fba7bd9f243beb6c6f3746e5efb857a97851a68b08c0c03e9ad6.png" src="_images/8c891fbb9524fba7bd9f243beb6c6f3746e5efb857a97851a68b08c0c03e9ad6.png" />
 </div>
 </div>
 <p>絶対値で概ね2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
@@ -2151,17 +1985,6 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
     
     <span class="n">ac</span> <span class="o">=</span> <span class="n">df_sim</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">の変動： </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
-
-Yの変動： 0.537
-Cの変動： 0.537
-Iの変動： 0.537
-Kの変動： 0.971
-Aの変動： 0.519
 </pre></div>
 </div>
 </div>
@@ -2199,17 +2022,6 @@ Aの変動： 0.519
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- データ：変動の自己相関係数 ---
-
-        gdpの変動： 0.697
-consumptionの変動： 0.493
- investmentの変動： 0.838
-    capitalの変動： 0.882
-        tfpの変動： 0.541
-</pre></div>
-</div>
-</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -2240,16 +2052,6 @@ consumptionの変動： 0.493
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：GDPとの相関係数 ---
-
-Cの変動： 1.000
-Iの変動： 1.000
-Kの変動： 0.207
-Aの変動： 0.979
-</pre></div>
-</div>
-</div>
 </div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(C\)</span>と<span class="math notranslate nohighlight">\(I\)</span>の値は1.0となっている理由は<span class="math notranslate nohighlight">\(Y\)</span>と線形になっているためであり，全く同じように変動するためである。</p></li>
@@ -2263,16 +2065,6 @@ Aの変動： 0.979
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data_var_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="n">cor</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">&gt;11</span><span class="si">}</span><span class="s1">の変動：</span><span class="si">{</span><span class="n">cor</span><span class="si">:</span><span class="s1">&gt;5.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- データ：GDPとの相関係数 ---
-
-consumptionの変動：0.767
- investmentの変動：0.783
-    capitalの変動：0.131
-        tfpの変動：0.900
 </pre></div>
 </div>
 </div>
