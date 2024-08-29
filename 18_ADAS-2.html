@@ -726,8 +726,8 @@ y_t=-cp_t
     <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p0</span>    
     
     <span class="c1"># === yとpの値を格納するリスト ==========</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>   <span class="c1"># 初期値を格納</span>
-    <span class="n">p_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>   <span class="c1"># 初期値を格納</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>   <span class="c1"># 初期値を格納</span>
+    <span class="n">p_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span>   <span class="c1"># 初期値を格納</span>
 
     <span class="c1"># === ショック後のループ計算 ==========</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -735,11 +735,11 @@ y_t=-cp_t
         <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p</span>
 
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     
     <span class="c1"># === 辞書の作成 ==========</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_list</span><span class="p">}</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_lst</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_lst</span><span class="p">}</span>
     
     <span class="c1"># === 戻り値としてのDataFrame ==========</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
@@ -863,19 +863,19 @@ y_t=-cp_t + u_t
     
     <span class="c1"># === 結果を格納するリストの作成 ==========</span>
     <span class="c1"># 最初の３つの要素は定常状態に設定</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
-    <span class="n">p_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
-    <span class="n">u_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
-    <span class="n">v_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+    <span class="n">p_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+    <span class="n">u_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+    <span class="n">v_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
 
     <span class="c1"># === ショック発生時 ==========</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>   <span class="c1"># 引数のu,vが使われる</span>
     <span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>             <span class="c1"># 引数のuが使われる</span>
         
-    <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">u_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>          <span class="c1"># 引数のuが使われる</span>
-    <span class="n">v_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>          <span class="c1"># 引数のvが使われる</span>
+    <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">u_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>          <span class="c1"># 引数のuが使われる</span>
+    <span class="n">v_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>          <span class="c1"># 引数のvが使われる</span>
         
     <span class="c1"># === ショック後 ==========</span>
     <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>     <span class="c1"># ショックを0に戻す</span>
@@ -885,13 +885,13 @@ y_t=-cp_t + u_t
         <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>
 
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">u_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-        <span class="n">v_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">u_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="n">v_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     
     <span class="c1"># === 変数の辞書 ==========</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_list</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="n">u_list</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span><span class="n">v_list</span><span class="p">}</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_lst</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_lst</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="n">u_lst</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span><span class="n">v_lst</span><span class="p">}</span>
     
     <span class="c1"># === DataFrameを返す ==========</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
@@ -1060,10 +1060,10 @@ v_t\sim N(0,\sigma_v^2)
             <span class="c1"># yの初期値は必要ない</span>
 
     <span class="c1"># === 結果を格納するリストの作成 ==========</span>
-    <span class="n">y_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">p_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">u_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">v_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">p_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">u_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">v_lst</span> <span class="o">=</span> <span class="p">[]</span>
     
     <span class="c1"># === ランダム変数の「種」==========</span>
     <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
@@ -1079,13 +1079,13 @@ v_t\sim N(0,\sigma_v^2)
         <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>
             
-        <span class="n">y_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">u_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-        <span class="n">v_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">u_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="n">v_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             
     <span class="c1"># === 変数の辞書 ==========</span>
-    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_list</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_list</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="n">u_list</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span><span class="n">v_list</span><span class="p">}</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y_lst</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span><span class="n">p_lst</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="n">u_lst</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span><span class="n">v_lst</span><span class="p">}</span>
 
     <span class="c1"># === DataFrameを返す ==========</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
@@ -1110,7 +1110,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c8e88fb72ae69f51dc93f55c42e6d4ab2db038f539885b067d38876a0bfde82c.png" src="_images/c8e88fb72ae69f51dc93f55c42e6d4ab2db038f539885b067d38876a0bfde82c.png" />
+<img alt="_images/4f93bf7748be5ab6f9510be4cc66646d774a6cfb0440a1d2e12deeae611aed5b.png" src="_images/4f93bf7748be5ab6f9510be4cc66646d774a6cfb0440a1d2e12deeae611aed5b.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1129,7 +1129,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/db390c0f6ba2e8ed16b4f25f38a7c40ec1f29ed78fefb69d8583a670dd7a3a43.png" src="_images/db390c0f6ba2e8ed16b4f25f38a7c40ec1f29ed78fefb69d8583a670dd7a3a43.png" />
+<img alt="_images/a29b0f82da0ee78a7439410a85550df42270e08ad425b84017668047009cfaee.png" src="_images/a29b0f82da0ee78a7439410a85550df42270e08ad425b84017668047009cfaee.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1183,8 +1183,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01374
-pの標準偏差:0.01418
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01373
+pの標準偏差:0.01424
 </pre></div>
 </div>
 </div>
@@ -1234,7 +1234,7 @@ pの標準偏差:0.01418
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.046
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.050
 p:0.820
 </pre></div>
 </div>
@@ -1281,7 +1281,7 @@ p:0.820
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.1110423219615681
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11271649671766608
 </pre></div>
 </div>
 </div>
@@ -1312,11 +1312,11 @@ p:0.820
 <td><p><span class="pasted-text">-0.15298</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>WNショック</p></td>
-<td><p><span class="pasted-text">0.01374</span></p></td>
-<td><p><span class="pasted-text">0.01418</span></p></td>
-<td><p><span class="pasted-text">0.04554</span></p></td>
-<td><p><span class="pasted-text">0.81959</span></p></td>
-<td><p><span class="pasted-text">-0.11104</span></p></td>
+<td><p><span class="pasted-text">0.01373</span></p></td>
+<td><p><span class="pasted-text">0.01424</span></p></td>
+<td><p><span class="pasted-text">0.04967</span></p></td>
+<td><p><span class="pasted-text">0.81995</span></p></td>
+<td><p><span class="pasted-text">-0.11272</span></p></td>
 </tr>
 <tr class="row-even"><td><p>AR(1)ショック</p></td>
 <td><p>0.01252</p></td>
