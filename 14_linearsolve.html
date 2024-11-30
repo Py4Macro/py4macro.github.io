@@ -834,15 +834,23 @@ dtype: float64
 </section>
 <section id="id11">
 <h3>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve()</span></code>というメソッドが用意されており，それを評価すると<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に対数線形近似の結果が追加される。</p>
+<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.Log_linear_approximation()</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に組み込むことになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>対数線形近似の結果はメソッド<code class="docutils literal notranslate"><span class="pre">solved()</span></code>で表示することができる。</p>
+<p>更に，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solve_klein()</span></code>を使い，その対数近似の解を計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果は<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solved()</span></code>を使うと表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
@@ -850,17 +858,17 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the linear system:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
 
 a[t+1] = 0.9·a[t]+u[t+1]
 </pre></div>
 </div>
 </div>
 </div>
-<p>ここで表示された式を考えてみよう。<span class="math notranslate nohighlight">\(A_t\)</span>の定常状態での値は1であり，式<a class="reference internal" href="#equation-eq-14-tfp">(156)</a>を次のように書ける。</p>
+<p>ここで表示された式を考えてみよう。<span class="math notranslate nohighlight">\(A_t\)</span>の定常状態での値は<code class="docutils literal notranslate"><span class="pre">1</span></code>であり，式<a class="reference internal" href="#equation-eq-14-tfp">(156)</a>を次のように書ける。</p>
 <div class="math notranslate nohighlight">
 \[\frac{A_{t+1}}{1}=\left(\frac{A_{t}}{1}\right)^\rho e^{u_{t+1}}\]</div>
-<p><span class="math notranslate nohighlight">\(a_{t}\equiv\log\left(\dfrac{A_{t}}{1}\right)\)</span>を使い，この式の両辺を対数化すると</p>
+<p><span class="math notranslate nohighlight">\(a_{t}\equiv\log\left(\dfrac{A_{t}}{1}\right)\approx\dfrac{A_t-1}{1}\)</span>（定常値からの乖離の割合）を使い，この式の両辺を対数化すると</p>
 <div class="math notranslate nohighlight">
 \[
 a_{t+1}=\rho a_t+u_{t+1}
@@ -1022,7 +1030,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" src="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" />
+<img alt="_images/39e37f72fa3f2abfce9d3e420346459505980f4cbcd483e74a124769b05e9e92.png" src="_images/39e37f72fa3f2abfce9d3e420346459505980f4cbcd483e74a124769b05e9e92.png" />
 </div>
 </div>
 <p>この図の<code class="docutils literal notranslate"><span class="pre">a</span></code>は<code class="docutils literal notranslate"><span class="pre">A_t</span></code>の定常状態からの％乖離を表していることを思い出そう。<code class="docutils literal notranslate"><span class="pre">t=0</span></code>から<code class="docutils literal notranslate"><span class="pre">t=4</span></code>の５期間はショックがない定常状態である。<code class="docutils literal notranslate"><span class="pre">t=5</span></code>に<code class="docutils literal notranslate"><span class="pre">5%</span></code>の正のショックが発生し，<code class="docutils literal notranslate"><span class="pre">t=6</span></code>以降のショックは<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。一方，<code class="docutils literal notranslate"><span class="pre">A</span></code>の％乖離である<code class="docutils literal notranslate"><span class="pre">a</span></code>はゆっくりと減少し，分かりにくいが<code class="docutils literal notranslate"><span class="pre">50</span></code>期間過ぎても<code class="docutils literal notranslate"><span class="pre">0%</span></code>になっていない。例えば，一期間を１四半期と考えた場合，ショック項の影響は<code class="docutils literal notranslate"><span class="pre">(50-5)/4=11.25</span></code>年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。</p>
@@ -1085,7 +1093,7 @@ a: 1.000
 a[t+1] = 0.9·a[t]+u[t+1]
 </pre></div>
 </div>
-<img alt="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" src="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" />
+<img alt="_images/39e37f72fa3f2abfce9d3e420346459505980f4cbcd483e74a124769b05e9e92.png" src="_images/39e37f72fa3f2abfce9d3e420346459505980f4cbcd483e74a124769b05e9e92.png" />
 </div>
 </div>
 </section>
@@ -1190,7 +1198,7 @@ a[t+1] = 0.9·a[t]+u[t+1]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b00783e9b59276be6082a60e079c1eb06b08c7078d65dd04bf9a0785cc1ae13d.png" src="_images/b00783e9b59276be6082a60e079c1eb06b08c7078d65dd04bf9a0785cc1ae13d.png" />
+<img alt="_images/60420f18fc37dcf502942d81fa7bdd03fd8ca0fc35ccb16669de3c4d79780a53.png" src="_images/60420f18fc37dcf502942d81fa7bdd03fd8ca0fc35ccb16669de3c4d79780a53.png" />
 </div>
 </div>
 <p>ショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>は細かく上下している一方，<code class="docutils literal notranslate"><span class="pre">a</span></code>は持続的に上昇もしくは減少し定常値<code class="docutils literal notranslate"><span class="pre">0</span></code>から乖離することがわかる。景気循環におけるマクロ変数の動きと似ていいる様に見えないだろうか。</p>
@@ -1437,14 +1445,23 @@ dtype: float64
 </section>
 <section id="id23">
 <h3>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
-<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve()</span></code>というメソッドが用意されており，それを評価すると<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>に対数線形近似の結果が追加される。</p>
+<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.Log_linear_approximation()</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>に組み込むことになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>更に，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solve_klein()</span></code>を使い，その対数近似の解を計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果は<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solved()</span></code>を使うと表示できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
@@ -1452,13 +1469,13 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the linear system:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
 
 a[t+1] = 0.551·a[t]+u[t+1]
 
-k[t+1] = 0.1222·a[t]+0.9552·k[t]
+k[t+1] = 0.07·a[t]+0.9552·k[t]
 
-  y[t] = 1.2222·a[t]+0.252·k[t]
+  y[t] = a[t]+0.36·k[t]
 </pre></div>
 </div>
 </div>
@@ -1611,7 +1628,7 @@ k[t+1] = 0.1222·a[t]+0.9552·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" src="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" />
+<img alt="_images/1b5fb41f5354b20e54e052d35caa50117f2c960540bf3a79d870109c69d5b83f.png" src="_images/1b5fb41f5354b20e54e052d35caa50117f2c960540bf3a79d870109c69d5b83f.png" />
 </div>
 </div>
 <p>産出と資本ストックの％乖離の変化は大きく異なる。動物で例えると，産出はカモシカのように動きが素早いが，資本ストックは象のように動きがスローである。前者はフロー変数であり，後者はストック変数であるためであり，それぞれの変数の特徴が反映されたプロットとなっている。</p>
@@ -1690,7 +1707,7 @@ k[t+1] = 0.1222·a[t]+0.9552·k[t]
   y[t] = 1.2222·a[t]+0.252·k[t]
 </pre></div>
 </div>
-<img alt="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" src="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" />
+<img alt="_images/b265dc238310f7035bd905e80bfdc37ccc87fb1cf2c5958ab1e879f5de85ee3a.png" src="_images/b265dc238310f7035bd905e80bfdc37ccc87fb1cf2c5958ab1e879f5de85ee3a.png" />
 </div>
 </div>
 </section>
@@ -1815,7 +1832,7 @@ k[t+1] = 0.1222·a[t]+0.9552·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b52ffcb5430bfed4fa3e7439bbfafad3110cf2410acc165d2c1535da12982092.png" src="_images/b52ffcb5430bfed4fa3e7439bbfafad3110cf2410acc165d2c1535da12982092.png" />
+<img alt="_images/238af4bed251b7e67c396da84b29651d57b86a05ccf4c03f2c1405a76666d9c5.png" src="_images/238af4bed251b7e67c396da84b29651d57b86a05ccf4c03f2c1405a76666d9c5.png" />
 </div>
 </div>
 <p>この図の特徴：</p>
