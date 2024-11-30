@@ -643,7 +643,7 @@ u_{t}\sim\mathcal{N}(0,\sigma^2)
 <li><p>ストック変数：<span class="math notranslate nohighlight">\(A_t\)</span></p></li>
 <li><p>フロー変数：なし</p></li>
 <li><p>このモデルで決定される変数（内生変数）：<span class="math notranslate nohighlight">\(A_t\)</span></p></li>
-<li><p>所与として扱う変数（外生変数，ショック変数）：<span class="math notranslate nohighlight">\(u_t\)</span></p></li>
+<li><p>ショック変数（外生変数）：<span class="math notranslate nohighlight">\(u_t\)</span></p></li>
 </ul>
 <section id="id6">
 <h3>ステップ１：パラメータの値<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -669,12 +669,14 @@ dtype: float64
 <section id="id7">
 <h3>ステップ２：変数リスト<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>内生変数名のリスをを作成する。その際，次の順番で並べる。</p>
-<ul class="simple">
-<li><p>ショック項が<strong>ある</strong>ストック変数（内生変数）の変数名</p></li>
-<li><p>ショック項が<strong>ない</strong>ストック変数（内生変数）の変数名</p></li>
-<li><p>フロー変数（他の内生変数）の変数名</p></li>
-</ul>
-<p>この例では，ショック項があるストック変数<code class="docutils literal notranslate"><span class="pre">A</span></code>のみとなる。また，リストの要素として含める変数名を<code class="docutils literal notranslate"><span class="pre">A</span></code>としても良いが，計算結果では<code class="docutils literal notranslate"><span class="pre">A</span></code>の対数線形近似の変数が返される。それを見越して，ここでは<code class="docutils literal notranslate"><span class="pre">a</span></code>を使うことにする。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ショック項があるストック変数（内生変数）の変数名
+
+ショック項がないストック変数（内生変数）の変数名
+
+フロー変数（他の内生変数）の変数名
+</pre></div>
+</div>
+<p>この例では，ショック項があるストック変数<code class="docutils literal notranslate"><span class="pre">A</span></code>のみとなる。また，リストの要素として含める変数名を<code class="docutils literal notranslate"><span class="pre">A</span></code>としても良いが，計算結果では<code class="docutils literal notranslate"><span class="pre">A</span></code>の対数線形近似の変数が返される。それを見越して，ここでは<code class="docutils literal notranslate"><span class="pre">a</span></code>を使うことにする。このように指定するする方が，後で分かりやすいだろう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
@@ -682,7 +684,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>次に，外生的ショックを表す変数名のリストを作成するが，<code class="docutils literal notranslate"><span class="pre">var_names</span></code>と同じ順番に並べる。</p>
+<p>次に，外生的ショックを表す変数名のリストを作成するが，var_namesと同じ順番に並べる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
@@ -698,6 +700,7 @@ dtype: float64
 \[
 A_{t+1}=A_t,\quad u_t=0
 \]</div>
+<p>次に，非確率的な定常状態での均衡条件を返す関数を定義する。</p>
 <ul class="simple">
 <li><p>引数：</p>
 <ul>
@@ -747,7 +750,7 @@ A_{t+1}=A_t,\quad u_t=0
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>： <code class="docutils literal notranslate"><span class="pre">#4</span></code>の変数を<code class="docutils literal notranslate"><span class="pre">array</span></code>として返す。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>以外にも均衡式がある場合は，<code class="docutils literal notranslate"><span class="pre">#5</span></code>に含まれることになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>以外にも均衡式がある場合は，<code class="docutils literal notranslate"><span class="pre">np.array</span></code>の一次元配列として<code class="docutils literal notranslate"><span class="pre">#5</span></code>に含めることになる。</p></li>
 </ul>
 </li>
 </ul>
@@ -758,19 +761,28 @@ A_{t+1}=A_t,\quad u_t=0
 <ul class="simple">
 <li><p>引数：</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">equations</span></code>：ステップ３で定義した関数を指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_states</span></code>：ストック変数の数を指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">equations</span></code>：ステップ２で定義した関数を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variables</span></code>：ステップ２で設定した内生変数のリストを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exo_states</span></code>：ショック項があるストック変数名を指定する。複数の場合はリストとして指定する。</p>
 <ul>
-<li><p>（この例ではストック変数は<code class="docutils literal notranslate"><span class="pre">A</span></code>のみなので<code class="docutils literal notranslate"><span class="pre">1</span></code>を設定する。）</p></li>
+<li><p>この例ではストック変数は<code class="docutils literal notranslate"><span class="pre">A</span></code>のみなので<code class="docutils literal notranslate"><span class="pre">a</span></code>を指定する。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_exo_state</span></code>：ストック変数の中で外生的なショック項をともなう変数の数を指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">endo_state</span></code>：ショック項がないストック変数名を指定する。複数の場合はリストとして指定する。</p>
 <ul>
-<li><p>（この例ではストック変数<code class="docutils literal notranslate"><span class="pre">A</span></code>にショック項<code class="docutils literal notranslate"><span class="pre">v</span></code>が存在するので<code class="docutils literal notranslate"><span class="pre">1</span></code>を設定する。）</p></li>
+<li><p>この例ではないので書く必要はない。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">var_names</span></code>：ステップ２で設定した内生変数のリストを指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shock_names</span></code>：ステップ２で設定したショック変数のリストを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">costates</span></code>：コントロール変数名を指定する。複数の場合はリストとして指定する。</p>
+<ul>
+<li><p>この例ではないので書く必要はない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shock_names</span></code>：ステップ２で設定したショック変数のリストを指定する。</p>
+<ul>
+<li><p>この引数は必須ではなく，指定しなければ自動的に変数名（例えば，<code class="docutils literal notranslate"><span class="pre">e_a</span></code>）が使われる。</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>：ステップ１で設定したパラメータの値を含む<code class="docutils literal notranslate"><span class="pre">Series</span></code>を指定する。</p></li>
 </ul>
 </li>
@@ -783,26 +795,12 @@ A_{t+1}=A_t,\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                     <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="c1"># endo_states = None,</span>
+                     <span class="c1"># costates = None,</span>
+                     <span class="n">shock_names</span> <span class="o">=</span> <span class="n">shock_names</span><span class="p">,</span>
                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                      <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                      <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                      <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                      <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
-
-<span class="ne">TypeError</span>: model.__init__() got an unexpected keyword argument &#39;var_names&#39;
 </pre></div>
 </div>
 </div>
@@ -825,6 +823,12 @@ A_{t+1}=A_t,\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a    1.0
+dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 <p>ここで示しているのは，<code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>は<code class="docutils literal notranslate"><span class="pre">1.1</span></code>を出発点として定常値を探し始め，最終的に<code class="docutils literal notranslate"><span class="pre">1.0</span></code>を探し出したということだ。</p>
 </section>
@@ -842,6 +846,13 @@ A_{t+1}=A_t,\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the linear system:
+
+a[t+1] = 0.9·a[t]+u[t+1]
 </pre></div>
 </div>
 </div>
@@ -892,13 +903,12 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <li><p>引数：</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>：シミュレーションのの期間</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">t0</span></code>：何期目にショックが発生するかを指定</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shocks</span></code>：ショックの大きさ（定常状態からの乖離率，デフォルトは<code class="docutils literal notranslate"><span class="pre">0.01</span></code>）</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">t0</span></code>：何期目にショックを発生させるかを指定</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shocks</span></code>：ショックの大きさ（定常状態からの乖離，デフォルトは<code class="docutils literal notranslate"><span class="pre">0.01</span></code>）</p>
 <ul>
-<li><p>リストとして指定する。例えば，<code class="docutils literal notranslate"><span class="pre">[0.02]</span></code>。</p></li>
+<li><p>複数ある場合は辞書として指定する。例えば，<code class="docutils literal notranslate"><span class="pre">shocks={'u':0.05}</span></code>。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">percent</span></code>：変数の定常状態からの乖離を％表示にする（<code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>; デフォルトは<code class="docutils literal notranslate"><span class="pre">False</span></code>）</p></li>
 </ul>
 </li>
 <li><p>戻り値：</p>
@@ -906,7 +916,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <li><p>なし</p></li>
 <li><p>計算結果は<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に辞書として<strong>追加</strong>される。</p>
 <ul>
-<li><p>キー：ショック名の<code class="docutils literal notranslate"><span class="pre">u</span></code></p></li>
+<li><p>キー：ショックの変数名の<code class="docutils literal notranslate"><span class="pre">u</span></code></p></li>
 <li><p>値：ショック変数と内生変数の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p></li>
 </ul>
 </li>
@@ -917,7 +927,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <p>まずメソッド<code class="docutils literal notranslate"><span class="pre">.impulse()</span></code>で計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shocks</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="mf">0.05</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -929,18 +939,93 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>u</th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.00</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.00</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.05</td>
+      <td>0.05000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.00</td>
+      <td>0.04500</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.00</td>
+      <td>0.04050</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.00</td>
+      <td>0.03645</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行のみで<code class="docutils literal notranslate"><span class="pre">u</span></code>が<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっているのが確認できる。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>に跳ね上がっているが，インパクト後は徐々に減少しているのがわかる。</p>
-<p>この<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>をプロットしてみよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行のみで<code class="docutils literal notranslate"><span class="pre">u</span></code>が<code class="docutils literal notranslate"><span class="pre">0.05</span></code>になっているのが確認できる。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>も<code class="docutils literal notranslate"><span class="pre">0.05</span></code>に跳ね上がっているが，インパクト後は徐々に減少しているのがわかる。</p>
+<p>縦軸を％表示にして，この<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>をプロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" src="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" />
 </div>
-<p>この図の<code class="docutils literal notranslate"><span class="pre">a</span></code>は<code class="docutils literal notranslate"><span class="pre">A_t</span></code>の定常状態からの％乖離を表していることを思い出そう。<code class="docutils literal notranslate"><span class="pre">t=0</span></code>から<code class="docutils literal notranslate"><span class="pre">t=4</span></code>の５期間はショックがない定常状態である。<code class="docutils literal notranslate"><span class="pre">t=5</span></code>に<code class="docutils literal notranslate"><span class="pre">2%</span></code>の正のショックが発生し，<code class="docutils literal notranslate"><span class="pre">t=6</span></code>以降のショックは<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。一方，<code class="docutils literal notranslate"><span class="pre">A</span></code>の％乖離である<code class="docutils literal notranslate"><span class="pre">a</span></code>はゆっくりと減少し<code class="docutils literal notranslate"><span class="pre">50</span></code>期間過ぎても<code class="docutils literal notranslate"><span class="pre">0.1%</span></code>以上定常状態から乖離している。例えば，一期間を１四半期と考えた場合，ショック項の影響は<code class="docutils literal notranslate"><span class="pre">45/4=11.25</span></code>年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。</p>
+</div>
+<p>この図の<code class="docutils literal notranslate"><span class="pre">a</span></code>は<code class="docutils literal notranslate"><span class="pre">A_t</span></code>の定常状態からの％乖離を表していることを思い出そう。<code class="docutils literal notranslate"><span class="pre">t=0</span></code>から<code class="docutils literal notranslate"><span class="pre">t=4</span></code>の５期間はショックがない定常状態である。<code class="docutils literal notranslate"><span class="pre">t=5</span></code>に<code class="docutils literal notranslate"><span class="pre">5%</span></code>の正のショックが発生し，<code class="docutils literal notranslate"><span class="pre">t=6</span></code>以降のショックは<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。一方，<code class="docutils literal notranslate"><span class="pre">A</span></code>の％乖離である<code class="docutils literal notranslate"><span class="pre">a</span></code>はゆっくりと減少し，分かりにくいが<code class="docutils literal notranslate"><span class="pre">50</span></code>期間過ぎても<code class="docutils literal notranslate"><span class="pre">0%</span></code>になっていない。例えば，一期間を１四半期と考えた場合，ショック項の影響は<code class="docutils literal notranslate"><span class="pre">(50-5)/4=11.25</span></code>年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。</p>
 </section>
 <section id="id15">
 <h4>コードを１つのセルにまとめる<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
@@ -967,9 +1052,10 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 
 <span class="c1"># モデルの初期化</span>
 <span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                     <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="c1"># endo_states = None,   # 内生変数(stock)</span>
+                     <span class="c1"># costates = None,      # 内生変数(control)</span>
                      <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
@@ -983,13 +1069,23 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># インパルス反応の計算</span>
-<span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shocks</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;u&#39;</span><span class="p">:</span><span class="mf">0.05</span><span class="p">})</span>
 
 <span class="c1"># プロット</span>
-<span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+
+対数線形近似
+a[t+1] = 0.9·a[t]+u[t+1]
+</pre></div>
+</div>
+<img alt="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" src="_images/ff00d8258bb6166dff00b2b34a6d06840b07bb5e020224dd70dcc18dfa489adc.png" />
 </div>
 </div>
 </section>
@@ -1002,14 +1098,13 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code> (オプション): <code class="docutils literal notranslate"><span class="pre">Numpy.random</span></code>を使いランダム変数を発生させるが，<code class="docutils literal notranslate"><span class="pre">seed</span></code>とはランダム変数の「種」という意味である。<code class="docutils literal notranslate"><span class="pre">seed</span></code>に同じ数字を設定すると同じランダム変数が生成されることになる。同じ「種」からは同じランダム変数を発生させることができる，ということである。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>：シミュレーションの期間（デフォルトは51）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cov_mat</span></code>：ショック変数の分散共分散行列</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">covariance_matrix</span></code>：ショック変数の分散共分散行列</p>
 <ul class="simple">
 <li><p>ショック変数が１つの場合は分散を<code class="docutils literal notranslate"><span class="pre">[[0.5]]</span></code>のようにリストのリストで設定する。（デフォルトは<code class="docutils literal notranslate"><span class="pre">[[1]]</span></code>）</p></li>
-<li><p>ショック変数が複数の場合は<code class="docutils literal notranslate"><span class="pre">[[0.5,0.1],[0.1,2]]</span></code>のようなパターンで設定する。（デフォルトは<code class="docutils literal notranslate"><span class="pre">[[1,0],[0,1]]</span></code>）この例で，<code class="docutils literal notranslate"><span class="pre">0.5</span></code>と<code class="docutils literal notranslate"><span class="pre">2</span></code>が２つのショック項の分散であり，<code class="docutils literal notranslate"><span class="pre">0.1</span></code>が共分散となる。</p></li>
+<li><p>ショック変数が複数の場合は<code class="docutils literal notranslate"><span class="pre">[[0.5,0.1],[0.1,2]]</span></code>のようなパターンで設定する。（デフォルトは<code class="docutils literal notranslate"><span class="pre">[[1,0],[0,1]]</span></code>）この例で，<code class="docutils literal notranslate"><span class="pre">0.5</span></code>と<code class="docutils literal notranslate"><span class="pre">2</span></code>が２つのショック項の分散であり，<code class="docutils literal notranslate"><span class="pre">0.1</span></code>が共分散となる。
+*　戻り値：</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">percent</span></code>：変数の定常状態からの乖離を％表示にする（<code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>; デフォルトは<code class="docutils literal notranslate"><span class="pre">False</span></code>）
-*　戻り値：</p></li>
 </ol>
 <ul class="simple">
 <li><p>なし</p></li>
@@ -1020,8 +1115,8 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                    <span class="n">cov_mat</span><span class="o">=</span><span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]]],</span>
-                    <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]]],</span>
+                    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1033,6 +1128,58 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>u</th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001512</td>
+      <td>-0.026814</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.001008</td>
+      <td>-0.025141</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.002765</td>
+      <td>-0.019862</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.008446</td>
+      <td>-0.026322</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.001911</td>
+      <td>-0.021779</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>図示してみよう。</p>
 <div class="cell docutils container">
@@ -1041,6 +1188,9 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b00783e9b59276be6082a60e079c1eb06b08c7078d65dd04bf9a0785cc1ae13d.png" src="_images/b00783e9b59276be6082a60e079c1eb06b08c7078d65dd04bf9a0785cc1ae13d.png" />
 </div>
 </div>
 <p>ショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>は細かく上下している一方，<code class="docutils literal notranslate"><span class="pre">a</span></code>は持続的に上昇もしくは減少し定常値<code class="docutils literal notranslate"><span class="pre">0</span></code>から乖離することがわかる。景気循環におけるマクロ変数の動きと似ていいる様に見えないだろうか。</p>
@@ -1080,6 +1230,16 @@ K_{t+1} = sY_t + (1-d) K_t
                         <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
                         <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
 <span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha    0.360000
+s        0.100000
+d        0.070000
+rho      0.551000
+sigma    0.000061
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -1203,19 +1363,28 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <ul class="simple">
 <li><p>引数：</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">equations</span></code>：ステップ３で定義した関数を指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_states</span></code>：ストック変数の数を指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">equations</span></code>：ステップ２で定義した関数を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variables</span></code>：ステップ２で設定した内生変数のリストを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exo_states</span></code>：ショック項があるストック変数名を指定する。複数の場合はリストとして指定する。</p>
 <ul>
-<li><p>（この例ではストック変数は<code class="docutils literal notranslate"><span class="pre">A</span></code>と<code class="docutils literal notranslate"><span class="pre">K</span></code>なので<code class="docutils literal notranslate"><span class="pre">2</span></code>を設定する。）</p></li>
+<li><p>この例ではストック変数は<code class="docutils literal notranslate"><span class="pre">A</span></code>のみなので<code class="docutils literal notranslate"><span class="pre">a</span></code>を指定する。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_exo_state</span></code>：ストック変数の中で外生的なショック項をともなう変数の数を指定する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">endo_state</span></code>：ショック項がないストック変数名を指定する。複数の場合はリストとして指定する。</p>
 <ul>
-<li><p>（この例ではストック変数<code class="docutils literal notranslate"><span class="pre">A</span></code>にショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>が存在するので<code class="docutils literal notranslate"><span class="pre">1</span></code>を設定する。）</p></li>
+<li><p>この例ではないので書く必要はない。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">var_names</span></code>：ステップ２で設定した内生変数のリストを指定する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shock_names</span></code>：ステップ２で設定したショック変数のリストを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">costates</span></code>：コントロール変数名を指定する。複数の場合はリストとして指定する。</p>
+<ul>
+<li><p>この例ではないので書く必要はない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shock_names</span></code>：ステップ２で設定したショック変数のリストを指定する。</p>
+<ul>
+<li><p>この引数は必須ではなく，指定しなければ自動的に変数名（例えば，<code class="docutils literal notranslate"><span class="pre">e_a</span></code>）が使われる。</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>：ステップ１で設定したパラメータの値を含む<code class="docutils literal notranslate"><span class="pre">Series</span></code>を指定する。</p></li>
 </ul>
 </li>
@@ -1228,9 +1397,10 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                       <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                       <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                       <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                       <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                       <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                       <span class="n">endo_states</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                       <span class="n">costates</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
                        <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
                        <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
@@ -1243,7 +1413,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <p>最初に定常状態の値を確認しよう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">compute_ss()</span></code>を使うと自動で計算してくれる。その際，引数に計算の初期値をリストとして与える。ステップ２で設定した<code class="docutils literal notranslate"><span class="pre">var_names</span></code>の順番に合わせて初期値を並べる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1252,6 +1422,14 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">ss</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a    1.000000
+k    1.745960
+y    1.222172
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -1270,6 +1448,17 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the linear system:
+
+a[t+1] = 0.551·a[t]+u[t+1]
+
+k[t+1] = 0.1222·a[t]+0.9552·k[t]
+
+  y[t] = 1.2222·a[t]+0.252·k[t]
 </pre></div>
 </div>
 </div>
@@ -1302,7 +1491,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1319,15 +1508,110 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>u</th>
+      <th>a</th>
+      <th>k</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.01</td>
+      <td>0.010000</td>
+      <td>0.000000</td>
+      <td>0.010000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.00</td>
+      <td>0.005510</td>
+      <td>0.000700</td>
+      <td>0.005762</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.00</td>
+      <td>0.003036</td>
+      <td>0.001054</td>
+      <td>0.003416</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.00</td>
+      <td>0.001673</td>
+      <td>0.001220</td>
+      <td>0.002112</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">u</span></code>は<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっている。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>にジャンプしているが，資本ストックの％乖離である<code class="docutils literal notranslate"><span class="pre">k</span></code>は，<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">0</span></code>のままである。これは式<a class="reference internal" href="#equation-eq-14-capital-accum">(158)</a>が示すように，<code class="docutils literal notranslate"><span class="pre">t</span></code>期の産出<code class="docutils literal notranslate"><span class="pre">Y</span></code>の変化は<code class="docutils literal notranslate"><span class="pre">t+1</span></code>期の資本ストックに影響を与えており，時間的なラグが発生しているためである。また<code class="docutils literal notranslate"><span class="pre">6</span></code>行目から<code class="docutils literal notranslate"><span class="pre">k</span></code>は徐々に増加していることがわかる。この結果は，資本ストックの変化には時間がかかるという特徴を反映したものといえる。</p>
 <p>プロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" src="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" />
 </div>
 </div>
 <p>産出と資本ストックの％乖離の変化は大きく異なる。動物で例えると，産出はカモシカのように動きが素早いが，資本ストックは象のように動きがスローである。前者はフロー変数であり，後者はストック変数であるためであり，それぞれの変数の特徴が反映されたプロットとなっている。</p>
@@ -1344,7 +1628,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
                         <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
                         <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
 
-<span class="c1"># 変数のリスト</span>
+<span class="c1"># 変数名</span>
 <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
 <span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
@@ -1365,10 +1649,10 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 
 <span class="c1"># モデルの初期化</span>
 <span class="n">solow_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                       <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                       <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                       <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-                       <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                       <span class="n">exo_states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span>
+                       <span class="n">endo_states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span>
+                       <span class="n">costates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>
+                       <span class="n">shock_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">],</span>
                        <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
 <span class="c1"># 定常状態の計算</span>
@@ -1385,14 +1669,28 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># インパルス反応の計算</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># プロット</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">solow_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+k: 1.746
+y: 1.222
+
+対数線形近似
+a[t+1] = 0.551·a[t]+u[t+1]
+k[t+1] = 0.1222·a[t]+0.9552·k[t]
+  y[t] = 1.2222·a[t]+0.252·k[t]
+</pre></div>
+</div>
+<img alt="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" src="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" />
 </div>
 </div>
 </section>
@@ -1421,8 +1719,8 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                      <span class="n">cov_mat</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]],</span>
-                      <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]],</span>
+                      <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1434,6 +1732,70 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>u</th>
+      <th>a</th>
+      <th>k</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001512</td>
+      <td>-0.006122</td>
+      <td>-0.004141</td>
+      <td>-0.007613</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.001008</td>
+      <td>-0.004382</td>
+      <td>-0.004384</td>
+      <td>-0.005960</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.002765</td>
+      <td>0.000351</td>
+      <td>-0.004494</td>
+      <td>-0.001267</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.008446</td>
+      <td>-0.008253</td>
+      <td>-0.004268</td>
+      <td>-0.009790</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.001911</td>
+      <td>-0.002637</td>
+      <td>-0.004655</td>
+      <td>-0.004313</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1442,15 +1804,18 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を図示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                            <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-                                            <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
-                                            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                     <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                                     <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+                                                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b52ffcb5430bfed4fa3e7439bbfafad3110cf2410acc165d2c1535da12982092.png" src="_images/b52ffcb5430bfed4fa3e7439bbfafad3110cf2410acc165d2c1535da12982092.png" />
 </div>
 </div>
 <p>この図の特徴：</p>
@@ -1465,6 +1830,14 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y    0.010099
+k    0.003960
+a    0.009736
+dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の値はは殆ど同じである。一方，<code class="docutils literal notranslate"><span class="pre">k</span></code>の標準偏差は小さく，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の半分以下である。この特徴は相関係数からも確認できる。</p>
 <div class="cell docutils container">
@@ -1473,6 +1846,52 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>k</th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>y</th>
+      <td>1.000000</td>
+      <td>0.320501</td>
+      <td>0.990336</td>
+    </tr>
+    <tr>
+      <th>k</th>
+      <td>0.320501</td>
+      <td>1.000000</td>
+      <td>0.186028</td>
+    </tr>
+    <tr>
+      <th>a</th>
+      <td>0.990336</td>
+      <td>0.186028</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">a</span></code>の相関は非常に高く，<code class="docutils literal notranslate"><span class="pre">k</span></code>との相関は低い。また，３つの変数は正の相関があることがわかる。</p>
 <p>次にpersistenceを考えてみよう。<code class="docutils literal notranslate"><span class="pre">k</span></code>の変動幅は小さいががpersistenceが大きいことが図から確認できる。実際に自己相関係数で確認してみよう。</p>
@@ -1483,6 +1902,13 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
     <span class="n">ac</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;: </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y : 0.610
+k : 0.986
+a : 0.570
 </pre></div>
 </div>
 </div>
