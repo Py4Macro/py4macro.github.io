@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -81,6 +84,7 @@
     <link rel="prev" title="IS-MP-PCモデル" href="12_IS-MP-PC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -96,19 +100,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -116,7 +109,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -124,8 +116,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -141,7 +133,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -171,15 +164,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -394,24 +383,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -810,6 +791,21 @@ A_{t+1}=A_t,\quad u_t=0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tfp_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                      <span class="n">n_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                      <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                      <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                      <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: model.__init__() got an unexpected keyword argument &#39;var_names&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="id10">
@@ -826,12 +822,6 @@ A_{t+1}=A_t,\quad u_t=0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">ss</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a    1.0
-dtype: float64
 </pre></div>
 </div>
 </div>
@@ -852,13 +842,6 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
-
-a[t+1] = 0.9·a[t]+u[t+1]
 </pre></div>
 </div>
 </div>
@@ -946,78 +929,6 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>u</th>
-      <th>a</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.0</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.0</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.0</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.0</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.0</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1.0</td>
-      <td>1.000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>0.0</td>
-      <td>0.900</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>0.0</td>
-      <td>0.810</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>0.0</td>
-      <td>0.729</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行のみで<code class="docutils literal notranslate"><span class="pre">u</span></code>が<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっているのが確認できる。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>に跳ね上がっているが，インパクト後は徐々に減少しているのがわかる。</p>
 <p>この<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>をプロットしてみよう。</p>
@@ -1027,9 +938,6 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/6c44fd21ca6f861aca8fffcff831db3635b15b2d574c9c65296e44512cca25d8.png" src="_images/6c44fd21ca6f861aca8fffcff831db3635b15b2d574c9c65296e44512cca25d8.png" />
 </div>
 </div>
 <p>この図の<code class="docutils literal notranslate"><span class="pre">a</span></code>は<code class="docutils literal notranslate"><span class="pre">A_t</span></code>の定常状態からの％乖離を表していることを思い出そう。<code class="docutils literal notranslate"><span class="pre">t=0</span></code>から<code class="docutils literal notranslate"><span class="pre">t=4</span></code>の５期間はショックがない定常状態である。<code class="docutils literal notranslate"><span class="pre">t=5</span></code>に<code class="docutils literal notranslate"><span class="pre">2%</span></code>の正のショックが発生し，<code class="docutils literal notranslate"><span class="pre">t=6</span></code>以降のショックは<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。一方，<code class="docutils literal notranslate"><span class="pre">A</span></code>の％乖離である<code class="docutils literal notranslate"><span class="pre">a</span></code>はゆっくりと減少し<code class="docutils literal notranslate"><span class="pre">50</span></code>期間過ぎても<code class="docutils literal notranslate"><span class="pre">0.1%</span></code>以上定常状態から乖離している。例えば，一期間を１四半期と考えた場合，ショック項の影響は<code class="docutils literal notranslate"><span class="pre">45/4=11.25</span></code>年経った後でも残っていることになる。persistenceと呼ばれるこのような性質が景気循環を理解する上で重要な鍵となる。</p>
@@ -1083,16 +991,6 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
-a: 1.000
-
-対数線形近似
-a[t+1] = 0.9·a[t]+u[t+1]
-</pre></div>
-</div>
-<img alt="_images/6c44fd21ca6f861aca8fffcff831db3635b15b2d574c9c65296e44512cca25d8.png" src="_images/6c44fd21ca6f861aca8fffcff831db3635b15b2d574c9c65296e44512cca25d8.png" />
-</div>
 </div>
 </section>
 <section id="id16">
@@ -1135,58 +1033,6 @@ a[t+1] = 0.9·a[t]+u[t+1]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>u</th>
-      <th>a</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1.362842</td>
-      <td>2.011740</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-1.099992</td>
-      <td>0.710574</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.295028</td>
-      <td>0.344488</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-0.269740</td>
-      <td>0.040299</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.296449</td>
-      <td>0.332718</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>図示してみよう。</p>
 <div class="cell docutils container">
@@ -1195,9 +1041,6 @@ a[t+1] = 0.9·a[t]+u[t+1]
 <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/736e8f00dd6d833a8884874e4d8b139e0c56e93dfe84a3218da6edb375da8055.png" src="_images/736e8f00dd6d833a8884874e4d8b139e0c56e93dfe84a3218da6edb375da8055.png" />
 </div>
 </div>
 <p>ショック項<code class="docutils literal notranslate"><span class="pre">u</span></code>は細かく上下している一方，<code class="docutils literal notranslate"><span class="pre">a</span></code>は持続的に上昇もしくは減少し定常値<code class="docutils literal notranslate"><span class="pre">0</span></code>から乖離することがわかる。景気循環におけるマクロ変数の動きと似ていいる様に見えないだろうか。</p>
@@ -1237,16 +1080,6 @@ K_{t+1} = sY_t + (1-d) K_t
                         <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
                         <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">})</span>
 <span class="n">parameters</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha    0.360000
-s        0.100000
-d        0.070000
-rho      0.551000
-sigma    0.000061
-dtype: float64
 </pre></div>
 </div>
 </div>
@@ -1422,14 +1255,6 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a    1.000000
-k    1.745960
-y    1.222172
-dtype: float64
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="id23">
@@ -1445,17 +1270,6 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
-
-a[t+1] = 0.551·a[t]+u[t+1]
-
-k[t+1] = 0.07·a[t]+0.9552·k[t]
-
-  y[t] = a[t]+0.36·k[t]
 </pre></div>
 </div>
 </div>
@@ -1505,98 +1319,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>u</th>
-      <th>a</th>
-      <th>k</th>
-      <th>y</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1.0</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>0.0</td>
-      <td>0.551000</td>
-      <td>0.070000</td>
-      <td>0.576200</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>0.0</td>
-      <td>0.303601</td>
-      <td>0.105434</td>
-      <td>0.341557</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>0.0</td>
-      <td>0.167284</td>
-      <td>0.121963</td>
-      <td>0.211191</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">u</span></code>は<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっている。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>にジャンプしているが，資本ストックの％乖離である<code class="docutils literal notranslate"><span class="pre">k</span></code>は，<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">0</span></code>のままである。これは式<a class="reference internal" href="#equation-eq-14-capital-accum">(158)</a>が示すように，<code class="docutils literal notranslate"><span class="pre">t</span></code>期の産出<code class="docutils literal notranslate"><span class="pre">Y</span></code>の変化は<code class="docutils literal notranslate"><span class="pre">t+1</span></code>期の資本ストックに影響を与えており，時間的なラグが発生しているためである。また<code class="docutils literal notranslate"><span class="pre">6</span></code>行目から<code class="docutils literal notranslate"><span class="pre">k</span></code>は徐々に増加していることがわかる。この結果は，資本ストックの変化には時間がかかるという特徴を反映したものといえる。</p>
 <p>プロットしてみよう。</p>
@@ -1606,9 +1328,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <span class="k">pass</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" src="_images/1a9b67c45cf34c0947596ac790e1945c88fda972183edbab7bfdd83160633f9e.png" />
 </div>
 </div>
 <p>産出と資本ストックの％乖離の変化は大きく異なる。動物で例えると，産出はカモシカのように動きが素早いが，資本ストックは象のように動きがスローである。前者はフロー変数であり，後者はストック変数であるためであり，それぞれの変数の特徴が反映されたプロットとなっている。</p>
@@ -1675,20 +1394,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
-a: 1.000
-k: 1.746
-y: 1.222
-
-対数線形近似
-a[t+1] = 0.551·a[t]+u[t+1]
-k[t+1] = 0.07·a[t]+0.9552·k[t]
-  y[t] = a[t]+0.36·k[t]
-</pre></div>
-</div>
-<img alt="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" src="_images/7d1e86a512a3f24290b64f86fe456ff8c0831912b364645b4d0bf89bbe975198.png" />
-</div>
 </div>
 </section>
 <section id="id28">
@@ -1729,70 +1434,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>u</th>
-      <th>a</th>
-      <th>k</th>
-      <th>y</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1.362842</td>
-      <td>1.907869</td>
-      <td>-0.360161</td>
-      <td>1.778211</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-1.099992</td>
-      <td>-0.048756</td>
-      <td>-0.210475</td>
-      <td>-0.124527</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.295028</td>
-      <td>-0.321893</td>
-      <td>-0.204459</td>
-      <td>-0.395498</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-0.269740</td>
-      <td>-0.447103</td>
-      <td>-0.217832</td>
-      <td>-0.525523</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.296449</td>
-      <td>0.050095</td>
-      <td>-0.239370</td>
-      <td>-0.036078</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1811,9 +1452,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/d721843262a21d728cb33ad65b17ec4af63e1d2435a02dc3ccc589916831d27a.png" src="_images/d721843262a21d728cb33ad65b17ec4af63e1d2435a02dc3ccc589916831d27a.png" />
-</div>
 </div>
 <p>この図の特徴：</p>
 <ul class="simple">
@@ -1827,14 +1465,6 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y    0.982764
-k    0.308781
-a    0.967536
-dtype: float64
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の値はは殆ど同じである。一方，<code class="docutils literal notranslate"><span class="pre">k</span></code>の標準偏差は小さく，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の半分以下である。この特徴は相関係数からも確認できる。</p>
 <div class="cell docutils container">
@@ -1843,52 +1473,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>y</th>
-      <th>k</th>
-      <th>a</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>y</th>
-      <td>1.000000</td>
-      <td>0.192482</td>
-      <td>0.993624</td>
-    </tr>
-    <tr>
-      <th>k</th>
-      <td>0.192482</td>
-      <td>1.000000</td>
-      <td>0.080621</td>
-    </tr>
-    <tr>
-      <th>a</th>
-      <td>0.993624</td>
-      <td>0.080621</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">a</span></code>の相関は非常に高く，<code class="docutils literal notranslate"><span class="pre">k</span></code>との相関は低い。また，３つの変数は正の相関があることがわかる。</p>
 <p>次にpersistenceを考えてみよう。<code class="docutils literal notranslate"><span class="pre">k</span></code>の変動幅は小さいががpersistenceが大きいことが図から確認できる。実際に自己相関係数で確認してみよう。</p>
@@ -1899,13 +1483,6 @@ dtype: float64
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
     <span class="n">ac</span> <span class="o">=</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;: </span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y : 0.554
-k : 0.976
-a : 0.528
 </pre></div>
 </div>
 </div>
@@ -1971,7 +1548,8 @@ a : 0.528
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2070,8 +1648,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

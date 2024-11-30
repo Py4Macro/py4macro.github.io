@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -81,6 +84,7 @@
     <link rel="prev" title="定量的マクロ経済分析：Part 2" href="18_ADAS-2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -96,19 +100,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -116,7 +109,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -124,8 +116,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -141,7 +133,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -171,15 +164,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -394,24 +383,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -603,8 +584,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.89948968, 3.93552861, 4.47004945, 5.24012765, 6.93666361,
-       6.00112561, 4.99168641, 2.87226522, 2.82300823, 6.98596606])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.06951067, 7.1713945 , 4.63079728, 5.37370795, 7.48386348,
+       6.85894883, 2.5310181 , 4.50607374, 5.7186948 , 2.97427987])
 </pre></div>
 </div>
 </div>
@@ -628,7 +609,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c62ccbfbfdaf5c1d04b83c0d006395b060df52ad7963a57bc6ead0290c556476.png" src="_images/c62ccbfbfdaf5c1d04b83c0d006395b060df52ad7963a57bc6ead0290c556476.png" />
+<img alt="_images/395e3ce954ddea43fcf557fac686bc101ea13bd868300f4b7463dc921b7c17c3.png" src="_images/395e3ce954ddea43fcf557fac686bc101ea13bd868300f4b7463dc921b7c17c3.png" />
 </div>
 </div>
 <p>２つの特徴がある。</p>
@@ -644,7 +625,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.08723266527413064, 1.1309348641300627)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.11767261989341792, 0.6306624338760077)
 </pre></div>
 </div>
 </div>
@@ -659,7 +640,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7d5409e9f3ad6c29242ab3ff42abfac71802d3ce255128dc097c2df9797df0b5.png" src="_images/7d5409e9f3ad6c29242ab3ff42abfac71802d3ce255128dc097c2df9797df0b5.png" />
+<img alt="_images/204275f66469bd7538e11912062f1747d68b70aaf4ec946fffb50bb87ac75eaf.png" src="_images/204275f66469bd7538e11912062f1747d68b70aaf4ec946fffb50bb87ac75eaf.png" />
 </div>
 </div>
 <p>概ね<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に左右対象に動いている。即ち，平均<code class="docutils literal notranslate"><span class="pre">0</span></code>を反映している。また，<code class="docutils literal notranslate"><span class="pre">0</span></code>から離れている観測値が少ないことが分かる。これは<code class="docutils literal notranslate"><span class="pre">0</span></code>方向に戻ることを示しており，分散が一定となるためである。この性質は<code class="docutils literal notranslate"><span class="pre">n</span></code>を<code class="docutils literal notranslate"><span class="pre">500</span></code>や<code class="docutils literal notranslate"><span class="pre">1000</span></code>などの大きな数字に設定するより一層分かりやすいだろう。</p>
@@ -700,28 +681,28 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>-0.842237</td>
+      <td>0.741020</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.120422</td>
-      <td>-0.842237</td>
+      <td>-0.071784</td>
+      <td>0.741020</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.575122</td>
-      <td>0.120422</td>
+      <td>-0.133180</td>
+      <td>-0.071784</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.396047</td>
-      <td>0.575122</td>
+      <td>0.043197</td>
+      <td>-0.133180</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.382509</td>
-      <td>0.396047</td>
+      <td>-1.547453</td>
+      <td>0.043197</td>
     </tr>
   </tbody>
 </table>
@@ -740,7 +721,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cd3b6040d190912f271e06680c202fd05651c5240a7fe026b0397a4add976d80.png" src="_images/cd3b6040d190912f271e06680c202fd05651c5240a7fe026b0397a4add976d80.png" />
+<img alt="_images/ae6ab0ab87470e4be2555c8335d50ffa6276eb12098b014abe87615ec349127d.png" src="_images/ae6ab0ab87470e4be2555c8335d50ffa6276eb12098b014abe87615ec349127d.png" />
 </div>
 </div>
 <p>自己共分散がゼロであれば，ランダムに散らばっているはずであり，何らかのパターンも確認できないはずである。</p>
@@ -757,7 +738,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/42933023ea6bcce5964db2e63f82fe1aa2af6cfe4a2568966da57075fea386f2.png" src="_images/42933023ea6bcce5964db2e63f82fe1aa2af6cfe4a2568966da57075fea386f2.png" />
+<img alt="_images/3854076cc46286ae1cb28030969a5aacfbdcfbd61cf12f90075bcfda98e6d2af.png" src="_images/3854076cc46286ae1cb28030969a5aacfbdcfbd61cf12f90075bcfda98e6d2af.png" />
 </div>
 </div>
 <ul class="simple">
@@ -798,13 +779,13 @@ document.write(`
   <tbody>
     <tr>
       <th>WN</th>
-      <td>1.130935</td>
-      <td>-0.086535</td>
+      <td>0.630662</td>
+      <td>-0.034143</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>-0.086535</td>
-      <td>1.092725</td>
+      <td>-0.034143</td>
+      <td>0.636412</td>
     </tr>
   </tbody>
 </table>
@@ -820,7 +801,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.07775171668251629
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.053942545003549475
 </pre></div>
 </div>
 </div>
@@ -859,11 +840,11 @@ document.write(`
     <tr>
       <th>WN</th>
       <td>1.000000</td>
-      <td>-0.077752</td>
+      <td>-0.053943</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>-0.077752</td>
+      <td>-0.053943</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -878,7 +859,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.07775171668251629
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.053942545003549475
 </pre></div>
 </div>
 </div>
@@ -991,7 +972,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e265f37249e20695d9ad5436f8231c2cfe56f5e3cedc09a655dc92bacb89548c.png" src="_images/e265f37249e20695d9ad5436f8231c2cfe56f5e3cedc09a655dc92bacb89548c.png" />
+<img alt="_images/9ee2ad34e602e27cb0e2ab48a9ee93addf7f2ed6453db31d406ca040f3a5f461.png" src="_images/9ee2ad34e602e27cb0e2ab48a9ee93addf7f2ed6453db31d406ca040f3a5f461.png" />
 </div>
 </div>
 <p>この例では<span class="math notranslate nohighlight">\(\rho\)</span>の値が低いため，<span class="math notranslate nohighlight">\(y\)</span>は定常状態の0に直ぐに戻ろうとする力が強い。従って、前期の値の今期の値に対する影響力が小さいため、持続性が低い。</p>
@@ -1002,7 +983,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6196d593e8843756b7dc0bc618b0d747e0b664c9ad0e85175d01fdd69cce9524.png" src="_images/6196d593e8843756b7dc0bc618b0d747e0b664c9ad0e85175d01fdd69cce9524.png" />
+<img alt="_images/6de03b1492d51ceb128a3363b749e4809326236e375e677b8e1776953a41dd7d.png" src="_images/6de03b1492d51ceb128a3363b749e4809326236e375e677b8e1776953a41dd7d.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>の値が高くなると、定常状態の<span class="math notranslate nohighlight">\(0\)</span>に戻ろうとする作用が弱くなり、持続性が強くなることがわかる。</p>
@@ -1013,7 +994,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5e8dabae1706d9d498aa454efce2b1aa52d1324e274375190f7bde349c8fb56f.png" src="_images/5e8dabae1706d9d498aa454efce2b1aa52d1324e274375190f7bde349c8fb56f.png" />
+<img alt="_images/ffb84c1c9f100773cc2992e7f5135eebd2845988be66599828bc6918e7531a3e.png" src="_images/ffb84c1c9f100773cc2992e7f5135eebd2845988be66599828bc6918e7531a3e.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>が非常に高いため、持続性も非常に強くなっている。即ち、今期の値は前期の値に対する依存度が大きい。</p>
@@ -1530,10 +1511,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.604
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.513
 </pre></div>
 </div>
-<img alt="_images/5b2da32f2e23928e3a2ec93d5213db6144ec049e3a88326085d8519ee943e06e.png" src="_images/5b2da32f2e23928e3a2ec93d5213db6144ec049e3a88326085d8519ee943e06e.png" />
+<img alt="_images/8dd6ecc5723c06355e5c45dd5a1afe88af0f1e0a2b6bcf6db54e3b56e3e21040.png" src="_images/8dd6ecc5723c06355e5c45dd5a1afe88af0f1e0a2b6bcf6db54e3b56e3e21040.png" />
 </div>
 </div>
 <p>シミュレーションを行う度に図と自己相関係数は異なることになる。</p>
@@ -1963,92 +1944,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>272210.617761</td>
       <td>213095.442439</td>
       <td>59115.175322</td>
-      <td>13.585172</td>
-      <td>6.788774</td>
-      <td>-0.145123</td>
-      <td>14.512346</td>
-      <td>12.344768</td>
-      <td>16.956305</td>
-      <td>12.099932</td>
-      <td>16.956305</td>
-      <td>10.817680</td>
-      <td>16.956305</td>
+      <td>13.669813</td>
+      <td>-1.675379</td>
+      <td>0.340994</td>
+      <td>-34.099400</td>
+      <td>12.861357</td>
+      <td>-34.702537</td>
+      <td>12.616521</td>
+      <td>-34.702537</td>
+      <td>11.334268</td>
+      <td>-34.702537</td>
     </tr>
     <tr>
       <th>1</th>
       <td>887921.407217</td>
-      <td>0.711826</td>
+      <td>0.817211</td>
       <td>0.367346</td>
-      <td>197305.887068</td>
-      <td>154457.550725</td>
-      <td>42848.336344</td>
-      <td>13.656441</td>
-      <td>4.019769</td>
-      <td>-0.092582</td>
-      <td>-24.733977</td>
-      <td>12.425379</td>
-      <td>-23.286860</td>
-      <td>12.180543</td>
-      <td>-23.286860</td>
-      <td>10.898291</td>
-      <td>-23.286860</td>
+      <td>226516.806008</td>
+      <td>177324.820733</td>
+      <td>49191.985275</td>
+      <td>13.761277</td>
+      <td>-6.463856</td>
+      <td>0.366812</td>
+      <td>-56.867042</td>
+      <td>12.922515</td>
+      <td>-59.194030</td>
+      <td>12.677679</td>
+      <td>-59.194030</td>
+      <td>11.395426</td>
+      <td>-59.194030</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>908571.708381</td>
-      <td>0.687994</td>
+      <td>914915.357312</td>
+      <td>0.756338</td>
       <td>0.368233</td>
-      <td>192749.367636</td>
-      <td>150890.557150</td>
-      <td>41858.810486</td>
-      <td>13.727752</td>
-      <td>-0.812324</td>
-      <td>-0.039950</td>
-      <td>-33.402553</td>
-      <td>12.506096</td>
-      <td>-33.694990</td>
-      <td>12.261260</td>
-      <td>-33.694990</td>
-      <td>10.979007</td>
-      <td>-33.694990</td>
+      <td>212428.268198</td>
+      <td>166295.849039</td>
+      <td>46132.419158</td>
+      <td>13.852730</td>
+      <td>-12.614357</td>
+      <td>0.392418</td>
+      <td>-67.168447</td>
+      <td>12.983456</td>
+      <td>-71.709616</td>
+      <td>12.738620</td>
+      <td>-71.709616</td>
+      <td>11.456367</td>
+      <td>-71.709616</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>927716.226157</td>
-      <td>0.256242</td>
+      <td>938174.892537</td>
+      <td>0.614111</td>
       <td>0.369123</td>
-      <td>72504.670589</td>
-      <td>56759.045570</td>
-      <td>15745.625019</td>
-      <td>13.799174</td>
-      <td>-5.869266</td>
-      <td>0.012709</td>
-      <td>-137.434348</td>
-      <td>12.586879</td>
-      <td>-139.547284</td>
-      <td>12.342043</td>
-      <td>-139.547284</td>
-      <td>11.059791</td>
-      <td>-139.547284</td>
+      <td>174468.107273</td>
+      <td>136579.384069</td>
+      <td>37888.723204</td>
+      <td>13.944122</td>
+      <td>-19.243074</td>
+      <td>0.417241</td>
+      <td>-90.482085</td>
+      <td>13.043593</td>
+      <td>-97.409591</td>
+      <td>12.798757</td>
+      <td>-97.409591</td>
+      <td>11.516505</td>
+      <td>-97.409591</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>920268.945522</td>
-      <td>2.979026</td>
+      <td>952609.243428</td>
+      <td>0.792860</td>
       <td>0.370015</td>
-      <td>842516.179515</td>
-      <td>659549.430924</td>
-      <td>182966.748591</td>
-      <td>13.870768</td>
-      <td>-13.834656</td>
-      <td>0.065122</td>
-      <td>102.647437</td>
-      <td>12.667479</td>
-      <td>97.666961</td>
-      <td>12.422643</td>
-      <td>97.666961</td>
-      <td>11.140390</td>
-      <td>97.666961</td>
+      <td>227038.945850</td>
+      <td>177733.569009</td>
+      <td>49305.376841</td>
+      <td>14.035323</td>
+      <td>-26.836327</td>
+      <td>0.440295</td>
+      <td>-67.240408</td>
+      <td>13.101892</td>
+      <td>-76.901486</td>
+      <td>12.857056</td>
+      <td>-76.901486</td>
+      <td>11.574803</td>
+      <td>-76.901486</td>
     </tr>
   </tbody>
 </table>
@@ -2064,7 +2045,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4fe31893991fdc8cbf2de190c6a07724eed5c8b611ebd4d5d159f5897558933a.png" src="_images/4fe31893991fdc8cbf2de190c6a07724eed5c8b611ebd4d5d159f5897558933a.png" />
+<img alt="_images/2cadbc02be71c697b1855a68c3eb9e46ee3b63d4187656eab0e2e9bf87555e7f.png" src="_images/2cadbc02be71c697b1855a68c3eb9e46ee3b63d4187656eab0e2e9bf87555e7f.png" />
 </div>
 </div>
 <p>トレンドの傾きは成長率を表しているが，徐々に減少していることが分かる。最初は成長率に対する資本蓄積の効果が大きいが，定常状態に近づくにつれて資本蓄積の効果が減少しているためである。</p>
@@ -2078,7 +2059,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/16387fffe47a22abada1ede3a0cbc6be91c2e4fa010e2aa6974bc56db97d70d7.png" src="_images/16387fffe47a22abada1ede3a0cbc6be91c2e4fa010e2aa6974bc56db97d70d7.png" />
+<img alt="_images/5f9cbad3f2047987eb0ff51f235ca0fb51d11555cc0d56624bacc1ea9f73e780.png" src="_images/5f9cbad3f2047987eb0ff51f235ca0fb51d11555cc0d56624bacc1ea9f73e780.png" />
 </div>
 </div>
 <p>絶対値で概ね2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
@@ -2102,11 +2083,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.395
-Cの変動： 0.395
-Iの変動： 0.395
-Kの変動： 0.879
-Aの変動： 0.392
+Yの変動： 0.391
+Cの変動： 0.391
+Iの変動： 0.391
+Kの変動： 0.842
+Aの変動： 0.386
 </pre></div>
 </div>
 </div>
@@ -2190,7 +2171,7 @@ consumptionの変動： 0.493
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： -0.101
+Kの変動： -0.034
 Aの変動： 0.999
 </pre></div>
 </div>
@@ -2301,7 +2282,8 @@ consumptionの変動：0.767
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2401,8 +2383,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
