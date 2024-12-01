@@ -700,7 +700,7 @@ Y_t &amp; = A_t K_t^{\alpha}L^{1-\alpha}
 &amp;&amp;\qquad (Y_t\text{を決定する式})\\
 Y_t &amp; = C_t + I_t
 &amp;&amp;\qquad (I_t\text{を決定する式})\\
-W_t &amp;= (1-\alpha)\dfrac{Y_t}{L_t}
+W_t &amp;= (1-\alpha)\dfrac{Y_t}{L}
 &amp;&amp;\qquad (W_t\text{を決定する式})\\
 R_{t} &amp; = \alpha\dfrac{Y_{t}}{K_{t}}-d
 &amp;&amp;\qquad (R_t\text{を決定する式})\\
@@ -735,7 +735,7 @@ A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
 <p>シミュレーションをおこなう際に区別すべき変数：</p>
 <ul class="simple">
 <li><p>状態変数：<span class="math notranslate nohighlight">\(A_t\)</span>，<span class="math notranslate nohighlight">\(K_t\)</span></p></li>
-<li><p>操作変数：<span class="math notranslate nohighlight">\(C_t\)</span>，<span class="math notranslate nohighlight">\(Y_t\)</span>，<span class="math notranslate nohighlight">\(I_t\)</span>，<span class="math notranslate nohighlight">\(W_t\)</span>，<span class="math notranslate nohighlight">\(R_t\)</span></p></li>
+<li><p>操作変数：<span class="math notranslate nohighlight">\(Y_t\)</span>，<span class="math notranslate nohighlight">\(C_t\)</span>，<span class="math notranslate nohighlight">\(I_t\)</span>，<span class="math notranslate nohighlight">\(W_t\)</span>，<span class="math notranslate nohighlight">\(R_t\)</span></p></li>
 <li><p>ショック変数：<span class="math notranslate nohighlight">\(v_t\)</span></p></li>
 </ul>
 <section id="id11">
@@ -789,7 +789,7 @@ dtype: float64
 <p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -838,10 +838,10 @@ dtype: float64
     <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>   <span class="c1"># (5)    </span>
     
     <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
     
     <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>    
-    
-    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
     
     <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
     
@@ -850,8 +850,8 @@ dtype: float64
                      <span class="n">capital_change</span><span class="p">,</span>
                      <span class="n">production_function</span><span class="p">,</span>
                      <span class="n">income_id</span><span class="p">,</span>
-                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">tfp</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -863,26 +863,11 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                           <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">n_exo_states</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                           <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-                           <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                           <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                           <span class="n">endo_states</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                           <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                           <span class="n">shock_names</span> <span class="o">=</span> <span class="n">shock_names</span><span class="p">,</span>
                            <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                            <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                            <span class="n">n_exo_states</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                            <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                            <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                            <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
-
-<span class="ne">TypeError</span>: model.__init__() got an unexpected keyword argument &#39;var_names&#39;
 </pre></div>
 </div>
 </div>
@@ -892,7 +877,7 @@ dtype: float64
 <h4>ステップ５：定常状態の計算<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -907,10 +892,10 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a     1.000000
 k    12.536454
 y     1.222339
-w     2.370598
-r     0.010101
 c     0.908928
 i     0.313411
+r     0.010101
+w     2.370598
 dtype: float64
 </pre></div>
 </div>
@@ -921,7 +906,7 @@ dtype: float64
 <h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id16" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -948,13 +933,13 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 
   y[t] = a[t]+0.36·k[t]
 
-  w[t] = a[t]+0.36·k[t]
-
-  r[t] = 3.475·a[t]-2.224·k[t]
-
   c[t] = 0.0874·a[t]+0.6182·k[t]
 
   i[t] = 3.6466·a[t]-0.3889·k[t]
+
+  r[t] = 3.475·a[t]-2.224·k[t]
+
+  w[t] = a[t]+0.36·k[t]
 </pre></div>
 </div>
 </div>
@@ -962,9 +947,13 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>これらの式からショック項<span class="math notranslate nohighlight">\(v_t\)</span>のインパクト効果が分かる。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(t=0\)</span>期は定常状態とし，<span class="math notranslate nohighlight">\(t=1\)</span>期に<code class="docutils literal notranslate"><span class="pre">v[1]</span></code>が1％上昇したとしよう。即ち，<code class="docutils literal notranslate"><span class="pre">v[1]=1%</span></code>。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">a[1]=1%</span></code>にジャンプする。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">k[1]=0</span></code>であり，状態変数の資本ストックは変化しない（<code class="docutils literal notranslate"><span class="pre">a[0]=k[0]=0</span></code>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[1]=1％</span></code>となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k[1]=k[0]=0</span></code>であり，状態変数の資本ストックは変化しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y[1]=1%</span></code>となるる。</p>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">y[1]=w[1]=a[1]=1%</span></code>であり，TFPと全く同じように変化する。</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r[1]=3.475a[1]=3.475%</span></code>となり，大きく上昇している。（注意：<code class="docutils literal notranslate"><span class="pre">r</span></code>は<span class="math notranslate nohighlight">\(R_t\)</span>の定常値からの％乖離）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c[1]=0.0874a[1]=0.0874%</span></code>であり，消費の変化は小さい。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">i[1]=3.6466a[1]=3.6466%</span></code>であり，投資はは大きく変化する。</p></li>
@@ -976,7 +965,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>インパルス反応の計算にメソッド<code class="docutils literal notranslate"><span class="pre">impulse()</span></code>を使う。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -997,7 +986,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ca1aa964bbaee5e72367156f09610e52d2c559fa9a9a18a079bbf055312aebaa.png" src="_images/ca1aa964bbaee5e72367156f09610e52d2c559fa9a9a18a079bbf055312aebaa.png" />
+<img alt="_images/f79aad1a67818221d320abbf543940d1c05ed93599b2aeb76db48fb6c64c8b05.png" src="_images/f79aad1a67818221d320abbf543940d1c05ed93599b2aeb76db48fb6c64c8b05.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1025,7 +1014,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>まず<code class="docutils literal notranslate"><span class="pre">y[t]</span></code>と<code class="docutils literal notranslate"><span class="pre">w[t]</span></code>を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rbc0</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rbc0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1044,7 +1033,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>次に，資本の実質レンタル料を見てみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1062,7 +1051,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>次に消費を考えてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1089,7 +1078,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <p>投資を考えてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1121,7 +1110,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
                         <span class="s1">&#39;L&#39;</span><span class="p">:</span><span class="mf">0.33</span><span class="p">})</span>
 
 <span class="c1"># 変数のリスト</span>
-<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
 <span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
 
 <span class="c1"># 定常状態での均衡の関数</span>
@@ -1139,9 +1128,9 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
     
     <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
     
-    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>    
-    
     <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>    
     
     <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
     
@@ -1149,33 +1138,33 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
                      <span class="n">capital_change</span><span class="p">,</span>
                      <span class="n">production_function</span><span class="p">,</span>
                      <span class="n">income_id</span><span class="p">,</span>
-                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">tfp</span><span class="p">])</span>
 
 <span class="c1"># モデルの初期化</span>
 <span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                           <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">n_exo_states</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                           <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                           <span class="n">exo_states</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                           <span class="n">endo_states</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                           <span class="n">variables</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
                            <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
                            <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
 <span class="c1"># 定常状態の計算</span>
-<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># 対数線形近似</span>
-<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># インパルス反応の計算</span>
-<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># プロット</span>
 <span class="n">ax_</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1194,22 +1183,22 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 a: 1.000
 k: 12.536
 y: 1.222
-w: 2.371
-r: 0.010
 c: 0.909
 i: 0.313
+r: 0.010
+w: 2.371
 
 対数線形近似
 a[t+1] = 0.551·a[t]+v[t+1]
 k[t+1] = 0.0912·a[t]+0.9653·k[t]
   y[t] = a[t]+0.36·k[t]
-  w[t] = a[t]+0.36·k[t]
-  r[t] = 3.475·a[t]-2.224·k[t]
   c[t] = 0.0874·a[t]+0.6182·k[t]
   i[t] = 3.6466·a[t]-0.3889·k[t]
+  r[t] = 3.475·a[t]-2.224·k[t]
+  w[t] = a[t]+0.36·k[t]
 </pre></div>
 </div>
-<img alt="_images/ca1aa964bbaee5e72367156f09610e52d2c559fa9a9a18a079bbf055312aebaa.png" src="_images/ca1aa964bbaee5e72367156f09610e52d2c559fa9a9a18a079bbf055312aebaa.png" />
+<img alt="_images/f79aad1a67818221d320abbf543940d1c05ed93599b2aeb76db48fb6c64c8b05.png" src="_images/f79aad1a67818221d320abbf543940d1c05ed93599b2aeb76db48fb6c64c8b05.png" />
 </div>
 </div>
 </section>
@@ -1221,8 +1210,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                          <span class="n">cov_mat</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]],</span>
-                          <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                          <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
@@ -1241,7 +1229,7 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4fa10c80e2dd63d13f32792c6123de88649f52f6103fcb090c37c7bac607ebc2.png" src="_images/4fa10c80e2dd63d13f32792c6123de88649f52f6103fcb090c37c7bac607ebc2.png" />
+<img alt="_images/f9eed3ff8d1d5197882714b39d11b5e9e88c8e9cef683f65afd288ec057f24dc.png" src="_images/f9eed3ff8d1d5197882714b39d11b5e9e88c8e9cef683f65afd288ec057f24dc.png" />
 </div>
 </div>
 </section>
@@ -1266,8 +1254,8 @@ k[t+1] = 0.0912·a[t]+0.9653·k[t]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  1.00
-c  0.46
-i  3.32
+c  0.25
+i  3.60
 </pre></div>
 </div>
 </div>
@@ -1292,9 +1280,9 @@ i  3.32
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  0.67
-c  0.99
-i  0.59
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  0.54
+c  0.95
+i  0.51
 </pre></div>
 </div>
 </div>
@@ -1320,8 +1308,8 @@ i  0.59
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  1.00
-c  0.58
-i  0.94
+c  0.49
+i  0.98
 </pre></div>
 </div>
 </div>
@@ -1345,7 +1333,7 @@ i  0.94
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b936e8e3aed2d93a3cc4d51ed9d96babea2d9cab434dce68e4eda38d3cc48ac9.png" src="_images/b936e8e3aed2d93a3cc4d51ed9d96babea2d9cab434dce68e4eda38d3cc48ac9.png" />
+<img alt="_images/4549b6ae1985f20460036d47d239164fce13ea6400eb88541a5bfb23cb441100.png" src="_images/4549b6ae1985f20460036d47d239164fce13ea6400eb88541a5bfb23cb441100.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">a</span></code>には「ずれ」があるり、資本ストックの変動を反映している。しかし，このプロットが示しているのは，GDPの変動は殆どTFPの変動により発生しているということだ。</p>
@@ -1477,7 +1465,7 @@ dtype: float64
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">rho</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の係数</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sigma</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の残差の標準偏差</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：定常状態で約1/3の時間が労働に費やされるように設定</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：定常状態で約<code class="docutils literal notranslate"><span class="pre">1/3</span></code>の時間が労働に費やされるように設定</p></li>
 </ul>
 </section>
 <section id="id30">
@@ -1485,7 +1473,7 @@ dtype: float64
 <p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1537,9 +1525,9 @@ dtype: float64
     
     <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
     
-    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
-    
     <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
     
     <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
     
@@ -1549,8 +1537,8 @@ dtype: float64
                      <span class="n">capital_change</span><span class="p">,</span>
                      <span class="n">production_function</span><span class="p">,</span>
                      <span class="n">income_id</span><span class="p">,</span>
-                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">tfp</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1562,10 +1550,11 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                     <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
-                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="n">endo_states</span><span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                     <span class="c1"># variables = var_names,</span>
+                     <span class="n">costates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">],</span>
+                     <span class="n">shock_names</span> <span class="o">=</span> <span class="n">shock_names</span><span class="p">,</span>
                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1576,7 +1565,7 @@ dtype: float64
 <h4>ステップ５：定常状態の計算<a class="headerlink" href="#id33" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1591,10 +1580,10 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a     1.000000
 k    12.620864
 y     1.230570
-w     2.370598
-r     0.010101
 c     0.915048
 i     0.315522
+r     0.010101
+w     2.370598
 l     0.332222
 dtype: float64
 </pre></div>
@@ -1606,7 +1595,7 @@ dtype: float64
 <h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id34" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1631,13 +1620,13 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 
   y[t] = 1.6488·a[t]+0.204·k[t]
 
-  w[t] = 0.6351·a[t]+0.4477·k[t]
-
-  r[t] = 5.7295·a[t]-2.766·k[t]
-
   c[t] = 0.1307·a[t]+0.569·k[t]
 
   i[t] = 6.0514·a[t]-0.8544·k[t]
+
+  r[t] = 5.7295·a[t]-2.766·k[t]
+
+  w[t] = 0.6351·a[t]+0.4477·k[t]
 
   l[t] = 1.0137·a[t]-0.2437·k[t]
 </pre></div>
@@ -1646,14 +1635,14 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </div>
 <p>これらの式からインパクト効果が分かる。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">t=0</span></code>期は定常状態とし，<code class="docutils literal notranslate"><span class="pre">t=1</span></code>期にショック項が<code class="docutils literal notranslate"><span class="pre">1％</span></code>上昇したとしよう。即ち，<code class="docutils literal notranslate"><span class="pre">e[1]=1%</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t=0</span></code>期は定常状態とし，<code class="docutils literal notranslate"><span class="pre">t=1</span></code>期にショック項が<code class="docutils literal notranslate"><span class="pre">1％</span></code>上昇したとしよう。即ち，<code class="docutils literal notranslate"><span class="pre">v[1]=1%</span></code>。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">a[1]=1%</span></code>にジャンプする。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">k[1]=0</span></code>であり，状態変数の資本ストックは変化しない（<code class="docutils literal notranslate"><span class="pre">a[0]=k[0]=0</span></code>）。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">y[1]&gt;1%</span></code>であり，基本モデルと比べると大きくなっている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">w[1]&lt;1%</span></code>であり，基本モデルと比べると変化は小さい。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">r[1]&gt;1%</span></code>であり，基本モデルと比べると更に大きくなっている。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c[1]</span></code>は基本モデルと比較して消費は大きく変化しない。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">i[1]&gt;1%</span></code>であり，基本モデルと比べると大きくなっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">w[1]&lt;1%</span></code>であり，基本モデルと比べると変化は小さい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r[1]&gt;1%</span></code>であり，基本モデルと比べると更に大きくなっている。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">l[1]</span></code>は<code class="docutils literal notranslate"><span class="pre">a[1]</span></code>と同じ程度に変化している。</p></li>
 </ul>
 <p>インパクト以降の変化は図で確かめることにする。</p>
@@ -1663,7 +1652,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <p>インパルス反応のデータを作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1675,7 +1664,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
                               <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
                               <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
-<span class="c1">#                               sharey=True,</span>
+                              <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                               <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -1683,7 +1672,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a57a53e6fd60ad8b4874ede3ffd22990827270ad5b9bc7fa8cd078f492074e06.png" src="_images/a57a53e6fd60ad8b4874ede3ffd22990827270ad5b9bc7fa8cd078f492074e06.png" />
+<img alt="_images/02b07b83cac2c4be5f9d4dff9e0d36690a12e68f8e89a8a5152d85640b519f52.png" src="_images/02b07b83cac2c4be5f9d4dff9e0d36690a12e68f8e89a8a5152d85640b519f52.png" />
 </div>
 </div>
 <p><strong>＜シミュレーションの結果＞</strong></p>
@@ -1751,7 +1740,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
                         <span class="s1">&#39;m&#39;</span><span class="p">:</span><span class="mf">1.73</span><span class="p">})</span>
 
 <span class="c1"># 変数のリスト</span>
-<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">]</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">]</span>
 <span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
 
 <span class="c1"># 定常状態での均衡の関数</span>
@@ -1771,9 +1760,9 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
     
     <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
     
-    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
-    
     <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
     
     <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
     
@@ -1783,20 +1772,20 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
                      <span class="n">capital_change</span><span class="p">,</span>
                      <span class="n">production_function</span><span class="p">,</span>
                      <span class="n">income_id</span><span class="p">,</span>
-                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
                      <span class="n">tfp</span><span class="p">])</span>
 
 <span class="c1"># モデルの初期化</span>
 <span class="n">rbc_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
-                     <span class="n">n_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">n_exo_states</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="n">endo_states</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                     <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
                      <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
                      <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
 
 <span class="c1"># 定常状態の計算</span>
-<span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
@@ -1805,21 +1794,21 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># 対数線形近似</span>
-<span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">()</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># インパルス反応の計算</span>
-<span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># プロット</span>
 <span class="n">ax_</span> <span class="o">=</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                               <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
                               <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span>
-                              <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="c1"># sharey=True,</span>
                               <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -1829,26 +1818,26 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
 a: 1.000
-k: 12.621
-y: 1.231
-w: 2.371
-r: 0.010
-c: 0.915
-i: 0.316
-l: 0.332
+k: 10.000
+y: 2.000
+c: 1.000
+i: 1.000
+w: 0.100
+r: 1.000
+l: 0.500
 
 対数線形近似
 a[t+1] = 0.551·a[t]+v[t+1]
-k[t+1] = 0.1513·a[t]+0.9536·k[t]
-  y[t] = 1.6488·a[t]+0.204·k[t]
-  w[t] = 0.6351·a[t]+0.4477·k[t]
-  r[t] = 5.7295·a[t]-2.766·k[t]
-  c[t] = 0.1307·a[t]+0.569·k[t]
-  i[t] = 6.0514·a[t]-0.8544·k[t]
-  l[t] = 1.0137·a[t]-0.2437·k[t]
+k[t+1] = -0.0185·a[t]+0.5034·k[t]
+  y[t] = 1.3405·a[t]+0.4782·k[t]
+  c[t] = 2.8655·a[t]+5.6726·k[t]
+  i[t] = -0.1846·a[t]-4.7162·k[t]
+  w[t] = 1.3698·a[t]+0.618·k[t]
+  r[t] = 0.0965·a[t]-0.0376·k[t]
+  l[t] = 1.2869·a[t]+0.4541·k[t]
 </pre></div>
 </div>
-<img alt="_images/a8c46a055aa0ae0c749685e403cb87ec4221852c12a68281372e592b7575bc1f.png" src="_images/a8c46a055aa0ae0c749685e403cb87ec4221852c12a68281372e592b7575bc1f.png" />
+<img alt="_images/0f1f3de6139785c9c0347e3d6d6dfb894723097a2ffb9d50b8d52ab6856f51fd.png" src="_images/0f1f3de6139785c9c0347e3d6d6dfb894723097a2ffb9d50b8d52ab6856f51fd.png" />
 </div>
 </div>
 </section>
@@ -1865,8 +1854,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                    <span class="n">cov_mat</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]],</span>
-                    <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
@@ -1884,7 +1872,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/99c65f45e3759e4ef09e1a44f4610162774699bfbf8d620bf1727f243290c7bb.png" src="_images/99c65f45e3759e4ef09e1a44f4610162774699bfbf8d620bf1727f243290c7bb.png" />
+<img alt="_images/a7a86701fe18c914b3daa76f3b1a2c29ea8ea081f597ead87904e0d0bb9eb9b9.png" src="_images/a7a86701fe18c914b3daa76f3b1a2c29ea8ea081f597ead87904e0d0bb9eb9b9.png" />
 </div>
 </div>
 <section id="id39">
@@ -1898,7 +1886,7 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/005761b04b86823634c148cf578e95cf513daf8d81ecdf8804191c2b4b4b2ef9.png" src="_images/005761b04b86823634c148cf578e95cf513daf8d81ecdf8804191c2b4b4b2ef9.png" />
+<img alt="_images/82ff2c9e3e546ec355ef1b18c580dcf82f25773bd90439221ba2a300b880bac8.png" src="_images/82ff2c9e3e546ec355ef1b18c580dcf82f25773bd90439221ba2a300b880bac8.png" />
 </div>
 </div>
 <p>労働供給の異時点間代替が産出量の変動を増幅させている。</p>
@@ -1923,8 +1911,8 @@ k[t+1] = 0.1513·a[t]+0.9536·k[t]
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
 y	1.00	  1.00
-c	0.25	  0.33
-i	3.62	  3.49
+c	2.09	  0.25
+i	0.12	  3.60
 </pre></div>
 </div>
 </div>
@@ -1953,9 +1941,9 @@ i	3.62	  3.49
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
-y	0.55	0.60
-c	0.96	0.98
-i	0.51	0.54
+y	0.56	0.54
+c	0.53	0.95
+i	0.18	0.51
 </pre></div>
 </div>
 </div>
@@ -1985,8 +1973,8 @@ i	0.51	0.54
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
 y	1.00	1.00
-c	0.47	0.53
-i	0.98	0.97
+c	1.00	0.49
+i	-0.70	0.98
 </pre></div>
 </div>
 </div>
