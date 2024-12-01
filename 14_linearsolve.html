@@ -834,18 +834,10 @@ dtype: float64
 </section>
 <section id="id11">
 <h3>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.Log_linear_approximation()</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に組み込むことになる。</p>
+<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve(log_linear=True)</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>に組み込むことになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>更に，<code class="docutils literal notranslate"><span class="pre">tfp_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solve_klein()</span></code>を使い，その対数近似の解を計算する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1073,8 +1065,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定常値</span><span class="se">\n</span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># 対数線形近似</span>
-<span class="n">tfp_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
-<span class="n">tfp_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+<span class="n">tfp_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tfp_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># インパルス反応の計算</span>
@@ -1124,8 +1115,7 @@ a[t+1] = 0.9·a[t]+u[t+1]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfp_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                    <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]]],</span>
-                    <span class="p">)</span>
+                    <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]]])</span>
 </pre></div>
 </div>
 </div>
@@ -1446,18 +1436,10 @@ dtype: float64
 </section>
 <section id="id23">
 <h3>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
-<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.Log_linear_approximation()</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>に組み込むことになる。</p>
+<p>次にシミュレーションのための対数線形近似をおこなう。<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>には<code class="docutils literal notranslate"><span class="pre">.approximate_and_solve(log_linear=True)</span></code>というメソッドが用意されており，それを使うと<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>の対数線形近似を計算し，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>に組み込むことになる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>更に，<code class="docutils literal notranslate"><span class="pre">solow_model</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.solve_klein()</span></code>を使い，その対数近似の解を計算する。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1681,8 +1663,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 <span class="c1"># 対数線形近似</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">log_linear_approximation</span><span class="p">()</span>
-<span class="n">solow_model</span><span class="o">.</span><span class="n">solve_klein</span><span class="p">()</span>
+<span class="n">solow_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">solow_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
