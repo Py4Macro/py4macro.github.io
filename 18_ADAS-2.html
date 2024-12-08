@@ -1076,7 +1076,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7d49c6b922eb399a19484b2fdb57f3789b71861ba31b19f5bc89ada4fab67e75.png" src="_images/7d49c6b922eb399a19484b2fdb57f3789b71861ba31b19f5bc89ada4fab67e75.png" />
+<img alt="_images/ec2c2bcf8a4dd16d70a68205dbb4269f9d6da0d3c8ab0e711428a29760a0cd5c.png" src="_images/ec2c2bcf8a4dd16d70a68205dbb4269f9d6da0d3c8ab0e711428a29760a0cd5c.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1095,7 +1095,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c3f2ba968363453f141e8d19637cc4628c7ce1f11ae1b44d5b9876fc7568a527.png" src="_images/c3f2ba968363453f141e8d19637cc4628c7ce1f11ae1b44d5b9876fc7568a527.png" />
+<img alt="_images/ca89814dbad064a5504b1c1c616db776479ae496c1826dad2da65e9911e91b8e.png" src="_images/ca89814dbad064a5504b1c1c616db776479ae496c1826dad2da65e9911e91b8e.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1149,8 +1149,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01379
-pの標準偏差:0.01410
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01376
+pの標準偏差:0.01401
 </pre></div>
 </div>
 </div>
@@ -1200,8 +1200,8 @@ pの標準偏差:0.01410
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.044
-p:0.817
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.040
+p:0.815
 </pre></div>
 </div>
 </div>
@@ -1247,7 +1247,7 @@ p:0.817
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11013759112291507
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.10869927023476805
 </pre></div>
 </div>
 </div>
@@ -1278,11 +1278,11 @@ p:0.817
 <td><p><span class="pasted-text">-0.15298</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>WNショック</p></td>
-<td><p><span class="pasted-text">0.01379</span></p></td>
-<td><p><span class="pasted-text">0.01410</span></p></td>
-<td><p><span class="pasted-text">0.04390</span></p></td>
-<td><p><span class="pasted-text">0.81660</span></p></td>
-<td><p><span class="pasted-text">-0.11014</span></p></td>
+<td><p><span class="pasted-text">0.01376</span></p></td>
+<td><p><span class="pasted-text">0.01401</span></p></td>
+<td><p><span class="pasted-text">0.03972</span></p></td>
+<td><p><span class="pasted-text">0.81545</span></p></td>
+<td><p><span class="pasted-text">-0.10870</span></p></td>
 </tr>
 <tr class="row-even"><td><p>AR(1)ショック</p></td>
 <td><p>0.01252</p></td>
@@ -1398,18 +1398,21 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 \[p_{t}=hp_{t-1} + e_{pt},\qquad\qquad e_{pt}=ahu_{t}+hv_{t}\]</div>
 <p><span class="math notranslate nohighlight">\(p_{t}\)</span>の分散<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>を次のように書き換えよう。
 （分散と共分散の性質については<a class="reference internal" href="#sec-18-appendix-a"><span class="std std-ref">付録Ａ</span></a>を参照）</p>
-<p>\begin{align}
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-varp">
+<span class="eqno">(143)<a class="headerlink" href="#equation-eq-18-eq-varp" title="Link to this equation">#</a></span>\[\begin{split}
+\begin{align}
 \text{Var}(p_{t})
-&amp;=\text{Var}(hp_{t-1} + e_{pt})\qquad\cdots\cdots [1]\
-&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})+2\text{Cov}(hp_{t-1},e_{pt})\qquad\cdots [2]\
-&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})\qquad\cdots [3]\
-&amp;=h^2\text{Var}(p_{t-1})+\text{Var}(e_{pt})\qquad\cdots [4]\
-&amp;=h^2\text{Var}(p_{t})+\text{Var}(e_{pt})\qquad\cdots [5]\
+&amp;=\text{Var}(hp_{t-1} + e_{pt})\qquad\cdots\cdots [1]\\
+&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})+2\text{Cov}(hp_{t-1},e_{pt})\qquad\cdots [2]\\
+&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})\qquad\cdots [3]\\
+&amp;=h^2\text{Var}(p_{t-1})+\text{Var}(e_{pt})\qquad\cdots [4]\\
+&amp;=h^2\text{Var}(p_{t})+\text{Var}(e_{pt})\qquad\cdots [5]\\
 (1-h^2)\text{Var}(p_{t})
-&amp;=\text{Var}(e_{pt})\qquad\cdots\cdots\cdots [6]\
+&amp;=\text{Var}(e_{pt})\qquad\cdots\cdots\cdots [6]\\
 \text{Var}(p_{t})
 &amp;=\frac{\text{Var}(e_{pt})}{1-h^2}\qquad\cdots\cdots\cdots [7]
-\end{align} (eq:18-eq-varp)</p>
+\end{align}
+\end{split}\]</div>
 <ul class="simple">
 <li><p>[1]：<span class="math notranslate nohighlight">\(p_t\)</span>に式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-ppp">(127)</a>を代入。</p></li>
 <li><p>[2]：右辺を展開。</p></li>
@@ -1419,11 +1422,11 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 <li><p>[6]：<span class="math notranslate nohighlight">\(h^2\text{Var}(p_{t})\)</span>を左辺い移動。</p></li>
 <li><p>[7]：両辺を<span class="math notranslate nohighlight">\((1-h^2)\)</span>で除する。</p></li>
 </ul>
-<p>式<a class="reference internal" href="#eq:18-eq-varp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp</span></code></a>は，<span class="math notranslate nohighlight">\(p_t\)</span>の分散は<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散に依存していることを示している。
+<p>式<a class="reference internal" href="#equation-eq-18-eq-varp">(143)</a>は，<span class="math notranslate nohighlight">\(p_t\)</span>の分散は<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散に依存していることを示している。
 <span class="math notranslate nohighlight">\(e_{pt}\)</span>は需要ショックと供給ショックの両方から構成されているため，それを分解する必要がある。
 <span class="math notranslate nohighlight">\(e_{pt}\)</span>は次の式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-ept">
-<span class="eqno">(143)<a class="headerlink" href="#equation-eq-18-eq-ept" title="Link to this equation">#</a></span>\[
+<span class="eqno">(144)<a class="headerlink" href="#equation-eq-18-eq-ept" title="Link to this equation">#</a></span>\[
 e_{pt}=ahu_{t}+hv_{t}
 \]</div>
 <p><span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散を次のように計算する。</p>
@@ -1434,11 +1437,11 @@ e_{pt}=ahu_{t}+hv_{t}
 &amp;=(ah)^2\text{Var}(u_{t})+h^2\text{Var}(v_{t})\qquad\cdots [3]
 \end{align} (eq:18-eq-varep)</p>
 <ul class="simple">
-<li><p>[1]：<span class="math notranslate nohighlight">\(e_{pt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-ept">(143)</a>を代入。</p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(e_{pt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-ept">(144)</a>を代入。</p></li>
 <li><p>[2]：右辺を展開。</p></li>
 <li><p>[3]：定数<span class="math notranslate nohighlight">\(ah\)</span>と<span class="math notranslate nohighlight">\(h\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
 </ul>
-<p>最後に式<a class="reference internal" href="#eq:18-eq-varep"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varep</span></code></a>を式<a class="reference internal" href="#eq:18-eq-varp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp</span></code></a>に代入し，次のように整理する。</p>
+<p>最後に式<a class="reference internal" href="#eq:18-eq-varep"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varep</span></code></a>を式<a class="reference internal" href="#equation-eq-18-eq-varp">(143)</a>に代入し，次のように整理する。</p>
 <p>\begin{align}
 \text{Var}(p_{t})
 &amp;=\frac{(ah)^2\text{Var}(u_{t})+h^2\text{Var}(v_{t})}{1-h^2}\
@@ -1459,8 +1462,8 @@ e_{pt}=ahu_{t}+hv_{t}
 </li>
 </ul>
 <p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(p_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>で割ると次式となる。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-54fae4ac-638d-4084-8802-b456efac6663">
-<span class="eqno">(144)<a class="headerlink" href="#equation-54fae4ac-638d-4084-8802-b456efac6663" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0dc33214-1d61-4741-84c0-53aaa6feb51b">
+<span class="eqno">(145)<a class="headerlink" href="#equation-0dc33214-1d61-4741-84c0-53aaa6feb51b" title="Permalink to this equation">#</a></span>\[\begin{align}
 1&amp;=
 \frac{(ah)^2}{1-h^2}\cdot\frac{\text{Var}(u_{t})}{\text{Var}(p_{t})}
 +\frac{h^2}{1-h^2}\cdot\frac{\text{Var}(v_{t})}{\text{Var}(p_{t})}
@@ -1499,7 +1502,7 @@ e_{pt}=ahu_{t}+hv_{t}
 <h3><span class="math notranslate nohighlight">\(y_t\)</span>に対する影響：分散分解分析<a class="headerlink" href="#y-t" title="Link to this heading">#</a></h3>
 <p>同様の手法を使い<span class="math notranslate nohighlight">\(y_t\)</span>の総変動の分散分解分析をおこなう。均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-y">(130)</a>を再掲する。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-yyy">
-<span class="eqno">(145)<a class="headerlink" href="#equation-eq-18-eq-yyy" title="Link to this equation">#</a></span>\[
+<span class="eqno">(146)<a class="headerlink" href="#equation-eq-18-eq-yyy" title="Link to this equation">#</a></span>\[
 y_t = -chp_{t-1} + e_{yt},
 \qquad
 e_{yt}=h(u_t-cv_t)
@@ -1514,7 +1517,7 @@ e_{yt}=h(u_t-cv_t)
 &amp;=(ch)^2\text{Var}(p_{t})+\text{Var}(e_{yt})\qquad\cdots [5]\
 \end{align} (eq:18-eq-vary)</p>
 <ul class="simple">
-<li><p>[1]：<span class="math notranslate nohighlight">\(y_t\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-yyy">(145)</a>を代入。</p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(y_t\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-yyy">(146)</a>を代入。</p></li>
 <li><p>[2]：右辺を展開。</p></li>
 <li><p>[3]：<span class="math notranslate nohighlight">\(p_{t-1}\)</span>と<span class="math notranslate nohighlight">\(e_{yt}\)</span>の間で時間がズレているため<span class="math notranslate nohighlight">\(\text{Cov}(-chp_{t-1},e_{yt})=0\)</span>。</p></li>
 <li><p>[4]：定数<span class="math notranslate nohighlight">\((-ch)\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
@@ -1525,7 +1528,7 @@ e_{yt}=h(u_t-cv_t)
 <span class="math notranslate nohighlight">\(e_{pt}\)</span>を分解した同じ方法で<span class="math notranslate nohighlight">\(e_{yt}\)</span>を分解しよう。</p>
 <p><span class="math notranslate nohighlight">\(e_{yt}\)</span>は次の式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-eyt">
-<span class="eqno">(146)<a class="headerlink" href="#equation-eq-18-eq-eyt" title="Link to this equation">#</a></span>\[
+<span class="eqno">(147)<a class="headerlink" href="#equation-eq-18-eq-eyt" title="Link to this equation">#</a></span>\[
 e_{yt}=hu_t-chv_t
 \]</div>
 <p><span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散を次のように計算する。</p>
@@ -1537,7 +1540,7 @@ e_{yt}=hu_t-chv_t
 &amp;=h^2\text{Var}(u_{t})+(ch)^2\text{Var}(v_{t})\qquad\cdots [4]
 \end{align} (eq:18-eq-varyp)</p>
 <ul class="simple">
-<li><p>[1]：<span class="math notranslate nohighlight">\(e_{yt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-eyt">(146)</a>を代入。</p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(e_{yt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-eyt">(147)</a>を代入。</p></li>
 <li><p>[2]：右辺を展開。</p></li>
 <li><p>[3]：定数<span class="math notranslate nohighlight">\(h\)</span>と<span class="math notranslate nohighlight">\((-ch)\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
 <li><p>[4]：<span class="math notranslate nohighlight">\((-ch)^2=(ch)^2\)</span></p></li>
@@ -1555,8 +1558,8 @@ e_{yt}=hu_t-chv_t
 <li><p><span class="math notranslate nohighlight">\(p_t\)</span>の総変動の大きさ（水準）を決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしている。<span class="math notranslate nohighlight">\(h\)</span>はは約<code class="docutils literal notranslate"><span class="pre">0.8</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>の高い持続性を意味する。持続性が高い場合，一旦総供給曲線が定常状態の位置から離れると元の位置に戻るには時間が掛かることになる。即ち，定常状態から離れた状態が長くなる。そのような状況下で，更にショックが発生すると，定常状態から更に乖離する結果につながることになり，変動が増幅されることになる。その効果が<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>で捉えられている。</p></li>
 </ul>
 <p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(y_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(y_{t})\)</span>で割ると次式となる。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f66e260-9985-4655-87fe-d5d8f9665cf4">
-<span class="eqno">(147)<a class="headerlink" href="#equation-1f66e260-9985-4655-87fe-d5d8f9665cf4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c9d99bb3-1b3e-42c1-93ba-1542a73290c7">
+<span class="eqno">(148)<a class="headerlink" href="#equation-c9d99bb3-1b3e-42c1-93ba-1542a73290c7" title="Permalink to this equation">#</a></span>\[\begin{align}
 1
 &amp;=\frac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{\text{Var}(y_{t})}
 +\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{\text{Var}(y_{t})}\\
@@ -1783,8 +1786,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 <section id="b">
 <span id="sec-18-appendix-b"></span><h2>付録Ｂ：式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>の導出<a class="headerlink" href="#b" title="Link to this heading">#</a></h2>
 <p>式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>と式<a class="reference internal" href="#eq:18-eq-varyp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varyp</span></code></a>を式<a class="reference internal" href="#eq:18-eq-vary"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary</span></code></a>に代入し整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-30a1e8a9-aa10-4d20-93ac-5c371d254357">
-<span class="eqno">(148)<a class="headerlink" href="#equation-30a1e8a9-aa10-4d20-93ac-5c371d254357" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a460aa3a-200d-4072-982e-3367da2c07bb">
+<span class="eqno">(149)<a class="headerlink" href="#equation-a460aa3a-200d-4072-982e-3367da2c07bb" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Var}(y_{t})
 &amp;=(ch)^2\text{Var}(p_{t})+\text{Var}(e_{yt})\\
 &amp;=(ch)^2\left[
@@ -1808,8 +1811,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 +\frac{(ch)^2}{1-h^2}\text{Var}(v_{t})
 \end{align}\]</div>
 <p>ここで</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0016a80f-37b1-4229-8ec7-8b798e20e243">
-<span class="eqno">(149)<a class="headerlink" href="#equation-0016a80f-37b1-4229-8ec7-8b798e20e243" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-405c4262-e92f-422f-91e6-524bbce8dde8">
+<span class="eqno">(150)<a class="headerlink" href="#equation-405c4262-e92f-422f-91e6-524bbce8dde8" title="Permalink to this equation">#</a></span>\[\begin{align}
 1+(ach)^2-h^2
 &amp;=1+h^2[(ac)^2-1]=1+\frac{(ac)^2-1}{(1+ac)^2}\\
 &amp;=1+\frac{(ac+1)(ac-1)}{(1+ac)^2}=1+\frac{ac-1}{1+ac}\\
@@ -1821,8 +1824,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 <section id="b-u-y-v-y">
 <span id="sec-18-appendix-c"></span><h2>付録Ｂ：式(u-y)と(v-y)の導出<a class="headerlink" href="#b-u-y-v-y" title="Link to this heading">#</a></h2>
 <p>式(u-y)に式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>を代入して整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-18359562-02cd-41d4-8eb8-42fbf0d168a2">
-<span class="eqno">(150)<a class="headerlink" href="#equation-18359562-02cd-41d4-8eb8-42fbf0d168a2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-93c860b3-62d3-451f-a4a8-7e3e61c66273">
+<span class="eqno">(151)<a class="headerlink" href="#equation-93c860b3-62d3-451f-a4a8-7e3e61c66273" title="Permalink to this equation">#</a></span>\[\begin{align}
 \left[
 \begin{split}
 &amp;y_t\text{の変動に対する}\\
@@ -1849,8 +1852,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 \tag{u-y}
 \end{align}\]</div>
 <p>同様に式(v-y)に式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>を代入して整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8c5eaac5-31d5-44a4-ad9c-0e318b718086">
-<span class="eqno">(151)<a class="headerlink" href="#equation-8c5eaac5-31d5-44a4-ad9c-0e318b718086" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-972e3c7c-205e-4a30-937c-95063cc69312">
+<span class="eqno">(152)<a class="headerlink" href="#equation-972e3c7c-205e-4a30-937c-95063cc69312" title="Permalink to this equation">#</a></span>\[\begin{align}
 \left[
 \begin{split}
 &amp;p_t\text{の変動に対する}\\
