@@ -548,179 +548,6 @@ p_B=p_A
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">gaierror</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:1344,</span> in <span class="ni">AbstractHTTPHandler.do_open</span><span class="nt">(self, http_class, req, **http_conn_args)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1343</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1344</span>     <span class="n">h</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">get_method</span><span class="p">(),</span> <span class="n">req</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1345</span>               <span class="n">encode_chunked</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="n">has_header</span><span class="p">(</span><span class="s1">&#39;Transfer-encoding&#39;</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1346</span> <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span> <span class="c1"># timeout error</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1336,</span> in <span class="ni">HTTPConnection.request</span><span class="nt">(self, method, url, body, headers, encode_chunked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1335</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1336</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1382,</span> in <span class="ni">HTTPConnection._send_request</span><span class="nt">(self, method, url, body, headers, encode_chunked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1381</span>     <span class="n">body</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1382</span> <span class="bp">self</span><span class="o">.</span><span class="n">endheaders</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="o">=</span><span class="n">encode_chunked</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1331,</span> in <span class="ni">HTTPConnection.endheaders</span><span class="nt">(self, message_body, encode_chunked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1330</span>     <span class="k">raise</span> <span class="n">CannotSendHeader</span><span class="p">()</span>
-<span class="ne">-&gt; </span><span class="mi">1331</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_output</span><span class="p">(</span><span class="n">message_body</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="o">=</span><span class="n">encode_chunked</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1091,</span> in <span class="ni">HTTPConnection._send_output</span><span class="nt">(self, message_body, encode_chunked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1090</span> <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">[:]</span>
-<span class="ne">-&gt; </span><span class="mi">1091</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1093</span> <span class="k">if</span> <span class="n">message_body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1094</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1095</span>     <span class="c1"># create a consistent interface to message_body</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1035,</span> in <span class="ni">HTTPConnection.send</span><span class="nt">(self, data)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1034</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_open</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1035</span>     <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1036</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1470,</span> in <span class="ni">HTTPSConnection.connect</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span> <span class="s2">&quot;Connect to a host on a given (SSL) port.&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1470</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1472</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunnel_host</span><span class="p">:</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py:1001,</span> in <span class="ni">HTTPConnection.connect</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1000</span> <span class="n">sys</span><span class="o">.</span><span class="n">audit</span><span class="p">(</span><span class="s2">&quot;http.client.connect&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1001</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_connection</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1002</span>     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_address</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1003</span> <span class="c1"># Might fail in OSs that don&#39;t implement TCP_NODELAY</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/socket.py:841,</span> in <span class="ni">create_connection</span><span class="nt">(address, timeout, source_address, all_errors)</span>
-<span class="g g-Whitespace">    </span><span class="mi">840</span> <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="ne">--&gt; </span><span class="mi">841</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">842</span>     <span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">canonname</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">res</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/socket.py:976,</span> in <span class="ni">getaddrinfo</span><span class="nt">(host, port, family, type, proto, flags)</span>
-<span class="g g-Whitespace">    </span><span class="mi">975</span> <span class="n">addrlist</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="ne">--&gt; </span><span class="mi">976</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">_socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">flags</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">977</span>     <span class="n">af</span><span class="p">,</span> <span class="n">socktype</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">canonname</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">res</span>
-
-<span class="ne">gaierror</span>: [Errno 8] nodename nor servname provided, or not known
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">URLError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">url_choco</span> <span class="o">=</span> <span class="s1">&#39;https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040047298&amp;fileKind=0&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">choco</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">url_choco</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;1761チョコレート&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                       <span class="n">skiprows</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/excel/_base.py:495,</span> in <span class="ni">read_excel</span><span class="nt">(io, sheet_name, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, storage_options, dtype_backend, engine_kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ExcelFile</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>     <span class="n">should_close</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="ne">--&gt; </span><span class="mi">495</span>     <span class="n">io</span> <span class="o">=</span> <span class="n">ExcelFile</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>         <span class="n">io</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>         <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>         <span class="n">engine_kwargs</span><span class="o">=</span><span class="n">engine_kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">501</span> <span class="k">elif</span> <span class="n">engine</span> <span class="ow">and</span> <span class="n">engine</span> <span class="o">!=</span> <span class="n">io</span><span class="o">.</span><span class="n">engine</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>         <span class="s2">&quot;Engine should not be specified when passing &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="s2">&quot;an ExcelFile - ExcelFile already has the engine set&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span>     <span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/excel/_base.py:1550,</span> in <span class="ni">ExcelFile.__init__</span><span class="nt">(self, path_or_buffer, engine, storage_options, engine_kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1548</span>     <span class="n">ext</span> <span class="o">=</span> <span class="s2">&quot;xls&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1549</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1550</span>     <span class="n">ext</span> <span class="o">=</span> <span class="n">inspect_excel_format</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1551</span>         <span class="n">content_or_path</span><span class="o">=</span><span class="n">path_or_buffer</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
-<span class="g g-Whitespace">   </span><span class="mi">1552</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1553</span>     <span class="k">if</span> <span class="n">ext</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1554</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1555</span>             <span class="s2">&quot;Excel file format cannot be determined, you must specify &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1556</span>             <span class="s2">&quot;an engine manually.&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1557</span>         <span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/excel/_base.py:1402,</span> in <span class="ni">inspect_excel_format</span><span class="nt">(content_or_path, storage_options)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1399</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content_or_path</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1400</span>     <span class="n">content_or_path</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">content_or_path</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1402</span> <span class="k">with</span> <span class="n">get_handle</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1403</span>     <span class="n">content_or_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span> <span class="n">is_text</span><span class="o">=</span><span class="kc">False</span>
-<span class="g g-Whitespace">   </span><span class="mi">1404</span> <span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1405</span>     <span class="n">stream</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">handle</span>
-<span class="g g-Whitespace">   </span><span class="mi">1406</span>     <span class="n">stream</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/common.py:728,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="n">codecs</span><span class="o">.</span><span class="n">lookup_error</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">727</span> <span class="c1"># open URLs</span>
-<span class="ne">--&gt; </span><span class="mi">728</span> <span class="n">ioargs</span> <span class="o">=</span> <span class="n">_get_filepath_or_buffer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="n">path_or_buf</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">730</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">731</span>     <span class="n">compression</span><span class="o">=</span><span class="n">compression</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">732</span>     <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">733</span>     <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">734</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">736</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">filepath_or_buffer</span>
-<span class="g g-Whitespace">    </span><span class="mi">737</span> <span class="n">handles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseBuffer</span><span class="p">]</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/common.py:384,</span> in <span class="ni">_get_filepath_or_buffer</span><span class="nt">(filepath_or_buffer, encoding, compression, mode, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">382</span> <span class="c1"># assuming storage_options is to be interpreted as headers</span>
-<span class="g g-Whitespace">    </span><span class="mi">383</span> <span class="n">req_info</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">storage_options</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">384</span> <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req_info</span><span class="p">)</span> <span class="k">as</span> <span class="n">req</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">content_encoding</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">386</span>     <span class="k">if</span> <span class="n">content_encoding</span> <span class="o">==</span> <span class="s2">&quot;gzip&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">387</span>         <span class="c1"># Override compression based on Content-Encoding header</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/io/common.py:289,</span> in <span class="ni">urlopen</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">284</span><span class="sd"> Lazy-import wrapper for stdlib urlopen, as that imports a big chunk of</span>
-<span class="g g-Whitespace">    </span><span class="mi">285</span><span class="sd"> the stdlib.</span>
-<span class="g g-Whitespace">    </span><span class="mi">286</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="ne">--&gt; </span><span class="mi">289</span> <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:215,</span> in <span class="ni">urlopen</span><span class="nt">(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="n">opener</span> <span class="o">=</span> <span class="n">_opener</span>
-<span class="ne">--&gt; </span><span class="mi">215</span> <span class="k">return</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:515,</span> in <span class="ni">OpenerDirector.open</span><span class="nt">(self, fullurl, data, timeout)</span>
-<span class="g g-Whitespace">    </span><span class="mi">512</span>     <span class="n">req</span> <span class="o">=</span> <span class="n">meth</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">514</span> <span class="n">sys</span><span class="o">.</span><span class="n">audit</span><span class="p">(</span><span class="s1">&#39;urllib.Request&#39;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">full_url</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">get_method</span><span class="p">())</span>
-<span class="ne">--&gt; </span><span class="mi">515</span> <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">517</span> <span class="c1"># post-process response</span>
-<span class="g g-Whitespace">    </span><span class="mi">518</span> <span class="n">meth_name</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">+</span><span class="s2">&quot;_response&quot;</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:532,</span> in <span class="ni">OpenerDirector._open</span><span class="nt">(self, req, data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">529</span>     <span class="k">return</span> <span class="n">result</span>
-<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="n">protocol</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">type</span>
-<span class="ne">--&gt; </span><span class="mi">532</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_open</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">protocol</span> <span class="o">+</span>
-<span class="g g-Whitespace">    </span><span class="mi">533</span>                           <span class="s1">&#39;_open&#39;</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">534</span> <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:492,</span> in <span class="ni">OpenerDirector._call_chain</span><span class="nt">(self, chain, kind, meth_name, *args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>         <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:1392,</span> in <span class="ni">HTTPSHandler.https_open</span><span class="nt">(self, req)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1391</span> <span class="k">def</span> <span class="nf">https_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1392</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_open</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPSConnection</span><span class="p">,</span> <span class="n">req</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1393</span>                         <span class="n">context</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="p">)</span>
-
-<span class="nn">File /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/urllib/request.py:1347,</span> in <span class="ni">AbstractHTTPHandler.do_open</span><span class="nt">(self, http_class, req, **http_conn_args)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1344</span>         <span class="n">h</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">get_method</span><span class="p">(),</span> <span class="n">req</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1345</span>                   <span class="n">encode_chunked</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="n">has_header</span><span class="p">(</span><span class="s1">&#39;Transfer-encoding&#39;</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1346</span>     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span> <span class="c1"># timeout error</span>
-<span class="ne">-&gt; </span><span class="mi">1347</span>         <span class="k">raise</span> <span class="n">URLError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1348</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1349</span> <span class="k">except</span><span class="p">:</span>
-
-<span class="ne">URLError</span>: &lt;urlopen error [Errno 8] nodename nor servname provided, or not known&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">🐍 コードの説明</p>
@@ -743,6 +570,58 @@ p_B=p_A
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>地域</th>
+      <th>年平均</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>札幌市</td>
+      <td>227</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>函館市</td>
+      <td>211</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>旭川市</td>
+      <td>209</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>青森市</td>
+      <td>220</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>八戸市</td>
+      <td>225</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>列ラベルが全角になっている。そのままでも良いが，ここでは次の様に半角に変更する。</p>
 <div class="cell docutils container">
@@ -759,11 +638,109 @@ p_B=p_A
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 81 entries, 0 to 80
+Data columns (total 2 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   area    81 non-null     object
+ 1   price   81 non-null     int64 
+dtypes: int64(1), object(1)
+memory usage: 1.4+ KB
+</pre></div>
+</div>
+</div>
 </div>
 <p>どのような地域が含まれているか確認してみよう。</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;札幌市&#39;,
+ &#39;函館市&#39;,
+ &#39;旭川市&#39;,
+ &#39;青森市&#39;,
+ &#39;八戸市&#39;,
+ &#39;盛岡市&#39;,
+ &#39;仙台市&#39;,
+ &#39;秋田市&#39;,
+ &#39;山形市&#39;,
+ &#39;福島市&#39;,
+ &#39;郡山市&#39;,
+ &#39;水戸市&#39;,
+ &#39;日立市&#39;,
+ &#39;宇都宮市&#39;,
+ &#39;小山市&#39;,
+ &#39;前橋市&#39;,
+ &#39;さいたま市&#39;,
+ &#39;熊谷市&#39;,
+ &#39;川口市&#39;,
+ &#39;所沢市&#39;,
+ &#39;千葉市&#39;,
+ &#39;佐倉市&#39;,
+ &#39;浦安市&#39;,
+ &#39;東京都区部&#39;,
+ &#39;八王子市&#39;,
+ &#39;立川市&#39;,
+ &#39;府中市&#39;,
+ &#39;横浜市&#39;,
+ &#39;川崎市&#39;,
+ &#39;相模原市&#39;,
+ &#39;横須賀市&#39;,
+ &#39;新潟市&#39;,
+ &#39;長岡市&#39;,
+ &#39;富山市&#39;,
+ &#39;金沢市&#39;,
+ &#39;福井市&#39;,
+ &#39;甲府市&#39;,
+ &#39;長野市&#39;,
+ &#39;松本市&#39;,
+ &#39;岐阜市&#39;,
+ &#39;静岡市&#39;,
+ &#39;浜松市&#39;,
+ &#39;富士市&#39;,
+ &#39;名古屋市&#39;,
+ &#39;岡崎市&#39;,
+ &#39;津市&#39;,
+ &#39;松阪市&#39;,
+ &#39;大津市&#39;,
+ &#39;京都市&#39;,
+ &#39;大阪市&#39;,
+ &#39;堺市&#39;,
+ &#39;枚方市&#39;,
+ &#39;東大阪市&#39;,
+ &#39;神戸市&#39;,
+ &#39;姫路市&#39;,
+ &#39;西宮市&#39;,
+ &#39;伊丹市&#39;,
+ &#39;奈良市&#39;,
+ &#39;和歌山市&#39;,
+ &#39;鳥取市&#39;,
+ &#39;松江市&#39;,
+ &#39;岡山市&#39;,
+ &#39;広島市&#39;,
+ &#39;福山市&#39;,
+ &#39;山口市&#39;,
+ &#39;宇部市&#39;,
+ &#39;徳島市&#39;,
+ &#39;高松市&#39;,
+ &#39;松山市&#39;,
+ &#39;今治市&#39;,
+ &#39;高知市&#39;,
+ &#39;福岡市&#39;,
+ &#39;北九州市&#39;,
+ &#39;佐賀市&#39;,
+ &#39;長崎市&#39;,
+ &#39;佐世保市&#39;,
+ &#39;熊本市&#39;,
+ &#39;大分市&#39;,
+ &#39;宮崎市&#39;,
+ &#39;鹿児島市&#39;,
+ &#39;那覇市&#39;]
 </pre></div>
 </div>
 </div>
@@ -776,8 +753,21 @@ p_B=p_A
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     81.000000
+mean     217.604938
+std        8.204692
+min      192.000000
+25%      212.000000
+50%      218.000000
+75%      223.000000
+max      242.000000
+Name: price, dtype: float64
+</pre></div>
 </div>
-<p>最安値は円，最高値は円であり，その差は円！</p>
+</div>
+</div>
+<p>最安値は<span class="pasted-text">192</span>円，最高値は<span class="pasted-text">242</span>円であり，その差は<span class="pasted-text">50</span>円！</p>
 <p>価格の分布を調べるために，平均からの乖離率を計算しよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-19-choco">
 <span class="eqno">(58)<a class="headerlink" href="#equation-eq-19-choco" title="Link to this equation">#</a></span>\[
@@ -799,6 +789,9 @@ p_B=p_A
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/53993ed8ed40783df0e598458122beb991703b157ed95ad8efe7d840ac064376.png" src="_images/53993ed8ed40783df0e598458122beb991703b157ed95ad8efe7d840ac064376.png" />
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0</span></code>は平均と等しいという意味である。<code class="docutils literal notranslate"><span class="pre">0.10</span></code>は平均より<code class="docutils literal notranslate"><span class="pre">10</span></code>％高い価格であり，<code class="docutils literal notranslate"><span class="pre">-0.10</span></code>は平均より<code class="docutils literal notranslate"><span class="pre">10</span></code>％安いチョコレートである。明らかに一物一価は成立していない。</p>
 <p>価格のばらつき具合を確認するために標準偏差を計算しよう。</p>
@@ -807,6 +800,11 @@ p_B=p_A
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="n">choco</span><span class="p">[</span><span class="s1">&#39;mean_deviation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03770453161138014
 </pre></div>
 </div>
 </div>
@@ -825,6 +823,11 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03770453161138012
+</pre></div>
+</div>
+</div>
 </div>
 <p>同じ値である。変動係数の利点は，変数の平均で除している為，単位（ここでは，円）や平均の大小に関係なく，異なるデータのばらつき具合を比べることができることである。</p>
 <p>最後に，チョコレートが最安値の地域はどこか確認してみよう。</p>
@@ -835,8 +838,42 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+      <th>price</th>
+      <th>mean_deviation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>秋田市</td>
+      <td>192</td>
+      <td>-0.117667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p>ではチョコレートが平均よりも約％も安い。（甘党の楽園かも！？）</p>
+<p><span class="pasted-text">秋田市</span>ではチョコレートが平均よりも約<span class="pasted-text">11.8</span>％も安い。（甘党の楽園かも！？）</p>
 </section>
 <section id="id6">
 <h3>アイスクリーム<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -861,6 +898,58 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>地域</th>
+      <th>年平均</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>札幌市</td>
+      <td>296</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>函館市</td>
+      <td>286</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>旭川市</td>
+      <td>281</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>青森市</td>
+      <td>260</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>八戸市</td>
+      <td>258</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>列ラベルの変更</p>
 <div class="cell docutils container">
@@ -877,6 +966,19 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 81 entries, 0 to 80
+Data columns (total 2 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   area    81 non-null     object
+ 1   price   81 non-null     int64 
+dtypes: int64(1), object(1)
+memory usage: 1.4+ KB
+</pre></div>
+</div>
+</div>
 </div>
 <p>記述統計</p>
 <div class="cell docutils container">
@@ -885,8 +987,21 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     81.000000
+mean     263.888889
+std       18.672172
+min      210.000000
+25%      258.000000
+50%      267.000000
+75%      276.000000
+max      300.000000
+Name: price, dtype: float64
+</pre></div>
 </div>
-<p>最安値は円，最高値は円であり，その差は円！（著者のように）ハーゲンダッツ好きにとっては無視できない価格差である。</p>
+</div>
+</div>
+<p>最安値は<span class="pasted-text">210</span>円，最高値は<span class="pasted-text">300</span>円であり，その差は<span class="pasted-text">90</span>円！（著者のように）ハーゲンダッツ好きにとっては無視できない価格差である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice</span><span class="p">[</span><span class="s1">&#39;mean_deviation&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">ice</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">ice</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
@@ -896,14 +1011,22 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/5c6d332074ce25d1c467170d27c118cb6eb7a00d1b0c4306e29a3e7f5db4ccb8.png" src="_images/5c6d332074ce25d1c467170d27c118cb6eb7a00d1b0c4306e29a3e7f5db4ccb8.png" />
 </div>
-<p>安いところは平均よりも約％もお得！いずれにしろ，一物一価は成立していない。</p>
+</div>
+<p>安いところは平均よりも約<span class="pasted-text">20</span>％もお得！いずれにしろ，一物一価は成立していない。</p>
 <p>価格のばらつき具合を確認するために標準偏差（変動係数）を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="n">ice</span><span class="p">[</span><span class="s1">&#39;mean_deviation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0707577036906862
 </pre></div>
 </div>
 </div>
@@ -916,6 +1039,101 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+      <th>price</th>
+      <th>mean_deviation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>80</th>
+      <td>那覇市</td>
+      <td>300</td>
+      <td>0.136842</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>札幌市</td>
+      <td>296</td>
+      <td>0.121684</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>福井市</td>
+      <td>289</td>
+      <td>0.095158</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>松江市</td>
+      <td>288</td>
+      <td>0.091368</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>函館市</td>
+      <td>286</td>
+      <td>0.083789</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>前橋市</td>
+      <td>232</td>
+      <td>-0.120842</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>佐倉市</td>
+      <td>223</td>
+      <td>-0.154947</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>浦安市</td>
+      <td>216</td>
+      <td>-0.181474</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>長野市</td>
+      <td>211</td>
+      <td>-0.200421</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>松本市</td>
+      <td>210</td>
+      <td>-0.204211</td>
+    </tr>
+  </tbody>
+</table>
+<p>81 rows × 3 columns</p>
+</div></div></div>
 </div>
 <p>この順番を見て何か言えることがあるだろうか。考えてみよう！</p>
 </section>
@@ -942,6 +1160,58 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>地域</th>
+      <th>年平均</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>札幌市</td>
+      <td>167</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>函館市</td>
+      <td>167</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>旭川市</td>
+      <td>169</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>青森市</td>
+      <td>166</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>八戸市</td>
+      <td>164</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>列ラベルの変更</p>
 <div class="cell docutils container">
@@ -958,6 +1228,19 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 81 entries, 0 to 80
+Data columns (total 2 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   area    81 non-null     object
+ 1   price   81 non-null     int64 
+dtypes: int64(1), object(1)
+memory usage: 1.4+ KB
+</pre></div>
+</div>
+</div>
 </div>
 <p>記述統計</p>
 <div class="cell docutils container">
@@ -966,8 +1249,21 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     81.000000
+mean     170.604938
+std        4.718790
+min      160.000000
+25%      168.000000
+50%      170.000000
+75%      174.000000
+max      184.000000
+Name: price, dtype: float64
+</pre></div>
 </div>
-<p>最安値は円，最高値は円であり，その差は円。平均からの乖離のヒストグラムをプロットしよう。</p>
+</div>
+</div>
+<p>最安値は<span class="pasted-text">160</span>円，最高値は<span class="pasted-text">184</span>円であり，その差は<span class="pasted-text">24</span>円。平均からの乖離のヒストグラムをプロットしよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gas</span><span class="p">[</span><span class="s1">&#39;mean_deviation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gas</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">gas</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
@@ -977,13 +1273,21 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/f49b633f4424ef7ffc06c0c654b51cf0fe6ac677a1c2839d5638480e53f6c158.png" src="_images/f49b633f4424ef7ffc06c0c654b51cf0fe6ac677a1c2839d5638480e53f6c158.png" />
 </div>
-<p>平均から高くても約％，安くても約％程しか違わない。標準偏差（変動係数）を計算してみよう。</p>
+</div>
+<p>平均から高くても約<span class="pasted-text">7.9</span>％，安くても約<span class="pasted-text">6.2</span>％程しか違わない。標準偏差（変動係数）を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="n">gas</span><span class="p">[</span><span class="s1">&#39;mean_deviation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02765916186178425
 </pre></div>
 </div>
 </div>
@@ -997,6 +1301,40 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+      <th>price</th>
+      <th>mean_deviation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>77</th>
+      <td>大分市</td>
+      <td>184</td>
+      <td>0.078515</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="id8">
@@ -1034,6 +1372,22 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    | `year`:          年（2000年〜）
+    | `country`:       国名
+    | `iso`:           ISO国コード
+    | `currency_code`: 通貨コード
+    | `price_local`:   Big Macの価格（自国通貨単位）
+    | `exr`:           名目為替レート（自国通貨単位/米ドル）
+    | `gdppc_local`:   名目一人当たりGDP（自国通貨単位）
+    |
+    | * 年次データ
+    |
+    | ＜出典＞
+    | https://github.com/TheEconomist/big-mac-data (Copyright The Economist)
+</pre></div>
+</div>
+</div>
 </div>
 <p>データセットを変数<code class="docutils literal notranslate"><span class="pre">bigmac</span></code>に割り当てて，最初の5行を表示してみる。</p>
 <div class="cell docutils container">
@@ -1043,6 +1397,98 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>country</th>
+      <th>iso</th>
+      <th>currency_code</th>
+      <th>price_local</th>
+      <th>exr</th>
+      <th>gdppc_local</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000</td>
+      <td>Argentina</td>
+      <td>ARG</td>
+      <td>ARS</td>
+      <td>2.50</td>
+      <td>1.00</td>
+      <td>9283.18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>Australia</td>
+      <td>AUS</td>
+      <td>AUD</td>
+      <td>2.59</td>
+      <td>1.68</td>
+      <td>32394.17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000</td>
+      <td>Brazil</td>
+      <td>BRA</td>
+      <td>BRL</td>
+      <td>2.95</td>
+      <td>1.79</td>
+      <td>6029.89</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000</td>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>CAD</td>
+      <td>2.85</td>
+      <td>1.47</td>
+      <td>31222.68</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>Switzerland</td>
+      <td>CHE</td>
+      <td>CHF</td>
+      <td>5.90</td>
+      <td>1.70</td>
+      <td>61942.36</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>このでは2023年のデータを使う。2023年のデータだけを抽出し<code class="docutils literal notranslate"><span class="pre">bigmac</span></code>に再割り当てしよう。</p>
 <div class="cell docutils container">
@@ -1061,6 +1507,24 @@ P_iの変動係数=\frac{P_iの標準偏差}{P_iの平均}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bigmac</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 72 entries, 1159 to 1230
+Data columns (total 7 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   year           72 non-null     int64  
+ 1   country        72 non-null     object 
+ 2   iso            72 non-null     object 
+ 3   currency_code  72 non-null     object 
+ 4   price_local    72 non-null     float64
+ 5   exr            72 non-null     float64
+ 6   gdppc_local    72 non-null     float64
+dtypes: float64(3), int64(1), object(3)
+memory usage: 4.5+ KB
 </pre></div>
 </div>
 </div>
@@ -1134,6 +1598,11 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>142.08
+</pre></div>
+</div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ejp</span></code>，<code class="docutils literal notranslate"><span class="pre">local_price</span></code>，<code class="docutils literal notranslate"><span class="pre">exr</span></code>を使い各国のBig Macを円表示に変換し，新たな列<code class="docutils literal notranslate"><span class="pre">yen_price</span></code>として<code class="docutils literal notranslate"><span class="pre">bigmac</span></code>に追加しよう。</p>
 <div class="cell docutils container">
@@ -1151,6 +1620,43 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price_local</th>
+      <th>price_yen</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1195</th>
+      <td>450.0</td>
+      <td>450.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>米国の価格はどうだろう。</p>
 <div class="cell docutils container">
@@ -1160,16 +1666,66 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price_local</th>
+      <th>price_yen</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1227</th>
+      <td>5.58</td>
+      <td>792.8064</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p>日本の価格円と比べると，米国でのBig Macの価格は少し高く感じる。記述統計を確認してみよう。</p>
+<p>日本の価格<span class="output text_plain">450</span>円と比べると，米国でのBig Macの価格は少し高く感じる。記述統計を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count      72.000000
+mean      647.093073
+std       169.651670
+min       339.076894
+25%       505.350594
+50%       666.820588
+75%       767.585089
+max      1098.155390
+Name: price_yen, dtype: float64
+</pre></div>
 </div>
-<p>最安値と最高値には大きな差（円）があることが分かる。平均価格円は日本の価格円を上回っている。</p>
+</div>
+</div>
+<p>最安値<span class="pasted-text">339</span>と最高値<span class="pasted-text">1098</span>には大きな差（<span class="pasted-text">759</span>円）があることが分かる。平均価格<span class="pasted-text">647</span>円は日本の価格<span class="pasted-text">450</span>円を上回っている。</p>
 <p>次に，日本の価格からの乖離率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1191,6 +1747,9 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/bf820e4d476f49a71253ed9cc3823f735d9ae0e7a220496869ffcb69312f4d9b.png" src="_images/bf820e4d476f49a71253ed9cc3823f735d9ae0e7a220496869ffcb69312f4d9b.png" />
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>が日本となる。一番高い国を調べてみよう。</p>
 <div class="cell docutils container">
@@ -1200,8 +1759,48 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>price_yen</th>
+      <th>price_yen_deviation</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1168</th>
+      <td>Switzerland</td>
+      <td>1098.15539</td>
+      <td>1.440345</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p>の価格は約円となっている。次に，価格が最も低い国を表示してみよう。</p>
+<p><span class="pasted-text">Switzerland</span>の価格は約<span class="pasted-text">1098</span>円となっている。次に，価格が最も低い国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="p">)</span>
@@ -1209,8 +1808,48 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>price_yen</th>
+      <th>price_yen_deviation</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1224</th>
+      <td>Taiwan</td>
+      <td>339.076894</td>
+      <td>-0.246496</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p>が一番安く，日本より約％も安価である。</p>
+<p><span class="pasted-text">Taiwan</span>が一番安く，日本より約<span class="pasted-text">24.6</span>％も安価である。</p>
 <p>明らかにBig Macの一物一価は成立していない。</p>
 <p>価格のばらつき具合を確認し，上で確認した国内財の価格と比較するために，変動係数（平均からの乖離の標準偏差と同じ）を計算しよう。</p>
 <div class="cell docutils container">
@@ -1218,6 +1857,11 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">bigmac</span><span class="p">[</span><span class="s1">&#39;price_yen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.26217506693057535
 </pre></div>
 </div>
 </div>
@@ -1242,6 +1886,130 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>price_yen</th>
+      <th>price_yen_deviation</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1168</th>
+      <td>Switzerland</td>
+      <td>1098.155390</td>
+      <td>1.440345</td>
+    </tr>
+    <tr>
+      <th>1207</th>
+      <td>Norway</td>
+      <td>983.106806</td>
+      <td>1.184682</td>
+    </tr>
+    <tr>
+      <th>1226</th>
+      <td>Uruguay</td>
+      <td>974.413346</td>
+      <td>1.165363</td>
+    </tr>
+    <tr>
+      <th>1193</th>
+      <td>Italy</td>
+      <td>908.570106</td>
+      <td>1.019045</td>
+    </tr>
+    <tr>
+      <th>1180</th>
+      <td>Finland</td>
+      <td>900.737605</td>
+      <td>1.001639</td>
+    </tr>
+    <tr>
+      <th>1160</th>
+      <td>Argentina</td>
+      <td>851.628372</td>
+      <td>0.892507</td>
+    </tr>
+    <tr>
+      <th>1174</th>
+      <td>Germany</td>
+      <td>836.511097</td>
+      <td>0.858914</td>
+    </tr>
+    <tr>
+      <th>1206</th>
+      <td>Netherlands</td>
+      <td>834.944597</td>
+      <td>0.855432</td>
+    </tr>
+    <tr>
+      <th>1181</th>
+      <td>France</td>
+      <td>830.245096</td>
+      <td>0.844989</td>
+    </tr>
+    <tr>
+      <th>1179</th>
+      <td>Euro area</td>
+      <td>827.112096</td>
+      <td>0.838027</td>
+    </tr>
+    <tr>
+      <th>1221</th>
+      <td>Sweden</td>
+      <td>814.957088</td>
+      <td>0.811016</td>
+    </tr>
+    <tr>
+      <th>1177</th>
+      <td>Spain</td>
+      <td>814.580095</td>
+      <td>0.810178</td>
+    </tr>
+    <tr>
+      <th>1175</th>
+      <td>Denmark</td>
+      <td>802.961253</td>
+      <td>0.784358</td>
+    </tr>
+    <tr>
+      <th>1191</th>
+      <td>Ireland</td>
+      <td>798.915093</td>
+      <td>0.775367</td>
+    </tr>
+    <tr>
+      <th>1227</th>
+      <td>United States</td>
+      <td>792.806400</td>
+      <td>0.761792</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -1254,6 +2022,100 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>price_yen</th>
+      <th>price_yen_deviation</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1185</th>
+      <td>Hong Kong</td>
+      <td>419.023683</td>
+      <td>-0.068836</td>
+    </tr>
+    <tr>
+      <th>1204</th>
+      <td>Malaysia</td>
+      <td>414.360612</td>
+      <td>-0.079199</td>
+    </tr>
+    <tr>
+      <th>1225</th>
+      <td>Ukraine</td>
+      <td>403.948396</td>
+      <td>-0.102337</td>
+    </tr>
+    <tr>
+      <th>1212</th>
+      <td>Philippines</td>
+      <td>400.954028</td>
+      <td>-0.108991</td>
+    </tr>
+    <tr>
+      <th>1230</th>
+      <td>South Africa</td>
+      <td>398.666873</td>
+      <td>-0.114074</td>
+    </tr>
+    <tr>
+      <th>1228</th>
+      <td>Venezuela</td>
+      <td>386.278992</td>
+      <td>-0.141602</td>
+    </tr>
+    <tr>
+      <th>1176</th>
+      <td>Egypt</td>
+      <td>372.141633</td>
+      <td>-0.173019</td>
+    </tr>
+    <tr>
+      <th>1190</th>
+      <td>India</td>
+      <td>361.035298</td>
+      <td>-0.197699</td>
+    </tr>
+    <tr>
+      <th>1189</th>
+      <td>Indonesia</td>
+      <td>358.026525</td>
+      <td>-0.204385</td>
+    </tr>
+    <tr>
+      <th>1224</th>
+      <td>Taiwan</td>
+      <td>339.076894</td>
+      <td>-0.246496</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>貧しい国が並んでいる。実は，この結果は偶然ではない。Big Macの価格と所得の散布図を使い相関関係を確かめてみるために，円表示の一人当たりGDPを計算しよう。新たな列<code class="docutils literal notranslate"><span class="pre">gdppc_yen</span></code>を作成する</p>
 <div class="cell docutils container">
@@ -1272,6 +2134,9 @@ i\text{国価格の日本価格からの乖離率（円）}=\dfrac{P_i/e_{i\text
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/eec88622cdd4dc65220bf4aa9a3823cbd8942f088efe9dabefd4bcc5e8cf5844.png" src="_images/eec88622cdd4dc65220bf4aa9a3823cbd8942f088efe9dabefd4bcc5e8cf5844.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1402,6 +2267,276 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variable definition</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Identifier variables</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>countrycode</th>
+      <td>3-letter ISO country code</td>
+    </tr>
+    <tr>
+      <th>country</th>
+      <td>Country name</td>
+    </tr>
+    <tr>
+      <th>currency_unit</th>
+      <td>Currency unit</td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td>Year</td>
+    </tr>
+    <tr>
+      <th>Real GDP, employment and population levels</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rgdpe</th>
+      <td>Expenditure-side real GDP at chained PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>rgdpo</th>
+      <td>Output-side real GDP at chained PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>pop</th>
+      <td>Population (in millions)</td>
+    </tr>
+    <tr>
+      <th>emp</th>
+      <td>Number of persons engaged (in millions)</td>
+    </tr>
+    <tr>
+      <th>avh</th>
+      <td>Average annual hours worked by persons engaged</td>
+    </tr>
+    <tr>
+      <th>hc</th>
+      <td>Human capital index, based on years of schooling and returns to education; see Human capital in PWT9.</td>
+    </tr>
+    <tr>
+      <th>Current price GDP, capital and TFP</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ccon</th>
+      <td>Real consumption of households and government, at current PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>cda</th>
+      <td>Real domestic absorption, (real consumption plus investment), at current PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>cgdpe</th>
+      <td>Expenditure-side real GDP at current PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>cgdpo</th>
+      <td>Output-side real GDP at current PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>cn</th>
+      <td>Capital stock at current PPPs (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>ck</th>
+      <td>Capital services levels at current PPPs (USA=1)</td>
+    </tr>
+    <tr>
+      <th>ctfp</th>
+      <td>TFP level at current PPPs (USA=1)</td>
+    </tr>
+    <tr>
+      <th>cwtfp</th>
+      <td>Welfare-relevant TFP levels at current PPPs (USA=1)</td>
+    </tr>
+    <tr>
+      <th>National accounts-based variables</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rgdpna</th>
+      <td>Real GDP at constant 2017 national prices (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>rconna</th>
+      <td>Real consumption at constant 2017 national prices (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>rdana</th>
+      <td>Real domestic absorption at constant 2017 national prices (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>rnna</th>
+      <td>Capital stock at constant 2017 national prices (in mil. 2017US$)</td>
+    </tr>
+    <tr>
+      <th>rkna</th>
+      <td>Capital services at constant 2017 national prices (2017=1)</td>
+    </tr>
+    <tr>
+      <th>rtfpna</th>
+      <td>TFP at constant national prices (2017=1)</td>
+    </tr>
+    <tr>
+      <th>rwtfpna</th>
+      <td>Welfare-relevant TFP at constant national prices (2017=1)</td>
+    </tr>
+    <tr>
+      <th>labsh</th>
+      <td>Share of labour compensation in GDP at current national prices</td>
+    </tr>
+    <tr>
+      <th>irr</th>
+      <td>Real internal rate of return</td>
+    </tr>
+    <tr>
+      <th>delta</th>
+      <td>Average depreciation rate of the capital stock</td>
+    </tr>
+    <tr>
+      <th>Exchange rates and GDP price levels</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>xr</th>
+      <td>Exchange rate, national currency/USD (market+estimated)</td>
+    </tr>
+    <tr>
+      <th>pl_con</th>
+      <td>Price level of CCON (PPP/XR), price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_da</th>
+      <td>Price level of CDA (PPP/XR), price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_gdpo</th>
+      <td>Price level of CGDPo (PPP/XR), price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>Data information variables</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>i_cig</th>
+      <td>0/1/2/3/4: relative price data for consumption, investment and government is extrapolated (0), benchmark (1), interpolated (2), ICP PPP timeseries: benchmark or interpolated (3) or  ICP PPP timeseries: extrapolated (4)</td>
+    </tr>
+    <tr>
+      <th>i_xm</th>
+      <td>0/1/2: relative price data for exports and imports is extrapolated (0), benchmark (1) or interpolated (2)</td>
+    </tr>
+    <tr>
+      <th>i_xr</th>
+      <td>0/1: the exchange rate is market-based (0) or estimated (1)</td>
+    </tr>
+    <tr>
+      <th>i_outlier</th>
+      <td>0/1: the observation on pl_gdpe or pl_gdpo is not an outlier (0) or an outlier (1)</td>
+    </tr>
+    <tr>
+      <th>i_irr</th>
+      <td>0/1/2/3: the observation for irr is not an outlier (0), may be biased due to a low capital share (1), hit the lower bound of 1 percent (2), or is an outlier (3)</td>
+    </tr>
+    <tr>
+      <th>cor_exp</th>
+      <td>Correlation between expenditure shares of the country and the US (benchmark observations only)</td>
+    </tr>
+    <tr>
+      <th>statcap</th>
+      <td>Statistical capacity indicator (source: World Bank, developing countries only)</td>
+    </tr>
+    <tr>
+      <th>Shares in CGDPo</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>csh_c</th>
+      <td>Share of household consumption at current PPPs</td>
+    </tr>
+    <tr>
+      <th>csh_i</th>
+      <td>Share of gross capital formation at current PPPs</td>
+    </tr>
+    <tr>
+      <th>csh_g</th>
+      <td>Share of government consumption at current PPPs</td>
+    </tr>
+    <tr>
+      <th>csh_x</th>
+      <td>Share of merchandise exports at current PPPs</td>
+    </tr>
+    <tr>
+      <th>csh_m</th>
+      <td>Share of merchandise imports at current PPPs</td>
+    </tr>
+    <tr>
+      <th>csh_r</th>
+      <td>Share of residual trade and GDP statistical discrepancy at current PPPs</td>
+    </tr>
+    <tr>
+      <th>Price levels, expenditure categories and capital</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>pl_c</th>
+      <td>Price level of household consumption,  price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_i</th>
+      <td>Price level of capital formation,  price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_g</th>
+      <td>Price level of government consumption,  price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_x</th>
+      <td>Price level of exports, price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_m</th>
+      <td>Price level of imports, price level of USA GDPo in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_n</th>
+      <td>Price level of the capital stock, price level of USA in 2017=1</td>
+    </tr>
+    <tr>
+      <th>pl_k</th>
+      <td>Price level of the capital services, price level of USA=1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>以下の分析では次の変数を使う。</p>
 <ul class="simple">
@@ -1450,6 +2585,9 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3b5131dce8ac9b0a247510596195d403dc38c4446f534b9ee358d37aad52eadb.png" src="_images/3b5131dce8ac9b0a247510596195d403dc38c4446f534b9ee358d37aad52eadb.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -1512,6 +2650,9 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/13171a68d0b46cfef65988b6bb214d332ad4ad8e59f23e404102d08199b94763.png" src="_images/13171a68d0b46cfef65988b6bb214d332ad4ad8e59f23e404102d08199b94763.png" />
+</div>
 </div>
 <p>この図は，上の図の情報を実質為替レート（円/ドル）としてまとめている。実質為替レートでも，縦軸での円安・円高の方向は同じとなることに注意しよう。1980年代半ばまで円高に動いていること（増価）が分かる。</p>
 <div class="admonition note">
@@ -1554,6 +2695,11 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>183
+</pre></div>
+</div>
+</div>
 </div>
 <p>このデータを使い相対価格のヒストグラムをプロットするが，視覚的に確認し易いように対数化した列を作成し図示する。（試しに，対数を使う目的を理解するために<code class="docutils literal notranslate"><span class="pre">pl_gdpo</span></code>のヒストグラムと比べてみてはどうだろう。）</p>
 <div class="cell docutils container">
@@ -1564,6 +2710,9 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/366611206e72713c4eefe8818bc2a16a5cae31f5f01f42f24c421a8e7a4f2a2e.png" src="_images/366611206e72713c4eefe8818bc2a16a5cae31f5f01f42f24c421a8e7a4f2a2e.png" />
 </div>
 </div>
 <p>次のような解釈となる。</p>
@@ -1581,6 +2730,12 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対一般物価水準が１以上の国の数： 22
+相対一般物価水準が１未満の国の数：161
+</pre></div>
+</div>
+</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -1593,14 +2748,79 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    183.000000
+mean       0.691109
+std        1.385720
+min        0.139218
+25%        0.395466
+50%        0.490066
+75%        0.741123
+max       18.842592
+Name: pl_gdpo, dtype: float64
+</pre></div>
 </div>
-<p>価格水準が最も低い国は米国（2017年）の物価水準の約％しかなく，最も高い国は米国（2017年）の約倍も高い。上位5カ国を表示してみよう。</p>
+</div>
+</div>
+<p>価格水準が最も低い国は米国（2017年）の物価水準の約<span class="pasted-text">13.9</span>％しかなく，最も高い国は米国（2017年）の約<span class="pasted-text">18.8</span>倍も高い。上位5カ国を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt19</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;pl_gdpo&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;pl_gdpo&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>pl_gdpo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12389</th>
+      <td>Venezuela (Bolivarian Republic of)</td>
+      <td>18.842592</td>
+    </tr>
+    <tr>
+      <th>1609</th>
+      <td>Bermuda</td>
+      <td>2.309026</td>
+    </tr>
+    <tr>
+      <th>11199</th>
+      <td>Turks and Caicos Islands</td>
+      <td>1.894385</td>
+    </tr>
+    <tr>
+      <th>209</th>
+      <td>Anguilla</td>
+      <td>1.572530</td>
+    </tr>
+    <tr>
+      <th>3079</th>
+      <td>Cayman Islands</td>
+      <td>1.491452</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>ベネズエラの<code class="docutils literal notranslate"><span class="pre">pl_gdpo</span></code>の値は突出している。<a class="reference external" href="https://en.wikipedia.org/wiki/Hyperinflation_in_Venezuela">ベネズエラの2018年のインフレは1,700,000％（年率）のハイパーインフレ</a>が発生しており，その影響かもしれないが，他の経済の傾向と大きく異なる「外れ値」の可能性を払拭できない。以下ではベネズエラを除外して分析を進めることにする。</p>
 <div class="cell docutils container">
@@ -1620,8 +2840,13 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.536110862365616
+</pre></div>
 </div>
-<p>この値をBig Macの値と比べてみよう。Big Macの変動係数はであり，<code class="docutils literal notranslate"><span class="pre">0.3</span></code>にも満たない。バスケット財に含まれる財・サービスはBig Mac程規格が統一されていないことを考えると一般物価水準の変動係数が大きいことは理解できるのではないだろうか。</p>
+</div>
+</div>
+<p>この値をBig Macの値と比べてみよう。Big Macの変動係数は<span class="pasted-text">0.262</span>であり，<code class="docutils literal notranslate"><span class="pre">0.3</span></code>にも満たない。バスケット財に含まれる財・サービスはBig Mac程規格が統一されていないことを考えると一般物価水準の変動係数が大きいことは理解できるのではないだろうか。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>上で計算したBig Mac価格の変動係数は，相対価格ではなくBig Mac価格（円表示）の変動係数である。米国のBig Mac価格に対する相対価格の変動係数を次のコードで計算することができるが，同じ値を返すことになる。</p>
@@ -1674,6 +2899,12 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>このプロットには66カ国が含まれる。
+</pre></div>
+</div>
+<img alt="_images/185d7550d29a50af15febf7c2946eacc17a33c6d75397c15c4c9f7bdf0991c78.png" src="_images/185d7550d29a50af15febf7c2946eacc17a33c6d75397c15c4c9f7bdf0991c78.png" />
+</div>
 </div>
 <p>リストの上には所得が高い国が列挙されており，所得が低い国はリストの下の方にある。この傾向はBig Macの場合と同じである。</p>
 <p>物価水準と所得の関係を散布図を使って確認するために，一人当たりGDPとその対数値を新たな列<code class="docutils literal notranslate"><span class="pre">cgdpo_pc</span></code>と<code class="docutils literal notranslate"><span class="pre">cgdpo_pc_log</span></code>を追加しよう。</p>
@@ -1702,6 +2933,9 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/900f224cc81106dadf149746ab9bdd0993823c48e5603f8f93a69b633ca2e7e2.png" src="_images/900f224cc81106dadf149746ab9bdd0993823c48e5603f8f93a69b633ca2e7e2.png" />
 </div>
 </div>
 <p>直線トレンドを想像してみよう。明らかに右上がりであり，所得が高い経済ほど物価水準が高いことが確認できる。これは<strong>バラッサ・サミュエルソン効果</strong>と呼ばれる。直感的には，所得が高い経済の生産性と価格は高く，多くが貿易財である。一方，所得が低い国の非貿易財（例えば，不動産）やサービス（例えば，散髪）は比較的に安い。右上がりの直線トレンドはそれらの反映と考えられる。</p>
@@ -1814,6 +3048,26 @@ D_i^{\text{その他}}=e^{a+u_i}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            pl_gdpo_log   R-squared:                       0.390
+Model:                            OLS   Adj. R-squared:                  0.384
+No. Observations:                 182   F-statistic:                     57.32
+Covariance Type:            nonrobust   Prob (F-statistic):           5.76e-20
+========================================================================================
+                           coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+Intercept               -0.1121      0.059     -1.889      0.060      -0.229       0.005
+cgdpo_pc_ratio_log       0.5386      0.073      7.346      0.000       0.394       0.683
+cgdpo_pc_ratio_log_2     0.0838      0.019      4.362      0.000       0.046       0.122
+========================================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
 </div>
 <p><span class="math notranslate nohighlight">\(\hat{b}\)</span>と<span class="math notranslate nohighlight">\(\hat{c}\)</span>の統計的な優位性は非常に高い。また<span class="math notranslate nohighlight">\(\hat{c}&gt;0\)</span>はU字型のトレンドを示している。</p>
 <p>データの散布図に回帰線を重ねて表示して当てはまり具合を視覚的に確認してみることにしよう。式<a class="reference internal" href="#equation-eq-19-9">(81)</a>から予測値は</p>
@@ -1856,6 +3110,9 @@ D_i^{\text{その他}}=e^{a+u_i}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/4768cb3b3536c316e5967a278c434f3c97a8c01bb07d795160b5db35e7564ca5.png" src="_images/4768cb3b3536c316e5967a278c434f3c97a8c01bb07d795160b5db35e7564ca5.png" />
+</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -1896,6 +3153,9 @@ D_i^{\text{その他}}=e^{a+u_i}
 <span class="k">pass</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b3f14965af37e405555f43215e4d45adb9551a08472efebf44c4a52eda44243d.png" src="_images/b3f14965af37e405555f43215e4d45adb9551a08472efebf44c4a52eda44243d.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>（縦の点線）で<span class="math notranslate nohighlight">\(\dfrac{P_i/e_i}{P_{\text{US}}}=1\)</span>となることに注意しよう。次のことが言える。</p>
@@ -1988,6 +3248,11 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3904160748287651
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1999,8 +3264,13 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6095839251712349
+</pre></div>
 </div>
-<p>分散の割合で考えた場合，所得効果は全体の約％を占めている。一般物価水準の一物一価が成立しない大きな理由が所得の差ということが明らかになった。一方で，所得以外の要因も大きな影響を及ぼしている。「その他」の要因は大きく２つに分けることができる。</p>
+</div>
+</div>
+<p>分散の割合で考えた場合，所得効果は全体の約<span class="pasted-text">39</span>％を占めている。一般物価水準の一物一価が成立しない大きな理由が所得の差ということが明らかになった。一方で，所得以外の要因も大きな影響を及ぼしている。「その他」の要因は大きく２つに分けることができる。</p>
 <ul class="simple">
 <li><p>財・サービスの貿易（国際収支における貿易・サービス収支に該当）</p>
 <ul>
@@ -2188,6 +3458,9 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/2efc868a6790f064ea27239b85f802ce4f0f3c5443de435fb6582ea1daff6535.png" src="_images/2efc868a6790f064ea27239b85f802ce4f0f3c5443de435fb6582ea1daff6535.png" />
+</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -2206,6 +3479,9 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/fe1cb9cb7ca7150a47ed3fde8a3f3e84cc22746547955d2455ba141813123f77.png" src="_images/fe1cb9cb7ca7150a47ed3fde8a3f3e84cc22746547955d2455ba141813123f77.png" />
+</div>
 </div>
 <p>PPPレートGDPと比べて市場為替レートGDPは全体的に左（小さい値）にシフトしている。所得が中程度の国が減少し，所得が低い国が増加している。</p>
 <p>記述統計を比べてみよう。</p>
@@ -2219,6 +3495,73 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>市場為替レートGDP</th>
+      <th>PPPレートGDP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>182.000000</td>
+      <td>182.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>8.837957</td>
+      <td>9.479314</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.459575</td>
+      <td>1.137809</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>5.562148</td>
+      <td>6.678289</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>7.733357</td>
+      <td>8.665637</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>8.898444</td>
+      <td>9.585708</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>10.056103</td>
+      <td>10.372745</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>11.676471</td>
+      <td>11.611350</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
@@ -2248,6 +3591,13 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- GDPの変動係数 ---&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PPPレート：</span><span class="si">{</span><span class="n">cc_ppp</span><span class="si">:</span><span class="s1">&gt;8.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;市場為替レート：</span><span class="si">{</span><span class="n">cc_xr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- GDPの変動係数 ---
+PPPレート：   0.120
+市場為替レート：0.165
 </pre></div>
 </div>
 </div>
