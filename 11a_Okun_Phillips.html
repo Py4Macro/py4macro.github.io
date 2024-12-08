@@ -187,6 +187,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期データ分析</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="13a_Random_Variables.html">ランダム変数と統計的特徴</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">主なマクロ・データの特徴</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">オークンの法則とフィリップス曲線</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11b_Money_Inflation.html">インフレとマネーストック</a></li>
@@ -199,8 +200,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期モデル分析</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="13_random_TFP.html">ランダム変数と全要素生産性</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_Stochastic_Solow.html">確率的ソロー・モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
 </ul>
@@ -485,7 +486,7 @@
 </ul>
 <p>オークンの法則は経験則として次の関係を表す。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-okun">
-<span class="eqno">(109)<a class="headerlink" href="#equation-eq-11-okun" title="Link to this equation">#</a></span>\[
+<span class="eqno">(110)<a class="headerlink" href="#equation-eq-11-okun" title="Link to this equation">#</a></span>\[
 \frac{Y_t-\bar{Y}_t}{\bar{Y}_t}=-b\left( u_t-\bar{u}_t\right),\quad b&gt;0
 \]</div>
 <p>左辺はGDPの自然率水準からの乖離率（自然率水準を何％上回るかを示す）であり，右辺は失業率の自然率からの乖離（自然失業率を何％ポイント上回るかを示す）である。即ち，GDPと失業率の長期的な値からの乖離には負の関係が存在することを意味している。労働者が生産投入といこと考えると，直感的にも受け入れ易い関係ではないだろうか。では失業率の乖離が1%ポイント上昇するとGDPの乖離率は何%減少するのだろうか。この問いについては，データを使いパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推定する必要がる。難しい点は、<span class="math notranslate nohighlight">\(\bar{Y}_t\)</span>と<span class="math notranslate nohighlight">\(\bar{u}_t\)</span>が観測されないため推定する必要があることである。この点を回避するために、オークンの法則を変数の変化で表す場合もあるが、ここでは上の式を考える。<span class="math notranslate nohighlight">\(\bar{Y}_t\)</span>と<span class="math notranslate nohighlight">\(\bar{u}_t\)</span>の推定には様々な洗練された手法があるが、ここでは簡便的にHodrick–Prescottフィルターを使って計算したトレンドを<span class="math notranslate nohighlight">\(\bar{Y}\)</span>と<span class="math notranslate nohighlight">\(\bar{u}\)</span>とし，トレンドからの乖離を上の式の左辺と右辺に使う。</p>
@@ -665,7 +666,7 @@ memory usage: 5.5 KB
 </section>
 <section id="id6">
 <h3>回帰分析<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>では実際に式<a class="reference internal" href="#equation-eq-11-okun">(109)</a>のスロープ変数<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。</p>
+<p>では実際に式<a class="reference internal" href="#equation-eq-11-okun">(110)</a>のスロープ変数<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_cycle ~ u_rate_cycle&#39;</span>   <span class="c1"># 1</span>
@@ -700,8 +701,8 @@ memory usage: 5.5 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.391
 Model:                            OLS   Adj. R-squared:                  0.387
 Method:                 Least Squares   F-statistic:                     111.5
-Date:                Sun, 01 Dec 2024   Prob (F-statistic):           1.84e-20
-Time:                        11:51:04   Log-Likelihood:                -275.03
+Date:                Sun, 08 Dec 2024   Prob (F-statistic):           1.84e-20
+Time:                        09:03:47   Log-Likelihood:                -275.03
 No. Observations:                 176   AIC:                             554.1
 Df Residuals:                     174   BIC:                             560.4
 Df Model:                           1                                         
@@ -726,7 +727,7 @@ Notes:
 </div>
 <p>表の中段から次のことがわかる。</p>
 <ul class="simple">
-<li><p>定数項の推定値は非常に小さい。即ち、失業率の乖離がゼロある場合、GDPの乖離率もぜろになることを示しており、定数項がない式<a class="reference internal" href="#equation-eq-11-okun">(109)</a>と整合的であることわかる。</p></li>
+<li><p>定数項の推定値は非常に小さい。即ち、失業率の乖離がゼロある場合、GDPの乖離率もぜろになることを示しており、定数項がない式<a class="reference internal" href="#equation-eq-11-okun">(110)</a>と整合的であることわかる。</p></li>
 <li><p>パラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>の推定値は負の値となっていおり、失業率が自然失業率を上回るとGDP乖離率は減少することが確認できる。</p></li>
 </ul>
 <p>＜コメント＞</p>
@@ -802,7 +803,7 @@ Notes:
 <h3>説明<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>マクロ経済学を学んだ人にとって最も馴染み深い関係の一つがフィリップス曲線（PC曲線）ではないだろうか。失業率とインフレ率の関係を示すが，典型的なPC曲線は次式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-phillips">
-<span class="eqno">(110)<a class="headerlink" href="#equation-eq-11-phillips" title="Link to this equation">#</a></span>\[
+<span class="eqno">(111)<a class="headerlink" href="#equation-eq-11-phillips" title="Link to this equation">#</a></span>\[
 \pi_t=\text{E}\pi_t-b(u_t-\bar{u})+v,\quad b&gt;0
 \]</div>
 <ul class="simple">
@@ -812,8 +813,8 @@ Notes:
 <li><p><span class="math notranslate nohighlight">\(\bar{u}\)</span>：自然失業率（長期的な失業率）</p></li>
 <li><p><span class="math notranslate nohighlight">\(v\)</span>：供給サイドのショック</p></li>
 </ul>
-<p>通常，式<a class="reference internal" href="#equation-eq-11-phillips">(110)</a>では分析の簡単化のために自然失業率<span class="math notranslate nohighlight">\(\bar{u}\)</span>はトレンドであり一定と仮定され，その周辺を経済が変動すると考える。</p>
-<p>失業率の特徴については<a class="reference internal" href="#sec-11-unemployment"><span class="std std-ref">「失業率の特徴」</span></a>の節で議論したので，以下では式<a class="reference internal" href="#equation-eq-11-phillips">(110)</a>の左辺にあるインフレ率について考えることにする。</p>
+<p>通常，式<a class="reference internal" href="#equation-eq-11-phillips">(111)</a>では分析の簡単化のために自然失業率<span class="math notranslate nohighlight">\(\bar{u}\)</span>はトレンドであり一定と仮定され，その周辺を経済が変動すると考える。</p>
+<p>失業率の特徴については<a class="reference internal" href="#sec-11-unemployment"><span class="std std-ref">「失業率の特徴」</span></a>の節で議論したので，以下では式<a class="reference internal" href="#equation-eq-11-phillips">(111)</a>の左辺にあるインフレ率について考えることにする。</p>
 </section>
 <section id="id9">
 <h3>インフレ率の特徴<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
@@ -931,10 +932,10 @@ Notes:
 <img alt="_images/c59aea02060b0a4e30640f222364d2d055ced7a18ca4d6e6122a0ed887100135.png" src="_images/c59aea02060b0a4e30640f222364d2d055ced7a18ca4d6e6122a0ed887100135.png" />
 </div>
 </div>
-<p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(110)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
+<p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(111)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
 <ol class="arabic simple">
 <li><p>過去40年間，フィリプス曲線は変化した可能性はないのか。即ち，真のメカニズムが変わりながら生成されたデータが表示されているのではないか，という問題である。</p></li>
-<li><p>式<a class="reference internal" href="#equation-eq-11-phillips">(110)</a>には期待インフレ率がり，また供給サイドのショックもあり得る（例えば，コロナ禍）。それらをどう考えるかという問題がある。</p></li>
+<li><p>式<a class="reference internal" href="#equation-eq-11-phillips">(111)</a>には期待インフレ率がり，また供給サイドのショックもあり得る（例えば，コロナ禍）。それらをどう考えるかという問題がある。</p></li>
 </ol>
 <p>第二の問題を扱うことはこのサイトの範囲を超えるので，ここでは扱わず議論を進めることにする。以下では第一の問題を考察してみよう。</p>
 <p>景気循環のマクロ経済学での短期は何ヶ月または何年以下で，長期は何年以上なのだろうか。実は，曖昧で学者・学派によって見解が別れる事になる。ここでは10年間は長期に入ると考えることにする（多くの経済学者は同意するだろう）。この考えに基づき，10年毎のデータを検討しPC曲線に変化があるかどうかを確かめることにする。</p>
@@ -981,7 +982,7 @@ Name: decade, Length: 176, dtype: int32
 </div>
 <p>それを新たな列<code class="docutils literal notranslate"><span class="pre">decade</span></code>に割り当てている。</p>
 </div>
-<p>新たな列と<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，式<a class="reference internal" href="#equation-eq-11-phillips">(110)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
+<p>新たな列と<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使い，式<a class="reference internal" href="#equation-eq-11-phillips">(111)</a>の係数<span class="math notranslate nohighlight">\(a\)</span>と<span class="math notranslate nohighlight">\(b\)</span>を推定してみよう。大きな差が無ければ，フィリップス曲線は概ね一定だと考えることができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decade_lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="p">)</span>         <span class="c1">#1</span>

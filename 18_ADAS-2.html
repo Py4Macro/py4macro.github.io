@@ -80,7 +80,7 @@
     <link rel="canonical" href="https://py4macro.github.io/18_ADAS-2.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ランダム変数と全要素生産性" href="13_random_TFP.html" />
+    <link rel="next" title="IS-MP-PCモデル" href="12_IS-MP-PC.html" />
     <link rel="prev" title="定量的マクロ経済分析：Part 1" href="18_ADAS-1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,6 +187,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期データ分析</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="13a_Random_Variables.html">ランダム変数と統計的特徴</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">主なマクロ・データの特徴</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11a_Okun_Phillips.html">オークンの法則とフィリップス曲線</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11b_Money_Inflation.html">インフレとマネーストック</a></li>
@@ -199,8 +200,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期モデル分析</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="13_random_TFP.html">ランダム変数と全要素生産性</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_Stochastic_Solow.html">確率的ソロー・モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
 </ul>
@@ -440,23 +441,24 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">定量的な問い</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">予測誤差</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの％乖離</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">計算方法</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">結果</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">解釈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-t"><span class="math notranslate nohighlight">\(p_t\)</span>に対する影響：分散分解分析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-t"><span class="math notranslate nohighlight">\(y_t\)</span>に対する影響：分散分解分析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">産出量水準の％乖離</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">計算結果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">解釈</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">価格水準の％乖離</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">計算方法</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">結果</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">解釈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">価格水準の％乖離</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">計算結果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">解釈</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">付録：分散と共分散の性質</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a">付録Ａ：分散と共分散の性質</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b">付録Ｂ：式<span class="xref myst"></span>の導出</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-u-y-v-y">付録Ｂ：式(u-y)と(v-y)の導出</a></li>
 </ul>
             </nav>
         </div>
@@ -493,17 +495,17 @@
 <h2>はじめに<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>前章で展開したADASモデルは次の２つの均衡式で与えられる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-p-2">
-<span class="eqno">(134)<a class="headerlink" href="#equation-eq-18-eq-p-2" title="Link to this equation">#</a></span>\[
+<span class="eqno">(136)<a class="headerlink" href="#equation-eq-18-eq-p-2" title="Link to this equation">#</a></span>\[
 p_{t}=hp_{t-1}+h\left(a u_{t}+v_{t}\right)
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-y-2">
-<span class="eqno">(135)<a class="headerlink" href="#equation-eq-18-eq-y-2" title="Link to this equation">#</a></span>\[
-y_t=-cp_t + u_t
+<span class="eqno">(137)<a class="headerlink" href="#equation-eq-18-eq-y-2" title="Link to this equation">#</a></span>\[
+y_t = -chp_{t-1} + h(u_t-cv_t)
 \]</div>
 <p>ここで</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-h-2">
-<span class="eqno">(136)<a class="headerlink" href="#equation-eq-18-h-2" title="Link to this equation">#</a></span>\[
-h\equiv\frac{1}{1+a c}&lt;1
+<span class="eqno">(138)<a class="headerlink" href="#equation-eq-18-h-2" title="Link to this equation">#</a></span>\[
+h\equiv\frac{1}{1+a c}&lt;1,
 \]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(p_t\)</span>：価格水準のトレンドからの％乖離</p></li>
@@ -642,57 +644,26 @@ x_t = x_{t-1} + a
 <h2>ADASモデルの安定性<a class="headerlink" href="#adas" title="Link to this heading">#</a></h2>
 <p>まずADASモデルの安定性を考える。すなわち，任意の初期値（<span class="math notranslate nohighlight">\(p_0\)</span>と<span class="math notranslate nohighlight">\(y_0\)</span>）にある経済が長期均衡に戻るかどうかを確認する。
 そのために，ここでは総需要・総供給ショックがない経済を考える。即ち，<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>，<span class="math notranslate nohighlight">\(t=0,1,2,\cdots\)</span>とする。
-従って，均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-p">(127)</a>と<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-y">(128)</a>は</p>
+従って，均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-p">(129)</a>と<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-y">(130)</a>は</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-p-v0">
-<span class="eqno">(137)<a class="headerlink" href="#equation-eq-18-eq-p-v0" title="Link to this equation">#</a></span>\[
+<span class="eqno">(139)<a class="headerlink" href="#equation-eq-18-eq-p-v0" title="Link to this equation">#</a></span>\[
 p_{t}=hp_{t-1}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-18-eq-y-u0">
-<span class="eqno">(138)<a class="headerlink" href="#equation-eq-18-eq-y-u0" title="Link to this equation">#</a></span>\[
-y_t=-cp_t 
+<span class="eqno">(140)<a class="headerlink" href="#equation-eq-18-eq-y-u0" title="Link to this equation">#</a></span>\[
+y_t = -chp_{t-1}
 \]</div>
-<p>となる。</p>
-<p>上でも説明したが，次の特徴がある。<span class="math notranslate nohighlight">\(p_t\)</span>の値は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>のみで決定され，その<span class="math notranslate nohighlight">\(p_t\)</span>に基づいて<span class="math notranslate nohighlight">\(y_t\)</span>が式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(138)</a>で決まる。この点を説明するために次の表を見てみよう。</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p>t=0</p></th>
-<th class="head"><p>t=1</p></th>
-<th class="head"><p>t=2</p></th>
-<th class="head"><p>t=3</p></th>
-<th class="head"><p>…</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>デフレーター</p></td>
-<td><p><span class="math notranslate nohighlight">\(p_0\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(p_1\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(p_2\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(p_3\)</span></p></td>
-<td><p>…</p></td>
-</tr>
-<tr class="row-odd"><td><p>GDP</p></td>
-<td><p><span class="math notranslate nohighlight">\(y_0\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(y_1\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(y_2\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(y_3\)</span></p></td>
-<td><p>…</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(t=0\)</span>期：初期値<span class="math notranslate nohighlight">\(p_0\)</span>が与えられると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(138)</a>によって初期値<span class="math notranslate nohighlight">\(y_0\)</span>が<strong>決定される</strong>。</p></li>
-<li><p><span class="math notranslate nohighlight">\(t=1\)</span>期：<span class="math notranslate nohighlight">\(p_0\)</span>に基づいて式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>に従って<span class="math notranslate nohighlight">\(p_1\)</span>が決まる。また<span class="math notranslate nohighlight">\(p_1\)</span>が決まると，式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(138)</a>によって<span class="math notranslate nohighlight">\(y_1\)</span>が定まる。</p></li>
-<li><p><span class="math notranslate nohighlight">\(t=2\)</span>期以降：同様のプロセスで<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が決定される。</p></li>
-</ul>
-<p>ここから次の２つの特徴が浮かび上がる。</p>
-<ol class="arabic simple">
-<li><p>初期値には<span class="math notranslate nohighlight">\(p_0\)</span>のみが必要であり，<span class="math notranslate nohighlight">\(y_0\)</span>を別に設定する必要はない。</p></li>
-<li><p>安定性は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>のみに依存する。</p></li>
+<p>となる。ここから次の２つの特徴が浮かび上がる。</p>
+<ol class="arabic">
+<li><p>この連立差分方程式を解くには初期値<span class="math notranslate nohighlight">\(p_0\)</span>があれば十分である。</p></li>
+<li><p>初期値<span class="math notranslate nohighlight">\(y_0\)</span>は<span class="math notranslate nohighlight">\(u_t=0\)</span>となる式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ad-small2">(126)</a>から計算することができる。</p>
+<div class="math notranslate nohighlight">
+\[y_0=-cp_0\]</div>
+</li>
+<li><p>安定性は式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>のみに依存する。</p></li>
 </ol>
 <p>また，特徴2から次のことも導き出せる。
-式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>の<span class="math notranslate nohighlight">\(h\)</span>の値は正であり絶対値は1よりも小さい。従って，差分方程式である式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>は安定的であり，ADASモデル自体が安定的だということが確認できる。以下では，シミュレーションを使いこの結果を確認しよう。そのための関数を作成する。</p>
+式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>の<span class="math notranslate nohighlight">\(h\)</span>の値は正であり絶対値は1よりも小さい。従って，差分方程式である式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>は安定的であり，ADASモデル自体が安定的だということが確認できる。以下では，シミュレーションを使いこの結果を確認する。まずそのための関数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adas_model</span><span class="p">(</span><span class="n">p0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">ahat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">chat</span><span class="p">):</span>
@@ -704,14 +675,12 @@ y_t=-cp_t
 <span class="sd">    戻り値：</span>
 <span class="sd">        yとpのDataFrame&quot;&quot;&quot;</span>
 
-    <span class="c1"># === pの差分方程式の右辺 ==========</span>
-    <span class="k">def</span> <span class="nf">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># hの値</span>
-        <span class="k">return</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span>
+    <span class="c1"># === hの定義 ==========</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span> <span class="p">)</span>
         
     <span class="c1"># === 初期値，forループのアップデート用変数 ==========</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">p0</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p0</span>    
+    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p0</span>
     
     <span class="c1"># === yとpの値を格納するリスト ==========</span>
     <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>   <span class="c1"># 初期値を格納</span>
@@ -720,8 +689,7 @@ y_t=-cp_t
     <span class="c1"># === ショック後のループ計算 ==========</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         
-        <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p</span>
+        <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="p">)</span>
 
         <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -747,7 +715,7 @@ y_t=-cp_t
 <img alt="_images/201088df0e7098933ed8f3be9894b4621df793b92fc88bdeaf80fa803b700fd5.png" src="_images/201088df0e7098933ed8f3be9894b4621df793b92fc88bdeaf80fa803b700fd5.png" />
 </div>
 </div>
-<p>このプロットの横軸には返された<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の行インデックスが使われているが，時系列的なプロットと考えれば良いだろう。<span class="math notranslate nohighlight">\(p_t\)</span>は初期値である１から始まっており，<span class="math notranslate nohighlight">\(y_t\)</span>の初期値は式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(138)</a>で計算した値である。このプロットから次のことが確認できる。</p>
+<p>このプロットの横軸には返された<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の行インデックスが使われているが，時系列的なプロットと考えれば良いだろう。<span class="math notranslate nohighlight">\(p_t\)</span>は初期値である１から始まっており，<span class="math notranslate nohighlight">\(y_t\)</span>の初期値は式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(140)</a>で計算した値である。このプロットから次のことが確認できる。</p>
 <ul class="simple">
 <li><p>定常状態である0に両変数は近づいている。即ち，長期均衡が安定的だということである。</p></li>
 <li><p>長期均衡に近づく速度は，最初は速いが，そのスピードが時間と共に落ちているのが伺える。</p></li>
@@ -761,10 +729,10 @@ y_t=-cp_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/813d062585ca3f49fd492d8fd3ecf8ff9daa6e90f0a5cf727ab053bc96817944.png" src="_images/813d062585ca3f49fd492d8fd3ecf8ff9daa6e90f0a5cf727ab053bc96817944.png" />
+<img alt="_images/87714b524877fc1b1b3dde67c4d37379454c2183f97cfd0d27461dbf3793132b.png" src="_images/87714b524877fc1b1b3dde67c4d37379454c2183f97cfd0d27461dbf3793132b.png" />
 </div>
 </div>
-<p>また，このプロットから長期均衡<span class="math notranslate nohighlight">\((0,0)\)</span>に近づくにつれて，経済の動きが小刻みになっているのも確認できる。<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化が小さくなり，動くスピードが遅くなっている。実は，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>を使うと，<span class="math notranslate nohighlight">\(p_t\)</span>が０に近づく変化率を簡単に計算することができる。式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>を次のように書き直そう。</p>
+<p>また，このプロットから長期均衡<span class="math notranslate nohighlight">\((0,0)\)</span>に近づくにつれて，経済の動きが小刻みになっているのも確認できる。<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化が小さくなり，動くスピードが遅くなっている。実は，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>を使うと，<span class="math notranslate nohighlight">\(p_t\)</span>が<code class="docutils literal notranslate"><span class="pre">0</span></code>に近づく変化率を簡単に計算することができる。式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>を次のように書き直そう。</p>
 <div class="math notranslate nohighlight">
 \[
 p_t\text{の変化率}=
@@ -775,7 +743,11 @@ p_t\text{の変化率}=
 <li><p>AS曲線の傾きが急になると，長期均衡への収束速度が速くなる。</p></li>
 <li><p>AD曲線の傾きが急になると，長期均衡への収束速度が遅くなる。</p></li>
 </ul>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(137)</a>と<a class="reference internal" href="#equation-eq-18-eq-y-u0">(138)</a>を使うと次の結果を導出できる。</p>
+<p>同様に，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>と<a class="reference internal" href="#equation-eq-18-eq-y-u0">(140)</a>を使うと次の結果を導出できる。
+式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(139)</a>を式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(140)</a>に代入すると</p>
+<div class="math notranslate nohighlight">
+\[y_t=-cp_t\]</div>
+<p>となる。従って，</p>
 <div class="math notranslate nohighlight">
 \[
 y_t\text{の変化率}=
@@ -784,7 +756,7 @@ y_t\text{の変化率}=
 \frac{p_t}{p_{t-1}}-1=
 p_t\text{の変化率}
 \]</div>
-<p><span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化率は同じである。</p>
+<p><span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化率は同じとなることが確認できる。</p>
 <p>下のプロットでは，<span class="math notranslate nohighlight">\(p_t\)</span>の初期値が負の場合を図示している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -805,7 +777,7 @@ p_t\text{の変化率}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a9ac7c55507a7036b5b9fbe36dcae74fe851d65d07fb12a7ec4dc08c8113f277.png" src="_images/a9ac7c55507a7036b5b9fbe36dcae74fe851d65d07fb12a7ec4dc08c8113f277.png" />
+<img alt="_images/01d673ede0c0ae03ef20f8bf414113197dbadc93178734916918799a948d1765.png" src="_images/01d673ede0c0ae03ef20f8bf414113197dbadc93178734916918799a948d1765.png" />
 </div>
 </div>
 </section>
@@ -814,18 +786,26 @@ p_t\text{の変化率}
 <p>インパルス反応関数とは，ある特定のショック（<span class="math notranslate nohighlight">\(u_t\)</span>もしくは<span class="math notranslate nohighlight">\(v_t\)</span>）が発生した場合，<code class="docutils literal notranslate"><span class="pre">y_t</span></code>と<code class="docutils literal notranslate"><span class="pre">p_t</span></code>がどのように変化するかを示す時系列のグラフをである。インパルス反応関数により，ショックの波及効果を可視化できる。また，後で考察する確率的シミュレーションの結果を理解する上でも有用な情報となる。</p>
 <section id="id4">
 <h3>コード<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-as-small">(121)</a>と式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ad-small">(123)</a>を再掲する。</p>
+<p>均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-as-small">(122)</a>と式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ad-small">(124)</a>を再掲する。</p>
 <div class="math notranslate nohighlight">
 \[
 p_{t}=hp_{t-1}+h\left(a u_{t}+v_{t}\right)
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-y_t=-cp_t + u_t
+y_t = -chp_{t-1} + h(u_t-cv_t)
 \]</div>
 <p>次のコードでは，ショック項である<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>は１期間だけ変化すると仮定する。
 従って，<code class="docutils literal notranslate"><span class="pre">u_std</span></code>と<code class="docutils literal notranslate"><span class="pre">v_std</span></code>は無関係となるため，コードには使っていない。
 一方，<code class="docutils literal notranslate"><span class="pre">a</span></code>，<code class="docutils literal notranslate"><span class="pre">c</span></code>は上で決めた値を使うこととする。</p>
+<div class="math notranslate nohighlight">
+\[
+p_{t}=hp_{t-1}+h\left(a u_{t}+v_{t}\right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_t = -chp_{t-1} + h(u_t-cv_t)
+\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_period_impulse</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_after</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">ahat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">chat</span><span class="p">):</span>
@@ -840,14 +820,12 @@ y_t=-cp_t + u_t
 
 <span class="sd">    * 最初の３期間はショックゼロ&quot;&quot;&quot;</span>
 
-    <span class="c1"># === pの差分方程式の右辺 ==========</span>
-    <span class="k">def</span> <span class="nf">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">u</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span>
+    <span class="c1"># === hの定義 ==========</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span> <span class="p">)</span>
     
     <span class="c1"># === 初期値，forループのアップデート用変数 ==========</span>
     <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1"># 最初は定常状態に設定</span>
-                <span class="c1"># yの初期値は必要ない</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1"># 最初は定常状態に設定</span>
     
     <span class="c1"># === 結果を格納するリストの作成 ==========</span>
     <span class="c1"># 最初の３つの要素は定常状態に設定</span>
@@ -857,8 +835,9 @@ y_t=-cp_t + u_t
     <span class="n">v_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
 
     <span class="c1"># === ショック発生時 ==========</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>   <span class="c1"># 引数のu,vが使われる</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>             <span class="c1"># 引数のuが使われる</span>
+    <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="n">v</span> <span class="p">),</span>     <span class="c1"># 引数のuとvが使われる</span>
+               <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">u</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">v</span> <span class="p">)</span>   <span class="c1"># 引数のuとvが使われる</span>
+             <span class="p">)</span>
         
     <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -869,9 +848,9 @@ y_t=-cp_t + u_t
     <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>     <span class="c1"># ショックを0に戻す</span>
 
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_after</span><span class="p">):</span>
-        
-        <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>
+        <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="n">v</span> <span class="p">),</span>
+                   <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">u</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">v</span> <span class="p">)</span>
+                 <span class="p">)</span>
 
         <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -1038,14 +1017,12 @@ v_t\sim N(0,\sigma_v^2)
 <span class="sd">    戻り値：</span>
 <span class="sd">        y, p, u, vのDataFrame&quot;&quot;&quot;</span>
     
-    <span class="c1"># === pの差分方程式の右辺 ==========</span>
-    <span class="k">def</span> <span class="nf">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">u</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span>
+    <span class="c1"># === hの定義 ==========</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
     
     <span class="c1"># === 初期値，forループのアップデート用変数 ==========</span>
     <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># 最初は定常状態に設定</span>
-            <span class="c1"># yの初期値は必要ない</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># 最初は定常状態に設定</span>
 
     <span class="c1"># === 結果を格納するリストの作成 ==========</span>
     <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1064,9 +1041,10 @@ v_t\sim N(0,\sigma_v^2)
         <span class="c1"># ASのショック項</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vstd</span><span class="p">)</span>
         
-        <span class="n">p</span> <span class="o">=</span> <span class="n">price_func</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">u</span>
-            
+        <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">a</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="n">v</span> <span class="p">),</span>
+                   <span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span> <span class="n">u</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">v</span> <span class="p">)</span>
+                 <span class="p">)</span>
+                    
         <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">p_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">u_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
@@ -1098,7 +1076,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f1010eae32cd7a60ba0aa59194379e32e5f4a0102e78f328e83324dd501749da.png" src="_images/f1010eae32cd7a60ba0aa59194379e32e5f4a0102e78f328e83324dd501749da.png" />
+<img alt="_images/7d49c6b922eb399a19484b2fdb57f3789b71861ba31b19f5bc89ada4fab67e75.png" src="_images/7d49c6b922eb399a19484b2fdb57f3789b71861ba31b19f5bc89ada4fab67e75.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1117,7 +1095,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/79540f5e7a621168ea04adf53d7b9adc4877f2be8a08ac579f49b822fb73715f.png" src="_images/79540f5e7a621168ea04adf53d7b9adc4877f2be8a08ac579f49b822fb73715f.png" />
+<img alt="_images/c3f2ba968363453f141e8d19637cc4628c7ce1f11ae1b44d5b9876fc7568a527.png" src="_images/c3f2ba968363453f141e8d19637cc4628c7ce1f11ae1b44d5b9876fc7568a527.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1171,8 +1149,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01376
-pの標準偏差:0.01414
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01379
+pの標準偏差:0.01410
 </pre></div>
 </div>
 </div>
@@ -1222,7 +1200,7 @@ pの標準偏差:0.01414
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.043
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.044
 p:0.817
 </pre></div>
 </div>
@@ -1269,7 +1247,7 @@ p:0.817
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.10965830670593563
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.11013759112291507
 </pre></div>
 </div>
 </div>
@@ -1300,11 +1278,11 @@ p:0.817
 <td><p><span class="pasted-text">-0.15298</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>WNショック</p></td>
-<td><p><span class="pasted-text">0.01376</span></p></td>
-<td><p><span class="pasted-text">0.01414</span></p></td>
-<td><p><span class="pasted-text">0.04299</span></p></td>
-<td><p><span class="pasted-text">0.81743</span></p></td>
-<td><p><span class="pasted-text">-0.10966</span></p></td>
+<td><p><span class="pasted-text">0.01379</span></p></td>
+<td><p><span class="pasted-text">0.01410</span></p></td>
+<td><p><span class="pasted-text">0.04390</span></p></td>
+<td><p><span class="pasted-text">0.81660</span></p></td>
+<td><p><span class="pasted-text">-0.11014</span></p></td>
 </tr>
 <tr class="row-even"><td><p>AR(1)ショック</p></td>
 <td><p>0.01252</p></td>
@@ -1329,17 +1307,17 @@ p:0.817
 <p>次に，モデルの簡単な拡張に触れる。ホワイト・ノイズは前期のショックと今期のショックは何の関係もない独立を意味する。総需要ショックと総供給ショックは，そうなのだろうか。例えば，政府支出を考えてみよう。政府は，増税を実施すると，１四半期後に減税するような行動は取らない。少なくともある期間，政策を一貫して実施することになる。投資はどうだろうか。１四半期毎に企業は投資をコロコロと変えるような行動はしない。消費者の嗜好の変化も需要ショックとして現れるが，ファッションで今季は赤が流行り，１四半期後には青が流行るということではない。すなわち，ショックはホワイト・ノイズではなく，ある程度の<strong>持続性</strong>が存在すると想定できる。総供給ショックも同じように考えることができる。</p>
 <p>この特徴を捉えるために，総需要ショックと総供給ショックに次の自己回帰モデルを想定することができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-18-v-ar1">
-<span class="eqno">(139)<a class="headerlink" href="#equation-eq-18-v-ar1" title="Link to this equation">#</a></span>\[
+<span class="eqno">(141)<a class="headerlink" href="#equation-eq-18-v-ar1" title="Link to this equation">#</a></span>\[
 v_t=\rho_v v_{t-1}+e^v_t,\qquad e^v_t\sim\text{WN}(0,\sigma_{ev}^2)
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-18-u-ar1">
-<span class="eqno">(140)<a class="headerlink" href="#equation-eq-18-u-ar1" title="Link to this equation">#</a></span>\[
+<span class="eqno">(142)<a class="headerlink" href="#equation-eq-18-u-ar1" title="Link to this equation">#</a></span>\[
 u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 \]</div>
 <p>新たなパラメーターとして<span class="math notranslate nohighlight">\(\rho_u\)</span>，<span class="math notranslate nohighlight">\(\rho_v\)</span>，<span class="math notranslate nohighlight">\(\sigma_{eu}^2\)</span>，<span class="math notranslate nohighlight">\(\sigma_{ev}^2\)</span>の４つがあるが，これらもデータを使って次のように推定することが可能である。</p>
 <ol class="arabic simple">
-<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-vt">(132)</a>の<span class="math notranslate nohighlight">\(\hat{v}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-v-ar1">(139)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_v\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{ev}\)</span>とする。</p></li>
-<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ut">(133)</a>の<span class="math notranslate nohighlight">\(\hat{u}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-u-ar1">(140)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_u\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{eu}\)</span>とする。</p></li>
+<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-vt">(134)</a>の<span class="math notranslate nohighlight">\(\hat{v}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-v-ar1">(141)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_v\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{ev}\)</span>とする。</p></li>
+<li><p>式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-ut">(135)</a>の<span class="math notranslate nohighlight">\(\hat{u}\)</span>を使い，式<a class="reference internal" href="#equation-eq-18-u-ar1">(142)</a>を推定式として<span class="math notranslate nohighlight">\(\hat{\rho}_u\)</span>を推定する。またその残差の標準偏差を<span class="math notranslate nohighlight">\(\sigma_{eu}\)</span>とする。</p></li>
 </ol>
 <p>このように計算すると次の値となる。</p>
 <ul class="simple">
@@ -1411,206 +1389,219 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 <blockquote>
 <div><p>GDPと価格水準の長期トレンドからの乖離（％）の変動は，何パーセントが需要ショックにより引き起こされ，何パーセントが供給ショックに起因するのか？</p>
 </div></blockquote>
-<p>この問を検討するには，定性的な比較静学では不可能であり，定量的なアプローチが要求される。では，この問にどのように答えれば良いかどうか。ここでは，ベクトル自己回帰モデルで使われる次のような手法を採用する。</p>
-<section id="id16">
-<h3>予測誤差<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
-<p>カリブレーションをおこなった際の推定式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-regression-h">(129)</a>と<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-regression-d">(130)</a>を再掲する。</p>
+<p>この問を検討するには，定性的な比較静学では不可能であり，定量的なアプローチが要求される。
+ここでは分散分解分析をおこなう。</p>
+<section id="p-t">
+<h3><span class="math notranslate nohighlight">\(p_t\)</span>に対する影響：分散分解分析<a class="headerlink" href="#p-t" title="Link to this heading">#</a></h3>
+<p>均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-p">(129)</a>を再掲する。</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-y_{t} &amp;= -chp_{t-1} + e_{yt}\\
-p_{t}&amp;=hp_{t-1} + e_{pt}
-\end{align*}
-\end{split}\]</div>
+\[p_{t}=hp_{t-1} + e_{pt},\qquad\qquad e_{pt}=ahu_{t}+hv_{t}\]</div>
+<p><span class="math notranslate nohighlight">\(p_{t}\)</span>の分散<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>を次のように書き換えよう。
+（分散と共分散の性質については<a class="reference internal" href="#sec-18-appendix-a"><span class="std std-ref">付録Ａ</span></a>を参照）</p>
+<p>\begin{align}
+\text{Var}(p_{t})
+&amp;=\text{Var}(hp_{t-1} + e_{pt})\qquad\cdots\cdots [1]\
+&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})+2\text{Cov}(hp_{t-1},e_{pt})\qquad\cdots [2]\
+&amp;=\text{Var}(hp_{t-1})+\text{Var}(e_{pt})\qquad\cdots [3]\
+&amp;=h^2\text{Var}(p_{t-1})+\text{Var}(e_{pt})\qquad\cdots [4]\
+&amp;=h^2\text{Var}(p_{t})+\text{Var}(e_{pt})\qquad\cdots [5]\
+(1-h^2)\text{Var}(p_{t})
+&amp;=\text{Var}(e_{pt})\qquad\cdots\cdots\cdots [6]\
+\text{Var}(p_{t})
+&amp;=\frac{\text{Var}(e_{pt})}{1-h^2}\qquad\cdots\cdots\cdots [7]
+\end{align} (eq:18-eq-varp)</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(e_{yt}\equiv h(u_{t}-cv_{t})\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(e_{pt}\equiv h\left(a u_{t}+v_{t}\right)\)</span></p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(p_t\)</span>に式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-ppp">(127)</a>を代入。</p></li>
+<li><p>[2]：右辺を展開。</p></li>
+<li><p>[3]：<span class="math notranslate nohighlight">\(p_{t-1}\)</span>と<span class="math notranslate nohighlight">\(e_{pt}\)</span>の間で時間がズレているため<span class="math notranslate nohighlight">\(\text{Cov}(hp_{t-1},e_{pt})=0\)</span>。</p></li>
+<li><p>[4]：定数<span class="math notranslate nohighlight">\(h\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
+<li><p>[5]：<span class="math notranslate nohighlight">\(t\)</span>が十分に大きい場合（<span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>）は<span class="math notranslate nohighlight">\(\text{Var}(p_{t})=\text{Var}(p_{t-1})\)</span>。</p></li>
+<li><p>[6]：<span class="math notranslate nohighlight">\(h^2\text{Var}(p_{t})\)</span>を左辺い移動。</p></li>
+<li><p>[7]：両辺を<span class="math notranslate nohighlight">\((1-h^2)\)</span>で除する。</p></li>
 </ul>
-<p>今期が<span class="math notranslate nohighlight">\(t-1\)</span>期とし，<span class="math notranslate nohighlight">\(x_{t-1}\)</span>は既に実現したと考えてみよう。一方，<span class="math notranslate nohighlight">\(t\)</span>期の変数は実現前の将来の変数としよう。ここで，実現値<span class="math notranslate nohighlight">\(x_{t-1}\)</span>を所与として<code class="docutils literal notranslate"><span class="pre">t</span></code>期の変数を予測するとしよう。<span class="math notranslate nohighlight">\(y_{t}\)</span>の予測値は次式で表現できる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\text{E}_{t-1}\left(y_{t}\right) 
-&amp;=\text{E}_{t-1}\left(-chp_{t-1} + e_{yt}\right)\\
-&amp;=\text{E}_{t-1}\left(-chp_{t-1}\right)+\text{E}_{t-1}\left(e_{yt}\right)\\
-&amp;=-chp_{t-1}
-\end{align*}
-\end{split}\]</div>
-<p>１行目は単に上の一つ目の式の両辺に<span class="math notranslate nohighlight">\(\text{E}_{t-1}\)</span>を使い<span class="math notranslate nohighlight">\(t-1\)</span>時点での情報に基づき期待値を計算していることを表す。右辺が線形になっているので，その特徴を利用すると２行目となる。３行目では，<span class="math notranslate nohighlight">\(-chp_{t-1}\)</span>は既に実現している値なので<span class="math notranslate nohighlight">\(\text{E}_{t-1}\)</span>は外すことができる。更に，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の期待値（平均）はゼロと仮定しているため，<span class="math notranslate nohighlight">\(\text{E}_{t-1}(e_{yt})=0\)</span>となる。同様に，上の２つ目の式を使い<span class="math notranslate nohighlight">\(p_{t}\)</span>の予測値を求めることができる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\text{E}_{t-1}\left(p_{t}\right)
-&amp;=\text{E}_{t-1}\left(hp_{t-1} + e_{pt}\right)\\
-&amp;=\text{E}_{t-1}\left(hp_{t-1}\right) + \text{E}_{t-1}\left(e_{pt}\right)\\
-&amp;=hp_{t-1}
-\end{align*}
-\end{split}\]</div>
-<p>更に，これらの予測値を使うと予測<strong>誤差</strong>を次のように表すことができる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-y_{t} - \text{E}_{t-1}(y_{t})&amp;=e_{yt}\\
-p_{t}- \text{E}_{t-1}(p_{t})&amp;=e_{pt}
-\end{align*}
-\end{split}\]</div>
-<p>この結果は次のことを意味する。予測誤差<span class="math notranslate nohighlight">\(e_{yt}\)</span>と<span class="math notranslate nohighlight">\(e_{pt}\)</span>は，総需要ショック<span class="math notranslate nohighlight">\(u_t\)</span>と総供給ショック<span class="math notranslate nohighlight">\(v_t\)</span>が発生することにより生じており，予測誤差から総需要ショックと総供給ショックの相対的な影響力を調べることができる。しかし，それらを分解する必要があり，その方法が予測誤差の分散分解である。</p>
-<p>まず総需要・総供給ショックが全くない場合を考えてみよう。<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>となるので<span class="math notranslate nohighlight">\(e_{yt}=e_{pt}=0\)</span>となるのは自明であろう。ショックがなければ予測誤差はゼロとなる。小さなショックを導入すると，予測誤差は正や負の値を取り，小さく変動することになる。ショックを大きくすると予測誤差の絶対値が増加し，変動が大きくなることは直感的にも理解できるだろう。ここでは，予測誤差の変動の大きさを分散で捉えようということである。更に，分散の特徴により，予測誤差の分散は総需要ショックと総供給ショックのそれぞれに起因する分散の和として表すことが可能となり，次のように分散分解することができる。</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(e_{xt})=\text{Var}(e_{xt}|u_t)+\text{Var}(e_{xt}|v_t)
-\qquad
-x_t=y_t,p_t
+<p>式<a class="reference internal" href="#eq:18-eq-varp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp</span></code></a>は，<span class="math notranslate nohighlight">\(p_t\)</span>の分散は<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散に依存していることを示している。
+<span class="math notranslate nohighlight">\(e_{pt}\)</span>は需要ショックと供給ショックの両方から構成されているため，それを分解する必要がある。
+<span class="math notranslate nohighlight">\(e_{pt}\)</span>は次の式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-ept">
+<span class="eqno">(143)<a class="headerlink" href="#equation-eq-18-eq-ept" title="Link to this equation">#</a></span>\[
+e_{pt}=ahu_{t}+hv_{t}
 \]</div>
+<p><span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散を次のように計算する。</p>
+<p>\begin{align}
+\text{Var}(e_{pt})
+&amp;=\text{Var}(ahu_{t}+hv_{t})\qquad\cdots\cdots [1]\
+&amp;=\text{Var}(ahu_{t})+\text{Var}(hv_{t})\qquad\cdots [2]\
+&amp;=(ah)^2\text{Var}(u_{t})+h^2\text{Var}(v_{t})\qquad\cdots [3]
+\end{align} (eq:18-eq-varep)</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\text{Var}(e_{xt})\)</span>：<span class="math notranslate nohighlight">\(x_t\)</span>の分散</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Var}(e_{xt}|u_t)\)</span>：総需要ショック（<span class="math notranslate nohighlight">\(u_t\)</span>）に起因する<span class="math notranslate nohighlight">\(x_t\)</span>の分散</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Var}(e_{xt}|v_t)\)</span>：総供給ショック（<span class="math notranslate nohighlight">\(v_t\)</span>）に起因する<span class="math notranslate nohighlight">\(x_t\)</span>の分散</p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(e_{pt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-ept">(143)</a>を代入。</p></li>
+<li><p>[2]：右辺を展開。</p></li>
+<li><p>[3]：定数<span class="math notranslate nohighlight">\(ah\)</span>と<span class="math notranslate nohighlight">\(h\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
 </ul>
-<p>この関係を使うと，何％が需要ショックに起因し，残りの何％が供給ショックにより発生しているかは次式で与えられることになる。</p>
+<p>最後に式<a class="reference internal" href="#eq:18-eq-varep"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varep</span></code></a>を式<a class="reference internal" href="#eq:18-eq-varp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp</span></code></a>に代入し，次のように整理する。</p>
+<p>\begin{align}
+\text{Var}(p_{t})
+&amp;=\frac{(ah)^2\text{Var}(u_{t})+h^2\text{Var}(v_{t})}{1-h^2}\
+&amp;=\frac{(ah)^2}{1-h^2}\text{Var}(u_{t})
++\frac{h^2}{1-h^2}\text{Var}(v_{t})\
+&amp;=\left(\text{需要ショックに起因する変動}\right)+\left(\text{供給ショックに起因する変動}\right)
+\end{align} (eq:18-eq-varp2)</p>
+<p>＜この式の解釈＞</p>
+<ul class="simple">
+<li><p>左辺は<span class="math notranslate nohighlight">\(p_t\)</span>の総変動であり，それを需要ショック（<span class="math notranslate nohighlight">\(u_t\)</span>）と供給ショック（<span class="math notranslate nohighlight">\(v_t\)</span>）に分解したのが右辺となる。</p></li>
+<li><p>右辺の解釈</p>
+<ul>
+<li><p>まず総需要・総供給ショックが全くない場合を考えてみよう。<span class="math notranslate nohighlight">\(u_t=v_t=0\)</span>となるため<span class="math notranslate nohighlight">\(\text{Var}(u_{t})=\text{Var}(v_{t})=0\)</span>となり，右辺は<code class="docutils literal notranslate"><span class="pre">0</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>は変動しない。</p></li>
+<li><p>次に，<span class="math notranslate nohighlight">\(u_t=0\)</span>に固定し，供給ショック<span class="math notranslate nohighlight">\(v_{t}\)</span>だけを変動させてみよう。需要曲線は動かず，供給曲線だけが上下にシフトする場合である。<span class="math notranslate nohighlight">\(p_t\)</span>の変動は<span class="math notranslate nohighlight">\(v_t\)</span>の変動にのみ依存し，<span class="math notranslate nohighlight">\(\text{Var}(p_{t})=\dfrac{h^2}{1-h^2}\text{Var}(v_{t})\)</span>となる。同様に，<span class="math notranslate nohighlight">\(v_t=0\)</span>に固定し，需要ショック<span class="math notranslate nohighlight">\(u_{t}\)</span>だけを変動させてみよう。供給曲線を一定として需要曲線だけが左右にシフトする。<span class="math notranslate nohighlight">\(p_t\)</span>の変動は<span class="math notranslate nohighlight">\(u_t\)</span>の変動にのみ依存し，<span class="math notranslate nohighlight">\(\text{Var}(p_{t})=\dfrac{(ah)^2}{1-h^2}\text{Var}(u_{t})\)</span>となる。</p></li>
+<li><p>最後に，<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>を同時に変動させると，<span class="math notranslate nohighlight">\(p_t\)</span>の総変動は式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>の右辺の２つの項から構成されることになる。第１項が需要ショックに起因する<span class="math notranslate nohighlight">\(p_t\)</span>の変動であり，第２項が供給ショックにより発生した<span class="math notranslate nohighlight">\(p_t\)</span>の変動となる。そういう意味で，<span class="math notranslate nohighlight">\(p_t\)</span>の総変動は需要ショックと供給ショックに分解されたと解釈できる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_t\)</span>の総変動の大きさ（水準）を決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしている。<span class="math notranslate nohighlight">\(h\)</span>はは約<code class="docutils literal notranslate"><span class="pre">0.8</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>の高い持続性を意味する。持続性が高い場合，一旦総供給曲線が定常状態の位置から離れると元の位置に戻るには時間が掛かることになる。即ち，定常状態から離れた状態が長くなる。そのような状況下で，更にショックが発生すると，定常状態から更に乖離する結果につながることになり，変動が増幅されることになる。その効果が<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>で捉えられている。</p></li>
+</ul>
+</li>
+</ul>
+<p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(p_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>で割ると次式となる。</p>
+<div class="amsmath math notranslate nohighlight" id="equation-54fae4ac-638d-4084-8802-b456efac6663">
+<span class="eqno">(144)<a class="headerlink" href="#equation-54fae4ac-638d-4084-8802-b456efac6663" title="Permalink to this equation">#</a></span>\[\begin{align}
+1&amp;=
+\frac{(ah)^2}{1-h^2}\cdot\frac{\text{Var}(u_{t})}{\text{Var}(p_{t})}
++\frac{h^2}{1-h^2}\cdot\frac{\text{Var}(v_{t})}{\text{Var}(p_{t})}
+\end{align}\]</div>
+<p>この結果を使い次のように定義する。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{align*}
-\left(
+\left[
 \begin{split}
-&amp;\text{総需要ショックによる}\\
-&amp;x_t\text{の変動の割合}
+&amp;p_t\text{の変動に対する}\\
+&amp;u_t\text{(需要ショック)}\\
+&amp;\text{の寄与度}
 \end{split}
-\right)
-&amp;=
-\frac{\text{Var}(e_{xt}|u_t)}{\text{Var}(e_{xt})},
-\qquad
-x_t=y_t,p_t
-\\
-\left(
-\begin{split}
-&amp;\text{総供給ショックによる}\\
-&amp;x_t\text{の変動の割合}
-\end{split}
-\right)
-&amp;=
-\frac{\text{Var}(e_{xt}|v_t)}{\text{Var}(e_{xt})},
-\qquad
-x_t=y_t,p_t
-\end{align*}
+\right]
+=\frac{(ah)^2}{1-h^2}\cdot\frac{\text{Var}(u_{t})}{\text{Var}(p_{t})}
+=\frac{a^2\text{Var}(u_{t})}{a^2\text{Var}(u_{t})+\text{Var}(v_{t})}
+\tag{u-p}
 \end{split}\]</div>
-<p>以下では，それぞれの項を計算し量的な問いを考察する。</p>
-</section>
-<section id="id17">
-<h3>GDPの％乖離<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
-<section id="id18">
-<h4>計算方法<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
-<p>予測誤差<span class="math notranslate nohighlight">\(e_{yt}\)</span>は次式で与えられる。</p>
 <div class="math notranslate nohighlight">
-\[
+\[\begin{split}
+\left[
+\begin{split}
+&amp;p_t\text{の変動に対する}\\
+&amp;v_t\text{(供給ショック)}\\
+&amp;\text{の寄与度}
+\end{split}
+\right]
+=\frac{h^2}{1-h^2}\cdot\frac{\text{Var}(v_{t})}{\text{Var}(p_{t})}
+=\frac{\text{Var}(v_{t})}{a^2\text{Var}(u_{t})+\text{Var}(v_{t})}
+\tag{v-p}
+\end{split}\]</div>
+<p>それぞれの式の最後の等号には式<a class="reference internal" href="#eq:18-eq-varep2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varep2</span></code></a>を<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>に代入して整理している。
+式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>の<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>は<span class="math notranslate nohighlight">\(p_t\)</span>の持続性の影響を捉えていると説明したが，その影響は式(u-p)と(v-p)を計算する上でキャンセルされており，ショックの相対的な寄与度はもっぱら供給曲線の傾きである<span class="math notranslate nohighlight">\(a\)</span>に影響されることが分かる。</p>
+</section>
+<section id="y-t">
+<h3><span class="math notranslate nohighlight">\(y_t\)</span>に対する影響：分散分解分析<a class="headerlink" href="#y-t" title="Link to this heading">#</a></h3>
+<p>同様の手法を使い<span class="math notranslate nohighlight">\(y_t\)</span>の総変動の分散分解分析をおこなう。均衡式<a class="reference internal" href="18_ADAS-1.html#equation-eq-18-eq-y">(130)</a>を再掲する。</p>
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-yyy">
+<span class="eqno">(145)<a class="headerlink" href="#equation-eq-18-eq-yyy" title="Link to this equation">#</a></span>\[
+y_t = -chp_{t-1} + e_{yt},
+\qquad
 e_{yt}=h(u_t-cv_t)
 \]</div>
-<p>両辺の分散を計算すると次のようになる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\text{Var}(e_{yt})
-&amp;=\text{Var}(hu_{t}-chv_{t})\\
-&amp;=\text{Var}(hu_{t})+
-    \text{Var}(-chv_{t})+
-    2\text{Cov}(hu_{t},-chv_{t})\\
-&amp;=h^2\text{Var}(u_{t})+
-    (ch)^2\text{Var}(v_{t})-
-    2ch^2\text{Cov}(u_{t},v_{t})\\
-&amp;=h^2\sigma_u^2+
-    (ch)^2\sigma_v^2-
-    2ch^2\sigma_{uv}\\
-&amp;\quad\Downarrow\\
-&amp;=\text{Var}(e_{yt}|u_t)+\text{Var}(e_{yt}|v_t)
-\end{align*}
-\end{split}\]</div>
-<p>ここで</p>
+<p><span class="math notranslate nohighlight">\(y_{t}\)</span>の分散<span class="math notranslate nohighlight">\(\text{Var}(y_{t})\)</span>を次のように書き換えよう。</p>
+<p>\begin{align}
+\text{Var}(y_{t})
+&amp;=\text{Var}(-chp_{t-1} + e_{yt})\qquad\cdots\cdots [1]\
+&amp;=\text{Var}(-chp_{t-1})+\text{Var}(e_{yt})+2\text{Cov}(-chp_{t-1},e_{yt})\qquad\cdots [2]\
+&amp;=\text{Var}(-chp_{t-1})+\text{Var}(e_{yt})\qquad\cdots [3]\
+&amp;=(-ch)^2\text{Var}(p_{t-1})+\text{Var}(e_{yt})\qquad\cdots [4]\
+&amp;=(ch)^2\text{Var}(p_{t})+\text{Var}(e_{yt})\qquad\cdots [5]\
+\end{align} (eq:18-eq-vary)</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\sigma_u^2=\text{Var}(u_{t})\)</span> は<span class="math notranslate nohighlight">\(u_t\)</span>の分散</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma_v^2=\text{Var}(v_{t})\)</span> は<span class="math notranslate nohighlight">\(v_t\)</span>の分散</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma_{uv}=\text{Cov}(u_t,v_t)\)</span> は<span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>の共分散</p></li>
+<li><p>[1]：<span class="math notranslate nohighlight">\(y_t\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-yyy">(145)</a>を代入。</p></li>
+<li><p>[2]：右辺を展開。</p></li>
+<li><p>[3]：<span class="math notranslate nohighlight">\(p_{t-1}\)</span>と<span class="math notranslate nohighlight">\(e_{yt}\)</span>の間で時間がズレているため<span class="math notranslate nohighlight">\(\text{Cov}(-chp_{t-1},e_{yt})=0\)</span>。</p></li>
+<li><p>[4]：定数<span class="math notranslate nohighlight">\((-ch)\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
+<li><p>[5]：<span class="math notranslate nohighlight">\(t\)</span>が十分に大きい場合（<span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>）は<span class="math notranslate nohighlight">\(\text{Var}(p_{t})=\text{Var}(p_{t-1})\)</span>。</p></li>
 </ul>
-<p>であり，</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-var-eyu">
-<span class="eqno">(141)<a class="headerlink" href="#equation-eq-18-var-eyu" title="Link to this equation">#</a></span>\[
-\text{Var}(e_{yt}|u_t)
-=h^2\left(\sigma_u^2-c\sigma_{uv}\right)
+<p>式<a class="reference internal" href="#eq:18-eq-vary"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary</span></code></a>は，<span class="math notranslate nohighlight">\(p_t\)</span>の分散と<span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散に依存していることを示している。
+<span class="math notranslate nohighlight">\(p_t\)</span>の分散は式<a class="reference internal" href="#eq:18-eq-varep2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varep2</span></code></a>で与えられているが，<span class="math notranslate nohighlight">\(e_{yt}\)</span>は需要ショックと供給ショックの両方から構成されているため，それを分解する必要がある。
+<span class="math notranslate nohighlight">\(e_{pt}\)</span>を分解した同じ方法で<span class="math notranslate nohighlight">\(e_{yt}\)</span>を分解しよう。</p>
+<p><span class="math notranslate nohighlight">\(e_{yt}\)</span>は次の式で与えられる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-18-eq-eyt">
+<span class="eqno">(146)<a class="headerlink" href="#equation-eq-18-eq-eyt" title="Link to this equation">#</a></span>\[
+e_{yt}=hu_t-chv_t
 \]</div>
-<p>は需要ショックによる<span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散であり，</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-var-eyv">
-<span class="eqno">(142)<a class="headerlink" href="#equation-eq-18-var-eyv" title="Link to this equation">#</a></span>\[
-\text{Var}(e_{yt}|v_t)
-=h^2\left(c^2\sigma_v^2-c\sigma_{uv}\right)
-\]</div>
-<p>は供給ショックによる<span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散である。上の式の４行目にある<span class="math notranslate nohighlight">\(-2ch^2\sigma_{uv}\)</span>は，需要ショックと供給ショックが連動する効果を捉えているため，<span class="math notranslate nohighlight">\(\text{Var}(e_{yt}|u_t)\)</span>と<span class="math notranslate nohighlight">\(\text{Var}(e_{yt}|v_t)\)</span>に等分している。</p>
-<p>この結果を使うと，</p>
+<p><span class="math notranslate nohighlight">\(e_{yt}\)</span>の分散を次のように計算する。</p>
+<p>\begin{align}
+\text{Var}(e_{yt})
+&amp;=\text{Var}(hu_t-chv_t)\qquad\cdots\cdots [1]\
+&amp;=\text{Var}(hu_t)+\text{Var}(-chv_t)\qquad\cdots [2]\
+&amp;=h^2\text{Var}(u_{t})+(-ch)^2\text{Var}(v_{t})\qquad\cdots [3]\
+&amp;=h^2\text{Var}(u_{t})+(ch)^2\text{Var}(v_{t})\qquad\cdots [4]
+\end{align} (eq:18-eq-varyp)</p>
+<ul class="simple">
+<li><p>[1]：<span class="math notranslate nohighlight">\(e_{yt}\)</span>に式<a class="reference internal" href="#equation-eq-18-eq-eyt">(146)</a>を代入。</p></li>
+<li><p>[2]：右辺を展開。</p></li>
+<li><p>[3]：定数<span class="math notranslate nohighlight">\(h\)</span>と<span class="math notranslate nohighlight">\((-ch)\)</span>を<span class="math notranslate nohighlight">\(\text{Var}()\)</span>の外に出す。</p></li>
+<li><p>[4]：<span class="math notranslate nohighlight">\((-ch)^2=(ch)^2\)</span></p></li>
+</ul>
+<p>最後に，式<a class="reference internal" href="#eq:18-eq-varyp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varyp</span></code></a>と式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>を式<a class="reference internal" href="#eq:18-eq-vary"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary</span></code></a>に代入すると次式を導出できる（詳細は<a class="reference internal" href="#sec-18-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）。</p>
+<p>\begin{align}
+\text{Var}(y_{t})
+&amp;=\frac{h^2}{1-h^2}2ach\text{Var}(u_{t})
++\frac{h^2}{1-h^2}c^2\text{Var}(v_{t})\
+&amp;=\left(\text{需要ショックに起因する変動}\right)+\left(\text{供給ショックに起因する変動}\right)
+\end{align} (eq:18-eq-vary2)</p>
+<p>＜この式の解釈＞</p>
+<ul class="simple">
+<li><p>左辺は<span class="math notranslate nohighlight">\(y_t\)</span>の総変動であり，それを需要ショック（<span class="math notranslate nohighlight">\(u_t\)</span>）と供給ショック（<span class="math notranslate nohighlight">\(v_t\)</span>）に分解したのが右辺となる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_t\)</span>の総変動の大きさ（水準）を決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしている。<span class="math notranslate nohighlight">\(h\)</span>はは約<code class="docutils literal notranslate"><span class="pre">0.8</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>の高い持続性を意味する。持続性が高い場合，一旦総供給曲線が定常状態の位置から離れると元の位置に戻るには時間が掛かることになる。即ち，定常状態から離れた状態が長くなる。そのような状況下で，更にショックが発生すると，定常状態から更に乖離する結果につながることになり，変動が増幅されることになる。その効果が<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>で捉えられている。</p></li>
+</ul>
+<p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(y_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(y_{t})\)</span>で割ると次式となる。</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1f66e260-9985-4655-87fe-d5d8f9665cf4">
+<span class="eqno">(147)<a class="headerlink" href="#equation-1f66e260-9985-4655-87fe-d5d8f9665cf4" title="Permalink to this equation">#</a></span>\[\begin{align}
+1
+&amp;=\frac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{\text{Var}(y_{t})}
++\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{\text{Var}(y_{t})}\\
+\end{align}\]</div>
+<p>この結果を使い次のように定義する。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{align*}
-\left(
+\left[
 \begin{split}
-&amp;\text{需要ショックによる}\\
-&amp;y_t\text{の変動の割合}
+&amp;y_t\text{の変動に対する}\\
+&amp;u_t\text{(需要ショック)}\\
+&amp;\text{の寄与度}
 \end{split}
-\right)
-&amp;=\frac{\text{Var}(e_{yt}|u_t)}{\text{Var}(e_{yt})}
-=\frac{\sigma_u^2-c\sigma_{uv}}
-    {\sigma_u^2+
-    c^2\sigma_v^2-
-    2c\sigma_{uv}}
-\tag{*y}
-\end{align*}
+\right]
+=\frac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{\text{Var}(y_{t})}
+=\frac{2a\text{Var}(u_{t})}{2a\text{Var}(u_{t})+c(1+ac)\text{Var}(v_{t})}
+\tag{u-y}
 \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{align*}
-\left(
+\left[
 \begin{split}
-&amp;\text{供給ショックによる}\\
-&amp;y_t\text{の変動の割合}
+&amp;p_t\text{の変動に対する}\\
+&amp;v_t\text{(供給ショック)}\\
+&amp;\text{の寄与度}
 \end{split}
-\right)
-&amp;=\frac{\text{Var}(e_{yt}|u_t)}{\text{Var}(e_{yt})}
-=\frac{c^2\sigma_v^2-c\sigma_{uv}}
-    {\sigma_u^2+
-    c^2\sigma_v^2-
-    2c\sigma_{uv}}
-\tag{**y}
-\end{align*}
+\right]
+=\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{\text{Var}(y_{t})}
+=\frac{c(1+ac)\text{Var}(v_{t})}{2a\text{Var}(u_{t})+c(1+ac)\text{Var}(v_{t})}\\
+\tag{v-y}
 \end{split}\]</div>
-<p>計算結果を見て気付くのは，総需要曲線の傾きである <span class="math notranslate nohighlight">\(c\)</span> が重要な役割を果たしている。一方，総供給曲線の傾きである <span class="math notranslate nohighlight">\(a\)</span> は，変動の大きさ（即ち，分散の大きさ）に影響を及ぼすが（<span class="math notranslate nohighlight">\(h=1/(1+ac)\)</span>を思い出そう），変動の割合は <span class="math notranslate nohighlight">\(a\)</span> から独立であることがわかる。</p>
+<p>それぞれの式の最後の等号には式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>を<span class="math notranslate nohighlight">\(\text{Var}(y_{t})\)</span>に代入して整理している（詳細は<a class="reference internal" href="#sec-18-appendix-c"><span class="std std-ref">付録Ｃ</span></a>を参照）。式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>の<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>は<span class="math notranslate nohighlight">\(p_t\)</span>の持続性の影響を捉えていると説明したが，その影響は式(u-y)と(v-y)を計算する上でキャンセルされている。</p>
 </section>
-<section id="id19">
-<h4>結果<a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
-<p>それぞれの変数の推定値を使い実際に計算してみよう。</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
-
-<span class="n">res_d</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ey</span> <span class="o">=</span> <span class="n">res_d</span><span class="o">.</span><span class="n">resid</span>
-
-<span class="n">res_h</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;deflator_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">resid</span>
-
-<span class="n">vt</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">-</span> <span class="n">ahat</span><span class="o">*</span><span class="n">ey</span>
-<span class="n">ut</span> <span class="o">=</span> <span class="n">ey</span> <span class="o">+</span> <span class="n">chat</span><span class="o">*</span><span class="n">ep</span>
-</pre></div>
-</div>
-</div>
-</details>
-</div>
+<section id="id16">
+<h3>産出量水準の％乖離<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<section id="id17">
+<h4>計算結果<a class="headerlink" href="#id17" title="Link to this heading">#</a></h4>
+<p>変数の推定値を使い，式(u-y)と(v-y)を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 式(*y)の分子</span>
-<span class="n">numerator_y</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">-</span> <span class="n">chat</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">ut</span><span class="p">,</span><span class="n">vt</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="c1"># 式(*y)の分母</span>
-<span class="n">denominator_y</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">chat</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">vt</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">chat</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">ut</span><span class="p">,</span><span class="n">vt</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 式(u-y)の分子</span>
+<span class="n">numerator_y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ahat</span> <span class="o">*</span> <span class="n">u_std</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># 式(u-y)の分母</span>
+<span class="n">denominator_y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ahat</span> <span class="o">*</span> <span class="n">u_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">chat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ahat</span><span class="o">*</span><span class="n">chat</span><span class="p">)</span> <span class="o">*</span> <span class="n">v_std</span><span class="o">**</span><span class="mi">2</span>
 
 <span class="n">ad_shock_on_y</span> <span class="o">=</span> <span class="n">numerator_y</span> <span class="o">/</span> <span class="n">denominator_y</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDPの％乖離の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">ad_shock_on_y</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％は総需要ショックに起因する。&#39;</span>  <span class="p">)</span>
@@ -1618,7 +1609,7 @@ e_{yt}=h(u_t-cv_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPの％乖離の82.2％は総需要ショックに起因する。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPの％乖離の84.8％は総需要ショックに起因する。
 </pre></div>
 </div>
 </div>
@@ -1630,191 +1621,57 @@ e_{yt}=h(u_t-cv_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPの％乖離の17.8％は総供給ショックに起因する。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GDPの％乖離の15.2％は総供給ショックに起因する。
 </pre></div>
 </div>
 </div>
 </div>
-<p>GDPの％乖離に対しては総需要ショックが相対的に大きな影響を及ぼしていることがわかる。</p>
 </section>
-<section id="id20">
-<h4>解釈<a class="headerlink" href="#id20" title="Link to this heading">#</a></h4>
-<p>まず，式<a class="reference internal" href="#equation-eq-18-var-eyu">(141)</a>の需要ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動の大きさ（割合ではない）を考えてみよう。式を展開すると</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(e_{yt}|u_t)
-=h^2\sigma_u^2-ch^2\sigma_{uv}
-\]</div>
-<p>となる。右辺の第１項は，総供給曲線を所与として需要ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動を捉えている。
-第２項 <span class="math notranslate nohighlight">\(-ch^2\sigma_{uv}&gt;0\)</span> は，需要ショックと供給ショックが同時に変動する影響を捉えている。計算すると正の値になることは簡単に確認できる。即ち，正の需要ショック（<span class="math notranslate nohighlight">\(u_t&gt;0\)</span>）は負の供給ショック（<span class="math notranslate nohighlight">\(v_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(y_t\)</span>に対する需要ショックの効果は，伴う供給ショックによって増幅されることを意味する。</p>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-eyv">(142)</a>の供給ショックによる<span class="math notranslate nohighlight">\(y_t\)</span>の変動を考えてみよう。</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(e_{yt}|v_t)
-=(ch)^2\sigma_v^2-ch^2\sigma_{uv}
-\]</div>
-<p>右辺の第１項は，需要曲線を所与として供給ショックが変動する場合の <span class="math notranslate nohighlight">\(y_t\)</span> の変動を捉えている。
-第２項 <span class="math notranslate nohighlight">\(-ch^2\sigma_{uv}&gt;0\)</span> は，正の供給ショック（<span class="math notranslate nohighlight">\(v_t&gt;0\)</span>）は負の需要ショック（<span class="math notranslate nohighlight">\(u_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(y_t\)</span>に対する供給ショックの効果は，需要ショックによって増幅されている。</p>
-<p>変動の大きさを決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしている。<span class="math notranslate nohighlight">\(h\)</span>はは約<code class="docutils literal notranslate"><span class="pre">0.8</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>の高い持続性を意味する。持続性が高い場合，一旦総供給曲線が定常状態の位置から離れると元の位置に戻るには時間が掛かることになる。即ち，定常状態から離れた状態が長くなる。そのような状況下で，更にショックが発生すると，定常状態から更に乖離する結果につながることになる。このメカニズムにより，<span class="math notranslate nohighlight">\(h\)</span>が高くなると，両方のショックの影響は増幅されることになる。その効果が <span class="math notranslate nohighlight">\(h^2\)</span> で捉えられている。</p>
-<p>次に，割合を考えてみよう。価格水準の％乖離に対しては総供給ショックが相対的に大きな影響を及ぼしていることがわかるが，式(*y)と(**y)にはあるパラメータは <span class="math notranslate nohighlight">\(c\)</span>のみであり，その役割を考えてみよう。総需要曲線の傾きは <span class="math notranslate nohighlight">\(1/c\)</span>で与えられる。
-<a class="reference internal" href="#fig-18-y-uv"><span class="std std-numref">Fig. 16</span></a>では，AD曲線の傾きが急な場合と緩やかな場合の２つのケースを示している。</p>
+<section id="id18">
+<h4>解釈<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
+<p>GDPの％乖離に対しては総需要ショックが相対的に大きな影響を及ぼしていることがわかる。
+3つ理由がある。
+まず第一に，需要ショック（<span class="math notranslate nohighlight">\(u_t\)</span>）の変動は供給ショック（<span class="math notranslate nohighlight">\(v_t\)</span>）よりも大きいことである。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">v_std</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.877351543861993
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\text{Var}(u_{t})\)</span>は<span class="math notranslate nohighlight">\(\text{Var}(v_{t})\)</span>の約<code class="docutils literal notranslate"><span class="pre">3.9</span></code>倍となっている。</p>
+<p>第二に，総需要曲線の傾きが大きいためである。
+総需要曲線の傾きは<span class="math notranslate nohighlight">\(1/c\)</span>で与えられ，<span class="math notranslate nohighlight">\(c\)</span>が大きくなるとより緩やかな傾きとなる。
+実際，式(u-y)は <span class="math notranslate nohighlight">\(c\)</span> の減少関数であり，式(u-p)は <span class="math notranslate nohighlight">\(c\)</span> の増加関数である。
+この関係を理解するために，<a class="reference internal" href="#fig-18-y-uv"><span class="std std-numref">Fig. 16</span></a>では，AD曲線の傾きが急な場合と緩やかな場合の２つのケースを示している。</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(1/c\)</span> が小さいケース：</p>
+<li><p><span class="math notranslate nohighlight">\(1/c\)</span> が小さいケース（<span class="math notranslate nohighlight">\(c\)</span>が大きい）：</p>
 <ul>
 <li><p>総需要曲線の傾きは緩やかになる。</p></li>
 <li><p>総供給曲線が動くと<span class="math notranslate nohighlight">\(y_t\)</span>は大きく動くが，<span class="math notranslate nohighlight">\(p_t\)</span>は大きく動かない。</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(1/c\)</span> が大きいケース：</p>
+<li><p><span class="math notranslate nohighlight">\(1/c\)</span> が大きいケース（<span class="math notranslate nohighlight">\(c\)</span>が小さい）：</p>
 <ul>
 <li><p>総需要曲線の傾きは急になる。</p></li>
 <li><p>総供給曲線が動くと<span class="math notranslate nohighlight">\(y_t\)</span>の動きは小さくなる一方，<span class="math notranslate nohighlight">\(p_t\)</span>は大きく動くことになる。</p></li>
 </ul>
 </li>
 </ul>
-<p><span class="math notranslate nohighlight">\(1/c\)</span> の値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも大きく，<span class="math notranslate nohighlight">\(1/c\)</span> が大きいケースが当てはまる。この場合，<span class="math notranslate nohighlight">\(y_t\)</span>に対する総供給ショックのインパクトは小さな値となり，相対的に総需要ショックの寄与度が高くなっていると考えられる。</p>
+<p><span class="math notranslate nohighlight">\(1/c\)</span> の値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも大きく，<span class="math notranslate nohighlight">\(1/c\)</span> が大きいケースが当てはまる。この場合，<span class="math notranslate nohighlight">\(y_t\)</span>に対する総供給ショックのインパクトは小さな値となり，相対的に総需要ショックの寄与度が高くなっていると考えられる。また，需要ショックは総需要曲線を左右にシフトするが，総需要曲線の傾きが大きい場合，そのインパクトはより大きくなる。</p>
 <figure class="align-default" id="fig-18-y-uv">
 <a class="reference internal image-reference" href="_images/adas-y-uv.jpeg"><img alt="_images/adas-y-uv.jpeg" src="_images/adas-y-uv.jpeg" style="width: 433.65px; height: 350.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">GDPの％乖離の変動において総需要ショックの影響が大きい理由</span><a class="headerlink" href="#fig-18-y-uv" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">総需要曲線の傾きが大きい場合，GDPの％乖離の変動における総供給ショックの影響は小さくなる。</span><a class="headerlink" href="#fig-18-y-uv" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
-</section>
-<section id="id21">
-<h3>価格水準の％乖離<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
-<section id="id22">
-<h4>計算方法<a class="headerlink" href="#id22" title="Link to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(e_{pt}\)</span>は次式で与えられる。</p>
-<div class="math notranslate nohighlight">
-\[
-e_{pt}=ahu_t+hcv_t
-\]</div>
-<p>両辺の分散を計算すると次のようになる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\text{Var}(e_{pt})
-&amp;=\text{Var}(ahu_{t}+hv_{t})\\
-&amp;=\text{Var}(ahu_{t})+
-    \text{Var}(hv_{t})+
-    2\text{Cov}(ahu_{t},hv_{t})\\
-&amp;=(ah)^2\text{Var}(u_{t})+
-    h^2\text{Var}(v_{t})+
-    2ah^2\text{Cov}(u_{t},v_{t})\\
-&amp;=(ah)^2\sigma_u^2+
-    h^2\sigma_v^2+
-    2ah^2\sigma_{uv}\\
-&amp;\quad\Downarrow\\
-&amp;=\text{Var}(e_{pt}|u_t)+\text{Var}(e_{pt}|v_t)
-\end{align*}
-\end{split}\]</div>
-<p>ここで</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-var-epu">
-<span class="eqno">(143)<a class="headerlink" href="#equation-eq-18-var-epu" title="Link to this equation">#</a></span>\[
-\text{Var}(e_{pt}|u_t)
-=h^2\left(a^2\sigma_u^2+a\sigma_{uv}\right)
-\]</div>
-<p>は需要ショックによる<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散であり，</p>
-<div class="math notranslate nohighlight" id="equation-eq-18-var-epv">
-<span class="eqno">(144)<a class="headerlink" href="#equation-eq-18-var-epv" title="Link to this equation">#</a></span>\[
-\text{Var}(e_{pt}|v_t)
-=h^2\left(\sigma_v^2+a\sigma_{uv}\right)
-\]</div>
-<p>は供給ショックによる<span class="math notranslate nohighlight">\(e_{pt}\)</span>の分散である。上の式の４行目にある<span class="math notranslate nohighlight">\(2ah^2\sigma_{uv}\)</span>は，需要ショックと供給ショックが連動する効果を捉えているため，<span class="math notranslate nohighlight">\(\text{Var}(e_{pt}|u_t)\)</span>と<span class="math notranslate nohighlight">\(\text{Var}(e_{pt}|v_t)\)</span>に等分している。</p>
-<p>この結果を使うと，</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\left(
-\begin{split}
-&amp;\text{需要ショックによる}\\
-&amp;p_t\text{の変動の割合}
-\end{split}
-\right)
-&amp;=\frac{\text{Var}(e_{pt}|u_t)}{\text{Var}(e_{pt})}
-=\frac{a^2\sigma_u^2+a\sigma_{uv}}
-    {a^2\sigma_u^2+
-    \sigma_v^2+
-    2a\sigma_{uv}}
-\tag{*p}
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-\left(
-\begin{split}
-&amp;\text{供給ショックによる}\\
-&amp;p_t\text{の変動の割合}
-\end{split}
-\right)
-&amp;=\frac{\text{Var}(e_{pt}|u_t)}{\text{Var}(e_{pt})}
-=\frac{\sigma_v^2+a\sigma_{uv}}
-    {a^2\sigma_u^2+
-    \sigma_v^2+
-    2a\sigma_{uv}}
-\tag{**p}
-\end{align*}
-\end{split}\]</div>
-<p>計算結果を見て気付くのは，総供給曲線の傾きである <span class="math notranslate nohighlight">\(a\)</span> が重要な役割を果たしている。一方，総需要曲線の傾きである <span class="math notranslate nohighlight">\(c\)</span> は，変動の大きさ（即ち，分散の大きさ）に影響を及ぼすが（<span class="math notranslate nohighlight">\(h=1/(1+ac)\)</span>を思い出そう），変動の割合は<code class="docutils literal notranslate"><span class="pre">c</span></code>から独立であることがわかる。</p>
-</section>
-<section id="id23">
-<h4>結果<a class="headerlink" href="#id23" title="Link to this heading">#</a></h4>
-<p>それぞれの変数の推定値を使い実際に計算してみよう。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 式(*p)の分子</span>
-<span class="n">numerator_p</span> <span class="o">=</span> <span class="n">ahat</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">ut</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">ahat</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">ut</span><span class="p">,</span><span class="n">vt</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="c1"># 式(*p)の分母</span>
-<span class="n">denominator_p</span> <span class="o">=</span> <span class="n">ahat</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">ut</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">vt</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">ahat</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">ut</span><span class="p">,</span><span class="n">vt</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">ad_shock_on_p</span> <span class="o">=</span> <span class="n">numerator_p</span> <span class="o">/</span> <span class="n">denominator_p</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;価格水準の％乖離の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">ad_shock_on_p</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％は需要ショックに起因する。&#39;</span>  <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>価格水準の％乖離の21.4％は需要ショックに起因する。
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;価格水準の％乖離の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ad_shock_on_p</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％は供給ショックに起因する。&#39;</span>  <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>価格水準の％乖離の78.6％は供給ショックに起因する。
-</pre></div>
-</div>
-</div>
-</div>
-<p>価格水準の％乖離に対しては総供給ショックが相対的に大きな影響を及ぼしていることがわかる。</p>
-</section>
-<section id="id24">
-<h4>解釈<a class="headerlink" href="#id24" title="Link to this heading">#</a></h4>
-<p>まず，式<a class="reference internal" href="#equation-eq-18-var-epu">(143)</a>の需要ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動（割合ではない）を考えてみよう。
-式を展開すると</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(e_{pt}|u_t)
-=(ah)^2\sigma_u^2+ah^2\sigma_{uv}
-\]</div>
-<p>となる。右辺の第１項は，供給曲線を所与として需要ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動を捉えている。
-第２項 <span class="math notranslate nohighlight">\(ah^2\sigma_{uv}&lt;0\)</span> は，需要ショックと供給ショックが同時に変動する影響を捉えている。計算すると負の値になることは簡単に確認できる。即ち，正の需要ショック（<span class="math notranslate nohighlight">\(u_t&gt;0\)</span>）は負の供給ショック（<span class="math notranslate nohighlight">\(v_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(p_t\)</span>に対する需要ショックの効果は，伴う供給ショックによって減衰されることを意味する。</p>
-<p>同様に，式<a class="reference internal" href="#equation-eq-18-var-epv">(144)</a>の供給ショックによる<span class="math notranslate nohighlight">\(p_t\)</span>の変動を考えてみよう。</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(e_{pt}|v_t)
-=h^2\sigma_v^2+ah^2\sigma_{uv}
-\]</div>
-<p>右辺の第１項は，需要曲線を所与として供給ショックが変動する場合の <span class="math notranslate nohighlight">\(p_t\)</span> の変動を捉えている。
-第２項 <span class="math notranslate nohighlight">\(ah^2\sigma_{uv}&lt;0\)</span> は，正の供給ショック（<span class="math notranslate nohighlight">\(v_t&gt;0\)</span>）は負の需要ショック（<span class="math notranslate nohighlight">\(u_t&lt;0\)</span>）を伴う傾向にあり，<span class="math notranslate nohighlight">\(p_t\)</span>に対する供給ショックの効果は，需要ショックによって減衰されている。</p>
-<p>変動の大きさを決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしているが，上で説明した通りである。</p>
-<p>次に，割合を考えてみよう。価格水準の％乖離に対しては総供給ショックが相対的に大きな影響を及ぼしていることがわかるが，式(*p)と(**p)にはあるパラメータは<code class="docutils literal notranslate"><span class="pre">a</span></code>（総供給曲線の傾き）のみであり，その役割を考えてみよう。
+<p>第三に，総供給曲線の傾きが緩やかなためである。総供給曲線の傾きは <span class="math notranslate nohighlight">\(a\)</span> で与えられ，低い <span class="math notranslate nohighlight">\(a\)</span> は総供給曲線をより緩やかにする
+式(u-y)は <span class="math notranslate nohighlight">\(a\)</span> の増加関数であり，式(u-p)は <span class="math notranslate nohighlight">\(c\)</span> の減少関数であることは簡単に確認できる。
 <a class="reference internal" href="#fig-18-p-uv"><span class="std std-numref">Fig. 17</span></a>では，AS曲線の傾きが急な場合と緩やかな場合の２つのケースを示している。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(a\)</span> が小さい場合，総供給曲線の傾きは緩やかになる。その場合，需要曲線が動くと<span class="math notranslate nohighlight">\(y_t\)</span>は大きく動くが，<span class="math notranslate nohighlight">\(p_t\)</span>は大きく動かない。</p></li>
@@ -1829,9 +1686,52 @@ e_{pt}=ahu_t+hcv_t
 </figure>
 </section>
 </section>
+<section id="id19">
+<h3>価格水準の％乖離<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<section id="id20">
+<h4>計算結果<a class="headerlink" href="#id20" title="Link to this heading">#</a></h4>
+<p>変数の推定値を使い，式(u-p)と(v-p)を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 式(u-p)の分子</span>
+<span class="n">numerator_p</span> <span class="o">=</span> <span class="n">ahat</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u_std</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1"># 式(*p)の分母</span>
+<span class="n">denominator_p</span> <span class="o">=</span> <span class="n">ahat</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v_std</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">ad_shock_on_p</span> <span class="o">=</span> <span class="n">numerator_p</span> <span class="o">/</span> <span class="n">denominator_p</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;価格水準の％乖離の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">ad_shock_on_p</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％は需要ショックに起因する。&#39;</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>価格水準の％乖離の42.9％は需要ショックに起因する。
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;価格水準の％乖離の</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ad_shock_on_p</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">％は供給ショックに起因する。&#39;</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>価格水準の％乖離の57.1％は供給ショックに起因する。
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="id25">
-<h2>まとめ<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<section id="id21">
+<h4>解釈<a class="headerlink" href="#id21" title="Link to this heading">#</a></h4>
+<p>価格水準の％乖離に対しては総需要ショックと総供給ショックが概ね同程度の影響を及ぼしていることがわかる。
+総需要ショックの変動は総供給ショックの<code class="docutils literal notranslate"><span class="pre">4</span></code>倍近くあることを思い出そう。
+この大きな違いを減衰させているのが，総需要曲線の比較的に大きな傾きであり，総供給曲線の比較的に小さな傾きである。</p>
+</section>
+</section>
+</section>
+<section id="id22">
+<h2>まとめ<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
 <p>GDPと価格水準のトレンドからの％乖離のプロットを再掲する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1855,8 +1755,8 @@ Aさんの体重計は単純な装置だが，一方，Bさんの技術は高く
 ADASモデルは，研究や政策議論で使われるモデルと比べると単純なモデルであり，それが故に定量的な問に対しての答えも精度が低いものとならざるを得ない。
 大学院で学ぶDSGEモデルや構造VARモデルなどはより洗練された「装置」であり，ADASモデルよりも精度が高い結果を返すことになるだろう。</p>
 </section>
-<section id="id26">
-<h2>付録：分散と共分散の性質<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<section id="a">
+<span id="sec-18-appendix-a"></span><h2>付録Ａ：分散と共分散の性質<a class="headerlink" href="#a" title="Link to this heading">#</a></h2>
 <p><span class="math notranslate nohighlight">\(X\)</span>，<span class="math notranslate nohighlight">\(Y\)</span>，<span class="math notranslate nohighlight">\(Z\)</span>，<span class="math notranslate nohighlight">\(W\)</span>をランダム変数，<span class="math notranslate nohighlight">\(a\)</span>，<span class="math notranslate nohighlight">\(b\)</span>，<span class="math notranslate nohighlight">\(c\)</span>，<span class="math notranslate nohighlight">\(d\)</span>を定数とする。
 分散に関して次の結果が成立する。</p>
 <div class="math notranslate nohighlight">
@@ -1879,6 +1779,102 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 \text{Cov}(aX+bY,cZ+dW)&amp;=ac\text{Cov}(X,Z)+ad\text{Cov}(X,W)+bc\text{Cov}(Y,Z)+bd\text{Cov}(Y,W)
 \end{align*}
 \end{split}\]</div>
+</section>
+<section id="b">
+<span id="sec-18-appendix-b"></span><h2>付録Ｂ：式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>の導出<a class="headerlink" href="#b" title="Link to this heading">#</a></h2>
+<p>式<a class="reference internal" href="#eq:18-eq-varp2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varp2</span></code></a>と式<a class="reference internal" href="#eq:18-eq-varyp"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-varyp</span></code></a>を式<a class="reference internal" href="#eq:18-eq-vary"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary</span></code></a>に代入し整理する。</p>
+<div class="amsmath math notranslate nohighlight" id="equation-30a1e8a9-aa10-4d20-93ac-5c371d254357">
+<span class="eqno">(148)<a class="headerlink" href="#equation-30a1e8a9-aa10-4d20-93ac-5c371d254357" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Var}(y_{t})
+&amp;=(ch)^2\text{Var}(p_{t})+\text{Var}(e_{yt})\\
+&amp;=(ch)^2\left[
+    \frac{(ah)^2}{1-h^2}\text{Var}(u_{t})
+    +\frac{h^2}{1-h^2}\text{Var}(v_{t})
+\right]
++h^2\text{Var}(u_{t})+(ch)^2\text{Var}(v_{t})\\
+&amp;=\left[(ch)^2
+    \frac{(ah)^2}{1-h^2}+h^2
+\right]\text{Var}(u_{t})
++\left[
+    (ch)^2\frac{h^2}{1-h^2}+(ch)^2
+\right]\text{Var}(v_{t})\\
+&amp;=\frac{h^2}{1-h^2}\left[
+    (ach)^2+1-h^2
+\right]\text{Var}(u_{t})
++\frac{(ch)^2}{1-h^2}\left[h^2+1-h^2\right]\text{Var}(v_{t})\\
+&amp;=\frac{h^2}{1-h^2}\left[
+    1+(ach)^2-h^2
+\right]\text{Var}(u_{t})
++\frac{(ch)^2}{1-h^2}\text{Var}(v_{t})
+\end{align}\]</div>
+<p>ここで</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0016a80f-37b1-4229-8ec7-8b798e20e243">
+<span class="eqno">(149)<a class="headerlink" href="#equation-0016a80f-37b1-4229-8ec7-8b798e20e243" title="Permalink to this equation">#</a></span>\[\begin{align}
+1+(ach)^2-h^2
+&amp;=1+h^2[(ac)^2-1]=1+\frac{(ac)^2-1}{(1+ac)^2}\\
+&amp;=1+\frac{(ac+1)(ac-1)}{(1+ac)^2}=1+\frac{ac-1}{1+ac}\\
+&amp;=\frac{1+ac+ac-1}{1+ac}=\frac{2ac}{1+ac}\\
+&amp;=2ach
+\end{align}\]</div>
+<p>この式を上の式に代入すると式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>となる。</p>
+</section>
+<section id="b-u-y-v-y">
+<span id="sec-18-appendix-c"></span><h2>付録Ｂ：式(u-y)と(v-y)の導出<a class="headerlink" href="#b-u-y-v-y" title="Link to this heading">#</a></h2>
+<p>式(u-y)に式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>を代入して整理する。</p>
+<div class="amsmath math notranslate nohighlight" id="equation-18359562-02cd-41d4-8eb8-42fbf0d168a2">
+<span class="eqno">(150)<a class="headerlink" href="#equation-18359562-02cd-41d4-8eb8-42fbf0d168a2" title="Permalink to this equation">#</a></span>\[\begin{align}
+\left[
+\begin{split}
+&amp;y_t\text{の変動に対する}\\
+&amp;u_t\text{(需要ショック)}\\
+&amp;\text{の寄与度}
+\end{split}
+\right]
+&amp;=\frac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{\text{Var}(y_{t})}\\
+&amp;=\dfrac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{
+\left(
+\dfrac{h^2}{1-h^2}2ach\text{Var}(u_{t})
++\dfrac{h^2}{1-h^2}c^2\text{Var}(v_{t})
+\right)
+}\\
+&amp;=\frac{2ach\text{Var}(u_{t})}{
+2ach\text{Var}(u_{t})
++c^2\text{Var}(v_{t})
+}
+=\frac{2a\text{Var}(u_{t})}{
+2a\text{Var}(u_{t})
++(c/h)\text{Var}(v_{t})
+}\\
+&amp;=\frac{2a\text{Var}(u_{t})}{2a\text{Var}(u_{t})+c(1+ac)\text{Var}(v_{t})}\\
+\tag{u-y}
+\end{align}\]</div>
+<p>同様に式(v-y)に式<a class="reference internal" href="#eq:18-eq-vary2"><code class="xref myst docutils literal notranslate"><span class="pre">eq:18-eq-vary2</span></code></a>を代入して整理する。</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8c5eaac5-31d5-44a4-ad9c-0e318b718086">
+<span class="eqno">(151)<a class="headerlink" href="#equation-8c5eaac5-31d5-44a4-ad9c-0e318b718086" title="Permalink to this equation">#</a></span>\[\begin{align}
+\left[
+\begin{split}
+&amp;p_t\text{の変動に対する}\\
+&amp;v_t\text{(供給ショック)}\\
+&amp;\text{の寄与度}
+\end{split}
+\right]
+&amp;=\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{\text{Var}(y_{t})}\\
+&amp;=\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{
+\left(
+\dfrac{h^2}{1-h^2}2ach\text{Var}(u_{t})
++\dfrac{h^2}{1-h^2}c^2\text{Var}(v_{t})
+\right)
+}\\
+&amp;=\frac{c^2\text{Var}(v_{t})}{
+2ach\text{Var}(u_{t})
++c^2\text{Var}(v_{t})
+}
+=\frac{(c/h)\text{Var}(v_{t})}{
+2a\text{Var}(u_{t})
++(c/h)\text{Var}(v_{t})
+}\\
+&amp;=\frac{c(1+ac)\text{Var}(v_{t})}{2a\text{Var}(u_{t})+c(1+ac)\text{Var}(v_{t})}\\
+\end{align}\]</div>
 </section>
 </section>
 
@@ -1922,11 +1918,11 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
       </div>
     </a>
     <a class="right-next"
-       href="13_random_TFP.html"
+       href="12_IS-MP-PC.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ランダム変数と全要素生産性</p>
+        <p class="prev-next-title">IS-MP-PCモデル</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1971,23 +1967,24 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">定量的な問い</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">予測誤差</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの％乖離</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">計算方法</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">結果</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">解釈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-t"><span class="math notranslate nohighlight">\(p_t\)</span>に対する影響：分散分解分析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-t"><span class="math notranslate nohighlight">\(y_t\)</span>に対する影響：分散分解分析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">産出量水準の％乖離</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">計算結果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">解釈</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">価格水準の％乖離</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">計算方法</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">結果</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">解釈</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">価格水準の％乖離</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">計算結果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">解釈</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">付録：分散と共分散の性質</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a">付録Ａ：分散と共分散の性質</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b">付録Ｂ：式<span class="xref myst"></span>の導出</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-u-y-v-y">付録Ｂ：式(u-y)と(v-y)の導出</a></li>
 </ul>
   </nav></div>
 

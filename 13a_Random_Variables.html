@@ -1,0 +1,1837 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ランダム変数と統計的特徴 &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '13a_Random_Variables';</script>
+    <link rel="canonical" href="https://py4macro.github.io/13a_Random_Variables.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="主なマクロ・データの特徴" href="10_Data_Fluctuation.html" />
+    <link rel="prev" title="一物一価と購買力平価" href="19_PPP.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pythonで学ぶマクロ経済学 (中級＋レベル)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io">経済学のためのPython入門</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">長期分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5a_Development_Accounting.html">発展会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5b_Growth_Accounting.html">成長会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_Regression.html">回帰分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_DifferenceEq.html">差分方程式と経済分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_Solow.html">ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_Convergence.html">所得分布と所得収斂</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_PPP.html">一物一価と購買力平価</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期データ分析</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ランダム変数と統計的特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">主なマクロ・データの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11a_Okun_Phillips.html">オークンの法則とフィリップス曲線</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11b_Money_Inflation.html">インフレとマネーストック</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_data_on_money.html">古典派の二分法と金融政策</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期定量分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-1.html">定量的マクロ経済分析：Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-2.html">定量的マクロ経済分析：Part 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期モデル分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_Stochastic_Solow.html">確率的ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">ToDo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Plan.html">今後の計画</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io/Gapminder.html">Gapminder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://py4etrics.github.io">Pythonで学ぶ入門計量経済学</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/13a_Random_Variables.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/13a_Random_Variables.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Py4Macro/py4macro.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/13a_Random_Variables.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ランダム変数と統計的特徴</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ランダム変数の統計的特徴：復習</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">２つのランダム変数</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">時系列のランダム変数</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr"><code class="docutils literal notranslate"><span class="pre">.cov()</span></code>，<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>，<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ホワイト・ノイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">平均と分散</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">自己共分散</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">自己相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">まとめ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ar-1">自己回帰モデル：AR(1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">３つの例：持続性の違い</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>ランダム変数と統計的特徴<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div name="html-admonition" style="font-size: 0.8em">
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+</div><br><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span> <span class="nn">py4macro</span>
+
+<span class="c1"># numpy v1の表示を使用</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
+<span class="c1"># 警告メッセージを非表示</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>この章以降では短期的なマクロ経済分析について議論し、特に、景気循環の発生メカニズムの理解が大きな目的である。
+本章は、その最初の章であり、分析の大前提となるランダム変数について説明し、マクロ経済分析において重要となる統計的な特徴について復習する。</p>
+<p>GDPや消費などのマクロ変数は右上がりの長期的なトレンドがある。
+また、失業率やインフレ率に関しても長期的なトレンドを考えることもできる。
+トレンドの詳細については後に議論するとして、トレンドの周りをマクロ変数が変動し、それが景気循環だと解釈できる。
+下の図では、日本のGDPの長期的トレンドからの乖離をパーセントで表している。
+波打つように上下に、時には小刻みに、また時には大きく乱高下しているように見える。</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># データの読み込み</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
+
+<span class="c1"># トレンドからの％乖離のデータの作成</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">trend</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="c1"># ax = df.plot(y=&#39;gdp_cycle&#39;)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;GDPのトレンドからの乖離（％）&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/68a07e8546c68bb8e4e4ef567cf0fc1ba110ce29a02c6660922bb81c41e00b8c.png" src="_images/68a07e8546c68bb8e4e4ef567cf0fc1ba110ce29a02c6660922bb81c41e00b8c.png" />
+</div>
+</div>
+<p>このようなGDPの変動を説明する方法として２つある。</p>
+<ol class="arabic simple">
+<li><p>決定的（deterministic）な過程で生成された時系列として捉える。</p></li>
+<li><p>ランダム（stochastic）な過程で生成された時系列として捉える。</p></li>
+</ol>
+<p>１の考えによると，差分方程式<span class="math notranslate nohighlight">\(x_{t+1}=f(x_t)\)</span>のように来期のGDPは今期のGDPに依存している。マクロ変数の持続性を捉えるには必要不可欠な特徴と言えるだろう。しかし，今期のGDP（<span class="math notranslate nohighlight">\(x_t\)</span>）が与えられると来期のGDP（<span class="math notranslate nohighlight">\(x_{t+1}\)</span>）は自ずと決定さることになり，来期のGDPの予測は簡単なものとなる。もしそうであれば政策運営は非常に簡単であろうが，現実はそうではない。そういう意味では，１は現実を十分に捉えることができていない。</p>
+<p>一方，２の考えはランダム変数の実現値の連続としてGDPが観測され，今期のGDPが与えられても来期のGDPにはランダムな要素があるため，予測が難しいという特徴がある。この特徴こそが，マクロ変数の性質を捉えるには必要な要素であり，上のプロットに現れていると考えられる。主流のマクロ経済学では，消費者や企業の行動はフォーワード・ルッキングであり（将来を見据えた最適化行動であり），且つ経済全体ではランダムな（不確実な）要素が重要な役割を果たしているという考え基づいている。そのような分析枠組みの中で，景気循環のメカニズムを解明することが目的となっている。</p>
+<p>以下では，まず，ランダム変数について復習し、マクロ変数を捉えるにはどのようなランダム変数生成過程が妥当かを検討する。
+また、シミュレーションを通して、その統計的特徴を視覚的に確認する。</p>
+</section>
+<section id="id3">
+<h2>ランダム変数の統計的特徴：復習<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>２つのランダム変数<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h4>説明<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を考えよう。
+例えば，<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>は<span class="math notranslate nohighlight">\(n\)</span>個の<code class="docutils literal notranslate"><span class="pre">2</span></code>セットのサイコロ（合計<code class="docutils literal notranslate"><span class="pre">2</span></code><span class="math notranslate nohighlight">\(n\)</span>個）を同時に投げた場合の目と考えることができる。
+また、<span class="math notranslate nohighlight">\(X_i\)</span>の単位は円であり、<span class="math notranslate nohighlight">\(Y_i\)</span>はドル表示だとしよう（例えば，<span class="math notranslate nohighlight">\(X_i\)</span>のサイコロの目が<code class="docutils literal notranslate"><span class="pre">5</span></code>であれば<code class="docutils literal notranslate"><span class="pre">5</span></code>万円，<span class="math notranslate nohighlight">\(Y_i\)</span>のサイコロの目が<code class="docutils literal notranslate"><span class="pre">3</span></code>であれば<code class="docutils literal notranslate"><span class="pre">300</span></code>ドル）。
+<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の<strong>不偏分散</strong>は次のように定義される。</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{X}^2=\frac{1}{n-1}\sum_{i=1}^{n}
+\left(X_i-\overline{X}\right)^2
+\qquad
+\sigma_{Y}^2=\frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i-\overline{Y}\right)^2
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\overline{X}\)</span>と<span class="math notranslate nohighlight">\(\overline{Y}\)</span>は平均を表している。
+（不偏）分散は、各ランダム変数の「散らばりの度合い」を数値化したものであり、<span class="math notranslate nohighlight">\(X_i\)</span>のの単位は<span class="math notranslate nohighlight">\(\text{円}^2\)</span>、<span class="math notranslate nohighlight">\(Y_i\)</span>の単位は<span class="math notranslate nohighlight">\(\text{ドル}^2\)</span>となる。
+<strong>標準偏差</strong>は不偏分散の平方根である</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{X},
+\quad
+\sigma_{Y}
+\]</div>
+<p>となり、<span class="math notranslate nohighlight">\(\sigma_{X}\)</span>の単位は円となり、<span class="math notranslate nohighlight">\(\sigma_{Y}\)</span>の単位はドルである。</p>
+<p>次に、<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
+\left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
+\]</div>
+<p>符号の解釈：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}=0\)</span>：無相関</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&gt;0\)</span>：正の相関</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&lt;0\)</span>：負の相関</p></li>
+</ul>
+<p>共分散の絶対値が大きければ大きい（小さい）程，相関度が高い（低い）ことを意味するが、その値は単位に依存することになる。
+<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>の単位は円xドルである。</p>
+<p>また上の定義から次が成立することが簡単に理解できる。</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{XX}=\sigma_{X}^2,
+\qquad
+\sigma_{YY}=\sigma_{Y}^2,
+\]</div>
+<p>共分散の特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することである。
+例えば、<code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(K_i\)</span>と<span class="math notranslate nohighlight">\(Z_i\)</span>の単位がユーロと人民元としよう。
+<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>と<span class="math notranslate nohighlight">\(\sigma_{KZ}\)</span>を計算できるが、単位が異なるため比較には向いていない。
+その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{XY}=
+\frac{\sigma_{XY}}{\sigma_X\sigma_Y}
+\]</div>
+<p>次の特徴がある。</p>
+<ul class="simple">
+<li><p>分母は必ず正となるので，分子の共分散が符号を決定する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{XY}\)</span>の値は<code class="docutils literal notranslate"><span class="pre">-1</span></code>から<code class="docutils literal notranslate"><span class="pre">1</span></code>の間の値を取り、単位に依存しない。この特徴は、分母に<span class="math notranslate nohighlight">\(X\)</span>と<span class="math notranslate nohighlight">\(Y\)</span>の標準偏差の積を積を置く事により分母の単位をキャンセルしているためである。</p></li>
+</ul>
+<p>更に、<span class="math notranslate nohighlight">\(\rho_{XX}\)</span>を考えてみよう。</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{XX}=
+\frac{\sigma_{XX}}{\sigma_X\sigma_X}
+=\frac{\sigma_{X}^2}{\sigma_X^2}
+=1
+\]</div>
+<p>同じ変数は完全に相関するため相関係数は<code class="docutils literal notranslate"><span class="pre">1</span></code>となる。
+一般的には，<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>の絶対値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも小さな値となる。
+相関係数の重要な特徴は単位には依存しないため，単位が異なる変数の相関度を比較するには有用な指標となる。
+即ち、<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>と<span class="math notranslate nohighlight">\(\sigma_{KZ}\)</span>を比較して、どちらが相関度が高いかを容易に確認できることになる。</p>
+</section>
+<section id="cov-corr">
+<h4><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code><a class="headerlink" href="#cov-corr" title="Link to this heading">#</a></h4>
+<p>共分散と相関係数の違いを説明したが，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を使ってどのように計算するかを説明する。<code class="docutils literal notranslate"><span class="pre">dfex1</span></code>は次のような<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>になっている。</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+                       <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)})</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">dfex1</span> <span class="o">=</span> <span class="n">create_example</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10.577089</td>
+      <td>96.184607</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10.247396</td>
+      <td>45.614718</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8.874137</td>
+      <td>95.977431</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9.183191</td>
+      <td>2.143780</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9.594767</td>
+      <td>48.230134</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8.946908</td>
+      <td>62.256608</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>10.600054</td>
+      <td>4.129863</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>10.017750</td>
+      <td>72.672290</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9.603471</td>
+      <td>87.625351</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9.244984</td>
+      <td>15.294958</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>には分散と共分散を計算するメソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>が用意されている。
+結果を<code class="docutils literal notranslate"><span class="pre">vcov</span></code>に割り当てよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcov1</span> <span class="o">=</span> <span class="n">dfex1</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+<span class="n">vcov1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X</th>
+      <td>0.413610</td>
+      <td>-0.640558</td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td>-0.640558</td>
+      <td>1317.464053</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">vcov</span></code>は分散共分散行列と呼ばれる。
+左上と右下の対角線上にあるのは、<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の不偏分散（<span class="math notranslate nohighlight">\(\sigma_{X}^2\)</span>と<span class="math notranslate nohighlight">\(\sigma_{Y}^2\)</span>）である。
+一方、右上と左下の値（同じ値となる）が共分散（<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>）である。</p>
+<p>相関係数はメソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>を使って求めることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex1</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X</th>
+      <td>1.000000</td>
+      <td>-0.027441</td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td>-0.027441</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>右上と左下の値（同じ値となる）が相関係数（<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>）である。
+一方、左上の値は<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の相関係数（<span class="math notranslate nohighlight">\(\rho_{XX}=1\)</span>）であり，右下の対角線上にあるのは、<code class="docutils literal notranslate"><span class="pre">Y</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の相関係数（<span class="math notranslate nohighlight">\(\rho_{XX}=1\)</span>）である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">vcov1</span></code>を使い相関係数を計算することもできる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcov1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="n">vcov1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">vcov1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.027440586369186438
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h3>時系列のランダム変数<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h4>説明<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<p>マクロ経済学では，時系列データを頻繁に扱うことになる。難しく思う必要はなく，基本的には上で説明した概念を「時系列的」に再解釈するだけで良い。既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>，<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を時系列データとして次のように置き換えてみよう。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_i\;\Rightarrow\;\varepsilon_{t-1},\quad t=1,2,3,\cdots\)</span></p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(X_i\)</span>の例として，<strong>同時</strong>に投げた<span class="math notranslate nohighlight">\(n\)</span>個のサイコロの目と考えることができると説明したが，同じ例を使うとすれば，次のようになるだろう。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_0\)</span>は第<code class="docutils literal notranslate"><span class="pre">0</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_1\)</span>は第<code class="docutils literal notranslate"><span class="pre">1</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_2\)</span>は第<code class="docutils literal notranslate"><span class="pre">2</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cdots\cdots\)</span></p></li>
+</ul>
+<p>同様に<span class="math notranslate nohighlight">\(Y_i\)</span>を考えることができる。違いは，<span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>は<code class="docutils literal notranslate"><span class="pre">1</span></code>期前の値を表していることだけである。
+従って，</p>
+<ul class="simple">
+<li><p>第<code class="docutils literal notranslate"><span class="pre">1</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">1</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>は第<code class="docutils literal notranslate"><span class="pre">0</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p>第<code class="docutils literal notranslate"><span class="pre">2</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">2</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>は第<code class="docutils literal notranslate"><span class="pre">1</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p>第<code class="docutils literal notranslate"><span class="pre">3</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">3</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>は第<code class="docutils literal notranslate"><span class="pre">2</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\cdots\cdots\)</span></p></li>
+</ul>
+<p>ここで第<code class="docutils literal notranslate"><span class="pre">0</span></code>期の<span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>の値は存在しないことに注意しよう。</p>
+<p>更に，<span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>を次のように一般化しよう。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-s},\quad t=s,\;s+1,\;s+2,\;s+3,\;\cdots,\quad s\geq 1\)</span></p></li>
+</ul>
+<p>一見すると複雑に見えるが，<span class="math notranslate nohighlight">\(s=1\)</span>と置けば<span class="math notranslate nohighlight">\(\varepsilon_{t-1}\)</span>になることが分かる。
+<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は単純に<span class="math notranslate nohighlight">\(s\)</span>期前の値を表しているに過ぎない。
+従って，</p>
+<ul class="simple">
+<li><p>第<code class="docutils literal notranslate"><span class="pre">s</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">s</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は第<code class="docutils literal notranslate"><span class="pre">0</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p>第<code class="docutils literal notranslate"><span class="pre">s+1</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">s+1</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は第<code class="docutils literal notranslate"><span class="pre">1</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p>第<code class="docutils literal notranslate"><span class="pre">s+2</span></code>期では</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は第<code class="docutils literal notranslate"><span class="pre">s+2</span></code>期に投げたサイコロの目</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は第<code class="docutils literal notranslate"><span class="pre">2</span></code>期に投げたサイコロの目</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\cdots\cdots\)</span></p></li>
+</ul>
+<p>ここで第<code class="docutils literal notranslate"><span class="pre">s-1</span></code>期以前の<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値は存在しないことに注意しよう。</p>
+<p>以下では，次のように置き換えて説明するが，分かりづらければ<code class="docutils literal notranslate"><span class="pre">s=1</span></code>として読み進めれば良いだろう。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_i\;\Rightarrow\;\varepsilon_{t-s},\quad t=s,\;s+1,\;s+2,\;s+3,\;\cdots,\quad s\geq 1\)</span></p></li>
+</ul>
+<p>まず<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>と<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の分散を考えてみると，次のように置き換えることができる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\sigma_X^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_t}^2\\
+\sigma_Y^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_{t-s}}^2
+\end{aligned}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の分散は，<code class="docutils literal notranslate"><span class="pre">s</span></code>期ずれているだけの同じランダム変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の分散に置き換わっている。</p>
+<ul class="simple">
+<li><p>解釈</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t}^2\)</span>：<span class="math notranslate nohighlight">\(\varepsilon\)</span>の<code class="docutils literal notranslate"><span class="pre">0</span></code>期から<code class="docutils literal notranslate"><span class="pre">t</span></code>期までの値に基づく分散</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{\varepsilon_{t-s}}^2\)</span>：<span class="math notranslate nohighlight">\(\varepsilon\)</span>の<code class="docutils literal notranslate"><span class="pre">0</span></code>期から<code class="docutils literal notranslate"><span class="pre">t-s</span></code>期までの値に基づく分散</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon\)</span>の単位が円であれば，分散である<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t}^2\)</span>と<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_{t-s}}^2\)</span>の単位は<span class="math notranslate nohighlight">\(\text{円}^2\)</span>となる。</p></li>
+<li><p>標準偏差は分散の平方根である<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t}\)</span>と<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_{t-s}}\)</span>になり，単位はそれぞれ円となる。</p></li>
+</ul>
+<p>更に，共分散は次のように置き換える事ができる。</p>
+<div class="math notranslate nohighlight">
+\[
+X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
+\quad\Rightarrow\quad
+\sigma_{\varepsilon_t\varepsilon_{t-s}}
+=s\text{期間離れた}\varepsilon\text{の自己共分散}
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t\varepsilon_{t-s}}\)</span>を<strong>自己共分散</strong>と呼んでいる。
+「過去の自分との共分散」という意味で「自己」が追加されている。</p>
+<ul class="simple">
+<li><p>解釈</p>
+<ul>
+<li><p>自己共分散はランダム変数とその<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値との<strong>相関の度合</strong>を示す指標。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon\)</span>の単位が円であれば，自己共分散<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t\varepsilon_{t-s}}\)</span>の単位は<span class="math notranslate nohighlight">\(\text{円}^2\)</span>となる。</p></li>
+</ul>
+</li>
+</ul>
+<p>これらの結果を使うと<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>の相関係数は</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{XY}=
+\frac{\sigma_{XY}}{\sigma_X\sigma_Y}
+\qquad
+\Rightarrow
+\qquad
+\rho_{\varepsilon}(s)
+\equiv
+\rho_{\varepsilon_t,\varepsilon_{t-s}}
+=\frac{
+    \sigma_{\varepsilon_t\varepsilon_{t-s}}
+    }{
+    \sigma_{\varepsilon_t}
+    \sigma_{\varepsilon_{t-s}}
+    }
+\]</div>
+<p>で与えられ，一般的には<strong>自己相関関数</strong>と呼ばれる。「関数」と呼ばれる理由は，<span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>の関数として考えることができるためだ。このサイトでは，<code class="docutils literal notranslate"><span class="pre">s=1</span></code>の場合は<strong>自己相関係数</strong>と呼ぶ事にする。
+次の特徴がある。</p>
+<ul class="simple">
+<li><p>分母は必ず正となるので，分子の自己共分散が符号を決定する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon_t\varepsilon_{t-s}}\)</span>の値は<code class="docutils literal notranslate"><span class="pre">-1</span></code>から<code class="docutils literal notranslate"><span class="pre">1</span></code>の間の値を取り、単位に依存しない。この特徴は、分母に<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>と<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の標準偏差の積を積を置く事により分母の単位をキャンセルしているためである。</p></li>
+</ul>
+<p>解釈は次のようになる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)=0,\;s=1,2,3,\cdots\)</span>：何期離れたとしても自己相関はなしという意味である。過去の影響は皆無の状況を指している。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&gt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は正の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>も大きい（小さい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。経済学では<code class="docutils literal notranslate"><span class="pre">s=1</span></code>を考える場合が多く，この性質を<strong>持続性</strong>（persisitence）と呼ぶ。持続性は多くのマクロ変数の重要な特徴となっている。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&lt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は負の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>は小さい（大きい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関係数の絶対値は大きくなる。</p></li>
+</ul>
+</section>
+<section id="cov-corr-autocorr">
+<h4><code class="docutils literal notranslate"><span class="pre">.cov()</span></code>，<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>，<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code><a class="headerlink" href="#cov-corr-autocorr" title="Link to this heading">#</a></h4>
+<p>自己共分散と自己相関係数の違いを説明したが，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を使ってどのように計算するかを説明する。<code class="docutils literal notranslate"><span class="pre">dfex2</span></code>は次のような<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>になっている。</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;X_lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">dfex2</span> <span class="o">=</span> <span class="n">create_example</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>X_lag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10.065244</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.697995</td>
+      <td>10.065244</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8.820934</td>
+      <td>7.697995</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10.374950</td>
+      <td>8.820934</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10.070384</td>
+      <td>10.374950</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>10.105511</td>
+      <td>10.070384</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8.746505</td>
+      <td>10.105511</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9.204750</td>
+      <td>8.746505</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8.647118</td>
+      <td>9.204750</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>8.338415</td>
+      <td>8.647118</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>行ラベルは時間と考えよう。<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の行が<code class="docutils literal notranslate"><span class="pre">0</span></code>期を表し，<code class="docutils literal notranslate"><span class="pre">9</span></code>期までの値が含まれる。
+<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>は<code class="docutils literal notranslate"><span class="pre">X</span></code>を<code class="docutils literal notranslate"><span class="pre">1</span></code>期ずらした値となっている。
+例えば，<code class="docutils literal notranslate"><span class="pre">1</span></code>期の<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>の値は<code class="docutils literal notranslate"><span class="pre">0</span></code>期の<code class="docutils literal notranslate"><span class="pre">X</span></code>の値が入っている。
+また，<code class="docutils literal notranslate"><span class="pre">-1</span></code>期はないため，<code class="docutils literal notranslate"><span class="pre">0</span></code>期の<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>の値は<code class="docutils literal notranslate"><span class="pre">NaN</span></code>になっている。
+それぞれの列は次のように<span class="math notranslate nohighlight">\(\varepsilon\)</span>に対応している。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code><span class="math notranslate nohighlight">\(\quad\Rightarrow\quad\varepsilon_t\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X_lag</span></code><span class="math notranslate nohighlight">\(\quad\Rightarrow\quad\varepsilon_{t-1}\)</span></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">dfex2</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使って分散共分散行列を表示しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcov2</span> <span class="o">=</span> <span class="n">dfex2</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+<span class="n">vcov2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>X_lag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X</th>
+      <td>0.817728</td>
+      <td>0.097299</td>
+    </tr>
+    <tr>
+      <th>X_lag</th>
+      <td>0.097299</td>
+      <td>0.815117</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>左上の値：<code class="docutils literal notranslate"><span class="pre">X</span></code>の分散（<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t}^2\)</span>）</p></li>
+<li><p>右下の値：<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>の分散（<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_{t-1}}^2\)</span>）</p></li>
+<li><p>右上と左下の値（同じ値）：<code class="docutils literal notranslate"><span class="pre">X</span></code>の自己共分散（<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t\varepsilon_{t-1}}\)</span>）</p></li>
+</ul>
+<p>自己相関係数はメソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>を使って求めることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex2</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>X_lag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X</th>
+      <td>1.000000</td>
+      <td>0.119181</td>
+    </tr>
+    <tr>
+      <th>X_lag</th>
+      <td>0.119181</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>右上と左下の値（同じ値）が自己相関係数（<span class="math notranslate nohighlight">\(\rho_{\varepsilon_t\varepsilon_{t-1}}\)</span>）である。
+一方、左上の値は<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の相関係数（<span class="math notranslate nohighlight">\(\rho_{\varepsilon_t\varepsilon_t}=1\)</span>）であり，右下の対角線上にあるのは、<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>と<code class="docutils literal notranslate"><span class="pre">X_lag</span></code>の相関係数（<span class="math notranslate nohighlight">\(\rho_{\varepsilon_{t-1}\varepsilon_{t-1}}=1\)</span>）である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span></code>の列を<code class="docutils literal notranslate"><span class="pre">Series</span></code>と抽出し，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使って自己相関係数を計算することもできる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex2</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11918084488522661
+</pre></div>
+</div>
+</div>
+</div>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使って自己相関係数を計算する場合は，次のように<code class="docutils literal notranslate"><span class="pre">dfex2</span></code>から欠損値がある行を削除した後に分散共分散行列を計算する必要がある。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfex3</span> <span class="o">=</span> <span class="n">dfex2</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>   <span class="c1"># 欠損値がある行の削除</span>
+<span class="n">vcov3</span> <span class="o">=</span> <span class="n">dfex3</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+
+<span class="c1"># 自己相関係数の計算</span>
+<span class="n">vcov3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X_lag&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="n">vcov3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">vcov3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;X_lag&#39;</span><span class="p">,</span><span class="s1">&#39;X_lag&#39;</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11918084488522661
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id8">
+<h2>ホワイト・ノイズ<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>説明<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>時系列のランダム変数<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>，<span class="math notranslate nohighlight">\(t=0,1,2,3,\cdots\)</span>を考えよう。例えば，レストランの経営者の収入。ビジネスにはリスク（競争相手の出現やコロナ感染症問題）があるため変動すると考えるのが自然である。<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>は<span class="math notranslate nohighlight">\(t\)</span>毎にある分布から抽出されると考えることができる。次の３つの性質を満たしたランダム変数をホワイト・ノイズ（White Noise）と呼ぶ。</p>
+<ol class="arabic simple">
+<li><p>平均は<code class="docutils literal notranslate"><span class="pre">0</span></code>：<span class="math notranslate nohighlight">\(\quad\text{E}\left[\varepsilon_t\right]=0\)</span></p></li>
+<li><p>分散は一定：<span class="math notranslate nohighlight">\(\text{ E}\left[\varepsilon_t^2\right]=\sigma^2\)</span>（<span class="math notranslate nohighlight">\(\sigma^2\)</span>に<span class="math notranslate nohighlight">\(t\)</span>の添字はない）</p></li>
+<li><p>自己共分散（自己相関）は<code class="docutils literal notranslate"><span class="pre">0</span></code>：<span class="math notranslate nohighlight">\(\text{ E}\left[\varepsilon_t \varepsilon_{t-s}\right]=0\)</span>（全ての<span class="math notranslate nohighlight">\(s\ne 0\)</span>に対して）。</p></li>
+</ol>
+<p>＜コメント＞</p>
+<ul>
+<li><p>平均<code class="docutils literal notranslate"><span class="pre">0</span></code>と分散が<span class="math notranslate nohighlight">\(\sigma^2\)</span>のホワイト・ノイズを次のように表記する。</p>
+<div class="math notranslate nohighlight">
+\[
+    \varepsilon_t\sim\textit{WN}(0,\sigma^2)
+    \]</div>
+</li>
+<li><p>ホワイト・ノイズの例：</p>
+<ul class="simple">
+<li><p>平均<code class="docutils literal notranslate"><span class="pre">0</span></code>，分散<span class="math notranslate nohighlight">\(\sigma^2\)</span>の正規分布から抽出された<span class="math notranslate nohighlight">\(\varepsilon_t\)</span></p></li>
+<li><p>最小値<code class="docutils literal notranslate"><span class="pre">10</span></code>，最大値<code class="docutils literal notranslate"><span class="pre">100</span></code>からからランダム抽出された<span class="math notranslate nohighlight">\(\varepsilon_t\)</span></p></li>
+</ul>
+</li>
+<li><p>正規分布や一様分布ではない分布でもホワイト・ノイズになる。</p></li>
+<li><p>ホワイト・ノイズは独立同分布（Indepent and Identically Distributed）の１つである。</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>平均と分散<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>以下では実際にランダム変数を発生させ，そのプロットと統計的な特徴について考察する。まず，平均と分散について確認するために，その準備として次のコードを実行しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rng</span></code>はランダム変数を生成する「種」となるオブジェクトとして理解すれば良いだろう。</p>
+<p>正規分布を生成する構文は次のようになる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">rng.normal(loc=0,</span> <span class="pre">scale=1,</span> <span class="pre">size=1)</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    loc：平均（デフォルトは0）
+
+    scale：標準偏差（デフォルトは1）
+
+    size：ランダム変数の数（デフォルトは1）
+</pre></div>
+</div>
+<p>ここで、<code class="docutils literal notranslate"><span class="pre">.normal()</span></code>は<code class="docutils literal notranslate"><span class="pre">rng</span></code>のメソッドである。例として、平均<code class="docutils literal notranslate"><span class="pre">5</span></code>，標準偏差<code class="docutils literal notranslate"><span class="pre">2</span></code>の標準正規分布から<code class="docutils literal notranslate"><span class="pre">10</span></code>のランダム変数を生成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 7.64975002,  4.64853228,  3.2495466 ,  7.94817133,  4.08478946,
+        7.93372592,  6.94725919,  7.10060726,  2.86720165, 10.59827023])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">NumPy</span></code>を使いランダム変数を生成する方法については，<a class="reference external" href="https://py4basics.github.io/8_NumPy_random.html">「経済学のためのPython入門」のNumpy: ランダム変数</a>を参考にしてください。</p>
+</div>
+<p>では、標準正規分布からのランダム変数を<code class="docutils literal notranslate"><span class="pre">n</span></code>個抽出しプロットしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">vals</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">dfwn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;WN&#39;</span><span class="p">:</span><span class="n">vals</span><span class="p">})</span>
+
+<span class="n">dfwn</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/098edd4d5ad39d31bfee9a4c71fa2c4ad6e9b03d0cb30c2844fcca813436016f.png" src="_images/098edd4d5ad39d31bfee9a4c71fa2c4ad6e9b03d0cb30c2844fcca813436016f.png" />
+</div>
+</div>
+<p>２つの特徴がある。</p>
+<ul class="simple">
+<li><p>平均<code class="docutils literal notranslate"><span class="pre">0</span></code>：<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に周辺を動いている。</p></li>
+<li><p>分散一定：<code class="docutils literal notranslate"><span class="pre">0</span></code>から外れても<code class="docutils literal notranslate"><span class="pre">0</span></code>に戻っている。標準正規分布の場合、<code class="docutils literal notranslate"><span class="pre">-2</span></code>から<code class="docutils literal notranslate"><span class="pre">2</span></code>の間の値を取る確率が約<code class="docutils literal notranslate"><span class="pre">95</span></code>％になる性質からも理解できるだろう。</p></li>
+</ul>
+<p>平均と分散を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.04260781911910593, 0.9683242832547432)
+</pre></div>
+</div>
+</div>
+</div>
+<p>標準正規分布の母集団からのサンプル統計量であるため誤差が発生していることがわかる。</p>
+<p>２つの特徴をを確認するために<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使ってヒストグラムを描いてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/164569c592e1b062d2afbafaaeb449644478fb4ef19f1cdc4ad1f69a6cfe1aa2.png" src="_images/164569c592e1b062d2afbafaaeb449644478fb4ef19f1cdc4ad1f69a6cfe1aa2.png" />
+</div>
+</div>
+<p>概ね<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に左右対象に動いている。即ち，平均<code class="docutils literal notranslate"><span class="pre">0</span></code>を反映している。また，<code class="docutils literal notranslate"><span class="pre">0</span></code>から離れている観測値が少ないことが分かる。これは<code class="docutils literal notranslate"><span class="pre">0</span></code>方向に戻ることを示しており，分散が一定となるためである。この性質は<code class="docutils literal notranslate"><span class="pre">n</span></code>を<code class="docutils literal notranslate"><span class="pre">500</span></code>や<code class="docutils literal notranslate"><span class="pre">1000</span></code>などの大きな数字に設定するより一層分かりやすいだろう。</p>
+</section>
+<section id="id11">
+<h3>自己共分散<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code>期違いの自己共分散<span class="math notranslate nohighlight">\(\sigma_{\varepsilon_t \varepsilon_{t-1}}\)</span>を計算するために，<code class="docutils literal notranslate"><span class="pre">dfwn</span></code>の列<code class="docutils literal notranslate"><span class="pre">WN</span></code>を<code class="docutils literal notranslate"><span class="pre">1</span></code>期シフトさせた新たな列<code class="docutils literal notranslate"><span class="pre">WNlag</span></code>を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WNlag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
+<span class="n">dfwn</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WN</th>
+      <th>WNlag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.393196</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.679625</td>
+      <td>-1.393196</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.166495</td>
+      <td>-0.679625</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.028605</td>
+      <td>0.166495</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.026847</td>
+      <td>0.028605</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">WNlag</span></code>の値は<code class="docutils literal notranslate"><span class="pre">WN</span></code>の値が<code class="docutils literal notranslate"><span class="pre">1</span></code>期シフトしていることが分かる。
+<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の行の<code class="docutils literal notranslate"><span class="pre">WN</span></code>が初期値であり、同じ値が<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の行の<code class="docutils literal notranslate"><span class="pre">WNlag</span></code>に入っている。
+即ち、<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の行を見ると<code class="docutils literal notranslate"><span class="pre">WN</span></code>には<code class="docutils literal notranslate"><span class="pre">1</span></code>期の値、、<code class="docutils literal notranslate"><span class="pre">WNlag</span></code>には初期（<code class="docutils literal notranslate"><span class="pre">0</span></code>期）の値がある。
+同様に、各行の<code class="docutils literal notranslate"><span class="pre">WN</span></code>には<code class="docutils literal notranslate"><span class="pre">t</span></code>期の値、<code class="docutils literal notranslate"><span class="pre">WN</span></code>に<code class="docutils literal notranslate"><span class="pre">t-1</span></code>期の値が入っている。</p>
+<p>この２つの列を使って散布図を描いてみる。<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>の<code class="docutils literal notranslate"><span class="pre">plot()</span></code>で横軸・縦軸を指定し，引数<code class="docutils literal notranslate"><span class="pre">kind</span></code>で散布図を指定するだけである。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;WNlag&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;WN&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/428dbf53b3e4b943b9bf89d0db24e35caeb8bafa3da2dabca7f6f8ada0e393a7.png" src="_images/428dbf53b3e4b943b9bf89d0db24e35caeb8bafa3da2dabca7f6f8ada0e393a7.png" />
+</div>
+</div>
+<p>自己共分散がゼロであれば，ランダムに散らばっているはずであり，何らかのパターンも確認できないはずである。</p>
+<p>ここで異なるプロットの方法を紹介する。<code class="docutils literal notranslate"><span class="pre">Pandas</span></code>のサブパッケージ<code class="docutils literal notranslate"><span class="pre">plotting</span></code>にある<code class="docutils literal notranslate"><span class="pre">lag_plot()</span></code>関数を使うと共分散の強さを示す図を簡単に作成することが可能となる。</p>
+<ul class="simple">
+<li><p>必須の引数：１つの列</p></li>
+<li><p>オプションの引数：<code class="docutils literal notranslate"><span class="pre">lag</span></code>は時間ラグ（デフォルトは<code class="docutils literal notranslate"><span class="pre">1</span></code>）</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">lag_plot</span><span class="p">(</span><span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WN&#39;</span><span class="p">])</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9bc3346cab97a8f378fd36d25c430d638afa310fb93a73f8e4b8b48d46c2fce6.png" src="_images/9bc3346cab97a8f378fd36d25c430d638afa310fb93a73f8e4b8b48d46c2fce6.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>横軸：<code class="docutils literal notranslate"><span class="pre">t</span></code>期の値</p></li>
+<li><p>縦軸：<code class="docutils literal notranslate"><span class="pre">t+1</span></code>期の値</p></li>
+</ul>
+<p>２つの図は同じであることが確認できる。</p>
+<p>分散・自己共分散を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WN</th>
+      <th>WNlag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>WN</th>
+      <td>0.968324</td>
+      <td>0.14459</td>
+    </tr>
+    <tr>
+      <th>WNlag</th>
+      <td>0.144590</td>
+      <td>0.96729</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>左上と右下の対角線上にあるのは、<code class="docutils literal notranslate"><span class="pre">WN</span></code>と<code class="docutils literal notranslate"><span class="pre">WNlag</span></code>の不偏分散であり、<code class="docutils literal notranslate"><span class="pre">1</span></code>に近い値となっている。両変数は標準正規分布（分散<code class="docutils literal notranslate"><span class="pre">1</span></code>）から生成したためであり、<code class="docutils literal notranslate"><span class="pre">1</span></code>にならないのはサンプルの誤差である。（<code class="docutils literal notranslate"><span class="pre">WN</span></code>と<code class="docutils literal notranslate"><span class="pre">WNlag</span></code>の不偏分散は異なるが、その理由は？）一方、右上と左下の値（同じ値となる）が<strong>自己共分散</strong>であり、非常に小さな値であるが、自己共分散は<code class="docutils literal notranslate"><span class="pre">0</span></code>という仮定を反映している。</p>
+</section>
+<section id="id12">
+<h3>自己相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>メソッド<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>を自己相関係数を計算しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WN</th>
+      <th>WNlag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>WN</th>
+      <td>1.000000</td>
+      <td>0.150093</td>
+    </tr>
+    <tr>
+      <th>WNlag</th>
+      <td>0.150093</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>右上もしくは左下にある値が自己相関係数になる。</p>
+<p>もしちろん、列<code class="docutils literal notranslate"><span class="pre">WN</span></code>を抽出し，メソッド<code class="docutils literal notranslate"><span class="pre">autocorr()</span></code>を使って自己相関係数を計算することも可能である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfwn</span><span class="p">[</span><span class="s1">&#39;WN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15009254647197273
+</pre></div>
+</div>
+</div>
+</div>
+<p>また，<code class="docutils literal notranslate"><span class="pre">dfwn.cov()</span></code>を使って自己相関係数を計算することができるが、上でも説明した点に注意する必要がある。<code class="docutils literal notranslate"><span class="pre">dfwn</span></code>の<code class="docutils literal notranslate"><span class="pre">0</span></code>行目には欠損値があるため、自己共分散を計算する際にその行は使われていない。同様に、自己相関係数を計算する際は欠損値がある行を使わずに計算する必要がある。この点に注意して、次のコードで計算することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcov</span> <span class="o">=</span> <span class="n">dfwn</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+<span class="n">vcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="n">vcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">vcov</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15009254647197273
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3>まとめ<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>GDPや構成要素を含め、マクロ変数の重要な特徴が持続性であることは既に確認済みだ。（<a class="reference internal" href="10_Data_Fluctuation.html#sec-10-autocovariance"><span class="std std-ref">自己共分散（自己相関）</span></a>を参照しよう。）従って，上の結果からわかることは，自己共分散が<code class="docutils literal notranslate"><span class="pre">0</span></code>であるホワイト・ノイズだけではマクロ変数の持続性を説明できないということであり、景気循環を理解するためには自己共分散が正の値になる経済モデルが求められる。では、どのようなモデルなのだろうか？この問いに答えるために、まずは統計的なモデルである自己回帰モデルを考察し、それを出発点として議論を進めていく事にする。</p>
+</section>
+</section>
+<section id="ar-1">
+<h2>自己回帰モデル：AR(1)<a class="headerlink" href="#ar-1" title="Link to this heading">#</a></h2>
+<section id="id14">
+<h3>説明<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>ここでは持続性を捉える確率過程である自己回帰モデルを考える。英語で<strong>A</strong>ugo<strong>r</strong>egressive Modelと呼ばれ，AR(1)と表記され，次式で表される。（AR(1)の<code class="docutils literal notranslate"><span class="pre">(1)</span></code>は右辺と左辺の変数は１期しか違わないことを表している。）</p>
+<div class="math notranslate nohighlight" id="equation-eq-13-ar1">
+<span class="eqno">(100)<a class="headerlink" href="#equation-eq-13-ar1" title="Link to this equation">#</a></span>\[
+y_t=\rho y_{t-1}+\varepsilon_t
+\]</div>
+<p>ここで</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span>：<span class="math notranslate nohighlight">\(t\)</span>期の<span class="math notranslate nohighlight">\(y\)</span>の値</p></li>
+<li><p><span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_t\sim WN(0,\sigma^2)\)</span>（ホワイト・ノイズ）</p></li>
+</ul>
+<p>次の特徴がある。第一に、<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>を所与とすると<span class="math notranslate nohighlight">\(y_t\)</span>の差分方程式となっている。<span class="math notranslate nohighlight">\(-1&lt;\rho&lt;1\)</span>となっているため，安定的な過程であることがわかる。即ち，<span class="math notranslate nohighlight">\(\varepsilon_t=0\)</span>であれば、<span class="math notranslate nohighlight">\(y_t\)</span>は定常状態である<span class="math notranslate nohighlight">\(0\)</span>に近づいて行くことになる。しかしホワイト・ノイズである<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>により、毎期確率的なショックが発生し<span class="math notranslate nohighlight">\(y_t\)</span>を定常状態から乖離させることになる。第二に、今期の値<span class="math notranslate nohighlight">\(y_t\)</span>は前期の値<span class="math notranslate nohighlight">\(y_{t-1}\)</span>に依存しており，その依存度はパラメータ<span class="math notranslate nohighlight">\(\rho\)</span>によって決定される。この<span class="math notranslate nohighlight">\(\rho\)</span>こそが<span class="math notranslate nohighlight">\(y_t\)</span>の持続性の強さを決定することになり，自己回帰モデル<a class="reference internal" href="#equation-eq-13-ar1">(100)</a>の自己相関係数は<span class="math notranslate nohighlight">\(\rho\)</span>と等しくなる。即ち、持続性を捉えるためには、<span class="math notranslate nohighlight">\(\rho\ne 0\)</span>が必須である。</p>
+<p>ここで考えるAR(1)の特徴をまとめておこう。</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span>の確率分布が変化しない定常過程</p></li>
+<li><p>平均は一定：<span class="math notranslate nohighlight">\(\quad\text{E}\left[y_t\right]=0\)</span></p></li>
+<li><p>分散は一定：<span class="math notranslate nohighlight">\(\text{E}\left[y_t^2\right]=\dfrac{\sigma^2}{1-\rho^2}\)</span>（<span class="math notranslate nohighlight">\(t\)</span>の添字はない）</p></li>
+<li><p>自己共分散は一定：<span class="math notranslate nohighlight">\(\text{E}\left[y_t y_{t-s}\right]=\sigma_{y_t y_{t-s}}^2=\rho^s\dfrac{\sigma^2}{1-\rho^2}\)</span>（<span class="math notranslate nohighlight">\(s\ne 0\)</span>）。従って，</p>
+<div class="math notranslate nohighlight">
+\[
+    \text{自己相関関数}(s)=\frac{\sigma_{y_t y_{t-s}}^2}
+                           {\sigma_{y_t}\times\sigma_{y_{t-s}}}
+                           =\rho^s
+    \]</div>
+<p>であり，<span class="math notranslate nohighlight">\(s=1\)</span>の自己相関係数は<span class="math notranslate nohighlight">\(\rho\)</span>となる。</p>
+</li>
+</ol>
+</section>
+<section id="id15">
+<h3>３つの例：持続性の違い<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>直観的にマクロ変数の特徴である持続性とは，前期の値が今期の値にどれだけ影響を持っているかを示す。<span class="math notranslate nohighlight">\(\rho\)</span>の値を変えて持続性の違いを視覚的に確認するための関数を作成しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ar1_model</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;引数：</span>
+<span class="sd">            rho: AR(1)の持続性を捉えるパラメータ</span>
+<span class="sd">            y0:  初期値</span>
+<span class="sd">            T:   シミュレーションの回数（デフォルト：0）</span>
+<span class="sd">       戻り値：</span>
+<span class="sd">            matplotlibの図を示す</span>
+<span class="sd">            自己相関係数の値を表示する&quot;&quot;&quot;</span>
+    
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>                          <span class="c1">#1</span>
+    <span class="n">y_lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>                     <span class="c1">#2</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>            <span class="c1">#3</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>            <span class="c1">#4</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">rho</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">e</span>               <span class="c1">#5</span>
+        <span class="n">y_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>            <span class="c1">#6</span>
+
+    <span class="n">df_ar1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_lst</span><span class="p">)</span>      <span class="c1">#7</span>
+
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>          <span class="c1">#8</span>
+    
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">df_ar1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>   <span class="c1">#9</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\rho$=</span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s1">　　自己相関係数：</span><span class="si">{</span><span class="n">ac</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1">#10</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>         <span class="c1">#11</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで使うアップデート用の<code class="docutils literal notranslate"><span class="pre">y</span></code>であり，初期値を割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：<code class="docutils literal notranslate"><span class="pre">y</span></code>の値を格納するリスト。初期値を入れてある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">T</span></code>期間の<code class="docutils literal notranslate"><span class="pre">for</span></code>ループの開始。変数<code class="docutils literal notranslate"><span class="pre">t</span></code>は(4)と(5)に入っていないので単にループの回数を数えている。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">range(1,T)</span></code>の<code class="docutils literal notranslate"><span class="pre">1</span></code>はループの計算が<span class="math notranslate nohighlight">\(t=1\)</span>期の<code class="docutils literal notranslate"><span class="pre">y</span></code>の計算から始まるため。<span class="math notranslate nohighlight">\(t=0\)</span>期の<code class="docutils literal notranslate"><span class="pre">y</span></code>は(1)で与えられている。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">t</span></code>期のホワイト・ノイズの生成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：右辺の<code class="docutils literal notranslate"><span class="pre">e</span></code>は<code class="docutils literal notranslate"><span class="pre">t</span></code>期のホワイトノイズであり，<code class="docutils literal notranslate"><span class="pre">y</span></code>前期の<code class="docutils literal notranslate"><span class="pre">y</span></code>となっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：<code class="docutils literal notranslate"><span class="pre">y_list</span></code>に<code class="docutils literal notranslate"><span class="pre">y</span></code>を追加。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：<code class="docutils literal notranslate"><span class="pre">y_list</span></code>を使って<code class="docutils literal notranslate"><span class="pre">Series</span></code>を作成し<code class="docutils literal notranslate"><span class="pre">df_ar1</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い己相関係数を計算し<code class="docutils literal notranslate"><span class="pre">ac</span></code>に割り当てる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：<code class="docutils literal notranslate"><span class="pre">y</span></code>のプロット</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">marker='.'</span></code>はデータのマーカーを点に設定。</p></li>
+<li><p>図の「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：図のタイトルの設定</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fr</span></code>の<code class="docutils literal notranslate"><span class="pre">f</span></code>は<code class="docutils literal notranslate"><span class="pre">f-string</span></code>を表し，<code class="docutils literal notranslate"><span class="pre">{rho}</span></code>と<code class="docutils literal notranslate"><span class="pre">{ac:.3f}</span></code>に数値を代入する。<code class="docutils literal notranslate"><span class="pre">:.3f</span></code>は小数点第三位までの表示を設定</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fr</span></code>の<code class="docutils literal notranslate"><span class="pre">r</span></code>は<code class="docutils literal notranslate"><span class="pre">$\rho$</span></code>をギリシャ文字に変換するためののも。<code class="docutils literal notranslate"><span class="pre">$\rho$</span></code>は<a class="reference external" href="https://ja.wikipedia.org/wiki/LaTeX">LaTeX</a>のコード。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#11</span></code>：<code class="docutils literal notranslate"><span class="pre">.axhline()</span></code>は横線をひくメソッド。</p></li>
+</ul>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7cbb167999d743bb7f55b69cdbe517ffdd7137c2cf01d3ea2a03f792c151e6bc.png" src="_images/7cbb167999d743bb7f55b69cdbe517ffdd7137c2cf01d3ea2a03f792c151e6bc.png" />
+</div>
+</div>
+<p>この例では<span class="math notranslate nohighlight">\(\rho\)</span>の値が低いため，<span class="math notranslate nohighlight">\(y\)</span>は定常状態の0に直ぐに戻ろうとする力が強い。従って、前期の値の今期の値に対する影響力が小さいため、持続性が低い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0577f115a4164c0d4c3f3984fc997c4955d7dceb3a53a427506ff479f47a81e1.png" src="_images/0577f115a4164c0d4c3f3984fc997c4955d7dceb3a53a427506ff479f47a81e1.png" />
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rho\)</span>の値が高くなると、定常状態の<span class="math notranslate nohighlight">\(0\)</span>に戻ろうとする作用が弱くなり、持続性が強くなることがわかる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ar1_model</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5b184e444217dc558727929556540514ff7ad4aea6931aec3c369d3b2f608582.png" src="_images/5b184e444217dc558727929556540514ff7ad4aea6931aec3c369d3b2f608582.png" />
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\rho\)</span>が非常に高いため、持続性も非常に強くなっている。即ち、今期の値は前期の値に対する依存度が大きい。</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="19_PPP.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">一物一価と購買力平価</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10_Data_Fluctuation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">主なマクロ・データの特徴</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ランダム変数の統計的特徴：復習</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">２つのランダム変数</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">時系列のランダム変数</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">説明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr"><code class="docutils literal notranslate"><span class="pre">.cov()</span></code>，<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>，<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">ホワイト・ノイズ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">平均と分散</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">自己共分散</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">自己相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">まとめ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ar-1">自己回帰モデル：AR(1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">説明</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">３つの例：持続性の違い</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 春山 鉄源  Tetsugen HARUYAMA
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

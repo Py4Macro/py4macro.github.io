@@ -187,6 +187,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期データ分析</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="13a_Random_Variables.html">ランダム変数と統計的特徴</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">主なマクロ・データの特徴</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11a_Okun_Phillips.html">オークンの法則とフィリップス曲線</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">インフレとマネーストック</a></li>
@@ -199,8 +200,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">短期モデル分析</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="13_random_TFP.html">ランダム変数と全要素生産性</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_Stochastic_Solow.html">確率的ソロー・モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="15_RBC.html">実物的景気循環(RBC)モデル</a></li>
 </ul>
@@ -470,7 +471,7 @@
 ここでは、マネーストックとインフレーションとの関係に着目しデータの特徴を考える。</p>
 <p>この２つの変数の関係を示す考え方として、貨幣数量説があり、次式で表される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-qtm">
-<span class="eqno">(111)<a class="headerlink" href="#equation-eq-11-qtm" title="Link to this equation">#</a></span>\[
+<span class="eqno">(112)<a class="headerlink" href="#equation-eq-11-qtm" title="Link to this equation">#</a></span>\[
 P_tY_t=M_tV_t
 \]</div>
 <ul class="simple">
@@ -495,9 +496,9 @@ P_tY_t=M_tV_t
 </ul>
 </li>
 </ul>
-<p>式<a class="reference internal" href="#equation-eq-11-qtm">(111)</a>に対数を取り時間微分すると次式となる。</p>
+<p>式<a class="reference internal" href="#equation-eq-11-qtm">(112)</a>に対数を取り時間微分すると次式となる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-qtm-growth">
-<span class="eqno">(112)<a class="headerlink" href="#equation-eq-11-qtm-growth" title="Link to this equation">#</a></span>\[
+<span class="eqno">(113)<a class="headerlink" href="#equation-eq-11-qtm-growth" title="Link to this equation">#</a></span>\[
 \pi_t+g_t=m_t+v_t
 \]</div>
 <p>ここで</p>
@@ -507,12 +508,12 @@ P_tY_t=M_tV_t
 <li><p><span class="math notranslate nohighlight">\(m_t\equiv\dfrac{\dot{M}_t}{M_t}\)</span>：マネーストックの増加率</p></li>
 <li><p><span class="math notranslate nohighlight">\(v_t=\dfrac{\dot{V}_t}{V_t}\)</span>：貨幣の流通速度の変化率</p></li>
 </ul>
-<p>式<a class="reference internal" href="#equation-eq-11-qtm">(111)</a>は恒等式であり，式<a class="reference internal" href="#equation-eq-11-qtm-growth">(112)</a>も常に成り立つ関係である。ここで長期均衡を考えてみよう。GDPは供給サイドで決定され，成長率は一定（<span class="math notranslate nohighlight">\(g_t=\overline{g}\)</span>）としよう（ソロー・モデルを考えてみよう）。更に貨幣の流通速度は一定とする。この仮定のもと式<a class="reference internal" href="#equation-eq-11-qtm-growth">(112)</a>は次式としてまとめることができる。</p>
+<p>式<a class="reference internal" href="#equation-eq-11-qtm">(112)</a>は恒等式であり，式<a class="reference internal" href="#equation-eq-11-qtm-growth">(113)</a>も常に成り立つ関係である。ここで長期均衡を考えてみよう。GDPは供給サイドで決定され，成長率は一定（<span class="math notranslate nohighlight">\(g_t=\overline{g}\)</span>）としよう（ソロー・モデルを考えてみよう）。更に貨幣の流通速度は一定とする。この仮定のもと式<a class="reference internal" href="#equation-eq-11-qtm-growth">(113)</a>は次式としてまとめることができる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-11-qtm-growth-long">
-<span class="eqno">(113)<a class="headerlink" href="#equation-eq-11-qtm-growth-long" title="Link to this equation">#</a></span>\[
+<span class="eqno">(114)<a class="headerlink" href="#equation-eq-11-qtm-growth-long" title="Link to this equation">#</a></span>\[
 \pi_t = m_t-\overline{g}
 \]</div>
-<p>この式によると，<strong>長期的</strong>なインフレ率はマネーストックの増加率によって決定される。この節では，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>の予測がデータと整合的かどうかを議論する。次の２つのデータ・セットを使いこの問題を考察する。</p>
+<p>この式によると，<strong>長期的</strong>なインフレ率はマネーストックの増加率によって決定される。この節では，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>の予測がデータと整合的かどうかを議論する。次の２つのデータ・セットを使いこの問題を考察する。</p>
 <ul class="simple">
 <li><p>日本の時系列データ</p></li>
 <li><p>世界経済のパネル・データ</p></li>
@@ -547,7 +548,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 </div>
-<p>1955年1月から2021年4月までの月次データであり，消費者物価指数とマネーストックの２つの変数が含まれている。マネーストックにはM1が使われており，現金通貨と要求払預金(預入期間の設定がなく自由に出し入れができる預金のことであり，普通預金が典型的な例)で構成される。詳しくは<a class="reference external" href="https://www.boj.or.jp/statistics/outline/exp/data/exms01.pdf">マネーストック統計の解説</a>を参考にしてほしい。M1を使う大きな理由は長い時系列データが存在することであり，長期的な関係である式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>を考えるには適しているためである。</p>
+<p>1955年1月から2021年4月までの月次データであり，消費者物価指数とマネーストックの２つの変数が含まれている。マネーストックにはM1が使われており，現金通貨と要求払預金(預入期間の設定がなく自由に出し入れができる預金のことであり，普通預金が典型的な例)で構成される。詳しくは<a class="reference external" href="https://www.boj.or.jp/statistics/outline/exp/data/exms01.pdf">マネーストック統計の解説</a>を参考にしてほしい。M1を使う大きな理由は長い時系列データが存在することであり，長期的な関係である式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>を考えるには適しているためである。</p>
 <p>一方で長い時系列データであれば長期的な関係を捉えることができるという訳ではない。ここでの長期的な関係とは，ある作用が発生した後，その効果が現れるのに時間が掛かるという意味である。例えば，今日マネーストックの増加率が上昇したとしても，明日すぐにインフレ率の上昇につながるという訳ではなく，その効果が浸透しデータの数字に現れるまで数ヶ月掛かる事になる。この点を示すために次のステップで進めることにする。</p>
 <ol class="arabic simple">
 <li><p>月次データを変換して次のデータを作成する。</p>
@@ -617,122 +618,122 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>10</td>
-      <td>5.348450</td>
+      <td>5.320239</td>
     </tr>
     <tr>
       <th>2019-02-01</th>
       <td>20</td>
-      <td>4.795744</td>
+      <td>5.420397</td>
     </tr>
     <tr>
       <th>2019-03-01</th>
       <td>30</td>
-      <td>4.175773</td>
+      <td>5.249382</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>40</td>
-      <td>5.610037</td>
+      <td>5.223033</td>
     </tr>
     <tr>
       <th>2019-05-01</th>
       <td>50</td>
-      <td>6.053913</td>
+      <td>5.929318</td>
     </tr>
     <tr>
       <th>2019-06-01</th>
       <td>60</td>
-      <td>5.380875</td>
+      <td>5.313340</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>70</td>
-      <td>5.196193</td>
+      <td>4.898783</td>
     </tr>
     <tr>
       <th>2019-08-01</th>
       <td>80</td>
-      <td>4.448408</td>
+      <td>4.710726</td>
     </tr>
     <tr>
       <th>2019-09-01</th>
       <td>90</td>
-      <td>3.785000</td>
+      <td>5.291500</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>100</td>
-      <td>5.150572</td>
+      <td>5.790815</td>
     </tr>
     <tr>
       <th>2019-11-01</th>
       <td>110</td>
-      <td>3.542553</td>
+      <td>4.932658</td>
     </tr>
     <tr>
       <th>2019-12-01</th>
       <td>120</td>
-      <td>6.543689</td>
+      <td>4.190649</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>10</td>
-      <td>5.369378</td>
+      <td>4.196526</td>
     </tr>
     <tr>
       <th>2020-02-01</th>
       <td>20</td>
-      <td>5.524923</td>
+      <td>4.484979</td>
     </tr>
     <tr>
       <th>2020-03-01</th>
       <td>30</td>
-      <td>5.467305</td>
+      <td>4.345580</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>40</td>
-      <td>5.844858</td>
+      <td>5.169784</td>
     </tr>
     <tr>
       <th>2020-05-01</th>
       <td>50</td>
-      <td>5.546332</td>
+      <td>3.598489</td>
     </tr>
     <tr>
       <th>2020-06-01</th>
       <td>60</td>
-      <td>3.983933</td>
+      <td>4.952839</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>70</td>
-      <td>3.615943</td>
+      <td>4.585345</td>
     </tr>
     <tr>
       <th>2020-08-01</th>
       <td>80</td>
-      <td>5.291372</td>
+      <td>5.937152</td>
     </tr>
     <tr>
       <th>2020-09-01</th>
       <td>90</td>
-      <td>5.041213</td>
+      <td>5.410195</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>100</td>
-      <td>4.399905</td>
+      <td>2.354335</td>
     </tr>
     <tr>
       <th>2020-11-01</th>
       <td>110</td>
-      <td>4.724360</td>
+      <td>5.059477</td>
     </tr>
     <tr>
       <th>2020-12-01</th>
       <td>120</td>
-      <td>4.476351</td>
+      <td>5.166181</td>
     </tr>
   </tbody>
 </table>
@@ -760,7 +761,7 @@ P_tY_t=M_tV_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x11273b4d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x11010bc80&gt;
 </pre></div>
 </div>
 </div>
@@ -801,42 +802,42 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>20.0</td>
-      <td>4.773322</td>
+      <td>5.330006</td>
     </tr>
     <tr>
       <th>2019-04-01</th>
       <td>50.0</td>
-      <td>5.681608</td>
+      <td>5.488563</td>
     </tr>
     <tr>
       <th>2019-07-01</th>
       <td>80.0</td>
-      <td>4.476533</td>
+      <td>4.967003</td>
     </tr>
     <tr>
       <th>2019-10-01</th>
       <td>110.0</td>
-      <td>5.078938</td>
+      <td>4.971374</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>20.0</td>
-      <td>5.453869</td>
+      <td>4.342361</td>
     </tr>
     <tr>
       <th>2020-04-01</th>
       <td>50.0</td>
-      <td>5.125041</td>
+      <td>4.573704</td>
     </tr>
     <tr>
       <th>2020-07-01</th>
       <td>80.0</td>
-      <td>4.649509</td>
+      <td>5.310897</td>
     </tr>
     <tr>
       <th>2020-10-01</th>
       <td>110.0</td>
-      <td>4.533539</td>
+      <td>4.193331</td>
     </tr>
   </tbody>
 </table>
@@ -877,12 +878,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>65.0</td>
-      <td>5.002601</td>
+      <td>5.189237</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>65.0</td>
-      <td>4.940489</td>
+      <td>4.605073</td>
     </tr>
   </tbody>
 </table>
@@ -967,12 +968,12 @@ P_tY_t=M_tV_t
     <tr>
       <th>2019-01-01</th>
       <td>0.5547</td>
-      <td>0.178987</td>
+      <td>0.089772</td>
     </tr>
     <tr>
       <th>2020-01-01</th>
       <td>0.5547</td>
-      <td>0.141094</td>
+      <td>0.204042</td>
     </tr>
   </tbody>
 </table>
@@ -1443,8 +1444,8 @@ memory usage: 18.6 KB
 <li><p>全てのケースで統計的優位性は高い。</p></li>
 <li><p>データの期間が長くなるとともに，スロープ係数の値が増加し，調整済み決定係数も高くなっている。</p></li>
 </ul>
-<p>これらのことからマネーストックの変化の影響は，より長い期間をかけてインフレへの影響が発生していることが伺える。この結果は，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>は長期的に成立することと整合的であると言えそうだ。</p>
-<p>一方で，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>は係数が<code class="docutils literal notranslate"><span class="pre">1</span></code>になることを予測しているが，上の4つのケースの係数は全て<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも低い値となっている。この点を念頭に，次の節では日本だけではなく<code class="docutils literal notranslate"><span class="pre">170</span></code>国以上のデータを使い，問題を再検討することにする。また，OLS結果は因果関係を示しておらず単なる相関関係を表していることは念頭に置いておこう。</p>
+<p>これらのことからマネーストックの変化の影響は，より長い期間をかけてインフレへの影響が発生していることが伺える。この結果は，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>は長期的に成立することと整合的であると言えそうだ。</p>
+<p>一方で，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>は係数が<code class="docutils literal notranslate"><span class="pre">1</span></code>になることを予測しているが，上の4つのケースの係数は全て<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも低い値となっている。この点を念頭に，次の節では日本だけではなく<code class="docutils literal notranslate"><span class="pre">170</span></code>国以上のデータを使い，問題を再検討することにする。また，OLS結果は因果関係を示しておらず単なる相関関係を表していることは念頭に置いておこう。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>４つの図の縦軸・横軸の値を比べると，データが長くなるにつれて値が大きくなることがわかる。期間が長くなると<code class="docutils literal notranslate"><span class="pre">cpi</span></code>と<code class="docutils literal notranslate"><span class="pre">M1</span></code>の増加率も上昇するためである。注意してほしいのは，増加率が上昇したために正の相関が強くなったという訳ではなく，増加率がより高くなっても正の相関は弱いまま，もしくは相関が存在しない場合もあり得る。図が示しているのは，データの期間が長くなるとより強い正の相関が「炙り出される」ということである。</p>
@@ -1455,7 +1456,7 @@ memory usage: 18.6 KB
 <h2>世界経済のパネルデータ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <section id="id8">
 <h3>説明<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>前節では日本のデータを使い，インフレ率に対するマネーストック増加率の影響が現れるには時間が掛かることを示した。一方でトレンド線の傾き（回帰分析のスロープ）は１よりも小さいが，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>は線形であり，<span class="math notranslate nohighlight">\(m_t\)</span>の計数は１である。即ち，マネーストックの増加率が1％上昇するとインフレ率も1％増加するという予測である。データと理論予測の齟齬をどう考えれば良いだろうか。一つの問題はノイズである。年次データであっても3年次データであってもその期間に短期的なありとあらゆるランダムな要素（ノイズ）が含まれている。ノイズは正や負の両方の影響があると考えられ，その分変化が激しいと思われる。長期的な関係は，正と負の影響が相殺し，その結果残った関係と考えることができる。この考えをデータで捉えるためにデータ全体の平均を計算すれば良いことになる。しかし前節で使用した日本の1955年から2020年のデータを使い，インフレ率とマネーストトック増加率の平均を計算すると，標本の大きさは<code class="docutils literal notranslate"><span class="pre">１</span></code>となってしまう。これではどうしようもないので，国数を増やし，観測値を増やす必要がある。従って，ここでは世界経済のパネルデータを使い２変数の関係を探ることにする。</p>
+<p>前節では日本のデータを使い，インフレ率に対するマネーストック増加率の影響が現れるには時間が掛かることを示した。一方でトレンド線の傾き（回帰分析のスロープ）は１よりも小さいが，式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>は線形であり，<span class="math notranslate nohighlight">\(m_t\)</span>の計数は１である。即ち，マネーストックの増加率が1％上昇するとインフレ率も1％増加するという予測である。データと理論予測の齟齬をどう考えれば良いだろうか。一つの問題はノイズである。年次データであっても3年次データであってもその期間に短期的なありとあらゆるランダムな要素（ノイズ）が含まれている。ノイズは正や負の両方の影響があると考えられ，その分変化が激しいと思われる。長期的な関係は，正と負の影響が相殺し，その結果残った関係と考えることができる。この考えをデータで捉えるためにデータ全体の平均を計算すれば良いことになる。しかし前節で使用した日本の1955年から2020年のデータを使い，インフレ率とマネーストトック増加率の平均を計算すると，標本の大きさは<code class="docutils literal notranslate"><span class="pre">１</span></code>となってしまう。これではどうしようもないので，国数を増やし，観測値を増やす必要がある。従って，ここでは世界経済のパネルデータを使い２変数の関係を探ることにする。</p>
 <p><code class="docutils literal notranslate"><span class="pre">py4macro</span></code>に含まれる<code class="docutils literal notranslate"><span class="pre">world-money</span></code>というデータ・セットを使うが，その内容は次のコードで確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1632,7 +1633,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x1226a4ef0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x111e43d70&gt;
 </pre></div>
 </div>
 </div>
@@ -1647,7 +1648,7 @@ memory usage: 308.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x12316d700&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x1120c6fc0&gt;
 </pre></div>
 </div>
 </div>
@@ -2945,7 +2946,7 @@ money_growth_mean     0.9847      0.018     54.876      0.000       0.949       
 </div>
 </div>
 </div>
-<p>推定値は１に非常に近い。もし図の左下にある外れ値のように見える値（ジンバブエ）を省くとスロープ係数は0.997になる。長期的には式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(113)</a>が示すように，マネーストック増加率の1％上昇はインフレ率1％上昇につかがること示す結果である。「真のメカニズム」の一部が垣間見えるような気がしませんか。</p>
+<p>推定値は１に非常に近い。もし図の左下にある外れ値のように見える値（ジンバブエ）を省くとスロープ係数は0.997になる。長期的には式<a class="reference internal" href="#equation-eq-11-qtm-growth-long">(114)</a>が示すように，マネーストック増加率の1％上昇はインフレ率1％上昇につかがること示す結果である。「真のメカニズム」の一部が垣間見えるような気がしませんか。</p>
 </section>
 </section>
 </section>
