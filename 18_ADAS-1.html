@@ -456,6 +456,27 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">パラメーターの値：再掲</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">付録</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-18-1-appendix-a">付録Ａ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">均一分散の検定</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#breusch-pagan">Breusch-Pagan検定</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#white">White検定</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">h</span></code>の不均一分散頑健推定</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">付録Ｂ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">均一分散の検定</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Breusch-Pagan検定</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">White検定</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d"><code class="docutils literal notranslate"><span class="pre">d</span></code>の不均一分散自己相関頑健推定</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1137,8 +1158,7 @@ p_{t}=hp_{t-1} + e_{pt}
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(e_{pt}\equiv h\left(a u_{t}+v_{t}\right)\)</span></p></li>
 </ul>
-<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{pt}\)</span>とは期間がズレているため同時外生性（contemporaneous exogeneity）を満たしていることが分かる。
-即ち，<span class="math notranslate nohighlight">\(\text{E}(e_{pt}|p_{t-1})=0\)</span>となり，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
+<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{pt}\)</span>とは期間がズレているため<span class="math notranslate nohighlight">\(\text{E}(e_{pt}|p_{t-1})=0\)</span>が満たされ，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
 <p>まず，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>を１期ずらした列を<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1241,8 +1261,8 @@ p_{t}=hp_{t-1} + e_{pt}
 Dep. Variable:         deflator_cycle   R-squared:                       0.689
 Model:                            OLS   Adj. R-squared:                  0.688
 Method:                 Least Squares   F-statistic:                     384.1
-Date:                Sun, 08 Dec 2024   Prob (F-statistic):           8.56e-46
-Time:                        09:52:27   Log-Likelihood:                 716.66
+Date:                Tue, 10 Dec 2024   Prob (F-statistic):           8.56e-46
+Time:                        23:25:22   Log-Likelihood:                 716.66
 No. Observations:                 175   AIC:                            -1429.
 Df Residuals:                     173   BIC:                            -1423.
 Df Model:                           1                                         
@@ -1268,10 +1288,10 @@ Notes:
 <p><strong>＜推定結果について＞</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>は<span class="output text_plain">1.616</span>であり残差の系列相関は排除できる。</p></li>
-<li><p>残差の均一分散</p>
+<li><p>残差の均一分散（<a class="reference internal" href="#sec-18-1-appendix-a"><span class="std std-ref">付録Ａ</span></a>を参照）</p>
 <ul>
 <li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.00021</span>であり、とホワイト検定の値は<span class="output text_plain">1e-07</span>となり，帰無仮説（均一分散）は「通常」の優位性水準ではを棄却される。</p></li>
-<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>不均一分散頑健推定（<code class="docutils literal notranslate"><span class="pre">HC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
 </ul>
 </li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。（試してみよう！）</p></li>
@@ -1300,8 +1320,7 @@ y_t = dp_{t-1} + e_{yt}
 <li><p><span class="math notranslate nohighlight">\(d\equiv -ch\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(e_{yt}\equiv hu_t-chv_t\)</span></p></li>
 </ul>
-<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>とは期間がズレているため同時外生性（contemporaneous exogeneity）を満たしていることが分かる。
-即ち，<span class="math notranslate nohighlight">\(\text{E}(e_{yt}|p_{t-1})=0\)</span>となり，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
+<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>とは期間がズレているため<span class="math notranslate nohighlight">\(\text{E}(e_{yt}|p_{t-1})=0\)</span>となり，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_d</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1315,8 +1334,8 @@ y_t = dp_{t-1} + e_{yt}
 Dep. Variable:              gdp_cycle   R-squared:                       0.041
 Model:                            OLS   Adj. R-squared:                  0.035
 Method:                 Least Squares   F-statistic:                     7.398
-Date:                Sun, 08 Dec 2024   Prob (F-statistic):            0.00719
-Time:                        09:52:27   Log-Likelihood:                 492.28
+Date:                Tue, 10 Dec 2024   Prob (F-statistic):            0.00719
+Time:                        23:25:23   Log-Likelihood:                 492.28
 No. Observations:                 175   AIC:                            -980.6
 Df Residuals:                     173   BIC:                            -974.2
 Df Model:                           1                                         
@@ -1341,13 +1360,17 @@ Notes:
 </div>
 <p><strong>＜推定結果について＞</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<span class="output text_plain">0.633</span>であり残差の正の系列相関が疑われる。</p></li>
-<li><p>残差の均一分散</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<span class="output text_plain">0.633</span>であり残差の正の系列相関が疑われる。</p>
 <ul>
-<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.03149</span>であり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却される。一方、ホワイト検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0569847</span>となり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却できないが、<code class="docutils literal notranslate"><span class="pre">10</span></code>％では棄却される。</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>検定は無効の可能性がある。</p></li>
 </ul>
 </li>
-<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0156083705</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>残差の均一分散（<a class="reference internal" href="#sec-18-1-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）</p>
+<ul>
+<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.03149</span>であり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却される。一方、ホワイト検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0569847</span>となり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却できないが、<code class="docutils literal notranslate"><span class="pre">10</span></code>％では棄却される。従って、不均一分散の可能性も残っている。</p></li>
+</ul>
+</li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0406244147</span>であり、推定値の統計的優位性は高いことが確認できる（<a class="reference internal" href="#sec-18-1-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）。この結果に基づき<code class="docutils literal notranslate"><span class="pre">d</span></code>の推定値を採用する。</p></li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
 </ul>
 <p><span class="math notranslate nohighlight">\(d\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{d}\)</span>は負であり，モデルに沿った結果である。
@@ -1507,6 +1530,147 @@ vの標準偏差：0.007494
 <p>次章では，これらの値を使い定量分析を更に進めていく。</p>
 </section>
 </section>
+<section id="id22">
+<h2>付録<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<section id="sec-18-1-appendix-a">
+<span id="id23"></span><h3>付録Ａ<a class="headerlink" href="#sec-18-1-appendix-a" title="Link to this heading">#</a></h3>
+<section id="id24">
+<h4>均一分散の検定<a class="headerlink" href="#id24" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.api</span> <span class="kn">import</span> <span class="n">het_breuschpagan</span><span class="p">,</span> <span class="n">het_white</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>式<a class="reference internal" href="#equation-eq-18-regression-h">(131)</a>を回帰式（定数項あり）として推定した結果<code class="docutils literal notranslate"><span class="pre">res_h</span></code>を使い、均一分散の検定をおこなう。</p>
+<ul class="simple">
+<li><p>帰無仮説：残差は均一分散</p></li>
+<li><p>対立仮説：帰無仮説は成立しない</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">het_breuschpagan()</span></code>と<code class="docutils literal notranslate"><span class="pre">het_white()</span></code>について</p>
+<ul class="simple">
+<li><p>第１引き数：誤差項の値（<code class="docutils literal notranslate"><span class="pre">res_h.resid</span></code>)</p></li>
+<li><p>第２引き数：定数項を含む説明変数の値（<code class="docutils literal notranslate"><span class="pre">res_h.model.exog</span></code>）</p></li>
+</ul>
+<section id="breusch-pagan">
+<h5>Breusch-Pagan検定<a class="headerlink" href="#breusch-pagan" title="Link to this heading">#</a></h5>
+<p>返り値（上から）</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LM</span> <span class="pre">statistic</span></code>：<span class="math notranslate nohighlight">\(LM\)</span>統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LM</span> <span class="pre">p-value</span></code>：<span class="math notranslate nohighlight">\(LM\)</span>の<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">statistics</span></code>：<span class="math notranslate nohighlight">\(F\)</span>統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">p-value</span></code>：<span class="math notranslate nohighlight">\(F\)</span>の<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code>％の有意水準で帰無仮説を棄却できる。</p>
+</section>
+<section id="white">
+<h5>White検定<a class="headerlink" href="#white" title="Link to this heading">#</a></h5>
+<p>返り値（上から）</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LM</span> <span class="pre">statistic</span></code>：<span class="math notranslate nohighlight">\(LM\)</span>統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LM</span> <span class="pre">p-value</span></code>：<span class="math notranslate nohighlight">\(LM\)</span>の<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">statistics</span></code>：<span class="math notranslate nohighlight">\(F\)</span>統計量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">p-value</span></code>：<span class="math notranslate nohighlight">\(F\)</span>の<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code>％の有意水準で帰無仮説を棄却できる。</p>
+<p>不均一分散の可能性が高いと判断できる。</p>
+</section>
+</section>
+<section id="id25">
+<h4><code class="docutils literal notranslate"><span class="pre">h</span></code>の不均一分散頑健推定<a class="headerlink" href="#id25" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">res_h</span></code>を使い、<code class="docutils literal notranslate"><span class="pre">h</span></code>の不均一分散頑健推定ををおこなう。詳しい説明は<a class="reference external" href="https://py4etrics.github.io/14_Hetero.html">Pythonで学ぶ入門計量経済学ー不均一分散</a>を参照しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_h_robust</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">&#39;HC1&#39;</span><span class="p">,</span> <span class="n">use_t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_h_robust</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================================
+                         coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+Intercept              0.0002      0.000      0.803      0.423      -0.000       0.001
+deflator_cycle_lag     0.8194      0.064     12.777      0.000       0.693       0.946
+======================================================================================
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の推定値の統計的優位性は高いことが確認できる。また、<code class="docutils literal notranslate"><span class="pre">cov_type</span></code>を<code class="docutils literal notranslate"><span class="pre">HC2</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">HC3</span></code>に変えても結果は変わらない。</p>
+</section>
+</section>
+<section id="b">
+<span id="sec-18-1-appendix-b"></span><h3>付録Ｂ<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
+<section id="id26">
+<h4>均一分散の検定<a class="headerlink" href="#id26" title="Link to this heading">#</a></h4>
+<p>推定結果<code class="docutils literal notranslate"><span class="pre">res_d</span></code>を使い付録Ａと同じ方法で検定をおこなう。</p>
+<section id="id27">
+<h5>Breusch-Pagan検定<a class="headerlink" href="#id27" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">res_d</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">res_d</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4.626067769631001,
+ 0.03148965549391379,
+ 4.697371914055684,
+ 0.03157573474850908)
+</pre></div>
+</div>
+</div>
+</div>
+<p>有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で帰無仮説を棄却できるが、<code class="docutils literal notranslate"><span class="pre">1</span></code>％では棄却できない。</p>
+</section>
+<section id="id28">
+<h5>White検定<a class="headerlink" href="#id28" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">het_white</span><span class="p">(</span><span class="n">res_d</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">res_d</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5.729944228184633,
+ 0.05698472018052424,
+ 2.911177652639073,
+ 0.05709783228724759)
+</pre></div>
+</div>
+</div>
+</div>
+<p>有意水準<code class="docutils literal notranslate"><span class="pre">10</span></code>％で帰無仮説を棄却できるが、<code class="docutils literal notranslate"><span class="pre">5</span></code>％では棄却できない。</p>
+<p>均一分散に十分に自信が持てる結果ではない。</p>
+</section>
+</section>
+<section id="d">
+<h4><code class="docutils literal notranslate"><span class="pre">d</span></code>の不均一分散自己相関頑健推定<a class="headerlink" href="#d" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">res_d</span></code>を使い、<code class="docutils literal notranslate"><span class="pre">d</span></code>の不均一分散自己相関頑健推定ををおこなう。詳しい説明は<a class="reference external" href="https://py4etrics.github.io/14_Hetero.html">Pythonで学ぶ入門計量経済学ー不均一分散</a>を参照しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_d_hac</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">&#39;HAC&#39;</span><span class="p">,</span> <span class="n">cov_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;maxlags&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span> <span class="n">use_t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_d_hac</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================================
+                         coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+Intercept          -6.676e-05      0.001     -0.047      0.963      -0.003       0.003
+deflator_cycle_lag    -0.4099      0.199     -2.063      0.041      -0.802      -0.018
+======================================================================================
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の推定値の統計的優位性は高いことが確認できる。</p>
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1611,6 +1775,27 @@ vの標準偏差：0.007494
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-v">３つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_v\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma-u">４つ目のスイッチ：<span class="math notranslate nohighlight">\(\sigma_u\)</span>の値</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">パラメーターの値：再掲</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">付録</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-18-1-appendix-a">付録Ａ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">均一分散の検定</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#breusch-pagan">Breusch-Pagan検定</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#white">White検定</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">h</span></code>の不均一分散頑健推定</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">付録Ｂ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">均一分散の検定</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Breusch-Pagan検定</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">White検定</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d"><code class="docutils literal notranslate"><span class="pre">d</span></code>の不均一分散自己相関頑健推定</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
