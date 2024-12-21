@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -40,10 +40,10 @@
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -221,9 +221,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -430,20 +435,16 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">変動の相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPと構成要素との相関係数</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">GDPとインフレ率・失業率との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPとインフレ率・失業率との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関：GDPの場合</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
 </ul>
             </nav>
         </div>
@@ -1741,72 +1742,13 @@ trend(s, lamb=1600)
 <h2>変動の相関<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
 <p>ここでは変数の変動間の相関について考察する。
 相関とは，異なる変数が同時にどの方向（正か負）にどの程度動く傾向にあるかを示す。</p>
-<section id="id12">
-<h3>復習<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">2</span></code>つのランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を考えよう。
-<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の<strong>不偏分散</strong>は次のように定義される。</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_{X}^2=\frac{1}{n-1}\sum_{i=1}^{n}
-\left(X_i-\overline{X}\right)^2
-\qquad
-\sigma_{Y}^2=\frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i-\overline{Y}\right)^2
-\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(\overline{X}\)</span>と<span class="math notranslate nohighlight">\(\overline{Y}\)</span>は平均を表し、それぞれの<strong>標準偏差</strong>は</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_{X},
-\quad
-\sigma_{Y}
-\]</div>
-<p>となる。</p>
-<p>ここでは<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関を考えたい訳だが、その尺度として共分散が使われ、次のように定義される。</p>
-<div class="math notranslate nohighlight" id="equation-eq-10-covariance">
-<span class="eqno">(108)<a class="headerlink" href="#equation-eq-10-covariance" title="Link to this equation">#</a></span>\[
-\sigma_{XY}=\frac{1}{n-1}\sum_{i=1}^{n}
-\left(X_i-\overline{X}\right)\left(Y_i-\overline{Y}\right)
-\]</div>
-<p>符号の解釈：</p>
+<p>相関については<a class="reference internal" href="13a_Random_Variables.html#chap-13a-random"><span class="std std-ref">ランダム変数と統計的特徴</span></a>を参考にしよう。
+また以下では，次のメッソどについて説明する。</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}=0\)</span>：無相関</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&gt;0\)</span>：正の相関</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma_{XY}&lt;0\)</span>：負の相関</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.cov</span></code>：共分散の計算に用いる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.corr()</span></code>：相関係数の計算い用いる</p></li>
 </ul>
-<p>共分散の絶対値が大きければ大きい（小さい）程，相関度が高い（低い）ことを意味する。</p>
-<p>また上の定義から次が成立することが簡単に理解できる。</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_{XX}=\sigma_{X}^2,
-\qquad
-\sigma_{YY}=\sigma_{Y}^2,
-\]</div>
-<p>別々の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数を使うことにより共分散を計算することができるが、その<code class="docutils literal notranslate"><span class="pre">2</span></code>変数が同じ変数となる場合（<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数もしくは<code class="docutils literal notranslate"><span class="pre">Y</span></code>と<code class="docutils literal notranslate"><span class="pre">Y</span></code>の<code class="docutils literal notranslate"><span class="pre">2</span></code>変数）は分散となる。</p>
-<p>共分散の重要な特徴は<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の単位に依存することであり、それにより単位が異なる<code class="docutils literal notranslate"><span class="pre">2</span></code>つの相関度の比較には向いていない。
-その点を克服するのが<strong>相関係数</strong>であり、次のように定義される。</p>
-<div class="math notranslate nohighlight" id="equation-eq-10-covariance-coef">
-<span class="eqno">(109)<a class="headerlink" href="#equation-eq-10-covariance-coef" title="Link to this equation">#</a></span>\[
-\rho_{XY}=
-\frac{\sigma_{XY}}{\sigma_X\sigma_Y}
-\]</div>
-<p>次の特徴がある。</p>
-<ul class="simple">
-<li><p>分母は必ず正となるので，分子の共分散が符号を決定する。</p></li>
-<li><p><span class="math notranslate nohighlight">\(\rho_{XY}\)</span>の値は<code class="docutils literal notranslate"><span class="pre">-1</span></code>から<code class="docutils literal notranslate"><span class="pre">1</span></code>の間の値を取り、単位に依存しない。この特徴は、分母に<span class="math notranslate nohighlight">\(X\)</span>と<span class="math notranslate nohighlight">\(Y\)</span>の標準偏差の積を積を置く事により単位をキャンセルしているためである。</p></li>
-</ul>
-<p><span class="math notranslate nohighlight">\(\rho_{XX}\)</span>を考えてみよう。</p>
-<div class="math notranslate nohighlight">
-\[
-\rho_{XX}=
-\frac{\sigma_{XX}}{\sigma_X\sigma_X}
-=\frac{\sigma_{X}^2}{\sigma_X^2}
-=1
-\]</div>
-<p>分母は<code class="docutils literal notranslate"><span class="pre">X</span></code>の分散と等しく，分母も<code class="docutils literal notranslate"><span class="pre">X</span></code>の分散と等しくなり、<code class="docutils literal notranslate"><span class="pre">1</span></code>となる。即ち、<code class="docutils literal notranslate"><span class="pre">X</span></code>と<code class="docutils literal notranslate"><span class="pre">X</span></code>は完璧に相関しているため相関係数は<code class="docutils literal notranslate"><span class="pre">1</span></code>となる。また，<span class="math notranslate nohighlight">\(X\)</span>と<span class="math notranslate nohighlight">\(-X\)</span>の相関係数は<span class="math notranslate nohighlight">\(\rho_{X-X}=-1\)</span>となり，完璧な負の相関となる。一般的には，<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>の絶対値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも小さな値となる。相関係数の重要な特徴は単位には依存しないため，単位が異なる変数の相関度を比較するには有用な指標となる。</p>
-</section>
-<section id="cov-corr">
-<h3><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code><a class="headerlink" href="#cov-corr" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>には分散と共分散を計算するメソッド<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>が用意されている。例として、<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">consumption_cycle</span></code>を抽出して<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使ってみよう。</p>
+<p>例として、<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>と<code class="docutils literal notranslate"><span class="pre">consumption_cycle</span></code>を抽出して<code class="docutils literal notranslate"><span class="pre">.cov()</span></code>を使ってみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">varcov</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;government_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
@@ -1914,9 +1856,8 @@ trend(s, lamb=1600)
 </div></div></div>
 </div>
 <p>左下もしくは右上の値が相関係数であり、上の「手計算」と等しい。</p>
-</section>
-<section id="id13">
-<h3>GDPと構成要素との相関係数<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<section id="id12">
+<h3>GDPと構成要素との相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>GDPと構成要素との相関係数を<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2020,8 +1961,8 @@ imports_cycle       0.65
 </div>
 <p>GDPの乖離は<code class="docutils literal notranslate"><span class="pre">3</span></code>四半期先の政府支出との相関係数が最大となっている。景気循環に対する政府の姿勢が確認できる一方，政府の対応は長いの時間が掛かることを示す結果となっている。</p>
 </section>
-<section id="id14">
-<h3>GDPとインフレ率・失業率との相関係数<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<section id="id13">
+<h3>GDPとインフレ率・失業率との相関係数<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>GDP、インフレ率、失業率の3つの変数間の相関係数を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2174,59 +2115,16 @@ imports_cycle       0.65
 </section>
 </section>
 <section id="sec-10-autocovariance">
-<span id="id15"></span><h2>変動の自己相関<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
+<span id="id14"></span><h2>変動の自己相関：GDPの場合<a class="headerlink" href="#sec-10-autocovariance" title="Link to this heading">#</a></h2>
 <p>次に，変数の変動の自己相関について考える。
 自己相関とは，ある変数が，その過去の値によってどの方向（正か負）にどの程度影響を受けるかを示す。</p>
-<section id="id16">
-<h3>復習<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
-<p>既出のランダム変数<span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>、<span class="math notranslate nohighlight">\(i=1,2,3,\cdots,n\)</span>を使い，自己相関について説明する。。
-<code class="docutils literal notranslate"><span class="pre">2</span></code>変数の相関度を測る共分散<span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance">(108)</a>で定義され，相関係数<span class="math notranslate nohighlight">\(\rho_{XY}\)</span>は式<a class="reference internal" href="#equation-eq-10-covariance-coef">(109)</a>で与えられる。</p>
-<p>ここで時系列のランダム変数を<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>として、次の置き換えてみよう。</p>
+<p>自己相関については<a class="reference internal" href="13a_Random_Variables.html#chap-13a-random"><span class="std std-ref">ランダム変数と統計的特徴</span></a>を参考にしよう。
+また以下では，次のメッソどについて説明する。</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(X_i\;\Rightarrow\;\varepsilon_t,\quad t=0,1,2,3,\cdots\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(Y_i\;\Rightarrow\;\varepsilon_{t-s},\quad s=1,2,3,\cdots\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.cov</span></code>：共分散の計算に用いる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.corr()</span></code>：相関係数の計算い用いる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：自己相関係数の計算に用いる</p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>期遡る過去の値である。
-これにより分散は次のように置き換えることができる。</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-\sigma_X^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_t}^2\\
-\sigma_Y^2&amp;\quad\Rightarrow\quad\sigma_{\varepsilon_{t-s}}^2
-\end{aligned}
-\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(X_i\)</span>と<span class="math notranslate nohighlight">\(Y_i\)</span>の分散は，<code class="docutils literal notranslate"><span class="pre">s</span></code>期ずれているだけの同じランダム変数<span class="math notranslate nohighlight">\(\varepsilon\)</span>の分散に置き換わっている。
-更に，共分散は次のように置き換える事ができる。</p>
-<div class="math notranslate nohighlight">
-\[
-X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
-\quad\Rightarrow\quad
-\sigma_{\varepsilon_t,\varepsilon_{t-s}}
-=s\text{期間離れた}\varepsilon\text{の自己共分散}
-\]</div>
-<p>即ち，自己共分散はランダム変数とその変数の<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値との<strong>自己相関</strong>の度合を示す指標ということになる。</p>
-<p>これらの結果を使うと，<span class="math notranslate nohighlight">\(\varepsilon_t\)</span>の相関係数は</p>
-<div class="math notranslate nohighlight">
-\[
-\rho_{\varepsilon}(s)
-\equiv
-\rho_{\varepsilon_t,\varepsilon_{t-s}}
-=\frac{
-    \sigma_{\varepsilon_t,\varepsilon_{t-s}}
-    }{
-    \sigma_{\varepsilon_t}
-    \sigma_{\varepsilon_{t-s}}
-    }
-\]</div>
-<p>で与えられ，一般的には<strong>自己相関関数</strong>と呼ばれる（自己共分散関数もしくは自己相関係数と呼ばれることもある）。「関数」と呼ばれる理由は，<span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)\)</span>は<code class="docutils literal notranslate"><span class="pre">s</span></code>の関数として考えることができるためだ。このサイトでは，<code class="docutils literal notranslate"><span class="pre">s=1</span></code>の場合は<strong>自己相関</strong>と呼ぶ事にする。呼称よりも重要なのが解釈である。解釈は次のようになる。</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)=0,\;s=1,2,3,\cdots\)</span>：何期離れたとしても自己相関はなしという意味である。過去の影響は皆無の状況を指している。</p></li>
-<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&gt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は正の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>も大きい（小さい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関の絶対値は大きくなる。経済学では<code class="docutils literal notranslate"><span class="pre">s=1</span></code>を考える場合が多く，この性質を<strong>持続性</strong>（persisitence）と呼ぶ。持続性は多くのマクロ変数の重要な特徴となっている。</p></li>
-<li><p><span class="math notranslate nohighlight">\(\rho_{\varepsilon}(s)&lt;0,\;s=1,2,3,\cdots\)</span>：今期と<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の値は負の相関があるということを示す。<span class="math notranslate nohighlight">\(\varepsilon_{t-s}\)</span>の値が大きければ（小さければ），<span class="math notranslate nohighlight">\(\varepsilon_{t}\)</span>は小さい（大きい）傾向にあるという意味であり，<code class="docutils literal notranslate"><span class="pre">s</span></code>期前の影響が強ければ，自己相関の絶対値は大きくなる。</p></li>
-</ul>
-</section>
-<section id="cov-corr-autocorr-gdp">
-<h3><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合<a class="headerlink" href="#cov-corr-autocorr-gdp" title="Link to this heading">#</a></h3>
 <p>まずGDPの変動を考えるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>から<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>として抽出し，変数<code class="docutils literal notranslate"><span class="pre">g</span></code>に割り当てよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2437,9 +2335,8 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <p>はっきりと正の相関を確認できるが，例外的な動きをしている観測値もある。</p>
-</section>
-<section id="id17">
-<h3>GDPの構成要素<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h3>GDPの構成要素<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>まずGDPの構成要素のトレンドからの乖離率の持続性を考察するが，<code class="docutils literal notranslate"><span class="pre">gdp_cycle</span></code>を含めて次の変数を考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2491,8 +2388,8 @@ imports_cycle      0.821
 <p>消費を除いて全て0.5以上であり，全ての変数で持続性が確認できる。
 特に、投資と輸入の持続性は高いことが分かる。</p>
 </section>
-<section id="id18">
-<h3>インフレ率と失業率<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3>インフレ率と失業率<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>次に、失業率とインフレ率の持続性を確認する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2513,8 +2410,8 @@ unemployment_rate_cycle  0.875
 <p>非常に強い持続性が確認できる。一旦、インフレ率と失業率が長期的なトレンドから乖離すると、元に戻るには時間が掛かることを意味している。更には、財政政策と金融政策によるマクロ経済政策の効果が現れてくるには時間が掛かることを示唆しているおり、経済安定化政策の難しさを示唆する数値となっている。</p>
 </section>
 </section>
-<section id="id19">
-<h2>変動の大きさ<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h2>変動の大きさ<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 <p>次に変動の大きさを考えるために，GDPの標準偏差に対するそれぞれの構成要素の標準偏差の比率を計算しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2661,20 +2558,16 @@ imports_cycle       3.26
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">変動の相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPと構成要素との相関係数</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">GDPとインフレ率・失業率との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">GDPと構成要素との相関係数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">GDPとインフレ率・失業率との相関係数</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">復習</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cov-corr-autocorr-gdp"><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>と<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>：GDPの場合</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">GDPの構成要素</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インフレ率と失業率</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-10-autocovariance">変動の自己相関：GDPの場合</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">GDPの構成要素</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">インフレ率と失業率</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">変動の大きさ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">変動の大きさ</a></li>
 </ul>
   </nav></div>
 
@@ -2726,8 +2619,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
