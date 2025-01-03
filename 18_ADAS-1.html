@@ -1163,7 +1163,7 @@ p_{t}=hp_{t-1} + e_{pt}
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(e_{pt}\equiv h\left(a u_{t}+v_{t}\right)\)</span></p></li>
 </ul>
-<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{pt}\)</span>とは期間がズレているため<span class="math notranslate nohighlight">\(\text{E}(e_{pt}|p_{t-1})=0\)</span>が満たされ，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
+<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{pt}\)</span>とは期間がズレているため，仮定に基づくと<span class="math notranslate nohighlight">\(\text{E}(e_{pt}|p_{t-1})=0\)</span>が満たされ，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
 <p>まず，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.shift()</span></code>を使って<code class="docutils literal notranslate"><span class="pre">deflator_cycle</span></code>を１期ずらした列を<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>として<code class="docutils literal notranslate"><span class="pre">df</span></code>に追加しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1266,8 +1266,8 @@ p_{t}=hp_{t-1} + e_{pt}
 Dep. Variable:         deflator_cycle   R-squared:                       0.689
 Model:                            OLS   Adj. R-squared:                  0.688
 Method:                 Least Squares   F-statistic:                     384.1
-Date:                Thu, 02 Jan 2025   Prob (F-statistic):           8.56e-46
-Time:                        12:43:26   Log-Likelihood:                 716.66
+Date:                Fri, 03 Jan 2025   Prob (F-statistic):           8.56e-46
+Time:                        01:09:49   Log-Likelihood:                 716.66
 No. Observations:                 175   AIC:                            -1429.
 Df Residuals:                     173   BIC:                            -1423.
 Df Model:                           1                                         
@@ -1294,7 +1294,7 @@ Notes:
 <ul class="simple">
 <li><p>残差の自己相関</p>
 <ul>
-<li><p>式<a class="reference internal" href="#equation-eq-18-regression-h">(129)</a>は自己回帰モデルとなるため，ダービン・ワトソン検定統計量（<span class="math notranslate nohighlight">\(d\)</span>検定）<span class="output text_plain">1.616</span>は無効となる。その代わりに，<a class="reference internal" href="#sec-18-1-appendix-a"><span class="std std-ref">付録Ａ</span></a>ではダービンの<span class="math notranslate nohighlight">\(H\)</span>検定をおこなっているが，残差の自己相関を棄却できない。従って，<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効ではない。</p></li>
+<li><p>式<a class="reference internal" href="#equation-eq-18-regression-h">(129)</a>は自己回帰モデルとなるため，ダービン・ワトソン検定統計量（<span class="math notranslate nohighlight">\(d\)</span>検定）<span class="output text_plain">1.616</span>は無効となる。その代わりに，<a class="reference internal" href="#sec-18-1-appendix-a"><span class="std std-ref">付録Ａ</span></a>ではBreusch-Godfrey検定とLjung-Box検定をおこなっているが，残差の自己相関を棄却できない。従って，<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効ではない。</p></li>
 </ul>
 </li>
 <li><p>残差の均一分散（<a class="reference internal" href="#sec-18-1-appendix-a"><span class="std std-ref">付録Ａ</span></a>を参照）</p>
@@ -1302,7 +1302,11 @@ Notes:
 <li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.00021</span>であり、とホワイト検定の値は<span class="output text_plain">1e-07</span>となり，帰無仮説（均一分散）は「通常」の優位性水準では棄却される。</p></li>
 </ul>
 </li>
-<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0</span>であり、推定値の統計的優位性は高いことが確認できる。</p></li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）</p>
+<ul>
+<li><p>この手法を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になる。その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0</span>であり（<a class="reference internal" href="#sec-18-1-appendix-a"><span class="std std-ref">付録Ａ</span></a>を参照）、推定値の統計的優位性は高いことが確認できる。</p></li>
+</ul>
+</li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。（試してみよう！）</p></li>
 </ul>
 <p>式<a class="reference internal" href="#equation-eq-18-eq-p">(127)</a>は<code class="docutils literal notranslate"><span class="pre">AR(1)</span></code>であるため，<span class="math notranslate nohighlight">\(\hat{h}\)</span>は<span class="math notranslate nohighlight">\(p_t\)</span>の自己相関係数でもあり，非常に高い持続性が特徴となっている。</p>
@@ -1329,7 +1333,7 @@ y_t = dp_{t-1} + e_{yt}
 <li><p><span class="math notranslate nohighlight">\(d\equiv -ch\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(e_{yt}\equiv hu_t-chv_t\)</span></p></li>
 </ul>
-<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>とは期間がズレているため<span class="math notranslate nohighlight">\(\text{E}(e_{yt}|p_{t-1})=0\)</span>となり，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
+<p>説明変数である<span class="math notranslate nohighlight">\(p_{t-1}\)</span>は誤差項<span class="math notranslate nohighlight">\(e_{yt}\)</span>とは期間がズレているため，仮定に基づくと<span class="math notranslate nohighlight">\(\text{E}(e_{yt}|p_{t-1})=0\)</span>となり，推定値は一致性を満たすことになる（不偏性は満たさない）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_d</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;gdp_cycle ~ deflator_cycle_lag&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1343,8 +1347,8 @@ y_t = dp_{t-1} + e_{yt}
 Dep. Variable:              gdp_cycle   R-squared:                       0.041
 Model:                            OLS   Adj. R-squared:                  0.035
 Method:                 Least Squares   F-statistic:                     7.398
-Date:                Thu, 02 Jan 2025   Prob (F-statistic):            0.00719
-Time:                        12:43:26   Log-Likelihood:                 492.28
+Date:                Fri, 03 Jan 2025   Prob (F-statistic):            0.00719
+Time:                        01:09:49   Log-Likelihood:                 492.28
 No. Observations:                 175   AIC:                            -980.6
 Df Residuals:                     173   BIC:                            -974.2
 Df Model:                           1                                         
@@ -1371,15 +1375,15 @@ Notes:
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Durbin-Watson</span></code>検定量は<span class="output text_plain">0.633</span>であり残差の正の系列相関が疑われる。</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(t\)</span>検定は無効の可能性がある。</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>検定は無効の可能性を拭えない。</p></li>
 </ul>
 </li>
 <li><p>残差の均一分散（<a class="reference internal" href="#sec-18-1-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）</p>
 <ul>
-<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.03149</span>であり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却される。一方、ホワイト検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0569847</span>となり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却できないが、<code class="docutils literal notranslate"><span class="pre">10</span></code>％では棄却される。従って、不均一分散の可能性も残っている。</p></li>
+<li><p>ブルーシュペーガン検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.03149</span>であり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却される。一方、ホワイト検定の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0569847</span>となり、帰無仮説（均一分散）は有意水準<code class="docutils literal notranslate"><span class="pre">5</span></code>％で棄却できないが、<code class="docutils literal notranslate"><span class="pre">10</span></code>％では棄却される。従って、不均一分散の可能性も残っている。従って，この理由からも<span class="math notranslate nohighlight">\(t\)</span>検定は無効になるかも知れない。</p></li>
 </ul>
 </li>
-<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になるが，その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0406244147</span>であり、推定値の統計的優位性は高いことが確認できる（<a class="reference internal" href="#sec-18-1-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）。この結果に基づき<code class="docutils literal notranslate"><span class="pre">d</span></code>の推定値を採用する。</p></li>
+<li><p>不均一分散自己相関頑健推定（<code class="docutils literal notranslate"><span class="pre">HAC</span></code>）を使うと推定値<code class="docutils literal notranslate"><span class="pre">h</span></code>の<code class="docutils literal notranslate"><span class="pre">t</span></code>検定は有効になる。その場合の<code class="docutils literal notranslate"><span class="pre">deflator_cycle_lag</span></code>の<span class="math notranslate nohighlight">\(p\)</span>値は<span class="output text_plain">0.0406244147</span>であり、推定値の統計的優位性は高いことが確認できる（<a class="reference internal" href="#sec-18-1-appendix-b"><span class="std std-ref">付録Ｂ</span></a>を参照）。この結果に基づき<code class="docutils literal notranslate"><span class="pre">d</span></code>の推定値を採用する。</p></li>
 <li><p>定数項なしで推定しても結果は殆ど変わらない。</p></li>
 </ul>
 <p><span class="math notranslate nohighlight">\(d\)</span>の推定値である<span class="math notranslate nohighlight">\(\hat{d}\)</span>は負であり，モデルに沿った結果である。
@@ -1545,127 +1549,89 @@ vの標準偏差：0.007494
 <span id="id23"></span><h3>付録Ａ<a class="headerlink" href="#sec-18-1-appendix-a" title="Link to this heading">#</a></h3>
 <section id="id24">
 <h4>残差の自己相関の検定<a class="headerlink" href="#id24" title="Link to this heading">#</a></h4>
-<p>式<a class="reference internal" href="#equation-eq-18-regression-h">(129)</a>は自己回帰モデルとなるため，（通常の）ダービン・ワトソン検定（<span class="math notranslate nohighlight">\(d\)</span>検定）は無効となる。その代わりに，次の統計量で与えられるダービンの<span class="math notranslate nohighlight">\(H\)</span>検定を使う。</p>
+<p>式<a class="reference internal" href="#equation-eq-18-regression-h">(129)</a>は自己回帰モデルとなるため，（通常の）ダービン・ワトソン検定（<span class="math notranslate nohighlight">\(d\)</span>検定）は無効となる。その代わりに，Breusch-Godfrey検定を使う。</p>
+<p>＜帰無仮説＞</p>
 <div class="math notranslate nohighlight">
 \[
-H = 
-\left(
-1-\frac{d}{2}
-\right)
-\sqrt{
-    \frac{T}
-        {
-        1-T\times\widehat{\text{Var}}
-        \left(
-        \hat{\beta}
-        \right)
-        }
-}
-\sim{\cal N}(0,1)
+e_{pt}=\rho_{p}e_{pt-1}+e_{pt}
 \]</div>
-<p>ここで</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(H\)</span>：ダービン<span class="math notranslate nohighlight">\(H\)</span>検定統計量</p></li>
-<li><p><span class="math notranslate nohighlight">\(d\)</span>：ダービン・ワトソン（<span class="math notranslate nohighlight">\(d\)</span>）検定統計量</p></li>
-<li><p><span class="math notranslate nohighlight">\(T\)</span>：標本の大きさ</p></li>
-<li><p><span class="math notranslate nohighlight">\(\widehat{\text{Var}}\left(\hat{\beta}\right)\)</span>：<span class="math notranslate nohighlight">\(p_{t-1}\)</span>の係数<code class="docutils literal notranslate"><span class="pre">h</span></code>の分散の推定値</p></li>
-<li><p>仮定：<span class="math notranslate nohighlight">\(1&gt;T\times\widehat{\text{Var}}\left(\hat{\beta}\right)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H_0\)</span>：<span class="math notranslate nohighlight">\(\rho_{p}=0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H_A\)</span>：<span class="math notranslate nohighlight">\(\rho_{p}\ne0\)</span></p></li>
 </ul>
-<p>であり，<span class="math notranslate nohighlight">\(H\)</span>は標準正規分布に従う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_breusch_godfrey</span>
+
+<span class="n">acorr_breusch_godfrey</span><span class="p">(</span><span class="n">res_h</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5.427205281450245,
+ 0.019825381990804594,
+ 5.504888387071769,
+ 0.020102813690939046)
+</pre></div>
+</div>
+</div>
+</div>
+<p>上から次の値となる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(LM\)</span>検定統計量</p></li>
+<li><p><span class="math notranslate nohighlight">\(LM\)</span>検定統計量に関する<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span>検定統計量</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span>検定統計量に関する<span class="math notranslate nohighlight">\(p\)</span>値</p></li>
+</ul>
+<p>5％の有意水準で帰無仮説を棄却できる。即ち，残差の自己相関があるようだ。</p>
+<p>次に，Ljung-Box検定もおこなってみよう。</p>
 <p>＜帰無仮説＞</p>
-<p><span class="math notranslate nohighlight">\(H_0\)</span>：自己相関はない</p>
-<p>＜両側検定＞</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H_0\)</span>：残差は独立分布（無相関）</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_A\)</span>：<span class="math notranslate nohighlight">\(\rho_{p}\ne0\)</span></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
-<span class="n">cv_10</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">cv_025</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
-<span class="n">cv_01</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;有意水準10％：Hの絶対値が </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">cv_10</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> よりも大きい場合，帰無仮説を棄却する。&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;有意水準5％：Hの絶対値が </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">cv_025</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> よりも大きい場合，帰無仮説を棄却する。&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;有意水準1％：Hの絶対値が </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">cv_01</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> よりも大きい場合，帰無仮説を棄却する。&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+
+<span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">res_h</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>有意水準10％：Hの絶対値が 1.645 よりも大きい場合，帰無仮説を棄却する。
-有意水準5％：Hの絶対値が 1.960 よりも大きい場合，帰無仮説を棄却する。
-有意水準1％：Hの絶対値が 2.576 よりも大きい場合，帰無仮説を棄却する。
-</pre></div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lb_stat</th>
+      <th>lb_pvalue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>3.922761</td>
+      <td>0.047637</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
-</div>
-<p>＜<span class="math notranslate nohighlight">\(H\)</span>検定統計量の計算＞</p>
-<p><span class="math notranslate nohighlight">\(d\)</span>の計算</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.stattools</span> <span class="kn">import</span> <span class="n">durbin_watson</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">durbin_watson</span><span class="p">(</span><span class="n">res_h</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
-<span class="n">d</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.6164501184887314
-</pre></div>
-</div>
-</div>
-</div>
-<p>標本の大きさ</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">nobs</span>
-<span class="n">T</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>175.0
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(\widehat{\text{Var}}\left(\hat{\beta}\right)\)</span>の計算</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_h</span> <span class="o">=</span> <span class="n">res_h</span><span class="o">.</span><span class="n">cov_params</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;deflator_cycle_lag&#39;</span><span class="p">,</span><span class="s1">&#39;deflator_cycle_lag&#39;</span><span class="p">]</span>
-<span class="n">var_h</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.001748183392678259
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(H\)</span>検定統計量の計算</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span> <span class="p">)</span> <span class="o">*</span> <span class="p">(</span> <span class="n">T</span> <span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">T</span><span class="o">*</span><span class="n">var_h</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">H</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.045158482774858
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(p\)</span>値の計算</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">-</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.001162788645233337
-</pre></div>
-</div>
-</div>
-</div>
+<p>左の値が検定統計量であり，右の値が<span class="math notranslate nohighlight">\(p\)</span>値となる。5％の有意水準で帰無仮説を棄却される。自己相関が疑われる結果である。</p>
 </section>
 <section id="id25">
 <h4>均一分散の検定<a class="headerlink" href="#id25" title="Link to this heading">#</a></h4>
