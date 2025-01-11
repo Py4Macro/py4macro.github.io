@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -478,14 +478,14 @@
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">linearsolve</span> <span class="k">as</span> <span class="nn">ls</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">linearsolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ls</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -535,14 +535,14 @@ X_{t}&amp;\approx X(1+x_t)
 \end{split}\]</div>
 <p>この式が<span class="math notranslate nohighlight">\(X_t\)</span>の対数線形近似となる。更に，<span class="math notranslate nohighlight">\(Z_t^a\)</span>の線形近似を考えてみよう。<span class="math notranslate nohighlight">\(Z^a\)</span>を定常状態と置いて上の計算の2行目に<span class="math notranslate nohighlight">\(X_t=Z_t^a\)</span>と<span class="math notranslate nohighlight">\(X=Z^a\)</span>を代入してみる。</p>
 <div class="math notranslate nohighlight" id="equation-eq-14-linearapprox">
-<span class="eqno">(165)<a class="headerlink" href="#equation-eq-14-linearapprox" title="Link to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(164)<a class="headerlink" href="#equation-eq-14-linearapprox" title="Link to this equation">#</a></span>\[\begin{split}
 \begin{align*}
 \frac{Z_{t}^a}{Z^a}&amp;\approx 1+\log\left(\frac{Z_{t}^a}{Z^a}\right)\\
 &amp;\approx 1+a\log\left(\frac{Z_{t}}{Z}\right)\\
 Z_t^a&amp;\approx Z^a(1+az_t)
 \end{align*}
 \end{split}\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(z_t=\log\left(\dfrac{Z_t}{Z}\right)\)</span>は<span class="math notranslate nohighlight">\(Z_t\)</span>の％乖離を表している。式<a class="reference internal" href="#equation-eq-14-linearapprox">(165)</a>が<span class="math notranslate nohighlight">\(Z_t^a\)</span>の対数線形近似であり，<span class="math notranslate nohighlight">\(a=1\)</span>の場合を包含する形となっている。</p>
+<p>ここで<span class="math notranslate nohighlight">\(z_t=\log\left(\dfrac{Z_t}{Z}\right)\)</span>は<span class="math notranslate nohighlight">\(Z_t\)</span>の％乖離を表している。式<a class="reference internal" href="#equation-eq-14-linearapprox">(164)</a>が<span class="math notranslate nohighlight">\(Z_t^a\)</span>の対数線形近似であり，<span class="math notranslate nohighlight">\(a=1\)</span>の場合を包含する形となっている。</p>
 </section>
 <section id="id3">
 <h3>例：ソロー・モデル<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
@@ -591,7 +591,7 @@ Y=AK^\alpha
 \quad\Rightarrow\quad
 y_t = a_t+\alpha k_t
 \]</div>
-<p>この場合，線形近似ではなく正確な関係を表している。同じ結果を上の<a class="reference internal" href="#equation-eq-14-linearapprox">(165)</a>式を使って導出してみよう。</p>
+<p>この場合，線形近似ではなく正確な関係を表している。同じ結果を上の<a class="reference internal" href="#equation-eq-14-linearapprox">(164)</a>式を使って導出してみよう。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -601,7 +601,7 @@ Y(1+y_t)&amp;=A(1+a_t)K^\alpha(1+\alpha k_t)\\
 y_t&amp;=\alpha k_t+a_t
 \end{align*}
 \end{split}\]</div>
-<p>最後の行では<span class="math notranslate nohighlight">\(\alpha a_tk_t=0\)</span>としている。％乖離の積は非常に小さな値であるためであり，<a class="reference internal" href="#equation-eq-14-linearapprox">(165)</a>式を導出する上で発生した誤差を表している（誤差は無視できるほど非常に小さい）。</p>
+<p>最後の行では<span class="math notranslate nohighlight">\(\alpha a_tk_t=0\)</span>としている。％乖離の積は非常に小さな値であるためであり，<a class="reference internal" href="#equation-eq-14-linearapprox">(164)</a>式を導出する上で発生した誤差を表している（誤差は無視できるほど非常に小さい）。</p>
 </section>
 </section>
 <section id="id5">
@@ -636,7 +636,7 @@ y_t&amp;=\alpha k_t+a_t
 <h2>全要素生産性（TFP）<a class="headerlink" href="#tfp" title="Link to this heading">#</a></h2>
 <p><span class="math notranslate nohighlight">\(A\)</span>は全要素生産性（TFP）を表しており，次式に従って変化すると考えよう。</p>
 <div class="math notranslate nohighlight" id="equation-eq-14-tfp">
-<span class="eqno">(166)<a class="headerlink" href="#equation-eq-14-tfp" title="Link to this equation">#</a></span>\[
+<span class="eqno">(165)<a class="headerlink" href="#equation-eq-14-tfp" title="Link to this equation">#</a></span>\[
 A_{t+1}=A_t^{\rho}e^{u_{t+1}},
 \quad 0&lt;\rho&lt;1
 \]</div>
@@ -723,7 +723,7 @@ A_{t+1}=A_t,\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>        <span class="c1">#1</span>
     
     <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>        <span class="c1">#2</span>
@@ -863,7 +863,7 @@ a[t+1] = 0.9·a[t]+u[t+1]
 </div>
 </div>
 </div>
-<p>ここで表示された式を考えてみよう。<span class="math notranslate nohighlight">\(A_t\)</span>の定常状態での値は<code class="docutils literal notranslate"><span class="pre">1</span></code>であり，式<a class="reference internal" href="#equation-eq-14-tfp">(166)</a>を次のように書ける。</p>
+<p>ここで表示された式を考えてみよう。<span class="math notranslate nohighlight">\(A_t\)</span>の定常状態での値は<code class="docutils literal notranslate"><span class="pre">1</span></code>であり，式<a class="reference internal" href="#equation-eq-14-tfp">(165)</a>を次のように書ける。</p>
 <div class="math notranslate nohighlight">
 \[\frac{A_{t+1}}{1}=\left(\frac{A_{t}}{1}\right)^\rho e^{u_{t+1}}\]</div>
 <p><span class="math notranslate nohighlight">\(a_{t}\equiv\log\left(\dfrac{A_{t}}{1}\right)\approx\dfrac{A_t-1}{1}\)</span>（定常値からの乖離の割合）を使い，この式の両辺を対数化すると</p>
@@ -1047,7 +1047,7 @@ a[t]=0.95^{t-1}\times 1\%,\qquad\quad t=1,2,3,...
 <span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
 <span class="c1"># 定常状態での均衡の関数</span>
-<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>    
     <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
@@ -1206,18 +1206,18 @@ a[t+1] = 0.9·a[t]+u[t+1]
 <h2>確率的ソロー・モデル<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 <p>次の例としてTFPが確率的に変動するソロー・モデルを考えよう。均衡は次の３つの式で表される。</p>
 <div class="math notranslate nohighlight" id="equation-eq-14-prod-fn">
-<span class="eqno">(167)<a class="headerlink" href="#equation-eq-14-prod-fn" title="Link to this equation">#</a></span>\[
+<span class="eqno">(166)<a class="headerlink" href="#equation-eq-14-prod-fn" title="Link to this equation">#</a></span>\[
 Y_t = A_t K_t^{\alpha}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-14-capital-accum">
-<span class="eqno">(168)<a class="headerlink" href="#equation-eq-14-capital-accum" title="Link to this equation">#</a></span>\[
+<span class="eqno">(167)<a class="headerlink" href="#equation-eq-14-capital-accum" title="Link to this equation">#</a></span>\[
 K_{t+1} = sY_t + (1-d) K_t
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-14-tfplog">
-<span class="eqno">(169)<a class="headerlink" href="#equation-eq-14-tfplog" title="Link to this equation">#</a></span>\[
+<span class="eqno">(168)<a class="headerlink" href="#equation-eq-14-tfplog" title="Link to this equation">#</a></span>\[
 \log A_{t+1} = \rho \log A_t + u_{t+1}
 \]</div>
-<p><a class="reference internal" href="#equation-eq-14-tfplog">(169)</a>式は全要素生産性の変動を表しており，<a class="reference internal" href="#equation-eq-14-tfp">(166)</a>式と同じである。また<span class="math notranslate nohighlight">\(u_{t}\sim\mathcal{N}(0,\sigma^2)\)</span>とする。</p>
+<p><a class="reference internal" href="#equation-eq-14-tfplog">(168)</a>式は全要素生産性の変動を表しており，<a class="reference internal" href="#equation-eq-14-tfp">(165)</a>式と同じである。また<span class="math notranslate nohighlight">\(u_{t}\sim\mathcal{N}(0,\sigma^2)\)</span>とする。</p>
 <ul class="simple">
 <li><p>ストック変数：<span class="math notranslate nohighlight">\(K_t\)</span>, <span class="math notranslate nohighlight">\(A_t\)</span></p></li>
 <li><p>フロー変数：<span class="math notranslate nohighlight">\(Y_t\)</span></p></li>
@@ -1299,7 +1299,7 @@ A_{t+1}=A_t,\quad K_{t+1}=K_t\quad Y_{t+1}=Y_t\quad u_t=0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     
     <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>    <span class="c1">#1</span>
     
@@ -1607,7 +1607,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 </table>
 </div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">u</span></code>は<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっている。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>にジャンプしているが，資本ストックの％乖離である<code class="docutils literal notranslate"><span class="pre">k</span></code>は，<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">0</span></code>のままである。これは式<a class="reference internal" href="#equation-eq-14-capital-accum">(168)</a>が示すように，<code class="docutils literal notranslate"><span class="pre">t</span></code>期の産出<code class="docutils literal notranslate"><span class="pre">Y</span></code>の変化は<code class="docutils literal notranslate"><span class="pre">t+1</span></code>期の資本ストックに影響を与えており，時間的なラグが発生しているためである。また<code class="docutils literal notranslate"><span class="pre">6</span></code>行目から<code class="docutils literal notranslate"><span class="pre">k</span></code>は徐々に増加していることがわかる。この結果は，資本ストックの変化には時間がかかるという特徴を反映したものといえる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">u</span></code>は<code class="docutils literal notranslate"><span class="pre">1.0</span></code>になっている。同様に，<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>も<code class="docutils literal notranslate"><span class="pre">1.0</span></code>にジャンプしているが，資本ストックの％乖離である<code class="docutils literal notranslate"><span class="pre">k</span></code>は，<code class="docutils literal notranslate"><span class="pre">5</span></code>番目の行で<code class="docutils literal notranslate"><span class="pre">0</span></code>のままである。これは式<a class="reference internal" href="#equation-eq-14-capital-accum">(167)</a>が示すように，<code class="docutils literal notranslate"><span class="pre">t</span></code>期の産出<code class="docutils literal notranslate"><span class="pre">Y</span></code>の変化は<code class="docutils literal notranslate"><span class="pre">t+1</span></code>期の資本ストックに影響を与えており，時間的なラグが発生しているためである。また<code class="docutils literal notranslate"><span class="pre">6</span></code>行目から<code class="docutils literal notranslate"><span class="pre">k</span></code>は徐々に増加していることがわかる。この結果は，資本ストックの変化には時間がかかるという特徴を反映したものといえる。</p>
 <p>プロットしてみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1639,7 +1639,7 @@ k[t+1] = 0.07·a[t]+0.9552·k[t]
 <span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>
 
 <span class="c1"># 定常状態での均衡の関数</span>
-<span class="k">def</span> <span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>    
+<span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>    
     <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
     <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>

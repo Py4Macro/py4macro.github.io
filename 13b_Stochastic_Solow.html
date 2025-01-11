@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -468,17 +468,17 @@
 <input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
 </div><br><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-<span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
-<span class="kn">import</span> <span class="nn">py4macro</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py4macro</span>
 
 <span class="c1"># numpy v1の表示を使用</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
 <span class="c1"># 警告メッセージを非表示</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1094,10 +1094,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.535
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.578
 </pre></div>
 </div>
-<img alt="_images/3b51f61252c671e49b945e439507a9d774651eda2a840bd78341e105b7ff4a50.png" src="_images/3b51f61252c671e49b945e439507a9d774651eda2a840bd78341e105b7ff4a50.png" />
+<img alt="_images/0c358be15d2431b8b1c151a841862c3808280c2705de974dcbbf73fa1820632c.png" src="_images/0c358be15d2431b8b1c151a841862c3808280c2705de974dcbbf73fa1820632c.png" />
 </div>
 </div>
 <p>シミュレーションを行う度に図と自己相関係数は異なることになる。</p>
@@ -1460,7 +1460,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <p>シミュレーションのコードを関数としてまとめよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">stochastic_solow</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span>  <span class="c1"># 160=40*4 40年間の四半期の数</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">stochastic_solow</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span>  <span class="c1"># 160=40*4 40年間の四半期の数</span>
                      <span class="n">rho</span><span class="o">=</span><span class="n">rho_tfp</span><span class="p">,</span>
                      <span class="n">sigma</span><span class="o">=</span><span class="n">sigma_tfp</span><span class="p">,</span>
                      <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span>
@@ -1609,98 +1609,98 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
   <tbody>
     <tr>
       <th>0</th>
-      <td>8.500577e+05</td>
+      <td>850057.673739</td>
       <td>1.000000</td>
       <td>0.366461</td>
-      <td>2.722106e+05</td>
-      <td>2.130954e+05</td>
+      <td>272210.617761</td>
+      <td>213095.442439</td>
       <td>59115.175322</td>
-      <td>13.780344</td>
-      <td>-12.728463</td>
-      <td>0.073138</td>
-      <td>-7.313825</td>
-      <td>12.633292</td>
-      <td>-11.896071</td>
-      <td>12.388456</td>
-      <td>-11.896071</td>
-      <td>11.106204</td>
-      <td>-11.896071</td>
+      <td>13.639124</td>
+      <td>1.393544</td>
+      <td>-0.423607</td>
+      <td>42.360684</td>
+      <td>12.085708</td>
+      <td>42.862360</td>
+      <td>11.840872</td>
+      <td>42.862360</td>
+      <td>10.558619</td>
+      <td>42.862360</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>8.879214e+05</td>
-      <td>0.521533</td>
+      <td>887921.407217</td>
+      <td>0.135191</td>
       <td>0.367346</td>
-      <td>1.445601e+05</td>
-      <td>1.131664e+05</td>
-      <td>31393.688704</td>
-      <td>13.836467</td>
-      <td>-13.982835</td>
-      <td>0.080885</td>
-      <td>-73.186687</td>
-      <td>12.663656</td>
-      <td>-78.220508</td>
-      <td>12.418820</td>
-      <td>-78.220508</td>
-      <td>11.136567</td>
-      <td>-78.220508</td>
+      <td>37472.507978</td>
+      <td>29334.714173</td>
+      <td>8137.793805</td>
+      <td>13.686752</td>
+      <td>0.988641</td>
+      <td>-0.378424</td>
+      <td>-162.264530</td>
+      <td>12.150449</td>
+      <td>-161.908620</td>
+      <td>11.905613</td>
+      <td>-161.908620</td>
+      <td>10.623361</td>
+      <td>-161.908620</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>8.971171e+05</td>
-      <td>7.485312</td>
+      <td>873861.165842</td>
+      <td>0.608339</td>
       <td>0.368233</td>
-      <td>2.087540e+06</td>
-      <td>1.634195e+06</td>
-      <td>453344.817356</td>
-      <td>13.892510</td>
-      <td>-18.556844</td>
-      <td>0.088586</td>
-      <td>192.435649</td>
-      <td>12.693945</td>
-      <td>185.755185</td>
-      <td>12.449109</td>
-      <td>185.755185</td>
-      <td>11.166856</td>
-      <td>185.755185</td>
+      <td>168059.851132</td>
+      <td>131562.789974</td>
+      <td>36497.061158</td>
+      <td>13.734389</td>
+      <td>-5.371208</td>
+      <td>-0.332977</td>
+      <td>-16.404635</td>
+      <td>12.215458</td>
+      <td>-18.338270</td>
+      <td>11.970622</td>
+      <td>-18.338270</td>
+      <td>10.688370</td>
+      <td>-18.338270</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.328034e+06</td>
-      <td>1.544094</td>
+      <td>888511.697854</td>
+      <td>0.696344</td>
       <td>0.369123</td>
-      <td>4.971370e+05</td>
-      <td>3.891752e+05</td>
-      <td>107961.777870</td>
-      <td>13.948307</td>
-      <td>15.090339</td>
-      <td>0.095738</td>
-      <td>33.869922</td>
-      <td>12.723597</td>
-      <td>39.302444</td>
-      <td>12.478761</td>
-      <td>39.302444</td>
-      <td>11.196508</td>
-      <td>39.302444</td>
+      <td>193994.408026</td>
+      <td>151865.215799</td>
+      <td>42129.192227</td>
+      <td>13.782049</td>
+      <td>-8.474615</td>
+      <td>-0.288014</td>
+      <td>-7.389791</td>
+      <td>12.279991</td>
+      <td>-10.440652</td>
+      <td>12.035155</td>
+      <td>-10.440652</td>
+      <td>10.752903</td>
+      <td>-10.440652</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.402795e+06</td>
-      <td>0.725768</td>
+      <td>908428.097635</td>
+      <td>1.547272</td>
       <td>0.370015</td>
-      <td>2.388969e+05</td>
-      <td>1.870163e+05</td>
-      <td>51880.526247</td>
-      <td>14.003574</td>
-      <td>15.040307</td>
-      <td>0.103041</td>
-      <td>-42.356623</td>
-      <td>12.753208</td>
-      <td>-36.942112</td>
-      <td>12.508372</td>
-      <td>-36.942112</td>
-      <td>11.226120</td>
-      <td>-36.942112</td>
+      <td>435557.947904</td>
+      <td>340969.115679</td>
+      <td>94588.832225</td>
+      <td>13.829715</td>
+      <td>-11.024351</td>
+      <td>-0.244388</td>
+      <td>68.088147</td>
+      <td>12.343189</td>
+      <td>64.119381</td>
+      <td>12.098353</td>
+      <td>64.119381</td>
+      <td>10.816101</td>
+      <td>64.119381</td>
     </tr>
   </tbody>
 </table>
@@ -1716,7 +1716,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8f29efe00569168d5ff4b9ee085600284c6a8ff50c54389e42d3487aaa3e97ee.png" src="_images/8f29efe00569168d5ff4b9ee085600284c6a8ff50c54389e42d3487aaa3e97ee.png" />
+<img alt="_images/6fc72fc2aca2b5b318aa18a49d3350d6839ecfc0a963f752a31cd9b528fbea18.png" src="_images/6fc72fc2aca2b5b318aa18a49d3350d6839ecfc0a963f752a31cd9b528fbea18.png" />
 </div>
 </div>
 <p>トレンドの傾きは成長率を表しているが，徐々に減少していることが分かる。最初は成長率に対する資本蓄積の効果が大きいが，定常状態に近づくにつれて資本蓄積の効果が減少しているためである。</p>
@@ -1730,7 +1730,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cefc63931e1da6d11040316320687a0b53770cd6f38a3c1400c9d3b082e19ea1.png" src="_images/cefc63931e1da6d11040316320687a0b53770cd6f38a3c1400c9d3b082e19ea1.png" />
+<img alt="_images/0afa663020b6e6d9a724502937f632bfebe078f19adb8bfd8429d412f00886e3.png" src="_images/0afa663020b6e6d9a724502937f632bfebe078f19adb8bfd8429d412f00886e3.png" />
 </div>
 </div>
 <p>絶対値で概ね2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
@@ -1754,11 +1754,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.538
-Cの変動： 0.538
-Iの変動： 0.538
-Kの変動： 0.901
-Aの変動： 0.532
+Yの変動： 0.435
+Cの変動： 0.435
+Iの変動： 0.435
+Kの変動： 0.888
+Aの変動： 0.434
 </pre></div>
 </div>
 </div>
@@ -1842,7 +1842,7 @@ consumptionの変動： 0.493
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： 0.024
+Kの変動： -0.149
 Aの変動： 0.999
 </pre></div>
 </div>
