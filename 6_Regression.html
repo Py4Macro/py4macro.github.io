@@ -543,13 +543,12 @@
 <section id="id4">
 <h3>回帰分析<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>上の散布図に直線のトレンドの描く場合</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-6-regression">
+<span class="eqno">(16)<a class="headerlink" href="#equation-eq-6-regression" title="Link to this equation">#</a></span>\[
 y_i = a+bA_i
 \]</div>
-<p>(eq:6-regression)</p>
 <p>となり，<code class="docutils literal notranslate"><span class="pre">i</span></code>は個々の観測値（即ち，経済）を表す。ここでの目的は，散布図のデータを使い定数項<code class="docutils literal notranslate"><span class="pre">a</span></code>とスロープ係数<code class="docutils literal notranslate"><span class="pre">b</span></code>を計算し直線トレンドを描く事である。</p>
-<p>式<a class="reference internal" href="#eq:6-regression"><code class="xref myst docutils literal notranslate"><span class="pre">eq:6-regression</span></code></a>のパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推計するために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>パッケージを使うが，そのサブパッケージ<code class="docutils literal notranslate"><span class="pre">formula.api</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使うことにより、最小二乗法の多くの計算（例えば、検定値など）を自動で行うことが可能である。また推定式を文字列で書くことができるので直感的にコードを書くことが可能となる。より具体的な説明は<a class="reference external" href="https://py4etrics.github.io">このサイト</a>を参照してほしい。</p>
+<p>式<a class="reference internal" href="#equation-eq-6-regression">(16)</a>のパラメータ<code class="docutils literal notranslate"><span class="pre">b</span></code>を推計するために<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>パッケージを使うが，そのサブパッケージ<code class="docutils literal notranslate"><span class="pre">formula.api</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">ols</span></code>を使うことにより、最小二乗法の多くの計算（例えば、検定値など）を自動で行うことが可能である。また推定式を文字列で書くことができるので直感的にコードを書くことが可能となる。より具体的な説明は<a class="reference external" href="https://py4etrics.github.io">このサイト</a>を参照してほしい。</p>
 <p>次のステップでコードを書く。</p>
 <ol class="arabic simple">
 <li><p>文字列で推定式を書く。</p></li>
@@ -612,7 +611,7 @@ Dep. Variable:             y_relative   R-squared:                       0.851
 Model:                            OLS   Adj. R-squared:                  0.848
 Method:                 Least Squares   F-statistic:                     336.7
 Date:                Sat, 25 Jan 2025   Prob (F-statistic):           4.64e-26
-Time:                        12:41:49   Log-Likelihood:                 49.767
+Time:                        12:58:54   Log-Likelihood:                 49.767
 No. Observations:                  61   AIC:                            -95.53
 Df Residuals:                      59   BIC:                            -91.31
 Df Model:                           1                                         
@@ -916,14 +915,13 @@ dtype: float64
 <span id="id5"></span><h2>回帰分析による発展会計<a class="headerlink" href="#sec-6-regression-da" title="Link to this heading">#</a></h2>
 <section id="id6">
 <h3>説明<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の式<a class="reference internal" href="#eq:riy-decomposition"><code class="xref myst docutils literal notranslate"><span class="pre">eq:riy-decomposition</span></code></a>では，米国の一人当たりGDPを基準として経済<span class="math notranslate nohighlight">\(i\)</span>の一人当たりGDPを次式で表した。</p>
-<div class="math notranslate nohighlight">
-\[
+<p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の式<a class="reference internal" href="5a_Development_Accounting.html#equation-eq-riy-decomposition">(5)</a>では，米国の一人当たりGDPを基準として経済<span class="math notranslate nohighlight">\(i\)</span>の一人当たりGDPを次式で表した。</p>
+<div class="math notranslate nohighlight" id="equation-eq-6-riy">
+<span class="eqno">(17)<a class="headerlink" href="#equation-eq-6-riy" title="Link to this equation">#</a></span>\[
 r_i^y =
 r_i^{\text{tfp}} +
 r_i^{\text{factors}}
 \]</div>
-<p>(eq:6-riy)</p>
 <p>ここで，</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(r_i^y\)</span>：一人当たりGDP（対数; 米国＝１）</p></li>
@@ -931,8 +929,8 @@ r_i^{\text{factors}}
 <li><p><span class="math notranslate nohighlight">\(r_i^{\text{factors}}\)</span>：蓄積生産要素（対数; 米国＝１）</p></li>
 </ul>
 <p>また，それぞれの貢献度を次式で数量化した。</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-6-tfp-contribution">
+<span class="eqno">(18)<a class="headerlink" href="#equation-eq-6-tfp-contribution" title="Link to this equation">#</a></span>\[
 \text{全要素生産性の寄与度}
 \equiv\beta_{\text{tfp}}=
 \dfrac{
@@ -941,9 +939,8 @@ r_i^{\text{factors}}
     \text{Var}(r_i^y)
     }
 \]</div>
-<p>(eq:6-tfp-contribution)</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-6-factors-contribution">
+<span class="eqno">(19)<a class="headerlink" href="#equation-eq-6-factors-contribution" title="Link to this equation">#</a></span>\[
 \text{蓄積生産要素の寄与度}
 \equiv
 \beta_{\text{factors}}=
@@ -953,23 +950,21 @@ r_i^{\text{factors}}
     \text{Var}(r_i^y)
     }    
 \]</div>
-<p>(eq:6-factors-contribution)</p>
 <p>この結果が回帰分析とどのような関係にあるかを確認するために，次の単回帰式を考えよう。</p>
 <div class="math notranslate nohighlight">
 \[
 y_i = a + bx_i+e_i
 \]</div>
 <p>最小二乗法を使い推定すると，スロープ係数の推定値は次式で与えられることになる。</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-eq-6-bhat">
+<span class="eqno">(20)<a class="headerlink" href="#equation-eq-6-bhat" title="Link to this equation">#</a></span>\[
 \hat{b}=\dfrac{
             \text{Cov}\left(y,x\right)
             }{
             \text{Var}(x)
             } 
 \]</div>
-<p>(eq:6-bhat)</p>
-<p>式<a class="reference internal" href="#eq:6-bhat"><code class="xref myst docutils literal notranslate"><span class="pre">eq:6-bhat</span></code></a>と２つの式<a class="reference internal" href="#eq:6-tfp-contribution"><code class="xref myst docutils literal notranslate"><span class="pre">eq:6-tfp-contribution</span></code></a>と<a class="reference internal" href="#eq:6-factors-contribution"><code class="xref myst docutils literal notranslate"><span class="pre">eq:6-factors-contribution</span></code></a>から，次の回帰式を最小二乗法で推定すると<span class="math notranslate nohighlight">\(\beta_{\text{tfp}}\)</span>と<span class="math notranslate nohighlight">\(\beta_{\text{factors}}\)</span>を計算できることが分かる。</p>
+<p>式<a class="reference internal" href="#equation-eq-6-bhat">(20)</a>と２つの式<a class="reference internal" href="#equation-eq-6-tfp-contribution">(18)</a>と<a class="reference internal" href="#equation-eq-6-factors-contribution">(19)</a>から，次の回帰式を最小二乗法で推定すると<span class="math notranslate nohighlight">\(\beta_{\text{tfp}}\)</span>と<span class="math notranslate nohighlight">\(\beta_{\text{factors}}\)</span>を計算できることが分かる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
