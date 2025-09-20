@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="定量的マクロ経済分析：Part 1" href="18_ADAS-1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -720,7 +737,7 @@ y_t = -chp_{t-1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f400a15ff79dff3afbcc12d54c7e20c069a95d4ab3ad5aa401ac72421af8be17.png" src="_images/f400a15ff79dff3afbcc12d54c7e20c069a95d4ab3ad5aa401ac72421af8be17.png" />
+<img alt="_images/0be8c90db17315f22ae50365b54ce03891481af1245e3673bfbb5a630ae65cea.png" src="_images/0be8c90db17315f22ae50365b54ce03891481af1245e3673bfbb5a630ae65cea.png" />
 </div>
 </div>
 <p>このプロットの横軸には返された<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>の行インデックスが使われているが，時系列的なプロットと考えれば良いだろう。<span class="math notranslate nohighlight">\(p_t\)</span>は初期値である１から始まっており，<span class="math notranslate nohighlight">\(y_t\)</span>の初期値は式<a class="reference internal" href="#equation-eq-18-eq-y-u0">(137)</a>で計算した値である。このプロットから次のことが確認できる。</p>
@@ -737,7 +754,7 @@ y_t = -chp_{t-1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/96c22a26438e8a6300103d262fb710a259ce95231e076c87f75c4ab849a43dee.png" src="_images/96c22a26438e8a6300103d262fb710a259ce95231e076c87f75c4ab849a43dee.png" />
+<img alt="_images/25d4618e67ad365495d53a17113f9aff2e62dd2df64be555bc67251cb475d774.png" src="_images/25d4618e67ad365495d53a17113f9aff2e62dd2df64be555bc67251cb475d774.png" />
 </div>
 </div>
 <p>また，このプロットから長期均衡<span class="math notranslate nohighlight">\((0,0)\)</span>に近づくにつれて，経済の動きが小刻みになっているのも確認できる。<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>の変化が小さくなり，動くスピードが遅くなっている。実は，式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(136)</a>を使うと，<span class="math notranslate nohighlight">\(p_t\)</span>が<code class="docutils literal notranslate"><span class="pre">0</span></code>に近づく変化率を簡単に計算することができる。式<a class="reference internal" href="#equation-eq-18-eq-p-v0">(136)</a>を次のように書き直そう。</p>
@@ -774,7 +791,7 @@ p_t\text{の変化率}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/52ee0bdbee7a42a082e7502b59aff2d51450b88c799563f7d7357662df33182d.png" src="_images/52ee0bdbee7a42a082e7502b59aff2d51450b88c799563f7d7357662df33182d.png" />
+<img alt="_images/8b736a8031e0205e4428002a9b1f29d35e2c431f5e48d41c83be50c53d1a15da.png" src="_images/8b736a8031e0205e4428002a9b1f29d35e2c431f5e48d41c83be50c53d1a15da.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -785,7 +802,7 @@ p_t\text{の変化率}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dba9cc2d380cda3e29dedcd9a370342468bd4371d76eb72f1857ec9a9c9b5728.png" src="_images/dba9cc2d380cda3e29dedcd9a370342468bd4371d76eb72f1857ec9a9c9b5728.png" />
+<img alt="_images/bb13c5b5f220d55d152012f6a2cfc392a44256f2ba69f8bb10e3ee0094c17f2b.png" src="_images/bb13c5b5f220d55d152012f6a2cfc392a44256f2ba69f8bb10e3ee0094c17f2b.png" />
 </div>
 </div>
 </section>
@@ -880,7 +897,7 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/24b6ce570e1dd6cc4002e96853da421e39b708a1fa74d5f7abd187fa85e0c9ff.png" src="_images/24b6ce570e1dd6cc4002e96853da421e39b708a1fa74d5f7abd187fa85e0c9ff.png" />
+<img alt="_images/b3cd8e6dc9baaee80163e1b3866caacd7510c90a2134ff3f00b9c45ae1a0973e.png" src="_images/b3cd8e6dc9baaee80163e1b3866caacd7510c90a2134ff3f00b9c45ae1a0973e.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-as-shock"><span class="std std-numref">Fig. 11</span></a>を使って説明しよう。</p>
@@ -899,7 +916,8 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </li>
 </ul>
 <figure class="align-default" id="fig-18-adas-as-shock">
-<a class="reference internal image-reference" href="_images/asas_as_shock.jpeg"><img alt="_images/asas_as_shock.jpeg" src="_images/asas_as_shock.jpeg" style="width: 414.04999999999995px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/asas_as_shock.jpeg"><img alt="_images/asas_as_shock.jpeg" src="_images/asas_as_shock.jpeg" style="width: 414.04999999999995px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 11 </span><span class="caption-text">総供給ショックによるインパルス反応</span><a class="headerlink" href="#fig-18-adas-as-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -915,7 +933,7 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f80a76a4d64df7e369bf73dfcf3a9d23265e3b145d7d2ec3e10d9d403ba6b645.png" src="_images/f80a76a4d64df7e369bf73dfcf3a9d23265e3b145d7d2ec3e10d9d403ba6b645.png" />
+<img alt="_images/ae54965cd91ce6f96a2b5399cfced0d6c9b0550e9c21588b59ea68d4655b8036.png" src="_images/ae54965cd91ce6f96a2b5399cfced0d6c9b0550e9c21588b59ea68d4655b8036.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-ad-shock"><span class="std std-numref">Fig. 12</span></a>を使って説明しよう。</p>
@@ -934,7 +952,8 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </li>
 </ul>
 <figure class="align-default" id="fig-18-adas-ad-shock">
-<a class="reference internal image-reference" href="_images/asas_ad_shock.jpeg"><img alt="_images/asas_ad_shock.jpeg" src="_images/asas_ad_shock.jpeg" style="width: 406.34999999999997px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/asas_ad_shock.jpeg"><img alt="_images/asas_ad_shock.jpeg" src="_images/asas_ad_shock.jpeg" style="width: 406.34999999999997px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 12 </span><span class="caption-text">総需要ショックによるインパルス反応</span><a class="headerlink" href="#fig-18-adas-ad-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -950,7 +969,7 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a47bf9b9af637aec9d7db94938e22c5d1a3a9c37728ee9c0467265f75e93282c.png" src="_images/a47bf9b9af637aec9d7db94938e22c5d1a3a9c37728ee9c0467265f75e93282c.png" />
+<img alt="_images/108cb464b8278803fb9837533f7367d1861c7ddce78112052851df357377e7c7.png" src="_images/108cb464b8278803fb9837533f7367d1861c7ddce78112052851df357377e7c7.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-18-adas-adas-shock"><span class="std std-numref">Fig. 13</span></a>を使って説明しよう。</p>
@@ -973,7 +992,8 @@ y_t = -chp_{t-1} + h(u_t-cv_t)
 </li>
 </ul>
 <figure class="align-default" id="fig-18-adas-adas-shock">
-<a class="reference internal image-reference" href="_images/asas_adas_shock.jpeg"><img alt="_images/asas_adas_shock.jpeg" src="_images/asas_adas_shock.jpeg" style="width: 416.5px; height: 349.65px;" /></a>
+<a class="reference internal image-reference" href="_images/asas_adas_shock.jpeg"><img alt="_images/asas_adas_shock.jpeg" src="_images/asas_adas_shock.jpeg" style="width: 416.5px; height: 349.65px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 13 </span><span class="caption-text">総需要ショックと総供給ショックの同時発生によるインパルス反応</span><a class="headerlink" href="#fig-18-adas-adas-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -1076,7 +1096,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bcb80152d86c89e81ae34bfc13dec4dd93b1b6736d0815f6b8228d35281acab1.png" src="_images/bcb80152d86c89e81ae34bfc13dec4dd93b1b6736d0815f6b8228d35281acab1.png" />
+<img alt="_images/f9f8f3a0cf551acb416ff863677fdbb7228a9ee4ba0e338b9ba0049a7e31f826.png" src="_images/f9f8f3a0cf551acb416ff863677fdbb7228a9ee4ba0e338b9ba0049a7e31f826.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(u_t\)</span>と<span class="math notranslate nohighlight">\(v_t\)</span>が毎期毎期変動しており，その結果として<span class="math notranslate nohighlight">\(p_t\)</span>と<span class="math notranslate nohighlight">\(y_t\)</span>が変動していることになる。
@@ -1095,7 +1115,7 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9d8fa7d047bec1a81a0e3ed7f83fe21d2c47f50cdc76ad8736bacbfdb2627d89.png" src="_images/9d8fa7d047bec1a81a0e3ed7f83fe21d2c47f50cdc76ad8736bacbfdb2627d89.png" />
+<img alt="_images/2fec0f47b37612fea6153bc84558f004c26ef9d50f38696e9a97640805247c0e.png" src="_images/2fec0f47b37612fea6153bc84558f004c26ef9d50f38696e9a97640805247c0e.png" />
 </div>
 </div>
 <p>このプロットから次の点を確認できる。</p>
@@ -1110,10 +1130,10 @@ v_t\sim N(0,\sigma_v^2)
 <h3>GDPと価格水準の乖離率の標準偏差<a class="headerlink" href="#gdp" title="Link to this heading">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;jpn-q&#39;</span><span class="p">)</span>
@@ -1149,8 +1169,8 @@ v_t\sim N(0,\sigma_v^2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01346
-pの標準偏差:0.02471
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yの標準偏差:0.01344
+pの標準偏差:0.02464
 </pre></div>
 </div>
 </div>
@@ -1164,10 +1184,10 @@ pの標準偏差:0.02471
 <h3>自己相関係数<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_autocorr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
@@ -1201,7 +1221,7 @@ pの標準偏差:0.02471
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y:0.025
-p:0.818
+p:0.816
 </pre></div>
 </div>
 </div>
@@ -1215,10 +1235,10 @@ p:0.818
 <h3><code class="docutils literal notranslate"><span class="pre">p</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の乖離率の相関係数：同時期<a class="headerlink" href="#py" title="Link to this heading">#</a></h3>
 <p><strong>データの値（再掲）</strong></p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yp_corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;gdp_cycle&#39;</span><span class="p">,</span> <span class="s1">&#39;deflator_cycle&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -1247,7 +1267,7 @@ p:0.818
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.0604253127758243
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.05936823048010544
 </pre></div>
 </div>
 </div>
@@ -1278,11 +1298,11 @@ p:0.818
 <td><p><span class="pasted-text">-0.15298</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>WNショック</p></td>
-<td><p><span class="pasted-text">0.01346</span></p></td>
-<td><p><span class="pasted-text">0.02471</span></p></td>
-<td><p><span class="pasted-text">0.02527</span></p></td>
-<td><p><span class="pasted-text">0.81779</span></p></td>
-<td><p><span class="pasted-text">-0.06043</span></p></td>
+<td><p><span class="pasted-text">0.01344</span></p></td>
+<td><p><span class="pasted-text">0.02464</span></p></td>
+<td><p><span class="pasted-text">0.02526</span></p></td>
+<td><p><span class="pasted-text">0.81552</span></p></td>
+<td><p><span class="pasted-text">-0.05937</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -1326,7 +1346,8 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 典型的な例として，計量経済分析が当てはまる。
 推定されたモデルは，帰納的推論の<strong>アウトプット</strong>ということになる。</p>
 <figure class="align-default" id="fig-18-inductive">
-<a class="reference internal image-reference" href="_images/inductive.png"><img alt="_images/inductive.png" src="_images/inductive.png" style="width: 567.6999999999999px; height: 396.2px;" /></a>
+<a class="reference internal image-reference" href="_images/inductive.png"><img alt="_images/inductive.png" src="_images/inductive.png" style="width: 567.6999999999999px; height: 396.2px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 14 </span><span class="caption-text">帰納的推論</span><a class="headerlink" href="#fig-18-inductive" title="Link to this image">#</a></p>
 </figcaption>
@@ -1339,7 +1360,8 @@ u_t=\rho_u u_{t-1}+e^u_t,\qquad e^u_t\sim\text{WN}(0,\sigma_{eu}^2)
 また，この章の目的はADASモデルが真のモデルかどうかを判断しようということではない。
 従って，データの特徴の一部を説明できないのは，単にADASモデルの限界を表していると解釈できる。</p>
 <figure class="align-default" id="fig-18-deductive">
-<a class="reference internal image-reference" href="_images/deductive.png"><img alt="_images/deductive.png" src="_images/deductive.png" style="width: 563.5px; height: 351.4px;" /></a>
+<a class="reference internal image-reference" href="_images/deductive.png"><img alt="_images/deductive.png" src="_images/deductive.png" style="width: 563.5px; height: 351.4px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 15 </span><span class="caption-text">演繹的推論</span><a class="headerlink" href="#fig-18-deductive" title="Link to this image">#</a></p>
 </figcaption>
@@ -1445,8 +1467,8 @@ e_{pt}=ahu_{t}+hv_{t}
 </li>
 </ul>
 <p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(p_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#equation-eq-18-eq-varp2">(143)</a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(p_{t})\)</span>で割ると次式となる。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-20f56994-77cd-4ca9-96db-e95ce77ba516">
-<span class="eqno">(144)<a class="headerlink" href="#equation-20f56994-77cd-4ca9-96db-e95ce77ba516" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-15e3671c-2d28-477a-8c11-16314c4c771c">
+<span class="eqno">(144)<a class="headerlink" href="#equation-15e3671c-2d28-477a-8c11-16314c4c771c" title="Permalink to this equation">#</a></span>\[\begin{align}
 1&amp;=
 \frac{(ah)^2}{1-h^2}\cdot\frac{\text{Var}(u_{t})}{\text{Var}(p_{t})}
 +\frac{h^2}{1-h^2}\cdot\frac{\text{Var}(v_{t})}{\text{Var}(p_{t})}
@@ -1554,8 +1576,8 @@ e_{yt}=hu_t-chv_t
 <li><p><span class="math notranslate nohighlight">\(p_t\)</span>の総変動の大きさ（水準）を決定する上で，<span class="math notranslate nohighlight">\(h\)</span> が重要な役割を果たしている。<span class="math notranslate nohighlight">\(h\)</span>はは約<code class="docutils literal notranslate"><span class="pre">0.8</span></code>であり<span class="math notranslate nohighlight">\(p_t\)</span>の高い持続性を意味する。持続性が高い場合，一旦総供給曲線が定常状態の位置から離れると元の位置に戻るには時間が掛かることになる。即ち，定常状態から離れた状態が長くなる。そのような状況下で，更にショックが発生すると，定常状態から更に乖離する結果につながることになり，変動が増幅されることになる。その効果が<span class="math notranslate nohighlight">\(\dfrac{h^2}{1-h^2}\)</span>で捉えられている。</p></li>
 </ul>
 <p>需要ショックと供給ショックに起因する<span class="math notranslate nohighlight">\(y_t\)</span>の変動の<strong>割合</strong>を計算するために，式<a class="reference internal" href="#equation-eq-18-eq-vary2">(149)</a>の両辺を<span class="math notranslate nohighlight">\(\text{Var}(y_{t})\)</span>で割ると次式となる。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-65e19d4c-7988-4d46-979b-054f201e94fc">
-<span class="eqno">(150)<a class="headerlink" href="#equation-65e19d4c-7988-4d46-979b-054f201e94fc" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-160b5fab-fc81-44ea-a6a1-54c93802c656">
+<span class="eqno">(150)<a class="headerlink" href="#equation-160b5fab-fc81-44ea-a6a1-54c93802c656" title="Permalink to this equation">#</a></span>\[\begin{align}
 1
 &amp;=\frac{h^2}{1-h^2}2ach\frac{\text{Var}(u_{t})}{\text{Var}(y_{t})}
 +\frac{h^2}{1-h^2}c^2\frac{\text{Var}(v_{t})}{\text{Var}(y_{t})}\\
@@ -1653,7 +1675,8 @@ e_{yt}=hu_t-chv_t
 </ul>
 <p><span class="math notranslate nohighlight">\(1/c\)</span> の値は<code class="docutils literal notranslate"><span class="pre">3</span></code>よりも大きく，<span class="math notranslate nohighlight">\(1/c\)</span> が大きいケースが当てはまる。この場合，<span class="math notranslate nohighlight">\(y_t\)</span>に対する総供給ショックのインパクトは小さな値となり，相対的に総需要ショックの寄与度が高くなっていると考えられる。</p>
 <figure class="align-default" id="fig-18-y-uv">
-<a class="reference internal image-reference" href="_images/adas-y-uv.jpeg"><img alt="_images/adas-y-uv.jpeg" src="_images/adas-y-uv.jpeg" style="width: 433.65px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/adas-y-uv.jpeg"><img alt="_images/adas-y-uv.jpeg" src="_images/adas-y-uv.jpeg" style="width: 433.65px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 16 </span><span class="caption-text">総需要曲線の傾きが大きい場合，GDPの乖離率の変動における総供給ショックの影響は小さくなる。</span><a class="headerlink" href="#fig-18-y-uv" title="Link to this image">#</a></p>
 </figcaption>
@@ -1663,7 +1686,8 @@ e_{yt}=hu_t-chv_t
 <span class="math notranslate nohighlight">\(a\)</span> の値は<code class="docutils literal notranslate"><span class="pre">1</span></code>よりも小さいため，需要ショックの影響は若干 <span class="math notranslate nohighlight">\(y_t\)</span> に対して大きく現れることになる。
 これらの理由により，<span class="math notranslate nohighlight">\(y_t\)</span> に対する需要ショックの相対的な寄与度が高くなっていると考えられる。</p>
 <figure class="align-default" id="fig-18-p-uv">
-<a class="reference internal image-reference" href="_images/adas-p-uv.jpeg"><img alt="_images/adas-p-uv.jpeg" src="_images/adas-p-uv.jpeg" style="width: 433.29999999999995px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/adas-p-uv.jpeg"><img alt="_images/adas-p-uv.jpeg" src="_images/adas-p-uv.jpeg" style="width: 433.29999999999995px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 17 </span><span class="caption-text">物価水準の乖離率の変動において総供給ショックの影響が大きい理由</span><a class="headerlink" href="#fig-18-p-uv" title="Link to this image">#</a></p>
 </figcaption>
@@ -1725,7 +1749,7 @@ e_{yt}=hu_t-chv_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/257bc5f4d4eacd2a42c51f879e3da959a6b341adf0dbab56b37fa89e4c107a94.png" src="_images/257bc5f4d4eacd2a42c51f879e3da959a6b341adf0dbab56b37fa89e4c107a94.png" />
+<img alt="_images/0f525e45564695e06aa7cf7516613690c37c4521ac6283bbf4e5dda812030f4a.png" src="_images/0f525e45564695e06aa7cf7516613690c37c4521ac6283bbf4e5dda812030f4a.png" />
 </div>
 </div>
 <p>このプロットを眺めることにより，総需要ショックと総供給ショックがどれだけ景気循環に影響を及ぼしているかが分かるだろうか。もちろん否である。ADASモデルを「装置」として用いて，「スイッチ」を調整することにより，結果が数字として現れてくることになる。
@@ -1768,8 +1792,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 <section id="b">
 <span id="sec-18-2-appendix-b"></span><h3>付録Ｂ：式<a class="reference internal" href="#equation-eq-18-eq-vary2">(149)</a>の導出<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
 <p>式<a class="reference internal" href="#equation-eq-18-eq-varp2">(143)</a>と式<a class="reference internal" href="#equation-eq-18-eq-varyp">(148)</a>を式<a class="reference internal" href="#equation-eq-18-eq-vary">(146)</a>に代入し整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7895ad13-6d86-4940-9b2d-5851c25819e9">
-<span class="eqno">(151)<a class="headerlink" href="#equation-7895ad13-6d86-4940-9b2d-5851c25819e9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c21d7442-b1e5-430b-b2b4-2cd69fef7e78">
+<span class="eqno">(151)<a class="headerlink" href="#equation-c21d7442-b1e5-430b-b2b4-2cd69fef7e78" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Var}(y_{t})
 &amp;=(ch)^2\text{Var}(p_{t})+\text{Var}(e_{yt})\\
 &amp;=(ch)^2\left[
@@ -1793,8 +1817,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 +\frac{(ch)^2}{1-h^2}\text{Var}(v_{t})
 \end{align}\]</div>
 <p>ここで</p>
-<div class="amsmath math notranslate nohighlight" id="equation-412c92fd-8b37-4e6d-8ee3-40e6b02b8e76">
-<span class="eqno">(152)<a class="headerlink" href="#equation-412c92fd-8b37-4e6d-8ee3-40e6b02b8e76" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-15243cf7-4e4c-4fcc-a05c-bc9edc33039e">
+<span class="eqno">(152)<a class="headerlink" href="#equation-15243cf7-4e4c-4fcc-a05c-bc9edc33039e" title="Permalink to this equation">#</a></span>\[\begin{align}
 1+(ach)^2-h^2
 &amp;=1+h^2[(ac)^2-1]=1+\frac{(ac)^2-1}{(1+ac)^2}\\
 &amp;=1+\frac{(ac+1)(ac-1)}{(1+ac)^2}=1+\frac{ac-1}{1+ac}\\
@@ -1806,8 +1830,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 <section id="c-u-y-v-y">
 <span id="sec-18-2-appendix-c"></span><h3>付録Ｃ：式(u-y)と(v-y)の導出<a class="headerlink" href="#c-u-y-v-y" title="Link to this heading">#</a></h3>
 <p>式(u-y)に式<a class="reference internal" href="#equation-eq-18-eq-vary2">(149)</a>を代入して整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1edc0f38-8430-44ac-8a27-d7dbb8b7195a">
-<span class="eqno">(153)<a class="headerlink" href="#equation-1edc0f38-8430-44ac-8a27-d7dbb8b7195a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d1a29da0-0348-4749-9baf-e5d7e7d50637">
+<span class="eqno">(153)<a class="headerlink" href="#equation-d1a29da0-0348-4749-9baf-e5d7e7d50637" title="Permalink to this equation">#</a></span>\[\begin{align}
 \left[
 \begin{split}
 &amp;y_t\text{の変動に対する}\\
@@ -1834,8 +1858,8 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
 \tag{u-y}
 \end{align}\]</div>
 <p>同様に式(v-y)に式<a class="reference internal" href="#equation-eq-18-eq-vary2">(149)</a>を代入して整理する。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a0eede3c-fbfa-4b15-b5d3-b7ac7db6570b">
-<span class="eqno">(154)<a class="headerlink" href="#equation-a0eede3c-fbfa-4b15-b5d3-b7ac7db6570b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-50ae33ff-b27e-482e-9152-67fe5134b149">
+<span class="eqno">(154)<a class="headerlink" href="#equation-50ae33ff-b27e-482e-9152-67fe5134b149" title="Permalink to this equation">#</a></span>\[\begin{align}
 \left[
 \begin{split}
 &amp;p_t\text{の変動に対する}\\
@@ -1919,8 +1943,7 @@ ADASモデルは，研究や政策議論で使われるモデルと比べると�
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1998,7 +2021,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -2025,8 +2048,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

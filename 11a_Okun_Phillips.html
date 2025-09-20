@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="主なマクロ・データの特徴" href="10_Data_Fluctuation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -536,7 +553,7 @@ memory usage: 5.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6b474d05e1524f53c1e4e4de10d4b875d265fa0e3b3e6335a608c36ab574e4bd.png" src="_images/6b474d05e1524f53c1e4e4de10d4b875d265fa0e3b3e6335a608c36ab574e4bd.png" />
+<img alt="_images/1b97c5c89f617172478a362388c6d13365bebd35ff52bb4455ae2b96bb789028.png" src="_images/1b97c5c89f617172478a362388c6d13365bebd35ff52bb4455ae2b96bb789028.png" />
 </div>
 </div>
 <p>最初に気づく点は，<a class="reference internal" href="10_Data_Fluctuation.html#chap-10-gdp"><span class="std std-ref">前章</span></a>で説明した持続性（変化が正（もしくは負）であれば正（もしくは負）の期間が続く傾向にある特徴）が高いとことである。実際，メソッド<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code>を使い自己相関係数を計算すると非常に高い値が返される。</p>
@@ -593,7 +610,7 @@ memory usage: 5.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/208cb2590ed7e1004083fb460a5b743216c789c9138b0eb9f8eb4dd8644c178d.png" src="_images/208cb2590ed7e1004083fb460a5b743216c789c9138b0eb9f8eb4dd8644c178d.png" />
+<img alt="_images/a0ce982130900f28a0f48afadc30d4837617f0ac3b27414f190cbf7899daf03a.png" src="_images/a0ce982130900f28a0f48afadc30d4837617f0ac3b27414f190cbf7899daf03a.png" />
 </div>
 </div>
 <p>概ね逆方向に上下していることがわかる。またバブル景気の崩壊後やリーマン・ショック後に，２変数は逆方向に大きく動いていることも確認できる。相関度を確かめるために，<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">corr()</span></code>を使い相関係数を計算しよう。</p>
@@ -650,7 +667,7 @@ memory usage: 5.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788747033
 </pre></div>
 </div>
 </div>
@@ -662,7 +679,7 @@ memory usage: 5.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8747098429840862
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8747098429841057
 </pre></div>
 </div>
 </div>
@@ -706,8 +723,8 @@ memory usage: 5.5 KB
 Dep. Variable:              gdp_cycle   R-squared:                       0.391
 Model:                            OLS   Adj. R-squared:                  0.387
 Method:                 Least Squares   F-statistic:                     111.5
-Date:                Mon, 27 Jan 2025   Prob (F-statistic):           1.84e-20
-Time:                        12:55:50   Log-Likelihood:                -275.03
+Date:                Sat, 20 Sep 2025   Prob (F-statistic):           1.84e-20
+Time:                        00:09:36   Log-Likelihood:                -275.03
 No. Observations:                 176   AIC:                             554.1
 Df Residuals:                     174   BIC:                             560.4
 Df Model:                           1                                         
@@ -715,7 +732,7 @@ Covariance Type:            nonrobust
 ================================================================================
                    coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------
-Intercept     6.296e-12      0.088   7.19e-11      1.000      -0.173       0.173
+Intercept    -8.389e-12      0.088  -9.58e-11      1.000      -0.173       0.173
 u_rate_cycle    -4.0608      0.384    -10.562      0.000      -4.820      -3.302
 ==============================================================================
 Omnibus:                      118.833   Durbin-Watson:                   1.047
@@ -787,7 +804,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/241f2d18905a88c9c5e182f3a6905dcd82fea789170b31d05a2b10b6e0c5278f.png" src="_images/241f2d18905a88c9c5e182f3a6905dcd82fea789170b31d05a2b10b6e0c5278f.png" />
+<img alt="_images/4874d10a4daa2a3646c77701a4da61560e88ccddf0d7399870decd6f229c4f79.png" src="_images/4874d10a4daa2a3646c77701a4da61560e88ccddf0d7399870decd6f229c4f79.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -832,7 +849,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/198c49a700e0a9ce18174e238ffbf0eaf41d937b88bd693bbc583acbf00ad18f.png" src="_images/198c49a700e0a9ce18174e238ffbf0eaf41d937b88bd693bbc583acbf00ad18f.png" />
+<img alt="_images/0aa8e833c5f3eb69d984c08b71f56f9adfcc68a9aa02e2f391d1c9e6023f2da7.png" src="_images/0aa8e833c5f3eb69d984c08b71f56f9adfcc68a9aa02e2f391d1c9e6023f2da7.png" />
 </div>
 </div>
 <p>上下しているのが，過去約35年間は非常に安定している。図から持続性が強いことがわかるが，実際に計算してみよう。</p>
@@ -860,7 +877,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3db7400d86e83876e9ad9578c372e9df5332c06c09023d59ae320eb03f1478a1.png" src="_images/3db7400d86e83876e9ad9578c372e9df5332c06c09023d59ae320eb03f1478a1.png" />
+<img alt="_images/f61e217c6665e0c03683d0f609298227460885298f7dba3e9bcd0315b63523ce.png" src="_images/f61e217c6665e0c03683d0f609298227460885298f7dba3e9bcd0315b63523ce.png" />
 </div>
 </div>
 <p>同じ方向に動く傾向が確認できる。相関係数を計算してみる。</p>
@@ -916,7 +933,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7897360588940279
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7897360588940322
 </pre></div>
 </div>
 </div>
@@ -934,7 +951,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6a39ef577c38287a182b1b20d17eb18064fd7203cc682b40a1281950887cd125.png" src="_images/6a39ef577c38287a182b1b20d17eb18064fd7203cc682b40a1281950887cd125.png" />
+<img alt="_images/3cf84a720e4a299817461bf6ab19152791cea1f7882fda02e9200a21781431ab.png" src="_images/3cf84a720e4a299817461bf6ab19152791cea1f7882fda02e9200a21781431ab.png" />
 </div>
 </div>
 <p>右下がりであり式<a class="reference internal" href="#equation-eq-11-phillips">(108)</a>と整合的にみえる。上の散布図に１つの曲線を描いてそれをPC曲線と呼ぶこともできるだろう。一方で，次の問題を考えてみよう。</p>
@@ -1097,7 +1114,7 @@ Name: decade, Length: 176, dtype: int32
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/82e81afb95a0c0f444aad4b87496b00c138fca7d7462e8aea24d355449c7ccd5.png" src="_images/82e81afb95a0c0f444aad4b87496b00c138fca7d7462e8aea24d355449c7ccd5.png" />
+<img alt="_images/be2092e817c1f94ed278f3a93092a6afdb02b90fa9e8bb83e71d5a62787e1a81.png" src="_images/be2092e817c1f94ed278f3a93092a6afdb02b90fa9e8bb83e71d5a62787e1a81.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1193,8 +1210,7 @@ Name: decade, Length: 176, dtype: int32
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1240,7 +1256,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -1267,8 +1283,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

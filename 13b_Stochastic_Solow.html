@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="IS-MP-PCモデル" href="12_IS-MP-PC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -584,7 +601,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/120d06f405405c29ae068b310cb0b5144d2cde8af597330809f620f42e991b56.png" src="_images/120d06f405405c29ae068b310cb0b5144d2cde8af597330809f620f42e991b56.png" />
+<img alt="_images/73f2d73de17c9c6b2ce1fe058abdafabaf57596b8140499b3edbb0da55efd42e.png" src="_images/73f2d73de17c9c6b2ce1fe058abdafabaf57596b8140499b3edbb0da55efd42e.png" />
 </div>
 </div>
 <p>平均労働時間は長期的に減少傾向にある。2020年の平均が100に標準化しているので，1980年代には約25％長かったことを示している。次に，就業者数を図示する。</p>
@@ -597,7 +614,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/149de462b3ea06df6d8fd18001881343fc6d37a0411b3059cdf0c644550552dc.png" src="_images/149de462b3ea06df6d8fd18001881343fc6d37a0411b3059cdf0c644550552dc.png" />
+<img alt="_images/182c3412e7aafb16c0236cfb1eb054edb378345c78e47ec010a78718f6154c1a.png" src="_images/182c3412e7aafb16c0236cfb1eb054edb378345c78e47ec010a78718f6154c1a.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -615,7 +632,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/94bb86e5ef8ece93739c16f41ef22a443348fb6690c09146bdcfa7b88b53f872.png" src="_images/94bb86e5ef8ece93739c16f41ef22a443348fb6690c09146bdcfa7b88b53f872.png" />
+<img alt="_images/cebd916d4023d91179c4ded47b7e50d6351ce41cea48fd354ee2a242f95681a8.png" src="_images/cebd916d4023d91179c4ded47b7e50d6351ce41cea48fd354ee2a242f95681a8.png" />
 </div>
 </div>
 <p>バブル崩壊後は減少傾向にあるが，過去１０年間に持ち直して来ている。これは雇用の拡大の要因が大きい。</p>
@@ -629,7 +646,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10d067017c9b8142a2141d4afb30a7e2303bf6f4180b9122c701abf43c68a348.png" src="_images/10d067017c9b8142a2141d4afb30a7e2303bf6f4180b9122c701abf43c68a348.png" />
+<img alt="_images/ae8d1189feb8f7188539549b21893fca547977a0c0a8c44036a9a22a1c3ac4eb.png" src="_images/ae8d1189feb8f7188539549b21893fca547977a0c0a8c44036a9a22a1c3ac4eb.png" />
 </div>
 </div>
 <p>次の２つの点を指摘できる。</p>
@@ -701,7 +718,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="_images/6b8ac5be4bb3be817fd245061ccc0281adb0e5f9aa77e0287e4a7fbc3b4d486c.png" src="_images/6b8ac5be4bb3be817fd245061ccc0281adb0e5f9aa77e0287e4a7fbc3b4d486c.png" />
+<img alt="_images/4ba5038492e44150cd8e5510d0253d73ed5ac9fac0eba6fe819da8c3c7145bab.png" src="_images/4ba5038492e44150cd8e5510d0253d73ed5ac9fac0eba6fe819da8c3c7145bab.png" />
 </div>
 </div>
 </section>
@@ -729,7 +746,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="_images/19ce55e87a455675398faff2b836ec4fdea4e276897b728c0605de6eb609b5d6.png" src="_images/19ce55e87a455675398faff2b836ec4fdea4e276897b728c0605de6eb609b5d6.png" />
+<img alt="_images/e87ad448f95f65422c1e3b89b961aad9b84ca86eedf06e4f19e8028aef8b56ba.png" src="_images/e87ad448f95f65422c1e3b89b961aad9b84ca86eedf06e4f19e8028aef8b56ba.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -739,7 +756,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9510630841045522
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9510630841084329
 </pre></div>
 </div>
 </div>
@@ -751,7 +768,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.14612872804947433
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.146128728047154
 </pre></div>
 </div>
 </div>
@@ -766,7 +783,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="_images/2bf259aa779e298aec5de34afc3cfda2ce4532ac284bd6bf9fb0c8357e8214e3.png" src="_images/2bf259aa779e298aec5de34afc3cfda2ce4532ac284bd6bf9fb0c8357e8214e3.png" />
+<img alt="_images/4678f357374eaf9e855f143f8af9b8f77329b6662ec750b4986c76cc8274048c.png" src="_images/4678f357374eaf9e855f143f8af9b8f77329b6662ec750b4986c76cc8274048c.png" />
 </div>
 </div>
 </section>
@@ -799,7 +816,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4c7f98258a398def6500ded250a68b2b3ba626876f81aedca826110b89b7890e.png" src="_images/4c7f98258a398def6500ded250a68b2b3ba626876f81aedca826110b89b7890e.png" />
+<img alt="_images/51d61623d29d6a02e76a19132409915f71c93493540fc3e7184cdc50ddcb29e5.png" src="_images/51d61623d29d6a02e76a19132409915f71c93493540fc3e7184cdc50ddcb29e5.png" />
 </div>
 </div>
 <p>全要素生産性の変動をプロットしよう。</p>
@@ -813,7 +830,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ac96d40c50918b2b8b3e3eca226a78b2d02893fd849bc5e6ffe19840a511a41d.png" src="_images/ac96d40c50918b2b8b3e3eca226a78b2d02893fd849bc5e6ffe19840a511a41d.png" />
+<img alt="_images/3fbd41a75a53856a38220bed0d6731f7687a376da5adc82ca2f4c7d1fcd1cdef.png" src="_images/3fbd41a75a53856a38220bed0d6731f7687a376da5adc82ca2f4c7d1fcd1cdef.png" />
 </div>
 </div>
 <p>この図から全要素生産性の変動は大きいことが分かる。変動の最小値と最大値を確認してみよう。</p>
@@ -824,7 +841,7 @@ A_t=\dfrac{Y_t}{K_t^aH_t^{1-a}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-4.5070305134806805, 1.899720236490987)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-4.507030513477894, 1.8997202364909982)
 </pre></div>
 </div>
 </div>
@@ -854,7 +871,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/800ab23e74239b296727bbaeaa2e61dd6aa219c3156edac6c06f95284cbf126d.png" src="_images/800ab23e74239b296727bbaeaa2e61dd6aa219c3156edac6c06f95284cbf126d.png" />
+<img alt="_images/1543c356f2f025dae752ac3b30dbd4b1a92f91f491452bd2b8ee20d97e345022.png" src="_images/1543c356f2f025dae752ac3b30dbd4b1a92f91f491452bd2b8ee20d97e345022.png" />
 </div>
 </div>
 <p>同じ方向に動いているのが確認できる。GDPの変動との相関係数を計算してみると，非常に高いことがわかる。</p>
@@ -865,7 +882,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9011737000767202
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9011737000765306
 </pre></div>
 </div>
 </div>
@@ -878,7 +895,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5381766486068552
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5381766486070036
 </pre></div>
 </div>
 </div>
@@ -891,7 +908,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788747033
 </pre></div>
 </div>
 </div>
@@ -912,7 +929,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a5ea159ffd3a5357aa5de395629116bb34a720addb036cbaf3e32fbc528d41e8.png" src="_images/a5ea159ffd3a5357aa5de395629116bb34a720addb036cbaf3e32fbc528d41e8.png" />
+<img alt="_images/d4c185a798faba58201ae834f1cf0eac15c934b0a089474d44a6ac66256a112b.png" src="_images/d4c185a798faba58201ae834f1cf0eac15c934b0a089474d44a6ac66256a112b.png" />
 </div>
 </div>
 <p>正のトレンドがある。相関係数を計算してみよう。</p>
@@ -924,7 +941,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5022784971422515
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5022784971433205
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1047,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5380002430150884
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5380002430152665
 </pre></div>
 </div>
 </div>
@@ -1048,7 +1065,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/511b1c90dfb0f986dee8ce91d9654adf695c8a3b9dbb160622504d99c8a1a6c2.png" src="_images/511b1c90dfb0f986dee8ce91d9654adf695c8a3b9dbb160622504d99c8a1a6c2.png" />
+<img alt="_images/423eea4d501dfb25913f787f10dcb2434dc804112ffc8d6c1cd4eaec1c729a18.png" src="_images/423eea4d501dfb25913f787f10dcb2434dc804112ffc8d6c1cd4eaec1c729a18.png" />
 </div>
 </div>
 <p>正の相関が図でも確認できる。次に<span class="math notranslate nohighlight">\(\epsilon_t\)</span>について考える。この変数はホワイト・ノイズであり、TFPショックの「源泉」である。平均0の正規分布としてモデル化するが，上の回帰式の残差の標準偏差をTFPの標準偏差の推定値として考えよう。</p>
@@ -1060,7 +1077,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8270723620212582
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8270723620213238
 </pre></div>
 </div>
 </div>
@@ -1094,10 +1111,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.528
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TFPの自己相関係数：0.592
 </pre></div>
 </div>
-<img alt="_images/d71f39b54a5044a288bcfbe34c5568eedcf1b7991c7a6582e20fe609e7dbd508.png" src="_images/d71f39b54a5044a288bcfbe34c5568eedcf1b7991c7a6582e20fe609e7dbd508.png" />
+<img alt="_images/ca7229b9041e8517da93c7fdfcc6ee137a9753db98fa355ca68071ae4aac3284.png" src="_images/ca7229b9041e8517da93c7fdfcc6ee137a9753db98fa355ca68071ae4aac3284.png" />
 </div>
 </div>
 <p>シミュレーションを行う度に図と自己相関係数は異なることになる。</p>
@@ -1125,7 +1142,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5805663827241658
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5805663827193916
 </pre></div>
 </div>
 </div>
@@ -1138,7 +1155,7 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b1cb04f541363f13ef423fdf841e84e034c3020b21ce1b0a086a2c51a91bf0d9.png" src="_images/b1cb04f541363f13ef423fdf841e84e034c3020b21ce1b0a086a2c51a91bf0d9.png" />
+<img alt="_images/997fb9e3c7170eb555959d4fcd940f46bc394088891b1890a25dfbceac462705.png" src="_images/997fb9e3c7170eb555959d4fcd940f46bc394088891b1890a25dfbceac462705.png" />
 </div>
 </div>
 <p>正の相関が確認できる。</p>
@@ -1177,10 +1194,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.59477056837113
-0.012642949037500776
-0.39258648258849904
-0.9999999999971297
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5947705683721586
+0.012642949037544933
+0.3925864825861498
+0.9999999999958533
 </pre></div>
 </div>
 </div>
@@ -1201,10 +1218,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4355940330729085
-0.007485581903891246
-0.22919646097232085
-0.6722760759491206
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.43559403307422173
+0.007485581904457242
+0.22919646097039098
+0.67227607594907
 </pre></div>
 </div>
 </div>
@@ -1223,10 +1240,10 @@ TFPの上昇は実質賃金の上昇につながるが、次の2つの効果に�
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4355940330729085
-0.05775911962879048
-0.5595616722957052
-1.052914824997404
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.43559403307422173
+0.05775911963315773
+0.5595616722909935
+1.052914824998373
 </pre></div>
 </div>
 </div>
@@ -1615,92 +1632,92 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
       <td>2.722106e+05</td>
       <td>2.130954e+05</td>
       <td>59115.175322</td>
-      <td>13.936255</td>
-      <td>-28.319532</td>
-      <td>0.881983</td>
-      <td>-88.198334</td>
-      <td>13.498265</td>
-      <td>-98.393366</td>
-      <td>13.253429</td>
-      <td>-98.393366</td>
-      <td>11.971177</td>
-      <td>-98.393366</td>
+      <td>13.887231</td>
+      <td>-23.417139</td>
+      <td>0.531564</td>
+      <td>-53.156359</td>
+      <td>13.130197</td>
+      <td>-61.586529</td>
+      <td>12.885361</td>
+      <td>-61.586529</td>
+      <td>11.603108</td>
+      <td>-61.586529</td>
     </tr>
     <tr>
       <th>1</th>
       <td>8.879214e+05</td>
-      <td>2.834407</td>
+      <td>3.005314</td>
       <td>0.367346</td>
-      <td>7.856488e+05</td>
-      <td>6.150318e+05</td>
-      <td>170617.026421</td>
-      <td>13.992365</td>
-      <td>-29.572639</td>
-      <td>0.816665</td>
-      <td>22.516816</td>
-      <td>13.455558</td>
-      <td>11.870666</td>
-      <td>13.210723</td>
-      <td>11.870666</td>
-      <td>11.928470</td>
-      <td>11.870666</td>
+      <td>8.330213e+05</td>
+      <td>6.521165e+05</td>
+      <td>180904.776361</td>
+      <td>13.931154</td>
+      <td>-23.451586</td>
+      <td>0.464843</td>
+      <td>63.553886</td>
+      <td>13.081701</td>
+      <td>55.111315</td>
+      <td>12.836865</td>
+      <td>55.111315</td>
+      <td>11.554613</td>
+      <td>55.111315</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1.036340e+06</td>
-      <td>5.889011</td>
+      <td>1.046628e+06</td>
+      <td>2.976986</td>
       <td>0.368233</td>
-      <td>1.729906e+06</td>
-      <td>1.354227e+06</td>
-      <td>375678.465961</td>
-      <td>14.048298</td>
-      <td>-19.709179</td>
-      <td>0.750795</td>
-      <td>102.229341</td>
-      <td>13.412237</td>
-      <td>95.134037</td>
-      <td>13.167401</td>
-      <td>95.134037</td>
-      <td>11.885149</td>
-      <td>95.134037</td>
+      <td>8.776094e+05</td>
+      <td>6.870215e+05</td>
+      <td>190587.832072</td>
+      <td>13.974932</td>
+      <td>-11.384725</td>
+      <td>0.397791</td>
+      <td>69.312075</td>
+      <td>13.032821</td>
+      <td>65.213574</td>
+      <td>12.787985</td>
+      <td>65.213574</td>
+      <td>11.505733</td>
+      <td>65.213574</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.386110e+06</td>
-      <td>2.735391</td>
+      <td>1.211050e+06</td>
+      <td>4.632934</td>
       <td>0.369123</td>
-      <td>8.943626e+05</td>
-      <td>7.001365e+05</td>
-      <td>194226.073762</td>
-      <td>14.103692</td>
-      <td>3.831979</td>
-      <td>0.683963</td>
-      <td>32.231165</td>
-      <td>13.367760</td>
-      <td>33.610677</td>
-      <td>13.122924</td>
-      <td>33.610677</td>
-      <td>11.840671</td>
-      <td>33.610677</td>
+      <td>1.442917e+06</td>
+      <td>1.129563e+06</td>
+      <td>313354.108027</td>
+      <td>14.018269</td>
+      <td>-1.127084</td>
+      <td>0.330471</td>
+      <td>120.271959</td>
+      <td>12.983516</td>
+      <td>119.866209</td>
+      <td>12.738680</td>
+      <td>119.866209</td>
+      <td>11.456427</td>
+      <td>119.866209</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.545684e+06</td>
-      <td>0.942368</td>
+      <td>1.494128e+06</td>
+      <td>1.558931</td>
       <td>0.370015</td>
-      <td>3.212170e+05</td>
-      <td>2.514592e+05</td>
-      <td>69757.737011</td>
-      <td>14.158063</td>
-      <td>9.291413</td>
-      <td>0.616398</td>
-      <td>-67.575765</td>
-      <td>13.322181</td>
-      <td>-64.230856</td>
-      <td>13.077345</td>
-      <td>-64.230856</td>
-      <td>11.795092</td>
-      <td>-64.230856</td>
+      <td>5.249299e+05</td>
+      <td>4.109324e+05</td>
+      <td>113997.472000</td>
+      <td>14.060804</td>
+      <td>15.624954</td>
+      <td>0.263382</td>
+      <td>18.061853</td>
+      <td>12.934152</td>
+      <td>23.686836</td>
+      <td>12.689316</td>
+      <td>23.686836</td>
+      <td>11.407063</td>
+      <td>23.686836</td>
     </tr>
   </tbody>
 </table>
@@ -1716,7 +1733,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9081c50c9d92a56e9f7e72616c3acc03725cdbd882f3c0697482b5ad6d5b1391.png" src="_images/9081c50c9d92a56e9f7e72616c3acc03725cdbd882f3c0697482b5ad6d5b1391.png" />
+<img alt="_images/0c8ff1b395c022dba06f18be8bb4298f71e9781f0dfe5af16c69282089e0e965.png" src="_images/0c8ff1b395c022dba06f18be8bb4298f71e9781f0dfe5af16c69282089e0e965.png" />
 </div>
 </div>
 <p>トレンドの傾きは成長率を表しているが，徐々に減少していることが分かる。最初は成長率に対する資本蓄積の効果が大きいが，定常状態に近づくにつれて資本蓄積の効果が減少しているためである。</p>
@@ -1730,7 +1747,7 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e01b3440c3308214874bbe4d66b4cfdbbf1ae2e6c4384e285ada56133cbeb8b1.png" src="_images/e01b3440c3308214874bbe4d66b4cfdbbf1ae2e6c4384e285ada56133cbeb8b1.png" />
+<img alt="_images/3bd04b69edffde19f5b4199bae4743e37ba8e009d70024e513aef3fb95b14c1c.png" src="_images/3bd04b69edffde19f5b4199bae4743e37ba8e009d70024e513aef3fb95b14c1c.png" />
 </div>
 </div>
 <p>絶対値で概ね2％内に収まった変動となっている。データでは，リーマンショック時はマイナス約4％程乖離したが，それ以外は絶対値で2％以内に収まっており，シミュレーションは概ねデータと同じような特徴を持っていると言える。</p>
@@ -1754,11 +1771,11 @@ K_{t+1}&amp;=sA_tB_tK_t^aH^{1-a}+(1-d)K_t\\
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- シミュレーション：変動の自己相関係数 ---
 
-Yの変動： 0.401
-Cの変動： 0.401
-Iの変動： 0.401
-Kの変動： 0.875
-Aの変動： 0.399
+Yの変動： 0.363
+Cの変動： 0.363
+Iの変動： 0.363
+Kの変動： 0.799
+Aの変動： 0.363
 </pre></div>
 </div>
 </div>
@@ -1842,8 +1859,8 @@ consumptionの変動： 0.493
 
 Cの変動： 1.000
 Iの変動： 1.000
-Kの変動： -0.073
-Aの変動： 0.999
+Kの変動： -0.199
+Aの変動： 1.000
 </pre></div>
 </div>
 </div>
@@ -1953,8 +1970,7 @@ consumptionの変動：0.767
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2016,7 +2032,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -2043,8 +2059,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="回帰分析" href="6_Regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -578,7 +595,8 @@ x_{t+1}
 </ul>
 <p>この場合の定常状態を「安定的（stable）」と呼ぶ。ここで覚えて欲しいことは，まず第一に式<a class="reference internal" href="#equation-eq-8-1">(22)</a>と45度線の交点が定常状態である。そして45度線の傾きは1に対して式<a class="reference internal" href="#equation-eq-8-1">(22)</a>の傾きは0.4なので，式<a class="reference internal" href="#equation-eq-8-1">(22)</a>は「上から」45度線と交わっている。</p>
 <figure class="align-default" id="fig-8-ex1">
-<a class="reference internal image-reference" href="_images/ex1.jpeg"><img alt="_images/ex1.jpeg" src="_images/ex1.jpeg" style="width: 520.1px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ex1.jpeg"><img alt="_images/ex1.jpeg" src="_images/ex1.jpeg" style="width: 520.1px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">例１</span><a class="headerlink" href="#fig-8-ex1" title="Link to this image">#</a></p>
 </figcaption>
@@ -686,7 +704,7 @@ x_{t+1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" src="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" />
+<img alt="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" src="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" />
 </div>
 </div>
 <p>この図の縦軸は<span class="math notranslate nohighlight">\(x_t\)</span>であり，横軸は行インデックスが<code class="docutils literal notranslate"><span class="pre">float</span></code>として表示されており，ループの回数と同じ（自動表示なので整数となる場合もある）。強制的に横軸に整数を表示したい場合は<code class="docutils literal notranslate"><span class="pre">df.plot()</span></code>の代わりに次のコードを使えば良いだろう。</p>
@@ -721,7 +739,7 @@ x_{t+1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" src="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" />
+<img alt="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" src="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -753,7 +771,7 @@ x_{t+1}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" src="_images/0407648470f94a3580bc1df2cc8f727340f8ae19a950fb8eed65dab5d7d1dad0.png" />
+<img alt="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" src="_images/3746c609179fe2988e2abf4a94d43cafe47a181ca4070e7d4a02f07ba4dc40f0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -786,7 +804,8 @@ x_{t+1}=1.2x_{t}-0.2
 </ul>
 <p>この結果は<a class="reference internal" href="#fig-8-ex2"><span class="std std-numref">Fig. 3</span></a>を使って確認できる。図の読み方は例１と同じである。式<a class="reference internal" href="#equation-eq-8-ex2">(23)</a>は「下から」45度線を交差している。初期値を<span class="math notranslate nohighlight">\(x_0=1.1&gt;x_*\)</span>として発散することを示しているが，<span class="math notranslate nohighlight">\(x_0&lt;1\)</span>の場合でも発散することになる（試してみよう）。この場合の定常状態<span class="math notranslate nohighlight">\(x_*\)</span>は「不安定（unstable）」と呼ぶ。</p>
 <figure class="align-default" id="fig-8-ex2">
-<a class="reference internal image-reference" href="_images/ex2.jpeg"><img alt="_images/ex2.jpeg" src="_images/ex2.jpeg" style="width: 465.49999999999994px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ex2.jpeg"><img alt="_images/ex2.jpeg" src="_images/ex2.jpeg" style="width: 465.49999999999994px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 3 </span><span class="caption-text">例２</span><a class="headerlink" href="#fig-8-ex2" title="Link to this image">#</a></p>
 </figcaption>
@@ -809,7 +828,7 @@ x_{t+1}=1.2x_{t}-0.2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8a4399053e66b79a21b6c0b99e912ae56a162a9f7fb95b1bcdf0574b7e9cfc8f.png" src="_images/8a4399053e66b79a21b6c0b99e912ae56a162a9f7fb95b1bcdf0574b7e9cfc8f.png" />
+<img alt="_images/bd045ee614893290d55228e85c757cd969a2d6e6ae1673bad5f5f3d6c2256645.png" src="_images/bd045ee614893290d55228e85c757cd969a2d6e6ae1673bad5f5f3d6c2256645.png" />
 </div>
 </div>
 </section>
@@ -866,7 +885,8 @@ x_{*}=a^2
 \]</div>
 <p>図示すると<a class="reference internal" href="#fig-8-ex3"><span class="std std-numref">Fig. 4</span></a>の様になる。</p>
 <figure class="align-default" id="fig-8-ex3">
-<a class="reference internal image-reference" href="_images/ex3.jpeg"><img alt="_images/ex3.jpeg" src="_images/ex3.jpeg" style="width: 512.75px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ex3.jpeg"><img alt="_images/ex3.jpeg" src="_images/ex3.jpeg" style="width: 512.75px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 4 </span><span class="caption-text">例３</span><a class="headerlink" href="#fig-8-ex3" title="Link to this image">#</a></p>
 </figcaption>
@@ -898,7 +918,7 @@ x_{*}=a^2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a141cc61eec7c1d2556a9c1e36dcfc1a4c4c5f83470613a1ed63ed9f6697fcf4.png" src="_images/a141cc61eec7c1d2556a9c1e36dcfc1a4c4c5f83470613a1ed63ed9f6697fcf4.png" />
+<img alt="_images/cd3b4edd651f85502a944aa3e69a2698dcbca252dcb2a6ba4cfe95afe46be591.png" src="_images/cd3b4edd651f85502a944aa3e69a2698dcbca252dcb2a6ba4cfe95afe46be591.png" />
 </div>
 </div>
 </section>
@@ -1001,7 +1021,7 @@ x_{*}=a * x_{*}^{b} + 10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/75adae6968014c49d5d10346c43cecd8ce5f3335ec2580dd10aa1920c1ea451c.png" src="_images/75adae6968014c49d5d10346c43cecd8ce5f3335ec2580dd10aa1920c1ea451c.png" />
+<img alt="_images/27cc00358ef01606e1e3ee1b468819754fca853720ecf8620eae47018516e556.png" src="_images/27cc00358ef01606e1e3ee1b468819754fca853720ecf8620eae47018516e556.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(b&gt;1\)</span>のケースをプロットしてみよう。</p>
@@ -1013,7 +1033,7 @@ x_{*}=a * x_{*}^{b} + 10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3bd6ca68550e18cee8071eafff1021498cff858dbfae2449ca54908753d98978.png" src="_images/3bd6ca68550e18cee8071eafff1021498cff858dbfae2449ca54908753d98978.png" />
+<img alt="_images/e2121e1994ad199b4db3b98cdfa2fd6ba4d2405cedd19cfef8827dd8d57c7967.png" src="_images/e2121e1994ad199b4db3b98cdfa2fd6ba4d2405cedd19cfef8827dd8d57c7967.png" />
 </div>
 </div>
 </section>
@@ -1054,7 +1074,8 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 \end{split}\]</div>
 <p>定常状態で<span class="math notranslate nohighlight">\(y_*&gt;0\)</span>が成立してこそ意味があるので，<span class="math notranslate nohighlight">\(1&gt;b+f\)</span>を仮定しよう。モデルの動学を図示したのが<a class="reference internal" href="#fig-8-45degree"><span class="std std-numref">Fig. 5</span></a>である。</p>
 <figure class="align-default" id="fig-8-45degree">
-<a class="reference internal image-reference" href="_images/45degree.jpeg"><img alt="_images/45degree.jpeg" src="_images/45degree.jpeg" style="width: 523.6px; height: 400.0px;" /></a>
+<a class="reference internal image-reference" href="_images/45degree.jpeg"><img alt="_images/45degree.jpeg" src="_images/45degree.jpeg" style="width: 523.6px; height: 400.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 5 </span><span class="caption-text">45度線モデル</span><a class="headerlink" href="#fig-8-45degree" title="Link to this image">#</a></p>
 </figcaption>
@@ -1115,7 +1136,7 @@ y_{t+1}=\frac{f}{1-b}y_t+\frac{a+d}{1-b}
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常状態での産出量:333.3
 </pre></div>
 </div>
-<img alt="_images/e58b488b722822001e869a762138119860831eb5414f888d02d685433c154558.png" src="_images/e58b488b722822001e869a762138119860831eb5414f888d02d685433c154558.png" />
+<img alt="_images/25fc25b8a59fbbcd7ff424ff93a04da65da7686e5ef48f5180fb0d5276547762.png" src="_images/25fc25b8a59fbbcd7ff424ff93a04da65da7686e5ef48f5180fb0d5276547762.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1198,7 +1219,8 @@ q_t=q_{*}=a-bp_{*}
 \]</div>
 <p><a class="reference internal" href="#fig-8-cobweb"><span class="std std-numref">Fig. 6</span></a>は価格<span class="math notranslate nohighlight">\(p_t\)</span>の動学を示している。需要曲線に比べて供給曲線がより急な傾きになっているため定常状態に収束している。その逆の場合は発散することになるので図を描いて確かめてみよう。</p>
 <figure class="align-default" id="fig-8-cobweb">
-<a class="reference internal image-reference" href="_images/cobweb.jpeg"><img alt="_images/cobweb.jpeg" src="_images/cobweb.jpeg" style="width: 456.74999999999994px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/cobweb.jpeg"><img alt="_images/cobweb.jpeg" src="_images/cobweb.jpeg" style="width: 456.74999999999994px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">蜘蛛の巣モデル（モデル名は均衡の軌跡が蜘蛛の巣に似てるため）</span><a class="headerlink" href="#fig-8-cobweb" title="Link to this image">#</a></p>
 </figcaption>
@@ -1256,7 +1278,7 @@ q_t=q_{*}=a-bp_{*}
 定常状態での量:　47.1
 </pre></div>
 </div>
-<img alt="_images/18e3f809fbb9d6166d0291ee4622c060bf48bcca92e99b3019c8ca3b74aa51ea.png" src="_images/18e3f809fbb9d6166d0291ee4622c060bf48bcca92e99b3019c8ca3b74aa51ea.png" />
+<img alt="_images/df072ab36d2aa551b892ad03bd00c60e642624b87777c0ce73e5cb7b4dad4fea.png" src="_images/df072ab36d2aa551b892ad03bd00c60e642624b87777c0ce73e5cb7b4dad4fea.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1276,7 +1298,7 @@ q_t=q_{*}=a-bp_{*}
 定常状態での量:　51.9
 </pre></div>
 </div>
-<img alt="_images/fd9e69f4a89f8c30a640db17c17e681b895c7f5a6d4ab8fbd08bbcbf9cfa6370.png" src="_images/fd9e69f4a89f8c30a640db17c17e681b895c7f5a6d4ab8fbd08bbcbf9cfa6370.png" />
+<img alt="_images/7182dc3a9fdcea65bc7a1da1c8451c4368a7253a7c2e9ca28cbdcf1919573f1b.png" src="_images/7182dc3a9fdcea65bc7a1da1c8451c4368a7253a7c2e9ca28cbdcf1919573f1b.png" />
 </div>
 </div>
 </section>
@@ -1337,8 +1359,7 @@ q_t=q_{*}=a-bp_{*}
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1387,7 +1408,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -1414,8 +1435,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

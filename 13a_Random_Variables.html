@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="一物一価と購買力平価" href="19_PPP.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -491,10 +508,10 @@
 下の図では、日本のGDPの長期的トレンドからの乖離をパーセントで表している。
 波打つように上下に、時には小刻みに、また時には大きく乱高下しているように見える。</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># データの読み込み</span>
@@ -516,7 +533,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/bbafb75ce49b298177891c0929b435f212c9e5c9840d8a783c61d7bc8fb988b2.png" src="_images/bbafb75ce49b298177891c0929b435f212c9e5c9840d8a783c61d7bc8fb988b2.png" />
+<img alt="_images/21576e4ac50a4dcdcc64fe97c3e8a8829d2b4641df6df82a50c0a00862f7da23.png" src="_images/21576e4ac50a4dcdcc64fe97c3e8a8829d2b4641df6df82a50c0a00862f7da23.png" />
 </div>
 </div>
 <p>このようなGDPの変動を説明する方法として２つある。</p>
@@ -609,10 +626,10 @@
 <h4><code class="docutils literal notranslate"><span class="pre">.cov</span></code>と<code class="docutils literal notranslate"><span class="pre">.corr()</span></code><a class="headerlink" href="#cov-corr" title="Link to this heading">#</a></h4>
 <p>共分散と相関係数の違いを説明したが，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を使ってどのように計算するかを説明する。<code class="docutils literal notranslate"><span class="pre">dfex1</span></code>は次のような<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>になっている。</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -659,53 +676,53 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>8.870691</td>
-      <td>19.055680</td>
+      <td>10.821878</td>
+      <td>87.125286</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>10.375194</td>
-      <td>84.190731</td>
+      <td>10.529173</td>
+      <td>58.983934</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>12.086269</td>
-      <td>1.034495</td>
+      <td>10.081515</td>
+      <td>26.554846</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>9.997840</td>
-      <td>80.066564</td>
+      <td>8.793629</td>
+      <td>36.703645</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>9.405870</td>
-      <td>69.577355</td>
+      <td>9.535137</td>
+      <td>59.295366</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>9.335994</td>
-      <td>6.767248</td>
+      <td>10.244245</td>
+      <td>80.415896</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>10.832657</td>
-      <td>27.801100</td>
+      <td>11.221425</td>
+      <td>69.643713</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>10.264532</td>
-      <td>19.798822</td>
+      <td>10.646783</td>
+      <td>73.130264</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>9.887658</td>
-      <td>23.046977</td>
+      <td>10.258540</td>
+      <td>67.756667</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>10.229695</td>
-      <td>45.743469</td>
+      <td>10.730807</td>
+      <td>25.762549</td>
     </tr>
   </tbody>
 </table>
@@ -746,13 +763,13 @@
   <tbody>
     <tr>
       <th>X</th>
-      <td>0.802858</td>
-      <td>-5.109104</td>
+      <td>0.487179</td>
+      <td>5.987987</td>
     </tr>
     <tr>
       <th>Y</th>
-      <td>-5.109104</td>
-      <td>924.348097</td>
+      <td>5.987987</td>
+      <td>476.865991</td>
     </tr>
   </tbody>
 </table>
@@ -794,13 +811,13 @@
   <tbody>
     <tr>
       <th>X</th>
-      <td>1.000000</td>
-      <td>-0.187546</td>
+      <td>1.00000</td>
+      <td>0.39286</td>
     </tr>
     <tr>
       <th>Y</th>
-      <td>-0.187546</td>
-      <td>1.000000</td>
+      <td>0.39286</td>
+      <td>1.00000</td>
     </tr>
   </tbody>
 </table>
@@ -816,7 +833,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.18754595665075116
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3928604397546014
 </pre></div>
 </div>
 </div>
@@ -969,10 +986,10 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 <h4><code class="docutils literal notranslate"><span class="pre">.cov()</span></code>，<code class="docutils literal notranslate"><span class="pre">.corr()</span></code>，<code class="docutils literal notranslate"><span class="pre">.autocorr()</span></code><a class="headerlink" href="#cov-corr-autocorr" title="Link to this heading">#</a></h4>
 <p>自己共分散と自己相関係数の違いを説明したが，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を使ってどのように計算するかを説明する。<code class="docutils literal notranslate"><span class="pre">dfex2</span></code>は次のような<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>になっている。</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -1019,53 +1036,53 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>0</th>
-      <td>6.734701</td>
+      <td>10.100545</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>9.892473</td>
-      <td>6.734701</td>
+      <td>8.869870</td>
+      <td>10.100545</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>8.057568</td>
-      <td>9.892473</td>
+      <td>9.130628</td>
+      <td>8.869870</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>10.410402</td>
-      <td>8.057568</td>
+      <td>9.497621</td>
+      <td>9.130628</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>9.331126</td>
-      <td>10.410402</td>
+      <td>9.272658</td>
+      <td>9.497621</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>10.627834</td>
-      <td>9.331126</td>
+      <td>11.199061</td>
+      <td>9.272658</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>10.957049</td>
-      <td>10.627834</td>
+      <td>8.895560</td>
+      <td>11.199061</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>10.907137</td>
-      <td>10.957049</td>
+      <td>10.641103</td>
+      <td>8.895560</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>11.020943</td>
-      <td>10.907137</td>
+      <td>9.400846</td>
+      <td>10.641103</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>9.902061</td>
-      <td>11.020943</td>
+      <td>8.435043</td>
+      <td>9.400846</td>
     </tr>
   </tbody>
 </table>
@@ -1114,13 +1131,13 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>X</th>
-      <td>1.975726</td>
-      <td>0.202114</td>
+      <td>0.736051</td>
+      <td>-0.278546</td>
     </tr>
     <tr>
       <th>X_lag</th>
-      <td>0.202114</td>
-      <td>2.220760</td>
+      <td>-0.278546</td>
+      <td>0.657164</td>
     </tr>
   </tbody>
 </table>
@@ -1164,13 +1181,13 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>X</th>
-      <td>1.00000</td>
-      <td>0.14055</td>
+      <td>1.000000</td>
+      <td>-0.387795</td>
     </tr>
     <tr>
       <th>X_lag</th>
-      <td>0.14055</td>
-      <td>1.00000</td>
+      <td>-0.387795</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -1186,7 +1203,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1405504540683825
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.38779548687514753
 </pre></div>
 </div>
 </div>
@@ -1203,7 +1220,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1405504540683825
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.3877954868751476
 </pre></div>
 </div>
 </div>
@@ -1277,8 +1294,8 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.39216924, 2.34645998, 5.69668645, 7.06366116, 6.97377679,
-       2.67422422, 3.57292646, 2.21476057, 6.87394022, 6.32563723])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.59010561, 4.59450749, 5.95228203, 5.13398096, 3.23254999,
+       6.14051349, 5.80589562, 1.5073294 , 0.60606784, 5.91627982])
 </pre></div>
 </div>
 </div>
@@ -1302,7 +1319,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7e440e208cc2c3c0c23a44c1992384e30eb4771cc33c650874364aca61727df8.png" src="_images/7e440e208cc2c3c0c23a44c1992384e30eb4771cc33c650874364aca61727df8.png" />
+<img alt="_images/34d01733db4fcca3d4afbe922e877fcb9d82f628c03b2c066d199a6bef628f9a.png" src="_images/34d01733db4fcca3d4afbe922e877fcb9d82f628c03b2c066d199a6bef628f9a.png" />
 </div>
 </div>
 <p>２つの特徴がある。</p>
@@ -1318,7 +1335,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.06551094357463355, 0.9737615067323947)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0006938787283737746, 0.9970271321720999)
 </pre></div>
 </div>
 </div>
@@ -1333,7 +1350,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/40467d81e3bc66487d72e14bebd66b4e8e3590d0175a817567b68051403f471c.png" src="_images/40467d81e3bc66487d72e14bebd66b4e8e3590d0175a817567b68051403f471c.png" />
+<img alt="_images/cc3d0eb1cccff51892e76cf86e3f360383f3e270a0611e23ab22f0801ba32cca.png" src="_images/cc3d0eb1cccff51892e76cf86e3f360383f3e270a0611e23ab22f0801ba32cca.png" />
 </div>
 </div>
 <p>概ね<code class="docutils literal notranslate"><span class="pre">0</span></code>を中心に左右対象に動いている。即ち，平均<code class="docutils literal notranslate"><span class="pre">0</span></code>を反映している。また，<code class="docutils literal notranslate"><span class="pre">0</span></code>から離れている観測値が少ないことが分かる。これは<code class="docutils literal notranslate"><span class="pre">0</span></code>方向に戻ることを示しており，分散が一定となるためである。この性質は<code class="docutils literal notranslate"><span class="pre">n</span></code>を<code class="docutils literal notranslate"><span class="pre">500</span></code>や<code class="docutils literal notranslate"><span class="pre">1000</span></code>などの大きな数字に設定するより一層分かりやすいだろう。</p>
@@ -1374,28 +1391,28 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.530707</td>
+      <td>0.854668</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-0.875226</td>
-      <td>-1.530707</td>
+      <td>0.425738</td>
+      <td>0.854668</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.523675</td>
-      <td>-0.875226</td>
+      <td>0.353252</td>
+      <td>0.425738</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.415630</td>
-      <td>0.523675</td>
+      <td>0.873194</td>
+      <td>0.353252</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.880697</td>
-      <td>0.415630</td>
+      <td>1.153170</td>
+      <td>0.873194</td>
     </tr>
   </tbody>
 </table>
@@ -1414,7 +1431,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/951f133cd447eb9e5f9b9884ba6dbd1388de223b2fab53b778f45fc75db8a1b5.png" src="_images/951f133cd447eb9e5f9b9884ba6dbd1388de223b2fab53b778f45fc75db8a1b5.png" />
+<img alt="_images/e1f1cd7ecd816b9007d40372a6edf2ae4a22ca503aea8f9d9ec3929a33a8739a.png" src="_images/e1f1cd7ecd816b9007d40372a6edf2ae4a22ca503aea8f9d9ec3929a33a8739a.png" />
 </div>
 </div>
 <p>自己共分散がゼロであれば，ランダムに散らばっているはずであり，何らかのパターンも確認できないはずである。</p>
@@ -1431,7 +1448,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3c3846a843ce3d6467103f1c88f30cb3db0690baff0e6294ef561a4b12270842.png" src="_images/3c3846a843ce3d6467103f1c88f30cb3db0690baff0e6294ef561a4b12270842.png" />
+<img alt="_images/e636b53fd1a916e75983cbabefd1715678188a66aedaa55e964fa0ced6bd8d1a.png" src="_images/e636b53fd1a916e75983cbabefd1715678188a66aedaa55e964fa0ced6bd8d1a.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1472,13 +1489,13 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>WN</th>
-      <td>0.973762</td>
-      <td>0.166668</td>
+      <td>0.997027</td>
+      <td>0.194697</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>0.166668</td>
-      <td>0.967241</td>
+      <td>0.194697</td>
+      <td>0.998510</td>
     </tr>
   </tbody>
 </table>
@@ -1521,13 +1538,13 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
   <tbody>
     <tr>
       <th>WN</th>
-      <td>1.00000</td>
-      <td>0.17282</td>
+      <td>1.000000</td>
+      <td>0.194873</td>
     </tr>
     <tr>
       <th>WNlag</th>
-      <td>0.17282</td>
-      <td>1.00000</td>
+      <td>0.194873</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -1542,7 +1559,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.17282022765715774
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.19487316925058926
 </pre></div>
 </div>
 </div>
@@ -1556,7 +1573,7 @@ X_i\text{と}Y_i\text{の共分散}=\sigma_{XY}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.17282022765715777
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.19487316925058926
 </pre></div>
 </div>
 </div>
@@ -1667,7 +1684,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/18c2908db8e6c45e1294faa1626b67b5a011f437706edcf40b1dcee391a6cbd7.png" src="_images/18c2908db8e6c45e1294faa1626b67b5a011f437706edcf40b1dcee391a6cbd7.png" />
+<img alt="_images/c19de54424c4b76e8fed1736fc83617a5d77e3386335f0aa78c75fce817f6874.png" src="_images/c19de54424c4b76e8fed1736fc83617a5d77e3386335f0aa78c75fce817f6874.png" />
 </div>
 </div>
 <p>この例では<span class="math notranslate nohighlight">\(\rho\)</span>の値が低いため，<span class="math notranslate nohighlight">\(y\)</span>は定常状態の0に直ぐに戻ろうとする力が強い。従って、前期の値の今期の値に対する影響力が小さいため、持続性が低い。</p>
@@ -1678,7 +1695,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/899389ec7229ec4c2fe9d0dfe163096cb217b185a04235b2da6cd16f9c236888.png" src="_images/899389ec7229ec4c2fe9d0dfe163096cb217b185a04235b2da6cd16f9c236888.png" />
+<img alt="_images/047360a5f82fcc5d480196d8befb1b7b7f1c870298bd99e906d7371de6fdb0b3.png" src="_images/047360a5f82fcc5d480196d8befb1b7b7f1c870298bd99e906d7371de6fdb0b3.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>の値が高くなると、定常状態の<span class="math notranslate nohighlight">\(0\)</span>に戻ろうとする作用が弱くなり、持続性が強くなることがわかる。</p>
@@ -1689,7 +1706,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/52400b34395a7e9c05178f8a6b617b1426fc5024c3bac04e6d36652e83bbf39c.png" src="_images/52400b34395a7e9c05178f8a6b617b1426fc5024c3bac04e6d36652e83bbf39c.png" />
+<img alt="_images/a5aa997376c679daa6bfb3b83dbba16478b9cfe1f80a46671f6c09017c33ff4b.png" src="_images/a5aa997376c679daa6bfb3b83dbba16478b9cfe1f80a46671f6c09017c33ff4b.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\rho\)</span>が非常に高いため、持続性も非常に強くなっている。即ち、今期の値は前期の値に対する依存度が大きい。</p>
@@ -1752,8 +1769,7 @@ y_t=\rho y_{t-1}+\varepsilon_t
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1812,7 +1828,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -1839,8 +1855,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

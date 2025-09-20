@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="ランダム変数と統計的特徴" href="13a_Random_Variables.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -797,7 +814,7 @@ memory usage: 22.0 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3a3303b826b6f9ef868075c79ab8dfcbe0a4cf2baaa9d0f710c76be20890d579.png" src="_images/3a3303b826b6f9ef868075c79ab8dfcbe0a4cf2baaa9d0f710c76be20890d579.png" />
+<img alt="_images/6a4ead7b4d95e5ee4e8f8e42a0f3d7b0367ad18f50b8eec5257e3f5ed4c44cfc.png" src="_images/6a4ead7b4d95e5ee4e8f8e42a0f3d7b0367ad18f50b8eec5257e3f5ed4c44cfc.png" />
 </div>
 </div>
 <p>長期的には上昇トレンドであることが分かる。これが経済成長である。一方で，よく観察するとギザギザに動いていることも確認できる。景気変動である。小さい上下の動きもあれば，より大きな動きもある。例えば，2008年のリーマン・ショック，そして2020年のコロナ禍の影響でGDPは大きく下落している。</p>
@@ -807,10 +824,10 @@ memory usage: 22.0 KB
 <p>これがマクロ経済学のもう一つのBig Questionである。この章以降は問４を中心にマクロ経済を考察することになる。</p>
 <p>上の図には最新のデータは含まれていないかも知れない。参考に最新のデータを含む図を下にに表示する。</p>
 <div class="cell tag_thebe-init tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
@@ -875,7 +892,7 @@ g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0655a4812c0d4376f20d3d4334e383e8ec8fe1d16b7f5ccd3e611b9d4ef786cb.png" src="_images/0655a4812c0d4376f20d3d4334e383e8ec8fe1d16b7f5ccd3e611b9d4ef786cb.png" />
+<img alt="_images/b4a06da799a7d4cdfd34b6511e9c00556255238beaa5fdddff868ed7452f05e1.png" src="_images/b4a06da799a7d4cdfd34b6511e9c00556255238beaa5fdddff868ed7452f05e1.png" />
 </div>
 </div>
 <p>プロットの傾きは四半期ごとのGDPの成長率であり，成長率が変化しているのがわかる。また，2008年のリーマン・ショックとコロナ禍により成長率が大きく下落していることが確認できる。景気循環により成長率が小刻みに，また時には大きく変化している。</p>
@@ -893,7 +910,7 @@ g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/920b6be9781c51fde02d5defdc48ce65e0b862ce23ea7b664c06174f1d91b744.png" src="_images/920b6be9781c51fde02d5defdc48ce65e0b862ce23ea7b664c06174f1d91b744.png" />
+<img alt="_images/575a8fec09f85b018bb3077a1f579003c2f9773a2f6e14f7e644fcbafd0751ad.png" src="_images/575a8fec09f85b018bb3077a1f579003c2f9773a2f6e14f7e644fcbafd0751ad.png" />
 </div>
 </div>
 <div class="code-explanation dropdown admonition">
@@ -924,7 +941,7 @@ g_x&amp;\approx\frac{\log(x_{t+n})-\log(x_{t})}{n}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5de73fac937c3e1fb61f51c6bb5cac005c72eab9f8d17dac9b838f3919f83a30.png" src="_images/5de73fac937c3e1fb61f51c6bb5cac005c72eab9f8d17dac9b838f3919f83a30.png" />
+<img alt="_images/b0a14f439722e56fb834242976e58569e1fba0f0b61859cef4c151863b18b947.png" src="_images/b0a14f439722e56fb834242976e58569e1fba0f0b61859cef4c151863b18b947.png" />
 </div>
 </div>
 <p>上の図と比べると次の特徴がある。</p>
@@ -1022,7 +1039,7 @@ Net Exports 	-1.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4fdda44867cad3e1f50534aa10a78be8a3f2dfe78fb47ee6a81724edfc9f5777.png" src="_images/4fdda44867cad3e1f50534aa10a78be8a3f2dfe78fb47ee6a81724edfc9f5777.png" />
+<img alt="_images/2eb007689f04f3cf56cbf7ac8624d701bbacd330f9edc70737a5bc34940df950.png" src="_images/2eb007689f04f3cf56cbf7ac8624d701bbacd330f9edc70737a5bc34940df950.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1061,7 +1078,7 @@ Net Exports 	-1.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6ea9c4be3a894f30d4acea1930eb4c89760f1e015be58debc059eb6bd9da6d53.png" src="_images/6ea9c4be3a894f30d4acea1930eb4c89760f1e015be58debc059eb6bd9da6d53.png" />
+<img alt="_images/ff2e800ee5d83819669e7f361f1346467b21a439e507a95f1ece0d9a30111619.png" src="_images/ff2e800ee5d83819669e7f361f1346467b21a439e507a95f1ece0d9a30111619.png" />
 </div>
 </div>
 <p>インフレ率（年率）は，バブル崩壊後は<code class="docutils literal notranslate"><span class="pre">4</span></code>％以下の低い率をキープし、デフレに陥った期間も長く続いた。</p>
@@ -1224,7 +1241,7 @@ Name: 1980-01-01 00:00:00, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bf7047e220fa5433403b5d880edfb1c0e05ce185f32004bd3e18f2962596f552.png" src="_images/bf7047e220fa5433403b5d880edfb1c0e05ce185f32004bd3e18f2962596f552.png" />
+<img alt="_images/3545eb940738f1f42212c90fd7af6309daee48b73566279a7f960936596a0b65.png" src="_images/3545eb940738f1f42212c90fd7af6309daee48b73566279a7f960936596a0b65.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1277,10 +1294,10 @@ Name: 1980-01-01 00:00:00, dtype: float64
 <p>ここで<span class="math notranslate nohighlight">\(Y_t^{\text{trend}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{trend}}\)</span>は各変数の長期的な傾向や値を表し、<span class="math notranslate nohighlight">\(Y_t^{\text{cycle}}\)</span>と<span class="math notranslate nohighlight">\(u_t^{\text{cycle}}\)</span>は短期的な変動を捉えている。</p>
 <p>内閣府は景気循環を「山」と「谷」の２つに分けて<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/hiduke.html">景気基準日付</a>を発表している。イメージ的には、GDPがトレンドを上回っている期間を「山」，下回っている期間を「谷」と考えて良いだろう。図示すると次のようになる。</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">trend_cycle</span><span class="p">():</span>
@@ -1385,7 +1402,7 @@ Name: 1980-01-01 00:00:00, dtype: float64
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/bbbae2c23413ff3aee21c6437086a1363d0b8d792e9ae0a4622ac4db4ce16fd0.png" src="_images/bbbae2c23413ff3aee21c6437086a1363d0b8d792e9ae0a4622ac4db4ce16fd0.png" />
+<img alt="_images/49f9aa9eee71c34724a0d926aed22912cd3c4fad780aeb1a47677cc03e6d659f.png" src="_images/49f9aa9eee71c34724a0d926aed22912cd3c4fad780aeb1a47677cc03e6d659f.png" />
 </div>
 </div>
 <p>この図から，拡張・後退はGDPの変化を捉えていることが分かる。また，このプロットは<code class="docutils literal notranslate"><span class="pre">NumPy</span></code>のコサイン関数を使って描画しているので，「谷」と「山」が発生した時期を簡単に見分けることができる。しかし，上のGDPデータのプロットを見直すと，「谷」と「山」がいつだったかを決めるのは簡単な問題ではないと想像できるだろう。実際，内閣府は単にGDPのデータを眺めるだけではなく<a class="reference external" href="https://www.esri.cao.go.jp/jp/stat/di/menu_di.html">景気動向指数</a>を含め様々なデータに基づき，「谷」と「山」の時期を確定している。</p>
@@ -1542,7 +1559,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bc6f3ba272a97a57a7149552eacca1fb3d7fe77e5cc5f950612362ec99b5a61f.png" src="_images/bc6f3ba272a97a57a7149552eacca1fb3d7fe77e5cc5f950612362ec99b5a61f.png" />
+<img alt="_images/936337f65f0f6aa9bc06e476750f1a3f3b34dd55f234a05c362b277f6f092226.png" src="_images/936337f65f0f6aa9bc06e476750f1a3f3b34dd55f234a05c362b277f6f092226.png" />
 </div>
 </div>
 <p>トレンドは直線ではなくスムーズな曲線となっている。上下に動く変数を平滑化したものがトレンドなので直線になるとは限らないのである。</p>
@@ -1574,7 +1591,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3bc6823f6a8e1d0712e6dba7221b66020d41875f650fd4856bc15a3d3ceec986.png" src="_images/3bc6823f6a8e1d0712e6dba7221b66020d41875f650fd4856bc15a3d3ceec986.png" />
+<img alt="_images/786234233772a6db2f7b1689c95c0dc0ea7b910bd9fb3862fa18dfa988a2777f.png" src="_images/786234233772a6db2f7b1689c95c0dc0ea7b910bd9fb3862fa18dfa988a2777f.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1602,7 +1619,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.3767173359833995e-12
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-8.403379002753685e-12
 </pre></div>
 </div>
 </div>
@@ -1616,7 +1633,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.8222940822022835
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.8222940821952367
 </pre></div>
 </div>
 </div>
@@ -1648,7 +1665,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7b1c77d7e8e1654900359ce3927d5f1fea164140a1796e6fa2559decb75c85cb.png" src="_images/7b1c77d7e8e1654900359ce3927d5f1fea164140a1796e6fa2559decb75c85cb.png" />
+<img alt="_images/022e0a3a39f71b090d951dc0443ea6e665befb64ca5f32f589f38b8b063bc4e1.png" src="_images/022e0a3a39f71b090d951dc0443ea6e665befb64ca5f32f589f38b8b063bc4e1.png" />
 </div>
 </div>
 <p>歪んだ分布になっていることが分かる。</p>
@@ -1698,7 +1715,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6752b0dfe68947a3c83dc14ae69f82e80d0d6cfd2eb231343fe221af7b131f1a.png" src="_images/6752b0dfe68947a3c83dc14ae69f82e80d0d6cfd2eb231343fe221af7b131f1a.png" />
+<img alt="_images/7e3e8d6587b94d36cbaeace42fa6cefe3ae54cfca51b160ba0745a8b96258844.png" src="_images/7e3e8d6587b94d36cbaeace42fa6cefe3ae54cfca51b160ba0745a8b96258844.png" />
 </div>
 </div>
 <p>この図に基づいて次の点について考える。</p>
@@ -1732,7 +1749,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1225e342082fcbca73592f804d323f6ffa4777aa485f8effee8b3a9164f370a3.png" src="_images/1225e342082fcbca73592f804d323f6ffa4777aa485f8effee8b3a9164f370a3.png" />
+<img alt="_images/ca139830b6eda469ead93ec2ff0e7f84711a7d1c8d2ef5aedeaa27804fd221cd.png" src="_images/ca139830b6eda469ead93ec2ff0e7f84711a7d1c8d2ef5aedeaa27804fd221cd.png" />
 </div>
 </div>
 <p>以下で考察するが、逆に動いているのが特徴的である。</p>
@@ -1805,7 +1822,7 @@ trend(s, lamb=1600)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.17089852439087916
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.1708985243923936
 </pre></div>
 </div>
 </div>
@@ -1912,7 +1929,7 @@ imports_cycle       0.65
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2e1374b674a65c63a0dd0b44caa36e198e93af5de54a736238b82ae86ddd33ea.png" src="_images/2e1374b674a65c63a0dd0b44caa36e198e93af5de54a736238b82ae86ddd33ea.png" />
+<img alt="_images/62548ce3643f810eb7b3395d283ce7c9011868ce0589eb190df58e5f9c19b355.png" src="_images/62548ce3643f810eb7b3395d283ce7c9011868ce0589eb190df58e5f9c19b355.png" />
 </div>
 </div>
 <p>一方，政府支出の値は負であり，景気循環をコントロールしようとする政府の政策の現れと解釈できる。GDPのトレンドからの乖離が負の場合、景気対策として政府支出を増やし傾向にある。また、GDPの乖離が正であれば、経済のオーバーヒート（インフレの発生）を避けるために政府支出を減少させると理解できる。</p>
@@ -2258,7 +2275,7 @@ imports_cycle       0.65
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788747033
 </pre></div>
 </div>
 </div>
@@ -2316,7 +2333,7 @@ imports_cycle       0.65
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788755598
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6974503788747033
 </pre></div>
 </div>
 </div>
@@ -2331,7 +2348,7 @@ imports_cycle       0.65
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/90e8e77afc60084a65f1aa63dc06484df82549f0082ece242df1deb792f3d115.png" src="_images/90e8e77afc60084a65f1aa63dc06484df82549f0082ece242df1deb792f3d115.png" />
+<img alt="_images/47b6b81007b3aa9d05bf02338c2e9288909891c103a79e32be43d193f4086ae6.png" src="_images/47b6b81007b3aa9d05bf02338c2e9288909891c103a79e32be43d193f4086ae6.png" />
 </div>
 </div>
 <p>はっきりと正の相関を確認できるが，例外的な動きをしている観測値もある。</p>
@@ -2442,7 +2459,7 @@ imports_cycle       3.26
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/deea3dc597e1d6f817b5876117799b6231fa5e6e9fab6adabcc9fd7d22c4156a.png" src="_images/deea3dc597e1d6f817b5876117799b6231fa5e6e9fab6adabcc9fd7d22c4156a.png" />
+<img alt="_images/f26213e7cfabfd828e3cd3b742f69708504471b79fa5afaf306392292a4fe8f7.png" src="_images/f26213e7cfabfd828e3cd3b742f69708504471b79fa5afaf306392292a4fe8f7.png" />
 </div>
 </div>
 <p>これらの結果を説明するために，効用最大化に基づく消費者理論があり，利潤最大化に基づく企業行動に関するモデルが使われている。</p>
@@ -2458,7 +2475,7 @@ imports_cycle       3.26
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.66957649372247
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.6695764937221993
 </pre></div>
 </div>
 </div>
@@ -2473,7 +2490,7 @@ imports_cycle       3.26
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b52ed2841e48522d7e882d621c0b7dcd6f202c4d3558a41ba0d7b120035d83f.png" src="_images/5b52ed2841e48522d7e882d621c0b7dcd6f202c4d3558a41ba0d7b120035d83f.png" />
+<img alt="_images/a285cfab3a395f1f61a82a285da5b415f32c37fbc000bfa219fcb8fb04605b96.png" src="_images/a285cfab3a395f1f61a82a285da5b415f32c37fbc000bfa219fcb8fb04605b96.png" />
 </div>
 </div>
 <p>大きな差を視覚的に確認できる。</p>
@@ -2535,8 +2552,7 @@ imports_cycle       3.26
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2592,7 +2608,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -2619,8 +2635,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

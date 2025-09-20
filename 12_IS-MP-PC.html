@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="定量的マクロ経済分析：Part 2" href="18_ADAS-2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -634,10 +651,10 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </ul>
 <p>次の図は，これらの変数がどのように影響し合っているかをまとめている。</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
@@ -694,7 +711,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/1f33934a6b4e412abbd2a4e12c8a796f3c85e16e665b64e125861f2c25740473.png" src="_images/1f33934a6b4e412abbd2a4e12c8a796f3c85e16e665b64e125861f2c25740473.png" />
+<img alt="_images/c2fed1efb0a4696d121ab19c555761b1aaf72385dac94d1a08760831c86439b0.png" src="_images/c2fed1efb0a4696d121ab19c555761b1aaf72385dac94d1a08760831c86439b0.png" />
 </div>
 </div>
 <p>この図では，均衡式<code class="docutils literal notranslate"><span class="pre">ISMP</span></code>と<code class="docutils literal notranslate"><span class="pre">PC</span></code>の右辺にある変数が矢印の始点となり，左辺にある変数が矢印の終点としている。オレンジ色の変数は内生変数，水色の変数は外生変数であり，矢印の方向は変数が影響する方向を示している。矢印は（影響の）伝播チャンネルと呼ぼう。また，矢印にある<code class="docutils literal notranslate"><span class="pre">ISMP</span></code>と<code class="docutils literal notranslate"><span class="pre">PC</span></code>は，伝播チャンネルが生成される均衡条件を表している。図には次の特徴がある。</p>
@@ -713,7 +730,8 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 <p>通常のAD-ASモデルでは縦軸に一般物価水準を使うが，<a class="reference internal" href="#fig-12-ismppc-simple"><span class="std std-numref">Fig. 18</span></a>から分かるように，IS-MP-PCモデルではインフレ率が縦軸にあることに注意しよう。</p>
 <p>均衡では，<span class="math notranslate nohighlight">\(u_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(v_t\ne 0\)</span>，<span class="math notranslate nohighlight">\(e_t\ne 0\)</span>であったとしても，<span class="math notranslate nohighlight">\(\pi_{t-1}\)</span>を所与としてこの２式で<span class="math notranslate nohighlight">\((y_t,\pi_t)\)</span>が決定されることになる。更に<span class="math notranslate nohighlight">\(t+1\)</span>期では，<span class="math notranslate nohighlight">\(u_{t+1}\)</span>，<span class="math notranslate nohighlight">\(v_{t+1}\)</span>，<span class="math notranslate nohighlight">\(e_{t+1}\)</span>はそれぞれの<span class="math notranslate nohighlight">\(t\)</span>期とは異なる値をとるかもしれないが，それらと一緒に<span class="math notranslate nohighlight">\(t\)</span>期に決定された<span class="math notranslate nohighlight">\(\pi_{t}\)</span>を所与として<span class="math notranslate nohighlight">\((y_{t+1},\pi_{t+1})\)</span>が決定されることになる。このように内生変数の値が逐次的に決まることになるが，まさにこのような逐次的関係を捉えるのが<a class="reference internal" href="7_DifferenceEq.html#chap-7-differenceeq"><span class="std std-ref">「差分方程式と経済分析」</span></a>の章で説明した差分方程式である。</p>
 <figure class="align-default" id="fig-12-ismppc-simple">
-<a class="reference internal image-reference" href="_images/ismppc_simple.jpeg"><img alt="_images/ismppc_simple.jpeg" src="_images/ismppc_simple.jpeg" style="width: 403.8px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ismppc_simple.jpeg"><img alt="_images/ismppc_simple.jpeg" src="_images/ismppc_simple.jpeg" style="width: 403.8px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 18 </span><span class="caption-text">IS-MP-PCモデルの単純なケース</span><a class="headerlink" href="#fig-12-ismppc-simple" title="Link to this image">#</a></p>
 </figcaption>
@@ -867,7 +885,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/26e1178186e2b14aad608f52c7c09fa00c2197930c2b761f458554db8a092a22.png" src="_images/26e1178186e2b14aad608f52c7c09fa00c2197930c2b761f458554db8a092a22.png" />
+<img alt="_images/bcd7f03ddd504b88899d211559802415c519b8a4af699de70c4f4547aedb9927.png" src="_images/bcd7f03ddd504b88899d211559802415c519b8a4af699de70c4f4547aedb9927.png" />
 </div>
 </div>
 <p>右３つの図からフィリップス曲線のショックが１単位上昇（例えば，オイルショックや生産費用を増加させるショック）し，他のショックは動いていないことが分かる。左３つの図にある内生変数の動きを考えるために，ISMP曲線とPC曲線を<a class="reference internal" href="#fig-12-pc-shock-simple"><span class="std std-numref">Fig. 19</span></a>に図示してみよう。</p>
@@ -890,7 +908,8 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </li>
 </ul>
 <figure class="align-default" id="fig-12-pc-shock-simple">
-<a class="reference internal image-reference" href="_images/pc_shock_simple.jpeg"><img alt="_images/pc_shock_simple.jpeg" src="_images/pc_shock_simple.jpeg" style="width: 423.0px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/pc_shock_simple.jpeg"><img alt="_images/pc_shock_simple.jpeg" src="_images/pc_shock_simple.jpeg" style="width: 423.0px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 19 </span><span class="caption-text">単純なケース：PC曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock-simple" title="Link to this image">#</a></p>
 </figcaption>
@@ -908,7 +927,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/64374d35f5d09534de08d3d1a0f33a11fe17440c4c07d78912aece31025e70d9.png" src="_images/64374d35f5d09534de08d3d1a0f33a11fe17440c4c07d78912aece31025e70d9.png" />
+<img alt="_images/5b8c4a7369006986c6edcd841f2db0bfae6e56e8c06402299999a4fe985e60ce.png" src="_images/5b8c4a7369006986c6edcd841f2db0bfae6e56e8c06402299999a4fe985e60ce.png" />
 </div>
 </div>
 <p>右３つの図からIS曲線だけにショックが発生していることが分かる。ISショックの符号は正であり，引き起こす要因の例として政府支出の増加や減税，将来を楽観視する投資家の増加などがあげられる。<a class="reference internal" href="#fig-12-is-shock-simple"><span class="std std-numref">Fig. 20</span></a>を使い内生変数の動きを考えてみよう。初期時点の均衡は点Aであり，ここからスタートする。</p>
@@ -935,7 +954,8 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </li>
 </ul>
 <figure class="align-default" id="fig-12-is-shock-simple">
-<a class="reference internal image-reference" href="_images/is_shock_simple.jpeg"><img alt="_images/is_shock_simple.jpeg" src="_images/is_shock_simple.jpeg" style="width: 433.8px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/is_shock_simple.jpeg"><img alt="_images/is_shock_simple.jpeg" src="_images/is_shock_simple.jpeg" style="width: 433.8px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 20 </span><span class="caption-text">単純なケース：IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock-simple" title="Link to this image">#</a></p>
 </figcaption>
@@ -953,7 +973,7 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7bb8ebd1e5a3ee2be0d49c74e0562a8b879fb87f4236543c206f8a6a5eab2358.png" src="_images/7bb8ebd1e5a3ee2be0d49c74e0562a8b879fb87f4236543c206f8a6a5eab2358.png" />
+<img alt="_images/b29126f0297bf6e451b3c17d65756b9146bf3cbea034a12f1267344616355060.png" src="_images/b29126f0297bf6e451b3c17d65756b9146bf3cbea034a12f1267344616355060.png" />
 </div>
 </div>
 <p>MP曲線の正のショックのみが発生している。何らかの理由（例えば，レアマテリアルなどの輸入財の高騰に直面してインフレのプレッシャーが高まった）で日銀は事前通告なしで名目利子率を上昇させたケースである。</p>
@@ -986,7 +1006,8 @@ y_t=y^*+u_t-av_t\quad\text{(ISMP)}
 </li>
 </ul>
 <figure class="align-default" id="fig-12-mp-shock-simple">
-<a class="reference internal image-reference" href="_images/mp_shock_simple.jpeg"><img alt="_images/mp_shock_simple.jpeg" src="_images/mp_shock_simple.jpeg" style="width: 396.9px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/mp_shock_simple.jpeg"><img alt="_images/mp_shock_simple.jpeg" src="_images/mp_shock_simple.jpeg" style="width: 396.9px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 21 </span><span class="caption-text">単純なケース：MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock-simple" title="Link to this image">#</a></p>
 </figcaption>
@@ -1038,7 +1059,8 @@ y_{t}=y^* +
 \]</div>
 <p>これにより、<span class="math notranslate nohighlight">\((\pi_{t-1},u_t,v_t,e_t)\)</span>を所与として<span class="math notranslate nohighlight">\(y_t\)</span>と<span class="math notranslate nohighlight">\(\pi_t\)</span>はISMP曲線とPC曲線によって決定される。<a class="reference internal" href="#fig-12-ismppc"><span class="std std-numref">Fig. 22</span></a>ではDAD曲線は右下がりとなり，より現実的な総需要曲線となっている。</p>
 <figure class="align-default" id="fig-12-ismppc">
-<a class="reference internal image-reference" href="_images/ismppc.jpeg"><img alt="_images/ismppc.jpeg" src="_images/ismppc.jpeg" style="width: 411.59999999999997px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ismppc.jpeg"><img alt="_images/ismppc.jpeg" src="_images/ismppc.jpeg" style="width: 411.59999999999997px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 22 </span><span class="caption-text">IS-MP-PCモデル</span><a class="headerlink" href="#fig-12-ismppc" title="Link to this image">#</a></p>
 </figcaption>
@@ -1335,7 +1357,7 @@ u_t=v_t=e_t=0
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>固有値		[0.  0.8]
 </pre></div>
 </div>
-<img alt="_images/c0a9f73a12bffac977efc878828457f73abdc6a3adb680068bab736783be384f.png" src="_images/c0a9f73a12bffac977efc878828457f73abdc6a3adb680068bab736783be384f.png" />
+<img alt="_images/c4764b94f3624f91d4799f4ce6554f0b1dee99252a0d3bfed34fd559f1779265.png" src="_images/c4764b94f3624f91d4799f4ce6554f0b1dee99252a0d3bfed34fd559f1779265.png" />
 </div>
 </div>
 <p>＜初期時点＞</p>
@@ -1350,7 +1372,8 @@ u_t=v_t=e_t=0
 </ul>
 <p><a class="reference internal" href="#fig-12-ismppc-simulation"><span class="std std-numref">Fig. 23</span></a>が示すように，この過程でISMP曲線とPC曲線は点Bから徐々に点Aに向かって移動することになる。</p>
 <figure class="align-default" id="fig-12-ismppc-simulation">
-<a class="reference internal image-reference" href="_images/ismppc-simulation.jpeg"><img alt="_images/ismppc-simulation.jpeg" src="_images/ismppc-simulation.jpeg" style="width: 432.95px; height: 350.0px;" /></a>
+<a class="reference internal image-reference" href="_images/ismppc-simulation.jpeg"><img alt="_images/ismppc-simulation.jpeg" src="_images/ismppc-simulation.jpeg" style="width: 432.95px; height: 350.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 23 </span><span class="caption-text">IS-MP-PCモデルの移行過程</span><a class="headerlink" href="#fig-12-ismppc-simulation" title="Link to this image">#</a></p>
 </figcaption>
@@ -1375,7 +1398,7 @@ u_t=v_t=e_t=0
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>固有値		[0.  0.8]
 </pre></div>
 </div>
-<img alt="_images/56647f56ea8e086bd1cf5e3762f0398413a8127acad2ec726848ee0c15dfa57c.png" src="_images/56647f56ea8e086bd1cf5e3762f0398413a8127acad2ec726848ee0c15dfa57c.png" />
+<img alt="_images/731f83bba7898266cd93a48cfca42a6deea7575aa86fa044b2abeb86d59f2be4.png" src="_images/731f83bba7898266cd93a48cfca42a6deea7575aa86fa044b2abeb86d59f2be4.png" />
 </div>
 </div>
 <p>＜初期時点＞</p>
@@ -1523,7 +1546,7 @@ u_t=v_t=e_t=0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/48b2c86f63873b9d311be5284f8667e8562ddf5d4e8fd3b34b4d6273cdd8b1fc.png" src="_images/48b2c86f63873b9d311be5284f8667e8562ddf5d4e8fd3b34b4d6273cdd8b1fc.png" />
+<img alt="_images/08adc8c155bc8ef74034e73629f06d4d7380108135936ff224bb9992b1ef1f22.png" src="_images/08adc8c155bc8ef74034e73629f06d4d7380108135936ff224bb9992b1ef1f22.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-12-pc-shock"><span class="std std-numref">Fig. 24</span></a>を使って説明しよう。</p>
@@ -1544,7 +1567,8 @@ u_t=v_t=e_t=0
 </li>
 </ul>
 <figure class="align-default" id="fig-12-pc-shock">
-<a class="reference internal image-reference" href="_images/pc_shock.jpeg"><img alt="_images/pc_shock.jpeg" src="_images/pc_shock.jpeg" style="width: 414.59999999999997px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/pc_shock.jpeg"><img alt="_images/pc_shock.jpeg" src="_images/pc_shock.jpeg" style="width: 414.59999999999997px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 24 </span><span class="caption-text">フィリップス曲線へのショックの効果</span><a class="headerlink" href="#fig-12-pc-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -1579,7 +1603,7 @@ u_t=v_t=e_t=0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7e8ab566c2584a51cdd1c413f8c93d70cf3e9c5c39bc9daad33da9c2567ae9a6.png" src="_images/7e8ab566c2584a51cdd1c413f8c93d70cf3e9c5c39bc9daad33da9c2567ae9a6.png" />
+<img alt="_images/dd1652832831534ba71ff1719e81d92153ab0217aaf4e3d2c2b9e938bc330413.png" src="_images/dd1652832831534ba71ff1719e81d92153ab0217aaf4e3d2c2b9e938bc330413.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-12-is-shock"><span class="std std-numref">Fig. 25</span></a>を使って説明しよう。</p>
@@ -1600,7 +1624,8 @@ u_t=v_t=e_t=0
 </li>
 </ul>
 <figure class="align-default" id="fig-12-is-shock">
-<a class="reference internal image-reference" href="_images/is_shock.jpeg"><img alt="_images/is_shock.jpeg" src="_images/is_shock.jpeg" style="width: 368.09999999999997px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/is_shock.jpeg"><img alt="_images/is_shock.jpeg" src="_images/is_shock.jpeg" style="width: 368.09999999999997px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 25 </span><span class="caption-text">IS曲線へのショックの効果</span><a class="headerlink" href="#fig-12-is-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -1634,7 +1659,7 @@ u_t=v_t=e_t=0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/298dc3a370d5100ad523038efabbb8aa93f8a3c20686e4347d496ac7355aca68.png" src="_images/298dc3a370d5100ad523038efabbb8aa93f8a3c20686e4347d496ac7355aca68.png" />
+<img alt="_images/fe422d64757be43c0b51462d0d60740410aa1f467685e87ecdccfd3ad834a82a.png" src="_images/fe422d64757be43c0b51462d0d60740410aa1f467685e87ecdccfd3ad834a82a.png" />
 </div>
 </div>
 <p><a class="reference internal" href="#fig-12-mp-shock"><span class="std std-numref">Fig. 26</span></a>を使って説明しよう。</p>
@@ -1655,7 +1680,8 @@ u_t=v_t=e_t=0
 </li>
 </ul>
 <figure class="align-default" id="fig-12-mp-shock">
-<a class="reference internal image-reference" href="_images/mp_shock.jpeg"><img alt="_images/mp_shock.jpeg" src="_images/mp_shock.jpeg" style="width: 381.59999999999997px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/mp_shock.jpeg"><img alt="_images/mp_shock.jpeg" src="_images/mp_shock.jpeg" style="width: 381.59999999999997px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 26 </span><span class="caption-text">MP曲線へのショックの効果</span><a class="headerlink" href="#fig-12-mp-shock" title="Link to this image">#</a></p>
 </figcaption>
@@ -1680,7 +1706,8 @@ u_t=v_t=e_t=0
 \end{split}\]</div>
 <p>この２つのケースの違いを考えるために，PC曲線へのショックを考えよう。<a class="reference internal" href="#fig-12-two-cases"><span class="std std-numref">Fig. 27</span></a>からショックが発生した期のインパクト効果の違いが確認できる。</p>
 <figure class="align-default" id="fig-12-two-cases">
-<a class="reference internal image-reference" href="_images/two_cases.jpeg"><img alt="_images/two_cases.jpeg" src="_images/two_cases.jpeg" style="width: 476.09999999999997px; height: 300.0px;" /></a>
+<a class="reference internal image-reference" href="_images/two_cases.jpeg"><img alt="_images/two_cases.jpeg" src="_images/two_cases.jpeg" style="width: 476.09999999999997px; height: 300.0px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 27 </span><span class="caption-text">中央銀行の政策スタンスの違い</span><a class="headerlink" href="#fig-12-two-cases" title="Link to this image">#</a></p>
 </figcaption>
@@ -1721,7 +1748,7 @@ u_t=v_t=e_t=0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ee4fee7655345ab383c35629e0d2c33bb27ec3a68589f4fecc71f7ad23f2d8e5.png" src="_images/ee4fee7655345ab383c35629e0d2c33bb27ec3a68589f4fecc71f7ad23f2d8e5.png" />
+<img alt="_images/dd00fa2c15051a43bbadb13695b8db664332311c88d9f6da8bd6396c141a87d9.png" src="_images/dd00fa2c15051a43bbadb13695b8db664332311c88d9f6da8bd6396c141a87d9.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1826,8 +1853,7 @@ y_{t+1}=y^* +
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1894,7 +1920,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -1921,8 +1947,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

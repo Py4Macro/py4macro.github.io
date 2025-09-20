@@ -16,34 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="所得分布と所得収斂" href="9_Convergence.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,12 +124,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日) ← クリック！ ✴️ </span></a></p></div>
+</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -133,8 +144,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,11 +174,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
@@ -221,14 +235,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -389,16 +398,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -795,7 +812,7 @@ Name: price, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5855659217a92fbe9dcae0d91e7c73e28b1ed4b214ba8503b8f6549816183c1c.png" src="_images/5855659217a92fbe9dcae0d91e7c73e28b1ed4b214ba8503b8f6549816183c1c.png" />
+<img alt="_images/f52e86686162bed1ba40c51bc87853060471d9f41a426118d0a15300255bebfa.png" src="_images/f52e86686162bed1ba40c51bc87853060471d9f41a426118d0a15300255bebfa.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0</span></code>は平均と等しいという意味である。<code class="docutils literal notranslate"><span class="pre">0.10</span></code>は平均より<code class="docutils literal notranslate"><span class="pre">10</span></code>％高い価格であり，<code class="docutils literal notranslate"><span class="pre">-0.10</span></code>は平均より<code class="docutils literal notranslate"><span class="pre">10</span></code>％安いチョコレートである。明らかに一物一価は成立していない。</p>
@@ -1017,7 +1034,7 @@ Name: price, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c75e938abeb38feab9f054b6ff875bef76d119ced52f94984db1bb3df76683a5.png" src="_images/c75e938abeb38feab9f054b6ff875bef76d119ced52f94984db1bb3df76683a5.png" />
+<img alt="_images/49743baabc5259f1fd28258346d7e370751e72bc1b6973fcfa9bd4c8568ad199.png" src="_images/49743baabc5259f1fd28258346d7e370751e72bc1b6973fcfa9bd4c8568ad199.png" />
 </div>
 </div>
 <p>安いところは平均よりも約<span class="pasted-text">20</span>％もお得！いずれにしろ，一物一価は成立していない。</p>
@@ -1279,7 +1296,7 @@ Name: price, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03ce8eaed5209b083590b721b82d7e9b0827cc75fc26a913f7a16d0ce557e418.png" src="_images/03ce8eaed5209b083590b721b82d7e9b0827cc75fc26a913f7a16d0ce557e418.png" />
+<img alt="_images/ec8da031f3833a9423c808c113e32c0576ecb788794b8785af42e6126905cfa1.png" src="_images/ec8da031f3833a9423c808c113e32c0576ecb788794b8785af42e6126905cfa1.png" />
 </div>
 </div>
 <p>平均から高くても約<span class="pasted-text">7.9</span>％，安くても約<span class="pasted-text">6.2</span>％程しか違わない。標準偏差（変動係数）を計算してみよう。</p>
@@ -1753,7 +1770,7 @@ Name: price_yen, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f511882c0cafccb8d13955a698fb23d07a06cfe62d19f41bb3f7649f3c4b2107.png" src="_images/f511882c0cafccb8d13955a698fb23d07a06cfe62d19f41bb3f7649f3c4b2107.png" />
+<img alt="_images/d75a063d4dc06154ab17a0cadb0463e5b4f7bd1722f61cf160947856fb739d9c.png" src="_images/d75a063d4dc06154ab17a0cadb0463e5b4f7bd1722f61cf160947856fb739d9c.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>が日本となる。一番高い国を調べてみよう。</p>
@@ -2141,7 +2158,7 @@ Name: price_yen, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6a8458980b6946122a2b23a22bf04b9956826e00748b7bc0cd70892dd84558f2.png" src="_images/6a8458980b6946122a2b23a22bf04b9956826e00748b7bc0cd70892dd84558f2.png" />
+<img alt="_images/9d4f8454fffaa3b52b44f3e9fd18e0f1e40820667edb2d5dc18ff384dbf2b7f7.png" src="_images/9d4f8454fffaa3b52b44f3e9fd18e0f1e40820667edb2d5dc18ff384dbf2b7f7.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -2592,7 +2609,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/85c45533e98f56268df4da14d97b02668cf0f1aacfa97b66c104bc63fd3e5c96.png" src="_images/85c45533e98f56268df4da14d97b02668cf0f1aacfa97b66c104bc63fd3e5c96.png" />
+<img alt="_images/f8bffd6fd2e927a770b2e57db225f90db49aca35e43b6fa7d7be7408ebe834e5.png" src="_images/f8bffd6fd2e927a770b2e57db225f90db49aca35e43b6fa7d7be7408ebe834e5.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -2656,7 +2673,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4d1c694fd5248480fbc31a000900127055a8c8269e21c80f7232dea895d266e1.png" src="_images/4d1c694fd5248480fbc31a000900127055a8c8269e21c80f7232dea895d266e1.png" />
+<img alt="_images/42799ef690086595ccf8122b705c2348d39c19b37ea3f64b319fe412e8f35b31.png" src="_images/42799ef690086595ccf8122b705c2348d39c19b37ea3f64b319fe412e8f35b31.png" />
 </div>
 </div>
 <p>この図は，上の図の情報を実質為替レート（円/ドル）としてまとめている。実質為替レートでも，縦軸での円安・円高の方向は同じとなることに注意しよう。1980年代半ばまで円高に動いていること（増価）が分かる。</p>
@@ -2717,7 +2734,7 @@ e_{i}^{\text{BM}}=\frac{P_i}{P_{\text{US}}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5f5684e3afd0f8acc1c06cdba9569351c0e9337cf010b4222fde57af93e8ac5c.png" src="_images/5f5684e3afd0f8acc1c06cdba9569351c0e9337cf010b4222fde57af93e8ac5c.png" />
+<img alt="_images/2f3b3e177491d5804e1394c79473e92800e12b2964608f8c5f331f5f65c6eb3c.png" src="_images/2f3b3e177491d5804e1394c79473e92800e12b2964608f8c5f331f5f65c6eb3c.png" />
 </div>
 </div>
 <p>次のような解釈となる。</p>
@@ -2908,7 +2925,7 @@ Name: pl_gdpo, dtype: float64
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>このプロットには66カ国が含まれる。
 </pre></div>
 </div>
-<img alt="_images/9a7b4593085787dee424620b06972d78fa42f2d63af46f04527e6406266e0995.png" src="_images/9a7b4593085787dee424620b06972d78fa42f2d63af46f04527e6406266e0995.png" />
+<img alt="_images/b75837618077df0fd2f3fc95967a66b48ef1b1656774f2476da4fbe7d33e4c9e.png" src="_images/b75837618077df0fd2f3fc95967a66b48ef1b1656774f2476da4fbe7d33e4c9e.png" />
 </div>
 </div>
 <p>リストの上には所得が高い国が列挙されており，所得が低い国はリストの下の方にある。この傾向はBig Macの場合と同じである。</p>
@@ -2940,7 +2957,7 @@ Name: pl_gdpo, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0b9ee3f7b0bf2684729edf04a9c42b0969e021f59e887464245bec0ca48932b5.png" src="_images/0b9ee3f7b0bf2684729edf04a9c42b0969e021f59e887464245bec0ca48932b5.png" />
+<img alt="_images/d01de89100c5a1b55b8f5fae5d5c509eb8fca99733d845c6e1cf549bd9fc3629.png" src="_images/d01de89100c5a1b55b8f5fae5d5c509eb8fca99733d845c6e1cf549bd9fc3629.png" />
 </div>
 </div>
 <p>直線トレンドを想像してみよう。明らかに右上がりであり，所得が高い経済ほど物価水準が高いことが確認できる。これは<strong>バラッサ・サミュエルソン効果</strong>と呼ばれる。直感的には，所得が高い経済の生産性と価格は高く，多くが貿易財である。一方，所得が低い国の非貿易財（例えば，不動産）やサービス（例えば，散髪）は比較的に安い。右上がりの直線トレンドはそれらの反映と考えられる。</p>
@@ -3116,7 +3133,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/784bf057227ed1cc037e77c85b8c37219f7dbc41fb4138220cfb4e92e6d98bcb.png" src="_images/784bf057227ed1cc037e77c85b8c37219f7dbc41fb4138220cfb4e92e6d98bcb.png" />
+<img alt="_images/ce44d94238733764c772bee7eca1101efdad7713933ed5a153072310cfa28924.png" src="_images/ce44d94238733764c772bee7eca1101efdad7713933ed5a153072310cfa28924.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3160,7 +3177,7 @@ Notes:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3a717823a6e68d6b8474527a336d84969b1c312295bcc6a72feb614d4a8a3f13.png" src="_images/3a717823a6e68d6b8474527a336d84969b1c312295bcc6a72feb614d4a8a3f13.png" />
+<img alt="_images/86377613e1caf6f8fc93fa933701f9ddeef2856ccbd4b4226c59f2e15d536870.png" src="_images/86377613e1caf6f8fc93fa933701f9ddeef2856ccbd4b4226c59f2e15d536870.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>（縦の点線）で<span class="math notranslate nohighlight">\(\dfrac{P_i/e_i}{P_{\text{US}}}=1\)</span>となることに注意しよう。次のことが言える。</p>
@@ -3464,7 +3481,7 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/513e95fd916151db70e07a82e76d44a7c8fbdb9779a6bc0e6355939a2e9eee44.png" src="_images/513e95fd916151db70e07a82e76d44a7c8fbdb9779a6bc0e6355939a2e9eee44.png" />
+<img alt="_images/d55c33b7b5101ca76eef1ecee9d4d8ae94875a5fb8847450f7a0e58abc0906d4.png" src="_images/d55c33b7b5101ca76eef1ecee9d4d8ae94875a5fb8847450f7a0e58abc0906d4.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -3485,7 +3502,7 @@ y_i= d_i^{\text{所得}}+ d_i^{\text{その他}}\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1c723c23f7a7c8a7357f809331d9b62de8c42922d0eb661c2ca8afffa762274d.png" src="_images/1c723c23f7a7c8a7357f809331d9b62de8c42922d0eb661c2ca8afffa762274d.png" />
+<img alt="_images/b37ff2958fcf9c4521e961b0bf2aee6005b156e8d1cb906cb1d3b416d72ffc04.png" src="_images/b37ff2958fcf9c4521e961b0bf2aee6005b156e8d1cb906cb1d3b416d72ffc04.png" />
 </div>
 </div>
 <p>PPPレートGDPと比べて市場為替レートGDPは全体的に左（小さい値）にシフトしている。所得が中程度の国が減少し，所得が低い国が増加している。</p>
@@ -3679,8 +3696,7 @@ PPPレート：   0.120
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -3754,7 +3770,7 @@ By 春山 鉄源  Tetsugen HARUYAMA
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -3781,8 +3797,8 @@ By 春山 鉄源  Tetsugen HARUYAMA
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
