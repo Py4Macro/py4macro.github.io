@@ -1,0 +1,2209 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>実物的景気循環(RBC)モデル &#8212; Pythonで学ぶマクロ経済学 (中級＋レベル)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/myadmonitions.css?v=372cf325" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3FB0WMD39P"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-3FB0WMD39P');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '15_RBC';</script>
+    <link rel="canonical" href="https://py4macro.github.io/15_RBC.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="今後の計画" href="Plan.html" />
+    <link rel="prev" title="linearsolve" href="14_linearsolve.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p><a href='https://www.saiensu.co.jp/search/?isbn=978-4-88384-416-6&y=2025'><span style='color:white; font-size:90%;'> ✴️ 書籍『経済学のためのPython入門』(発行日：2025年10月10日)　←　クリック！ ✴️ </span></a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pythonで学ぶマクロ経済学 (中級＋レベル)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pythonの学習</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io">経済学のためのPython入門</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">長期分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="5a_Development_Accounting.html">発展会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5b_Growth_Accounting.html">成長会計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_Regression.html">回帰分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_DifferenceEq.html">差分方程式と経済分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8_Solow.html">ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_Convergence.html">所得分布と所得収斂</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_PPP.html">一物一価と購買力平価</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期データ分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="13a_Random_Variables.html">ランダム変数と統計的特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Data_Fluctuation.html">主なマクロ・データの特徴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11a_Okun_Phillips.html">オークンの法則とフィリップス曲線</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11b_Money_Inflation.html">インフレとマネーストック</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_data_on_money.html">古典派の二分法と金融政策</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期定量分析</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-1.html">定量的マクロ経済分析：Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_ADAS-2.html">定量的マクロ経済分析：Part 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">短期モデル分析</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_IS-MP-PC.html">IS-MP-PCモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_Stochastic_Solow.html">確率的ソロー・モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_linearsolve.html"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">実物的景気循環(RBC)モデル</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">ToDo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Plan.html">今後の計画</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://py4basics.github.io/Gapminder.html">Gapminder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://py4etrics.github.io">Pythonで学ぶ入門計量経済学</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Py4Macro/py4macro.github.io/source?urlpath=tree/15_RBC.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Py4Macro/py4macro.github.io/blob/source/15_RBC.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Py4Macro/py4macro.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/15_RBC.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>実物的景気循環(RBC)モデル</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">説明</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">基本RBCモデルの詳細</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">記号と基本的な仮定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">効用関数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復習：２財の効用最大化問題</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">オイラー条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">実質利子率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">実質賃金の決定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">均衡条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ステップ１：パラメータの値</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">ステップ２：変数リスト</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">ステップ３：定常状態での均衡条件の関数</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">ステップ４：モデルの最終準備（初期化）</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ステップ５：定常状態の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ステップ６：モデルを対数線形近似</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">インパルス反応</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インパクト効果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">インパルス反応の解釈</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">コードを１つのセルにまとめる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">確率的シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">図示</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">変動の大きさ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">自己相関</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">GDPとの相関度</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tfp">TFPと産出量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-14-endogenous-labour">内生的労働供給の導入</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">消費者の最適化行動</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">均衡条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ステップ１：パラメータの値</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">ステップ２：変数リスト</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">ステップ３：定常状態での均衡条件の関数</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">ステップ４：モデルの最終準備（初期化）</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">ステップ５：定常状態の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">ステップ６：モデルを対数線形近似</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">インパクト効果</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">インパルス反応</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">コードを１つのセルにまとめる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">確率的シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">TFPと産出量</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">変動の大きさ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">自己相関</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">GDPとの相関度</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">RBCモデルの意義と限界</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rbc">
+<span id="chap-15-rbc"></span><h1>実物的景気循環(RBC)モデル<a class="headerlink" href="#rbc" title="Link to this heading">#</a></h1>
+<div name="html-admonition" style="font-size: 0.8em">
+<input type="button" onclick="location.href='https://translate.google.com/translate?hl=&sl=ja&tl=en&u='+window.location;" value="Google translation" style="color:#ffffff;background-color:#008080; height:25px" onmouseover="this.style.background='#99ccff'" onmouseout="this.style.background='#008080'"/> in English or the language of your choice.
+</div><br><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">japanize_matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">linearsolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ls</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># numpy v1の表示を使用</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.21&#39;</span><span class="p">)</span>
+<span class="c1"># 警告メッセージを非表示</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>説明<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>実物的景気循環モデル（Real Business Cycles Model; RBCモデル）は動学的一般均衡モデルであり、今盛んに研究が行われているDSGEモデル（Dynamic Stochastic General Equilibrium Model）の先駆けとなるモデルである。次の３つがRBCモデルの要となる仮定である。</p>
+<ol class="arabic simple">
+<li><p>全ての市場は完全競争である。</p></li>
+<li><p>毎期ごとに消費者は財の消費と労働供給量を内生的に決定する。</p></li>
+<li><p>全要素生産性（TFP）はAR(1)に従って、確率的に変動する。</p></li>
+</ol>
+<p>最後の仮定により、GDPを含むマクロ変数の変動が発生する。AR(1)は定常状態に戻る傾向にあるので、TFPのショックは一時的なものとなるが、ホワイト・ノイズが含まれているため、TFPショックは毎期毎期発生することになる。直感的に説明するために、TFPが上昇したと考えると基本的には次の２つのメカニズムが働くことになる。</p>
+<ol class="arabic simple">
+<li><p>労働の限界生産物は増加し実質賃金の上昇する。これにより以下が発生する。</p>
+<ul class="simple">
+<li><p>労働供給の増加</p></li>
+<li><p>生産量増加</p></li>
+<li><p>消費の増加</p></li>
+<li><p>貯蓄の変化</p></li>
+</ul>
+</li>
+<li><p>資本の限界生産物は増加し実質利子率は上昇する。これにより以下が発生する。</p>
+<ul class="simple">
+<li><p>投資の増加</p></li>
+<li><p>資本ストックの増加</p></li>
+<li><p>生産量の増加</p></li>
+<li><p>貯蓄の変化</p></li>
+</ul>
+</li>
+</ol>
+<p>これらのメカニズムは別々に独立して動くのではなく，お互いに影響しあいマクロ変数に影響を与えることになる。もちろん，最初のショック発生後にショックが続かなければマクロ変数は定常状態に戻っていく。しかしTFPはAR(1)のプロセスに従ってショックが発生するため、ショックが発生する度に、上述のメカニズムが作動することになり、景気循環が発生することになる。</p>
+<p>これがRBCモデルの基本的な経済学的なメカニズムとなるが，マクロデータをどの程度説明できるのだろうか。この問を検討するのがこの章の目的である。</p>
+</section>
+<section id="id2">
+<h2>基本RBCモデルの詳細<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>記号と基本的な仮定<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>ここでは最も簡単なRBCモデルを考えるために，労働供給は一定と仮定する。後に，内生的な労働供給を導入することにする。</p>
+<p>記号：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Y_t\)</span>：産出量（基準財として価格は<code class="docutils literal notranslate"><span class="pre">1</span></code>）</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_t\)</span>：全要素生産性（TFP）</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_t\)</span>：資本ストック</p></li>
+<li><p><span class="math notranslate nohighlight">\(L\)</span>：総労働時間（一定と仮定）</p></li>
+<li><p><span class="math notranslate nohighlight">\(I_t\)</span>：投資</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>：資本減耗率</p></li>
+<li><p><span class="math notranslate nohighlight">\(R_t\)</span>：実質利子率</p></li>
+<li><p><span class="math notranslate nohighlight">\(W_t\)</span>：実質賃金</p></li>
+</ul>
+<p>生産関数にはコブ・ダグラス型を仮定しよう。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-production">
+<span class="eqno">(169)<a class="headerlink" href="#equation-eq-15-production" title="Link to this equation">#</a></span>\[
+Y_t=A_tK_t^{\alpha}L^{1-\alpha}
+\]</div>
+<p>ここでTFPについて次の式を置く。</p>
+<div class="math notranslate nohighlight">
+\[
+A_{t+1}=A_t^{\rho}e^{v_t},
+\qquad
+v_t\sim\mathcal{N}(0,\sigma^2)
+\]</div>
+<p>所得恒等式は</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-identity">
+<span class="eqno">(170)<a class="headerlink" href="#equation-eq-15-identity" title="Link to this equation">#</a></span>\[
+Y_t=C_t+I_t
+\]</div>
+<p>であり、資本ストックは</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-capital">
+<span class="eqno">(171)<a class="headerlink" href="#equation-eq-15-capital" title="Link to this equation">#</a></span>\[
+K_{t+1}=I_t+(1-d)K_t
+\]</div>
+<p>に従って変化する。これらの式は基本的に確率的ソロー・モデルと同じであり、異なる点は、投資<span class="math notranslate nohighlight">\(I_t\)</span>と等しい貯蓄は消費者の最適行動を通して決定される点であり、次にそれについて説明する。</p>
+</section>
+<section id="id4">
+<h3>効用関数<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>RBCモデルでは効用を最大化する消費者の行動が重要な役割を果たすことになる。<span class="math notranslate nohighlight">\(L\)</span>人の消費者が存在すると仮定するが、全ての消費者は同質（「クローン人間?」）と仮定する。これにより「代表的個人」と呼ばれる1人の消費者の行動だけを考えれば全ての消費者の行動を捉えることが可能となる。</p>
+<p>１期間は四半期と考え、消費者が<span class="math notranslate nohighlight">\(t\)</span>期に得る効用は</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-utility">
+<span class="eqno">(172)<a class="headerlink" href="#equation-eq-15-utility" title="Link to this equation">#</a></span>\[\begin{split}
+u_t=
+\begin{cases}
+&amp;\dfrac{C_t^{1-\theta}-1}{1-\theta}\quad\text{for }\theta&gt;0\text{ and }\theta\neq 1\\
+&amp;\log(C_t)\quad\text{for }\theta=1
+\end{cases}
+\end{split}\]</div>
+<p>で与えられるとしよう。ここで<span class="math notranslate nohighlight">\(C_t\)</span>は<span class="math notranslate nohighlight">\(t\)</span>期での消費である。この効用関数から次のことがいえる。消費が１単位増えると効用は増加するが、その変化は次の限界効用で表される。</p>
+<div class="math notranslate nohighlight">
+\[\frac{du_t}{dC_t}=\frac{1}{C_t^\theta}\]</div>
+<p>また消費が<span class="math notranslate nohighlight">\(N\)</span>単位増加する場合の効用の変化は<span class="math notranslate nohighlight">\(\dfrac{N}{C_t^\theta}\)</span>となる。</p>
+<p>更に，消費者は無限期間生存すると仮定しよう。もちろん現実的ではないが，問題を簡単にするためである。初期時点（<span class="math notranslate nohighlight">\(t=0\)</span>）での消費者の生涯（無限期間）効用<span class="math notranslate nohighlight">\(U_0\)</span>を次式とおく。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-lifetimeu">
+<span class="eqno">(173)<a class="headerlink" href="#equation-eq-15-lifetimeu" title="Link to this equation">#</a></span>\[
+U_0=u_0+\beta u_1+\beta^2 u_2+\beta^3 u_3+\cdots
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(0&lt;\beta&lt;1\)</span>（例えば、0.99）は主観的割引因子と呼ばれるものであり、将来の効用の重要性（ウェイト）を捉えている。まず、<span class="math notranslate nohighlight">\(\beta=0\)</span>を考えてみよう。この場合、将来の効用は<code class="docutils literal notranslate"><span class="pre">0</span></code>であり、将来は全く重要ではなく、今期だけが重要だということになる。次に、<span class="math notranslate nohighlight">\(\beta=1\)</span>としてみよう。この場合、50年後や100年後の将来の効用は今の効用と等しく重要だという意味であり，そのような消費者は極端に我慢強いと言える。そういう意味で、高い<span class="math notranslate nohighlight">\(\beta\)</span>はより我慢強い選好を表している。通常は<span class="math notranslate nohighlight">\(0&lt;\beta&lt;1\)</span>を仮定し、<span class="math notranslate nohighlight">\(\beta^t&gt;\beta^{t+1}\)</span>が必ず成立する。即ち，消費者にとって将来の効用の重要性は減少するということである。将来も重要だが，将来よりも今の方が大事だという考えを捉えている。</p>
+<p>無限期間生きる消費者の効用最大化問題は非常に難しいと思うかもしれない。実際，数学的に緻密な計算をするのは高度な数学が求められる。しかし，ミクロ経済学で学んだ単純な消費者の効用最大化問題を理解することができれば，簡単に理解できるものとなっている。そのために，まず２財の効用最大化問題を復習してみよう。</p>
+</section>
+<section id="id5">
+<h3>復習：２財の効用最大化問題<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>消費者は２財<span class="math notranslate nohighlight">\(x_0\)</span>と<span class="math notranslate nohighlight">\(x_1\)</span>を消費し，効用関数は<span class="math notranslate nohighlight">\(u(x_0,x_1)\)</span>と仮定する（例えば，対数効用関数であれば<span class="math notranslate nohighlight">\(\log(x_0)+\log(x_1)\)</span>）。それぞれの価格は<span class="math notranslate nohighlight">\(p_0\)</span>と<span class="math notranslate nohighlight">\(p_1\)</span>とし，消費者の所得は<span class="math notranslate nohighlight">\(E\)</span>とすると，消費者の予算制約式は<span class="math notranslate nohighlight">\(E=p_0x_0+p_1x_1\)</span>である。典型的な２財の効用最大化問題である。問題を解くには次のラグランジュ方程式を最大化する一階条件を求めれば良い。</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal L}
+=u(x_0,x_1)+\lambda(E-p_0x_0-p_1x_1)
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\lambda\)</span>はラグランジュ乗数である。一階条件は</p>
+<div class="math notranslate nohighlight">
+\[
+MU_0=\lambda p_0,\quad
+MU_1=\lambda p_1
+\]</div>
+<p>の２つの式で与えられる。<span class="math notranslate nohighlight">\(MU_0\)</span>は０財の限界効用であり，<span class="math notranslate nohighlight">\(MU_1\)</span>は１財の限界効用である（例えば，対数効用関数であれば<span class="math notranslate nohighlight">\(MU_0=\dfrac{1}{x_0}\)</span>，<span class="math notranslate nohighlight">\(MU_1=\dfrac{1}{x_1}\)</span>となる）。即ち，<span class="math notranslate nohighlight">\(MU_i\)</span>は<span class="math notranslate nohighlight">\(i\)</span>財，<span class="math notranslate nohighlight">\(i=0,1\)</span>, を一単位増やした場合の効用の増分である。この２つの一階条件を使うと次式のように書くことができる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-foc">
+<span class="eqno">(174)<a class="headerlink" href="#equation-eq-15-foc" title="Link to this equation">#</a></span>\[
+MU_0=MU_1\cdot\frac{p_0}{p_1}
+\]</div>
+<p>この式が効用を最大化するために満たされなければならない条件である。</p>
+<p><a class="reference internal" href="#equation-eq-15-foc">(174)</a>式を解釈するために，他の消費者に０財を１単位渡し，１財を受け取る交換を考えてみよう。そして，その交換は市場価格に基づいているとしよう。このような交換を<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式で考えると，左辺は効用で測った<strong>限界費用</strong>であり，右辺は効用で測った<strong>限界便益</strong>と捉えることができる。この解釈をもう少し説明しよう。</p>
+<ul class="simple">
+<li><p>０財が１単位減ると，効用は<span class="math notranslate nohighlight">\(MU_0\)</span>だけ減少する。このことから，<span class="math notranslate nohighlight">\(MU_0\)</span>は効用で測った交換の限界費用だと考えることができる。</p></li>
+<li><p>交換によって１財が何単位増えるかを考えよう。０財を１単位「売る」と<span class="math notranslate nohighlight">\(p_0\)</span>円得ることになるが，１財を「買う」には<span class="math notranslate nohighlight">\(p_1\)</span>円支払うことになる。このことから，交換によって１財は<span class="math notranslate nohighlight">\(p_0/p_1\)</span>単位増えることがわかる。更に，１財が１単位増えると，効用は<span class="math notranslate nohighlight">\(MU_1\)</span>増加するので，交換の限界便益は<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式の右辺<span class="math notranslate nohighlight">\(MU_1\cdot\dfrac{p_0}{p_1}\)</span>となる。</p></li>
+</ul>
+<p>限界費用と限界便益が等しくなる財の数量が効用を最大化するということを<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式は示している。<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式の<code class="docutils literal notranslate"><span class="pre">=</span></code>が<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>（もしくは<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>）であれば，０財を減らして（増やして）１財を増やした（減らした）方が効用が高くなることを意味する。この結果は，財の数が3であっても100であっても，その内の２財を比べた場合，必ず成立することになる。これさえ理解できれば，無限期間生きる消費者の問題を簡単に解くことができる。</p>
+</section>
+<section id="id6">
+<h3>オイラー条件<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>生涯効用<a class="reference internal" href="#equation-eq-15-lifetimeu">(173)</a>を最大化する消費者の問題に戻ろう。生涯効用を最大化するために，毎期ごと消費量<span class="math notranslate nohighlight">\(C_t\)</span>を選び、残りの財を貯蓄に回すことができる。ここで重要な点は，貯蓄は今の自分と将来の自分との間での財の交換と考えることができる。この点を踏まえると，<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式を使うことができると気づくのではないだろうか。</p>
+<p>この行動を限界効用を使って考察するために、まず<span class="math notranslate nohighlight">\(t=0\)</span>期の消費を一単位減らし（即ち，貯蓄を一単位増やす）<span class="math notranslate nohighlight">\(t=1\)</span>期の消費を増やすと考えてみよう。<span class="math notranslate nohighlight">\(t=0\)</span>期に消費を１単位減らすと効用は<span class="math notranslate nohighlight">\(\dfrac{1}{C_0^\theta}\)</span>減少する。これが貯蓄の（効用で測った）限界費用であり，<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式の左辺の<span class="math notranslate nohighlight">\(MU_0\)</span>に該当する。一方、貯蓄により<span class="math notranslate nohighlight">\(t=1\)</span>期の消費は増加することになる。<span class="math notranslate nohighlight">\(t=0\)</span>期に１単位貯蓄すると次の期には財が<span class="math notranslate nohighlight">\((1+R_{t+1})\)</span>単位に増加することになる。ここで<span class="math notranslate nohighlight">\(R_{t+1}\)</span>は実質利子率であり，1は「元本」を表す。<span class="math notranslate nohighlight">\((1+R_{t+1})\)</span>が<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式の右辺の相対価格<span class="math notranslate nohighlight">\(p_0/p_1\)</span>に該当する。また<span class="math notranslate nohighlight">\(t=1\)</span>に財が一単位増えるごとに効用は<span class="math notranslate nohighlight">\(\dfrac{1}{C_1^\theta}\)</span>上昇することになる。これが<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式の右辺の<span class="math notranslate nohighlight">\(MU_1\)</span>に該当する。しかし、<span class="math notranslate nohighlight">\(t=1\)</span>期の効用は<span class="math notranslate nohighlight">\(t=0\)</span>期の効用よりウェイトが低く、消費者にとっての効用の増分は<span class="math notranslate nohighlight">\(\beta\dfrac{1+R_1}{C_1^\theta}\)</span>となり，これが貯蓄の（効用で測った）限界便益となる。限界費用と限界便益が等しくなる場合に財の最適な選択となる。即ち，次式が成立することになる。</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{C_0^\theta}=\beta\cdot\text{E}_0\left\{\frac{1+R_1}{C_1^\theta}\right\}
+\]</div>
+<p>左辺が貯蓄の限界費用であり、右辺が限界便益である。右辺に<span class="math notranslate nohighlight">\(\text{E}_0\)</span>を付け加えているが、これは<span class="math notranslate nohighlight">\(t=0\)</span>時点での将来に対する期待（ExpectationのE）を表している。将来の変数は未知の要素があるため期待値を考える必要があるためであり、将来の不確実性を捉えている。また，添字の<code class="docutils literal notranslate"><span class="pre">0</span></code>は<code class="docutils literal notranslate"><span class="pre">t=0</span></code>時点で形成された期待という意味である。</p>
+<p>ここで説明した行動は連続するどの２期間（<span class="math notranslate nohighlight">\(t\)</span>と<span class="math notranslate nohighlight">\(t+1\)</span>）でも成立することは直感的にも理解できだろう。即ち、次式が成立するのである。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-euler">
+<span class="eqno">(175)<a class="headerlink" href="#equation-eq-15-euler" title="Link to this equation">#</a></span>\[
+\frac{1}{C_t^\theta}=\beta\cdot\text{E}_t
+\left\{
+\frac{1+R_{t+1}}{C_{t+1}^\theta}
+\right\}
+\]</div>
+<p>この式はオイラー条件と呼ばれるもので、消費者の動学的に最適な消費行動を捉えている。</p>
+<p><a class="reference internal" href="#equation-eq-15-euler">(175)</a>式は消費で表されているが、消費と貯蓄は表裏一体であるため、この式は最適な貯蓄行動も表している。従って、ソロー・モデルでは貯蓄率は外生的に与えられているが、<a class="reference internal" href="#equation-eq-15-euler">(175)</a>式を導入することにより、貯蓄率を内生化することが可能となる。RBCモデルでは<a class="reference internal" href="#equation-eq-15-euler">(175)</a>式が重要な役割を果たすことになる。</p>
+</section>
+<section id="id7">
+<h3>実質利子率<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>はどのように決定されるのかを考えよう。上で説明したように、毎期ごとに消費者は財を消費と貯蓄に分けるが、貯蓄方法として２つの選択肢があると仮定しよう。</p>
+<p>第一に、他の消費者への財の貸し付けであり、その場合の収益率が実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>である。貸し付けが負であれば，借りているという意味となる。</p>
+<p>第二に、消費者は資本を購入する形で貯蓄することもできる。この場合、所有する資本を企業にレンタルし、企業からレンタル料を受け取ることができる。レンタル料を<span class="math notranslate nohighlight">\(\tilde{R}_t\)</span>としよう。しかし、企業が資本を生産に使うと資本は減耗することになる。１単位の資本を企業にレンタルすると<span class="math notranslate nohighlight">\(d\)</span>％（一定）減耗すると仮定しよう。即ち，資本を購入する場合の収益率は<span class="math notranslate nohighlight">\(\tilde{R}_t-d\)</span>となる。均衡では，２つの選択肢の収益率は等しくなる（無差別になる）ため，</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-rt0">
+<span class="eqno">(176)<a class="headerlink" href="#equation-eq-15-rt0" title="Link to this equation">#</a></span>\[
+\tilde{R}_t-d=R_t
+\]</div>
+<p>が成立することになる。</p>
+<p>では，資本のレンタル料<span class="math notranslate nohighlight">\(\tilde{R}_t\)</span>はどのように決定されるのだろうか。ミクロ経済学で学んだ企業の行動を思い出そう。利潤を最大化するために，企業は資本の限界生産性がレンタル料と等しくなる水準の資本を使うことになる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-rt1">
+<span class="eqno">(177)<a class="headerlink" href="#equation-eq-15-rt1" title="Link to this equation">#</a></span>\[
+\text{資本の限界生産性}=\tilde{R}_t
+\]</div>
+<p>更に，生産関数<a class="reference internal" href="#equation-eq-15-production">(169)</a>の下では</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-mpk">
+<span class="eqno">(178)<a class="headerlink" href="#equation-eq-15-mpk" title="Link to this equation">#</a></span>\[
+\text{資本の限界生産性}
+=\alpha \frac{A_tK_t^{\alpha}L^{1-\alpha}}{K_t}
+=\alpha\frac{Y_t}{K_t}
+\]</div>
+<p>となる。<a class="reference internal" href="#equation-eq-15-rt0">(176)</a>，<a class="reference internal" href="#equation-eq-15-rt1">(177)</a>，<a class="reference internal" href="#equation-eq-15-mpk">(178)</a>の３式を使うと</p>
+<div class="math notranslate nohighlight">
+\[
+R_t = \alpha\frac{Y_t}{K_t}-d
+\]</div>
+<p>となる。即ち，資本の限界生産性と資本減耗率によって実質利子率<span class="math notranslate nohighlight">\(R_t\)</span>は決定されることになる。</p>
+</section>
+<section id="id8">
+<h3>実質賃金の決定<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>実質利子率と同様に，実質賃金<span class="math notranslate nohighlight">\(W_t\)</span>は労働の限界生産性と等しくなる。即ち、</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-w">
+<span class="eqno">(179)<a class="headerlink" href="#equation-eq-15-w" title="Link to this equation">#</a></span>\[
+W_t
+=(1-\alpha) \frac{A_tK_t^{\alpha}L^{1-\alpha}}{L}
+=(1-\alpha)\frac{Y_t}{L}
+\]</div>
+</section>
+<section id="id9">
+<h3>均衡条件<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>上の式から、次の条件を導出できる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{1}{C_t^\theta} &amp; = \beta E_t \left\{\frac{1+R_{t+1}}{C_{t+1}^\theta}\right\}
+&amp;&amp;\qquad (C_t\text{を決定する式})\\
+K_{t+1} &amp; = I_t + (1-d) K_t
+&amp;&amp;\qquad (K_t\text{を決定する式})\\
+Y_t &amp; = A_t K_t^{\alpha}L^{1-\alpha}
+&amp;&amp;\qquad (Y_t\text{を決定する式})\\
+Y_t &amp; = C_t + I_t
+&amp;&amp;\qquad (I_t\text{を決定する式})\\
+W_t &amp;= (1-\alpha)\dfrac{Y_t}{L}
+&amp;&amp;\qquad (W_t\text{を決定する式})\\
+R_{t} &amp; = \alpha\dfrac{Y_{t}}{K_{t}}-d
+&amp;&amp;\qquad (R_t\text{を決定する式})\\
+A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
+&amp;&amp;\qquad (A_t\text{を決定する式})
+\end{align}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>このモデルで決定される変数（内生変数）：</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(C_t\)</span>, <span class="math notranslate nohighlight">\(K_t\)</span>, <span class="math notranslate nohighlight">\(Y_t\)</span>, <span class="math notranslate nohighlight">\(I_t\)</span>, <span class="math notranslate nohighlight">\(W_t\)</span>, <span class="math notranslate nohighlight">\(R_t\)</span>, <span class="math notranslate nohighlight">\(A_t\)</span></p></li>
+</ul>
+</li>
+<li><p>所与として扱う変数（外生変数）</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(v_{t}\)</span>, <span class="math notranslate nohighlight">\(L\)</span>, <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(d\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id10">
+<h3>シミュレーション<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>次のステップで<code class="docutils literal notranslate"><span class="pre">linearsolve</span></code>パッケージを使って実際に数値計算をおこなうことにする。</p>
+<ol class="arabic simple">
+<li><p>モデルのパラメータを<code class="docutils literal notranslate"><span class="pre">Series</span></code>として保存する。</p></li>
+<li><p>内生変数名とショックの変数名をリストとして保存する。</p></li>
+<li><p>非確率的な定常状態での均衡条件を返す関数を定義する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linearsolve.model</span></code>を使いシミュレーションのための最終準備（クラスの初期化）をする。</p></li>
+<li><p>定常状態の計算。</p></li>
+<li><p>モデルを対数線形近似する。</p></li>
+</ol>
+<p>シミュレーションをおこなう際に区別すべき変数：</p>
+<ul class="simple">
+<li><p>状態変数：<span class="math notranslate nohighlight">\(A_t\)</span>，<span class="math notranslate nohighlight">\(K_t\)</span></p></li>
+<li><p>操作変数：<span class="math notranslate nohighlight">\(Y_t\)</span>，<span class="math notranslate nohighlight">\(C_t\)</span>，<span class="math notranslate nohighlight">\(I_t\)</span>，<span class="math notranslate nohighlight">\(W_t\)</span>，<span class="math notranslate nohighlight">\(R_t\)</span></p></li>
+<li><p>ショック変数：<span class="math notranslate nohighlight">\(v_t\)</span></p></li>
+</ul>
+<section id="id11">
+<h4>ステップ１：パラメータの値<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">.36</span><span class="p">,</span>
+                        <span class="s1">&#39;beta&#39;</span><span class="p">:</span><span class="mf">0.99</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.025</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="s1">&#39;theta&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s1">&#39;L&#39;</span><span class="p">:</span><span class="mf">0.33</span><span class="p">})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha    0.360000
+beta     0.990000
+d        0.025000
+rho      0.551000
+sigma    0.000061
+theta    1.000000
+L        0.330000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>：資本の所得シェア</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beta</span></code>：消費者の主観的割引因子</p>
+<ul>
+<li><p>年率換算のために<span class="math notranslate nohighlight">\(\beta^4=\dfrac{1}{1+b}\)</span>とすると、年率の主観的割引率は<span class="math notranslate nohighlight">\(b\approx 0.041\)</span>となる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code>：資本減耗率</p>
+<ul>
+<li><p>年率換算では<span class="math notranslate nohighlight">\((1+0.025)^4-1\approx 0.10\)</span>を仮定している。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rho</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の係数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigma</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の残差の標準偏差</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">theta</span></code>：推定値の幅は広いため（例えば，0.2~10以上）ここでは1とする（色々な値を試して違いを確認してみよう）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L</span></code>：約1/3の時間が労働に使われると仮定</p></li>
+</ul>
+</section>
+<section id="id12">
+<h4>ステップ２：変数リスト<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
+<p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code>にのみショック項があるので，<code class="docutils literal notranslate"><span class="pre">k</span></code>の前に置く必要がる。</p>
+<p>次にショック変数をリストを作成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id13" title="Link to this heading">#</a></h4>
+<p>上の均衡式の左辺が0になるように書き直すと次のようになる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+0 &amp; = \beta E_t \left\{\frac{1+R_{t+1}}{C_{t+1}^\theta}\right\}-\frac{1}{C_t^\theta}\\
+0 &amp; = I_t + (1-d) K_t - K_{t+1}\\
+0 &amp; = A_t K_t^{\alpha}L^{1-\alpha} - Y_t\\
+0 &amp; = C_t + I_t - Y_t\\
+0 &amp;= (1-\alpha)\dfrac{Y_t}{L} -W_t\\
+0 &amp; = \alpha\dfrac{Y_{t}}{K_{t}}-d-R_{t} \\
+0 &amp; = A_t^{\rho}e^{v_{t+1}}-A_{t+1}
+\end{align}
+\end{split}\]</div>
+<p>これを次の関数に書き込む。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+
+    <span class="c1"># 均衡条件</span>
+    <span class="n">euler</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+    
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+    
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>   <span class="c1"># (5)    </span>
+    
+    <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>    
+    
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># 返り値</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">euler</span><span class="p">,</span>
+                     <span class="n">capital_change</span><span class="p">,</span>
+                     <span class="n">production_function</span><span class="p">,</span>
+                     <span class="n">income_id</span><span class="p">,</span>
+                     <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
+                     <span class="n">tfp</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id14" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                           <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                           <span class="n">endo_states</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                           <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                           <span class="n">shock_names</span> <span class="o">=</span> <span class="n">shock_names</span><span class="p">,</span>
+                           <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a     1.000000
+k    12.536454
+y     1.222339
+c     0.908928
+i     0.313411
+r     0.010101
+w     2.370598
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id16" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id17">
+<h3>インパルス反応<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<section id="id18">
+<h4>インパクト効果<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
+<p>ステップ６で計算した対数線形近似式を表示する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
+
+a[t+1] = 0.551·a[t]+v[t+1]
+
+k[t+1] = 0.0912·a[t]+0.9653·k[t]
+
+  y[t] = a[t]+0.36·k[t]
+
+  c[t] = 0.0874·a[t]+0.6182·k[t]
+
+  i[t] = 3.6466·a[t]-0.3889·k[t]
+
+  r[t] = 3.475·a[t]-2.224·k[t]
+
+  w[t] = a[t]+0.36·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<p>これらの式からショック項<span class="math notranslate nohighlight">\(v_t\)</span>のインパクト効果が分かる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(t=0\)</span>期は定常状態とし，<span class="math notranslate nohighlight">\(t=1\)</span>期に<code class="docutils literal notranslate"><span class="pre">v[1]</span></code>が1％上昇したとしよう。即ち，<code class="docutils literal notranslate"><span class="pre">v[1]=1%</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[1]=1％</span></code>となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k[1]=k[0]=0</span></code>であり，状態変数の資本ストックは変化しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y[1]=1%</span></code>となるる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">y[1]=w[1]=a[1]=1%</span></code>であり，TFPと全く同じように変化する。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r[1]=3.475a[1]=3.475%</span></code>となり，大きく上昇している。（注意：<code class="docutils literal notranslate"><span class="pre">r</span></code>は<span class="math notranslate nohighlight">\(R_t\)</span>の定常値からの％乖離）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c[1]=0.0874a[1]=0.0874%</span></code>であり，消費の変化は小さい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i[1]=3.6466a[1]=3.6466%</span></code>であり，投資はは大きく変化する。</p></li>
+</ul>
+<p>インパクト以降の変化は図で確かめることにする。</p>
+</section>
+<section id="id19">
+<h4>インパルス反応の解釈<a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
+<p>インパルス反応の計算にメソッド<code class="docutils literal notranslate"><span class="pre">impulse()</span></code>を使う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>図示する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1">#1</span>
+                                    <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                    <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+                                    <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1">#2</span>
+                                    <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>                     <span class="c1">#3</span>
+    <span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>                   <span class="c1">#4</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b93be607fd90ddb26b90147e8af8a9ab68586c84ef20762e719e4add56fc7094.png" src="_images/b93be607fd90ddb26b90147e8af8a9ab68586c84ef20762e719e4add56fc7094.png" />
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">コードの説明</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：以前も説明したが、<code class="docutils literal notranslate"><span class="pre">rbc_basic</span> <span class="pre">....</span></code>はは６つの「軸」を返し、それを<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：引数<code class="docutils literal notranslate"><span class="pre">sharey=True</span></code>により全ての図の縦軸は同じ範囲を表示することになる。試しに<code class="docutils literal notranslate"><span class="pre">#</span></code>でコメント・アウトしてみよう。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">#1</span></code>で説明した６つの「軸」から<code class="docutils literal notranslate"><span class="pre">ax[0,0]</span></code>を取得し（他の「軸」でも良い、例えば、<code class="docutils literal notranslate"><span class="pre">ax[0,1]</span></code>）、そのメソッド<code class="docutils literal notranslate"><span class="pre">get_fiture()</span></code>を使い６つの「軸」からなる図全体のオブジェクトを取得している。更に、そのメソッド<code class="docutils literal notranslate"><span class="pre">suptitle()</span></code>を利用して図全体のタイトルを設定している。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib.pyplot</span> <span class="pre">as</span> <span class="pre">plt</span></code>としている場合は，<code class="docutils literal notranslate"><span class="pre">plt.suptitle('定常値からの％乖離',fontsize=20)</span></code>で同じ表示となる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：タイトルそして文字サイズを引数<code class="docutils literal notranslate"><span class="pre">fontsize</span></code>を使い指定している。</p></li>
+</ul>
+</div>
+<p><strong>＜シミュレーションの結果＞</strong></p>
+<p>上でも説明したが，メソッド<code class="docutils literal notranslate"><span class="pre">solved()</span></code>は対数線形近似式を文字列として表示し，改行が２回（<code class="docutils literal notranslate"><span class="pre">\n\n</span></code>）入っている。これを利用してそれぞれの対数線形近似式を表示できるように準備する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc0</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>まず<code class="docutils literal notranslate"><span class="pre">y[t]</span></code>と<code class="docutils literal notranslate"><span class="pre">w[t]</span></code>を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rbc0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  y[t] = a[t]+0.36·k[t]
+  w[t] = a[t]+0.36·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>右辺は同じになっている。これは<span class="math notranslate nohighlight">\(L\)</span>が一定と仮定しているためである。この仮定により，<span class="math notranslate nohighlight">\(Y_t\)</span>と<span class="math notranslate nohighlight">\(W_t\)</span>の式は異なるが，％乖離である<code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">w</span></code>は同じ式に従って動くことになる。</p></li>
+<li><p>TFPショックは１対１の割合で<code class="docutils literal notranslate"><span class="pre">y</span></code>及び<code class="docutils literal notranslate"><span class="pre">w</span></code>を変化させる。</p></li>
+<li><p>TFPもしくは資本ストックの増加により労働の限界生産性及び実質賃金が上昇することを示している。インパクト後<code class="docutils literal notranslate"><span class="pre">y</span></code>も<code class="docutils literal notranslate"><span class="pre">w</span></code>も単調的に減少している。<code class="docutils literal notranslate"><span class="pre">k</span></code>の上昇効果よりも<code class="docutils literal notranslate"><span class="pre">a</span></code>の減少効果が上回るためである。<code class="docutils literal notranslate"><span class="pre">rho</span></code>の値が十分い大きい場合，<code class="docutils literal notranslate"><span class="pre">a</span></code>の持続性強くなり<code class="docutils literal notranslate"><span class="pre">y</span></code>及び<code class="docutils literal notranslate"><span class="pre">w</span></code>の減少が弱まることになる。</p></li>
+</ul>
+<p>次に，資本の実質レンタル料を見てみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  r[t] = 3.475·a[t]-2.224·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>インパクトではTFPの増加は資本の限界生産性を上昇させる。</p></li>
+<li><p>インパクト後，資本蓄積が進むが，これにより資本の限界生産性及び実質利子率を減少させる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>の減少と資本の限界生産性の低減により，実質利子率の％乖離は一時的に<code class="docutils literal notranslate"><span class="pre">0</span></code>を下回っている。</p></li>
+</ul>
+<p>次に消費を考えてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  c[t] = 0.0874·a[t]+0.6182·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">k</span></code>の係数の符号は両方とも正である。直感的には次のように理解できる。</p>
+<ul class="simple">
+<li><p>生産関数と所得恒等式から</p>
+<ul>
+<li><p>TFPと資本ストックの増加は産出量（所得）を増加させ，消費の増加に繋がる。</p></li>
+</ul>
+</li>
+<li><p>合理的消費者の最適化行動から</p>
+<ul>
+<li><p>インパクト時に<code class="docutils literal notranslate"><span class="pre">c</span></code>は上方ジャンプしているが、その変化は0.1%を満たない程度である。その理由を理解するために，消費者は無限に生存し，未来を見据えた（forwarding-looking）選択を行っていることを思い出そう。消費者は賃金所得と貯蓄による利子所得を得るが，それが無限期間続くことになり，その現在価値の合計が<strong>恒常所得</strong>である。恒常所得仮説が示すように，現在の消費は恒常所得に比例して決定されることになる。この点を踏まえて，TFPのショックを考えよう。実質賃金<span class="math notranslate nohighlight">\(W_t\)</span>は上昇するが，その変化は一時的なものであるため恒常所得は大きく変わらないのである。つまり消費も大きくは変化しないことになる。また実質利子率及び実質レンタル料<span class="math notranslate nohighlight">\(R_t\)</span>も上昇するが，この効果により貯蓄がどのように変化するかは所得効果と代替効果に依存している。上のシミュレーションでは<span class="math notranslate nohighlight">\(\theta=1\)</span>を仮定しているため，両方の効果はお互いを相殺することになる。（<span class="math notranslate nohighlight">\(\theta\ne 1\)</span>の場合を試してみよう。）</p></li>
+<li><p>消費者は消費の変動を嫌うため（<span class="math notranslate nohighlight">\(\theta&gt;0\)</span>はリスク回避的な効用関数）消費水準を均すインセンティブがある。これにより<code class="docutils literal notranslate"><span class="pre">c</span></code>は<code class="docutils literal notranslate"><span class="pre">y</span></code>のように大きく変化せず平滑化された推移となる。</p></li>
+</ul>
+</li>
+</ul>
+<p>投資を考えてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc0</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  i[t] = 3.6466·a[t]-0.3889·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code>の符号は正，<code class="docutils literal notranslate"><span class="pre">k</span></code>の符号は負である。次のメカニズムの反映と考えられる。</p>
+<ul class="simple">
+<li><p>投資は貯蓄と常に等しいため，貯蓄の変化を考えれば良い。TFPと資本ストックの増加は産出量を増加させるが，消費の変化は大きくない。従って，貯蓄が大きく増えることになる。</p></li>
+<li><p>一方で，経済が定常状態へ戻る過程で産出量は減少することになり，それに伴い投資も定常値に戻っていくことになる。</p></li>
+</ul>
+</section>
+</section>
+<section id="id20">
+<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">.36</span><span class="p">,</span>
+                        <span class="s1">&#39;beta&#39;</span><span class="p">:</span><span class="mf">0.99</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.025</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="s1">&#39;theta&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s1">&#39;L&#39;</span><span class="p">:</span><span class="mf">0.33</span><span class="p">})</span>
+
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
+
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+
+    <span class="c1"># 均衡条件</span>
+    <span class="n">euler</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+    
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+    
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>    
+    
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">euler</span><span class="p">,</span>
+                     <span class="n">capital_change</span><span class="p">,</span>
+                     <span class="n">production_function</span><span class="p">,</span>
+                     <span class="n">income_id</span><span class="p">,</span>
+                     <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
+                     <span class="n">tfp</span><span class="p">])</span>
+
+<span class="c1"># モデルの初期化</span>
+<span class="n">rbc_basic_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                           <span class="n">exo_states</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                           <span class="n">endo_states</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                           <span class="n">variables</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span>
+                           <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                           <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># 定常状態の計算</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 対数線形近似</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                            <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+                                            <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+k: 12.536
+y: 1.222
+c: 0.909
+i: 0.313
+r: 0.010
+w: 2.371
+
+対数線形近似
+a[t+1] = 0.551·a[t]+v[t+1]
+k[t+1] = 0.0912·a[t]+0.9653·k[t]
+  y[t] = a[t]+0.36·k[t]
+  c[t] = 0.0874·a[t]+0.6182·k[t]
+  i[t] = 3.6466·a[t]-0.3889·k[t]
+  r[t] = 3.475·a[t]-2.224·k[t]
+  w[t] = a[t]+0.36·k[t]
+</pre></div>
+</div>
+<img alt="_images/0bbf3dd6c8ed2bc3cb21468ad08415b80f2986e8e6625fb51b5ccca38e7c8301.png" src="_images/0bbf3dd6c8ed2bc3cb21468ad08415b80f2986e8e6625fb51b5ccca38e7c8301.png" />
+</div>
+</div>
+</section>
+<section id="id21">
+<h3>確率的シミュレーション<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<section id="id22">
+<h4>図示<a class="headerlink" href="#id22" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">.stoch_sim()</span></code>を使って確率的シミュレーションをおこなう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                          <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果を図示しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;v&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                                        <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                                                                        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span>
+                                                                        <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                                        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/edb30db1207897f735b50f951e62826275b13da3e604511ea2a9dc2526db9007.png" src="_images/edb30db1207897f735b50f951e62826275b13da3e604511ea2a9dc2526db9007.png" />
+</div>
+</div>
+</section>
+<section id="id23">
+<h4>変動の大きさ<a class="headerlink" href="#id23" title="Link to this heading">#</a></h4>
+<p>図から次のことがわかる。</p>
+<ul class="simple">
+<li><p>投資の変動は他の変数の変動よりも大きい。</p></li>
+<li><p>消費の変動は産出量の変動よりも小さい。これは消費者が変動を嫌う効用関数が仮定されているためである。</p></li>
+</ul>
+<p>標準偏差を計算して数値で確かめてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    
+    <span class="n">var</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  1.00
+c  0.25
+i  3.60
+</pre></div>
+</div>
+</div>
+</div>
+<p>消費の変動は産出量の1/2以下であり、投資の変動は約3.3倍ある。日本のデータと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">1.00</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.73</span>
+<span class="n">investment_cycle</span>    <span class="mf">3.82</span>
+</pre></div>
+</div>
+<p>実際のデータと比べると、投資の変動は近いことがわかる。一方、消費の変動は小さ過ぎる。</p>
+</section>
+<section id="id24">
+<h4>自己相関<a class="headerlink" href="#id24" title="Link to this heading">#</a></h4>
+<p>次に、持続性を確認するために自己相関係数を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    <span class="n">autocorr</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  0.54
+c  0.95
+i  0.51
+</pre></div>
+</div>
+</div>
+</div>
+<p>日本のデータと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">0.76</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.52</span>
+<span class="n">investment_cycle</span>    <span class="mf">0.84</span>
+</pre></div>
+</div>
+<p>シミュレーションでは<code class="docutils literal notranslate"><span class="pre">c</span></code>よりも<code class="docutils literal notranslate"><span class="pre">i</span></code>の自己相関係数が高いが，データではその逆となっている。</p>
+</section>
+<section id="gdp">
+<h4>GDPとの相関度<a class="headerlink" href="#gdp" title="Link to this heading">#</a></h4>
+<p>GDPとの相関係数を計算してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y  1.00
+c  0.49
+i  0.98
+</pre></div>
+</div>
+</div>
+</div>
+<p>データと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">1.00</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.71</span>
+<span class="n">investment_cycle</span>    <span class="mf">0.82</span>
+</pre></div>
+</div>
+<p>シミュレーションの消費の相関係数はデータよりも低い、方向性としては良いのではないだろうか。</p>
+</section>
+<section id="tfp">
+<h4>TFPと産出量<a class="headerlink" href="#tfp" title="Link to this heading">#</a></h4>
+<p>RBCモデルにおける景気循環の理由はTFPの変動である。実際、上の図の<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>を比べると同じように動いていることが分かる。それを確認するためにズームインしてみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">50</span><span class="p">,[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3008ea714c8e8108f0fca7f9927cfa2da65604fd16e9db537f428a29388f9311.png" src="_images/3008ea714c8e8108f0fca7f9927cfa2da65604fd16e9db537f428a29388f9311.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code>と<code class="docutils literal notranslate"><span class="pre">a</span></code>には「ずれ」があるり、資本ストックの変動を反映している。しかし，このプロットが示しているのは，GDPの変動は殆どTFPの変動により発生しているということだ。</p>
+<p>この基本モデルでは，労働供給は一定と仮定しているため，労働供給の動きは全く存在しない。次のセクションでは，消費者の最適な労働供給を導入し，<code class="docutils literal notranslate"><span class="pre">a</span></code>の効果を増幅させるメカニズムとして機能することを明らかにする。</p>
+</section>
+</section>
+</section>
+<section id="sec-14-endogenous-labour">
+<span id="id25"></span><h2>内生的労働供給の導入<a class="headerlink" href="#sec-14-endogenous-labour" title="Link to this heading">#</a></h2>
+<section id="id26">
+<h3>消費者の最適化行動<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>基本モデルで仮定した効用関数は消費だけに依存しており、労働供給は一定と仮定した。ここではこの仮定を緩め、消費者は効用を最大化する労働供給を選択すると仮定する。</p>
+<p>四半期を想定しているが、その期間の総時間の合計を1に標準化しよう。その内、消費者は<span class="math notranslate nohighlight">\(Z_t\)</span>（％）を余暇に使い、<span class="math notranslate nohighlight">\(L_t\)</span>（％）を労働に使うと仮定すると次式が制約式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-constraint">
+<span class="eqno">(180)<a class="headerlink" href="#equation-eq-15-constraint" title="Link to this equation">#</a></span>\[
+1=Z_t+L_t
+\]</div>
+<p>更に、消費者は消費と余暇の両方から効用を得るとして、<span class="math notranslate nohighlight">\(t\)</span>期の効用は次式で与えられると仮定しよう。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-utility-extended">
+<span class="eqno">(181)<a class="headerlink" href="#equation-eq-15-utility-extended" title="Link to this equation">#</a></span>\[\begin{split}
+u_t=
+\begin{cases}
+&amp;\dfrac{C_t^{1-\theta}-1}{1-\theta}+m\log(Z_t)
+    \quad\text{for }\theta&gt;0\text{ and }\theta\neq 1\\
+&amp;\log(C_t)+m\log(Z_t)\quad\text{for }\theta=1
+\end{cases}
+,\qquad m&gt;0
+\end{split}\]</div>
+<p><a class="reference internal" href="#equation-eq-15-utility">(172)</a>式と違う点は<span class="math notranslate nohighlight">\(m\log(Z_t)\)</span>が追加されているだけである。</p>
+<p>毎期ごとに消費者は<a class="reference internal" href="#equation-eq-15-utility-extended">(181)</a>式の<span class="math notranslate nohighlight">\(u_t\)</span>を得ることになるが，消費者の生涯効用を最大化するということは、毎期ごとに<span class="math notranslate nohighlight">\(u_t\)</span>を最大化するということでもある。このように考えると、<a class="reference internal" href="#equation-eq-15-utility-extended">(181)</a>式を最大化する消費者の行動を考えれば良いわけで、これは典型的な２財の効用最大化問題と同じである（制約式は<a class="reference internal" href="#equation-eq-15-constraint">(180)</a>だけではなく他にもあるが、ここでは重要ではない）。この場合の利点は<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式を直接使うことができるという点である。<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式を使うために，次のように考えよう。</p>
+<p>消費者は働くことにより所得を得て消費することができる。言い換えると，消費<span class="math notranslate nohighlight">\(C_t\)</span>を１単位犠牲にすることにより，働く時間が減り，余暇<span class="math notranslate nohighlight">\(Z_t\)</span>を増やすことができるのである。このように考えると，余暇を増やす限界費用は消費の限界効用と等しいと考えることができる。この点を念頭に，消費と余暇の「交換」の限界費用と限界便益を<a class="reference internal" href="#equation-eq-15-foc">(174)</a>式に落とし込むと次のようになる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-foc-labour0">
+<span class="eqno">(182)<a class="headerlink" href="#equation-eq-15-foc-labour0" title="Link to this equation">#</a></span>\[
+\text{消費の限界効用}
+=\text{余暇の限界効用}\times\frac{\text{消費財の価格}}{\text{余暇の価格}}
+\]</div>
+<p>消費者は，この式が満たされるように労働供給量を選択することになる。では，それぞれの項を考えてみよう。</p>
+<ul class="simple">
+<li><p>消費の限界効用は，<a class="reference internal" href="#equation-eq-15-utility-extended">(181)</a>から<span class="math notranslate nohighlight">\(\dfrac{1}{C_t^\theta}\)</span>となることがわかる。</p></li>
+<li><p>余暇の限界効用は，<a class="reference internal" href="#equation-eq-15-utility-extended">(181)</a>から<span class="math notranslate nohighlight">\(\dfrac{m}{Z_t}\)</span>となることがわかる。</p></li>
+<li><p>消費財は<span class="math notranslate nohighlight">\(Y_t\)</span>と等しく、その価格は<code class="docutils literal notranslate"><span class="pre">1</span></code>に基準化されている。従って，消費財の価格は<code class="docutils literal notranslate"><span class="pre">1</span></code>である。</p></li>
+<li><p>余暇の価格を考える。余暇が１単位増えると労働供給が１単位減少することになり、賃金<span class="math notranslate nohighlight">\(W_t\)</span>を失うことになる。即ち，余暇一単位の機会費用は<span class="math notranslate nohighlight">\(W_t\)</span>であり、<span class="math notranslate nohighlight">\(W_t\)</span>を払って余暇を買っているようなものである。</p></li>
+</ul>
+<p>これらを使うと<a class="reference internal" href="#equation-eq-15-foc-labour0">(182)</a>式は次式となる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-15-foc-labour">
+<span class="eqno">(183)<a class="headerlink" href="#equation-eq-15-foc-labour" title="Link to this equation">#</a></span>\[
+\frac{1}{C_t^\theta}=\frac{m}{1-L_t}\cdot\frac{1}{W_t}
+\]</div>
+<p>余暇の限界効用は制約式<a class="reference internal" href="#equation-eq-15-constraint">(180)</a>を使って<span class="math notranslate nohighlight">\(L_t\)</span>で表している。<a class="reference internal" href="#equation-eq-15-foc-labour">(183)</a>式が効用を最大化する労働供給を決める条件であり、全ての期（<span class="math notranslate nohighlight">\(t=0,1,2,3,\cdots\)</span>）で満たされる必要がある。</p>
+</section>
+<section id="id27">
+<h3>均衡条件<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>上の式から、次の条件を導出できる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{1}{C_t^\theta} &amp; = \beta E_t \left\{\frac{1+R_{t+1}}{C_{t+1}^\theta}\right\}
+&amp;&amp;\qquad (C_t\text{を決定する式})\\
+\frac{1}{C_t} &amp; = \dfrac{m}{(1-L_t)W_t}
+&amp;&amp;\qquad (L_t\text{を決定する式})\\
+K_{t+1} &amp; = I_t + (1-d) K_t
+&amp;&amp;\qquad (K_t\text{を決定する式})\\
+Y_t &amp; = A_t K_t^{\alpha}L^{1-\alpha}
+&amp;&amp;\qquad (Y_t\text{を決定する式})\\
+Y_t &amp; = C_t + I_t
+&amp;&amp;\qquad (I_t\text{を決定する式})\\
+W_t &amp;= (1-\alpha)\dfrac{Y_t}{L_t}
+&amp;&amp;\qquad (W_t\text{を決定する式})\\
+R_{t} &amp; = \alpha\dfrac{Y_{t}}{K_{t}}-d
+&amp;&amp;\qquad (R_t\text{を決定する式})\\
+A_{t+1} &amp; = A_t^{\rho}e^{v_{t+1}}
+&amp;&amp;\qquad (A_t\text{を決定する式})
+\end{align}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>このモデルで決定される変数（内生変数）：</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(C_t\)</span>, <span class="math notranslate nohighlight">\(L_t\)</span>，<span class="math notranslate nohighlight">\(K_t\)</span>, <span class="math notranslate nohighlight">\(Y_t\)</span>, <span class="math notranslate nohighlight">\(I_t\)</span>, <span class="math notranslate nohighlight">\(W_t\)</span>, <span class="math notranslate nohighlight">\(R_t\)</span>, <span class="math notranslate nohighlight">\(A_t\)</span></p></li>
+</ul>
+</li>
+<li><p>所与として扱う変数（外生変数）</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(v_{t}\)</span>, <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(d\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(m\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id28">
+<h3>シミュレーション<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<section id="id29">
+<h4>ステップ１：パラメータの値<a class="headerlink" href="#id29" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
+                        <span class="s1">&#39;beta&#39;</span><span class="p">:</span><span class="mf">0.99</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.025</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="s1">&#39;theta&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s1">&#39;m&#39;</span><span class="p">:</span><span class="mf">1.73</span><span class="p">})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha    0.360000
+beta     0.990000
+d        0.025000
+rho      0.551000
+sigma    0.000061
+theta    1.000000
+m        1.730000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>：資本の所得シェア</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beta</span></code>：消費者の主観的割引因子</p>
+<ul>
+<li><p>年率換算のために<span class="math notranslate nohighlight">\(\beta^4=\dfrac{1}{1+b}\)</span>とすると、年率の主観的割引率は<span class="math notranslate nohighlight">\(b\approx 0.041\)</span>となる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code>：資本減耗率</p>
+<ul>
+<li><p>年率換算では<span class="math notranslate nohighlight">\((1+0.0241)^4-1\approx 0.10\)</span>を仮定している。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rho</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の係数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigma</span></code>：日本のTFPを<span class="math notranslate nohighlight">\(AR(1)\)</span>として回帰分析した際の残差の標準偏差</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>：定常状態で約<code class="docutils literal notranslate"><span class="pre">1/3</span></code>の時間が労働に費やされるように設定</p></li>
+</ul>
+</section>
+<section id="id30">
+<h4>ステップ２：変数リスト<a class="headerlink" href="#id30" title="Link to this heading">#</a></h4>
+<p>内生変数のリストを作成する。状態変数を先に書き出す。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ショック変数をリストとして書き出す。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id31">
+<h4>ステップ３：定常状態での均衡条件の関数<a class="headerlink" href="#id31" title="Link to this heading">#</a></h4>
+<p>均衡式の左辺を0にすると次のようになる。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+0 &amp; = \beta E_t \left\{\frac{1+R_{t+1}}{C_{t+1}^\theta}\right\}-\frac{1}{C_t^\theta}\\
+0 &amp; = \frac{m}{(1-L_t)W_t}-\dfrac{1}{C_t}\\
+0 &amp; = I_t + (1-d) K_t - K_{t+1}\\
+0 &amp; = A_t K_t^{\alpha}L_t^{1-\alpha} - Y_t\\
+0 &amp; = C_t + I_t - Y_t\\
+0 &amp; = \alpha\dfrac{Y_{t}}{K_{t}}-d-R_{t} \\
+0 &amp;= (1-\alpha)\dfrac{Y_t}{L_t} -W_t\\
+0 &amp; = A_t^{\rho}e^{\varepsilon_{t+1}}-A_{t+1}
+\end{align}
+\end{split}\]</div>
+<p>これを次の関数に書き込む。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+
+    <span class="c1"># 均衡条件</span>
+    <span class="n">euler</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+    
+    <span class="n">labour_supply</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+    
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>   <span class="c1"># (5)    </span>
+    
+    <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+    
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># 返り値</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">euler</span><span class="p">,</span>
+                     <span class="n">labour_supply</span><span class="p">,</span>
+                     <span class="n">capital_change</span><span class="p">,</span>
+                     <span class="n">production_function</span><span class="p">,</span>
+                     <span class="n">income_id</span><span class="p">,</span>
+                     <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
+                     <span class="n">tfp</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id32">
+<h4>ステップ４：モデルの最終準備（初期化）<a class="headerlink" href="#id32" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="n">endo_states</span><span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                     <span class="c1"># variables = var_names,</span>
+                     <span class="n">costates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">],</span>
+                     <span class="n">shock_names</span> <span class="o">=</span> <span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id33">
+<h4>ステップ５：定常状態の計算<a class="headerlink" href="#id33" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">ss</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a     1.000000
+k    12.620864
+y     1.230570
+c     0.915048
+i     0.315522
+r     0.010101
+w     2.370598
+l     0.332222
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id34">
+<h4>ステップ６：モデルを対数線形近似<a class="headerlink" href="#id34" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id35">
+<h3>インパクト効果<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>ステップ６で計算した対数線形近似式を表示する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">solved</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution to the log-linear system:
+
+a[t+1] = 0.551·a[t]+v[t+1]
+
+k[t+1] = 0.1513·a[t]+0.9536·k[t]
+
+  y[t] = 1.6488·a[t]+0.204·k[t]
+
+  c[t] = 0.1307·a[t]+0.569·k[t]
+
+  i[t] = 6.0514·a[t]-0.8544·k[t]
+
+  r[t] = 5.7295·a[t]-2.766·k[t]
+
+  w[t] = 0.6351·a[t]+0.4477·k[t]
+
+  l[t] = 1.0137·a[t]-0.2437·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<p>これらの式からインパクト効果が分かる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t=0</span></code>期は定常状態とし，<code class="docutils literal notranslate"><span class="pre">t=1</span></code>期にショック項が<code class="docutils literal notranslate"><span class="pre">1％</span></code>上昇したとしよう。即ち，<code class="docutils literal notranslate"><span class="pre">v[1]=1%</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[1]=1%</span></code>にジャンプする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k[1]=0</span></code>であり，状態変数の資本ストックは変化しない（<code class="docutils literal notranslate"><span class="pre">a[0]=k[0]=0</span></code>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y[1]&gt;1%</span></code>であり，基本モデルと比べると大きくなっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c[1]</span></code>は基本モデルと比較して消費は大きく変化しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i[1]&gt;1%</span></code>であり，基本モデルと比べると大きくなっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">w[1]&lt;1%</span></code>であり，基本モデルと比べると変化は小さい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r[1]&gt;1%</span></code>であり，基本モデルと比べると更に大きくなっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l[1]</span></code>は<code class="docutils literal notranslate"><span class="pre">a[1]</span></code>と同じ程度に変化している。</p></li>
+</ul>
+<p>インパクト以降の変化は図で確かめることにする。</p>
+</section>
+<section id="id36">
+<h3>インパルス反応<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>インパルス反応のデータを作成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>図示。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                     <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
+                                     <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b503e6bd2a84bcbe2f53ceecd396652847d5a253fbfe29522b66b01f0f1c8c26.png" src="_images/b503e6bd2a84bcbe2f53ceecd396652847d5a253fbfe29522b66b01f0f1c8c26.png" />
+</div>
+</div>
+<p><strong>＜シミュレーションの結果＞</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  l[t] = 1.0137·a[t]-0.2437·k[t]
+</pre></div>
+</div>
+</div>
+</div>
+<p>労働供給が内生化された結果，「<strong>労働供給の異時点間代替</strong>」と呼ばれるメカニズムが追加されたことになる。２つのチャネルがある。</p>
+<ol class="arabic simple">
+<li><p>TFPが上昇すると労働の限界生産性及び実質賃金が上昇する。これは消費者にとっては余暇の「価格」が上昇したことと等しい。消費者は余暇を減らし労働供給を増やすことになる。また上の図が示しているように，賃金上昇が一時的であれば、その間に長い時間働く方が得だというインセンティブが発生し、インパクト時に労働供給の上方ジャンプとして現れる。</p></li>
+<li><p>TFPが上昇すると資本の限界生産性及び実質利子率が上昇する。この変化は一時的なものであるため，収益率が高い間に長く働いて貯蓄を増やそうとするインセンティブが発生することになる。</p>
+<ul class="simple">
+<li><p>上の式で<code class="docutils literal notranslate"><span class="pre">k</span></code>の係数が負になっているのは，資本蓄積により資本の限界生産性が減少することにより，貯蓄の動機が弱まり，労働供給のインセンティブを弱めることを反映している。</p></li>
+</ul>
+</li>
+</ol>
+<p>労働供給の異時点間代替の結果、基本モデルと比べて次の変化が発生することになる。</p>
+<ul class="simple">
+<li><p>インパクト時の生産量のさらなる増加</p></li>
+<li><p>インパクト時の実質賃金の上昇が抑えられる。しかし賃金所得<span class="math notranslate nohighlight">\(W_tL_t\)</span>の％乖離（<code class="docutils literal notranslate"><span class="pre">w</span></code>+<code class="docutils literal notranslate"><span class="pre">l</span></code>）は正であり，賃金所得は増えることになる。これにより以下の変化が生じることになる。</p>
+<ul>
+<li><p>恒常所得の増加 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> 消費のさらなる増加</p></li>
+<li><p>貯蓄のさらなる増加</p></li>
+</ul>
+</li>
+<li><p>資本の限界生産性と実質利子率のさらなる増加 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> 貯蓄のさらなる増加 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> 投資のさらなる増加</p></li>
+</ul>
+<p>（コメント）</p>
+<ul>
+<li><p>労働供給<code class="docutils literal notranslate"><span class="pre">l</span></code>が10期目から負に転じている。この点を理解するために<span class="math notranslate nohighlight">\(L_t\)</span>を決定する均衡式を次のように書き換えてみよう。</p>
+<div class="math notranslate nohighlight">
+\[
+    \frac{W_t}{C_t}=\frac{m}{1-L_t}
+    \]</div>
+<p><span class="math notranslate nohighlight">\(W_t\)</span>, <span class="math notranslate nohighlight">\(C_t\)</span>, <span class="math notranslate nohighlight">\(L_t\)</span>は全てインパクトで上昇している。これは<span class="math notranslate nohighlight">\(W_t\)</span>の上昇が<span class="math notranslate nohighlight">\(C_t\)</span>の増加を上回り、左辺が上昇していることを示している。しかし時間が経つ毎に<span class="math notranslate nohighlight">\(C_t\)</span>に比べて<span class="math notranslate nohighlight">\(W_t\)</span>の（絶対値の）変化は大きい。これにより上の式の左辺は減少し、更には、<span class="math notranslate nohighlight">\(L_t\)</span>は定常状態の値よりも低くなり、<code class="docutils literal notranslate"><span class="pre">l</span></code>は負に転じる期間が発生している。</p>
+</li>
+<li><p>実質利子率<code class="docutils literal notranslate"><span class="pre">r</span></code>も負に転じている期間があるが，次の２つの理由により資本の限界生産性が定常状態の値よりも低くなっているためである。</p>
+<ol class="arabic simple">
+<li><p>労働供給の減少（<code class="docutils literal notranslate"><span class="pre">l</span></code>が負になる）。</p></li>
+<li><p>資本の蓄積</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="id37">
+<h3>コードを１つのセルにまとめる<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<p>ここでは上のコードを一つのセルにまとめて，全てを同時に実行し結果を表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># パラメーターの値</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.36</span><span class="p">,</span>
+                        <span class="s1">&#39;beta&#39;</span><span class="p">:</span><span class="mf">0.99</span><span class="p">,</span>
+                        <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mf">0.025</span><span class="p">,</span>
+                        <span class="s1">&#39;rho&#39;</span><span class="p">:</span><span class="mf">0.551</span><span class="p">,</span>
+                        <span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="mf">0.0078</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="s1">&#39;theta&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s1">&#39;m&#39;</span><span class="p">:</span><span class="mf">1.73</span><span class="p">})</span>
+
+<span class="c1"># 変数のリスト</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">]</span>
+<span class="n">shock_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span>
+
+<span class="c1"># 定常状態での均衡の関数</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_equations</span><span class="p">(</span><span class="n">variables_forward</span><span class="p">,</span> <span class="n">variables_current</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">fwd</span> <span class="o">=</span> <span class="n">variables_forward</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">variables_current</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">parameters</span>
+
+    <span class="c1"># 均衡条件</span>
+    <span class="n">euler</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span> <span class="mi">1</span><span class="o">+</span><span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">/</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+    
+    <span class="n">labour_supply</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+
+    <span class="n">capital_change</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+    
+    <span class="n">production_function</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>  <span class="o">*</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>   <span class="c1"># (5)    </span>
+    
+    <span class="n">income_id</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">cur</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    
+    <span class="n">wage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+    
+    <span class="n">tfp</span> <span class="o">=</span> <span class="n">cur</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">fwd</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># 返り値</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">euler</span><span class="p">,</span>
+                     <span class="n">labour_supply</span><span class="p">,</span>
+                     <span class="n">capital_change</span><span class="p">,</span>
+                     <span class="n">production_function</span><span class="p">,</span>
+                     <span class="n">income_id</span><span class="p">,</span>
+                     <span class="n">interest_rate</span><span class="p">,</span>
+                     <span class="n">wage</span><span class="p">,</span>
+                     <span class="n">tfp</span><span class="p">])</span>
+
+<span class="c1"># モデルの初期化</span>
+<span class="n">rbc_model</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">equations</span> <span class="o">=</span> <span class="n">equilibrium_equations</span><span class="p">,</span>
+                     <span class="n">exo_states</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+                     <span class="n">endo_states</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                     <span class="n">variables</span> <span class="o">=</span> <span class="n">var_names</span><span class="p">,</span>
+                     <span class="n">shock_names</span><span class="o">=</span><span class="n">shock_names</span><span class="p">,</span>
+                     <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># 定常状態の計算</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">compute_ss</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;定常値&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">ss</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">ss</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># 対数線形近似</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">approximate_and_solve</span><span class="p">(</span><span class="n">log_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;対数線形近似&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">solved</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># インパルス反応の計算</span>
+<span class="n">rbc_model</span><span class="o">.</span><span class="n">impulse</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># プロット</span>
+<span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">irs</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                                      <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                      <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span>
+                                      <span class="c1"># sharey=True,</span>
+                                      <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>定常値
+a: 1.000
+k: 10.000
+y: 2.000
+c: 1.000
+i: 1.000
+w: 0.100
+r: 1.000
+l: 0.500
+
+対数線形近似
+a[t+1] = 0.551·a[t]+v[t+1]
+k[t+1] = -0.0185·a[t]+0.5034·k[t]
+  y[t] = 1.3405·a[t]+0.4782·k[t]
+  c[t] = 2.8655·a[t]+5.6726·k[t]
+  i[t] = -0.1846·a[t]-4.7162·k[t]
+  w[t] = 1.3698·a[t]+0.618·k[t]
+  r[t] = 0.0965·a[t]-0.0376·k[t]
+  l[t] = 1.2869·a[t]+0.4541·k[t]
+</pre></div>
+</div>
+<img alt="_images/41518e6766365f875f418baf3b3be1fc38e956cd0ac12e667cc9ccb8fd3f8bf1.png" src="_images/41518e6766365f875f418baf3b3be1fc38e956cd0ac12e667cc9ccb8fd3f8bf1.png" />
+</div>
+</div>
+</section>
+<section id="id38">
+<h3>確率的シミュレーション<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov</span> <span class="o">=</span> <span class="p">[[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span>                  <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rbc_model</span><span class="o">.</span><span class="n">stoch_sim</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="n">covariance_matrix</span><span class="o">=</span><span class="p">[</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                                  <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                                                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span>
+                                                                  <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                                  <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/af7512085d99445a90747bf9fed536d2fd76ab1ecf8e3a2162410594dbbb4d31.png" src="_images/af7512085d99445a90747bf9fed536d2fd76ab1ecf8e3a2162410594dbbb4d31.png" />
+</div>
+</div>
+<section id="id39">
+<h4>TFPと産出量<a class="headerlink" href="#id39" title="Link to this heading">#</a></h4>
+<p>インパルス反応分析からも分かるがTFPと産出量の変動には乖離が生じている。それを確かめるために、最初の50のデータを図示する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">100</span><span class="o">*</span><span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">50</span><span class="p">,[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;定常値からの％乖離&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/759637279f4a52eaa6e519871a71408214e8336780afc14819ac238bc0d4684e.png" src="_images/759637279f4a52eaa6e519871a71408214e8336780afc14819ac238bc0d4684e.png" />
+</div>
+</div>
+<p>労働供給の異時点間代替が産出量の変動を増幅させている。</p>
+</section>
+<section id="id40">
+<h4>変動の大きさ<a class="headerlink" href="#id40" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;　内生的労働供給</span><span class="se">\t</span><span class="s1">基本モデル&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    
+    <span class="n">var</span> <span class="o">=</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="n">var_basic</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="se">\t</span><span class="s1">  </span><span class="si">{</span><span class="n">var_basic</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
+y	1.00	  1.00
+c	2.09	  0.25
+i	0.12	  3.60
+</pre></div>
+</div>
+</div>
+</div>
+<p>消費の変動は産出量の1/3以下であり、投資の変動は3.6倍ある。日本のデータと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">1.00</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.73</span>
+<span class="n">investment_cycle</span>    <span class="mf">3.82</span>
+</pre></div>
+</div>
+<p>内生的労働供給モデルの投資の変動はデータに近くなったが、消費の変動はデータとの差が大きくなっている。</p>
+</section>
+<section id="id41">
+<h4>自己相関<a class="headerlink" href="#id41" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;　内生的労働供給</span><span class="se">\t</span><span class="s1">基本モデル&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    
+    <span class="n">autocorr</span> <span class="o">=</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="n">autocorr_basic</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">autocorr</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">autocorr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">autocorr_basic</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
+y	0.56	0.54
+c	0.53	0.95
+i	0.18	0.51
+</pre></div>
+</div>
+</div>
+</div>
+<p>日本のデータと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">0.76</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.52</span>
+<span class="n">investment_cycle</span>    <span class="mf">0.84</span>
+</pre></div>
+</div>
+<p>内生的労働供給の導入で数値が改善している訳ではない。</p>
+</section>
+<section id="id42">
+<h4>GDPとの相関度<a class="headerlink" href="#id42" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;　内生的労働供給</span><span class="se">\t</span><span class="s1">基本モデル&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>
+    
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">rbc_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">corr_basic</span> <span class="o">=</span> <span class="n">rbc_basic_model</span><span class="o">.</span><span class="n">simulated</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">corr_basic</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>　内生的労働供給	基本モデル
+y	1.00	1.00
+c	1.00	0.49
+i	-0.70	0.98
+</pre></div>
+</div>
+</div>
+</div>
+<p>データと比べてみよう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_cycle</span>           <span class="mf">1.00</span>
+<span class="n">consumption_cycle</span>   <span class="mf">0.71</span>
+<span class="n">investment_cycle</span>    <span class="mf">0.82</span>
+</pre></div>
+</div>
+<p>数値は殆ど変わらない。持続性は<code class="docutils literal notranslate"><span class="pre">rho</span></code>の値に大きく依存するためである。</p>
+</section>
+</section>
+</section>
+<section id="id43">
+<h2>RBCモデルの意義と限界<a class="headerlink" href="#id43" title="Link to this heading">#</a></h2>
+<p>RBCモデルの意義はどこにあるのだろうか。RBCモデルは消費者と企業の最適化行動に基づいており、ルーカス批判を回避できる。またパラーメ
+ータの設定方法や数値計算方法などでもその後の研究に大きな影響を及ぼしている。これらはマクロ経済学において大きな前進であり、マクロ・モデルの主流であるDSGE（Dynamic Stochastic General Equilibrium）モデルに引き継がれ、マクロ経済学の礎となったと言える。</p>
+<p>しかしRBCモデルには様々な批判があり、ここでは特に次の２つについて言及する。</p>
+<ul class="simple">
+<li><p>全ての市場は完全競争であり、市場の失敗は発生しない。即ち、毎期毎期パレト最適な均衡が達成されており、景気循環は市場の失敗の結果ではなく、TFPのショックに対する市場の最適な反応である。更には、景気循環を軽減する様な政府の介入は社会厚生を減少させることになる。このように現実経済を描写できるかは非常に疑問である。</p></li>
+<li><p>価格は瞬時に調整されるため、古典派の二分法が成立している（名目変数と実質変数は分けて考えることが可能である）。更に、貨幣の中立性が成立しているため、中央銀行の金融政策は景気循環に何の影響も及ぼさない。RBCモデルの景気循環は純粋に実質変数の変動によって引き起こされており、それが実物的景気循環モデルと呼ばれる所以である。しかし、長期では古典派の二分法は成立しているかもしれないが、短期的にはそうではないというのが主流的な考えである。次章では、この点についてデータを使って考察することにする。</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_linearsolve.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">linearsolve</span></code></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Plan.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">今後の計画</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">説明</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">基本RBCモデルの詳細</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">記号と基本的な仮定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">効用関数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">復習：２財の効用最大化問題</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">オイラー条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">実質利子率</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">実質賃金の決定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">均衡条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ステップ１：パラメータの値</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">ステップ２：変数リスト</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">ステップ３：定常状態での均衡条件の関数</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">ステップ４：モデルの最終準備（初期化）</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ステップ５：定常状態の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ステップ６：モデルを対数線形近似</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">インパルス反応</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">インパクト効果</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">インパルス反応の解釈</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">コードを１つのセルにまとめる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">確率的シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">図示</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">変動の大きさ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">自己相関</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">GDPとの相関度</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tfp">TFPと産出量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-14-endogenous-labour">内生的労働供給の導入</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">消費者の最適化行動</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">均衡条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">ステップ１：パラメータの値</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">ステップ２：変数リスト</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">ステップ３：定常状態での均衡条件の関数</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">ステップ４：モデルの最終準備（初期化）</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">ステップ５：定常状態の計算</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">ステップ６：モデルを対数線形近似</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">インパクト効果</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">インパルス反応</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">コードを１つのセルにまとめる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">確率的シミュレーション</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">TFPと産出量</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">変動の大きさ</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">自己相関</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">GDPとの相関度</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">RBCモデルの意義と限界</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 春山 鉄源  Tetsugen HARUYAMA
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <!-- Default Statcounter code for Py4Macro https://py4macro.github.io --> <script type="text/javascript"> var sc_project=12478906; var sc_invisible=1; var sc_security="e767d225"; </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/12478906/0/e767d225/1/" alt="Web Analytics"></a></div></noscript> <!-- End of Statcounter Code -->
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
