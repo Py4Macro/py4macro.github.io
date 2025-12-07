@@ -493,12 +493,19 @@ document.write(`
 <p><a class="reference internal" href="5a_Development_Accounting.html#chap-5a-accounting"><span class="std std-ref">発展会計</span></a>の章で経済間の所得格差の要因を考え，<a class="reference internal" href="5a_Development_Accounting.html#sec-5a-tfp"><span class="std std-ref">全要素生産性</span></a>のセクションで全要素生産性と一人当たりGDPの散布図を作成した。そのデータを使い回帰分析のためのコードの書き方を説明する。</p>
 <section id="id3">
 <h3>データ<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>まずデータを作成する。</p>
+<p>まずPenn World Tableの最新年のデータを作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span> \
-                 <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019&#39;</span><span class="p">)</span> \
-                 <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">py4macro</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;pwt&#39;</span><span class="p">)</span>                                   <span class="c1">#1</span>
+<span class="n">latest_yr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                                <span class="c1">#2</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == @latest_yr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1">#3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最新年：</span><span class="si">{</span><span class="n">latest_yr</span><span class="si">}</span><span class="s1">年&#39;</span><span class="p">)</span>                              <span class="c1">#4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>最新年：2023年
 </pre></div>
 </div>
 </div>
@@ -506,9 +513,10 @@ document.write(`
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">py4macro.data()</span></code>は<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返すため，そのメソッド<code class="docutils literal notranslate"><span class="pre">query()</span></code>を続けて使っている。また<code class="docutils literal notranslate"><span class="pre">query()</span></code>も<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返すため，そのメソッド<code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>を続けて使っている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">\</span></code>を使うと改行が可能となる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">query('year</span> <span class="pre">==</span> <span class="pre">2019')</span></code>を使って2019年のデータだけを抽出したが，その際に行インデックスが飛び飛びになるので，それを<code class="docutils literal notranslate"><span class="pre">0</span></code>，<code class="docutils literal notranslate"><span class="pre">1</span></code>，<code class="docutils literal notranslate"><span class="pre">2</span></code>….と番号を振り直すために<code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>を使っている。引数<code class="docutils literal notranslate"><span class="pre">drop=True</span></code>がないと，元の飛び飛びの行インデックスが新たな列として残るため，それを残さないようにしている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：<code class="docutils literal notranslate"><span class="pre">py4macro.data('pwt')</span></code>はPenn World Tableの<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を<code class="docutils literal notranslate"><span class="pre">df</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：データセットの最新年を<code class="docutils literal notranslate"><span class="pre">latest_yr</span></code>に割り当てている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：<code class="docutils literal notranslate"><span class="pre">df</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">query()</span></code>を使い、最新年のデータだけを抽出している。ここで，<code class="docutils literal notranslate"><span class="pre">&#64;</span></code>を使うことにより，<code class="docutils literal notranslate"><span class="pre">.query()</span></code>の外で定義された変数<code class="docutils literal notranslate"><span class="pre">latest_yr</span></code>を<code class="docutils literal notranslate"><span class="pre">.query()</span></code>の引数の文字列の中でそのまま使えるようなる。続けてメソッド<code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>を使っているが，これにより番号が飛び飛びになっている行インデックスを<code class="docutils literal notranslate"><span class="pre">0</span></code>，<code class="docutils literal notranslate"><span class="pre">1</span></code>，<code class="docutils literal notranslate"><span class="pre">2</span></code>….と番号を振り直してる。また，引数<code class="docutils literal notranslate"><span class="pre">drop=True</span></code>は，元の飛び飛びの行インデックスが新たな列として残るため，それを残さないように指定している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：<code class="docutils literal notranslate"><span class="pre">f</span></code>文字列を使い，データセットの最新年を表示している。</p></li>
 </ul>
 </div>
 <p>発展会計の分析で使った同じ変数を作成しよう。</p>
@@ -518,28 +526,28 @@ document.write(`
 <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span>
 
 <span class="c1"># 労働者一人当たりGDP</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cgdpo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
 
 <span class="c1"># 労働者一人当たり資本</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;ck&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ck&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
 
 <span class="c1"># 蓄積生産要素</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;hc&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;avh&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hc&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
 
 <span class="c1"># 全要素生産性</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span>
 
 <span class="c1"># 米国のデータ</span>
-<span class="n">us2019</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;United States&quot;&#39;</span><span class="p">)</span>
+<span class="n">us2019</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;United States&quot;&#39;</span><span class="p">)</span>
 
 <span class="c1"># 労働者一人当たりGDPを標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;y_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="c1"># 全要素生産性の標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="c1"># 蓄積生産要素の標準化（USA=1）</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">us2019</span><span class="p">[</span><span class="s1">&#39;factors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -547,13 +555,13 @@ document.write(`
 <p>全要素生産性と一人当たりGDPの散布図を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y_relative&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y_relative&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9ee1e7e3c97e9d19f47f90cb9539e86ec09e67d5d3b6a96a5c4dfed859a2e67e.png" src="_images/9ee1e7e3c97e9d19f47f90cb9539e86ec09e67d5d3b6a96a5c4dfed859a2e67e.png" />
+<img alt="_images/d6c2a00d39f598fe77f853f1a6b0a8555a195c6c6fe1f0e06a6192dc8ebfd7c6.png" src="_images/d6c2a00d39f598fe77f853f1a6b0a8555a195c6c6fe1f0e06a6192dc8ebfd7c6.png" />
 </div>
 </div>
 </section>
@@ -594,7 +602,7 @@ y_i = a+bA_i
 <p><code class="docutils literal notranslate"><span class="pre">smf</span></code>の<code class="docutils literal notranslate"><span class="pre">ols()</span></code>関数を使って自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成する。次のコードでは変数<code class="docutils literal notranslate"><span class="pre">model</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -624,25 +632,25 @@ y_i = a+bA_i
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             y_relative   R-squared:                       0.845
-Model:                            OLS   Adj. R-squared:                  0.844
-Method:                 Least Squares   F-statistic:                     552.0
-Date:                Sun, 07 Dec 2025   Prob (F-statistic):           9.99e-43
-Time:                        02:20:42   Log-Likelihood:                 68.097
-No. Observations:                 103   AIC:                            -132.2
-Df Residuals:                     101   BIC:                            -126.9
+Dep. Variable:             y_relative   R-squared:                       0.862
+Model:                            OLS   Adj. R-squared:                  0.860
+Method:                 Least Squares   F-statistic:                     629.8
+Date:                Sun, 07 Dec 2025   Prob (F-statistic):           3.37e-45
+Time:                        03:08:40   Log-Likelihood:                 76.565
+No. Observations:                 103   AIC:                            -149.1
+Df Residuals:                     101   BIC:                            -143.9
 Df Model:                           1                                         
 Covariance Type:            nonrobust                                         
 ================================================================================
                    coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------
-Intercept       -0.2288      0.032     -7.106      0.000      -0.293      -0.165
-tfp_relative     1.0978      0.047     23.495      0.000       1.005       1.190
+Intercept       -0.1966      0.028     -6.951      0.000      -0.253      -0.141
+tfp_relative     1.0668      0.043     25.096      0.000       0.982       1.151
 ==============================================================================
-Omnibus:                       12.662   Durbin-Watson:                   2.218
-Prob(Omnibus):                  0.002   Jarque-Bera (JB):               29.029
-Skew:                           0.355   Prob(JB):                     4.97e-07
-Kurtosis:                       5.502   Cond. No.                         5.36
+Omnibus:                       14.303   Durbin-Watson:                   2.209
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               26.714
+Skew:                           0.535   Prob(JB):                     1.58e-06
+Kurtosis:                       5.254   Cond. No.                         5.16
 ==============================================================================
 
 Notes:
@@ -738,8 +746,8 @@ Notes:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
                    coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------
-Intercept       -0.2288      0.032     -7.106      0.000      -0.293      -0.165
-tfp_relative     1.0978      0.047     23.495      0.000       1.005       1.190
+Intercept       -0.1966      0.028     -6.951      0.000      -0.253      -0.141
+tfp_relative     1.0668      0.043     25.096      0.000       0.982       1.151
 ================================================================================
 </pre></div>
 </div>
@@ -764,7 +772,7 @@ tfp_relative     1.0978      0.047     23.495      0.000       1.005       1.190
 <p>結果の解釈を試みてみよう。</p>
 <ul class="simple">
 <li><p>定数項の推定値のp値は小さく、通常の有意水準では「定数項の値はゼロ」の帰無仮説を棄却できる。一方で，一人当たりGDPは正の値を取るが，定数項はマイナスの値となっている。ここでは非線形の関係が示唆されるので，練習問題で再考する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>のパラメータの推定値は正の値であり，統計的優位性も高い。推定値を解釈するために，相対的全要素生産性である<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>が0.01上昇したとしよう（例えば，0.5から0.51）。相対的一人当たりGDP<code class="docutils literal notranslate"><span class="pre">y_relative</span></code>は平均で<span class="output text_plain">1.0978</span><span class="math notranslate nohighlight">\(\times 0.01\)</span>増加する事になる。即ち，全要素生産性の１単位の上昇は相対一人当たりGDPの１単位以上の増加につながることになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>のパラメータの推定値は正の値であり，統計的優位性も高い。推定値を解釈するために，相対的全要素生産性である<code class="docutils literal notranslate"><span class="pre">tfp_relative</span></code>が0.01上昇したとしよう（例えば，0.5から0.51）。相対的一人当たりGDP<code class="docutils literal notranslate"><span class="pre">y_relative</span></code>は平均で<span class="output text_plain">1.0668</span><span class="math notranslate nohighlight">\(\times 0.01\)</span>増加する事になる。即ち，全要素生産性の１単位の上昇は相対一人当たりGDPの１単位以上の増加につながることになる。</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">result</span></code>は推定結果に関する情報が詰まったオブジェクトである。何が備わっているか<code class="docutils literal notranslate"><span class="pre">py4macro</span></code>モジュールに含まれる<code class="docutils literal notranslate"><span class="pre">see()</span></code>関数を使って調べてみよう。</p>
 <div class="cell docutils container">
@@ -804,8 +812,8 @@ tfp_relative     1.0978      0.047     23.495      0.000       1.005       1.190
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept      -0.228820
-tfp_relative    1.097773
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept      -0.196612
+tfp_relative    1.066788
 dtype: float64
 </pre></div>
 </div>
@@ -834,7 +842,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.22881984128165128, 1.097772532873813)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.19661187632822996, 1.0667877053620922)
 </pre></div>
 </div>
 </div>
@@ -854,7 +862,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.22881984128165128, 1.097772532873813)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.19661187632822996, 1.0667877053620922)
 </pre></div>
 </div>
 </div>
@@ -879,7 +887,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対全要素生産性が0.8の場合の相対的一人当たりGDPは約0.649です。
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>相対全要素生産性が0.8の場合の相対的一人当たりGDPは約0.657です。
 </pre></div>
 </div>
 </div>
@@ -892,10 +900,10 @@ dtype: float64
 </div>
 <p>ここで<code class="docutils literal notranslate"><span class="pre">.predict()</span></code>は予測値を得るメソッド。引数を入れずに使うと，次に説明する属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>と同じ値を返す。</p>
 </div>
-<p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df2019</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
+<p>次に、標本の散布図に回帰直線を重ねて表示してみる。まず<code class="docutils literal notranslate"><span class="pre">result</span></code>の属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>を使い非説明変数の予測値を抽出することができるので、<code class="docutils literal notranslate"><span class="pre">df</span></code>に<code class="docutils literal notranslate"><span class="pre">fitted</span></code>のラベルを使って新たな列として追加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fittedvalues</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fittedvalues</span>
 </pre></div>
 </div>
 </div>
@@ -903,8 +911,8 @@ dtype: float64
 <p>図を重ねて表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df2019</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y_relative&#39;</span><span class="p">)</span>
-<span class="n">df2019</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y_relative&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">,</span>
                                       <span class="n">y</span><span class="o">=</span><span class="s1">&#39;OLS fitted&#39;</span><span class="p">,</span>
                                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -912,7 +920,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/78f99143be71645324576d12888e50b3c73ef58add0fc5d607e2028b54f4f471.png" src="_images/78f99143be71645324576d12888e50b3c73ef58add0fc5d607e2028b54f4f471.png" />
+<img alt="_images/37b0f04f765e55f87fbcf17febf32c348ef2a32f8ce240fca762b6629a89fb1f.png" src="_images/37b0f04f765e55f87fbcf17febf32c348ef2a32f8ce240fca762b6629a89fb1f.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -922,7 +930,7 @@ dtype: float64
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">gdp_pc_relative</span></code>の予測値は，属性<code class="docutils literal notranslate"><span class="pre">.fittedvalues</span></code>もしくはメソッド<code class="docutils literal notranslate"><span class="pre">.predict()</span></code>で取得できるが，次のコードでも同じ結果となる。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df2019</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fitted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ahat</span> <span class="o">+</span> <span class="n">bhat</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -993,17 +1001,17 @@ y_i = a + bx_i+e_i
 </section>
 <section id="id7">
 <h3>最小二乗法による計算<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">df2019</span></code>にある変数を使って，計算に使う変数を作成しよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span></code>にある変数を使って，計算に使う変数を作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 労働者一人当たりGDP（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;y_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;y_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="c1"># 全要素生産性（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tfp_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="c1"># 蓄積生産要素（USA=1）の対数化</span>
-<span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df2019</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;factors_relative&#39;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1020,8 +1028,8 @@ y_i = a + bx_i+e_i
 <p>自動計算のための準備をし，実際に計算した結果を変数に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">result_factors</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df2019</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_tfp</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_tfp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">result_factors</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula_factors</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1035,8 +1043,8 @@ y_i = a + bx_i+e_i
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>全要素生産性の寄与度：0.5262942020679535
-蓄積生産要素の寄与度：0.47370579793204626
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>全要素生産性の寄与度：0.577129681228092
+蓄積生産要素の寄与度：0.4228703187719082
 </pre></div>
 </div>
 </div>
