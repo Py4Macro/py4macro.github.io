@@ -669,17 +669,25 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 </div>
-<p>これらの変数を使い，1999年から2019年の20年間の<code class="docutils literal notranslate"><span class="pre">y</span></code>、<code class="docutils literal notranslate"><span class="pre">k</span></code>、<code class="docutils literal notranslate"><span class="pre">avh</span></code>，<code class="docutils literal notranslate"><span class="pre">hc</span></code>の平均成長率を計算するが，まずそのための準備として関数を作成する。次の<code class="docutils literal notranslate"><span class="pre">calculate_growth</span></code>関数は，<code class="docutils literal notranslate"><span class="pre">country</span></code>（国）の<code class="docutils literal notranslate"><span class="pre">var</span></code>（変数）の平均成長率を返す。</p>
+<p>これらの変数を使い，1999年から<span class="pasted-text">2023</span>年の<span class="pasted-text">25</span>年間の<code class="docutils literal notranslate"><span class="pre">y</span></code>、<code class="docutils literal notranslate"><span class="pre">k</span></code>、<code class="docutils literal notranslate"><span class="pre">avh</span></code>，<code class="docutils literal notranslate"><span class="pre">hc</span></code>の平均成長率を計算するが，まず，変数<code class="docutils literal notranslate"><span class="pre">latest_yr</span></code>に<span class="pasted-text">2023</span>を割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_growth</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1999</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latest_yr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次に、<code class="docutils literal notranslate"><span class="pre">country</span></code>（国）の<code class="docutils literal notranslate"><span class="pre">var</span></code>（変数）の平均成長率を返す次の<code class="docutils literal notranslate"><span class="pre">calculate_growth</span></code>関数を作成する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_growth</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1999</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">latest_yr</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    引数：</span>
 <span class="sd">        country: 国名（文字列; 例えば，&#39;Japan&#39;）</span>
 <span class="sd">        var: 変数名（文字列; 例えば，`y`）</span>
 <span class="sd">    戻り値：</span>
-<span class="sd">        `country`における`var`の平均成長率（浮動小数点型）</span>
+<span class="sd">        `country`における`var`の平均成長率（％）</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>                          <span class="c1">#1</span>
@@ -696,7 +704,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 
     <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">df_end</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_start</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="c1">#9</span>
     
-    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">g</span>   <span class="c1">#10</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">g</span>                           <span class="c1">#10</span>
 </pre></div>
 </div>
 </div>
@@ -707,30 +715,30 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 <li><p><code class="docutils literal notranslate"><span class="pre">#1</span></code>：何年間かを計算</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#2</span></code>：国を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#5</span></code>と<code class="docutils literal notranslate"><span class="pre">#6</span></code>で使う</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#3</span></code>：最初の年を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#5</span></code>で使う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：最後の年を選択する際の条件であり``#6`で使う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：最初の年と国を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#7</span></code>で<code class="docutils literal notranslate"><span class="pre">df_start</span></code>を作成する際に使う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：最後の年と国を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#8</span></code>で<code class="docutils literal notranslate"><span class="pre">df_end</span></code>を作成する際に使う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：最初の年の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を抽出</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：最後の年の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を抽出</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：平均成長率を計算する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">#4</span></code>：最後の年を選択する際の条件であり``#6`で使う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#5</span></code>：最初の年と国を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#7</span></code>で<code class="docutils literal notranslate"><span class="pre">df_start</span></code>を作成する際に使う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#6</span></code>：最後の年と国を選択する際の条件であり<code class="docutils literal notranslate"><span class="pre">#8</span></code>で<code class="docutils literal notranslate"><span class="pre">df_end</span></code>を作成する際に使う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#7</span></code>：最初の年の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を抽出</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#8</span></code>：最後の年の<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を抽出</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#9</span></code>：平均成長率を計算する。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">df_end[var]</span></code>と<code class="docutils literal notranslate"><span class="pre">df_start[var]</span></code>は列ラベル<code class="docutils literal notranslate"><span class="pre">var</span></code>の列を抽出しており、<code class="docutils literal notranslate"><span class="pre">Series</span></code>として返される。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">.iloc[0]</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>の<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の数値を取り出すメソッド</p></li>
 <li><p>成長率を計算し<code class="docutils literal notranslate"><span class="pre">g</span></code>に割り当てる。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">#11</span></code>：％表示にして返す</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#10</span></code>：％表示にして返す</p></li>
 </ul>
 </div>
 <p>例として，日本の一人当たりGDPの平均成長率を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_growth</span><span class="p">(</span><span class="s1">&#39;Japan&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calculate_growth</span><span class="p">(</span><span class="s1">&#39;Japan&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6956748904901194
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5740216382870569
 </pre></div>
 </div>
 </div>
@@ -835,18 +843,18 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
     <tr>
       <th>0</th>
       <td>Aruba</td>
-      <td>-0.157902</td>
-      <td>3.014877</td>
+      <td>-0.016253</td>
+      <td>2.598239</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Angola</td>
-      <td>2.119709</td>
-      <td>0.038051</td>
+      <td>1.071699</td>
+      <td>-0.501052</td>
       <td>NaN</td>
-      <td>0.732205</td>
+      <td>0.783559</td>
     </tr>
     <tr>
       <th>2</th>
@@ -859,18 +867,18 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
     <tr>
       <th>3</th>
       <td>Albania</td>
-      <td>3.088791</td>
-      <td>4.265393</td>
+      <td>3.098374</td>
+      <td>4.069481</td>
       <td>NaN</td>
-      <td>0.428109</td>
+      <td>0.396527</td>
     </tr>
     <tr>
       <th>4</th>
       <td>United Arab Emirates</td>
-      <td>-2.160483</td>
+      <td>-1.477723</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>1.159700</td>
+      <td>1.049677</td>
     </tr>
   </tbody>
 </table>
@@ -888,7 +896,6 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 <span class="n">df_growth</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)[[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;avh&#39;</span><span class="p">,</span><span class="s1">&#39;hc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">calc_growth</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://py4basics.github.io/3_Pandas.html#id35">ここを参考にしよう。</a></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>の成長率のヒストグラムをプロットするが，ここでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>を使う。まず使用する列を選んでメソッド<code class="docutils literal notranslate"><span class="pre">plot()</span></code>の引数に<code class="docutils literal notranslate"><span class="pre">kind='hist'</span></code>を指定するだけである。他の引数：</p>
 <ul class="simple">
@@ -903,7 +910,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5dcfd829f98ba3af6755589bf61b054c0a7070fb615501bb504984eae8ced46d.png" src="_images/5dcfd829f98ba3af6755589bf61b054c0a7070fb615501bb504984eae8ced46d.png" />
+<img alt="_images/4c41ebe1d3e53a3385ccc616990fb1b582987906d1070b6a4ac7d1eeaa8696e8.png" src="_images/4c41ebe1d3e53a3385ccc616990fb1b582987906d1070b6a4ac7d1eeaa8696e8.png" />
 </div>
 </div>
 <p>多くの国はプラスの経済成長を遂げているが，マイナイス成長の経済も存在する。平均成長率がマイナスの国数を計算してみよう。</p>
@@ -915,7 +922,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>29
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31
 </pre></div>
 </div>
 </div>
@@ -923,7 +930,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 <p>最も平均成長率が低い経済の国名を探してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth_sorted</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth_sorted</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">df_growth_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -956,44 +963,44 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
   </thead>
   <tbody>
     <tr>
-      <th>178</th>
+      <th>0</th>
       <td>Venezuela (Bolivarian Republic of)</td>
-      <td>-5.346836</td>
-      <td>-1.519895</td>
-      <td>-0.286416</td>
-      <td>1.560305</td>
+      <td>-5.599768</td>
+      <td>-2.481378</td>
+      <td>-0.25074</td>
+      <td>1.586491</td>
     </tr>
     <tr>
-      <th>181</th>
+      <th>1</th>
       <td>Yemen</td>
-      <td>-4.512182</td>
+      <td>-4.409425</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2.328553</td>
+      <td>2.554355</td>
     </tr>
     <tr>
-      <th>130</th>
+      <th>2</th>
       <td>Oman</td>
-      <td>-3.908885</td>
-      <td>-0.559118</td>
+      <td>-3.175348</td>
+      <td>-0.159795</td>
       <td>NaN</td>
       <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Kuwait</td>
+      <td>-2.253094</td>
+      <td>1.444127</td>
+      <td>NaN</td>
+      <td>0.390555</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>United Arab Emirates</td>
-      <td>-2.160483</td>
+      <td>Syrian Arab Republic</td>
+      <td>-1.883144</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>1.159700</td>
-    </tr>
-    <tr>
-      <th>94</th>
-      <td>Kuwait</td>
-      <td>-1.814703</td>
-      <td>2.198322</td>
-      <td>NaN</td>
-      <td>0.338220</td>
+      <td>1.015290</td>
     </tr>
   </tbody>
 </table>
@@ -1019,7 +1026,7 @@ g_x\approx\frac{1}{n}\ln\left(\frac{x_n}{x_0}\right)
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">df_growth_sorted</span></code>から分かるように，他の変数には欠損値が含まれているので<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は全て削除する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">df_growth_sorted</span></code>から分かるように，欠損値である<code class="docutils literal notranslate"><span class="pre">NaN</span></code>がある行は全て削除する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth</span> <span class="o">=</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1068,7 +1075,7 @@ g_{\text{factors}}=ag_k+(1-a)(g_h+g_H)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8a57b1e378a3b9c6696f1de8ade5704e76a2ffe956fd0c11eab82742bcc7a70d.png" src="_images/8a57b1e378a3b9c6696f1de8ade5704e76a2ffe956fd0c11eab82742bcc7a70d.png" />
+<img alt="_images/8ed337737a39fd47d2c543c41e3c4c6bc2de323a029e04ba6025a92a133cf9de.png" src="_images/8ed337737a39fd47d2c543c41e3c4c6bc2de323a029e04ba6025a92a133cf9de.png" />
 </div>
 </div>
 <p>マイナスの成長率の国数を調べてみよう。</p>
@@ -1085,6 +1092,7 @@ g_{\text{factors}}=ag_k+(1-a)(g_h+g_H)
 </div>
 </div>
 </div>
+<p>ほとんどの国の蓄積生産要素は正の成長を遂げている。</p>
 </section>
 <section id="id6">
 <h2>全要素生産性の成長率<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
@@ -1109,10 +1117,10 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/77daf576e58703ec3758b2c2cd0e793b029ac6b8dbdbfb272d01c694a14326cf.png" src="_images/77daf576e58703ec3758b2c2cd0e793b029ac6b8dbdbfb272d01c694a14326cf.png" />
+<img alt="_images/1d84e0f0a05fa8d16c8340ac7524c99f0761b2a6c7b26300decc4e1de9723a88.png" src="_images/1d84e0f0a05fa8d16c8340ac7524c99f0761b2a6c7b26300decc4e1de9723a88.png" />
 </div>
 </div>
-<p>蓄積生産要素と比べると全要素生産性の成長率はよりマイナスに広がっている。TFP成長率がマイナスの国の数を確認してみよう。</p>
+<p>蓄積生産要素と比べると全要素生産性の成長率がマイナスになる国は多いようである。TFP成長率がマイナスの国の数を確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df_growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;tfp&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span> <span class="p">)</span>
@@ -1126,6 +1134,187 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 </div>
+<p>全要素生産性がマイナス成長率になっている国を確認してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_growth</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;tfp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>y</th>
+      <th>k</th>
+      <th>avh</th>
+      <th>hc</th>
+      <th>factors</th>
+      <th>tfp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>178</th>
+      <td>Venezuela (Bolivarian Republic of)</td>
+      <td>-5.599768</td>
+      <td>-2.481378</td>
+      <td>-0.250740</td>
+      <td>1.586491</td>
+      <td>0.063375</td>
+      <td>-5.663143</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Brazil</td>
+      <td>0.564000</td>
+      <td>1.014119</td>
+      <td>-0.274638</td>
+      <td>2.145230</td>
+      <td>1.585101</td>
+      <td>-1.021101</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>Mexico</td>
+      <td>-0.389798</td>
+      <td>0.551803</td>
+      <td>-0.236648</td>
+      <td>0.731992</td>
+      <td>0.514164</td>
+      <td>-0.903962</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>Luxembourg</td>
+      <td>-0.350008</td>
+      <td>0.497707</td>
+      <td>-0.399243</td>
+      <td>0.816212</td>
+      <td>0.443881</td>
+      <td>-0.793890</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>Italy</td>
+      <td>-0.155976</td>
+      <td>0.921352</td>
+      <td>-0.342352</td>
+      <td>0.716446</td>
+      <td>0.556513</td>
+      <td>-0.712490</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Argentina</td>
+      <td>-0.569178</td>
+      <td>0.269766</td>
+      <td>-0.656633</td>
+      <td>0.734777</td>
+      <td>0.142018</td>
+      <td>-0.711196</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>Jamaica</td>
+      <td>-0.721576</td>
+      <td>-0.388004</td>
+      <td>-0.043777</td>
+      <td>0.149560</td>
+      <td>-0.058812</td>
+      <td>-0.662763</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>Greece</td>
+      <td>0.132917</td>
+      <td>0.565348</td>
+      <td>-0.311133</td>
+      <td>0.749038</td>
+      <td>0.480386</td>
+      <td>-0.347469</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>Norway</td>
+      <td>0.564723</td>
+      <td>1.789631</td>
+      <td>-0.154636</td>
+      <td>0.501474</td>
+      <td>0.827769</td>
+      <td>-0.263046</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Spain</td>
+      <td>0.502692</td>
+      <td>1.484374</td>
+      <td>-0.295560</td>
+      <td>0.666820</td>
+      <td>0.742297</td>
+      <td>-0.239606</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>Portugal</td>
+      <td>0.820679</td>
+      <td>1.838316</td>
+      <td>-0.085950</td>
+      <td>0.693232</td>
+      <td>1.017627</td>
+      <td>-0.196947</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>France</td>
+      <td>0.535149</td>
+      <td>1.357792</td>
+      <td>-0.201197</td>
+      <td>0.579165</td>
+      <td>0.704576</td>
+      <td>-0.169427</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Belgium</td>
+      <td>0.700400</td>
+      <td>1.714508</td>
+      <td>0.047102</td>
+      <td>0.291225</td>
+      <td>0.797054</td>
+      <td>-0.096654</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>Finland</td>
+      <td>0.449098</td>
+      <td>1.160121</td>
+      <td>-0.438409</td>
+      <td>0.603741</td>
+      <td>0.496928</td>
+      <td>-0.047830</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>一番上にあるベネズエラは例外的な値となっているが，先進国も多く含まれていることがわかる。</p>
 </section>
 <section id="id7">
 <h2>各国の全要素生産性の寄与度<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
@@ -1138,7 +1327,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/78371393b8da48f58caeb75c08d3d4bbb4a295ccfb05d9bc6e386c3173b6e141.png" src="_images/78371393b8da48f58caeb75c08d3d4bbb4a295ccfb05d9bc6e386c3173b6e141.png" />
+<img alt="_images/63c9b624fdcefda99f8bb523bd32366a657ab6fa65fca6b499c9ca74dc57eaa6.png" src="_images/63c9b624fdcefda99f8bb523bd32366a657ab6fa65fca6b499c9ca74dc57eaa6.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -1147,6 +1336,19 @@ g_A=g_y-g_{\text{factors}}
 <li><p>２つの列を選択することにより，同じ図に２つのヒストグラムが表示できるようになる。</p></li>
 <li><p>引数<code class="docutils literal notranslate"><span class="pre">alpha</span></code>は図の透過度を指定する。0から1の間の値が指定可能で，デフォルトは1（透過なし）。</p></li>
 </ul>
+</div>
+<p>ベネズエラの値が外れ値的なので，再度，ベネズエラを除いてヒストグラムをプロットしてみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df_growth</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;Venezuela (Bolivarian Republic of)&#39;</span><span class="p">)</span>
+<span class="n">df_growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tfp&#39;</span><span class="p">,</span><span class="s1">&#39;factors&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6d5cd98c92934d556d0fb224962165063412a5e32414d2c4a1bf93dbe1efaca7.png" src="_images/6d5cd98c92934d556d0fb224962165063412a5e32414d2c4a1bf93dbe1efaca7.png" />
+</div>
 </div>
 <p>図から次のことがわかる。蓄積生産要素の成長率は正の値になる傾向がある。即ち，殆どの経済で蓄積生産要素による経済成長が起こっているということである。一方，全要素生産性の成長率はマイナスへの広がりがあり，成長を妨げる要因になっているようである。</p>
 <p>次に，一人当たりGDPの成長率に対する全要素生産性の貢献度を数量化するが，まず，全要素生産性の成長率が一人当たりGDPの成長率の半分以上を占める国はデータセット全体の何％を占めるかを計算してみよう。</p>
@@ -1162,7 +1364,7 @@ g_A=g_y-g_{\text{factors}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>全要素生産性の成長率が一人当たりGDPの成長率の半分以上を占める国の割合：41.3%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>全要素生産性の成長率が一人当たりGDPの成長率の半分以上を占める国の割合：36.5%
 </pre></div>
 </div>
 </div>
@@ -1258,21 +1460,21 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
   <tbody>
     <tr>
       <th>y</th>
-      <td>3.145373</td>
-      <td>2.116216</td>
-      <td>1.029157</td>
+      <td>2.791933</td>
+      <td>1.862050</td>
+      <td>0.929883</td>
     </tr>
     <tr>
       <th>tfp</th>
-      <td>2.116216</td>
-      <td>1.667260</td>
-      <td>0.448956</td>
+      <td>1.862050</td>
+      <td>1.432857</td>
+      <td>0.429193</td>
     </tr>
     <tr>
       <th>factors</th>
-      <td>1.029157</td>
-      <td>0.448956</td>
-      <td>0.580201</td>
+      <td>0.929883</td>
+      <td>0.429193</td>
+      <td>0.500690</td>
     </tr>
   </tbody>
 </table>
@@ -1299,7 +1501,7 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6728028066006166
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.666939321146466
 </pre></div>
 </div>
 </div>
@@ -1312,7 +1514,7 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3271971933993832
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.333060678853534
 </pre></div>
 </div>
 </div>
@@ -1380,59 +1582,59 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
   <tbody>
     <tr>
       <th>China</th>
-      <td>8.28</td>
-      <td>4.21</td>
-      <td>4.07</td>
-      <td>49.14</td>
+      <td>7.75</td>
+      <td>3.95</td>
+      <td>3.80</td>
+      <td>49.03</td>
     </tr>
     <tr>
       <th>India</th>
-      <td>4.75</td>
-      <td>3.09</td>
-      <td>1.67</td>
-      <td>35.07</td>
-    </tr>
-    <tr>
-      <th>Peru</th>
-      <td>2.30</td>
-      <td>1.36</td>
-      <td>0.94</td>
-      <td>40.76</td>
+      <td>3.80</td>
+      <td>2.49</td>
+      <td>1.32</td>
+      <td>34.64</td>
     </tr>
     <tr>
       <th>Singapore</th>
-      <td>1.81</td>
-      <td>1.06</td>
-      <td>0.74</td>
-      <td>41.17</td>
+      <td>1.70</td>
+      <td>1.08</td>
+      <td>0.62</td>
+      <td>36.55</td>
+    </tr>
+    <tr>
+      <th>Peru</th>
+      <td>1.68</td>
+      <td>1.22</td>
+      <td>0.46</td>
+      <td>27.46</td>
     </tr>
     <tr>
       <th>United States</th>
-      <td>1.23</td>
-      <td>0.62</td>
-      <td>0.62</td>
-      <td>49.88</td>
+      <td>1.31</td>
+      <td>0.66</td>
+      <td>0.65</td>
+      <td>49.53</td>
     </tr>
     <tr>
       <th>United Kingdom</th>
-      <td>0.86</td>
-      <td>0.65</td>
-      <td>0.20</td>
-      <td>23.83</td>
+      <td>0.72</td>
+      <td>0.62</td>
+      <td>0.10</td>
+      <td>13.73</td>
     </tr>
     <tr>
       <th>Japan</th>
-      <td>0.70</td>
-      <td>0.38</td>
-      <td>0.32</td>
-      <td>45.58</td>
+      <td>0.57</td>
+      <td>0.34</td>
+      <td>0.24</td>
+      <td>41.05</td>
     </tr>
     <tr>
       <th>Norway</th>
-      <td>0.61</td>
+      <td>0.56</td>
       <td>0.83</td>
-      <td>-0.23</td>
-      <td>-37.35</td>
+      <td>-0.26</td>
+      <td>-46.58</td>
     </tr>
   </tbody>
 </table>
@@ -1444,7 +1646,7 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
 <li><p>全要素生産性の成長率が負の経済もあるため，TFPの寄与度が負になっている場合もある。その場合，蓄積生産要素の寄与度<code class="docutils literal notranslate"><span class="pre">100</span></code>％以上になる。</p></li>
 <li><p>日本の全要素生産性の寄与度は非常に大きい。</p></li>
 </ul>
-<p>このデータは1999~2019年のデータであり，それ以前ではどうだったのかを含めて，次節では年代を区切って日本の経済成長を考察してみることにする。</p>
+<p>このデータは1999~<span class="pasted-text">2023</span>年のデータであり，それ以前ではどうだったのかを含めて，次節では年代を区切って日本の経済成長を考察してみることにする。</p>
 </section>
 <section id="id9">
 <h2>日本<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
@@ -1495,8 +1697,8 @@ g_{y,i} = g_{A,i} + g_{\text{factors},i}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dic</span> <span class="o">=</span> <span class="p">{}</span>                                          <span class="c1"># 1</span>
 
-<span class="n">yr_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1950s&#39;</span><span class="p">,</span><span class="s1">&#39;1960s&#39;</span><span class="p">,</span><span class="s1">&#39;1970s&#39;</span><span class="p">,</span>                <span class="c1"># 2</span>
-           <span class="s1">&#39;1980s&#39;</span><span class="p">,</span><span class="s1">&#39;1990s&#39;</span><span class="p">,</span><span class="s1">&#39;2000s&#39;</span><span class="p">,</span><span class="s1">&#39;2010s&#39;</span><span class="p">]</span>
+<span class="n">yr_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1950s&#39;</span><span class="p">,</span><span class="s1">&#39;1960s&#39;</span><span class="p">,</span><span class="s1">&#39;1970s&#39;</span><span class="p">,</span> <span class="s1">&#39;1980s&#39;</span><span class="p">,</span>       <span class="c1"># 2</span>
+          <span class="s1">&#39;1990s&#39;</span><span class="p">,</span><span class="s1">&#39;2000s&#39;</span><span class="p">,</span><span class="s1">&#39;2010s&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">yr_lst</span><span class="p">:</span>                                 <span class="c1"># 3</span>
     <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">yr</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>                           <span class="c1"># 4</span>

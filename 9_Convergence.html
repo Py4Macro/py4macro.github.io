@@ -445,7 +445,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">説明</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定式の導出</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定結果の判断方法</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-simple-regression">単回帰分析：1970年〜2019年</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-simple-regression">単回帰分析：1970年〜<span class="pasted-text">2023</span>年</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データ</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-saving">貯蓄率・資本減耗率・労働人口増加率の平均</a></li>
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">一人当たりGDP成長率の平均</a></li>
@@ -458,7 +458,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hat-b">推定値<span class="math notranslate nohighlight">\(\hat{b}\)</span>の意味</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-regression">重回帰分析：1970年〜2019年</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-regression">重回帰分析：1970年〜<span class="pasted-text">2023</span>年</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for">単回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-for-loop">重回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析</a></li>
 </ul>
@@ -529,7 +529,7 @@ document.write(`
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pop</span></code>：人口（in millions）</p></li>
 </ul>
-<p>これらのデータを使い，所得分布のヒストグラムとカーネル密度推定に基づくプロットを説明する。まず，一人当たりGDPの変数（対数）を作成する。</p>
+<p>これらのデータを使い，所得分布のヒストグラムとカーネル密度推定に基づくプロットを説明する。ここでキーとなる変数は一人当たりGDPであり，その対数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Penn World Tableのデータ</span>
@@ -541,16 +541,30 @@ document.write(`
 </div>
 </div>
 </div>
-<p>例として2019年の日本の一人当たりGDPを表示してみよう。</p>
+<p>まず，データセットの最新年を確認し，変数<code class="docutils literal notranslate"><span class="pre">latest_yr</span></code>に割り当てる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_jp</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;Japan&quot; &amp; year == 2019&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latest_yr</span> <span class="o">=</span> <span class="n">pwt</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最新年は</span><span class="si">{</span><span class="n">latest_yr</span><span class="si">}</span><span class="s1">です。&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>最新年は2023です。
+</pre></div>
+</div>
+</div>
+</div>
+<p>例として，最新年の日本の一人当たりGDPを表示してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_jp</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;country == &quot;Japan&quot; &amp; year == @latest_yr&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span>
 <span class="n">y_jp</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6507    10.681278
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6511    10.677377
 Name: gdp_pc_log, dtype: float64
 </pre></div>
 </div>
@@ -564,15 +578,15 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.681277809090068
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.677377235058232
 </pre></div>
 </div>
 </div>
 </div>
-<p>次に2019年のヒストグラムを作成しよう。</p>
+<p>次に最新年のヒストグラムを作成しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">latest_yr</span> <span class="p">)</span>
 <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                                      <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -580,7 +594,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a53a89dc164ea6100b40139092fa69614e57a26582385696a6331496075c3875.png" src="_images/a53a89dc164ea6100b40139092fa69614e57a26582385696a6331496075c3875.png" />
+<img alt="_images/605973a3c308c0d719db271d90bad19c8f99390e01f9fb44319408fb499b00f3.png" src="_images/605973a3c308c0d719db271d90bad19c8f99390e01f9fb44319408fb499b00f3.png" />
 </div>
 </div>
 <p>ヒストグラムは縦軸に度数，横軸に階級を取ったグラフだが，関連する手法に<a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">カーネル密度推定</a>と呼ばれるものがある。考え方は簡単で，上のようなヒストグラムのデータに基づき面積が１になるようにスムーズな分布を推計する手法である。詳細は割愛するが，下のコードではヒストグラムとカーネル密度関数を重ねてプロットする。</p>
@@ -604,7 +618,7 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8ee83ad5348c7034b8f2fbf7551e8609fb401926768b47bbe17d4cca3d855fcc.png" src="_images/8ee83ad5348c7034b8f2fbf7551e8609fb401926768b47bbe17d4cca3d855fcc.png" />
+<img alt="_images/932d17178923e96b600e137812ee42c2a47e8b0659bb0c4e29082168f8827dbb.png" src="_images/932d17178923e96b600e137812ee42c2a47e8b0659bb0c4e29082168f8827dbb.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -617,10 +631,10 @@ Name: gdp_pc_log, dtype: float64
 </ol>
 </div>
 <p>最頻値（モード）は中心より右側にあるが，横軸は対数になっていることを思い出そう。対数を取らない分布では，最頻値は分布の中心より左側に位置することになる。試してみよう。</p>
-<p>ここで確かめたいのは，約70年の間に上の所得分布のどのように変化してきたか，という問題である。この問いに答えるために，カーネル密度関数（<code class="docutils literal notranslate"><span class="pre">kind=density</span></code>）を使って1950年から10年毎の分布を表示する。</p>
+<p>ここで確かめたいのは，約70年の間に上の所得分布がどのように変化してきたか，という問題である。この問いに答えるために，カーネル密度関数（<code class="docutils literal notranslate"><span class="pre">kind=density</span></code>）を使って1950年から10年毎の分布を表示する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span><span class="mi">2020</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">+</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span>                <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span><span class="mi">2021</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>                       <span class="c1"># 1</span>
 
 <span class="n">color_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">yr_list</span><span class="p">))</span>               <span class="c1"># 2</span>
 
@@ -637,13 +651,13 @@ Name: gdp_pc_log, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fd08cf0a6dc522a050b4ed23943f029e9d4aba748e456491dbd0d1532b3ab928.png" src="_images/fd08cf0a6dc522a050b4ed23943f029e9d4aba748e456491dbd0d1532b3ab928.png" />
+<img alt="_images/033805bb2a9ec0210f23664c0c5ebc59ba72247712c067f11d38bc85dcc76d26.png" src="_images/033805bb2a9ec0210f23664c0c5ebc59ba72247712c067f11d38bc85dcc76d26.png" />
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">コードの説明</p>
 <ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">range(start,</span> <span class="pre">end,</span> <span class="pre">step)</span></code>は<code class="docutils literal notranslate"><span class="pre">start</span></code>から<code class="docutils literal notranslate"><span class="pre">end</span></code>までの整数を<code class="docutils literal notranslate"><span class="pre">step</span></code>の間隔で準備する。更に<code class="docutils literal notranslate"><span class="pre">list()</span></code>を使ってリストに変換し，<code class="docutils literal notranslate"><span class="pre">+[2019]</span></code>を使ってリストの最後に<code class="docutils literal notranslate"><span class="pre">2019</span></code>を追加している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range(start,</span> <span class="pre">end,</span> <span class="pre">step)</span></code>は<code class="docutils literal notranslate"><span class="pre">start</span></code>から<code class="docutils literal notranslate"><span class="pre">end</span></code>までの整数を<code class="docutils literal notranslate"><span class="pre">step</span></code>の間隔で準備する。更に<code class="docutils literal notranslate"><span class="pre">list()</span></code>を使ってリストに変換している。</p></li>
 <li><p>グレーの濃淡で曲線の色指定するが，その場合<code class="docutils literal notranslate"><span class="pre">0</span></code>（黒）から<code class="docutils literal notranslate"><span class="pre">1</span></code>（白）の間の浮動小数点型を文字列型で指定する。そのために使う数字を用意している（後で文字列に変換する）。<code class="docutils literal notranslate"><span class="pre">np.linspace(0.9,0,len(yr_list))</span></code>は<code class="docutils literal notranslate"><span class="pre">0.9</span></code>から<code class="docutils literal notranslate"><span class="pre">0</span></code>までの数字（降順）で<code class="docutils literal notranslate"><span class="pre">yr_list</span></code>の要素と同じ数の値を生成し<code class="docutils literal notranslate"><span class="pre">array</span></code>として<code class="docutils literal notranslate"><span class="pre">color_arr</span></code>に割り当てている。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">zip</span></code>は引数の<code class="docutils literal notranslate"><span class="pre">yr_list</span></code>と<code class="docutils literal notranslate"><span class="pre">color_arr</span></code>の順番が同じ要素を一つのタプルにまとめる関数である。例えば，<code class="docutils literal notranslate"><span class="pre">list(zip(yr_list,color_arr))</span></code>はタプルが要素となるリストを返す。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="mi">1950</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
@@ -653,10 +667,10 @@ Name: gdp_pc_log, dtype: float64
  <span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mf">0.3857142857142857</span><span class="p">),</span>
  <span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mf">0.2571428571428571</span><span class="p">),</span>
  <span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mf">0.12857142857142845</span><span class="p">),</span>
- <span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
+ <span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>このように<code class="docutils literal notranslate"><span class="pre">zip</span></code>関数は複数のリストや<code class="docutils literal notranslate"><span class="pre">array</span></code>の要素をタプルとしてまとめている。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループが始まると，<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の要素<code class="docutils literal notranslate"><span class="pre">(1950,</span> <span class="pre">0.9)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">y</span></code>に<code class="docutils literal notranslate"><span class="pre">1950</span></code>，<code class="docutils literal notranslate"><span class="pre">c</span></code>に<code class="docutils literal notranslate"><span class="pre">0.9</span></code>が割り当てられ，その下のコードが実行される。同様に次のループでは<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の要素<code class="docutils literal notranslate"><span class="pre">(1960,</span> <span class="pre">0.7714285714285715)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">y</span></code>に<code class="docutils literal notranslate"><span class="pre">1960</span></code>，<code class="docutils literal notranslate"><span class="pre">c</span></code>に<code class="docutils literal notranslate"><span class="pre">0.7714285714285715</span></code>が割り当てられ，その下のコードが実行される。同じ作業が<code class="docutils literal notranslate"><span class="pre">(2019,</span> <span class="pre">0.0)</span></code>まで続くことになる。</p>
+<p>このように<code class="docutils literal notranslate"><span class="pre">zip</span></code>関数は複数のリストや<code class="docutils literal notranslate"><span class="pre">array</span></code>の要素をタプルとしてまとめている。<code class="docutils literal notranslate"><span class="pre">for</span></code>ループが始まると，<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の要素<code class="docutils literal notranslate"><span class="pre">(1950,</span> <span class="pre">0.9)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">y</span></code>に<code class="docutils literal notranslate"><span class="pre">1950</span></code>，<code class="docutils literal notranslate"><span class="pre">c</span></code>に<code class="docutils literal notranslate"><span class="pre">0.9</span></code>が割り当てられ，その下のコードが実行される。同様に次のループでは<code class="docutils literal notranslate"><span class="pre">1</span></code>番目の要素<code class="docutils literal notranslate"><span class="pre">(1960,</span> <span class="pre">0.7714285714285715)</span></code>を使い<code class="docutils literal notranslate"><span class="pre">y</span></code>に<code class="docutils literal notranslate"><span class="pre">1960</span></code>，<code class="docutils literal notranslate"><span class="pre">c</span></code>に<code class="docutils literal notranslate"><span class="pre">0.7714285714285715</span></code>が割り当てられ，その下のコードが実行される。同じ作業が<code class="docutils literal notranslate"><span class="pre">(2020,</span> <span class="pre">0.0)</span></code>まで続くことになる。</p>
 </li>
 <li><p>列<code class="docutils literal notranslate"><span class="pre">year</span></code>で<code class="docutils literal notranslate"><span class="pre">y</span></code>と等しい行が<code class="docutils literal notranslate"><span class="pre">True</span></code>，そうでない行は<code class="docutils literal notranslate"><span class="pre">False</span></code>となる<code class="docutils literal notranslate"><span class="pre">Series</span></code>を<code class="docutils literal notranslate"><span class="pre">cond</span></code>に割り当てる。</p></li>
 <li><p>列<code class="docutils literal notranslate"><span class="pre">'gdp_pc_log'</span></code>で<code class="docutils literal notranslate"><span class="pre">y</span></code>に該当する年の行を抽出し，密度関数を表示する。また，その「軸」を<code class="docutils literal notranslate"><span class="pre">ax_</span></code>に割り当てる。</p></li>
@@ -708,7 +722,7 @@ S=\frac{n}{(n-1)(n-2)}
 <p>もしキャッチアップが起こると，一人当たりGDPが低い経済はより高い所得を得る経済に近づき，所得が比較的に高い国が増えることになる。従って，キャッチアップによって左側の分布から右側の分布に移り，それにつれて<span class="math notranslate nohighlight">\(S\)</span>は減少すると考えられる。では実際に歪度の推移を計算してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>  <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>  <span class="c1"># 1</span>
                                                     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># 2</span>
                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;歪度&#39;</span><span class="p">)</span> <span class="c1"># 3</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  <span class="c1"># 4</span>
@@ -717,7 +731,7 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/090bdc67375f1ba64a5be20a13341440f18537c2c9f0c1371f91863df628bf01.png" src="_images/090bdc67375f1ba64a5be20a13341440f18537c2c9f0c1371f91863df628bf01.png" />
+<img alt="_images/89074f2080e5c7cc9dbbc8eef1ee4e88d0b3ed1621d85e089170ec182e412bf0.png" src="_images/89074f2080e5c7cc9dbbc8eef1ee4e88d0b3ed1621d85e089170ec182e412bf0.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -727,7 +741,7 @@ S=\frac{n}{(n-1)(n-2)}
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[gdp_pc_log]</span></code>とすると<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返す。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[[gdp_pc_log]]</span></code>とすると<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返す。
-<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>を使い図示するが，マーカーに<code class="docutils literal notranslate"><span class="pre">'o'</span></code>を指定する。</p></li>
+<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>を使い図示するが，マーカーに<code class="docutils literal notranslate"><span class="pre">'.'</span></code>を指定する。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">legend=True</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>の場合に凡例を表示する際に必要となる。</p></li>
@@ -738,7 +752,7 @@ S=\frac{n}{(n-1)(n-2)}
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>上のコードでは<code class="docutils literal notranslate"><span class="pre">Series</span></code>が返されているが，<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返す場合は次のように書ける。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">:</span><span class="s1">&#39;歪度&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax_</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">:</span><span class="s1">&#39;歪度&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -761,7 +775,7 @@ S=\frac{n}{(n-1)(n-2)}
 
 <span class="n">ax_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;歪度&#39;</span><span class="p">:</span><span class="n">skew_list</span><span class="p">},</span>      <span class="c1"># 6</span>
                    <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span> \
-                  <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>        <span class="c1"># 7</span>
+                  <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>        <span class="c1"># 7</span>
 <span class="n">ax_</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>                <span class="c1"># 8</span>
 </pre></div>
 </div>
@@ -783,10 +797,10 @@ S=\frac{n}{(n-1)(n-2)}
 <li><p>1960年，1970年，1990年に上方・下方ジャンプが発生している。これは以下で確認するように，<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国の数が大きく増加しているためである。</p></li>
 <li><p>1970年前だけを考えると，歪度は上昇トレンドとなっている。これも欠損値がない国の数の変化による影響とも考えられる。</p></li>
 </ul>
-<p>これらの点を考えるために<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国の数を確認しよう。次のコードは，2019年に<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値ではない国の数を返している。</p>
+<p>これらの点を考えるために<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が<code class="docutils literal notranslate"><span class="pre">NaN</span></code>ではない国の数を確認しよう。次のコードは，最新年に<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>が欠損値ではない国の数を返している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>        <span class="c1"># 1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">latest_yr</span> <span class="p">)</span>   <span class="c1"># 1</span>
 <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 2</span>
 </pre></div>
 </div>
@@ -804,7 +818,7 @@ S=\frac{n}{(n-1)(n-2)}
 <p>次に<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って全ての年で<code class="docutils literal notranslate"><span class="pre">gdp_pc_log</span></code>に欠損値がない国の数を確認してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)[</span><span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
                                                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;国の数&#39;</span><span class="p">,</span>
                                                <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">pass</span>
@@ -812,7 +826,7 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d3dbe72749227e7fe383af2a623283be1ed24c3f54b3ee41bd6afe798d4f181d.png" src="_images/d3dbe72749227e7fe383af2a623283be1ed24c3f54b3ee41bd6afe798d4f181d.png" />
+<img alt="_images/7257c1832d4cacbb611175efeef8b7b57300858dae890923ab6855841f6b878b.png" src="_images/7257c1832d4cacbb611175efeef8b7b57300858dae890923ab6855841f6b878b.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -822,7 +836,7 @@ S=\frac{n}{(n-1)(n-2)}
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[gdp_pc_log]</span></code>とすると<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返す。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[[gdp_pc_log]]</span></code>とすると<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>を返す。
-<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>を使い図示するが，マーカーに<code class="docutils literal notranslate"><span class="pre">'o'</span></code>を指定する。</p></li>
+<code class="docutils literal notranslate"><span class="pre">Series</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">plot</span></code>を使い図示するが，マーカーに<code class="docutils literal notranslate"><span class="pre">'.'</span></code>を指定する。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">legend=True</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>の場合に凡例を表示する際に必要となる。</p></li>
@@ -840,7 +854,7 @@ S=\frac{n}{(n-1)(n-2)}
     <span class="n">no</span> <span class="o">=</span> <span class="n">pwt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span> <span class="s1">&#39;gdp_pc_log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># 2</span>
     <span class="n">notna_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">no</span><span class="p">)</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;国の数&#39;</span><span class="p">:</span><span class="n">notna_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;国の数&#39;</span><span class="p">:</span><span class="n">notna_list</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">year_list</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
@@ -915,7 +929,7 @@ S=\frac{n}{(n-1)(n-2)}
 </div>
 <p>ちなみに，１行コードをone linerと英語で表現する。注意する点は，one linerが必ずしも良いとは限らないという点である。可読性が損なわれる場合があるためである。</p>
 </div>
-<p>サンプルに含まれる国の数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろにはデータセットに含まれる国の数は安定し，その後直ぐに変動係数は減少し始めている。即ち，少なくとも1990年代半ば頃から変動係数で測る経済間の所得格差は減少している。変動係数を見る限りキャッチアップの効果が1990年代から現れていると言える。</p>
+<p>サンプルに含まれる国の数が徐々に増えており，その影響により変動係数は増える傾向にある。1990年ごろにはデータセットに含まれる国の数は安定し，その後直ぐに変動係数は減少し始めている。即ち，少なくとも1990年代半ば頃から変動係数で測る経済間の所得格差は減少している。変動係数を見る限りキャッチアップの効果が1990年代から現れていると言える。一方で，2010年代中頃から，変動係数で測った所得格差は拡大傾向にある。</p>
 <p>上で扱った変動係数は経済間における所得格差を表す指標として解釈することができるが，その場合次の点に注意する必要がある。</p>
 <ul class="simple">
 <li><p>分析の対象は国であり，それぞれの国の一人当たりGDPのみを考えた。中国やインドのように大きな国も，ルクセンブルクやシンガポールのように小さな国も１つの経済として扱っている。この場合の変動係数は，全ての国には一人だけしか住んでいないと仮定した場合の経済間の所得格差と同じであり，<strong>国内</strong>の人口や所得不平等やは全く考慮されていない。</p></li>
@@ -1042,7 +1056,7 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </ol>
 </section>
 <section id="sec-9-simple-regression">
-<span id="id8"></span><h3>単回帰分析：1970年〜2019年<a class="headerlink" href="#sec-9-simple-regression" title="Link to this heading">#</a></h3>
+<span id="id8"></span><h3>単回帰分析：1970年〜<span class="pasted-text">2023</span>年<a class="headerlink" href="#sec-9-simple-regression" title="Link to this heading">#</a></h3>
 <section id="id9">
 <h4>データ<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
 <p>ここではPenn World Talbeに含まれる次の変数を使う。後で使う変数も含めてデータを整形することにしよう。</p>
@@ -1087,7 +1101,7 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </div>
 <section id="sec-9-saving">
 <span id="id10"></span><h5>貯蓄率・資本減耗率・労働人口増加率の平均<a class="headerlink" href="#sec-9-saving" title="Link to this heading">#</a></h5>
-<p>1970年〜2019年の貯蓄率，資本減耗率の平均，労働人口増加率を計算するが，<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用することもできる。ここでは<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使った計算を紹介することにする。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。</p>
+<p>1970年以降の貯蓄率，資本減耗率の平均，労働人口増加率を計算するが，<a class="reference internal" href="8_Solow.html#sec-8-data"><span class="std std-ref">ソロー・モデル</span></a>の章で使ったコードを再利用することもできる。ここでは<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使った計算を紹介することにする。<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>を使いデータのグループ計算をする際，自作関数を使うことができる。まずその自作関数を定義しよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">mean_nan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>         <span class="c1"># 1</span>
@@ -1375,7 +1389,27 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 <li><p><code class="docutils literal notranslate"><span class="pre">df_convergence</span></code>は<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>を使いデータ整形をおこなったが，「はじめに」のヒストグラムでは<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.groupby</span></code>を使っており，それを使うと国ごとの統計量を簡単に計算することができる。詳細については<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">このサイト</a>を参照するか，「pandas groupby」で検索してみよう。</p></li>
 </ul>
 </div>
-<p>何％の国で平均を下回るか確認してみよう。</p>
+<p>ヒストグラムの右端に平均成長率が<code class="docutils literal notranslate"><span class="pre">6</span></code>％以上の国がある，調べてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+China                0.069675
+Taiwan               0.044693
+Republic of Korea    0.044466
+Myanmar              0.043783
+Mali                 0.043698
+Name: gdp_pc_growth, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>中国だということがわかる。</p>
+<p>次に，何％の国で平均を下回るか確認してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span> <span class="n">df_convergence</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;gdp_pc_growth&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">growth_avr</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_convergence</span><span class="p">)</span>
@@ -1388,7 +1422,7 @@ b\equiv\frac{(1-\lambda)^t-1}{t}&lt;0
 </div>
 </div>
 </div>
-<p>約半分の国の成長率は平均より低いことになる。しかし上でも説明したが，キャッチアップが起こっているかは平均の成長率との比較では確認できない。一方で，平均成長率が負の国もあり，それらの国は経済が縮小しており先進国に追いついているとは言えない。では，<strong>平均</strong>で貧しい国は豊かな国に追いついているのだろうか？回帰分析で検討する。</p>
+<p>半分近くの国の成長率は平均より低いことになる。しかし上でも説明したが，キャッチアップが起こっているかは平均の成長率との比較では確認できない。一方で，平均成長率が負の国もあり，それらの国は経済が縮小しており先進国に追いついているとは言えない。では，<strong>平均</strong>で貧しい国は豊かな国に追いついているのだろうか？回帰分析で検討する。</p>
 </section>
 <section id="sec-9-regression-result">
 <span id="id13"></span><h4>結果<a class="headerlink" href="#sec-9-regression-result" title="Link to this heading">#</a></h4>
@@ -1439,7 +1473,7 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 <p>実際に<a class="reference internal" href="#sec-9-regression-result"><span class="std std-ref">上の回帰分析</span></a>の<span class="math notranslate nohighlight">\(b\)</span>の推定値を使って収束速度を計算してみることにする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">period</span> <span class="o">=</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">1970</span><span class="o">+</span><span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">period</span> <span class="o">=</span> <span class="n">latest_yr</span> <span class="o">-</span> <span class="mi">1970</span>
 <span class="n">bhat</span> <span class="o">=</span> <span class="n">res_absolute</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">speed1970</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">bhat</span><span class="o">*</span><span class="n">period</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">period</span><span class="p">)</span>
 
@@ -1448,38 +1482,38 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>収束速度は約0.874％です
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>収束速度は約0.887％です
 </pre></div>
 </div>
 </div>
 </div>
-<p>この結果は，定常状態までの「距離」は年平均で約0.75％減少することを意味する。ではこの数字をどう理解すれば良いだろうか。仮にもし絶対的所得収斂が成立しているとすると，この数字は大きいのだろうか，小さいのだろうか。この点を探るために，2019年の米国と平均の一人当たりGDPを使って0.75％の意味を考えてみる。</p>
+<p>この結果は，定常状態までの「距離」は年平均で約<span class="pasted-text">0.887</span>％減少することを意味する。ではこの数字をどう理解すれば良いだろうか。仮にもし絶対的所得収斂が成立しているとすると，この数字は大きいのだろうか，小さいのだろうか。この点を探るために，<span class="pasted-text">2023</span>年の米国と平均の一人当たりGDPを使って0.75％の意味を考えてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1970</span><span class="p">[</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;rgdpna&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;emp&#39;</span><span class="p">]</span>
 
-<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span> <span class="p">)</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">latest_yr</span> <span class="p">)</span>
 <span class="n">gdp_pc</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span>
-<span class="n">no</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">)</span>                                   <span class="c1"># 1</span>
+<span class="n">no</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">)</span>                                      <span class="c1"># 1</span>
 <span class="n">gdp_pc_mean</span> <span class="o">=</span> <span class="n">gdp_pc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span><span class="p">)</span> <span class="o">&amp;</span>               <span class="c1"># 2</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">latest_yr</span><span class="p">)</span> <span class="o">&amp;</span>          <span class="c1"># 2</span>
          <span class="p">(</span><span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;countrycode&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;USA&#39;</span><span class="p">)</span> <span class="p">)</span>
 <span class="n">gdp_pc_us</span> <span class="o">=</span> <span class="n">df1970</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,</span><span class="s1">&#39;gdp_pc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># 3</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- 2019年の一人当たりGDP ---------</span><span class="se">\n\n</span><span class="s1">&#39;</span>
-     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">no</span><span class="si">}</span><span class="s1">ヵ国の平均：</span><span class="se">\t</span><span class="si">{</span><span class="n">gdp_pc_mean</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>        <span class="c1"># 4</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- 最新年の一人当たりGDP ---------</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">no</span><span class="si">}</span><span class="s1">ヵ国の平均：</span><span class="se">\t</span><span class="si">{</span><span class="n">gdp_pc_mean</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>           <span class="c1"># 4</span>
      <span class="sa">f</span><span class="s1">&#39;米国：</span><span class="se">\t\t</span><span class="si">{</span><span class="n">gdp_pc_us</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
      <span class="sa">f</span><span class="s1">&#39;米国は平均の</span><span class="si">{</span><span class="n">gdp_pc_us</span><span class="o">/</span><span class="n">gdp_pc_mean</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">倍&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- 2019年の一人当たりGDP ---------
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- 最新年の一人当たりGDP ---------
 
-185ヵ国の平均：	53628.2
-米国：		139228.7
-米国は平均の2.6倍
+185ヵ国の平均：	55430.0
+米国：		149081.9
+米国は平均の2.7倍
 </pre></div>
 </div>
 </div>
@@ -1491,14 +1525,14 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 <li><p><code class="docutils literal notranslate"><span class="pre">cond</span></code>は<code class="docutils literal notranslate"><span class="pre">True/False</span></code>の<code class="docutils literal notranslate"><span class="pre">Series</span></code></p>
 <ul class="simple">
 <li><p>右辺は２行にまたがっているので，右辺の一番外側の<code class="docutils literal notranslate"><span class="pre">()</span></code>が必要となる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code>を使っているため<code class="docutils literal notranslate"><span class="pre">pwt.loc[:,'year']==2019</span></code>と<code class="docutils literal notranslate"><span class="pre">pwt.loc[:,'countrycode']=='USA'</span></code>はそれぞれ<code class="docutils literal notranslate"><span class="pre">()</span></code>に入れる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code>を使っているため<code class="docutils literal notranslate"><span class="pre">pwt.loc[:,'year']==latest_yr</span></code>と<code class="docutils literal notranslate"><span class="pre">pwt.loc[:,'countrycode']=='USA'</span></code>はそれぞれ<code class="docutils literal notranslate"><span class="pre">()</span></code>に入れる。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pwt.loc[cond,'gdp_pc']</span></code>は<code class="docutils literal notranslate"><span class="pre">Series</span></code>を返すため，<code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code>で<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>の<code class="docutils literal notranslate"><span class="pre">array</span></code>に変換し<code class="docutils literal notranslate"><span class="pre">0</span></code>番目の要素を抽出する。その抽出した値を<code class="docutils literal notranslate"><span class="pre">gdp_pc_us</span></code>に割り当てる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">f-string</span></code>を使い<code class="docutils literal notranslate"><span class="pre">{}</span></code>に<code class="docutils literal notranslate"><span class="pre">no</span></code>，<code class="docutils literal notranslate"><span class="pre">gdp_pc_mean</span></code>，<code class="docutils literal notranslate"><span class="pre">gdp_pc_us</span></code>，<code class="docutils literal notranslate"><span class="pre">gdp_pc_us/gdp_pc_mean</span></code>の値を代入している。<code class="docutils literal notranslate"><span class="pre">:.1f</span></code>は小数点第一位までの表示を指定している。また<code class="docutils literal notranslate"><span class="pre">\t</span></code>はタブ。</p></li>
 </ol>
 </div>
-<p>この数字を使って，<code class="docutils literal notranslate"><span class="pre">n</span></code>年後に平均の経済が2019年の米国との所得格差を何％縮めることができるかを計算してみよう。まず次の変数を使って簡単な数式を考えてみよう。</p>
+<p>この数字を使って，<code class="docutils literal notranslate"><span class="pre">n</span></code>年後に平均の経済が<span class="pasted-text">2023</span>年の米国との所得格差を何％縮めることができるかを計算してみよう。まず次の変数を使って簡単な数式を考えてみよう。</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(s\)</span>：収束速度（率）</p></li>
 <li><p><span class="math notranslate nohighlight">\(x_0\)</span>：所得格差</p></li>
@@ -1509,11 +1543,11 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 \[x_1=x_0-sx_0=(1-s)x_0\]</div>
 <p>であり，一般的には</p>
 <div class="math notranslate nohighlight">
-\[x_{t}=(1-s)x_{t-1}\]</div>
-<p>逐次的に代入すると次式となる。</p>
+\[x_{t}=(1-s)x_{t-1},\qquad t=1,2,3,\cdots\]</div>
+<p>となり，逐次的に代入すると次式となる。</p>
 <div class="math notranslate nohighlight">
 \[x_{t}=(1-s)^tx_{0}\]</div>
-<p>この式を使って<code class="docutils literal notranslate"><span class="pre">n</span></code>年後に2019年当時の格差が何％残っているかを関数としてまとめる。</p>
+<p>この式を使って<code class="docutils literal notranslate"><span class="pre">n</span></code>年後に<span class="pasted-text">2023</span>年当時の格差が何％残っているかを関数としてまとめる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">remaining_percent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">speed1970</span><span class="p">):</span>
@@ -1529,7 +1563,7 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って計算してみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- X年後に残る2019年当時の所得格差 ----------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- X年後に残る最新年当時の所得格差 ----------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">1000</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">年後：</span><span class="si">{</span><span class="n">remaining_percent</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">％&#39;</span><span class="p">)</span>
@@ -1537,25 +1571,25 @@ gdp_pc_init_log    -0.0071      0.001     -6.147      0.000      -0.009      -0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- X年後に残る2019年当時の所得格差 ----------
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- X年後に残る最新年当時の所得格差 ----------
 
-10年後：91.60％
-20年後：83.90％
-50年後：64.48％
-100年後：41.58％
-200年後：17.29％
-300年後：7.19％
-500年後：1.24％
-1000年後：0.02％
+10年後：91.47％
+20年後：83.67％
+50年後：64.04％
+100年後：41.01％
+200年後：16.82％
+300年後：6.90％
+500年後：1.16％
+1000年後：0.01％
 </pre></div>
 </div>
 </div>
 </div>
-<p>この計算から収束速度0.75％の意味が理解できるたと思う。仮に絶対的所得収斂が成立したとしても，経済間の所得格差の解消には気が遠くなる程長い時間が掛かることを意味している。もちろんこの予測は過去50年間の経験がそのまま続いたらの話であり，GAFAやAI，中国の台頭やコロナ禍など今後様々な不確定要因が重なることを想定すると，この予測どおりにはならないだろうが，経済間の所得格差の解消は長い道のりであることは間違いなさそうである。</p>
+<p>この計算から収束速度<span class="pasted-text">0.887</span>％の意味が理解できるたと思う。仮に絶対的所得収斂が成立したとしても，経済間の所得格差の解消には気が遠くなる程長い時間が掛かることを意味している。もちろんこの予測は過去50年間の経験がそのまま続いたらの話であり，GAFAやAI，中国の台頭やコロナ禍など今後様々な不確定要因が重なることを想定すると，この予測どおりにはならないだろうが，経済間の所得格差の解消は長い道のりであることは間違いなさそうである。</p>
 </section>
 </section>
 <section id="sec-9-multiple-regression">
-<span id="id14"></span><h3>重回帰分析：1970年〜2019年<a class="headerlink" href="#sec-9-multiple-regression" title="Link to this heading">#</a></h3>
+<span id="id14"></span><h3>重回帰分析：1970年〜<span class="pasted-text">2023</span>年<a class="headerlink" href="#sec-9-multiple-regression" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="#sec-9-simple-regression"><span class="std std-ref">単回帰分析</span></a>では絶対的所得収斂を示唆する結果が示された。しかし推定結果は，貯蓄率など全ての経済構造が同じだと仮定し推定をおこなった。この仮定を取り除いた場合，初期の一人当たりGDPの推定値<span class="math notranslate nohighlight">\(\hat{b}\)</span>は統計的有意性を保つことができるだろうか。そして他の変数の統計的有意性はどうだろうか。この点を確認するために，重回帰分析をおこなう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1649,17 +1683,16 @@ a\equiv\frac{1}{t}
 </section>
 <section id="for">
 <h3>単回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析<a class="headerlink" href="#for" title="Link to this heading">#</a></h3>
-<p>上の単回帰・重回帰分析は1970年〜2019年のデータを使っている。他の期間ではどうだろうか。例えば，1980年〜2019年。一回ずつ推定するのも面倒なので<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って一気に計算してみよう。もしかすると何か見えて来るかも知れない。最終年は全てのパターンで2019年として推定期間は次のようにしよう。</p>
+<p>上の単回帰・重回帰分析は1970年〜<span class="pasted-text">2023</span>年のデータを使っている。他の期間ではどうだろうか。例えば，1980年〜<span class="pasted-text">2023</span>年。一回ずつ推定するのも面倒なので<code class="docutils literal notranslate"><span class="pre">for</span></code>ループを使って一気に計算してみよう。もしかすると何か見えて来るかも知れない。最終年は全てのパターンで<span class="pasted-text">2023</span>年として推定期間は次のようにしよう。</p>
 <ul class="simple">
-<li><p>1950~2019年</p></li>
-<li><p>1951~2019年</p></li>
+<li><p>1950~<span class="pasted-text">2023</span>年</p></li>
+<li><p>1951~<span class="pasted-text">2023</span>年</p></li>
 <li><p>・・・</p></li>
 <li><p>・・・</p></li>
-<li><p>1980~2019年</p></li>
+<li><p>1980~<span class="pasted-text">2023</span>年</p></li>
 <li><p>・・・</p></li>
 <li><p>・・・</p></li>
-<li><p>2008~2019年</p></li>
-<li><p>2009~2019年</p></li>
+<li><p>2010~<span class="pasted-text">2023</span>年</p></li>
 </ul>
 <p>まず単回帰の場合を考え次の３つのステップに分けてコードを書いていく。</p>
 <ol class="arabic simple">
@@ -1675,7 +1708,7 @@ a\equiv\frac{1}{t}
 <ul>
 <li><p>次の変数から構成される<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">init_yr</span></code>から2019年までのデータから計算された<code class="docutils literal notranslate"><span class="pre">saving_rate</span></code>, <code class="docutils literal notranslate"><span class="pre">depreciation</span></code>, <code class="docutils literal notranslate"><span class="pre">emp_growth</span></code>, <code class="docutils literal notranslate"><span class="pre">gdp_pc_growth</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_yr</span></code>から* 2008~<span class="pasted-text">2023</span>年までのデータから計算された<code class="docutils literal notranslate"><span class="pre">saving_rate</span></code>, <code class="docutils literal notranslate"><span class="pre">depreciation</span></code>, <code class="docutils literal notranslate"><span class="pre">emp_growth</span></code>, <code class="docutils literal notranslate"><span class="pre">gdp_pc_growth</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">init_yr</span></code>で指定された年の<code class="docutils literal notranslate"><span class="pre">gdp_pc_init_log</span></code></p></li>
 </ul>
 </li>
@@ -1851,7 +1884,7 @@ a\equiv\frac{1}{t}
 
 <span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;gdp_pc_growth ~ gdp_pc_init_log&#39;</span> <span class="c1"># 6</span>
 
-<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="p">):</span>                <span class="c1"># 7</span>
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2010</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>              <span class="c1"># 7</span>
     
     <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>           <span class="c1"># 8 </span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>   <span class="c1"># 9</span>
@@ -2009,7 +2042,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ddc4b822bb3d4f1f0a1b76b1d970f3791134d422afbe1d1f0efc4076e3209072.png" src="_images/ddc4b822bb3d4f1f0a1b76b1d970f3791134d422afbe1d1f0efc4076e3209072.png" />
+<img alt="_images/74ca16e31e408a32b9bed3b337c43ea6b9f8a4e069a8fa1b1809661140a3a922.png" src="_images/74ca16e31e408a32b9bed3b337c43ea6b9f8a4e069a8fa1b1809661140a3a922.png" />
 </div>
 </div>
 <p>一番上の図から初期の一人当たりGDPの係数の推定値は全て負の値となることがわかる。しかし二番目の図からわかるように，1950年年代半ばまでの推定値の統計的優位性低いが，それ以降は高いようだ。1955年以降だけを表示してみよう。</p>
@@ -2025,7 +2058,7 @@ a\equiv\frac{1}{t}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9c30dda937b220b7f92f3e2348a0f1fde0ecdec60128de646921fa68b19a41c7.png" src="_images/9c30dda937b220b7f92f3e2348a0f1fde0ecdec60128de646921fa68b19a41c7.png" />
+<img alt="_images/182315296eb4a6660a8c80e5d39666a1105c77c56e5fd6430ace251278372f3d.png" src="_images/182315296eb4a6660a8c80e5d39666a1105c77c56e5fd6430ace251278372f3d.png" />
 </div>
 </div>
 <div class="dropdown admonition">
@@ -2060,7 +2093,7 @@ a\equiv\frac{1}{t}
 <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2000</span><span class="p">):</span>                     <span class="c1"># 11</span>
     
     <span class="n">df0</span> <span class="o">=</span> <span class="n">data_for_regression</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>                <span class="c1"># 12</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>        <span class="c1"># 13</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1"># 13</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span>                               <span class="c1"># 14</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">pvalues</span>                              <span class="c1"># 15</span>
     <span class="n">hypothesis</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;saving_rate=0,&#39;</span>              <span class="c1"># 16</span>
@@ -2201,23 +2234,54 @@ a\equiv\frac{1}{t}
 <p>定常状態に関連する変数の推定値や<span class="math notranslate nohighlight">\(F\)</span>検定の<span class="math notranslate nohighlight">\(p\)</span>値などが追加されているのが確認できる。1970年からの結果を表示してみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_multiple_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1970</span><span class="p">,:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_multiple_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1970</span><span class="p">],:]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>貯蓄率の係数             8.001471e-02
-労働人口成長率の係数        -5.654592e-01
-資本減耗率の係数           4.391131e-01
-初期の一人当たりGDPの係数    -7.493302e-03
-p値（初期の一人当たりGDP）    1.420001e-11
-p値（F検定）            5.076499e-15
-決定係数（調整済み）         5.928884e-01
-国の数                1.130000e+02
-Name: 1970, dtype: float64
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>貯蓄率の係数</th>
+      <th>労働人口成長率の係数</th>
+      <th>資本減耗率の係数</th>
+      <th>初期の一人当たりGDPの係数</th>
+      <th>p値（初期の一人当たりGDP）</th>
+      <th>p値（F検定）</th>
+      <th>決定係数（調整済み）</th>
+      <th>国の数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1970</th>
+      <td>0.080015</td>
+      <td>-0.565459</td>
+      <td>0.439113</td>
+      <td>-0.007493</td>
+      <td>1.420001e-11</td>
+      <td>5.076499e-15</td>
+      <td>0.592888</td>
+      <td>113</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>係数の推定値は<a class="reference internal" href="#sec-9-regression-result"><span class="std std-ref">上の</span></a>の結果と同じになることが確認できる。</p>
 <p>ステップ３として<code class="docutils literal notranslate"><span class="pre">df_multiple_result</span></code>のメソッド<code class="docutils literal notranslate"><span class="pre">.plot()</span></code>を使い時系列データをプロットする。</p>
@@ -2289,6 +2353,37 @@ Name: 1970, dtype: float64
 </ul>
 <p>【注意】<br>
 <code class="docutils literal notranslate"><span class="pre">region</span></code>の<code class="docutils literal notranslate"><span class="pre">South</span> <span class="pre">Asia</span></code>と<code class="docutils literal notranslate"><span class="pre">North</span> <span class="pre">America</span></code>，<code class="docutils literal notranslate"><span class="pre">continent</span></code>の<code class="docutils literal notranslate"><span class="pre">Australia</span></code>は標本の大きさが少ないため回帰分析をするとエラーになるので注意しよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond_F</span> <span class="o">=</span> <span class="p">(</span> <span class="n">asia</span><span class="p">[</span><span class="s1">&#39;p値（F検定）&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.05</span> <span class="p">)</span>    <span class="c1">#1</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond_F</span><span class="p">,</span><span class="s1">&#39;p値（F検定）&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>       <span class="c1">#2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971,
+       1972, 1973, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+      dtype=&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>F検定のp値が<code class="docutils literal notranslate"><span class="pre">0.05</span></code>を上回っている時期と重複する期間がある。確認してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="p">(</span> <span class="n">cond_F</span> <span class="o">&amp;</span> <span class="n">cond_p</span> <span class="p">)</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">,:]</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([1962, 1963, 1968, 1969, 1970, 1971, 1972, 1973, 1991, 1992, 1993, 1994,
+       1995, 1996, 1997, 1998, 1999],
+      dtype=&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -2362,7 +2457,7 @@ Name: 1970, dtype: float64
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">説明</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推定式の導出</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">推定結果の判断方法</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-simple-regression">単回帰分析：1970年〜2019年</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-simple-regression">単回帰分析：1970年〜<span class="pasted-text">2023</span>年</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データ</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-saving">貯蓄率・資本減耗率・労働人口増加率の平均</a></li>
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp">一人当たりGDP成長率の平均</a></li>
@@ -2375,7 +2470,7 @@ Name: 1970, dtype: float64
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hat-b">推定値<span class="math notranslate nohighlight">\(\hat{b}\)</span>の意味</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-regression">重回帰分析：1970年〜2019年</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-regression">重回帰分析：1970年〜<span class="pasted-text">2023</span>年</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for">単回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-9-multiple-for-loop">重回帰分析：<code class="docutils literal notranslate"><span class="pre">for</span></code>ループで回帰分析</a></li>
 </ul>
